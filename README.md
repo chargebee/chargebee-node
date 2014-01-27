@@ -1,4 +1,4 @@
 chargebee-node
 ==============
 
-The node.js library for integrating with ChargeBee
+The [node.js](http://nodejs.org/) library for integrating with ChargeBee
