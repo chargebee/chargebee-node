@@ -1,6 +1,6 @@
 {
   "name"                : "chargebee",
-  "version"             : "1.0.6",
+  "version"             : "1.0.7",
   "description"         : "A library for integrating with ChargeBee.",
   "keywords"            : ["payments","billing","subscription","chargebee"],
   "homepage"            : "http://github.com/chargebee/chargebee-node",

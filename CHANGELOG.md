@@ -1,3 +1,9 @@
+### v1.0.7 (2014-05-23)
+* * *
+* New API to create customer without subscription. See https://apidocs.chargebee.com/docs/api/customers#create_a_customer
+
+* New API to fetch invoices for a customer. This helps you fetch the invoices created due to multiple subscriptions present for any customer. See https://apidocs.chargebee.com/docs/api/invoices#list_invoices_for_a_customer
+
 ### v1.0.6  (2014-03-26)
 * * *
 * Now the [Transaction attributes](https://apidocs.chargebee.com/docs/api/transactions#transaction_attributes "Transaction attributes") contains the details about the linked invoices.
