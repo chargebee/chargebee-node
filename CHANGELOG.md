@@ -1,3 +1,12 @@
+### v1.0.9 (2014-06-19)
+APIs added:
+* Retrieve invoices for a customer. See https://apidocs.chargebee.com/docs/api/invoices?lang=node#list_invoices_for_a_customer.
+* Retrieve transactions for a customer. See https://apidocs.chargebee.com/docs/api/transactions?lang=node#list_transactions_for_a_customer.
+
+APIs updated:
+* Now, a customer(without subscription) can be charged(Create invoice for Charge) for one time charges. See https://apidocs.chargebee.com/docs/api/invoices?lang=node#create_invoice_for_charge.
+* Now, a customer(without subscription) can be charged for one time addons(Create invoice for Addon). See https://apidocs.chargebee.com/docs/api/invoices?lang=node#create_invoice_for_addon.
+
 ### v1.0.8 (2014-05-28)
 * * *
 New API to support Single Sign-on (SSO) to access the customer portal, if you already have your own authentication for your website. See https://apidocs.chargebee.com/docs/api/portal_sessions?lang=node.
