@@ -1,3 +1,7 @@
+### v1.1.3 (2014-09-16)
+* * *
+No changes other than version update.
+
 ### v1.1.2 (2014-09-16)
 * * *
 
