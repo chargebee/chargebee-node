@@ -1,3 +1,21 @@
+### v1.1.2 (2014-09-16)
+* * *
+
+**Error Model**:
+
+New simpler model for error handling has been implemented. Please see below api document for more details
+
+https://apidocs.chargebee.com/docs/api?lang=node#error_handling 
+
+The following variables in the error object passed to the response  have been deprecated.
+* error_code (Use api_error_code instead)
+* error_param (Use param instead)
+* error_msg (Use message instead).
+
+
+The changes are backward compatible. Ensure that  your error handling code is tested after you upgrade to this version.
+
+
 ### v1.1.1 (2014-08-13)
 * * *
 Added properties:
