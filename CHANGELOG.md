@@ -1,3 +1,13 @@
+### v1.1.5 (2014-12-02)
+* * *
+
+**APIs added**:
+A new resource called Order is introduced. This can be used for integrating ChargeBee with any shipping/order management application (like ShipStation). Orders are not automatically generated or updated by ChargeBee currently. They have to be created/updated either via api or merchant web console (a.k.a admin console). An order can be created against an invoice irrespective of the status of the invoice and an invoice can have multiple orders associated with it.
+See https://apidocs.chargebee.com/docs/api/orders?lang=node for details.
+
+**API Updates**:
+Ability to filter Invoices with paid_on_after parameter. See https://apidocs.chargebee.com/docs/api/invoices?lang=node#list_invoices.
+
 ### v1.1.4 (2014-09-16)
 * * *
 No changes other than version update.
