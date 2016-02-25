@@ -1,21 +1,37 @@
 {
-  "name"                : "chargebee",
-  "version"             : "1.3.1",
-  "description"         : "A library for integrating with ChargeBee.",
-  "keywords"            : ["payments","billing","subscription","chargebee"],
-  "homepage"            : "http://github.com/chargebee/chargebee-node",
-  "author"              : "Ajit <ajit@chargebee.com> (https://www.chargebee.com)",
-  "main"                : "lib/chargebee.js",
-  "directories"         : {"lib"  : "./lib"},
-  "repository"          : { "type": "git", "url" : "http://github.com/chargebee/chargebee-node.git" },
-  "engines"             : { "node": ">=0.6.0" },
-  "bugs"                : { "url" : "http://support.chargebee.com"
-                           , "email" : "support@chargebee.com"
-                          },
-  "licenses"            : [
-                            {
-                               "type": "MIT",
-                               "url": "http://github.com/chargebee/chargebee-node/blob/master/LICENSE"
-                            }
-                          ]
+   "name":"chargebee",
+   "version":"1.3.2",
+   "description":"A library for integrating with ChargeBee.",
+   "keywords":[
+      "payments",
+      "billing",
+      "subscription",
+      "chargebee"
+   ],
+   "homepage":"http://github.com/chargebee/chargebee-node",
+   "author":"Ajit <ajit@chargebee.com> (https://www.chargebee.com)",
+   "main":"lib/chargebee.js",
+   "dependencies":{
+     "q" : ">=1.0.1"
+   },
+   "directories":{
+      "lib":"./lib"
+   },
+   "repository":{
+      "type":"git",
+      "url":"http://github.com/chargebee/chargebee-node.git"
+   },
+   "engines":{
+      "node":">=0.6.0"
+   },
+   "bugs":{
+      "url":"http://support.chargebee.com",
+      "email":"support@chargebee.com"
+   },
+   "licenses":[
+      {
+         "type":"MIT",
+         "url":"http://github.com/chargebee/chargebee-node/blob/master/LICENSE"
+      }
+   ]
 }

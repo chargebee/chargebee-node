@@ -1,3 +1,25 @@
+### v1.3.2 (2016-02-25)
+* * *
+
+** APIs added**:
+
+Support to delete a subscription. See: https://www.chargebee.com/docs/subscriptions.html#deleting-a-subscription
+New api endpoint to delete 'Subscription' is added to Subscription resources. See delete subscription API here:
+https://apidocs.chargebee.com/docs/api/subscriptions#delete_a_subscription
+
+Support to delete a customer. See: https://www.chargebee.com/docs/customers.html#deleting-a-customer
+New api endpoint to delete 'Customer' is added to Customer resources. See delete customer API here:
+https://apidocs.chargebee.com/docs/api/customers#delete_a_customer
+
+
+** APIs updated**:
+
+Now, events "subscription_deleted" & "customer_deleted" can be fetched via API. See : https://apidocs.chargebee.com/docs/api/events#event_types.
+
+** Added**:
+
+Added [promise](https://promisesaplus.com) support in request functions of all resources.
+
 ### v1.3.1 (2016-02-08)
 * * *
 
