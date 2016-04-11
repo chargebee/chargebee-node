@@ -1,3 +1,11 @@
+### v1.3.4 (2016-04-06)
+* * *
+
+*api_version* attribute is added to the Event resource. 
+
+Chargebee supports multiple [API versions](https://apidocs.chargebee.com/docs/api#versions) now. The *api_version* attribute indicates the API version based on which the event content is structured. More details here:
+https://apidocs.chargebee.com/docs/api/v1/events
+
 ### v1.3.3 (2016-03-22)
 * * *
 
