@@ -9,7 +9,7 @@ You'd want to upgrade to V2 to benefit from the new functionality. Click here fo
 
 ### Processing Webhooks - API Version Check
 
-An attribute, <b>api_version</b>, is added to the [Event](https://apidocs.chargebee.com/docs/api/v1/events) resource, which indicates the API version based on which the event content is structured. In your webhook servers, ensure this _api_version_ is the same as the [API version](https://apidocs.chargebee.com/docs/api/v2#versions) used by your webhook server's client library.
+An attribute, <b>api_version</b>, is added to the [Event](https://apidocs.chargebee.com/docs/api/v1/events) resource, which indicates the API version based on which the event content is structured. In your webhook servers, ensure this _api_version_ is the same as the [API version](https://apidocs.chargebee.com/docs/api/v1#versions) used by your webhook server's client library.
 
 ## Installation
 
