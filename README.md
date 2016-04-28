@@ -1,11 +1,11 @@
 # Chargebee Node Client Library - API V2
 
-The [node.js](http://nodejs.org/) library for integrating with Chargebee Recurring Billing and Subscription Management solution.
+[![npm](https://img.shields.io/npm/v/chargebee.svg?maxAge=2592000)](https://www.npmjs.com/package/chargebee)
+[![npm](https://img.shields.io/npm/dt/chargebee.svg?maxAge=2592000)](https://www.npmjs.com/package/chargebee)
 
-Chargebee now supports two API versions - [V1](https://apidocs.chargebee.com/docs/api/v1) and [V2](https://apidocs.chargebee.com/docs/api), of which V2 is the latest release and all future developments will happen in V2. 
+This is the [node.js](http://nodejs.org/) Library for integrating with Chargebee. Sign up for a Chargebee account [here](https://www.chargebee.com).
 
-This library is for our <b>API version V2</b>. The library for V1 can be found in [chargebee-v1 branch](https://github.com/chargebee/chargebee-node/tree/chargebee-v1). 
-
+Chargebee now supports two API versions - [V1](https://apidocs.chargebee.com/docs/api/v1) and [V2](https://apidocs.chargebee.com/docs/api), of which V2 is the latest release and all future developments will happen in V2. This library is for <b>API version V2</b>. If you’re looking for V1, head to [chargebee-v1 branch](https://github.com/chargebee/chargebee-node/tree/chargebee-v1).
 
 ### Processing Webhooks - API Version Check
 
