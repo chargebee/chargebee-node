@@ -1,3 +1,27 @@
+### v2.0.2 (2016-04-29)
+* * *
+
+** APIs updated**
+
+Support to specify Avalara "tax_code" attribute in Plan and Addon resource. Now, create and update plan, create & update addon accept "tax_code" parameter. See create plan API here : https://apidocs.chargebee.com/docs/api/plans#create_a_plan
+
+Support to specify the exemption category or exempt number for a customer by adding "entity_code" or "exempt_number" in customer resource. You can pass "entity_code" and "exempt_number" in create, update customer, create subscription and create subscription estimate APIs. See create customer API here : https://apidocs.chargebee.com/docs/api/customers#create_a_customer
+
+The attribute "entity_code" or "exempt_number" is returned as part of Customer resource for Avalara. 
+See: https://apidocs.chargebee.com/docs/api/customers#customer_attributes
+
+The attribute "tax_code" is returned as part of Plan & Addon resources for Avalara. 
+See : https://apidocs.chargebee.com/docs/api/plans#plan_attributes
+
+Support for address parameters in estimate APIs that is used to calculate tax. Now, create & update subscription estimate APIs accept line1, line2, line3 and city. See : https://apidocs.chargebee.com/docs/api/estimates#estimate_attributes
+
+The new Cancel reason type "tax_calculation_failed" for subscription resource is added. See subscription attributes
+See : https://apidocs.chargebee.com/docs/api/subscriptions#subscription_attributes
+
+** APIs deprecated**:
+
+The attribute "taxability" for customer has been deprecated in the Update Subscription Estimate API.
+
 ### v2.0.1 (2016-04-16)
 * * *
 
