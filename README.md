@@ -1,7 +1,7 @@
 # Chargebee Node Client Library - API V2
 
-[![npm](https://img.shields.io/npm/dt/chargebee.svg?maxAge=2592000)]()
-[![npm](https://img.shields.io/npm/v/chargebee.svg?maxAge=2592000)]()
+[![npm](https://img.shields.io/npm/v/chargebee.svg?maxAge=2592000)](https://www.npmjs.com/package/chargebee)
+[![npm](https://img.shields.io/npm/dt/chargebee.svg?maxAge=2592000)](https://www.npmjs.com/package/chargebee)
 
 This is the [node.js](http://nodejs.org/) Library for integrating with Chargebee. Sign up for a Chargebee account [here](https://www.chargebee.com).
 
