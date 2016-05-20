@@ -1,3 +1,39 @@
+### v2.0.4 (2016-05-20)
+* * *
+
+#### Filtering Resources using List API
+
+Chargebee supports bulk fetching of resources via 'List' API methods. (List invoices, List subscriptions etc..). In the List methods, filtering of resources can be performed using filter parameters. Also in the List methods, the sort_by parameter is provided for sorting the result in the desired order. 
+See : https://apidocs.chargebee.com/docs/api#pagination_and_filtering
+
+** APIs deprecated**:
+
+The Following API's are deprecated since these operations can be achieved through List API's
+* List Subscriptions for a Customer
+* List Invoices for a Customer
+* List Invoices for a Subscription
+* List Credit Note for a Customer
+* List Credit Note for a Subscription
+* List Transactions for a Customer
+* List Transations for a Subscription 
+
+** APIs added**:
+
+Support to copy card to gateway for a customer. New api endpoint to copy card for a customer is added to Card resources. 
+See: https://apidocs.chargebee.com/docs/api/cards#copy_card
+
+** APIs updated**:
+
+New attribute "id" is returned as part of Line Items subresource of Invoice and Credit Note resource.
+See: https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes
+
+New attribute "name" is returned as part of Taxes subresource of Invoice and Credit Note resource.
+See: https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes
+
+
+A new sub-resource "line_item_taxes" is returned as part of the Invoice and Credit Note resource attributes.
+See : https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes
+
 ### v2.0.3 (2016-05-02)
 * * *
 ** APIs added**:
@@ -46,7 +82,7 @@ The "meta_data" attribute in Subscription, Customer, Plan, Addon, Coupon create 
 #### Attributes and Operations Removed/Renamed in V2
 Chargebee [API V2](https://apidocs.chargebee.com/docs/api#versions) is now live! All our future developments will happen in V2. 
 
-V2 has been released to accommodate certain backwards-incompatible changes. Refer our [API V2 Upgradation guide](https://apidocs.chargebee.com/docs/api#api-v2-upgradation-guide) for the complete listing of the attributes and operations that have been removed/renamed in API V2.
+V2 has been released to accommodate certain backwards-incompatible changes. Refer our [API V2 Upgradation guide](https://apidocs.chargebee.com/docs/api/v1#api-v2-upgradation-guide) for the complete listing of the attributes and operations that have been removed/renamed in API V2.
 
 #### Incremental Changes in V2
 
@@ -69,6 +105,7 @@ V2 has been released to accommodate certain backwards-incompatible changes. Refe
   * *item_level_discount_amount* - only the item-level-discount amount component.
 * Further [discounts[].entity_type](https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes) will have two types for coupon -  *item_level_coupon* and *document_level_coupon*. 
 * Input Param *use_existing_balances* is added to the operations - [Update Subscription Estimate](https://apidocs.chargebee.com/docs/api/estimates#update_subscription_estimate) and [Subscription Renewal Estimate](https://apidocs.chargebee.com/docs/api/estimates#subscription_renewal_estimate)
+* The API's *checkout_onetime_addons* and *checkout_onetime_charge* in Hosted Page resource are removed in V2.
 
 ### v1.3.4 (2016-04-06)
 * * *
