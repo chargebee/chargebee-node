@@ -1,3 +1,17 @@
+###v2.1.7 (2017-01-12)
+* * * 
+
+** APIs added**:
+A new endpoint, Unarchive a plan has been added to the Plan resource.
+See: https://apidocs.chargebee.com/docs/api/plans#unarchive_a_plan
+
+A new endpoint, Unarchive an addon  has been  added to the Addon resource.
+See : https://apidocs.chargebee.com/docs/api/addons#unarchive_an_addon
+
+A new endpoint, Unarchive a coupon has been added to the Coupon resource.
+See : https://apidocs.chargebee.com/docs/api/coupons#unarchive_a_coupon
+
+
 ###v2.1.6 (2016-11-24)
 * * * 
 
