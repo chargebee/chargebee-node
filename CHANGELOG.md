@@ -1,4 +1,18 @@
-###v2.2.2 (2017-05-04)
+### v2.2.3 (2017-06-01)
+* * * 
+
+The endpoint Invoice Now Estimate has been added to the Unbilled Charge resource.
+See : https://apidocs.chargebee.com/docs/api/customers#assign_payment_role
+
+** APIs updated**: 
+
+The filter  param "phone" has been added to the List Customer API.
+See : https://apidocs.chargebee.com/docs/api/customers#list_customers
+
+The subresource "invoice_estimates" has been added to the Estimate resource. 
+See : https://apidocs.chargebee.com/docs/api/estimates#invoice_estimate_attributes
+
+### v2.2.2 (2017-05-04)
 * * * 
 
 ** APIs added**:
@@ -55,7 +69,7 @@ See : https://apidocs.chargebee.com/docs/api/subscriptions#import_a_subscription
 The event types payment_source_added, payment_source_updated and payment_source_deleted have been added.
 See : https://apidocs.chargebee.com/docs/api/events#event_types
 
-###v2.2.1 (2017-04-19)
+### v2.2.1 (2017-04-19)
 * * * 
 
 ** APIs added**:
@@ -80,7 +94,7 @@ See : https://apidocs.chargebee.com/docs/api/hosted_pages#hosted_page_attributes
 A new gateway 'adyen' has been added.
 See : https://apidocs.chargebee.com/docs/api/cards#card_attributes
 
-###v2.2.0 (2017-02-24)
+### v2.2.0 (2017-02-24)
 * * * 
 
 ** APIs added**:
@@ -101,7 +115,7 @@ The input parameters 'ignore_scheduled_cancellation' and 'ignore_scheduled_chang
 See : https://apidocs.chargebee.com/docs/api/estimates#subscription_renewal_estimate
 
 
-###v2.1.9 (2017-01-30)
+### v2.1.9 (2017-01-30)
 * * * 
 
 ** APIs updated**:
@@ -124,7 +138,7 @@ See : https://apidocs.chargebee.com/docs/api/subscriptions#reactivate_a_subscrip
 A new endpoint 'Charge Future Renewals' has been added to the Subscription API.
 https://apidocs.chargebee.com/docs/api/subscriptions#charge_future_renewals
 
-###v2.1.8 (2017-01-27)
+### v2.1.8 (2017-01-27)
 * * * 
 
 ** APIs updated**:
@@ -150,7 +164,7 @@ See: https://apidocs.chargebee.com/docs/api/hosted_pages#checkout_new_subscripti
 A new endpoint Create subscription for a customer estimate has been added to the Estimate resource.
 See: https://apidocs.chargebee.com/docs/api/estimates#create_subscription_for_a_customer_estimate
 
-###v2.1.7 (2017-01-12)
+### v2.1.7 (2017-01-12)
 * * * 
 
 ** APIs added**:
@@ -164,7 +178,7 @@ A new endpoint, Unarchive a coupon has been added to the Coupon resource.
 See : https://apidocs.chargebee.com/docs/api/coupons#unarchive_a_coupon
 
 
-###v2.1.6 (2016-11-24)
+### v2.1.6 (2016-11-24)
 * * * 
 
 ** APIs updated**:
@@ -195,7 +209,7 @@ See : https://apidocs.chargebee.com/docs/api/invoices#import_invoice
 
 
 
-###v2.1.5 (2016-11-18)
+### v2.1.5 (2016-11-18)
 * * * 
 
 ** APIs updated**:
@@ -211,7 +225,7 @@ See : https://apidocs.chargebee.com/docs/api/subscriptions#subscription_attribut
 Removing .DS_store file.
 
 
-###v2.1.4 (2016-11-09)
+### v2.1.4 (2016-11-09)
 * * * 
 
 ** APIs updated**:
@@ -240,7 +254,7 @@ The input parameter "net_term_days" is added to Create a Subscription API. See :
 The attributes "net_term_days" and "due_date" is added to the Invoice resource. See : https://apidocs.chargebee.com/docs/api/invoices
 
 
-###v2.1.3 (2016-09-03)
+### v2.1.3 (2016-09-03)
 * * * 
 ** APIs added**:
 A new endpoint to create Credit Note is added. See : https://apidocs.chargebee.com/docs/api/credit_notes#create_credit_note
@@ -252,7 +266,7 @@ The attribute "forward_url" is given as input for Create a Portal Session API.
 See : https://apidocs.chargebee.com/docs/api/portal_sessions#create_a_portal_session
 
 
-###v2.1.2 (2016-08-25)
+### v2.1.2 (2016-08-25)
 * * * 
 
 ** APIs updated**:
@@ -281,7 +295,7 @@ The status "pending_verification" added to Payment Method status.
 See : https://apidocs.chargebee.com/docs/api/customers#customer_attributes
 
 
-###v2.1.1 (2016-08-02)
+### v2.1.1 (2016-08-02)
 * * * 
 ** APIs added**:
 A new endpoint to retrieve Credit Note as PDF. See : https://apidocs.chargebee.com/docs/api/credit_notes#retrieve_credit_note_as_pdf
@@ -294,18 +308,18 @@ The filter parameter "paid_at" is added to list invoices and "paid_on_after" is 
 
 The filter parameter "occurred_at", "webhook_status", "event_type" is added to list events and parameter "start_time", "end_time", "webhook_status", "event_type" is deprecated. See : https://apidocs.chargebee.com/docs/api/events#list_events
 
-###v2.1.0 (2016-07-18)
+### v2.1.0 (2016-07-18)
 * * * 
 ** APIs added**:
 A new endpoint to remove coupons associated with the subscription is added. See : https://apidocs.chargebee.com/docs/api/subscriptions#remove_coupons
 A new endpoint to record excess payments for a customer is added. See : https://apidocs.chargebee.com/docs/api/customers#record_an_excess_payment_for_a_customer
 
-###v2.0.9 (2016-07-06)
+### v2.0.9 (2016-07-06)
 * * * 
 ** APIs added**:
 A new endpoint to delete a coupon added. See : https://apidocs.chargebee.com/docs/api/coupons#delete_a_coupon
 
-###v2.0.8 (2016-07-04)
+### v2.0.8 (2016-07-04)
 * * * 
 ** APIs updated**:
 The attribute "currency_code" is added as part of Plans, Addons, Coupons, Subscription, Transaction and Estimate resource.
