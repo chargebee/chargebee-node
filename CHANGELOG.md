@@ -1,3 +1,10 @@
+### v2.2.5 (2017-07-26)
+* * * 
+
+** APIs added**: 
+
+The new resource 'Time Machine' has been added.
+
 ### v2.2.4 (2017-07-21)
 * * * 
 
