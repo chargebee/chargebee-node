@@ -1,3 +1,14 @@
+### v2.2.7 (2017-08-28)
+* * * 
+
+** APIs added**: 
+
+The endpoints Void a credit note and Delete a credit note would be added to the Credit notes resource.
+See : https://apidocs.chargebee.com/docs/api/credit_notes
+
+The endpoints Apply payments for an invoice, Apply credits for an invoice, Remove payment from an invoice and Remove credit note from an invoice would be added to the Invoice resource.
+See : https://apidocs.chargebee.com/docs/api/invoices
+
 ### v2.2.6 (2017-08-16)
 * * * 
 
