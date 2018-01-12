@@ -1,3 +1,6 @@
+### v2.3.3 (2018-01-12)
+* New endpoint "Update invoice details" has been added to Invoice resource.
+
 ### v2.3.2 (2017-11-27)
 * * * 
 
