@@ -1,3 +1,7 @@
+### v2.3.4 (2018-02-01)
+* * * 
+License has been updated.
+
 ### v2.3.3 (2018-01-12)
 * New endpoint "Update invoice details" has been added to Invoice resource.
 
