@@ -1,3 +1,8 @@
+### v2.4.7 (2018-12-21)
+* * *
+
+* Slash handling in URI has been added.
+
 ### v2.4.6 (2018-11-09)
 * * *
 
