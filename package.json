@@ -1,6 +1,6 @@
 {
    "name":"chargebee",
-   "version":"2.6.5",
+   "version":"2.6.6",
    "description":"A library for integrating with ChargeBee.",
    "keywords":[
       "payments",
@@ -12,7 +12,8 @@
    "author":"Ajit <ajit@chargebee.com> (https://www.chargebee.com)",
    "main":"lib/chargebee.js",
    "dependencies":{
-     "q" : ">=1.0.1"
+     "q" : ">=1.0.1",
+     "safer-buffer": "2.1.2"
    },
    "directories":{
       "lib":"./lib"
