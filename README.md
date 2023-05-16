@@ -21,6 +21,35 @@ Then require the library as:
 
 	var chargebee = require('chargebee');
 
+## Usage
+
+### Create an idempotent request
+[Idempotency keys](https://apidocs.chargebee.com/docs/api) are passed along with request headers to allow a safe retry of POST requests. 
+
+```node
+var chargebee = require("chargebee");
+chargebee.configure({site : "{site}", api_key : "{site_api_key}"})
+chargebee.customer.create({
+    first_name : "John",
+    last_name : "Doe",
+    email : "john@test.com"
+   })
+    .setIdempotencyKey("<<UUID>>") // Replace <<UUID>> with a unique string
+    .request(function(error,result, headers) {
+    if(error){
+        //handle error
+        console.log(error);
+    }else{
+        console.log(result);
+        console.log(headers); // Retrieves response headers
+        console.log(isIdempotencyReplayed); // Retrieves idempotency replayed header value 
+        var customer = result.customer;
+        var card = result.card;
+    }
+});
+```
+`isIdempotencyReplayed()` method can be accessed to differentiate between original and replayed requests.
+
 ## Documentation
 
 The full documentation can be found on the chargebee site here:
