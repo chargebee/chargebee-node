@@ -47,7 +47,7 @@ try {
       // other params
     })
     .request();
-    // access customer as result.response.customer;
+    // access customer as result.customer;
 } catch (err) {
   // handle error
 }
@@ -64,7 +64,7 @@ chargebee.customer
   .request()
   .then((result) => {
     // handle result
-    // access customer as result.response.customer;
+    // access customer as result.customer;
   })
   .catch((err) => {
     // handle error
@@ -97,7 +97,7 @@ The response object returned by the `request()` method is generic response wrapp
 
 ```js
 const result = await chargebee.customer.create({ email: 'john@test.com' }).request();
-console.log(result.response.customer);
+console.log(result.customer);
 ```
 
 Other resources can be accessed by the same approach. For subscription, it will be `result.subscription`
@@ -112,7 +112,7 @@ const result = await chargebee.subscription
   .request();
 
 // A list of Subscription objects
-console.log(result.response.list.map((obj) => obj.subscription));
+console.log(result.list.map((obj) => obj.subscription));
 ```
 
 **Note**
@@ -121,14 +121,14 @@ If you have a `result` (or children further down the line) and are unsure what p
 
 ```js
 // ['list', 'next_offset']
-console.log(Object.keys(result.response));
+console.log(Object.keys(result));
 // ['1', '2', '3'], e.g. `result.list` is an array with 3 entries
-console.log(Object.keys(result.response.list));
+console.log(Object.keys(result.list));
 // ['activated_at', 'base_currency_code', ...]
 // ['activated_at', 'base_currency_code', ...]
 // ['activated_at', 'base_currency_code', ...]
 // Which means we've reached the bottom and should have all the information available from this request
-console.log(result.response.list.map((obj) => obj.subscription));
+console.log(result.list.map((obj) => obj.subscription));
 ```
 
 #### Using filters in the List API
@@ -144,8 +144,8 @@ const fetchCustomers = async (offset) => {
     }).request();
 
     return {
-      customers: result.response.list.map((obj) => obj.customer),
-      next_offset: result.response.next_offset,
+      customers: result.list.map((obj) => obj.customer),
+      next_offset: result.next_offset,
     };
   };
 
@@ -174,7 +174,7 @@ const result = await chargebee.customer
 .setIdempotencyKey("safeKey")
 .request();
 
-const customer = result.response.customer;
+const customer = result.customer;
 console.log(customer.cf_host_url);
 ```
 
@@ -187,12 +187,8 @@ const result = await chargebee.customer
     .create({ email: 'john@test.com' })
     .setIdempotencyKey("safeKey")
     .request();
-const customer = result.response.customer;
-console.log(result.headers); // Retrieves response headers
-console.log(result.isIdempotencyReplayed); // Retrieves idempotency replayed header
+const customer = result.customer;
 ```
-
-`isIdempotencyReplayed()` method can be accessed to differentiate between original and replayed requests.
 
 ### Processing Webhooks - API Version Check
 
