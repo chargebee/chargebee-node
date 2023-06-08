@@ -1,3 +1,10 @@
+### v2.23.1 (2023-06-08)
+* * *
+
+#### New Feature:
+* Added utiltity to retrieve the response headers and isIdempotencyReplayed key through response object.
+
+
 ### v2.23.0 (2023-05-31)
 * * *
 

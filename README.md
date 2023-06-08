@@ -1,7 +1,7 @@
 # Chargebee Node Client Library - API V2
 
-[![npm](https://img.shields.io/npm/v/chargebee.svg?maxAge=259200)](https://www.npmjs.com/package/chargebee)
-[![npm](https://img.shields.io/npm/dt/chargebee.svg?maxAge=259200)](https://www.npmjs.com/package/chargebee)
+[![npm](https://img.shields.io/npm/v/chargebee.svg?maxAge=25920000)](https://www.npmjs.com/package/chargebee)
+[![npm](https://img.shields.io/npm/dt/chargebee.svg?maxAge=25920000)](https://www.npmjs.com/package/chargebee)
 
 This is the [node.js](http://nodejs.org/) library for integrating with Chargebee. Sign up for a Chargebee account [here](https://www.chargebee.com).
 
@@ -188,6 +188,24 @@ const result = await chargebee.customer
     .setIdempotencyKey("safeKey")
     .request();
 const customer = result.customer;
+const headers = result.headers;
+const isIdempotencyReplayed = result.isIdempotencyReplayed;
+```
+
+OR
+
+```js
+chargebee.customer.create({ email: 'john@test.com', cf_host_url: 'http://xyz.com' })
+.setIdempotencyKey("safeKey")
+.request(function(error,result) {
+  if(error){
+    //handle error
+  }else{
+    const customer = result.customer;
+    const headers = result.headers;
+    const isIdempotencyReplayed = result.isIdempotencyReplayed;
+  }
+});
 ```
 
 ### Processing Webhooks - API Version Check
