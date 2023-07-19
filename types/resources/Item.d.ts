@@ -1,3 +1,4 @@
+///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Item {
     [key : string] : any;

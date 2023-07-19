@@ -1,3 +1,7 @@
+### v2.25.1 (2023-07-19)
+* * *
+* Fix typescript typings reference issue
+
 ### v2.25.0 (2023-07-19)
 * * *
 * Add typescript typings
