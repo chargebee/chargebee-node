@@ -1,3 +1,8 @@
+### v2.25.3 (2023-07-24)
+* * *
+* Add Request Config Type
+* Fix validation
+
 ### v2.25.2 (2023-07-24)
 * * *
 * Fix typescript typings [generator issue](https://github.com/chargebee/chargebee-node/issues/31) 

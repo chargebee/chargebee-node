@@ -1,7 +1,14 @@
 declare module 'chargebee' {
+  export class RequestConfig {
+    site ?: string
+    api_key ?: string
+    timeout ?: number
+    timemachineWaitInMillis ?: number
+    exportWaitInMillis ?: number
+  }
   export class ChargebeeRequest<T> {
     setIdempotencyKey(idempotencyKey: string): this;
-    request(): Promise<T>;
+    request(config ?: RequestConfig): Promise<T>;
     headers(headers : {[key : string] : string}): this;
   }
   type AccountHolderType = 'individual' | 'company'
