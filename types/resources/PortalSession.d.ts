@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface PortalSession {
-    
     id:string;
     token:string;
     access_url:string;
@@ -27,7 +26,6 @@ declare module 'chargebee' {
       portal_session:PortalSession;
     }
     export interface CreateInputParam {
-      
       redirect_url?:string;
       forward_url?:string;
       customer?:{id:string};
@@ -36,7 +34,6 @@ declare module 'chargebee' {
       portal_session:PortalSession;
     }
     export interface ActivateInputParam {
-      
       token:string;
     }
     export interface LogoutResponse {

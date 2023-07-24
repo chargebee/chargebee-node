@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface ContractTerm {
-    
     id:string;
     status:'active' | 'cancelled' | 'completed' | 'terminated';
     contract_start:number;
@@ -15,5 +14,4 @@ declare module 'chargebee' {
     subscription_id:string;
     remaining_billing_cycles?:number;
   }
-  
 }

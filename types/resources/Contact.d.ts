@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Contact {
-    
     id:string;
     first_name?:string;
     last_name?:string;
@@ -12,5 +11,4 @@ declare module 'chargebee' {
     send_account_email:boolean;
     send_billing_email:boolean;
   }
-  
 }

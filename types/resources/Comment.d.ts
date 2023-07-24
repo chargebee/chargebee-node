@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Comment {
-    
     id:string;
     entity_type:EntityType;
     added_by?:string;
@@ -30,7 +29,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       entity_type?:'item' | 'product' | 'coupon' | 'addon' | 'item_price' | 'business_entity' | 'subscription' | 'item_family' | 'credit_note' | 'quote' | 'variant' | 'invoice' | 'plan' | 'transaction' | 'customer' | 'order';
@@ -42,7 +41,6 @@ declare module 'chargebee' {
       comment:Comment;
     }
     export interface CreateInputParam {
-      
       entity_type:EntityType;
       entity_id:string;
       notes:string;

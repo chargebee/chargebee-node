@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Token {
-    
     id:string;
     gateway:Gateway;
     gateway_account_id:string;
@@ -25,7 +24,6 @@ declare module 'chargebee' {
       token:Token;
     }
     export interface CreateUsingTempTokenInputParam {
-      
       gateway_account_id?:string;
       payment_method_type:PaymentMethodType;
       id_at_vault:string;
@@ -39,7 +37,6 @@ declare module 'chargebee' {
       token:Token;
     }
     export interface CreateForCardInputParam {
-      
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,card_type?:'discover' | 'bancontact' | 'other' | 'visa' | 'jcb' | 'diners_club' | 'mastercard' | 'not_applicable' | 'american_express',cvv?:string,expiry_month:number,expiry_year:number,first_name?:string,gateway_account_id?:string,last_name?:string,number:string};
     }
     export interface RetrieveResponse {

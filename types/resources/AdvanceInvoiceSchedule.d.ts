@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface AdvanceInvoiceSchedule {
-    
     id:string;
     schedule_type?:'specific_dates' | 'fixed_intervals';
     fixed_interval_schedule?:AdvanceInvoiceSchedule.FixedIntervalSchedule;

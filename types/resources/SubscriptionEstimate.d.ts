@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface SubscriptionEstimate {
-    
     id?:string;
     currency_code:string;
     status?:'in_trial' | 'paused' | 'future' | 'active' | 'cancelled' | 'non_renewing';

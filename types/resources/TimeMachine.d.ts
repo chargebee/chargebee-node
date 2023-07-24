@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface TimeMachine {
-    
     name:string;
     time_travel_status:'in_progress' | 'not_enabled' | 'failed' | 'succeeded';
     genesis_time:number;
@@ -24,14 +23,12 @@ declare module 'chargebee' {
       time_machine:TimeMachine;
     }
     export interface TravelForwardInputParam {
-      
       destination_time?:number;
     }
     export interface StartAfreshResponse {
       time_machine:TimeMachine;
     }
     export interface StartAfreshInputParam {
-      
       genesis_time?:number;
     }
     

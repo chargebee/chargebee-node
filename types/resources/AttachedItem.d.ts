@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface AttachedItem {
-    
     id:string;
     parent_item_id:string;
     item_id:string;
@@ -29,14 +28,12 @@ declare module 'chargebee' {
       attached_item:AttachedItem;
     }
     export interface RetrieveInputParam {
-      
       parent_item_id:string;
     }
     export interface UpdateResponse {
       attached_item:AttachedItem;
     }
     export interface UpdateInputParam {
-      
       parent_item_id:string;
       type?:'optional' | 'mandatory' | 'recommended';
       billing_cycles?:number;
@@ -50,7 +47,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
@@ -64,7 +61,6 @@ declare module 'chargebee' {
       attached_item:AttachedItem;
     }
     export interface CreateInputParam {
-      
       item_id:string;
       type?:'optional' | 'mandatory' | 'recommended';
       billing_cycles?:number;
@@ -77,7 +73,6 @@ declare module 'chargebee' {
       attached_item:AttachedItem;
     }
     export interface DeleteInputParam {
-      
       parent_item_id:string;
     }
     

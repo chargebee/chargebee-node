@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface QuotedCharge {
-    
     charges?:QuotedCharge.Charge[];
     invoice_items?:QuotedCharge.ItemPrice[];
     item_tiers?:QuotedCharge.ItemTier[];

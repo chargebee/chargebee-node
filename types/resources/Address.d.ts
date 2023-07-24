@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Address {
-    
     label:string;
     first_name?:string;
     last_name?:string;
@@ -28,7 +27,6 @@ declare module 'chargebee' {
       address:Address;
     }
     export interface RetrieveInputParam {
-      
       subscription_id:string;
       label:string;
     }
@@ -36,7 +34,6 @@ declare module 'chargebee' {
       address:Address;
     }
     export interface UpdateInputParam {
-      
       subscription_id:string;
       label:string;
       first_name?:string;

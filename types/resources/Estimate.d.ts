@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Estimate {
-    
     created_at:number;
     subscription_estimate?:SubscriptionEstimate;
     subscription_estimates?:SubscriptionEstimate[];
@@ -31,7 +30,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface RenewalEstimateInputParam {
-      
       include_delayed_charges?:boolean;
       use_existing_balances?:boolean;
       ignore_scheduled_cancellation?:boolean;
@@ -41,7 +39,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface CreateSubItemEstimateInputParam {
-      
       billing_cycles?:number;
       mandatory_items_to_remove?:string[];
       terms_to_charge?:number;
@@ -63,7 +60,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface CancelSubscriptionForItemsInputParam {
-      
       end_of_term?:boolean;
       cancel_at?:number;
       credit_option_for_current_term_charges?:CreditOptionForCurrentTermCharges;
@@ -79,7 +75,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface ResumeSubscriptionInputParam {
-      
       resume_option?:ResumeOption;
       charges_handling?:ChargesHandling;
       subscription?:{resume_date?:number};
@@ -88,7 +83,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface CreateInvoiceForItemsInputParam {
-      
       currency_code?:string;
       invoice_note?:string;
       remove_general_note?:boolean;
@@ -109,7 +103,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface GiftSubscriptionForItemsInputParam {
-      
       coupon_ids?:string[];
       gift?:{auto_claim?:boolean,claim_expiry_date?:number,no_expiry?:boolean,scheduled_at?:number};
       gifter?:{customer_id:string,note?:string,payment_src_id?:string,signature:string};
@@ -122,7 +115,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface UpdateSubscriptionForItemsInputParam {
-      
       mandatory_items_to_remove?:string[];
       replace_items_list?:boolean;
       invoice_date?:number;
@@ -155,7 +147,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface RegenerateInvoiceEstimateInputParam {
-      
       date_from?:number;
       date_to?:number;
       prorate?:boolean;
@@ -165,7 +156,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface CreateSubItemForCustomerEstimateInputParam {
-      
       use_existing_balances?:boolean;
       invoice_immediately?:boolean;
       billing_cycles?:number;
@@ -185,7 +175,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface ChangeTermEndInputParam {
-      
       term_ends_at:number;
       prorate?:boolean;
       invoice_immediately?:boolean;
@@ -194,7 +183,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface PauseSubscriptionInputParam {
-      
       pause_option?:PauseOption;
       unbilled_charges_handling?:UnbilledChargesHandling;
       subscription?:{pause_date?:number,resume_date?:number,skip_billing_cycles?:number};
@@ -203,7 +191,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface AdvanceInvoiceEstimateInputParam {
-      
       terms_to_charge?:number;
       invoice_immediately?:boolean;
       schedule_type?:ScheduleType;

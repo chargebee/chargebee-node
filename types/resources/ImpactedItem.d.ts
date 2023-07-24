@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface ImpactedItem {
-    
     count?:number;
     items?:any[];
     download?:ImpactedItem.Download;

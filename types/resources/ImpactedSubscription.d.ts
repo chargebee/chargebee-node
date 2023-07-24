@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface ImpactedSubscription {
-    
     count?:number;
     subscription_ids?:any[];
     download?:ImpactedSubscription.Download;

@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface UnbilledCharge {
-    
     id?:string;
     customer_id?:string;
     subscription_id?:string;
@@ -42,7 +41,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface InvoiceNowEstimateInputParam {
-      
       subscription_id?:string;
       customer_id?:string;
     }
@@ -50,7 +48,6 @@ declare module 'chargebee' {
       invoices:Invoice[];
     }
     export interface InvoiceUnbilledChargesInputParam {
-      
       subscription_id?:string;
       customer_id?:string;
     }
@@ -59,7 +56,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       include_deleted?:boolean;
@@ -71,7 +68,6 @@ declare module 'chargebee' {
       unbilled_charges:UnbilledCharge[];
     }
     export interface CreateInputParam {
-      
       subscription_id:string;
       currency_code?:string;
       item_prices?:{date_from?:number,date_to?:number,item_price_id?:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string}[];

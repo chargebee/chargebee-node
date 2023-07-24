@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface PaymentSource {
-    
     id:string;
     resource_version?:number;
     updated_at?:number;
@@ -49,7 +48,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface CreateUsingPermanentTokenInputParam {
-      
       customer_id:string;
       type:Type;
       gateway_account_id?:string;
@@ -68,7 +66,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface CreateCardInputParam {
-      
       customer_id:string;
       replace_primary_payment_source?:boolean;
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month:number,expiry_year:number,first_name?:string,gateway_account_id?:string,last_name?:string,number:string};
@@ -77,7 +74,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface VerifyBankAccountInputParam {
-      
       amount1:number;
       amount2:number;
     }
@@ -86,7 +82,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       subscription_id?:string;
@@ -101,7 +97,6 @@ declare module 'chargebee' {
       third_party_payment_method:ThirdPartyPaymentMethod;
     }
     export interface ExportPaymentSourceInputParam {
-      
       gateway_account_id:string;
     }
     export interface CreateUsingPaymentIntentResponse {
@@ -109,7 +104,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface CreateUsingPaymentIntentInputParam {
-      
       customer_id:string;
       replace_primary_payment_source?:boolean;
       payment_intent?:{additional_info?:object,additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card',reference_id?:string};
@@ -123,7 +117,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface CreateVoucherPaymentSourceInputParam {
-      
       customer_id:string;
       voucher_payment_source?:{billing_address?:object,gateway_account_id?:string,tax_id?:string,voucher_type:VoucherType};
     }
@@ -132,7 +125,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface CreateUsingTempTokenInputParam {
-      
       customer_id:string;
       gateway_account_id?:string;
       type:Type;
@@ -146,7 +138,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface UpdateCardInputParam {
-      
       gateway_meta_data?:object;
       reference_transaction?:string;
       card?:{billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,expiry_month?:number,expiry_year?:number,first_name?:string,last_name?:string};
@@ -156,7 +147,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface SwitchGatewayAccountInputParam {
-      
       gateway_account_id:string;
     }
     export interface CreateUsingTokenResponse {
@@ -164,7 +154,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface CreateUsingTokenInputParam {
-      
       customer_id:string;
       replace_primary_payment_source?:boolean;
       token_id:string;
@@ -179,7 +168,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface CreateBankAccountInputParam {
-      
       customer_id:string;
       issuing_country?:string;
       replace_primary_payment_source?:boolean;
@@ -190,7 +178,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface UpdateBankAccountInputParam {
-      
       bank_account?:{email?:string,first_name?:string,last_name?:string};
     }
     export interface Card {

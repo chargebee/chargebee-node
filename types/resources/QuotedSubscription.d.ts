@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface QuotedSubscription {
-    
     id:string;
     start_date?:number;
     trial_end?:number;

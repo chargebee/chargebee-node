@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface HostedPage {
-    
     id?:string;
     type?:'update_payment_method' | 'checkout_one_time' | 'manage_payment_sources' | 'checkout_new' | 'view_voucher' | 'collect_now' | 'checkout_existing' | 'extend_subscription' | 'pre_cancel';
     url?:string;
@@ -39,7 +38,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface CheckoutOneTimeForItemsInputParam {
-      
       business_entity_id?:string;
       layout?:Layout;
       invoice_note?:string;
@@ -63,7 +61,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface UpdatePaymentMethodInputParam {
-      
       redirect_url?:string;
       cancel_url?:string;
       pass_thru_content?:string;
@@ -75,7 +72,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface ExtendSubscriptionInputParam {
-      
       expiry?:number;
       billing_cycle?:number;
       subscription?:{id:string};
@@ -84,7 +80,6 @@ declare module 'chargebee' {
       success:boolean;
     }
     export interface EventsInputParam {
-      
       event_name:EventName;
       occurred_at?:number;
       event_data:object;
@@ -93,7 +88,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface CheckoutGiftForItemsInputParam {
-      
       business_entity_id?:string;
       redirect_url?:string;
       coupon_ids?:string[];
@@ -105,7 +99,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
@@ -117,7 +111,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface ViewVoucherInputParam {
-      
       payment_voucher?:{id:string};
       customer?:{locale?:string};
     }
@@ -125,7 +118,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface CollectNowInputParam {
-      
       redirect_url?:string;
       currency_code?:string;
       customer?:{id:string};
@@ -135,7 +127,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface AcceptQuoteInputParam {
-      
       redirect_url?:string;
       quote?:{id:string};
     }
@@ -143,7 +134,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface CheckoutNewForItemsInputParam {
-      
       layout?:Layout;
       business_entity_id?:string;
       billing_cycles?:number;
@@ -170,7 +160,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface ClaimGiftInputParam {
-      
       redirect_url?:string;
       gift?:{id:string};
       customer?:{locale?:string};
@@ -179,7 +168,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface CheckoutExistingForItemsInputParam {
-      
       layout?:Layout;
       mandatory_items_to_remove?:string[];
       replace_items_list?:boolean;
@@ -208,7 +196,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface PreCancelInputParam {
-      
       pass_thru_content?:string;
       cancel_url?:string;
       redirect_url?:string;
@@ -222,7 +209,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface RetrieveAgreementPdfInputParam {
-      
       payment_source_id:string;
     }
     export interface RetrieveResponse {
@@ -233,7 +219,6 @@ declare module 'chargebee' {
       hosted_page:HostedPage;
     }
     export interface ManagePaymentSourcesInputParam {
-      
       redirect_url?:string;
       customer?:{id:string};
       card?:{gateway_account_id?:string};

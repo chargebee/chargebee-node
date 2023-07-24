@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Card {
-    
     payment_source_id:string;
     status:'valid' | 'expiring' | 'expired';
     gateway:Gateway;
@@ -43,7 +42,6 @@ declare module 'chargebee' {
       third_party_payment_method:ThirdPartyPaymentMethod;
     }
     export interface CopyCardForCustomerInputParam {
-      
       gateway_account_id:string;
     }
     export interface RetrieveResponse {
@@ -55,7 +53,6 @@ declare module 'chargebee' {
       card:Card;
     }
     export interface SwitchGatewayForCustomerInputParam {
-      
       gateway_account_id:string;
     }
     export interface DeleteCardForCustomerResponse {
@@ -67,7 +64,6 @@ declare module 'chargebee' {
       card:Card;
     }
     export interface UpdateCardForCustomerInputParam {
-      
       gateway_account_id?:string;
       tmp_token?:string;
       first_name?:string;

@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface ItemEntitlement {
-    
     id:string;
     item_id?:string;
     item_type?:'item' | 'charge' | 'addon' | 'subscription' | 'plan';
@@ -22,7 +21,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ItemEntitlementsForFeatureInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
     }
@@ -30,7 +29,6 @@ declare module 'chargebee' {
       item_entitlement:ItemEntitlement;
     }
     export interface AddItemEntitlementsInputParam {
-      
       action:Action;
       item_entitlements?:{item_id:string,item_type?:'item' | 'charge' | 'addon' | 'subscription' | 'plan',value?:string}[];
     }
@@ -39,7 +37,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ItemEntitlementsForItemInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
     }
@@ -47,7 +45,6 @@ declare module 'chargebee' {
       item_entitlement:ItemEntitlement;
     }
     export interface UpsertOrRemoveItemEntitlementsForItemInputParam {
-      
       action:Action;
       item_entitlements?:{feature_id:string,value?:string}[];
     }

@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface ResourceMigration {
-    
     from_site:string;
     entity_type:'customer';
     entity_id:string;
@@ -18,7 +17,6 @@ declare module 'chargebee' {
       resource_migration:ResourceMigration;
     }
     export interface RetrieveLatestInputParam {
-      
       from_site:string;
       entity_type:'customer';
       entity_id:string;

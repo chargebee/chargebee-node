@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Quote {
-    
     id:string;
     name?:string;
     po_number?:string;
@@ -63,7 +62,6 @@ declare module 'chargebee' {
       quoted_subscription?:QuotedSubscription;
     }
     export interface CreateSubItemsForCustomerQuoteInputParam {
-      
       name?:string;
       notes?:string;
       expires_at?:number;
@@ -90,7 +88,6 @@ declare module 'chargebee' {
       quoted_subscription?:QuotedSubscription;
     }
     export interface EditCreateSubCustomerQuoteForItemsInputParam {
-      
       notes?:string;
       expires_at?:number;
       billing_cycles?:number;
@@ -111,7 +108,6 @@ declare module 'chargebee' {
       quoted_charge?:QuotedCharge;
     }
     export interface UpdateStatusInputParam {
-      
       status:'declined' | 'accepted' | 'closed';
       comment?:string;
     }
@@ -120,7 +116,6 @@ declare module 'chargebee' {
       quoted_subscription?:QuotedSubscription;
     }
     export interface UpdateSubscriptionQuoteForItemsInputParam {
-      
       name?:string;
       notes?:string;
       expires_at?:number;
@@ -150,7 +145,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface QuoteLineGroupsForQuoteInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
     }
@@ -160,7 +155,6 @@ declare module 'chargebee' {
       quoted_charge?:QuotedCharge;
     }
     export interface ExtendExpiryDateInputParam {
-      
       valid_till:number;
     }
     export interface EditForChargeItemsAndChargesResponse {
@@ -168,7 +162,6 @@ declare module 'chargebee' {
       quoted_charge?:QuotedCharge;
     }
     export interface EditForChargeItemsAndChargesInputParam {
-      
       po_number?:string;
       notes?:string;
       expires_at?:number;
@@ -186,7 +179,6 @@ declare module 'chargebee' {
       quoted_subscription?:QuotedSubscription;
     }
     export interface EditUpdateSubscriptionQuoteForItemsInputParam {
-      
       notes?:string;
       expires_at?:number;
       mandatory_items_to_remove?:string[];
@@ -215,7 +207,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       include_deleted?:boolean;
@@ -231,7 +223,6 @@ declare module 'chargebee' {
       download:Download;
     }
     export interface PdfInputParam {
-      
       consolidated_view?:boolean;
       disposition_type?:DispositionType;
     }
@@ -246,7 +237,6 @@ declare module 'chargebee' {
       unbilled_charges?:UnbilledCharge[];
     }
     export interface ConvertInputParam {
-      
       invoice_date?:number;
       create_pending_invoices?:boolean;
       first_invoice_pending?:boolean;
@@ -257,7 +247,6 @@ declare module 'chargebee' {
       quoted_charge?:QuotedCharge;
     }
     export interface CreateForChargeItemsAndChargesInputParam {
-      
       name?:string;
       customer_id:string;
       po_number?:string;
@@ -278,7 +267,6 @@ declare module 'chargebee' {
       quoted_charge?:QuotedCharge;
     }
     export interface DeleteInputParam {
-      
       comment?:string;
     }
     export interface LineItem {

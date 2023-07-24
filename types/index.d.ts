@@ -1,39 +1,57 @@
 ///<reference path='./resources/Address.d.ts' />
+///<reference path='./resources/AdvanceInvoiceSchedule.d.ts' />
 ///<reference path='./resources/AttachedItem.d.ts' />
 ///<reference path='./resources/Card.d.ts' />
 ///<reference path='./resources/Comment.d.ts' />
+///<reference path='./resources/Contact.d.ts' />
+///<reference path='./resources/ContractTerm.d.ts' />
 ///<reference path='./resources/Coupon.d.ts' />
 ///<reference path='./resources/CouponCode.d.ts' />
 ///<reference path='./resources/CouponSet.d.ts' />
 ///<reference path='./resources/CreditNote.d.ts' />
+///<reference path='./resources/CreditNoteEstimate.d.ts' />
 ///<reference path='./resources/Customer.d.ts' />
 ///<reference path='./resources/DifferentialPrice.d.ts' />
+///<reference path='./resources/Discount.d.ts' />
+///<reference path='./resources/Download.d.ts' />
 ///<reference path='./resources/EntitlementOverride.d.ts' />
 ///<reference path='./resources/Estimate.d.ts' />
 ///<reference path='./resources/Event.d.ts' />
 ///<reference path='./resources/Export.d.ts' />
 ///<reference path='./resources/Feature.d.ts' />
 ///<reference path='./resources/Gift.d.ts' />
+///<reference path='./resources/Hierarchy.d.ts' />
 ///<reference path='./resources/HostedPage.d.ts' />
+///<reference path='./resources/ImpactedItem.d.ts' />
+///<reference path='./resources/ImpactedSubscription.d.ts' />
 ///<reference path='./resources/InAppSubscription.d.ts' />
 ///<reference path='./resources/Invoice.d.ts' />
+///<reference path='./resources/InvoiceEstimate.d.ts' />
 ///<reference path='./resources/Item.d.ts' />
 ///<reference path='./resources/ItemEntitlement.d.ts' />
 ///<reference path='./resources/ItemFamily.d.ts' />
 ///<reference path='./resources/ItemPrice.d.ts' />
+///<reference path='./resources/Media.d.ts' />
 ///<reference path='./resources/NonSubscription.d.ts' />
 ///<reference path='./resources/Order.d.ts' />
 ///<reference path='./resources/PaymentIntent.d.ts' />
+///<reference path='./resources/PaymentReferenceNumber.d.ts' />
 ///<reference path='./resources/PaymentSource.d.ts' />
 ///<reference path='./resources/PaymentVoucher.d.ts' />
 ///<reference path='./resources/PortalSession.d.ts' />
 ///<reference path='./resources/PromotionalCredit.d.ts' />
 ///<reference path='./resources/Purchase.d.ts' />
 ///<reference path='./resources/Quote.d.ts' />
+///<reference path='./resources/QuoteLineGroup.d.ts' />
+///<reference path='./resources/QuotedCharge.d.ts' />
+///<reference path='./resources/QuotedSubscription.d.ts' />
 ///<reference path='./resources/ResourceMigration.d.ts' />
 ///<reference path='./resources/SiteMigrationDetail.d.ts' />
 ///<reference path='./resources/Subscription.d.ts' />
 ///<reference path='./resources/SubscriptionEntitlement.d.ts' />
+///<reference path='./resources/SubscriptionEstimate.d.ts' />
+///<reference path='./resources/TaxWithheld.d.ts' />
+///<reference path='./resources/ThirdPartyPaymentMethod.d.ts' />
 ///<reference path='./resources/TimeMachine.d.ts' />
 ///<reference path='./resources/Token.d.ts' />
 ///<reference path='./resources/Transaction.d.ts' />
@@ -42,7 +60,7 @@
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
 
 declare module 'chargebee' {
-  class Chargebee {
+  export default class {
     static configure({ site, api_key }: { site: string; api_key: string });
     static address: Address.AddressResource;
     static attached_item: AttachedItem.AttachedItemResource;
@@ -88,5 +106,4 @@ declare module 'chargebee' {
     static virtual_bank_account: VirtualBankAccount.VirtualBankAccountResource;
     
   }
-  export default Chargebee;
 }

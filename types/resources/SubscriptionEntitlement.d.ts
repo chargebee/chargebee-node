@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface SubscriptionEntitlement {
-    
     subscription_id:string;
     feature_id?:string;
     feature_name?:string;
@@ -22,7 +21,6 @@ declare module 'chargebee' {
       subscription_entitlement:SubscriptionEntitlement;
     }
     export interface SetSubscriptionEntitlementAvailabilityInputParam {
-      
       is_enabled:boolean;
       subscription_entitlements?:{feature_id:string}[];
     }
@@ -31,7 +29,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface SubscriptionEntitlementsForSubscriptionInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
     }

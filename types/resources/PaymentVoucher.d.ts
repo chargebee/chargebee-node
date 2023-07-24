@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface PaymentVoucher {
-    
     id:string;
     id_at_gateway?:string;
     payment_voucher_type:PaymentVoucherType;
@@ -35,7 +34,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface Payment_vouchersForCustomerInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       status?:{in?:string,is?:'consumed' | 'expired' | 'failure' | 'active',is_not?:'consumed' | 'expired' | 'failure' | 'active',not_in?:string};
@@ -46,7 +45,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface Payment_vouchersForInvoiceInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       status?:{in?:string,is?:'consumed' | 'expired' | 'failure' | 'active',is_not?:'consumed' | 'expired' | 'failure' | 'active',not_in?:string};
@@ -60,7 +59,6 @@ declare module 'chargebee' {
       payment_voucher:PaymentVoucher;
     }
     export interface CreateInputParam {
-      
       customer_id:string;
       payment_source_id?:string;
       voucher_payment_source?:{voucher_type:VoucherType};

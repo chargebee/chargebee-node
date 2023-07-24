@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Order {
-    
     id:string;
     document_number?:string;
     invoice_id?:string;
@@ -78,7 +77,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       include_deleted?:boolean;
@@ -103,7 +102,6 @@ declare module 'chargebee' {
       order:Order;
     }
     export interface CreateInputParam {
-      
       id?:string;
       invoice_id:string;
       status?:'new' | 'processing' | 'cancelled' | 'voided' | 'complete';
@@ -118,7 +116,6 @@ declare module 'chargebee' {
       order:Order;
     }
     export interface ImportOrderInputParam {
-      
       id?:string;
       document_number?:string;
       invoice_id:string;
@@ -152,7 +149,6 @@ declare module 'chargebee' {
       order:Order;
     }
     export interface ResendInputParam {
-      
       shipping_date?:number;
       resend_reason?:string;
       order_line_items?:{fulfillment_quantity?:number,id?:string}[];
@@ -161,14 +157,12 @@ declare module 'chargebee' {
       order:Order;
     }
     export interface ReopenInputParam {
-      
       void_cancellation_credit_notes?:boolean;
     }
     export interface CancelResponse {
       order:Order;
     }
     export interface CancelInputParam {
-      
       cancellation_reason:'delivery_date_missed' | 'subscription_cancelled' | 'product_unsatisfactory' | 'fraudulent_transaction' | 'third_party_cancellation' | 'order_resent' | 'payment_declined' | 'product_not_required' | 'invoice_voided' | 'invoice_written_off' | 'product_not_available' | 'shipping_cut_off_passed' | 'others' | 'alternative_found';
       customer_notes?:string;
       comment?:string;
@@ -183,7 +177,6 @@ declare module 'chargebee' {
       order:Order;
     }
     export interface UpdateInputParam {
-      
       reference_id?:string;
       batch_id?:string;
       note?:string;
@@ -209,7 +202,6 @@ declare module 'chargebee' {
       order:Order;
     }
     export interface CreateRefundableCreditNoteInputParam {
-      
       customer_notes?:string;
       comment?:string;
       credit_note?:{reason_code:'other' | 'product_unsatisfactory' | 'subscription_pause' | 'order_cancellation' | 'service_unsatisfactory' | 'subscription_cancellation' | 'chargeback' | 'order_change' | 'write_off' | 'waiver' | 'subscription_change' | 'fraudulent',total:number};

@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface EntitlementOverride {
-    
     id:string;
     entity_id?:string;
     entity_type?:string;
@@ -21,7 +20,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListEntitlementOverrideForSubscriptionInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
     }
@@ -29,7 +28,6 @@ declare module 'chargebee' {
       entitlement_override:EntitlementOverride;
     }
     export interface AddEntitlementOverrideForSubscriptionInputParam {
-      
       action?:Action;
       entitlement_overrides?:{expires_at?:number,feature_id:string,value?:string}[];
     }

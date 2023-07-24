@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface PaymentIntent {
-    
     id:string;
     status:'consumed' | 'in_progress' | 'inited' | 'expired' | 'authorized';
     currency_code?:string;
@@ -35,7 +34,6 @@ declare module 'chargebee' {
       payment_intent:PaymentIntent;
     }
     export interface UpdateInputParam {
-      
       amount?:number;
       currency_code?:string;
       gateway_account_id?:string;
@@ -47,7 +45,6 @@ declare module 'chargebee' {
       payment_intent:PaymentIntent;
     }
     export interface CreateInputParam {
-      
       business_entity_id?:string;
       customer_id?:string;
       amount:number;

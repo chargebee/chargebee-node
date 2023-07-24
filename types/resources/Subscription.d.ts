@@ -98,7 +98,6 @@ declare module 'chargebee' {
       advance_invoice_schedules?:AdvanceInvoiceSchedule[];
     }
     export interface RemoveAdvanceInvoiceScheduleInputParam {
-      
       specific_dates_schedule?:{id?:string}[];
     }
     export interface UpdateForItemsResponse {
@@ -161,7 +160,6 @@ declare module 'chargebee' {
       card?:Card;
     }
     export interface RemoveCouponsInputParam {
-      
       coupon_ids?:string[];
     }
     export interface ResumeResponse {
@@ -172,7 +170,6 @@ declare module 'chargebee' {
       unbilled_charges?:UnbilledCharge[];
     }
     export interface ResumeInputParam {
-      
       resume_option?:ResumeOption;
       resume_date?:number;
       charges_handling?:ChargesHandling;
@@ -189,7 +186,6 @@ declare module 'chargebee' {
       credit_notes?:CreditNote[];
     }
     export interface CancelForItemsInputParam {
-      
       end_of_term?:boolean;
       cancel_at?:number;
       credit_option_for_current_term_charges?:CreditOptionForCurrentTermCharges;
@@ -206,7 +202,6 @@ declare module 'chargebee' {
       unbilled_charges?:UnbilledCharge[];
     }
     export interface RegenerateInvoiceInputParam {
-      
       date_from?:number;
       date_to?:number;
       prorate?:boolean;
@@ -217,7 +212,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       include_deleted?:boolean;
@@ -294,7 +289,6 @@ declare module 'chargebee' {
       card?:Card;
     }
     export interface RemoveScheduledCancellationInputParam {
-      
       billing_cycles?:number;
     }
     export interface RetrieveWithScheduledChangesResponse {
@@ -311,7 +305,6 @@ declare module 'chargebee' {
       unbilled_charges?:UnbilledCharge[];
     }
     export interface ReactivateInputParam {
-      
       trial_end?:number;
       billing_cycles?:number;
       reactivate_from?:number;
@@ -332,7 +325,6 @@ declare module 'chargebee' {
       advance_invoice_schedules?:AdvanceInvoiceSchedule[];
     }
     export interface ChargeFutureRenewalsInputParam {
-      
       terms_to_charge?:number;
       invoice_immediately?:boolean;
       schedule_type?:ScheduleType;
@@ -343,7 +335,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface AddChargeAtTermEndInputParam {
-      
       amount?:number;
       description:string;
       amount_in_decimal?:string;
@@ -369,7 +360,6 @@ declare module 'chargebee' {
       credit_notes?:CreditNote[];
     }
     export interface ChangeTermEndInputParam {
-      
       term_ends_at:number;
       prorate?:boolean;
       invoice_immediately?:boolean;
@@ -427,7 +417,6 @@ declare module 'chargebee' {
       unbilled_charges:UnbilledCharge[];
     }
     export interface ImportUnbilledChargesInputParam {
-      
       unbilled_charges?:{amount?:number,amount_in_decimal?:string,date_from:number,date_to:number,description?:string,discount_amount?:number,entity_id?:string,entity_type:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc',id?:string,is_advance_charge?:boolean,quantity?:number,quantity_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string,use_for_proration?:boolean}[];
       discounts?:{amount:number,description?:string,entity_id?:string,entity_type?:'item_level_coupon' | 'item_level_discount' | 'document_level_discount' | 'document_level_coupon',unbilled_charge_id?:string}[];
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,quantity_used?:number,quantity_used_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string,unbilled_charge_id:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
@@ -448,7 +437,6 @@ declare module 'chargebee' {
       contract_term:ContractTerm;
     }
     export interface ImportContractTermInputParam {
-      
       contract_term_billing_cycle_on_renewal?:number;
       contract_term?:{action_at_term_end?:'cancel' | 'renew_once' | 'renew' | 'evergreen',billing_cycle?:number,cancellation_cutoff_period?:number,contract_end?:number,contract_start?:number,created_at?:number,id?:string,status?:'active' | 'cancelled' | 'completed' | 'terminated',total_amount_raised?:number,total_amount_raised_before_tax?:number,total_contract_value?:number,total_contract_value_before_tax?:number};
     }
@@ -457,7 +445,6 @@ declare module 'chargebee' {
       payment_source?:PaymentSource;
     }
     export interface OverrideBillingProfileInputParam {
-      
       payment_source_id?:string;
       auto_collection?:AutoCollection;
     }
@@ -471,7 +458,6 @@ declare module 'chargebee' {
       advance_invoice_schedules:AdvanceInvoiceSchedule[];
     }
     export interface EditAdvanceInvoiceScheduleInputParam {
-      
       terms_to_charge?:number;
       schedule_type?:ScheduleType;
       fixed_interval_schedule?:{days_before_renewal?:number,end_date?:number,end_schedule_on?:EndScheduleOn,number_of_occurrences?:number};
@@ -482,7 +468,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListDiscountsInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
     }
@@ -491,7 +477,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ContractTermsForSubscriptionInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
     }
@@ -504,7 +490,6 @@ declare module 'chargebee' {
       credit_notes?:CreditNote[];
     }
     export interface PauseInputParam {
-      
       pause_option?:PauseOption;
       pause_date?:number;
       unbilled_charges_handling?:UnbilledChargesHandling;

@@ -1,3 +1,7 @@
+### v2.25.2 (2023-07-24)
+* * *
+* Fix typescript typings [generator issue](https://github.com/chargebee/chargebee-node/issues/31) 
+
 ### v2.25.1 (2023-07-19)
 * * *
 * Fix typescript typings reference issue

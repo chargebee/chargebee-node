@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface InvoiceEstimate {
-    
     recurring:boolean;
     price_type:PriceType;
     currency_code:string;

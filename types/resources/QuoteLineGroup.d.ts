@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface QuoteLineGroup {
-    
     version?:number;
     id?:string;
     sub_total:number;

@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface CouponCode {
-    
     code:string;
     status:'archived' | 'redeemed' | 'not_redeemed';
     coupon_id:string;

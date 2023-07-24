@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Usage {
-    
     id?:string;
     usage_date:number;
     subscription_id:string;
@@ -27,7 +26,6 @@ declare module 'chargebee' {
       download:Download;
     }
     export interface PdfInputParam {
-      
       disposition_type?:DispositionType;
       invoice?:{id:string};
     }
@@ -35,14 +33,12 @@ declare module 'chargebee' {
       usage:Usage;
     }
     export interface RetrieveInputParam {
-      
       id:string;
     }
     export interface CreateResponse {
       usage:Usage;
     }
     export interface CreateInputParam {
-      
       id?:string;
       item_price_id:string;
       quantity:string;
@@ -53,7 +49,6 @@ declare module 'chargebee' {
       usage:Usage;
     }
     export interface DeleteInputParam {
-      
       id:string;
     }
     export interface ListResponse {
@@ -61,7 +56,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       id?:{is?:string,is_not?:string,starts_with?:string};

@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface CouponSet {
-    
     id:string;
     coupon_id:string;
     name:string;
@@ -24,7 +23,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
@@ -38,7 +37,6 @@ declare module 'chargebee' {
       coupon_set:CouponSet;
     }
     export interface CreateInputParam {
-      
       coupon_id:string;
       name:string;
       id:string;
@@ -48,7 +46,6 @@ declare module 'chargebee' {
       coupon_set:CouponSet;
     }
     export interface UpdateInputParam {
-      
       name?:string;
       meta_data?:object;
     }
@@ -60,7 +57,6 @@ declare module 'chargebee' {
       coupon_set:CouponSet;
     }
     export interface AddCouponCodesInputParam {
-      
       code?:string[];
     }
     export interface DeleteUnusedCouponCodesResponse {

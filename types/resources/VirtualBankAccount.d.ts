@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface VirtualBankAccount {
-    
     id:string;
     customer_id:string;
     email:string;
@@ -40,7 +39,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
@@ -52,7 +51,6 @@ declare module 'chargebee' {
       customer?:Customer;
     }
     export interface CreateInputParam {
-      
       customer_id:string;
       email?:string;
       scheme?:'ach_credit' | 'sepa_credit';
@@ -66,7 +64,6 @@ declare module 'chargebee' {
       customer?:Customer;
     }
     export interface CreateUsingPermanentTokenInputParam {
-      
       customer_id:string;
       reference_id:string;
       scheme?:'ach_credit' | 'sepa_credit';

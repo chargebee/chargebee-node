@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Discount {
-    
     id:string;
     invoice_name?:string;
     type:'fixed_amount' | 'percentage';
@@ -20,5 +19,4 @@ declare module 'chargebee' {
     coupon_id:string;
     index:number;
   }
-  
 }

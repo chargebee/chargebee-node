@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Gift {
-    
     id:string;
     status:'expired' | 'scheduled' | 'unclaimed' | 'claimed' | 'cancelled';
     scheduled_at?:number;
@@ -29,7 +28,6 @@ declare module 'chargebee' {
       invoice?:Invoice;
     }
     export interface CreateForItemsInputParam {
-      
       scheduled_at?:number;
       auto_claim?:boolean;
       no_expiry?:boolean;
@@ -51,7 +49,6 @@ declare module 'chargebee' {
       subscription:Subscription;
     }
     export interface UpdateGiftInputParam {
-      
       scheduled_at:number;
       comment?:string;
     }
@@ -60,7 +57,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       status?:{in?:string,is?:'expired' | 'scheduled' | 'unclaimed' | 'claimed' | 'cancelled',is_not?:'expired' | 'scheduled' | 'unclaimed' | 'claimed' | 'cancelled',not_in?:string};

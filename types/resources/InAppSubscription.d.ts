@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface InAppSubscription {
-    
     subscription_id:string;
     customer_id?:string;
     plan_id?:string;
@@ -19,14 +18,12 @@ declare module 'chargebee' {
       in_app_subscriptions:InAppSubscription[];
     }
     export interface RetrieveStoreSubsInputParam {
-      
       receipt:string;
     }
     export interface ImportReceiptResponse {
       in_app_subscriptions:InAppSubscription[];
     }
     export interface ImportReceiptInputParam {
-      
       receipt:string;
       product?:{currency_code:string};
       customer?:{email?:string,id?:string};
@@ -35,7 +32,6 @@ declare module 'chargebee' {
       in_app_subscription:InAppSubscription;
     }
     export interface ImportSubscriptionInputParam {
-      
       subscription?:{currency_code:string,id:string,is_trial?:boolean,product_id:string,started_at:number,term_end:number,term_start:number,transaction_id:string};
       customer?:{email?:string,id?:string};
     }
@@ -43,7 +39,6 @@ declare module 'chargebee' {
       in_app_subscription:InAppSubscription;
     }
     export interface ProcessReceiptInputParam {
-      
       receipt:string;
       product?:{currency_code:string,id:string,name?:string,period?:string,period_unit?:string,price:number,price_in_decimal?:string};
       customer?:{email?:string,first_name?:string,id?:string,last_name?:string};

@@ -54,7 +54,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface FindApplicableItemsInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       sort_by?:{asc?:'updated_at' | 'name' | 'id',desc?:'updated_at' | 'name' | 'id'};
@@ -104,7 +104,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface FindApplicableItemPricesInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       item_id?:string;
@@ -115,7 +115,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};

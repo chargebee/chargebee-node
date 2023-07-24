@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface DifferentialPrice {
-    
     id:string;
     item_price_id:string;
     parent_item_id:string;
@@ -28,14 +27,12 @@ declare module 'chargebee' {
       differential_price:DifferentialPrice;
     }
     export interface DeleteInputParam {
-      
       item_price_id:string;
     }
     export interface CreateResponse {
       differential_price:DifferentialPrice;
     }
     export interface CreateInputParam {
-      
       parent_item_id:string;
       price?:number;
       price_in_decimal?:string;
@@ -47,7 +44,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       item_price_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
@@ -59,14 +56,12 @@ declare module 'chargebee' {
       differential_price:DifferentialPrice;
     }
     export interface RetrieveInputParam {
-      
       item_price_id:string;
     }
     export interface UpdateResponse {
       differential_price:DifferentialPrice;
     }
     export interface UpdateInputParam {
-      
       item_price_id:string;
       price?:number;
       price_in_decimal?:string;

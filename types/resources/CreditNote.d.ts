@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface CreditNote {
-    
     id:string;
     customer_id:string;
     subscription_id?:string;
@@ -68,7 +67,6 @@ declare module 'chargebee' {
       credit_note:CreditNote;
     }
     export interface VoidCreditNoteInputParam {
-      
       comment?:string;
     }
     export interface RefundResponse {
@@ -76,7 +74,6 @@ declare module 'chargebee' {
       transaction:Transaction;
     }
     export interface RefundInputParam {
-      
       refund_amount?:number;
       customer_notes?:string;
       refund_reason_code?:string;
@@ -86,7 +83,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       include_deleted?:boolean;
@@ -115,7 +112,6 @@ declare module 'chargebee' {
       invoice:Invoice;
     }
     export interface CreateInputParam {
-      
       reference_invoice_id:string;
       total?:number;
       type:'adjustment' | 'refundable';
@@ -131,7 +127,6 @@ declare module 'chargebee' {
       transaction?:Transaction;
     }
     export interface RecordRefundInputParam {
-      
       refund_reason_code?:string;
       comment?:string;
       transaction?:{amount?:number,date:number,payment_method:PaymentMethod,reference_number?:string};
@@ -140,7 +135,6 @@ declare module 'chargebee' {
       credit_note:CreditNote;
     }
     export interface ImportCreditNoteInputParam {
-      
       id:string;
       customer_id?:string;
       subscription_id?:string;
@@ -168,7 +162,6 @@ declare module 'chargebee' {
       credit_note:CreditNote;
     }
     export interface DeleteInputParam {
-      
       comment?:string;
     }
     export interface DownloadEinvoiceResponse {
@@ -179,7 +172,6 @@ declare module 'chargebee' {
       download:Download;
     }
     export interface PdfInputParam {
-      
       disposition_type?:DispositionType;
     }
     export interface ResendEinvoiceResponse {
@@ -190,7 +182,6 @@ declare module 'chargebee' {
       credit_note:CreditNote;
     }
     export interface RemoveTaxWithheldRefundInputParam {
-      
       tax_withheld?:{id:string};
     }
     export interface RetrieveResponse {

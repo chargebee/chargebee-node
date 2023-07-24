@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Purchase {
-    
     id?:string;
     customer_id:string;
     created_at?:number;
@@ -18,7 +17,6 @@ declare module 'chargebee' {
       purchase:Purchase;
     }
     export interface CreateInputParam {
-      
       customer_id:string;
       invoice_info?:{notes?:string,po_number?:string};
       purchase_items?:{index:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
@@ -31,7 +29,6 @@ declare module 'chargebee' {
       estimate:Estimate;
     }
     export interface EstimateInputParam {
-      
       client_profile_id?:string;
       customer_id?:string;
       customer?:{customer_type?:CustomerType,entity_code?:EntityCode,exempt_number?:string,exemption_details?:any[],registered_for_gst?:boolean,taxability?:Taxability,vat_number?:string,vat_number_prefix?:string};

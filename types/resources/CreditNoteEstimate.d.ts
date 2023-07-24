@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface CreditNoteEstimate {
-    
     reference_invoice_id:string;
     type:'adjustment' | 'refundable';
     price_type:PriceType;

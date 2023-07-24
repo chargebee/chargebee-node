@@ -95,14 +95,12 @@ declare module 'chargebee' {
       card?:Card;
     }
     export interface DeleteInputParam {
-      
       delete_payment_method?:boolean;
     }
     export interface RelationshipsResponse {
       customer:Customer;
     }
     export interface RelationshipsInputParam {
-      
       parent_id?:string;
       payment_owner_id?:string;
       invoice_owner_id?:string;
@@ -119,7 +117,6 @@ declare module 'chargebee' {
       card?:Card;
     }
     export interface DeleteContactInputParam {
-      
       contact?:{id:string};
     }
     export interface AssignPaymentRoleResponse {
@@ -127,7 +124,6 @@ declare module 'chargebee' {
       payment_source:PaymentSource;
     }
     export interface AssignPaymentRoleInputParam {
-      
       payment_source_id:string;
       role:Role;
     }
@@ -135,7 +131,6 @@ declare module 'chargebee' {
       resource_migration:ResourceMigration;
     }
     export interface MoveInputParam {
-      
       id_at_from_site:string;
       from_site:string;
     }
@@ -143,7 +138,6 @@ declare module 'chargebee' {
       hierarchies:Hierarchy[];
     }
     export interface HierarchyInputParam {
-      
       hierarchy_operation_type:'complete_hierarchy' | 'subordinates' | 'path_to_root';
     }
     export interface UpdatePaymentMethodResponse {
@@ -151,7 +145,6 @@ declare module 'chargebee' {
       card?:Card;
     }
     export interface UpdatePaymentMethodInputParam {
-      
       payment_method?:{additional_information?:object,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type:Type};
     }
     export interface RetrieveResponse {
@@ -193,7 +186,6 @@ declare module 'chargebee' {
       customer:Customer;
     }
     export interface ChangeBillingDateInputParam {
-      
       billing_date?:number;
       billing_month?:number;
       billing_date_mode?:BillingDateMode;
@@ -205,7 +197,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       include_deleted?:boolean;
@@ -277,7 +269,6 @@ declare module 'chargebee' {
       card?:Card;
     }
     export interface AddContactInputParam {
-      
       contact?:{email:string,enabled?:boolean,first_name?:string,id?:string,label?:string,last_name?:string,phone?:string,send_account_email?:boolean,send_billing_email?:boolean};
     }
     export interface ContactsForCustomerResponse {
@@ -285,7 +276,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ContactsForCustomerInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
     }
@@ -297,7 +288,6 @@ declare module 'chargebee' {
       customer:Customer;
     }
     export interface MergeInputParam {
-      
       from_customer_id:string;
       to_customer_id:string;
     }
@@ -306,7 +296,6 @@ declare module 'chargebee' {
       transaction:Transaction;
     }
     export interface CollectPaymentInputParam {
-      
       amount?:number;
       payment_source_id?:string;
       token_id?:string;
@@ -323,7 +312,6 @@ declare module 'chargebee' {
       transaction:Transaction;
     }
     export interface RecordExcessPaymentInputParam {
-      
       comment?:string;
       transaction?:{amount:number,currency_code?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
     }
@@ -332,14 +320,12 @@ declare module 'chargebee' {
       card?:Card;
     }
     export interface UpdateContactInputParam {
-      
       contact?:{email?:string,enabled?:boolean,first_name?:string,id:string,label?:string,last_name?:string,phone?:string,send_account_email?:boolean,send_billing_email?:boolean};
     }
     export interface UpdateHierarchySettingsResponse {
       customer:Customer;
     }
     export interface UpdateHierarchySettingsInputParam {
-      
       use_default_hierarchy_settings?:boolean;
       parent_account_access?:{portal_download_child_invoices?:'no' | 'yes' | 'view_only',portal_edit_child_subscriptions?:'no' | 'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
       child_account_access?:{portal_download_invoices?:'no' | 'yes' | 'view_only',portal_edit_subscriptions?:'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
@@ -349,7 +335,6 @@ declare module 'chargebee' {
       card?:Card;
     }
     export interface UpdateBillingInfoInputParam {
-      
       vat_number?:string;
       vat_number_prefix?:string;
       entity_identifier_scheme?:string;

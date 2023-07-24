@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Transaction {
-    
     id:string;
     customer_id?:string;
     subscription_id?:string;
@@ -61,7 +60,6 @@ declare module 'chargebee' {
       transaction:Transaction;
     }
     export interface RecordRefundInputParam {
-      
       amount?:number;
       payment_method:PaymentMethod;
       date:number;
@@ -73,7 +71,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       include_deleted?:boolean;
@@ -102,7 +100,6 @@ declare module 'chargebee' {
       transaction:Transaction;
     }
     export interface CreateAuthorizationInputParam {
-      
       customer_id:string;
       payment_source_id?:string;
       currency_code?:string;
@@ -117,7 +114,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface PaymentsForInvoiceInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
     }
@@ -125,14 +122,12 @@ declare module 'chargebee' {
       transaction:Transaction;
     }
     export interface DeleteOfflineTransactionInputParam {
-      
       comment?:string;
     }
     export interface RefundResponse {
       transaction:Transaction;
     }
     export interface RefundInputParam {
-      
       amount?:number;
       comment?:string;
     }

@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface PromotionalCredit {
-    
     id:string;
     customer_id:string;
     type:'decrement' | 'increment';
@@ -32,7 +31,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       id?:{is?:string,is_not?:string,starts_with?:string};
@@ -45,7 +44,6 @@ declare module 'chargebee' {
       promotional_credit:PromotionalCredit;
     }
     export interface DeductInputParam {
-      
       customer_id:string;
       amount?:number;
       amount_in_decimal?:string;
@@ -59,7 +57,6 @@ declare module 'chargebee' {
       promotional_credit:PromotionalCredit;
     }
     export interface SetInputParam {
-      
       customer_id:string;
       amount?:number;
       amount_in_decimal?:string;
@@ -73,7 +70,6 @@ declare module 'chargebee' {
       promotional_credit:PromotionalCredit;
     }
     export interface AddInputParam {
-      
       customer_id:string;
       amount?:number;
       amount_in_decimal?:string;

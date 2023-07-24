@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface SiteMigrationDetail {
-    
     entity_id:string;
     other_site_name:string;
     entity_id_at_other_site:string;
@@ -18,7 +17,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       entity_id_at_other_site?:{is?:string,is_not?:string,starts_with?:string};

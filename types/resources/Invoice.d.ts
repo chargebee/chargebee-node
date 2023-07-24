@@ -1,7 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 declare module 'chargebee' {
   export interface Invoice {
-    
     id:string;
     po_number?:string;
     customer_id:string;
@@ -103,7 +102,6 @@ declare module 'chargebee' {
       invoice:Invoice;
     }
     export interface DeleteLineItemsInputParam {
-      
       line_items?:{id?:string}[];
     }
     export interface RemoveCreditNoteResponse {
@@ -111,7 +109,6 @@ declare module 'chargebee' {
       credit_note:CreditNote;
     }
     export interface RemoveCreditNoteInputParam {
-      
       credit_note?:{id:string};
     }
     export interface RemovePaymentResponse {
@@ -119,21 +116,18 @@ declare module 'chargebee' {
       transaction:Transaction;
     }
     export interface RemovePaymentInputParam {
-      
       transaction?:{id:string};
     }
     export interface StopDunningResponse {
       invoice:Invoice;
     }
     export interface StopDunningInputParam {
-      
       comment?:string;
     }
     export interface ApplyPaymentsResponse {
       invoice:Invoice;
     }
     export interface ApplyPaymentsInputParam {
-      
       comment?:string;
       transactions?:{id?:string}[];
     }
@@ -142,7 +136,6 @@ declare module 'chargebee' {
       credit_note?:CreditNote;
     }
     export interface VoidInvoiceInputParam {
-      
       comment?:string;
       void_reason_code?:string;
     }
@@ -150,7 +143,6 @@ declare module 'chargebee' {
       invoice:Invoice;
     }
     export interface AddChargeInputParam {
-      
       amount:number;
       description:string;
       avalara_sale_type?:AvalaraSaleType;
@@ -169,14 +161,12 @@ declare module 'chargebee' {
       credit_note:CreditNote;
     }
     export interface WriteOffInputParam {
-      
       comment?:string;
     }
     export interface AddChargeItemResponse {
       invoice:Invoice;
     }
     export interface AddChargeItemInputParam {
-      
       comment?:string;
       subscription_id?:string;
       item_price?:{date_from?:number,date_to?:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string};
@@ -187,7 +177,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       include_deleted?:boolean;
@@ -217,7 +207,6 @@ declare module 'chargebee' {
       invoice:Invoice;
     }
     export interface CloseInputParam {
-      
       comment?:string;
       invoice_note?:string;
       remove_general_note?:boolean;
@@ -228,7 +217,6 @@ declare module 'chargebee' {
       invoice:Invoice;
     }
     export interface ApplyCreditsInputParam {
-      
       comment?:string;
       credit_notes?:{id?:string}[];
     }
@@ -240,7 +228,6 @@ declare module 'chargebee' {
       invoice:Invoice;
     }
     export interface CreateForChargeItemsAndChargesInputParam {
-      
       customer_id?:string;
       subscription_id?:string;
       currency_code?:string;
@@ -270,7 +257,6 @@ declare module 'chargebee' {
       invoice:Invoice;
     }
     export interface UpdateDetailsInputParam {
-      
       vat_number?:string;
       vat_number_prefix?:string;
       po_number?:string;
@@ -283,7 +269,6 @@ declare module 'chargebee' {
       transaction:Transaction;
     }
     export interface RecordPaymentInputParam {
-      
       comment?:string;
       transaction?:{amount?:number,date?:number,error_code?:string,error_text?:string,id_at_gateway?:string,payment_method:PaymentMethod,reference_number?:string,status?:'success' | 'failure'};
     }
@@ -291,7 +276,6 @@ declare module 'chargebee' {
       invoice:Invoice;
     }
     export interface DeleteInputParam {
-      
       comment?:string;
       claim_credits?:boolean;
     }
@@ -300,7 +284,6 @@ declare module 'chargebee' {
       credit_note?:CreditNote;
     }
     export interface ImportInvoiceInputParam {
-      
       id:string;
       currency_code?:string;
       customer_id?:string;
@@ -338,7 +321,6 @@ declare module 'chargebee' {
       invoice:Invoice;
     }
     export interface RecordTaxWithheldInputParam {
-      
       tax_withheld?:{amount:number,date?:number,description?:string,reference_number?:string};
     }
     export interface ResendEinvoiceResponse {
@@ -349,7 +331,6 @@ declare module 'chargebee' {
       invoice:Invoice;
     }
     export interface RemoveTaxWithheldInputParam {
-      
       tax_withheld?:{id:string};
     }
     export interface ListPaymentReferenceNumbersResponse {
@@ -357,7 +338,7 @@ declare module 'chargebee' {
       next_offset?:string;
     }
     export interface ListPaymentReferenceNumbersInputParam {
-      [key: string]: string | number | object | boolean;
+      [key : string]: any;
       limit?:number;
       offset?:string;
       id?:{in?:string,is?:string};
@@ -368,7 +349,6 @@ declare module 'chargebee' {
       transaction:Transaction;
     }
     export interface CollectPaymentInputParam {
-      
       amount?:number;
       authorization_transaction_id?:string;
       payment_source_id?:string;
@@ -385,7 +365,6 @@ declare module 'chargebee' {
       credit_note?:CreditNote;
     }
     export interface RefundInputParam {
-      
       refund_amount?:number;
       comment?:string;
       customer_notes?:string;
@@ -397,7 +376,6 @@ declare module 'chargebee' {
       credit_note?:CreditNote;
     }
     export interface RecordRefundInputParam {
-      
       comment?:string;
       customer_notes?:string;
       transaction?:{amount?:number,date:number,payment_method:PaymentMethod,reference_number?:string};
@@ -407,7 +385,6 @@ declare module 'chargebee' {
       download:Download;
     }
     export interface PdfInputParam {
-      
       disposition_type?:DispositionType;
     }
     export interface DownloadEinvoiceResponse {
