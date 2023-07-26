@@ -35,8 +35,8 @@ The full documentation can be found on the Chargebee API Docs: [https://apidocs.
 const chargebee = require('chargebee');
 
 chargebee.configure({
-  site: 'YOUR_SITE_NAME',
-  api_key: 'YOUR_API_KEY',
+  site: '<YOUR_SITE_NAME>',
+  api_key: '<YOUR_API_KEY>',
 });
 ```
 
@@ -46,8 +46,8 @@ Or using ES modules,
 import chargebee from 'chargebee';
 
 chargebee.configure({
-  site: 'YOUR_SITE_NAME',
-  api_key: 'YOUR_API_KEY',
+  site: '<YOUR_SITE_NAME>',
+  api_key: '<YOUR_API_KEY>',
 });
 
 ```
@@ -112,8 +112,8 @@ You can import the types as shown below.
 import chargebee, { Customer } from 'chargebee';
 
 chargebee.configure({
-  site: 'YOUR_SITE_NAME',
-  api_key: 'YOUR_API_KEY',
+  site: '<YOUR_SITE_NAME>',
+  api_key: '<YOUR_API_KEY>',
 });
 
 const createCustomer = async () => {
@@ -204,6 +204,19 @@ chargebee.customer.create({ email: 'john@test.com', cf_host_url: 'http://xyz.com
     const headers = result.headers;
     const isIdempotencyReplayed = result.isIdempotencyReplayed;
   }
+});
+```
+
+### Passing API Keys at request level
+
+```js
+const newCust = await chargebee.customer.create({
+  email: 'john@test.com',
+  first_name: 'John',
+  last_name: 'Doe'
+}).request({
+  site: '<YOUR_SITE_NAME>',
+  api_key: '<YOUR_API_KEY>',
 });
 ```
 
