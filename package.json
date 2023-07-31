@@ -1,6 +1,6 @@
 {
    "name":"chargebee",
-   "version":"2.25.3",
+   "version":"2.26.0",
    "description":"A library for integrating with ChargeBee.",
    "keywords":[
       "payments",
