@@ -1,3 +1,7 @@
+### v2.26.1 (2023-08-11)
+* * *
+* Support Descriptions for the attributes and actions has been added.
+
 ### v2.26.0 (2023-07-31)
 * * *
 

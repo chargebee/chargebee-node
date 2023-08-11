@@ -57,6 +57,7 @@ declare module 'chargebee' {
   type Operation = 'create' | 'update' | 'delete'
   type OperationType = 'add' | 'remove'
   type PauseOption = 'end_of_term' | 'billing_cycles' | 'immediately' | 'specific_date'
+  type PaymentInitiator = 'merchant' | 'customer'
   type PaymentMethod = 'other' | 'netbanking_emandates' | 'ach_credit' | 'dotpay' | 'boleto' | 'direct_debit' | 'chargeback' | 'wechat_pay' | 'cash' | 'giropay' | 'bank_transfer' | 'alipay' | 'ideal' | 'google_pay' | 'custom' | 'unionpay' | 'check' | 'sofort' | 'amazon_payments' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'sepa_credit' | 'card'
   type PaymentMethodType = 'giropay' | 'alipay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'unionpay' | 'direct_debit' | 'generic' | 'sofort' | 'amazon_payments' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'wechat_pay' | 'card'
   type PaymentVoucherType = 'boleto'
