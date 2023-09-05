@@ -158,11 +158,6 @@ declare module 'chargebee' {
       subscriptions(input?:SubscriptionsInputParam):ChargebeeRequest<SubscriptionsResponse>;
     }
     export interface CustomersResponse {  
-      /**
-        * @description This API triggers export of customer data. The exported zip file contains CSV files with customer-related data.
-
-        */
-       
        export:Export;
     }
     export interface CustomersInputParam {
@@ -200,11 +195,6 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       relationship?:{invoice_owner_id?:{is?:string,is_not?:string,starts_with?:string},parent_id?:{is?:string,is_not?:string,starts_with?:string},payment_owner_id?:{is?:string,is_not?:string,starts_with?:string}};
     }
     export interface AttachedItemsResponse {  
-      /**
-        * @description This API triggers export of attached item data. The exported zip file contains CSV files with attached item-related data.
-
-        */
-       
        export:Export;
     }
     export interface AttachedItemsInputParam {
@@ -228,11 +218,6 @@ To filter based on the type of of the attached item. Possible values are : &#x60
       attached_item?:{charge_on_event?:{in?:string,is?:'subscription_creation' | 'subscription_activation' | 'subscription_trial_start' | 'contract_termination' | 'plan_activation' | 'on_demand',is_not?:'subscription_creation' | 'subscription_activation' | 'subscription_trial_start' | 'contract_termination' | 'plan_activation' | 'on_demand',not_in?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},parent_item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},type?:{in?:string,is?:'optional' | 'mandatory' | 'recommended',is_not?:'optional' | 'mandatory' | 'recommended',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
     }
     export interface TransactionsResponse {  
-      /**
-        * @description This API triggers export of transaction data. The exported zip file contains CSV files with transaction-related data.
-
-        */
-       
        export:Export;
     }
     export interface TransactionsInputParam {
@@ -245,11 +230,6 @@ To filter based on the type of of the attached item. Possible values are : &#x60
       transaction?:{amount?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_capturable?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},customer_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},date?:{after?:string,before?:string,between?:string,on?:string},gateway?:{in?:string,is?:'bluepay' | 'beanstream' | 'elavon' | 'orbital' | 'hdfc' | 'nmi' | 'moneris' | 'metrics_global' | 'pin' | 'stripe' | 'quickbooks' | 'razorpay' | 'eway_rapid' | 'balanced_payments' | 'ecentric' | 'wepay' | 'chargebee_payments' | 'bank_of_america' | 'braintree' | 'first_data_global' | 'paypal_express_checkout' | 'ingenico_direct' | 'moneris_us' | 'exact' | 'migs' | 'checkout_com' | 'not_applicable' | 'paypal_pro' | 'ogone' | 'eway' | 'gocardless' | 'global_payments' | 'paymill' | 'adyen' | 'paypal' | 'chargebee' | 'authorize_net' | 'tco' | 'bluesnap' | 'windcave' | 'paypal_payflow_pro' | 'amazon_payments' | 'mollie' | 'cybersource' | 'wirecard' | 'sage_pay' | 'vantiv' | 'worldpay',is_not?:'bluepay' | 'beanstream' | 'elavon' | 'orbital' | 'hdfc' | 'nmi' | 'moneris' | 'metrics_global' | 'pin' | 'stripe' | 'quickbooks' | 'razorpay' | 'eway_rapid' | 'balanced_payments' | 'ecentric' | 'wepay' | 'chargebee_payments' | 'bank_of_america' | 'braintree' | 'first_data_global' | 'paypal_express_checkout' | 'ingenico_direct' | 'moneris_us' | 'exact' | 'migs' | 'checkout_com' | 'not_applicable' | 'paypal_pro' | 'ogone' | 'eway' | 'gocardless' | 'global_payments' | 'paymill' | 'adyen' | 'paypal' | 'chargebee' | 'authorize_net' | 'tco' | 'bluesnap' | 'windcave' | 'paypal_payflow_pro' | 'amazon_payments' | 'mollie' | 'cybersource' | 'wirecard' | 'sage_pay' | 'vantiv' | 'worldpay',not_in?:string},gateway_account_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},id_at_gateway?:{is?:string,is_not?:string,starts_with?:string},payment_method?:{in?:string,is?:'other' | 'netbanking_emandates' | 'ach_credit' | 'dotpay' | 'boleto' | 'direct_debit' | 'chargeback' | 'wechat_pay' | 'cash' | 'giropay' | 'bank_transfer' | 'alipay' | 'ideal' | 'google_pay' | 'custom' | 'unionpay' | 'check' | 'sofort' | 'amazon_payments' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'sepa_credit' | 'card',is_not?:'other' | 'netbanking_emandates' | 'ach_credit' | 'dotpay' | 'boleto' | 'direct_debit' | 'chargeback' | 'wechat_pay' | 'cash' | 'giropay' | 'bank_transfer' | 'alipay' | 'ideal' | 'google_pay' | 'custom' | 'unionpay' | 'check' | 'sofort' | 'amazon_payments' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'sepa_credit' | 'card',not_in?:string},payment_source_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},reference_number?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},status?:{in?:string,is?:'in_progress' | 'success' | 'failure' | 'voided' | 'timeout' | 'needs_attention',is_not?:'in_progress' | 'success' | 'failure' | 'voided' | 'timeout' | 'needs_attention',not_in?:string},subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},type?:{in?:string,is?:'authorization' | 'payment_reversal' | 'payment' | 'refund',is_not?:'authorization' | 'payment_reversal' | 'payment' | 'refund',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
     }
     export interface DifferentialPricesResponse {  
-      /**
-        * @description This API triggers export of differential price data. The exported zip file contains CSV files with differential price-related data.
-
-        */
-       
        export:Export;
     }
     export interface DifferentialPricesInputParam {
@@ -273,11 +253,6 @@ Item Id of Addon / Charge item price for which differential pricing is applied t
       differential_price?:{id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},item_price_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},parent_item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string}};
     }
     export interface ItemFamiliesResponse {  
-      /**
-        * @description This API triggers export of item family data. The exported zip file contains CSV files with item family-related data.
-
-        */
-       
        export:Export;
     }
     export interface ItemFamiliesInputParam {
@@ -290,11 +265,6 @@ Item Id of Addon / Charge item price for which differential pricing is applied t
       item_family?:{id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},name?:{is?:string,is_not?:string,starts_with?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
     }
     export interface InvoicesResponse {  
-      /**
-        * @description This API triggers export of invoice data. The exported zip file contains CSV files with invoice-related data.
-
-        */
-       
        export:Export;
     }
     export interface InvoicesInputParam {
@@ -318,22 +288,10 @@ Payment owner of an invoice.
       invoice?:{amount_adjusted?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_due?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_paid?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},credits_applied?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},date?:{after?:string,before?:string,between?:string,on?:string},dunning_status?:{in?:string,is?:'in_progress' | 'stopped' | 'success' | 'exhausted',is_not?:'in_progress' | 'stopped' | 'success' | 'exhausted',is_present?:'true' | 'false',not_in?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},paid_at?:{after?:string,before?:string,between?:string,on?:string},price_type?:{in?:string,is?:'tax_exclusive' | 'tax_inclusive',is_not?:'tax_exclusive' | 'tax_inclusive',not_in?:string},recurring?:{is?:'true' | 'false'},status?:{in?:string,is?:'pending' | 'paid' | 'voided' | 'not_paid' | 'posted' | 'payment_due',is_not?:'pending' | 'paid' | 'voided' | 'not_paid' | 'posted' | 'payment_due',not_in?:string},subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},total?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description This API gets the status of the export job initiated by the Exports API. If the export job is completed, the downloads resource will also be obtained in the API response. The returned URL in the downloads resource is secure and can be downloaded. The URL expires after 4 hours. Please note that this is a public URL, and can be downloaded by anyone with whom it&#x27;s shared.
-
-**Note:** In case the export is in Failed or In-process state, then the downloads resource will not be available.
-
-        */
-       
        export:Export;
     }
     
     export interface ItemsResponse {  
-      /**
-        * @description This API triggers export of item data. The exported zip file contains CSV files with item-related data.
-
-        */
-       
        export:Export;
     }
     export interface ItemsInputParam {
@@ -346,13 +304,6 @@ Payment owner of an invoice.
       item?:{channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},enabled_for_checkout?:{is?:'true' | 'false'},enabled_in_portal?:{is?:'true' | 'false'},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},is_giftable?:{is?:'true' | 'false'},item_applicability?:{in?:string,is?:'all' | 'restricted',is_not?:'all' | 'restricted',not_in?:string},item_family_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},metered?:{is?:'true' | 'false'},name?:{is?:string,is_not?:string,starts_with?:string},status?:{in?:string,is?:'archived' | 'deleted' | 'active',is_not?:'archived' | 'deleted' | 'active',not_in?:string},type?:{in?:string,is?:'charge' | 'addon' | 'plan',is_not?:'charge' | 'addon' | 'plan',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string},usage_calculation?:{in?:string,is?:'max_usage' | 'sum_of_usages' | 'last_usage',is_not?:'max_usage' | 'sum_of_usages' | 'last_usage',not_in?:string}};
     }
     export interface DeferredRevenueResponse {  
-      /**
-        * @description This API triggers export for the Deferred Revenue Report.
-
-**Note:** This API call is asynchronous. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. In case you are using any of the client libraries, use the **wait for export completion** function provided as an instance method in the library. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **waitForExportCompletion()** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **waitForExportCompletion()** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **WaitForExportCompletion** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which wait until the export status changes.
-
-        */
-       
        export:Export;
     }
     export interface DeferredRevenueInputParam {
@@ -490,13 +441,6 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       relationship?:{invoice_owner_id?:{is?:string,is_not?:string,starts_with?:string},parent_id?:{is?:string,is_not?:string,starts_with?:string},payment_owner_id?:{is?:string,is_not?:string,starts_with?:string}};
     }
     export interface RevenueRecognitionResponse {  
-      /**
-        * @description This API triggers export for the revenue recognition report.
-
-**Note:** This API call is asynchronous. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. In case you are using any of the client libraries, use the **wait for export completion** function provided as an instance method in the library. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **waitForExportCompletion()** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **waitForExportCompletion()** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **WaitForExportCompletion** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which wait until the export status changes.
-
-        */
-       
        export:Export;
     }
     export interface RevenueRecognitionInputParam {
@@ -634,11 +578,6 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       relationship?:{invoice_owner_id?:{is?:string,is_not?:string,starts_with?:string},parent_id?:{is?:string,is_not?:string,starts_with?:string},payment_owner_id?:{is?:string,is_not?:string,starts_with?:string}};
     }
     export interface CreditNotesResponse {  
-      /**
-        * @description This API triggers export of credit note data. The exported zip file contains CSV files with credit note-related data.
-
-        */
-       
        export:Export;
     }
     export interface CreditNotesInputParam {
@@ -651,11 +590,6 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       credit_note?:{amount_allocated?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_available?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_refunded?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},create_reason_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},date?:{after?:string,before?:string,between?:string,on?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},price_type?:{in?:string,is?:'tax_exclusive' | 'tax_inclusive',is_not?:'tax_exclusive' | 'tax_inclusive',not_in?:string},reason_code?:{in?:string,is?:'other' | 'product_unsatisfactory' | 'subscription_pause' | 'order_cancellation' | 'service_unsatisfactory' | 'subscription_cancellation' | 'chargeback' | 'order_change' | 'write_off' | 'waiver' | 'subscription_change' | 'fraudulent',is_not?:'other' | 'product_unsatisfactory' | 'subscription_pause' | 'order_cancellation' | 'service_unsatisfactory' | 'subscription_cancellation' | 'chargeback' | 'order_change' | 'write_off' | 'waiver' | 'subscription_change' | 'fraudulent',not_in?:string},reference_invoice_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},status?:{in?:string,is?:'refund_due' | 'adjusted' | 'refunded' | 'voided',is_not?:'refund_due' | 'adjusted' | 'refunded' | 'voided',not_in?:string},subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},total?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},type?:{in?:string,is?:'adjustment' | 'refundable',is_not?:'adjustment' | 'refundable',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string},voided_at?:{after?:string,before?:string,between?:string,on?:string}};
     }
     export interface CouponsResponse {  
-      /**
-        * @description This API triggers export of coupon data. The exported zip file contains CSV files with coupon-related data.
-
-        */
-       
        export:Export;
     }
     export interface CouponsInputParam {
@@ -679,11 +613,6 @@ The currency code ([ISO 4217 format](https://www.chargebee.com/docs/supported-cu
       coupon?:{apply_on?:{in?:string,is?:'invoice_amount' | 'each_specified_item',is_not?:'invoice_amount' | 'each_specified_item',not_in?:string},created_at?:{after?:string,before?:string,between?:string,on?:string},discount_type?:{in?:string,is?:'fixed_amount' | 'percentage',is_not?:'fixed_amount' | 'percentage',not_in?:string},duration_type?:{in?:string,is?:'limited_period' | 'one_time' | 'forever',is_not?:'limited_period' | 'one_time' | 'forever',not_in?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},name?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},status?:{in?:string,is?:'archived' | 'expired' | 'deleted' | 'active',is_not?:'archived' | 'expired' | 'deleted' | 'active',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
     }
     export interface OrdersResponse {  
-      /**
-        * @description This API triggers export of order data. The exported zip file contains CSV files with order-related data.
-
-        */
-       
        export:Export;
     }
     export interface OrdersInputParam {
@@ -707,11 +636,6 @@ Total amount charged for the order.
       order?:{amount_paid?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},cancelled_at?:{after?:string,before?:string,between?:string,on?:string},customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},delivered_at?:{after?:string,before?:string,between?:string,on?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},is_resent?:{is?:'true' | 'false'},order_date?:{after?:string,before?:string,between?:string,on?:string},original_order_id?:{is?:string,is_not?:string,starts_with?:string},price_type?:{in?:string,is?:'tax_exclusive' | 'tax_inclusive',is_not?:'tax_exclusive' | 'tax_inclusive',not_in?:string},refundable_credits?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},refundable_credits_issued?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},resent_status?:{in?:string,is?:'fully_resent' | 'partially_resent',is_not?:'fully_resent' | 'partially_resent',not_in?:string},shipped_at?:{after?:string,before?:string,between?:string,on?:string},shipping_date?:{after?:string,before?:string,between?:string,on?:string},status?:{in?:string,is?:'new' | 'partially_delivered' | 'queued' | 'delivered' | 'on_hold' | 'shipped' | 'processing' | 'cancelled' | 'voided' | 'complete' | 'awaiting_shipment' | 'returned',is_not?:'new' | 'partially_delivered' | 'queued' | 'delivered' | 'on_hold' | 'shipped' | 'processing' | 'cancelled' | 'voided' | 'complete' | 'awaiting_shipment' | 'returned',not_in?:string},subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
     }
     export interface ItemPricesResponse {  
-      /**
-        * @description This API triggers export of item price data. The exported zip file contains CSV files with item price-related data.
-
-        */
-       
        export:Export;
     }
     export interface ItemPricesInputParam {
@@ -757,11 +681,6 @@ Filter item prices based on their &#x60;currency_code&#x60;.
       item_price?:{channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},name?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},period?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},period_unit?:{in?:string,is?:'week' | 'month' | 'year' | 'day',is_not?:'week' | 'month' | 'year' | 'day',not_in?:string},pricing_model?:{in?:string,is?:'volume' | 'per_unit' | 'tiered' | 'flat_fee' | 'stairstep',is_not?:'volume' | 'per_unit' | 'tiered' | 'flat_fee' | 'stairstep',not_in?:string},status?:{in?:string,is?:'archived' | 'deleted' | 'active',is_not?:'archived' | 'deleted' | 'active',not_in?:string},trial_period?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},trial_period_unit?:{in?:string,is?:'month' | 'day',is_not?:'month' | 'day',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
     }
     export interface SubscriptionsResponse {  
-      /**
-        * @description This API triggers export of subscription data. The exported zip file contains CSV files with subscription-related data.
-
-        */
-       
        export:Export;
     }
     export interface SubscriptionsInputParam {

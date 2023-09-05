@@ -132,11 +132,6 @@ For example, if a customer has credits of $10, if you pass the **amount** as $10
       add(input:AddInputParam):ChargebeeRequest<AddResponse>;
     }
     export interface RetrieveResponse {  
-      /**
-        * @description This endpoint retrieves the promotional credit based on the promotional credit id
-
-        */
-       
        promotional_credit:PromotionalCredit;
     }
     
@@ -200,25 +195,7 @@ For example, if a customer has credits of $10, if you pass the **amount** as $10
       customer_id?:{is?:string,is_not?:string,starts_with?:string};
     }
     export interface DeductResponse {  
-      /**
-        * @description This API call can be used to deduct promotional credits for a customer. [Learn more about Promotional Credits](https://www.chargebee.com/docs/2.0/credit-notes.html#creating-promotional-credits).
-
-For example, if a customer has a credit balance of $20, if you pass the **amount** as $5, then the customer&#x27;s credit balance would become $15.
-
-If you do not pass any amount as the input parameter then, it will deduct the whole available amount from the credit balance.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description This API call can be used to deduct promotional credits for a customer. [Learn more about Promotional Credits](https://www.chargebee.com/docs/2.0/credit-notes.html#creating-promotional-credits).
-
-For example, if a customer has a credit balance of $20, if you pass the **amount** as $5, then the customer&#x27;s credit balance would become $15.
-
-If you do not pass any amount as the input parameter then, it will deduct the whole available amount from the credit balance.
-
-        */
        
        promotional_credit:PromotionalCredit;
     }
@@ -274,21 +251,7 @@ If you do not pass any amount as the input parameter then, it will deduct the wh
       reference?:string;
     }
     export interface SetResponse {  
-      /**
-        * @description This API call can be used to set the promotional credits balance of a customer. [Learn more about Promotional Credits](https://www.chargebee.com/docs/2.0/credit-notes.html#creating-promotional-credits).
-
-For example, if a customer has a credit balance of $10 and if you would like to set the balance to $100, you could pass the **amount** as $100.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description This API call can be used to set the promotional credits balance of a customer. [Learn more about Promotional Credits](https://www.chargebee.com/docs/2.0/credit-notes.html#creating-promotional-credits).
-
-For example, if a customer has a credit balance of $10 and if you would like to set the balance to $100, you could pass the **amount** as $100.
-
-        */
        
        promotional_credit:PromotionalCredit;
     }
@@ -344,21 +307,7 @@ For example, if a customer has a credit balance of $10 and if you would like to 
       reference?:string;
     }
     export interface AddResponse {  
-      /**
-        * @description This API call can be used to add promotional credits to a customer. [Learn more about Promotional Credits](https://www.chargebee.com/docs/2.0/credit-notes.html#creating-promotional-credits).
-
-For example, if a customer has credits of $10, if you pass the **amount** as $10, then the customer&#x27;s credit balance would become $20.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description This API call can be used to add promotional credits to a customer. [Learn more about Promotional Credits](https://www.chargebee.com/docs/2.0/credit-notes.html#creating-promotional-credits).
-
-For example, if a customer has credits of $10, if you pass the **amount** as $10, then the customer&#x27;s credit balance would become $20.
-
-        */
        
        promotional_credit:PromotionalCredit;
     }

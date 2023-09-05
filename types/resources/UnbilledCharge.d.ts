@@ -222,32 +222,10 @@ If consolidated invoicing is enabled and the parameter &#x27;customer_id&#x27; i
       create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
     }
     export interface DeleteResponse {  
-      /**
-        * @description Use this API to delete an unbilled charge by specifying the id of the charge.
-
-        */
-       
        unbilled_charge:UnbilledCharge;
     }
     
     export interface InvoiceNowEstimateResponse {  
-      /**
-        * @description This is similar to the &quot;Create an invoice for unbilled charges&quot; API but no invoice will be created, only an estimate for this operation is created.
-
-In the estimate response,
-
-* **estimate.invoice_estimates** is an array of **estimate.invoice_estimate**. This has the details of the invoices that will be generated now.
-
-**Note:**
-
-* This API when invoked does not perform the actual operation. It just generates an estimate.
-* Both *subscription_id* and *customer_id* parameters should not be given at the same time.
-
-
-
-
-        */
-       
        estimate:Estimate;
     }
     export interface InvoiceNowEstimateInputParam {
@@ -267,25 +245,6 @@ In the estimate response,
       customer_id?:string;
     }
     export interface InvoiceUnbilledChargesResponse {  
-      /**
-        * @description Use this API to bill the [unbilled charges](https://www.chargebee.com/docs/unbilled-charges.html). Available Credits and Excess Payments will automatically be applied while creating the invoice.
-
-If the *Auto Collection* is turned on for the particular customer, the invoice will be created in payment_due state and the payment collection will be scheduled immediately.
-
-During invoice creation, the PO number for the line items will be filled from the subscription&#x27;s current PO number, if available.
-
-If no recurring item is present in the created invoice, the invoice will be marked as recurring&#x3D;false.
-
-If consolidated invoicing is enabled and the parameter &#x27;customer_id&#x27; is passed, multiple invoices can be created based on the following factors.
-
-* Currency
-* PO number if &#x27;Group by PO number&#x27; is enabled
-* Shipping address
-* Auto Collection
-* Payment method
-
-        */
-       
        invoices:Invoice[];
     }
     export interface InvoiceUnbilledChargesInputParam {
@@ -364,11 +323,6 @@ If consolidated invoicing is enabled and the parameter &#x27;customer_id&#x27; i
       customer_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string};
     }
     export interface CreateResponse {  
-      /**
-        * @description This endpoint creates unbilled charges for a subscription.
-
-        */
-       
        unbilled_charges:UnbilledCharge[];
     }
     export interface CreateInputParam {

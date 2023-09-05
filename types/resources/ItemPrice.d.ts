@@ -363,20 +363,10 @@ If an addon-item price has [differential pricing](differential_prices?prod_cat_v
       sort_by?:{asc?:'updated_at' | 'name' | 'id',desc?:'updated_at' | 'name' | 'id'};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description This API retrieves a specific item price using the id.
-
-        */
-       
        item_price:ItemPrice;
     }
     
     export interface UpdateResponse {  
-      /**
-        * @description Updates an item price with the changes specified. Unspecified item price attributes are not modified.
-
-        */
-       
        item_price:ItemPrice;
     }
     export interface UpdateInputParam {
@@ -579,11 +569,6 @@ If subscriptions, invoices or [differential prices](./differential_prices?prod_c
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
     export interface DeleteResponse {  
-      /**
-        * @description Deletes an item price, marking its &#x60;status&#x60; as &#x60;deleted&#x60;. If it is part of a subscription or invoice, the item price &#x60;status&#x60; is marked &#x60;archived&#x60; instead. Once deleted, the &#x60;id&#x60; and &#x60;name&#x60; of the item price can be reused to create a new item price.
-
-        */
-       
        item_price:ItemPrice;
     }
     
@@ -797,11 +782,6 @@ If an addon-item price has [differential pricing](differential_prices?prod_cat_v
       sort_by?:{asc?:'updated_at' | 'name' | 'id',desc?:'updated_at' | 'name' | 'id'};
     }
     export interface CreateResponse {  
-      /**
-        * @description This API creates an item price (a price point) for an [item](./items?prod_cat_ver&#x3D;2).
-
-        */
-       
        item_price:ItemPrice;
     }
     export interface CreateInputParam {

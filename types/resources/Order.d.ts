@@ -626,13 +626,6 @@ Chargebee no longer supports this endpoint, see [here](https://www.chargebee.com
       sort_by?:{asc?:'updated_at' | 'created_at',desc?:'updated_at' | 'created_at'};
     }
     export interface CreateResponse {  
-      /**
-        * @description #### Deprecated
-
-Chargebee no longer supports this endpoint, see [here](https://www.chargebee.com/docs/1.0/manual_orders_deprecate.html) for more information. Contact [Support](https://chargebee.freshdesk.com/support/home/) for additional assistance or if you have concerns about this update.
-
-        */
-       
        order:Order;
     }
     export interface CreateInputParam {
@@ -701,11 +694,6 @@ Chargebee no longer supports this endpoint, see [here](https://www.chargebee.com
       batch_id?:string;
     }
     export interface ImportOrderResponse {  
-      /**
-        * @description Import an order for an invoice with one or more line items. The import order bulk operation is to be applied on an imported invoice.
-
-        */
-       
        order:Order;
     }
     export interface ImportOrderInputParam {
@@ -900,20 +888,10 @@ If this order hasn&#x27;t been processed and is in &#x27;queued&#x27; status, do
       billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
     }
     export interface AssignOrderNumberResponse {  
-      /**
-        * @description Assigns order number to the order based on the settings, if not already assigned
-
-        */
-       
        order:Order;
     }
     
     export interface ResendResponse {  
-      /**
-        * @description Resend an existing order. This will help in resending an existing order in full or partial. Upto 5 resend operations are allowed per . When resent fully, the original order is canceled.
-
-        */
-       
        order:Order;
     }
     export interface ResendInputParam {
@@ -940,11 +918,6 @@ If this order hasn&#x27;t been processed and is in &#x27;queued&#x27; status, do
       order_line_items?:{fulfillment_quantity?:number,id?:string}[];
     }
     export interface ReopenResponse {  
-      /**
-        * @description This API is used to re-open a cancelled order
-
-        */
-       
        order:Order;
     }
     export interface ReopenInputParam {
@@ -957,11 +930,6 @@ If this order hasn&#x27;t been processed and is in &#x27;queued&#x27; status, do
       void_cancellation_credit_notes?:boolean;
     }
     export interface CancelResponse {  
-      /**
-        * @description Cancel order and create a refundable credit note for the order
-
-        */
-       
        order:Order;
     }
     export interface CancelInputParam {
@@ -1002,20 +970,10 @@ If this order hasn&#x27;t been processed and is in &#x27;queued&#x27; status, do
       credit_note?:{total?:number};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves an order corresponding to the order id passed.
-
-        */
-       
        order:Order;
     }
     
     export interface UpdateResponse {  
-      /**
-        * @description Updates an order. If the status of an order is changed while updating the order, the status_update_at attribute is set with the current time.
-
-        */
-       
        order:Order;
     }
     export interface UpdateInputParam {
@@ -1133,20 +1091,10 @@ If this order hasn&#x27;t been processed and is in &#x27;queued&#x27; status, do
       order_line_items?:{id?:string,sku?:string,status?:'shipped' | 'partially_delivered' | 'queued' | 'cancelled' | 'delivered' | 'on_hold' | 'awaiting_shipment' | 'returned'}[];
     }
     export interface DeleteResponse {  
-      /**
-        * @description Deletes only [Imported Order](#import_an_order) .Delete does not happen if the order was refunded. It goes through if order refund was initiated and is in &quot;refund_due&quot; state.
-
-        */
-       
        order:Order;
     }
     
     export interface CreateRefundableCreditNoteResponse {  
-      /**
-        * @description This API is used to create a refundable credit note for the order
-
-        */
-       
        order:Order;
     }
     export interface CreateRefundableCreditNoteInputParam {

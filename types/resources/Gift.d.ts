@@ -124,24 +124,9 @@ declare module 'chargebee' {
       claim(gift_id:string):ChargebeeRequest<ClaimResponse>;
     }
     export interface CreateForItemsResponse {  
-      /**
-        * @description Create a gift subscription with items like plans, addons, or charges and gift it to an existing customer.
-
-        */
-       
        gift:Gift;
        
-      /**
-        * @description Create a gift subscription with items like plans, addons, or charges and gift it to an existing customer.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description Create a gift subscription with items like plans, addons, or charges and gift it to an existing customer.
-
-        */
        
        invoice?:Invoice;
     }
@@ -218,33 +203,13 @@ declare module 'chargebee' {
       subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string}[];
     }
     export interface CancelResponse {  
-      /**
-        * @description This API allows to cancel gifts. Only gift in &#x27;scheduled&#x27; and &#x27;unclaimed&#x27; states can be cancelled.
-
-        */
-       
        gift:Gift;
-       
-      /**
-        * @description This API allows to cancel gifts. Only gift in &#x27;scheduled&#x27; and &#x27;unclaimed&#x27; states can be cancelled.
-
-        */
        
        subscription:Subscription;
     }
     
     export interface UpdateGiftResponse {  
-      /**
-        * @description Change the date/time at which the gift notification email is to be sent. This only applies to gifts in the scheduled [status](https://apidocs.chargebee.com/docs/api/gifts#gift_status).
-
-        */
-       
        gift:Gift;
-       
-      /**
-        * @description Change the date/time at which the gift notification email is to be sent. This only applies to gifts in the scheduled [status](https://apidocs.chargebee.com/docs/api/gifts#gift_status).
-
-        */
        
        subscription:Subscription;
     }
@@ -317,33 +282,13 @@ declare module 'chargebee' {
       gifter?:{customer_id?:{is?:string,is_not?:string,starts_with?:string}};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves a gift subscription. This API accepts the gift &#x27;id&#x27; and returns the gift along with the subscription.
-
-        */
-       
        gift:Gift;
-       
-      /**
-        * @description Retrieves a gift subscription. This API accepts the gift &#x27;id&#x27; and returns the gift along with the subscription.
-
-        */
        
        subscription:Subscription;
     }
     
     export interface ClaimResponse {  
-      /**
-        * @description Claiming a gift will move the status to &#x27;claimed&#x27;. Only gifts in &#x27;unclaimed&#x27; state can be claimed.
-
-        */
-       
        gift:Gift;
-       
-      /**
-        * @description Claiming a gift will move the status to &#x27;claimed&#x27;. Only gifts in &#x27;unclaimed&#x27; state can be claimed.
-
-        */
        
        subscription:Subscription;
     }

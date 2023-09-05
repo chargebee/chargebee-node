@@ -247,27 +247,6 @@ In the response,
       advance_invoice_estimate(subscription_id:string, input?:AdvanceInvoiceEstimateInputParam):ChargebeeRequest<AdvanceInvoiceEstimateResponse>;
     }
     export interface RenewalEstimateResponse {  
-      /**
-        * @description This returns an estimate of the amount that will be charged when the subscription is billed next. The estimate is calculated based on the current recurring items of the subscription - plan, addons, and coupons.
-
-In the response,
-
-* **estimate.subscription_estimate** has the current subscription details like its status, next billing date, and so on.
-* **estimate.invoice_estimate** has details of the invoice that will be generated at the next billing date.
-
-  The generated invoice estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any. If you don&#x27;t want these balances to be included you can specify &#x27;false&#x27; for the parameter *use_existing_balances*.
-
-  To exclude the [delayed charges](https://www.chargebee.com/docs/charges.html) from the invoice estimate, specify &#x27;false&#x27; for the parameter *include_delayed_charges*.
-
-**Note:**
-
-* This API will not generate a renewal invoice if an [advance invoice](https://www.chargebee.com/docs/advance-invoices.html) is already present for the subscription.
-* For &#x27;Non Renewing&#x27; subscriptions, only the [delayed charges](https://www.chargebee.com/docs/charges.html) will be included in the invoice estimate.
-* This API is not supported for &#x27;Cancelled&#x27; subscriptions.
-* Only the subscription&#x27;s charges will be included. If you have enabled the Consolidated invoicing feature, use the *Upcoming Invoices* estimate available for the Customer object to get the actual estimate invoice for the customer.
-
-        */
-       
        estimate:Estimate;
     }
     export interface RenewalEstimateInputParam {
@@ -365,26 +344,6 @@ In the response,
       ignore_scheduled_changes?:boolean;
     }
     export interface CreateSubItemEstimateResponse {  
-      /**
-        * @description Generates an estimate for creating a subscription when the customer does not exist in Chargebee. This estimate API can be called when the customer has not yet signed up and you want to preview how a new subscription would look like for them.
-
-**Note:** Estimate operations do not make any changes in Chargebee; hence this API does not create an actual &#x60;customer&#x60; or &#x60;subscription&#x60; record.  
-**See also**
-
-* [Estimate a purchase](https://apidocs.chargebee.com/docs/api/purchases#estimates_for_purchase): an operation that estimates a &#x60;purchase&#x60; representing multiple subscriptions bought together by a customer.
-
-The response contains one or more of the following objects:
-
-* &#x60;subscription_estimate&#x60;: The subscription details like the status of the subscription (such as &#x60;in_trial&#x60; or &#x60;active&#x60;), next billing date, and so on.
-* &#x60;invoice_estimate&#x60;:The details of the immediate invoice, if there is one. If the subscription is created in &#x60;trial&#x60;/&#x60;future&#x60; states, &#x60;invoice_estimate&#x60; is unavailable as no immediate invoice is generated.
-* &#x60;next_invoice_estimate&#x60;:This is returned when an immediate invoice is not generated. It contains the details of the invoice that will be generated on the next billing date of the subscription.
-* &#x60;unbilled_charge_estimates&#x60;: This contains the details of charges that have not been invoiced. This is returned only if the &#x60;invoice_immediately&#x60; parameter is set to &#x60;false&#x60;.
-
-
-
-
-        */
-       
        estimate:Estimate;
     }
     export interface CreateSubItemEstimateInputParam {
@@ -503,11 +462,6 @@ The response contains one or more of the following objects:
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
     export interface CancelSubscriptionForItemsResponse {  
-      /**
-        * @description This creates an estimate for canceling a subscription without actually canceling it. Estimate details include canceling date, unbilled charge options, refund credit handling, the amount to be credited after cancellation, and so on.
-
-        */
-       
        estimate:Estimate;
     }
     export interface CancelSubscriptionForItemsInputParam {
@@ -604,22 +558,6 @@ The response contains one or more of the following objects:
       subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
     }
     export interface ResumeSubscriptionResponse {  
-      /**
-        * @description Generates an estimate for the &#x27;resume subscription&#x27; operation. This is similar to the [Resume a subscription](/docs/api/subscriptions#resume_a_subscription) API, but the subscription will not be resumed. Only an estimate for this operation is created.
-
-In the response,
-
-* **estimate.subscription_estimate** has the subscription details.
-* **estimate.invoice_estimate** has details of the invoice that will be generated immediately. This will not be present if no immediate invoice is generated for this operation. This will happen for in-term resumption^++^.   
-
-  **^++^What is an &quot;in-term resumption&quot;?**   
-  An &quot;in-term resumption&quot; is when the resumption happens within the billing term of the subscription.
-* **estimate.next_invoice_estimate** has details of the invoice that will be generated during the next billing date of this subscription. This will be present only if no immediate invoice is generated during this operation (scenario mentioned above) and this subscription has next billing.   
-
-  The generated invoice_estimate/next_invoice_estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any.
-
-        */
-       
        estimate:Estimate;
     }
     export interface ResumeSubscriptionInputParam {
@@ -646,11 +584,6 @@ In the response,
       subscription?:{resume_date?:number};
     }
     export interface CreateInvoiceForItemsResponse {  
-      /**
-        * @description This endpoint creates an invoice estimate for non-recurring items.
-
-        */
-       
        estimate:Estimate;
     }
     export interface CreateInvoiceForItemsInputParam {
@@ -761,11 +694,6 @@ In the response,
       discounts?:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
     }
     export interface GiftSubscriptionForItemsResponse {  
-      /**
-        * @description This endpoint generates an estimate for a subscription that is intended to be a gift. The estimate provides details about the gift sender, gift recipient, address details of the recipient, and the type and details of subscription items included in the gift.
-
-        */
-       
        estimate:Estimate;
     }
     export interface GiftSubscriptionForItemsInputParam {
@@ -820,23 +748,6 @@ In the response,
       subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string}[];
     }
     export interface UpdateSubscriptionForItemsResponse {  
-      /**
-        * @description Returns an estimate for updating a subscription.
-
-In the response,
-
-* [subscription_estimate](/docs/api/estimates#subscription_estimate_attributes): The details of the changed subscription such as &#x60;status&#x60;, next billing date, and so on.
-* [invoice_estimate](/docs/api/estimates#invoice_estimate_attributes):The details of the immediate invoice, if it is generated. An immediate invoice is not generated when:
-  * &#x60;end_of_term&#x60; parameter is true
-  * &#x60;prorate&#x60; parameter is &#x60;false&#x60;
-  * No changes are made to the plan item prices or addon item prices in &#x60;subscription_items&#x60;.
-  * For changes such as [quantity downgrades](https://www.chargebee.com/docs/proration.html#proration-mechanism_plan-quantity-downgrade-paid-invoice).
-* [next_invoice_estimate](/docs/api/estimates#next_invoice_estimate_attributes):The details of the invoice to be generated later (if any) on the occasion that no immediate invoice has been generated.
-* [credit_note_estimates](/docs/api/estimates#credit_note_estimate_attributes):The list of credit notes (if any) generated during this operation.
-* [unbilled_charge_estimates](/docs/api/estimates#unbilled_charge_estimate_attributes): The details of charges that have not been invoiced. This is returned only if the &#x60;invoice_immediately&#x60; parameter is set to &#x60;false&#x60;.
-
-        */
-       
        estimate:Estimate;
     }
     export interface UpdateSubscriptionForItemsInputParam {
@@ -1030,42 +941,10 @@ An immediate previous change was made
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
     export interface UpcomingInvoicesEstimateResponse {  
-      /**
-        * @description Estimate of the upcoming scheduled invoices (subscription activations, renewals etc) of a customer. For now preview of the invoices generated on the immediate upcoming date is supported. Say a customer has couple of subscription renewals scheduled on *Jan,10th* and another subscription renewal scheduled on *Jan,15th* . This API gives the preview of all the invoices scheduled to be generated on *Jan,10th* (immediate upcoming date).
-
-In the response:
-
-* **estimate.invoice_estimates\[\]** has details of the invoices scheduled to be generated.
-
-**Note:** If *consolidated invoicing* is enabled you may use this API to test whether upcoming renewals are consolidated.
-
-        */
-       
        estimate:Estimate;
     }
     
     export interface RegenerateInvoiceEstimateResponse {  
-      /**
-        * @description Regenerates the invoice for the current term of the subscription. The subscription must have &#x60;status&#x60; as &#x60;active&#x60; or &#x60;non_renewing&#x60;. This operation is not allowed when any of the following conditions hold true for the subscription:
-
-* An invoice exists for the current term and its &#x60;status&#x60; is not &#x60;voided&#x60;.
-* There are [unbilled charges](https://www.chargebee.com/docs/unbilled-charges.html) for the current term.
-* The subscription has an [advance invoice](https://www.chargebee.com/docs/advance-invoices.html).
-
-
-
-#### Response
-
-Returns an &#x60;estimate&#x60; object with one of the following components depending on the value of &#x60;invoice_immediately&#x60;.
-
-* If the value is &#x60;true&#x60;: an &#x60;invoice_estimate&#x60; object that corresponds to the regenerated invoice.
-* If the value is &#x60;false&#x60;: a list of &#x60;unbilled_charge_estimate&#x60; objects corresponding to all the unbilled charges created for the current term of the subscription.
-
-
-
-
-        */
-       
        estimate:Estimate;
     }
     export interface RegenerateInvoiceEstimateInputParam {
@@ -1099,14 +978,6 @@ Returns an &#x60;estimate&#x60; object with one of the following components depe
       invoice_immediately?:boolean;
     }
     export interface CreateSubItemForCustomerEstimateResponse {  
-      /**
-        * @description Generates an estimate without creating a subscription. This endpoint can be called when you want to preview details of a new subscription before actually creating one.  
-**See also**
-
-* [Estimate a purchase](https://apidocs.chargebee.com/docs/api/purchases#estimates_for_purchase): an operation that estimates a &#x60;purchase&#x60; representing multiple subscriptions bought together by a customer.
-
-        */
-       
        estimate:Estimate;
     }
     export interface CreateSubItemForCustomerEstimateInputParam {
@@ -1211,21 +1082,6 @@ Returns an &#x60;estimate&#x60; object with one of the following components depe
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
     export interface ChangeTermEndResponse {  
-      /**
-        * @description Generates an estimate for the &#x27;change term end&#x27; operation. This is similar to the [Change term end](/docs/api/subscriptions#change_term_end) API but the subscription&#x27;s term end will not be changed, only an estimate for this operation is created. This is applicable only for subscriptions in &#x27;in-trial&#x27;, &#x27;active&#x27; and &#x27;non-renewing&#x27; states.
-
-In the response,
-
-* **estimate.subscription_estimate** has the subscription details like the status of the subscription (in_trial, active, etc.), next billing date, and so on.
-* **estimate.invoice_estimate** has details of the invoice that will be generated immediately. This will not be present if no immediate invoice is generated for this operation. This will happen when
-  * *prorate* parameter is false, or
-  * *invoice_immediately* parameter is false, or
-  * subscription is in *in-trial* state
-* **estimate.credit_note_estimates\[\]** has details of the credit-notes that will get generated during this operation. This list will be empty if no credit-note gets generated during this operation.
-* **estimate.unbilled_charge_estimates\[\]** has details of the unbilled charges. This is returned only if *invoice_immediately* is set as false.
-
-        */
-       
        estimate:Estimate;
     }
     export interface ChangeTermEndInputParam {
@@ -1253,17 +1109,6 @@ In the response,
       invoice_immediately?:boolean;
     }
     export interface PauseSubscriptionResponse {  
-      /**
-        * @description This API provides an estimate of the details pertaining to the [pause_subscription](/docs/api/subscriptions#pause_a_subscription) operation. It returns attributes such as [pause_date](/docs/api/estimates#estimate_subscription_estimate_pause_date) and [resume_date](/docs/api/estimates#estimate_subscription_estimate_resume_date). This is similar to the [Pause a subscription](/docs/api/subscriptions#pause_a_subscription) API with the exception that the subscription is not paused. Only an estimate for this operation is created.
-
-In the response,
-
-* **estimate.subscription_estimate** has the subscription details.
-* **estimate.invoice_estimate** has details of the invoice that are generated immediately. This is not present if no immediate invoices are generated for this operation.
-* **estimate.credit_note_estimates\[\]** has details of the credit notes that are generated during this operation. This list is empty if no credit notes are generated.
-
-        */
-       
        estimate:Estimate;
     }
     export interface PauseSubscriptionInputParam {
@@ -1305,11 +1150,6 @@ If &#x60;no_action&#x60; is chosen, charges are added to the resumption invoice.
       subscription?:{pause_date?:number,resume_date?:number,skip_billing_cycles?:number};
     }
     export interface AdvanceInvoiceEstimateResponse {  
-      /**
-        * @description This API is used to generate an invoice estimate for preview. Estimate details include the number of billing cycles to be invoiced in advance, the number of billing cycles in one interval, advance invoicing schedules, and so on.
-
-        */
-       
        estimate:Estimate;
     }
     export interface AdvanceInvoiceEstimateInputParam {

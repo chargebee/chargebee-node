@@ -54,20 +54,10 @@ declare module 'chargebee' {
       archive(coupon_code_code:string):ChargebeeRequest<ArchiveResponse>;
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves a specific coupon code details.
-
-        */
-       
        coupon_code:CouponCode;
     }
     
     export interface ArchiveResponse {  
-      /**
-        * @description Archives a coupon code thereby making it inactive. The archived coupon code cannot be applied to any subscription.
-
-        */
-       
        coupon_code:CouponCode;
     }
     

@@ -374,17 +374,7 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       delete(quote_id:string, input?:DeleteInputParam):ChargebeeRequest<DeleteResponse>;
     }
     export interface CreateSubItemsForCustomerQuoteResponse {  
-      /**
-        * @description Create a quote for new subscription line items of a customer.
-
-        */
-       
        quote:Quote;
-       
-      /**
-        * @description Create a quote for new subscription line items of a customer.
-
-        */
        
        quoted_subscription?:QuotedSubscription;
     }
@@ -489,40 +479,15 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves the quotes identified by the &#x27;number&#x27; specified in the url.
-
-        */
-       
        quote:Quote;
        
-      /**
-        * @description Retrieves the quotes identified by the &#x27;number&#x27; specified in the url.
-
-        */
-       
        quoted_subscription?:QuotedSubscription;
-       
-      /**
-        * @description Retrieves the quotes identified by the &#x27;number&#x27; specified in the url.
-
-        */
        
        quoted_charge?:QuotedCharge;
     }
     
     export interface EditCreateSubCustomerQuoteForItemsResponse {  
-      /**
-        * @description Changes the quote produced for creating a new subscription items
-
-        */
-       
        quote:Quote;
-       
-      /**
-        * @description Changes the quote produced for creating a new subscription items
-
-        */
        
        quoted_subscription?:QuotedSubscription;
     }
@@ -620,24 +585,9 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
     export interface UpdateStatusResponse {  
-      /**
-        * @description Updates the status of the quote. Status can be updated to Accepted, Declined, and Closed.
-
-        */
-       
        quote:Quote;
        
-      /**
-        * @description Updates the status of the quote. Status can be updated to Accepted, Declined, and Closed.
-
-        */
-       
        quoted_subscription?:QuotedSubscription;
-       
-      /**
-        * @description Updates the status of the quote. Status can be updated to Accepted, Declined, and Closed.
-
-        */
        
        quoted_charge?:QuotedCharge;
     }
@@ -658,17 +608,7 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       comment?:string;
     }
     export interface UpdateSubscriptionQuoteForItemsResponse {  
-      /**
-        * @description Create a quote for updating subscription line items.
-
-        */
-       
        quote:Quote;
-       
-      /**
-        * @description Create a quote for updating subscription line items.
-
-        */
        
        quoted_subscription?:QuotedSubscription;
     }
@@ -888,24 +828,9 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       offset?:string;
     }
     export interface ExtendExpiryDateResponse {  
-      /**
-        * @description Can be used to extend the expiry date of a quote.
-
-        */
-       
        quote:Quote;
        
-      /**
-        * @description Can be used to extend the expiry date of a quote.
-
-        */
-       
        quoted_subscription?:QuotedSubscription;
-       
-      /**
-        * @description Can be used to extend the expiry date of a quote.
-
-        */
        
        quoted_charge?:QuotedCharge;
     }
@@ -919,17 +844,7 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       valid_till:number;
     }
     export interface EditForChargeItemsAndChargesResponse {  
-      /**
-        * @description Changes the quote produced for adding one-time charges and charge items.
-
-        */
-       
        quote:Quote;
-       
-      /**
-        * @description Changes the quote produced for adding one-time charges and charge items.
-
-        */
        
        quoted_charge?:QuotedCharge;
     }
@@ -1013,17 +928,7 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       discounts?:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
     }
     export interface EditUpdateSubscriptionQuoteForItemsResponse {  
-      /**
-        * @description Changes the quote produced for updating the subscription items.
-
-        */
-       
        quote:Quote;
-       
-      /**
-        * @description Changes the quote produced for updating the subscription items.
-
-        */
        
        quoted_subscription?:QuotedSubscription;
     }
@@ -1293,11 +1198,6 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       sort_by?:{asc?:'date',desc?:'date'};
     }
     export interface PdfResponse {  
-      /**
-        * @description Retrieves the quote as a PDF. The returned URL is secure, allows download and expires in 60 minutes.
-
-        */
-       
        download:Download;
     }
     export interface PdfInputParam {
@@ -1317,59 +1217,19 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       disposition_type?:DispositionType;
     }
     export interface ConvertResponse {  
-      /**
-        * @description This API is to convert a quote to an invoice.
-
-        */
-       
        quote:Quote;
-       
-      /**
-        * @description This API is to convert a quote to an invoice.
-
-        */
        
        quoted_subscription?:QuotedSubscription;
        
-      /**
-        * @description This API is to convert a quote to an invoice.
-
-        */
-       
        quoted_charge?:QuotedCharge;
-       
-      /**
-        * @description This API is to convert a quote to an invoice.
-
-        */
        
        customer:Customer;
        
-      /**
-        * @description This API is to convert a quote to an invoice.
-
-        */
-       
        subscription?:Subscription;
-       
-      /**
-        * @description This API is to convert a quote to an invoice.
-
-        */
        
        invoice?:Invoice;
        
-      /**
-        * @description This API is to convert a quote to an invoice.
-
-        */
-       
        credit_note?:CreditNote;
-       
-      /**
-        * @description This API is to convert a quote to an invoice.
-
-        */
        
        unbilled_charges?:UnbilledCharge[];
     }
@@ -1425,17 +1285,7 @@ This parameter is passed only when there are metered items in the subscription o
       subscription?:{auto_close_invoices?:boolean,auto_collection?:AutoCollection,id?:string,po_number?:string};
     }
     export interface CreateForChargeItemsAndChargesResponse {  
-      /**
-        * @description Creates a quote using charge-items and one-time charges.
-
-        */
-       
        quote:Quote;
-       
-      /**
-        * @description Creates a quote using charge-items and one-time charges.
-
-        */
        
        quoted_charge?:QuotedCharge;
     }
@@ -1533,24 +1383,9 @@ This parameter is passed only when there are metered items in the subscription o
       discounts?:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
     }
     export interface DeleteResponse {  
-      /**
-        * @description Delete a quote using this API.
-
-        */
-       
        quote:Quote;
        
-      /**
-        * @description Delete a quote using this API.
-
-        */
-       
        quoted_subscription?:QuotedSubscription;
-       
-      /**
-        * @description Delete a quote using this API.
-
-        */
        
        quoted_charge?:QuotedCharge;
     }

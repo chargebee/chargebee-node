@@ -165,20 +165,10 @@ If multiple [business entities](/docs/api/advanced-features#mbe) are created for
       create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves the PaymentIntent resource.
-
-        */
-       
        payment_intent:PaymentIntent;
     }
     
     export interface UpdateResponse {  
-      /**
-        * @description Updating properties on a PaymentIntent object. All the subsequent 3DS transaction attempts will have the updated values.
-
-        */
-       
        payment_intent:PaymentIntent;
     }
     export interface UpdateInputParam {
@@ -226,21 +216,6 @@ If multiple [business entities](/docs/api/advanced-features#mbe) are created for
       failure_url?:string;
     }
     export interface CreateResponse {  
-      /**
-        * @description Creates a PaymentIntent object. This is to be used with Chargebee.js API to complete the 3DS flow for new or stored cards.
-
-While creating, specify the appropriate gateway account and amount. Exact amount can be estimated using our [Estimate API](/docs/api/estimates).
-
-#### Customer resource lookup and creation {#customer_lookup}
-
-When [customer[id]](/docs/api/payment_intents#create_a_payment_intent_customer_id) is provided for this operation, it is looked up by Chargebee, and if found, the payment_intent is created for it. If not found, a new customer resource is created with the ID provided, and the payment_intent is created.
-
-##### Multiple business entities
-
-If multiple [business entities](/docs/api/advanced-features#mbe) are created for the site, the customer resource lookup and creation happen within the [context](/docs/api/advanced-features#mbe-context) of the business entity [specified](/docs/api/advanced-features#mbe-header-main) in this API call. If no business entity is specified, the customer resource lookup is performed within the [site context](/docs/api/advanced-features#mbe-context), and if not found, the resource is created for the [default business entity](/docs/api/advanced-features#mbe-default-be) of the site.
-
-        */
-       
        payment_intent:PaymentIntent;
     }
     export interface CreateInputParam {

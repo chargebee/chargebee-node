@@ -89,11 +89,6 @@ declare module 'chargebee' {
       update(item_family_id:string, input?:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
     }
     export interface DeleteResponse {  
-      /**
-        * @description Deletes an item family, marking its &#x60;status&#x60; as &#x60;deleted&#x60;. This is not allowed if there are &#x60;active&#x60; items under the item family. Once deleted, the &#x60;id&#x60; and &#x60;name&#x60; of the item family can be reused to create a new item family.
-
-        */
-       
        item_family:ItemFamily;
     }
     
@@ -150,11 +145,6 @@ declare module 'chargebee' {
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
     }
     export interface CreateResponse {  
-      /**
-        * @description This endpoint creates an item family for your product line or service.
-
-        */
-       
        item_family:ItemFamily;
     }
     export interface CreateInputParam {
@@ -181,20 +171,10 @@ declare module 'chargebee' {
       description?:string;
     }
     export interface RetrieveResponse {  
-      /**
-        * @description This endpoint retrieves an item family based on the item family id.
-
-        */
-       
        item_family:ItemFamily;
     }
     
     export interface UpdateResponse {  
-      /**
-        * @description This endpoint updates the name and/or description of the item family.
-
-        */
-       
        item_family:ItemFamily;
     }
     export interface UpdateInputParam {

@@ -349,11 +349,6 @@ Other details of attaching items can be specified using the [Create](./attached_
       sort_by?:{asc?:'updated_at' | 'name' | 'id',desc?:'updated_at' | 'name' | 'id'};
     }
     export interface CreateResponse {  
-      /**
-        * @description Creates a new item.
-
-        */
-       
        item:Item;
     }
     export interface CreateInputParam {
@@ -499,29 +494,14 @@ Other details of attaching items can be specified using the [Create](./attached_
       metadata?:object;
     }
     export interface DeleteResponse {  
-      /**
-        * @description Deletes an item, marking its &#x60;status&#x60; as deleted. This is not allowed if there are &#x60;active&#x60; or &#x60;archived&#x60; item prices under the item. Once deleted, the id and name of the item can be reused.
-
-        */
-       
        item:Item;
     }
     
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieve an item resource.
-
-        */
-       
        item:Item;
     }
     
     export interface UpdateResponse {  
-      /**
-        * @description Updates an item with the changes specified. Unspecified item parameters are not modified.
-
-        */
-       
        item:Item;
     }
     export interface UpdateInputParam {

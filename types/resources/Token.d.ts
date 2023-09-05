@@ -110,11 +110,6 @@ declare module 'chargebee' {
       retrieve(cb_token_id:string):ChargebeeRequest<RetrieveResponse>;
     }
     export interface CreateUsingTempTokenResponse {  
-      /**
-        * @description Generate a token using the one time token created by payment gateways for any specific payment method.
-
-        */
-       
        token:Token;
     }
     export interface CreateUsingTempTokenInputParam {
@@ -190,11 +185,6 @@ declare module 'chargebee' {
       token_billing_address?:{city?:string,country_code?:string,line1?:string,line2?:string,state?:string,state_code?:string,zip?:string};
     }
     export interface CreateForCardResponse {  
-      /**
-        * @description Generate a token that holds card related information.
-
-        */
-       
        token:Token;
     }
     export interface CreateForCardInputParam {
@@ -207,11 +197,6 @@ declare module 'chargebee' {
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,card_type?:'discover' | 'bancontact' | 'other' | 'visa' | 'jcb' | 'diners_club' | 'mastercard' | 'not_applicable' | 'american_express',cvv?:string,expiry_month:number,expiry_year:number,first_name?:string,gateway_account_id?:string,last_name?:string,number:string};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieve a token using token ID.
-
-        */
-       
        token:Token;
     }
     

@@ -444,13 +444,6 @@ This endpoint schedules e-invoices manually. This operation is not allowed when 
       send_einvoice(credit_note_id:string):ChargebeeRequest<SendEinvoiceResponse>;
     }
     export interface VoidCreditNoteResponse {  
-      /**
-        * @description Use this API to [void a credit note.](https://www.chargebee.com/docs/credit-notes.html#voiding-or-deleting-a-credit-note) A voided credit is a null entity and cannot be used again. A credit note which has already been voided or refunded cannot be voided. An error message will be displayed when you render such credit notes void.
-
-**Note:** When adjustment credit notes are voided, the associated invoice will reflect as NOT PAID, and the amount in the invoice will be recalculated to reflect the amount after considering the voided credit note.
-
-        */
-       
        credit_note:CreditNote;
     }
     export interface VoidCreditNoteInputParam {
@@ -463,17 +456,7 @@ This endpoint schedules e-invoices manually. This operation is not allowed when 
       comment?:string;
     }
     export interface RefundResponse {  
-      /**
-        * @description Refunds a ([refundable](https://www.chargebee.com/docs/credit-notes.html#types-of-credit-notes_refundable-credit-note)) credit note to the [payment source](/docs/api/payment_sources) associated with the [transaction](/docs/api/transactions). Any [linked_tax_withheld_refunds](/docs/api/credit_notes#credit_note_linked_tax_withheld_refunds) recorded against the credit note are not refunded.
-
-        */
-       
        credit_note:CreditNote;
-       
-      /**
-        * @description Refunds a ([refundable](https://www.chargebee.com/docs/credit-notes.html#types-of-credit-notes_refundable-credit-note)) credit note to the [payment source](/docs/api/payment_sources) associated with the [transaction](/docs/api/transactions). Any [linked_tax_withheld_refunds](/docs/api/credit_notes#credit_note_linked_tax_withheld_refunds) recorded against the credit note are not refunded.
-
-        */
        
        transaction:Transaction;
     }
@@ -673,23 +656,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       einvoice?:{status?:{in?:string,is?:'in_progress' | 'scheduled' | 'success' | 'registered' | 'failed' | 'skipped',is_not?:'in_progress' | 'scheduled' | 'success' | 'registered' | 'failed' | 'skipped',not_in?:string}};
     }
     export interface CreateResponse {  
-      /**
-        * @description Creates a &#x60;credit_note&#x60; for the specified invoice.  
-**Note:**
-
-If the &#x60;credit_note&#x60; [type](/docs/api/credit_notes#create_credit_note_type) is &#x60;refundable&#x60;, then &#x60;linked_taxes_withheld.amount&#x60; for the [invoice specified](/docs/api/credit_notes#create_credit_note_reference_invoice_id) can also be included in the [total](/docs/api/credit_notes#create_credit_note_total).
-
-        */
-       
        credit_note:CreditNote;
-       
-      /**
-        * @description Creates a &#x60;credit_note&#x60; for the specified invoice.  
-**Note:**
-
-If the &#x60;credit_note&#x60; [type](/docs/api/credit_notes#create_credit_note_type) is &#x60;refundable&#x60;, then &#x60;linked_taxes_withheld.amount&#x60; for the [invoice specified](/docs/api/credit_notes#create_credit_note_reference_invoice_id) can also be included in the [total](/docs/api/credit_notes#create_credit_note_total).
-
-        */
        
        invoice:Invoice;
     }
@@ -759,17 +726,7 @@ If the &#x60;credit_note&#x60; [type](/docs/api/credit_notes#create_credit_note_
       line_items?:{amount?:number,date_from?:number,date_to?:number,description?:string,quantity?:number,quantity_in_decimal?:string,reference_line_item_id:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
     }
     export interface RecordRefundResponse {  
-      /**
-        * @description Refunds a ([refundable](https://www.chargebee.com/docs/credit-notes.html#types-of-credit-notes_refundable-credit-note)) credit note. The refund is provided against &#x60;linked_payments&#x60; first and then against any &#x60;linked_taxes_withheld&#x60; for the [invoice](/docs/api/credit_notes#credit_note_reference_invoice_id) associated with the &#x60;credit_note&#x60;. For payments made via online transactions, the refund request is processed via the [payment source](/docs/api/payment_sources) associated with the [transaction](/docs/api/transactions).
-
-        */
-       
        credit_note:CreditNote;
-       
-      /**
-        * @description Refunds a ([refundable](https://www.chargebee.com/docs/credit-notes.html#types-of-credit-notes_refundable-credit-note)) credit note. The refund is provided against &#x60;linked_payments&#x60; first and then against any &#x60;linked_taxes_withheld&#x60; for the [invoice](/docs/api/credit_notes#credit_note_reference_invoice_id) associated with the &#x60;credit_note&#x60;. For payments made via online transactions, the refund request is processed via the [payment source](/docs/api/payment_sources) associated with the [transaction](/docs/api/transactions).
-
-        */
        
        transaction?:Transaction;
     }
@@ -797,11 +754,6 @@ If the &#x60;credit_note&#x60; [type](/docs/api/credit_notes#create_credit_note_
       transaction?:{amount?:number,date:number,payment_method:PaymentMethod,reference_number?:string};
     }
     export interface ImportCreditNoteResponse {  
-      /**
-        * @description Use this api to import credit notes into your Chargebee site. Billing address, Shipping Address, Vat number will be copied from the reference invoice.
-
-        */
-       
        credit_note:CreditNote;
     }
     export interface ImportCreditNoteInputParam {
@@ -966,11 +918,6 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       linked_refunds?:{amount:number,date:number,payment_method:PaymentMethod,reference_number?:string}[];
     }
     export interface DeleteResponse {  
-      /**
-        * @description This API [deletes a credit note.](https://www.chargebee.com/docs/credit-notes.html#voiding-or-deleting-a-credit-note) A credit note once deleted, is deleted permanently. You cannot delete a credit which has already been deleted or refunded. If you try to delete a refunded or deleted credit note, an error message will be displayed.
-
-        */
-       
        credit_note:CreditNote;
     }
     export interface DeleteInputParam {
@@ -983,24 +930,10 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       comment?:string;
     }
     export interface DownloadEinvoiceResponse {  
-      /**
-        * @description Download the e-invoice for the credit note in both XML and PDF formats. The response consists of a &#x60;download&#x60; object for each format. The XML format follows the [structure as per Peppol BIS Billing v3.0](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-creditnote/tree/).  
-**Note**
-
-* You can only download e-invoices when their &#x60;status&#x60; is &#x60;success&#x60; or &#x60;registered&#x60;.
-* There are some cases in which the PDF is not available for download. In such cases, you can obtain it from the XML by decoding the value for [cbc:EmbeddedDocumentBinaryObject](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-creditnote/cac-AdditionalDocumentReference/cac-Attachment/cbc-EmbeddedDocumentBinaryObject/), which is the Base64-encoded version of the PDF.
-
-        */
-       
        downloads:Download[];
     }
     
     export interface PdfResponse {  
-      /**
-        * @description Gets the credit note as PDF. The returned URL is secure and allows download. The URL will expire in 60 minutes.
-
-        */
-       
        download:Download;
     }
     export interface PdfInputParam {
@@ -1013,20 +946,10 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       disposition_type?:DispositionType;
     }
     export interface ResendEinvoiceResponse {  
-      /**
-        * @description Resend failed einvoice in credit notes.
-
-        */
-       
        credit_note:CreditNote;
     }
     
     export interface RemoveTaxWithheldRefundResponse {  
-      /**
-        * @description Removes a [linked_tax_withheld_refunds](/docs/api/credit_notes#credit_note_linked_tax_withheld_refunds) record from the &#x60;credit_note&#x60;.
-
-        */
-       
        credit_note:CreditNote;
     }
     export interface RemoveTaxWithheldRefundInputParam {
@@ -1039,35 +962,10 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       tax_withheld?:{id:string};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves the Credit Note identified by the specified Credit Note number.
-
-        */
-       
        credit_note:CreditNote;
     }
     
     export interface SendEinvoiceResponse {  
-      /**
-        * @description This endpoint is used to send an e-invoice for invoice.
-
-To support cases like TDS and invoice edits, we need to stop auto e-invoice sending and be able to send e-invoices manually.
-
-This endpoint schedules e-invoices manually. This operation is not allowed when any of the following condition matches:
-
-* If e-invoicing is not enabled at the site and customer level.
-
-* If there is an e-invoice generated already for the invoice.
-
-* If the &quot;**Use automatic e-invoicing**&quot; option is selected.
-
-* If there are no generated e-invoices with the &#x60;failed&#x60; or &#x60;skipped&#x60; status.
-
-* If the invoice status is &#x60;voided&#x60; or &#x60;pending&#x60;.
-
-
-        */
-       
        credit_note:CreditNote;
     }
     

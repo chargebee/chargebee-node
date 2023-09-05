@@ -764,11 +764,6 @@ If the order of precendence described above does not work for your use case, and
       download_einvoice(invoice_id:string):ChargebeeRequest<DownloadEinvoiceResponse>;
     }
     export interface DeleteLineItemsResponse {  
-      /**
-        * @description This endpoint is used to delete line items from &quot;Pending&quot; invoice.
-
-        */
-       
        invoice:Invoice;
     }
     export interface DeleteLineItemsInputParam {
@@ -781,21 +776,7 @@ If the order of precendence described above does not work for your use case, and
       line_items?:{id?:string}[];
     }
     export interface RemoveCreditNoteResponse {  
-      /**
-        * @description This API removes a credit note attached to an invoice. When you remove a credit note from an invoice, the invoice status returns to &#x60;not_paid&#x60;.
-
-**Note:** You cannot remove a credit note from an invoice if it has already been refunded.
-
-        */
-       
        invoice:Invoice;
-       
-      /**
-        * @description This API removes a credit note attached to an invoice. When you remove a credit note from an invoice, the invoice status returns to &#x60;not_paid&#x60;.
-
-**Note:** You cannot remove a credit note from an invoice if it has already been refunded.
-
-        */
        
        credit_note:CreditNote;
     }
@@ -809,17 +790,7 @@ If the order of precendence described above does not work for your use case, and
       credit_note?:{id:string};
     }
     export interface RemovePaymentResponse {  
-      /**
-        * @description This API [removes payments](https://www.chargebee.com/docs/2.0/invoice-operations.html#actions-for-paid-invoices_remove-payment) applied to an invoice. Once the applied payment is removed, the invoice status returns to &#x60;not_paid&#x60; or &#x60;payment_due&#x60;. The removed payment is then added to the customer&#x27;s excess payment balance.
-
-        */
-       
        invoice:Invoice;
-       
-      /**
-        * @description This API [removes payments](https://www.chargebee.com/docs/2.0/invoice-operations.html#actions-for-paid-invoices_remove-payment) applied to an invoice. Once the applied payment is removed, the invoice status returns to &#x60;not_paid&#x60; or &#x60;payment_due&#x60;. The removed payment is then added to the customer&#x27;s excess payment balance.
-
-        */
        
        transaction:Transaction;
     }
@@ -833,11 +804,6 @@ If the order of precendence described above does not work for your use case, and
       transaction?:{id:string};
     }
     export interface StopDunningResponse {  
-      /**
-        * @description This API is used to stop dunning for &quot;Payment Due&quot; invoices that have been enabled for Auto Collection. When dunning is stopped, the status of the invoice will be changed to &quot;Not Paid&quot;.
-
-        */
-       
        invoice:Invoice;
     }
     export interface StopDunningInputParam {
@@ -850,13 +816,6 @@ If the order of precendence described above does not work for your use case, and
       comment?:string;
     }
     export interface ApplyPaymentsResponse {  
-      /**
-        * @description The API applies [excess payments](https://apidocs.chargebee.com/docs/api/customers#customer_excess_payments) to an invoice. Once an excess payment is applied, the [invoice.amount_due](invoices#invoice_amount_due) is recalculated. The invoice &#x60;status&#x60; changes to either &#x60;paid&#x60; or &#x60;payment_due&#x60; depending on how much excess payment is applied to the invoice amount.
-
-For example, if you have an excess payment of $25.00, and the invoice to which you want to apply this excess payment has a balance of $50. Once you apply this excess payment, the invoice status changes to &#x60;paid&#x60;, and [invoice.amount_due](invoices#invoice_amount_due) is adjusted to $25.00.
-
-        */
-       
        invoice:Invoice;
     }
     export interface ApplyPaymentsInputParam {
@@ -876,25 +835,7 @@ For example, if you have an excess payment of $25.00, and the invoice to which y
       transactions?:{id?:string}[];
     }
     export interface VoidInvoiceResponse {  
-      /**
-        * @description Voids the specified invoice. Any payments must be [removed](/docs/api/invoices?prod_cat_ver&#x3D;2#remove_payment_from_an_invoice) from the invoice before voiding it.
-
-* Any [promotional credits](/docs/api/promotional_credits?prod_cat_ver&#x3D;2) or [credit notes](/docs/api/credit_notes?prod_cat_ver&#x3D;2) applied to the invoice are removed.
-* If an invoice for the current term of a subscription is voided and the subscription is changed later with &#x60;proration&#x60; enabled, no prorated credits are issued.
-* Any [usages](/docs/api/usages?prod_cat_ver&#x3D;2) associated with item prices in the invoice are delinked from the invoice. This is done by clearing the &#x60;invoice_id&#x60; field of said usages. However, before this is done, a [usage PDF](/docs/api/usages?prod_cat_ver&#x3D;2#retrieve_usages_for_an_invoice_as_pdf) is generated and saved to the invoice as an [attachment](https://www.chargebee.com/docs/2.0/file-attachment.html).
-
-        */
-       
        invoice:Invoice;
-       
-      /**
-        * @description Voids the specified invoice. Any payments must be [removed](/docs/api/invoices?prod_cat_ver&#x3D;2#remove_payment_from_an_invoice) from the invoice before voiding it.
-
-* Any [promotional credits](/docs/api/promotional_credits?prod_cat_ver&#x3D;2) or [credit notes](/docs/api/credit_notes?prod_cat_ver&#x3D;2) applied to the invoice are removed.
-* If an invoice for the current term of a subscription is voided and the subscription is changed later with &#x60;proration&#x60; enabled, no prorated credits are issued.
-* Any [usages](/docs/api/usages?prod_cat_ver&#x3D;2) associated with item prices in the invoice are delinked from the invoice. This is done by clearing the &#x60;invoice_id&#x60; field of said usages. However, before this is done, a [usage PDF](/docs/api/usages?prod_cat_ver&#x3D;2#retrieve_usages_for_an_invoice_as_pdf) is generated and saved to the invoice as an [attachment](https://www.chargebee.com/docs/2.0/file-attachment.html).
-
-        */
        
        credit_note?:CreditNote;
     }
@@ -915,11 +856,6 @@ For example, if you have an excess payment of $25.00, and the invoice to which y
       void_reason_code?:string;
     }
     export interface AddChargeResponse {  
-      /**
-        * @description Adds a one-time charge to a [pending](https://apidocs.chargebee.com/docs/api/invoices#invoice_status) invoice. A one-time charge is a charge that is added ad hoc to the invoice and does not represent a predefined [item price](https:/apidocs.chargebee.com/docs/api/item_prices). It appears in the invoice as a [line_item](https://apidocs.chargebee.com/docs/api/invoices?prod_cat_ver&#x3D;2&amp;lang&#x3D;curl#invoice_line_items) of [entity_type](https://apidocs.chargebee.com/docs/api/invoices?prod_cat_ver&#x3D;2&amp;lang&#x3D;curl#invoice_line_items_entity_type) &#x60;adhoc&#x60;.
-
-        */
-       
        invoice:Invoice;
     }
     export interface AddChargeInputParam {
@@ -981,41 +917,11 @@ For example, if you have an excess payment of $25.00, and the invoice to which y
       line_item?:{date_from?:number,date_to?:number};
     }
     export interface SendEinvoiceResponse {  
-      /**
-        * @description This endpoint is used to send an e-invoice for invoice.
-
-To support cases like TDS and invoice edits, we need to stop auto e-invoice sending and be able to send e-invoices manually.
-
-This endpoint schedules e-invoices manually. This operation is not allowed when any of the following condition matches:
-
-* If e-invoicing is not enabled at the site and customer level.
-
-* If there is an e-invoice generated already for the invoice.
-
-* If the &quot;**Use automatic e-invoicing**&quot; option is selected.
-
-* If there are no generated e-invoices with the &#x60;failed&#x60; or &#x60;skipped&#x60; status.
-
-* If the invoice status is &#x60;voided&#x60; or &#x60;pending&#x60;.
-
-
-        */
-       
        invoice:Invoice;
     }
     
     export interface WriteOffResponse {  
-      /**
-        * @description This API writes off an Invoice.
-
-        */
-       
        invoice:Invoice;
-       
-      /**
-        * @description This API writes off an Invoice.
-
-        */
        
        credit_note:CreditNote;
     }
@@ -1029,11 +935,6 @@ This endpoint schedules e-invoices manually. This operation is not allowed when 
       comment?:string;
     }
     export interface AddChargeItemResponse {  
-      /**
-        * @description This endpoint is used when [metered billing](https://www.chargebee.com/docs/2.0/metered_billing.html) is enabled and it adds a [charge-item price](./item_prices?prod_cat_ver&#x3D;2) to a &#x60;pending&#x60; invoice. To collect the accumulated charges by closing the invoice, call [Close a pending invoice](./invoices?prod_cat_ver&#x3D;2#close_a_pending_invoice).
-
-        */
-       
        invoice:Invoice;
     }
     export interface AddChargeItemInputParam {
@@ -1253,15 +1154,6 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
       einvoice?:{status?:{in?:string,is?:'in_progress' | 'scheduled' | 'success' | 'registered' | 'failed' | 'skipped',is_not?:'in_progress' | 'scheduled' | 'success' | 'registered' | 'failed' | 'skipped',not_in?:string}};
     }
     export interface CloseResponse {  
-      /**
-        * @description Invoices for a subscription are created with a &#x60;pending&#x60; &#x60;status&#x60; when the subscription has &#x60;create_pending_invoices&#x60; attribute set to &#x60;true&#x60;. This API call finalizes a &#x60;pending&#x60; invoice. Any &#x60;refundable_credits&#x60; and &#x60;excess_payments&#x60; for the customer are applied to the invoice, and any payment due is collected automatically if &#x60;auto_collection&#x60; is &#x60;on&#x60; for the customer.
-
-#### Automation
-
-This operation can be automated by using a [site setting](https://www.chargebee.com/docs/2.0/metered_billing.html#configuring-metered-billing). Moreover, the automation can be overridden at the [customer](/docs/api/customers?prod_cat_ver&#x3D;2#customer_auto_close_invoices) and [subscription](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_auto_close_invoices) level.
-
-        */
-       
        invoice:Invoice;
     }
     export interface CloseInputParam {
@@ -1302,11 +1194,6 @@ This operation can be automated by using a [site setting](https://www.chargebee.
       notes_to_remove?:{entity_id?:string,entity_type?:EntityType}[];
     }
     export interface ApplyCreditsResponse {  
-      /**
-        * @description This API applies [available credits](customers#customer_balances) to an invoice. After credits are applied, [invoice.amount_due](invoices#invoice_amount_due) is recalculated. The invoice status changes to either &#x60;paid&#x60; or &#x60;payment_due&#x60; depending on how much credit is applied to the invoice amount.
-
-        */
-       
        invoice:Invoice;
     }
     export interface ApplyCreditsInputParam {
@@ -1326,20 +1213,10 @@ This operation can be automated by using a [site setting](https://www.chargebee.
       credit_notes?:{id?:string}[];
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieve the invoice for the specified invoice id.
-
-        */
-       
        invoice:Invoice;
     }
     
     export interface CreateForChargeItemsAndChargesResponse {  
-      /**
-        * @description Creates an invoice for [charge-items](./items?prod_cat_ver&#x3D;2) and [one-time charges](https://www.chargebee.com/docs/2.0/charges.html). The item prices must belong to items of &#x60;type&#x60; &#x60;charge&#x60;.
-
-        */
-       
        invoice:Invoice;
     }
     export interface CreateForChargeItemsAndChargesInputParam {
@@ -1521,13 +1398,6 @@ The invoice is [linked](/docs/api?prod_cat_ver&#x3D;2#mbe-linked-be) to the same
       discounts?:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
     }
     export interface UpdateDetailsResponse {  
-      /**
-        * @description This API allows you to update the invoice Billing/Shipping address, VAT and PO number. During this operation if Billing Info (Billing Address, vat_number), Shipping info and PO number are not already present in the system the data will be added. If data is already present, the existing values will be replaced. If info is present in the system, but not passed as part of the request, the info will not be removed from the system.
-
-**Note:** Incase, tax is already applied will now vary due to address change, you cannot update the address. You cannot update the VAT Number if the billing address is not present in the API request.This will update the invoice only, it won&#x27;t change the corresponding customer/subscription details.
-
-        */
-       
        invoice:Invoice;
     }
     export interface UpdateDetailsInputParam {
@@ -1580,25 +1450,7 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
     }
     export interface RecordPaymentResponse {  
-      /**
-        * @description To record a [offline payment](https://www.chargebee.com/docs/offline_payments.html) for an invoice.
-
-The invoice status will be marked as &#x27;paid&#x27; if its amount due becomes 0 because of this recorded payment.
-
-**Note:** If the payment transaction amount is more than the invoice due amount, the remaining transaction amount will be added to the customer&#x27;s Excess Payments balance to be used against other invoices.
-
-        */
-       
        invoice:Invoice;
-       
-      /**
-        * @description To record a [offline payment](https://www.chargebee.com/docs/offline_payments.html) for an invoice.
-
-The invoice status will be marked as &#x27;paid&#x27; if its amount due becomes 0 because of this recorded payment.
-
-**Note:** If the payment transaction amount is more than the invoice due amount, the remaining transaction amount will be added to the customer&#x27;s Excess Payments balance to be used against other invoices.
-
-        */
        
        transaction:Transaction;
     }
@@ -1619,17 +1471,6 @@ The invoice status will be marked as &#x27;paid&#x27; if its amount due becomes 
       transaction?:{amount?:number,date?:number,error_code?:string,error_text?:string,id_at_gateway?:string,payment_method:PaymentMethod,reference_number?:string,status?:'success' | 'failure'};
     }
     export interface DeleteResponse {  
-      /**
-        * @description Deletes the specified invoice. Any payments must be [removed](/docs/api/invoices?prod_cat_ver&#x3D;2#remove_payment_from_an_invoice) from the invoice before deleting it.  
-**Caution**   
-
-All associated [usages](/docs/api/usages?prod_cat_ver&#x3D;2) are permanently deleted on deleting an invoice. If you want to regenerate such an invoice, [add](/docs/api/usages?prod_cat_ver&#x3D;2#create_a_usage) or [bulk import](https://www.chargebee.com/docs/2.0/bulk-operations.html#overview_available-bulk-operations) usages before invoice regeneration.
-
-* Any [promotional credits](/docs/api/promotional_credits?prod_cat_ver&#x3D;2) or [credit notes](/docs/api/credit_notes?prod_cat_ver&#x3D;2) applied to the invoice are removed.
-* If an invoice for the current term of a subscription is deleted and the subscription is changed later with &#x60;proration&#x60; enabled, no prorated credits are issued.
-
-        */
-       
        invoice:Invoice;
     }
     export interface DeleteInputParam {
@@ -1649,17 +1490,7 @@ All associated [usages](/docs/api/usages?prod_cat_ver&#x3D;2) are permanently de
       claim_credits?:boolean;
     }
     export interface ImportInvoiceResponse {  
-      /**
-        * @description Use this endpoint to import invoices that are created outside of Chargebee; for example, import invoices created with a commercial accounting software to Chargebee. This allows you to conveniently manage invoices in one place.
-
-        */
-       
        invoice:Invoice;
-       
-      /**
-        * @description Use this endpoint to import invoices that are created outside of Chargebee; for example, import invoices created with a commercial accounting software to Chargebee. This allows you to conveniently manage invoices in one place.
-
-        */
        
        credit_note?:CreditNote;
     }
@@ -1897,16 +1728,6 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
       notes?:{entity_id?:string,entity_type?:'addon_item_price' | 'coupon' | 'plan_item_price' | 'charge_item_price',note?:string}[];
     }
     export interface RecordTaxWithheldResponse {  
-      /**
-        * @description Records [tax_withheld](/docs/api/tax_withheld) by the customer against the invoice specified. This operation is allowed only when all of the following conditions are true:
-
-* Tax Amount Withheld is enabled.
-* The &#x60;invoice&#x60; does not have a &#x60;linked_taxes_withheld&#x60; record associated with it already.
-* &#x60;invoice.amount_due&#x60; is greater than zero.
-* &#x60;invoice.status&#x60; is one of the following: &#x60;payment_due&#x60;, &#x60;not_paid&#x60;, or &#x60;posted&#x60;.
-
-        */
-       
        invoice:Invoice;
     }
     export interface RecordTaxWithheldInputParam {
@@ -1919,24 +1740,10 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
       tax_withheld?:{amount:number,date?:number,description?:string,reference_number?:string};
     }
     export interface ResendEinvoiceResponse {  
-      /**
-        * @description Resend failed einvoice of an invoice to the customer using this API.
-
-        */
-       
        invoice:Invoice;
     }
     
     export interface RemoveTaxWithheldResponse {  
-      /**
-        * @description Removes a [linked_taxes_withheld](/docs/api/invoices#invoice_linked_taxes_withheld) record from the &#x60;invoice&#x60; specified. This operation is allowed only when all of the following conditions are true:
-
-* [invoice.status](/docs/api/invoices#invoice_status) is one of the following: &#x60;payment_due&#x60;, &#x60;not_paid&#x60;, or &#x60;posted&#x60;.
-* There are no [adjustment_credit_notes](/docs/api/invoices#invoice_adjustment_credit_notes) associated with the invoice.
-* There are no [issued_credit_notes](/docs/api/invoices#invoice_issued_credit_notes) associated with the invoice.
-
-        */
-       
        invoice:Invoice;
     }
     export interface RemoveTaxWithheldInputParam {
@@ -1995,25 +1802,7 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
       payment_reference_number?:{number?:{in?:string,is?:string}};
     }
     export interface CollectPaymentResponse {  
-      /**
-        * @description Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
-
-This API is used to collect payments for &#x60;payment_due&#x60; and &#x60;not_paid&#x60; invoices. If no payment methods are present for the customer or if the payment is unsuccessful, the corresponding error will be thrown.
-
-Pass &#x60;authorization_transaction_id&#x60; to capture the already blocked funds to collect payments. Note that if the invoice due amount is greater than the authorized amount, the invoice status is returned as &#x60;payment_due&#x60;.
-
-        */
-       
        invoice:Invoice;
-       
-      /**
-        * @description Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
-
-This API is used to collect payments for &#x60;payment_due&#x60; and &#x60;not_paid&#x60; invoices. If no payment methods are present for the customer or if the payment is unsuccessful, the corresponding error will be thrown.
-
-Pass &#x60;authorization_transaction_id&#x60; to capture the already blocked funds to collect payments. Note that if the invoice due amount is greater than the authorized amount, the invoice status is returned as &#x60;payment_due&#x60;.
-
-        */
        
        transaction:Transaction;
     }
@@ -2055,50 +1844,13 @@ Pass &#x60;authorization_transaction_id&#x60; to capture the already blocked fun
       payment_initiator?:PaymentInitiator;
     }
     export interface SyncUsagesResponse {  
-      /**
-        * @description Updates the [&#x60;quantity&#x60;](/docs/api/invoices#invoice_line_items_quantity) for &#x60;metered&#x60; [&#x60;line_items&#x60;](/docs/api/invoices#invoice_line_items) of an invoice to reflect the latest [usage](https://apidocs.chargebee.com/docs/api/usages) data.
-
-**Note:** This operation is done automatically while [closing](https://apidocs.chargebee.com/docs/api/invoices#close_a_pending_invoice) the invoice.
-
-        */
-       
        invoice:Invoice;
     }
     
     export interface RefundResponse {  
-      /**
-        * @description Refunds the invoice. The [refund](https://www.chargebee.com/docs/refunds.html) request is processed via the payment gateway originally used to charge the customer. You can choose to either make a full refund for the entire amount or make many partial refunds until you reach the total amount charged for the invoice. The API returns an error if an attempt is made to:
-
-* Refund an offline invoice. For such invoices, use the [Record refund API](/docs/api/invoices#record_refund_for_an_invoice).
-* Refund a fully refunded invoice.
-
-If the refund transaction succeeds, a &#x60;credit_note&#x60; capturing this refund detail is created for the invoice.
-
-        */
-       
        invoice:Invoice;
        
-      /**
-        * @description Refunds the invoice. The [refund](https://www.chargebee.com/docs/refunds.html) request is processed via the payment gateway originally used to charge the customer. You can choose to either make a full refund for the entire amount or make many partial refunds until you reach the total amount charged for the invoice. The API returns an error if an attempt is made to:
-
-* Refund an offline invoice. For such invoices, use the [Record refund API](/docs/api/invoices#record_refund_for_an_invoice).
-* Refund a fully refunded invoice.
-
-If the refund transaction succeeds, a &#x60;credit_note&#x60; capturing this refund detail is created for the invoice.
-
-        */
-       
        transaction:Transaction;
-       
-      /**
-        * @description Refunds the invoice. The [refund](https://www.chargebee.com/docs/refunds.html) request is processed via the payment gateway originally used to charge the customer. You can choose to either make a full refund for the entire amount or make many partial refunds until you reach the total amount charged for the invoice. The API returns an error if an attempt is made to:
-
-* Refund an offline invoice. For such invoices, use the [Record refund API](/docs/api/invoices#record_refund_for_an_invoice).
-* Refund a fully refunded invoice.
-
-If the refund transaction succeeds, a &#x60;credit_note&#x60; capturing this refund detail is created for the invoice.
-
-        */
        
        credit_note?:CreditNote;
     }
@@ -2133,93 +1885,9 @@ If the refund transaction succeeds, a &#x60;credit_note&#x60; capturing this ref
       credit_note?:{create_reason_code?:string,reason_code?:'order_cancellation' | 'service_unsatisfactory' | 'other' | 'product_unsatisfactory' | 'order_change' | 'waiver'};
     }
     export interface RecordRefundResponse {  
-      /**
-        * @description Refunds the invoice. The refund is provided against the following in order of precedence:
-
-* Offline [linked_payments](/docs/api/invoices#invoice_linked_payments)
-* Any [linked_taxes_withheld](/docs/api/invoices#invoice_linked_taxes_withheld)
-* Online [linked_payments](/docs/api/invoices#invoice_linked_payments)
-
-**Example**
-
-Consider an invoice with the following payments and tax withheld.
-
-* Offline payments: $30
-* Online payments: $20
-* Tax withheld: $5
-
-When recording a refund worth $40, the refund amount is split as follows:
-
-* Refund against offline payments: $30
-* Refund against tax withheld: $5
-* Refund against online payments: $5
-
-For payments made via online transactions, the [refund](https://www.chargebee.com/docs/refunds.html) request is processed via the payment gateway originally used to charge the customer.  
-**Tip**
-
-If the order of precendence described above does not work for your use case, and you want to provide a refund against online &#x60;linked_payments&#x60; first, use the [Refund an invoice API](/docs/api/invoices#refund_an_invoice).
-
-        */
-       
        invoice:Invoice;
        
-      /**
-        * @description Refunds the invoice. The refund is provided against the following in order of precedence:
-
-* Offline [linked_payments](/docs/api/invoices#invoice_linked_payments)
-* Any [linked_taxes_withheld](/docs/api/invoices#invoice_linked_taxes_withheld)
-* Online [linked_payments](/docs/api/invoices#invoice_linked_payments)
-
-**Example**
-
-Consider an invoice with the following payments and tax withheld.
-
-* Offline payments: $30
-* Online payments: $20
-* Tax withheld: $5
-
-When recording a refund worth $40, the refund amount is split as follows:
-
-* Refund against offline payments: $30
-* Refund against tax withheld: $5
-* Refund against online payments: $5
-
-For payments made via online transactions, the [refund](https://www.chargebee.com/docs/refunds.html) request is processed via the payment gateway originally used to charge the customer.  
-**Tip**
-
-If the order of precendence described above does not work for your use case, and you want to provide a refund against online &#x60;linked_payments&#x60; first, use the [Refund an invoice API](/docs/api/invoices#refund_an_invoice).
-
-        */
-       
        transaction?:Transaction;
-       
-      /**
-        * @description Refunds the invoice. The refund is provided against the following in order of precedence:
-
-* Offline [linked_payments](/docs/api/invoices#invoice_linked_payments)
-* Any [linked_taxes_withheld](/docs/api/invoices#invoice_linked_taxes_withheld)
-* Online [linked_payments](/docs/api/invoices#invoice_linked_payments)
-
-**Example**
-
-Consider an invoice with the following payments and tax withheld.
-
-* Offline payments: $30
-* Online payments: $20
-* Tax withheld: $5
-
-When recording a refund worth $40, the refund amount is split as follows:
-
-* Refund against offline payments: $30
-* Refund against tax withheld: $5
-* Refund against online payments: $5
-
-For payments made via online transactions, the [refund](https://www.chargebee.com/docs/refunds.html) request is processed via the payment gateway originally used to charge the customer.  
-**Tip**
-
-If the order of precendence described above does not work for your use case, and you want to provide a refund against online &#x60;linked_payments&#x60; first, use the [Refund an invoice API](/docs/api/invoices#refund_an_invoice).
-
-        */
        
        credit_note?:CreditNote;
     }
@@ -2254,15 +1922,6 @@ If the order of precendence described above does not work for your use case, and
       credit_note?:{create_reason_code?:string,reason_code?:'order_cancellation' | 'service_unsatisfactory' | 'other' | 'product_unsatisfactory' | 'chargeback' | 'order_change' | 'waiver'};
     }
     export interface PdfResponse {  
-      /**
-        * @description Gets the invoice as PDF. The returned URL is secure and allows download. The URL will expire in 60 minutes.
-
-#### Related Tutorial
-
-* [Check out customer portal tutorial on how to download invoice as PDF.](//www.chargebee.com/tutorials/customer-portal-sample.html#downloading_invoices_as_pdf)
-
-        */
-       
        download:Download;
     }
     export interface PdfInputParam {
@@ -2275,15 +1934,6 @@ If the order of precendence described above does not work for your use case, and
       disposition_type?:DispositionType;
     }
     export interface DownloadEinvoiceResponse {  
-      /**
-        * @description Download the e-invoice in both XML and PDF formats. The response consists of a &#x60;download&#x60; object for each format. The XML format follows the [structure as per Peppol BIS Billing v3.0](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/tree/).  
-**Note**
-
-* You can only download e-invoices when their &#x60;status&#x60; is &#x60;success&#x60;.
-* There are some cases in which the PDF is not available for download. In such cases, you can obtain it from the XML by decoding the value for [cbc:EmbeddedDocumentBinaryObject](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AdditionalDocumentReference/cac-Attachment/cbc-EmbeddedDocumentBinaryObject/), which is the Base64-encoded version of the PDF.
-
-        */
-       
        downloads:Download[];
     }
     

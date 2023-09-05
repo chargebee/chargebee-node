@@ -160,13 +160,6 @@ declare module 'chargebee' {
       sort_by?:{asc?:'occurred_at',desc?:'occurred_at'};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves a specific event identified by a unique event identifier.
-
-**Note:** Only events that are less than 90 days old will be retrieved.
-
-        */
-       
        event:Event;
     }
     

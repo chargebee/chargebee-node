@@ -139,11 +139,6 @@ The value set explicitly for &#x60;billing_cycles&#x60; while [applying the addo
       delete(attached_item_id:string, input:DeleteInputParam):ChargebeeRequest<DeleteResponse>;
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves details of an attached addon or a charge item.
-
-        */
-       
        attached_item:AttachedItem;
     }
     export interface RetrieveInputParam {
@@ -156,11 +151,6 @@ The value set explicitly for &#x60;billing_cycles&#x60; while [applying the addo
       parent_item_id:string;
     }
     export interface UpdateResponse {  
-      /**
-        * @description Updates an attached addon or a charge item for a plan.
-
-        */
-       
        attached_item:AttachedItem;
     }
     export interface UpdateInputParam {
@@ -290,11 +280,6 @@ The value set explicitly for &#x60;billing_cycles&#x60; while [applying the addo
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
     }
     export interface CreateResponse {  
-      /**
-        * @description Creates an attached addon or a charge item for a plan.
-
-        */
-       
        attached_item:AttachedItem;
     }
     export interface CreateInputParam {
@@ -351,11 +336,6 @@ The value set explicitly for &#x60;billing_cycles&#x60; while [applying the addo
       charge_once?:boolean;
     }
     export interface DeleteResponse {  
-      /**
-        * @description Deletes an attached addon or a charge item.
-
-        */
-       
        attached_item:AttachedItem;
     }
     export interface DeleteInputParam {

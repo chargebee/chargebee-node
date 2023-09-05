@@ -344,19 +344,7 @@ If the customer has already reached the payment source limit allowed for the sit
       update_bank_account(cust_payment_source_id:string, input?:UpdateBankAccountInputParam):ChargebeeRequest<UpdateBankAccountResponse>;
     }
     export interface CreateUsingPermanentTokenResponse {  
-      /**
-        * @description This API provides an alternative way to create a payment source using a permanent token, instead of having to add the full payment method details via API or the Chargebee UI. Permanent tokens are provided by payment gateways such as Stripe.  
-Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description This API provides an alternative way to create a payment source using a permanent token, instead of having to add the full payment method details via API or the Chargebee UI. Permanent tokens are provided by payment gateways such as Stripe.  
-Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
-
-        */
        
        payment_source:PaymentSource;
     }
@@ -426,63 +414,13 @@ Storing card after successful 3DS completion is not supported in this API. Use [
       additional_information?:object;
     }
     export interface DeleteResponse {  
-      /**
-        * @description Deletes a payment source. Once the payment source is deleted, if
-
-* **Deleted payment source is Primary, and Backup is available**
-  * The Backup payment source will become the Primary payment source.
-* **Deleted payment source is Primary, and no Backup is available**
-  * The other payment source available, but not assigned to any subscription, will become the Primary payment source. **Note** : *When multiple payment sources exist, the payment method added most recently will be considered*.
-
-  * If other payment sources available are assigned to subscriptions, the auto collection attribute for the customer will be set to Off, and the events *card_deleted* and *payment_source_deleted* will be triggered.
-* **Deleted payment source is attached to subscriptions**
-  * Dunning will be initiated for subscriptions attached to this payment source if auto collection is set to On, and when no customer default is present.
-
-
-
-If there is no such payment source present in the gateway for the customer, this API will return successfully without throwing any error.  
-**Note** :   
-If you delete the only available payment method of a customer in Chargebee, it also deletes the customer&#x27;s record at the gateway. To delete the payment method locally(delete only in Chargebee), use [Local Delete a Payment Source API](/docs/api/payment_sources#local_delete_a_payment_source).
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Deletes a payment source. Once the payment source is deleted, if
-
-* **Deleted payment source is Primary, and Backup is available**
-  * The Backup payment source will become the Primary payment source.
-* **Deleted payment source is Primary, and no Backup is available**
-  * The other payment source available, but not assigned to any subscription, will become the Primary payment source. **Note** : *When multiple payment sources exist, the payment method added most recently will be considered*.
-
-  * If other payment sources available are assigned to subscriptions, the auto collection attribute for the customer will be set to Off, and the events *card_deleted* and *payment_source_deleted* will be triggered.
-* **Deleted payment source is attached to subscriptions**
-  * Dunning will be initiated for subscriptions attached to this payment source if auto collection is set to On, and when no customer default is present.
-
-
-
-If there is no such payment source present in the gateway for the customer, this API will return successfully without throwing any error.  
-**Note** :   
-If you delete the only available payment method of a customer in Chargebee, it also deletes the customer&#x27;s record at the gateway. To delete the payment method locally(delete only in Chargebee), use [Local Delete a Payment Source API](/docs/api/payment_sources#local_delete_a_payment_source).
-
-        */
        
        payment_source:PaymentSource;
     }
     
     export interface CreateCardResponse {  
-      /**
-        * @description Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
-
-        */
        
        payment_source:PaymentSource;
     }
@@ -510,13 +448,6 @@ If you delete the only available payment method of a customer in Chargebee, it a
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month:number,expiry_year:number,first_name?:string,gateway_account_id?:string,last_name?:string,number:string};
     }
     export interface VerifyBankAccountResponse {  
-      /**
-        * @description This API can be used to verify bank accounts which have been added as payment source. This is applicable for **Stripe ACH with micro-deposit mode bank accounts** only. Stripe handles verification in two ways - via Plaid, and micro-deposit.
-
-For verifying bank accounts via **micro-deposit**, Stripe deposits two small amounts to the bank account being added. These deposits will take 1-2 business days to appear on the customer&#x27;s bank statement. The bank statement description for the two micro-deposits contains the amount and the values deposited. Your customer will need to relay the value of the two deposits to you, after which you can verify the bank account. Once the bank account has been verified, the payment source will be marked as &quot;Valid&quot;.
-
-        */
-       
        payment_source:PaymentSource;
     }
     export interface VerifyBankAccountInputParam {
@@ -616,13 +547,6 @@ For verifying bank accounts via **micro-deposit**, Stripe deposits two small amo
       sort_by?:{asc?:'updated_at' | 'created_at',desc?:'updated_at' | 'created_at'};
     }
     export interface ExportPaymentSourceResponse {  
-      /**
-        * @description Copies this payment source information to the gateway specified in the API.
-
-This is useful if you want to port your customer&#x27;s card details into another gateway.
-
-        */
-       
        third_party_payment_method:ThirdPartyPaymentMethod;
     }
     export interface ExportPaymentSourceInputParam {
@@ -635,17 +559,7 @@ This is useful if you want to port your customer&#x27;s card details into anothe
       gateway_account_id:string;
     }
     export interface CreateUsingPaymentIntentResponse {  
-      /**
-        * @description Used to attach the card to the customer after 3DS completion. [Learn more](/docs/api/3ds_card_payments) on the 3DS implementation via Chargebee APIs.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Used to attach the card to the customer after 3DS completion. [Learn more](/docs/api/3ds_card_payments) on the 3DS implementation via Chargebee APIs.
-
-        */
        
        payment_source:PaymentSource;
     }
@@ -673,26 +587,11 @@ This is useful if you want to port your customer&#x27;s card details into anothe
       payment_intent?:{additional_info?:object,additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card',reference_id?:string};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves the payment source identified by the unique identifier.
-
-        */
-       
        payment_source:PaymentSource;
     }
     
     export interface CreateVoucherPaymentSourceResponse {  
-      /**
-        * @description Create a voucher payment method for the payment source.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Create a voucher payment method for the payment source.
-
-        */
        
        payment_source:PaymentSource;
     }
@@ -713,19 +612,7 @@ This is useful if you want to port your customer&#x27;s card details into anothe
       voucher_payment_source?:{billing_address?:object,gateway_account_id?:string,tax_id?:string,voucher_type:VoucherType};
     }
     export interface CreateUsingTempTokenResponse {  
-      /**
-        * @description This API offers an alternative way to create a payment source using a single-use gateway temporary token, which is generally provided by your payment gateway. In the case of Stripe, this temporary token is generated according to the instruction detailed in [Stripe documentation](https://stripe.com/docs/api/tokens/create_card).  
-Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description This API offers an alternative way to create a payment source using a single-use gateway temporary token, which is generally provided by your payment gateway. In the case of Stripe, this temporary token is generated according to the instruction detailed in [Stripe documentation](https://stripe.com/docs/api/tokens/create_card).  
-Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
-
-        */
        
        payment_source:PaymentSource;
     }
@@ -795,37 +682,7 @@ Storing card after successful 3DS completion is not supported in this API. Use [
       additional_information?:object;
     }
     export interface UpdateCardResponse {  
-      /**
-        * @description Merchants look to update card details when:
-
-* The billing address of a customer has changed. In such a case, modify the billing address in the Chargebee and the payment gateway.
-* The expiration date of the card has been extended by the bank. (This usually happens when the date of card expiry is in near future).
-
-Multiple parameters such as address, expiry date, month, and so on, can be updated through this API.
-
-Meta data can also be added additionally(supported in Stripe only). Metadata is a JSON object. It is used to store additional information about customers.
-
-In **Stripe** and **Braintree** payment gateways, changes in card details are auto-updated. This feature can also be used for other payment gateways in which auto-update is not enabled or is not supported by Chargebee.  
-**Note** : This endpoint supports Chargebee Test Gateway, [Stripe](https://www.chargebee.com/docs/2.0/stripe.html), [Braintree](https://www.chargebee.com/docs/2.0/braintree.html), [Authorize.net](https://www.chargebee.com/docs/2.0/authorize-index.html), [Worldpay US eCom](https://www.chargebee.com/docs/2.0/vantiv_worldpay.html), and [WorldPay Direct Integration](https://www.chargebee.com/docs/2.0/worldpay-direct.html). For all other gateways, your customers must re-enter the full [card details](/docs/api/payment_sources#update_a_card_payment_source_card_first_name) to update existing card details. For example, consider a customer not using the gateways mentioned above and wants to update the [card\[billing_addr1\]](/docs/api/payment_sources#update_a_card_payment_source_card_billing_addr1) parameter. In such a case, the customer must re-enter the value of all the parameters present in the [card](/docs/api/payment_sources#update_a_card_payment_source_card_first_name) object.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Merchants look to update card details when:
-
-* The billing address of a customer has changed. In such a case, modify the billing address in the Chargebee and the payment gateway.
-* The expiration date of the card has been extended by the bank. (This usually happens when the date of card expiry is in near future).
-
-Multiple parameters such as address, expiry date, month, and so on, can be updated through this API.
-
-Meta data can also be added additionally(supported in Stripe only). Metadata is a JSON object. It is used to store additional information about customers.
-
-In **Stripe** and **Braintree** payment gateways, changes in card details are auto-updated. This feature can also be used for other payment gateways in which auto-update is not enabled or is not supported by Chargebee.  
-**Note** : This endpoint supports Chargebee Test Gateway, [Stripe](https://www.chargebee.com/docs/2.0/stripe.html), [Braintree](https://www.chargebee.com/docs/2.0/braintree.html), [Authorize.net](https://www.chargebee.com/docs/2.0/authorize-index.html), [Worldpay US eCom](https://www.chargebee.com/docs/2.0/vantiv_worldpay.html), and [WorldPay Direct Integration](https://www.chargebee.com/docs/2.0/worldpay-direct.html). For all other gateways, your customers must re-enter the full [card details](/docs/api/payment_sources#update_a_card_payment_source_card_first_name) to update existing card details. For example, consider a customer not using the gateways mentioned above and wants to update the [card\[billing_addr1\]](/docs/api/payment_sources#update_a_card_payment_source_card_billing_addr1) parameter. In such a case, the customer must re-enter the value of all the parameters present in the [card](/docs/api/payment_sources#update_a_card_payment_source_card_first_name) object.
-
-        */
        
        payment_source:PaymentSource;
     }
@@ -853,21 +710,7 @@ In **Stripe** and **Braintree** payment gateways, changes in card details are au
       card?:{billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,expiry_month?:number,expiry_year?:number,first_name?:string,last_name?:string};
     }
     export interface SwitchGatewayAccountResponse {  
-      /**
-        * @description Switches the gateway in which this payment source information is stored.
-
-This is applicable only if the payment source is present in Spreedly vault.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Switches the gateway in which this payment source information is stored.
-
-This is applicable only if the payment source is present in Spreedly vault.
-
-        */
        
        payment_source:PaymentSource;
     }
@@ -881,17 +724,7 @@ This is applicable only if the payment source is present in Spreedly vault.
       gateway_account_id:string;
     }
     export interface CreateUsingTokenResponse {  
-      /**
-        * @description Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
-
-        */
        
        payment_source:PaymentSource;
     }
@@ -919,99 +752,13 @@ This is applicable only if the payment source is present in Spreedly vault.
       token_id:string;
     }
     export interface DeleteLocalResponse {  
-      /**
-        * @description Deletes a payment method from Chargebee. Payment method in the payment gateway will not be affected.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Deletes a payment method from Chargebee. Payment method in the payment gateway will not be affected.
-
-        */
        
        payment_source:PaymentSource;
     }
     
     export interface CreateBankAccountResponse {  
-      /**
-        * @description This API adds a Direct Debit payment source for a customer. The bank account details collected from your customer are passed as input to this API.
-
-#### [Automated Clearing House (ACH) Network](https://www.chargebee.com/docs/direct-debit-payments.html#direct-debit-payments-in-the-united-states)
-
-ACH is an electronic network for passing financial transactions in the US. Chargebee currently supports ACH via [Stripe](https://www.chargebee.com/docs/ach-payments-stripe.html) , [Authorize.Net](https://www.chargebee.com/docs/ach-payments-authorize_net.html), and [GoCardless](https://www.chargebee.com/docs/2.0/gocardless.html).
-
-##### Bank account verification
-
-Once the bank account has been added, it needs to be verified.
-
-* For Stripe, perform this verification using the [Verify bank account payment source API](/docs/api/payment_sources#verify_bank_account_payment_source).
-* For [Authorize.net](https://www.authorize.net/), the verification is done by them in 2-3 days after the account is added. No intervention is needed from your side or your customer.
-
-
-
-#### Single Euro Payment Area (SEPA)
-
-SEPA is an initiative that integrates bank transfer payments denominated in euro. It is supported via [GoCardless](https://www.chargebee.com/docs/gocardless.html), [Stripe](https://www.chargebee.com/docs/sepa-stripe.html) and [Adyen](https://www.chargebee.com/docs/adyen-sepa.html).  
-**Note:**
-
-* For SEPA via Stripe, it is mandatory to pass [user details](/docs/api#user_details) such as IP address and device information.
-* For GoCardless, [local bank details](https://developer.gocardless.com/api-reference/#appendix-local-bank-details) can be passed instead of IBAN.
-
-#### Bacs Payment Schemes Limited (Bacs) and Bg Autogiro
-
-Bacs is an organization that manages the Direct Debit and Direct Credit payment methods in the UK. Bg Autogiro is a Direct Debit scheme for krona denominated payments in Sweden. Both Bacs and Bg Autogiro are supported via [GoCardless](https://www.chargebee.com/docs/gocardless.html).
-
-#### Bulk Electronic Clearing System (BECS) and Pre-Authorized Debit (PAD)
-
-BECS is an automated payment method for Direct Debit in Australia and New Zealand while PAD does the same for Canada. [GoCardless](https://www.chargebee.com/docs/gocardless.html) supports both.
-
-For Direct Debit, the customer needs to accept a mandate that allows the merchant to debit their bank account. This agreement PDF can be obtained using the [Retrieve direct debit agreement PDF API](/docs/api/hosted_pages#retrieve_direct_debit_agreement_pdf).
-
-If the customer has already reached the payment source limit allowed for the site, pass &#x60;replace_primary_payment_source&#x60; as &#x60;true&#x60;. Alternatively, [delete](/docs/api/payment_sources#delete_a_payment_source) one of the payment sources first and then add the bank account payment source for the customer.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description This API adds a Direct Debit payment source for a customer. The bank account details collected from your customer are passed as input to this API.
-
-#### [Automated Clearing House (ACH) Network](https://www.chargebee.com/docs/direct-debit-payments.html#direct-debit-payments-in-the-united-states)
-
-ACH is an electronic network for passing financial transactions in the US. Chargebee currently supports ACH via [Stripe](https://www.chargebee.com/docs/ach-payments-stripe.html) , [Authorize.Net](https://www.chargebee.com/docs/ach-payments-authorize_net.html), and [GoCardless](https://www.chargebee.com/docs/2.0/gocardless.html).
-
-##### Bank account verification
-
-Once the bank account has been added, it needs to be verified.
-
-* For Stripe, perform this verification using the [Verify bank account payment source API](/docs/api/payment_sources#verify_bank_account_payment_source).
-* For [Authorize.net](https://www.authorize.net/), the verification is done by them in 2-3 days after the account is added. No intervention is needed from your side or your customer.
-
-
-
-#### Single Euro Payment Area (SEPA)
-
-SEPA is an initiative that integrates bank transfer payments denominated in euro. It is supported via [GoCardless](https://www.chargebee.com/docs/gocardless.html), [Stripe](https://www.chargebee.com/docs/sepa-stripe.html) and [Adyen](https://www.chargebee.com/docs/adyen-sepa.html).  
-**Note:**
-
-* For SEPA via Stripe, it is mandatory to pass [user details](/docs/api#user_details) such as IP address and device information.
-* For GoCardless, [local bank details](https://developer.gocardless.com/api-reference/#appendix-local-bank-details) can be passed instead of IBAN.
-
-#### Bacs Payment Schemes Limited (Bacs) and Bg Autogiro
-
-Bacs is an organization that manages the Direct Debit and Direct Credit payment methods in the UK. Bg Autogiro is a Direct Debit scheme for krona denominated payments in Sweden. Both Bacs and Bg Autogiro are supported via [GoCardless](https://www.chargebee.com/docs/gocardless.html).
-
-#### Bulk Electronic Clearing System (BECS) and Pre-Authorized Debit (PAD)
-
-BECS is an automated payment method for Direct Debit in Australia and New Zealand while PAD does the same for Canada. [GoCardless](https://www.chargebee.com/docs/gocardless.html) supports both.
-
-For Direct Debit, the customer needs to accept a mandate that allows the merchant to debit their bank account. This agreement PDF can be obtained using the [Retrieve direct debit agreement PDF API](/docs/api/hosted_pages#retrieve_direct_debit_agreement_pdf).
-
-If the customer has already reached the payment source limit allowed for the site, pass &#x60;replace_primary_payment_source&#x60; as &#x60;true&#x60;. Alternatively, [delete](/docs/api/payment_sources#delete_a_payment_source) one of the payment sources first and then add the bank account payment source for the customer.
-
-        */
        
        payment_source:PaymentSource;
     }
@@ -1046,29 +793,7 @@ If the customer has already reached the payment source limit allowed for the sit
       bank_account?:{account_holder_type?:AccountHolderType,account_number?:string,account_type?:AccountType,bank_code?:string,bank_name?:string,billing_address?:object,company?:string,echeck_type?:EcheckType,email?:string,first_name?:string,gateway_account_id?:string,iban?:string,last_name?:string,phone?:string,routing_number?:string,swedish_identity_number?:string};
     }
     export interface UpdateBankAccountResponse {  
-      /**
-        * @description This API is used to update the payment source details of a customer. Information related to bank account payment source such as email, first name, and last name can be updated.
-
-* For GoCardless, Chargebee supports (ACH,BACS,SEPA,AUTOGIRO,BECS,BECS_NZ,PAD).
-* For Stripe, Chargebee only supports SEPA.
-
-
-
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description This API is used to update the payment source details of a customer. Information related to bank account payment source such as email, first name, and last name can be updated.
-
-* For GoCardless, Chargebee supports (ACH,BACS,SEPA,AUTOGIRO,BECS,BECS_NZ,PAD).
-* For Stripe, Chargebee only supports SEPA.
-
-
-
-
-        */
        
        payment_source:PaymentSource;
     }

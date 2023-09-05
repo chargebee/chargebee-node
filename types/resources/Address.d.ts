@@ -138,11 +138,6 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
       update(input:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves an address resource for a subscription and the specified label.
-
-        */
-       
        address:Address;
     }
     export interface RetrieveInputParam {
@@ -162,11 +157,6 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
       label:string;
     }
     export interface UpdateResponse {  
-      /**
-        * @description Adds or replaces the address for a subscription. If an address is already present for the specified label, it will be replaced otherwise new address is added with that label.
-
-        */
-       
        address:Address;
     }
     export interface UpdateInputParam {

@@ -362,11 +362,6 @@ declare module 'chargebee' {
       refund(transaction_id:string, input?:RefundInputParam):ChargebeeRequest<RefundResponse>;
     }
     export interface RecordRefundResponse {  
-      /**
-        * @description Records a refund made offline. Applicable only for &#x60;transaction&#x60;s of [type](transactions#transaction_type) &#x3D; &#x60;payment&#x60;.
-
-        */
-       
        transaction:Transaction;
     }
     export interface RecordRefundInputParam {
@@ -557,20 +552,10 @@ declare module 'chargebee' {
       sort_by?:{asc?:'date' | 'updated_at',desc?:'date' | 'updated_at'};
     }
     export interface VoidTransactionResponse {  
-      /**
-        * @description This API voids the specific authorization transaction in order to release the blocked funds from the customer&#x27;s card. Voiding an already captured or voided transaction is not possible.
-
-        */
-       
        transaction:Transaction;
     }
     
     export interface CreateAuthorizationResponse {  
-      /**
-        * @description Authorizes a specific amount in customer&#x27;s Credit card, which can be collected within a span of time. Read more on authorization and capture [here](https://www.chargebee.com/docs/stripe.html#auth-and-capture).
-
-        */
-       
        transaction:Transaction;
     }
     export interface CreateAuthorizationInputParam {
@@ -604,11 +589,6 @@ declare module 'chargebee' {
       amount:number;
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieve a transaction identified by its unique id.
-
-        */
-       
        transaction:Transaction;
     }
     
@@ -644,11 +624,6 @@ declare module 'chargebee' {
       offset?:string;
     }
     export interface DeleteOfflineTransactionResponse {  
-      /**
-        * @description This API deletes an offline transaction. However, to delete an offline transaction all payment allocations associated with the transaction must be removed.
-
-        */
-       
        transaction:Transaction;
     }
     export interface DeleteOfflineTransactionInputParam {
@@ -661,11 +636,6 @@ declare module 'chargebee' {
       comment?:string;
     }
     export interface RefundResponse {  
-      /**
-        * @description Refunds an online payment. Applicable only for &#x60;transaction&#x60;s of [type](transactions#transaction_type) &#x3D; &#x60;payment&#x60;. You can only refund a &#x60;transaction&#x60; whose [status](transactions#transaction_status)&#x60; &#x60; is &#x60;success&#x60;.
-
-        */
-       
        transaction:Transaction;
     }
     export interface RefundInputParam {

@@ -362,11 +362,6 @@ Make sure that you [encode](https://www.urlencoder.org/) the name of the coupon 
       plan?:{};
     }
     export interface UpdateForItemsResponse {  
-      /**
-        * @description This API updates a coupon that is created for a specific promotion or offers.
-
-        */
-       
        coupon:Coupon;
     }
     export interface UpdateForItemsInputParam {
@@ -517,36 +512,14 @@ If not specified, the coupon can be redeemed an indefinite number of times.
       coupon_constraints?:{entity_type:'customer',type:'max_redemptions' | 'unique_by',value?:string}[];
     }
     export interface UnarchiveResponse {  
-      /**
-        * @description This API unarchives a specific coupon using the coupon ID.
-
-        */
-       
        coupon:Coupon;
     }
     
     export interface DeleteResponse {  
-      /**
-        * @description If no Subscriptions/Invoices are linked to this Coupon, the Coupon will be deleted from your Chargebee site. This action cannot be undone.
-
-To ensure that existing Subscriptions/Invoices are not affected, Coupons associated with them will not be deleted, but moved to &quot;Archived&quot; state. Once a Coupon has been archived, it cannot be edited or used again unless [unarchived](coupons#unarchive_a_coupon). Unused Coupons codes are deleted.
-
-        */
-       
        coupon:Coupon;
     }
     
     export interface CopyResponse {  
-      /**
-        * @description Copies a coupon over from one site to another. Copying of [archived](./coupons?prod_cat_ver&#x3D;2#coupon_status) coupons is not supported.
-
-The item prices that are linked to the coupon in the source site are also linked to the coupon in the destination site. However, this will only work if those item prices exist and with the same [ids](./item_prices?prod_cat_ver&#x3D;2#item_price_id), in the destination site. Hence, it is recommended that the item prices be copied over before copying the coupons.
-
-The value for [redemptions](./coupons?prod_cat_ver&#x3D;2#coupon_redemptions) is not copied. It is set to &#x60;0&#x60; for the newly created coupon. Hence, if such a coupon had &#x60;expired&#x60; in the source site due to &#x60;redemptions&#x60; having reached [max_redemptions](./coupons?prod_cat_ver&#x3D;2#coupon_max_redemptions), it&#x27;s [status](./coupons?prod_cat_ver&#x3D;2#coupon_status) would be &#x60;active&#x60; in the destination site.
-
-
-        */
-       
        coupon:Coupon;
     }
     export interface CopyInputParam {
@@ -582,20 +555,10 @@ The value for [redemptions](./coupons?prod_cat_ver&#x3D;2#coupon_redemptions) is
       for_site_merging?:boolean;
     }
     export interface RetrieveResponse {  
-      /**
-        * @description This API retrieves a specific coupon using the coupon ID.
-
-        */
-       
        coupon:Coupon;
     }
     
     export interface CreateForItemsResponse {  
-      /**
-        * @description This API creates a new coupon for a specific promotion or offers.
-
-        */
-       
        coupon:Coupon;
     }
     export interface CreateForItemsInputParam {

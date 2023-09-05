@@ -33,11 +33,6 @@ declare module 'chargebee' {
       process_receipt(non_subscription_app_id:string, input:ProcessReceiptInputParam):ChargebeeRequest<ProcessReceiptResponse>;
     }
     export interface ProcessReceiptResponse {  
-      /**
-        * @description This API is used to sync consumable, non-consumable, and non-renewing product payments in Chargebee.
-
-        */
-       
        non_subscription:NonSubscription;
     }
     export interface ProcessReceiptInputParam {

@@ -718,17 +718,7 @@ During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60;
       update_billing_info(customer_id:string, input?:UpdateBillingInfoInputParam):ChargebeeRequest<UpdateBillingInfoResponse>;
     }
     export interface DeleteResponse {  
-      /**
-        * @description Deletes a particular customer identified by the a unique identifier.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Deletes a particular customer identified by the a unique identifier.
-
-        */
        
        card?:Card;
     }
@@ -742,15 +732,6 @@ During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60;
       delete_payment_method?:boolean;
     }
     export interface RelationshipsResponse {  
-      /**
-        * @description Sets a customer into a [hierarchical relationship](https://www.chargebee.com/docs/account-hierarchy.html) with another. The path parameter &#x60;customer_id&#x60; is the ID of the child in the relationship.  
-**Note**
-
-* In the descriptions for &#x60;use_default_hierarchy_settings&#x60;, &#x60;parent_account_access&#x60;, and &#x60;child_account_access&#x60; parameters, the &quot;parent&quot; is the customer whose ID is [payment_owner_id](/docs/api/customers?prod_cat_ver&#x3D;2#link_a_customer_payment_owner_id). However, if the &#x60;payment_owner_id&#x60; is set as the ID of the child itself (&#x60;{customer_id}&#x60;), then the &quot;parent&quot; is [parent_id](/docs/api/customers?prod_cat_ver&#x3D;2#link_a_customer_parent_id).
-* The parent and the child customers must belong to the same [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe).
-
-        */
-       
        customer:Customer;
     }
     export interface RelationshipsInputParam {
@@ -809,26 +790,11 @@ During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60;
       child_account_access?:{portal_download_invoices?:'no' | 'yes' | 'view_only',portal_edit_subscriptions?:'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
     }
     export interface DeleteRelationshipResponse {  
-      /**
-        * @description Disconnects a child customer from its parent. &#x60;customer_id&#x60; is the [id](/docs/api/customers#customer_id) of the child.
-
-        */
-       
        customer:Customer;
     }
     
     export interface DeleteContactResponse {  
-      /**
-        * @description Deletes a particular contact for a customer. You can delete a contact by giving the Contact ID as the input parameter.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Deletes a particular contact for a customer. You can delete a contact by giving the Contact ID as the input parameter.
-
-        */
        
        card?:Card;
     }
@@ -842,17 +808,7 @@ During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60;
       contact?:{id:string};
     }
     export interface AssignPaymentRoleResponse {  
-      /**
-        * @description Assign Primary or Backup payment role or unassign role for the payment source based on the preference for the payment collection.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Assign Primary or Backup payment role or unassign role for the payment source based on the preference for the payment collection.
-
-        */
        
        payment_source:PaymentSource;
     }
@@ -873,11 +829,6 @@ During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60;
       role:Role;
     }
     export interface MoveResponse {  
-      /**
-        * @description This API copies a customer object from one site to another. The destination site (the site to which the customer is copied) is specified by the path parameter &#x60;{site}&#x60;; whereas, the source site (the site from which the customer is copied) is specified by the query parameter &#x60;from_site&#x60;.
-
-        */
-       
        resource_migration:ResourceMigration;
     }
     export interface MoveInputParam {
@@ -897,11 +848,6 @@ During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60;
       from_site:string;
     }
     export interface HierarchyResponse {  
-      /**
-        * @description Retrieves the [account hierarchy tree](/docs/api/hierarchies) for the customer.
-
-        */
-       
        hierarchies:Hierarchy[];
     }
     export interface HierarchyInputParam {
@@ -914,107 +860,7 @@ During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60;
       hierarchy_operation_type:'complete_hierarchy' | 'subordinates' | 'path_to_root';
     }
     export interface UpdatePaymentMethodResponse {  
-      /**
-        * @description We recently released [Payment Sources](/docs/api/payment_sources), which comes with additional options and improvements to the [Card APIs](/docs/api/cards). For this operation, use the [Create using temporary token](/docs/api/payment_sources#create_using_temporary_token) API or [Create using permanent token](/docs/api/payment_sources#create_using_permanent_token) API under Payment Sources to update payment method for the customer.
-
-Updates payment method details for a customer.
-
-**Note:** If you wish to pass the card number, CVV, or the single-use card tokens provided by gateways like Stripe, then use the [Update card for a customer](cards#update_card_for_a_customer) API under Cards resource. This API is not supported for Chargebee Test Gateway, it is provided to help you understand the billing workflow in Chargebee.
-
-**PayPal Express Checkout**   
-You can use this API if you are directly integrating PayPal Express Checkout in your website instead of using Chargebee&#x27;s hosted pages. When your customer updates his payment method using PayPal Express Checkout, you will be provided with the *Billing Agreement ID* by PayPal. You can update the payment method for that customer in Chargebee by passing &#x60;type&#x60; as &#x60;paypal_express_checkout&#x60; and &#x60;reference_id&#x60; with the *Billing Agreement ID*.
-
-**Login and Pay with Amazon**   
-You can use this API if you are directly integrating *Login and Pay with Amazon* in your website instead of using Chargebee&#x27;s hosted pages. When your customer updates Amazon as a payment method, you will be provided with the *Billing Agreement ID* by Amazon. You can update the payment method for that customer in Chargebee by passing &#x60;type&#x60; as &#x60;amazon_payments&#x60; and &#x60;reference_id&#x60; with the *Billing Agreement ID*.
-
-**Card Payments**   
-When the card details of your customer are stored in the vault of gateways such as Stripe or Braintree, you can use this API to update the *reference id* provided by them in Chargebee. To use this API, pass   
-
-* &#x60;type&#x60; as &#x60;card&#x60;.
-* &#x60;gateway&#x60; with the gateway associated with the card. If the gateway is not specified, the default gateway will be used.
-* &#x60;reference_id&#x60; with the identifier provided by the gateway/Spreedly to reference that specific card.
-
-**Reference id format for Card Payments**   
-The format of reference_id will differ based on where the card is stored.  
-**Stripe:** In case of Stripe, the reference_id consists of combination of Stripe Customer ID and Stripe Card ID separated by forward slash (e.g. *cus_63MnDn0t6kfDW7/card_6WjCF20vT9WN1G*). If you are passing Stripe Customer ID alone, then Chargebee will store the card marked as active for that customer in Stripe.
-
-**Braintree:** In case of Braintree, the reference_id consists of combination of Braintree Customer ID and Braintree Payment Method Token separated by forward slash   
-(e.g. *cus_63MnDn0t6kfDW7/card_6WjCF20vT9WN1G* ). If you are passing Braintree Customer ID alone, then Chargebee will store the card marked as default for that customer in Braintree.
-
-**Spreedly Card vault:** If the card details are stored in Spreedly vault, then you need to provide the Spreedly token as &#x60;reference_id&#x60;.
-
-**Direct Debit Payments**   
-When the bank account details of your customer are stored in the gateway vault, you can use this API to update the reference id provided by them in Chargebee. To use this API, pass   
-
-* &#x60;type&#x60; as &#x60;direct_debit&#x60;.
-* &#x60;gateway&#x60; with the gateway where the bank account details are stored (e.g. *authorize_net*). If the gateway is not specified, the gateway supporting the direct debit will be used.
-* &#x60;reference_id&#x60; with the identifier provided by the gateway to reference the customer&#x27;s bank account details.
-* &#x60;tmp_token&#x60; with the single use token provided by the gateway ( Should be passed only if reference_id is not passed ).
-
-**Reference id format for Direct Debit Payments**   
-The format of reference_id will differ based on where the bank account is stored.  
-**Stripe:** In case of Stripe, the reference_id consists of combination of Stripe Customer ID and Stripe Bank Account ID separated by forward slash   
-(e.g. *cus_8suoHaLQH4G5AW/ba_18b8z2KmcbENlhgU03RznRYW*). If you are passing Stripe Customer ID alone, then Chargebee will store the first bank account details present in payment profile list of that customer in Stripe.
-
-**Authorize.Net:** The reference_id consists of combination of Authorize.Net&#x27;s Customer Profile ID and Payment Profile ID separated by forward slash (e.g. *2384383/34834382*). If you are passing Authorize.Net&#x27;s Customer Profile ID alone, then Chargebee will store the first bank account details present in payment profile list of that customer in Authorize.Net.
-
-**GoCardless:** The reference_id is the GoCardless Customer Mandate ID (e.g. *MD0077Z99TTQXK*).
-
-**Note:** While using this API to update payment method details, [Card Verification](https://www.chargebee.com/docs/cards.html#card-verification) will not happen even if it is enabled for that particular gateway.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description We recently released [Payment Sources](/docs/api/payment_sources), which comes with additional options and improvements to the [Card APIs](/docs/api/cards). For this operation, use the [Create using temporary token](/docs/api/payment_sources#create_using_temporary_token) API or [Create using permanent token](/docs/api/payment_sources#create_using_permanent_token) API under Payment Sources to update payment method for the customer.
-
-Updates payment method details for a customer.
-
-**Note:** If you wish to pass the card number, CVV, or the single-use card tokens provided by gateways like Stripe, then use the [Update card for a customer](cards#update_card_for_a_customer) API under Cards resource. This API is not supported for Chargebee Test Gateway, it is provided to help you understand the billing workflow in Chargebee.
-
-**PayPal Express Checkout**   
-You can use this API if you are directly integrating PayPal Express Checkout in your website instead of using Chargebee&#x27;s hosted pages. When your customer updates his payment method using PayPal Express Checkout, you will be provided with the *Billing Agreement ID* by PayPal. You can update the payment method for that customer in Chargebee by passing &#x60;type&#x60; as &#x60;paypal_express_checkout&#x60; and &#x60;reference_id&#x60; with the *Billing Agreement ID*.
-
-**Login and Pay with Amazon**   
-You can use this API if you are directly integrating *Login and Pay with Amazon* in your website instead of using Chargebee&#x27;s hosted pages. When your customer updates Amazon as a payment method, you will be provided with the *Billing Agreement ID* by Amazon. You can update the payment method for that customer in Chargebee by passing &#x60;type&#x60; as &#x60;amazon_payments&#x60; and &#x60;reference_id&#x60; with the *Billing Agreement ID*.
-
-**Card Payments**   
-When the card details of your customer are stored in the vault of gateways such as Stripe or Braintree, you can use this API to update the *reference id* provided by them in Chargebee. To use this API, pass   
-
-* &#x60;type&#x60; as &#x60;card&#x60;.
-* &#x60;gateway&#x60; with the gateway associated with the card. If the gateway is not specified, the default gateway will be used.
-* &#x60;reference_id&#x60; with the identifier provided by the gateway/Spreedly to reference that specific card.
-
-**Reference id format for Card Payments**   
-The format of reference_id will differ based on where the card is stored.  
-**Stripe:** In case of Stripe, the reference_id consists of combination of Stripe Customer ID and Stripe Card ID separated by forward slash (e.g. *cus_63MnDn0t6kfDW7/card_6WjCF20vT9WN1G*). If you are passing Stripe Customer ID alone, then Chargebee will store the card marked as active for that customer in Stripe.
-
-**Braintree:** In case of Braintree, the reference_id consists of combination of Braintree Customer ID and Braintree Payment Method Token separated by forward slash   
-(e.g. *cus_63MnDn0t6kfDW7/card_6WjCF20vT9WN1G* ). If you are passing Braintree Customer ID alone, then Chargebee will store the card marked as default for that customer in Braintree.
-
-**Spreedly Card vault:** If the card details are stored in Spreedly vault, then you need to provide the Spreedly token as &#x60;reference_id&#x60;.
-
-**Direct Debit Payments**   
-When the bank account details of your customer are stored in the gateway vault, you can use this API to update the reference id provided by them in Chargebee. To use this API, pass   
-
-* &#x60;type&#x60; as &#x60;direct_debit&#x60;.
-* &#x60;gateway&#x60; with the gateway where the bank account details are stored (e.g. *authorize_net*). If the gateway is not specified, the gateway supporting the direct debit will be used.
-* &#x60;reference_id&#x60; with the identifier provided by the gateway to reference the customer&#x27;s bank account details.
-* &#x60;tmp_token&#x60; with the single use token provided by the gateway ( Should be passed only if reference_id is not passed ).
-
-**Reference id format for Direct Debit Payments**   
-The format of reference_id will differ based on where the bank account is stored.  
-**Stripe:** In case of Stripe, the reference_id consists of combination of Stripe Customer ID and Stripe Bank Account ID separated by forward slash   
-(e.g. *cus_8suoHaLQH4G5AW/ba_18b8z2KmcbENlhgU03RznRYW*). If you are passing Stripe Customer ID alone, then Chargebee will store the first bank account details present in payment profile list of that customer in Stripe.
-
-**Authorize.Net:** The reference_id consists of combination of Authorize.Net&#x27;s Customer Profile ID and Payment Profile ID separated by forward slash (e.g. *2384383/34834382*). If you are passing Authorize.Net&#x27;s Customer Profile ID alone, then Chargebee will store the first bank account details present in payment profile list of that customer in Authorize.Net.
-
-**GoCardless:** The reference_id is the GoCardless Customer Mandate ID (e.g. *MD0077Z99TTQXK*).
-
-**Note:** While using this API to update payment method details, [Card Verification](https://www.chargebee.com/docs/cards.html#card-verification) will not happen even if it is enabled for that particular gateway.
-
-        */
        
        card?:Card;
     }
@@ -1028,33 +874,13 @@ The format of reference_id will differ based on where the bank account is stored
       payment_method?:{additional_information?:object,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type:Type};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves the details of the desired customer. You can use the unique identifier for a particular customer to retrieve the desired details.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Retrieves the details of the desired customer. You can use the unique identifier for a particular customer to retrieve the desired details.
-
-        */
        
        card?:Card;
     }
     
     export interface UpdateResponse {  
-      /**
-        * @description Updates the customer resource. However, this method cannot be used for updating the &#x27;Billing Info&#x27; - the Billing Address and &#x27;vat_number&#x27; attributes - of the customer. To update the same, use our [Update Billing Info](/docs/api/customers#update_billing_info_for_a_customer) API.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Updates the customer resource. However, this method cannot be used for updating the &#x27;Billing Info&#x27; - the Billing Address and &#x27;vat_number&#x27; attributes - of the customer. To update the same, use our [Update Billing Info](/docs/api/customers#update_billing_info_for_a_customer) API.
-
-        */
        
        card?:Card;
     }
@@ -1230,11 +1056,6 @@ Any invoices raised when a subscription activates from &#x60;in_trial&#x60; or &
       consolidated_invoicing?:boolean;
     }
     export interface ChangeBillingDateResponse {  
-      /**
-        * @description Applicable when *calendar billing* (with customer specific billing date support) is enabled. Changes the customer&#x27;s *billing_date* and/or *billing_day_of_week*.
-
-        */
-       
        customer:Customer;
     }
     export interface ChangeBillingDateInputParam {
@@ -1434,49 +1255,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       relationship?:{invoice_owner_id?:{is?:string,is_not?:string,starts_with?:string},parent_id?:{is?:string,is_not?:string,starts_with?:string},payment_owner_id?:{is?:string,is_not?:string,starts_with?:string}};
     }
     export interface CreateResponse {  
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/3ds_card_payments?prod_cat_ver&#x3D;1) and pass it as input parameter to this API.
-
-Creates a customer. You can create a customer and then create subscriptions for the customer when required. When creating a customer, you can pass along the billing address and card details.
-
-Passing raw card data via API involves PCI liability at your end due to the sensitivity of the data. Instead, you can use one of the following integration options as applicable:
-
-Here&#x27;s some resources you can use to collect card information within your checkout form based on the payment gateway you use:
-
-* [Stripe.js](https://stripe.com/docs/js) for Stripe users.
-* [Braintree.js](https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v2) for Braintree users.
-* [Accept.js](https://developer.authorize.net/api/reference/features/acceptjs.html), if you use [Authorize.Net](https://www.authorize.net/).
-* If you are using the Adyen gateway, you will have to use the Adyen&#x27;s [Client-Side Encryption](https://docs.adyen.com/developers/features/client-side-encryption) to encrypt sensitive cardholder data. Once the cardholder data is encrypted, pass the value in &#x60;adyen.encrypted.data&#x60;as temp token in this API.
-* You can also use our [Hosted Pages](https://www.chargebee.com/docs/1.0/hosted_pages.html) based integration.
-
-When billing address is not passed (say, for customers making offline payments), you can always provide it later using the [Update billing info for a customer API](/docs/api/customers#update_billing_info_for_a_customer).
-
-**Note:**When an invoice is generated for a customer, the billing address provided for the customer is stored with the invoice. If the First Name, Last Name, and Company fields of the billing address do not contain any information, they&#x27;re picked up from the customer details.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/3ds_card_payments?prod_cat_ver&#x3D;1) and pass it as input parameter to this API.
-
-Creates a customer. You can create a customer and then create subscriptions for the customer when required. When creating a customer, you can pass along the billing address and card details.
-
-Passing raw card data via API involves PCI liability at your end due to the sensitivity of the data. Instead, you can use one of the following integration options as applicable:
-
-Here&#x27;s some resources you can use to collect card information within your checkout form based on the payment gateway you use:
-
-* [Stripe.js](https://stripe.com/docs/js) for Stripe users.
-* [Braintree.js](https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v2) for Braintree users.
-* [Accept.js](https://developer.authorize.net/api/reference/features/acceptjs.html), if you use [Authorize.Net](https://www.authorize.net/).
-* If you are using the Adyen gateway, you will have to use the Adyen&#x27;s [Client-Side Encryption](https://docs.adyen.com/developers/features/client-side-encryption) to encrypt sensitive cardholder data. Once the cardholder data is encrypted, pass the value in &#x60;adyen.encrypted.data&#x60;as temp token in this API.
-* You can also use our [Hosted Pages](https://www.chargebee.com/docs/1.0/hosted_pages.html) based integration.
-
-When billing address is not passed (say, for customers making offline payments), you can always provide it later using the [Update billing info for a customer API](/docs/api/customers#update_billing_info_for_a_customer).
-
-**Note:**When an invoice is generated for a customer, the billing address provided for the customer is stored with the invoice. If the First Name, Last Name, and Company fields of the billing address do not contain any information, they&#x27;re picked up from the customer details.
-
-        */
        
        card?:Card;
     }
@@ -1789,17 +1568,7 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
       entity_identifiers?:{id?:string,scheme?:string,standard?:string,value?:string}[];
     }
     export interface AddContactResponse {  
-      /**
-        * @description Adds the required contact to a customer. You can give the First Name, Last Name, Email ID and more details as input parameters to add them under the desired customer.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Adds the required contact to a customer. You can give the First Name, Last Name, Email ID and more details as input parameters to add them under the desired customer.
-
-        */
        
        card?:Card;
     }
@@ -1844,24 +1613,10 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
       offset?:string;
     }
     export interface ClearPersonalDataResponse {  
-      /**
-        * @description Clear personal details of a customer using this API.
-
-        */
-       
        customer:Customer;
     }
     
     export interface MergeResponse {  
-      /**
-        * @description This API moves a customer&#x27;s payment methods, subscriptions, invoices, credit notes, transactions, unbilled charges, and orders to another customer. Events and email logs will not be moved. The API execution is asynchronous.  
-**Note**
-
-* Moving virtual bank accounts from one customer to another is not supported in this API.
-* Merging customers from different [business entities](/docs/api?prod_cat_ver&#x3D;2#mbe) is not permitted.
-
-        */
-       
        customer:Customer;
     }
     export interface MergeInputParam {
@@ -1881,21 +1636,7 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
       to_customer_id:string;
     }
     export interface CollectPaymentResponse {  
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds_card_payments) and pass it as input parameter to this API.
-
-This API can be used to collect the payments for customer&#x27;s **payment_due** and **not_paid** invoices. You can either choose to collect the payment from an existing payment source or a new payment source. You can choose to either retain or discard the new payment source, which is being used for payment. If the amount collected exceeds the invoice amount, the surplus will be counted in as excess payments.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds_card_payments) and pass it as input parameter to this API.
-
-This API can be used to collect the payments for customer&#x27;s **payment_due** and **not_paid** invoices. You can either choose to collect the payment from an existing payment source or a new payment source. You can choose to either retain or discard the new payment source, which is being used for payment. If the amount collected exceeds the invoice amount, the surplus will be counted in as excess payments.
-
-        */
        
        transaction:Transaction;
     }
@@ -1972,17 +1713,7 @@ This API can be used to collect the payments for customer&#x27;s **payment_due**
       invoice_allocations?:{allocation_amount?:number,invoice_id:string}[];
     }
     export interface RecordExcessPaymentResponse {  
-      /**
-        * @description Use this API to record any [excess payments](//www.chargebee.com/docs/customers.html#excess-payments) made by the customer, such as advance payments. Such payments will be automatically applied to the future invoices. It can also be [manually applied](//www.chargebee.com/docs/invoice-operations.html#apply-excess-payments) to the existing *Not Paid* or *Payment Due* invoices.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Use this API to record any [excess payments](//www.chargebee.com/docs/customers.html#excess-payments) made by the customer, such as advance payments. Such payments will be automatically applied to the future invoices. It can also be [manually applied](//www.chargebee.com/docs/invoice-operations.html#apply-excess-payments) to the existing *Not Paid* or *Payment Due* invoices.
-
-        */
        
        transaction:Transaction;
     }
@@ -2003,17 +1734,7 @@ This API can be used to collect the payments for customer&#x27;s **payment_due**
       transaction?:{amount:number,currency_code?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
     }
     export interface UpdateContactResponse {  
-      /**
-        * @description Updates the details of a contact for a customer. You can give the field data to be updated as input parameters along with the Contact ID to update it.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Updates the details of a contact for a customer. You can give the field data to be updated as input parameters along with the Contact ID to update it.
-
-        */
        
        card?:Card;
     }
@@ -2027,22 +1748,6 @@ This API can be used to collect the payments for customer&#x27;s **payment_due**
       contact?:{email?:string,enabled?:boolean,first_name?:string,id:string,label?:string,last_name?:string,phone?:string,send_account_email?:boolean,send_billing_email?:boolean};
     }
     export interface UpdateHierarchySettingsResponse {  
-      /**
-        * @description Changes the level of access that the parent or the child itself has to the child&#x27;s information.
-
-This data falls into two categories:  
-
-* **Self-Serve Portal data:** subscriptions and invoices of the child.
-* **Email Notifications:** subscription-, invoice- and payment-related notifications for the child.
-
-The &#x27;parent&#x27; is the customer whose id is [payment_owner_id](/docs/api/customers#customer_relationship_payment_owner_id). However, if the &#x60;payment_owner_id&#x60; is the child itself, then the parent is [parent_id](/docs/api/customers#customer_relationship_parent_id). The path parameter &#x60;customer_id&#x60; is the [id](/docs/api/customers#customer_id) of the child in the relationship.
-
-
-
-**Note:** This endpoint cannot be used to change the &#x60;parent_id&#x60;, &#x60;invoice_owner_id&#x60; or &#x60;payment_owner_id&#x60; for the customer. To change them, [delink](/docs/api/customers#delink_a_customer) the customer and then call **Link a customer** again.
-
-        */
-       
        customer:Customer;
     }
     export interface UpdateHierarchySettingsInputParam {
@@ -2073,25 +1778,7 @@ The &#x27;parent&#x27; is the customer whose id is [payment_owner_id](/docs/api/
       child_account_access?:{portal_download_invoices?:'no' | 'yes' | 'view_only',portal_edit_subscriptions?:'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
     }
     export interface UpdateBillingInfoResponse {  
-      /**
-        * @description This method is used for updating the &#x60;billing_address&#x60; and &#x60;vat_number&#x60; attributes of the &#x60;customer&#x60;. For updating the other customer attributes use [Update Customer API](customers#update_a_customer).
-
-During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60; are not already present, they&#x27;re added. Whereas if present, the existing values are replaced with the new values passed. The only exception here is for &#x60;entity_identifiers[i]&#x60; when &#x60;entity_identifiers[operation][i]&#x60; is passed as &#x60;delete&#x60;.
-
-**Note:**When an invoice is generated for a customer, the billing address provided for the customer will be stored with the invoice. If the First Name, Last Name, and Company fields do not contain any information under Billing Info, the same will be picked from Customer Details if the same is available there.Please ensure that the VAT number is provided whenever the billing address is updated, as failing to do so will override any existing VAT numbers if new values are not provided.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description This method is used for updating the &#x60;billing_address&#x60; and &#x60;vat_number&#x60; attributes of the &#x60;customer&#x60;. For updating the other customer attributes use [Update Customer API](customers#update_a_customer).
-
-During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60; are not already present, they&#x27;re added. Whereas if present, the existing values are replaced with the new values passed. The only exception here is for &#x60;entity_identifiers[i]&#x60; when &#x60;entity_identifiers[operation][i]&#x60; is passed as &#x60;delete&#x60;.
-
-**Note:**When an invoice is generated for a customer, the billing address provided for the customer will be stored with the invoice. If the First Name, Last Name, and Company fields do not contain any information under Billing Info, the same will be picked from Customer Details if the same is available there.Please ensure that the VAT number is provided whenever the billing address is updated, as failing to do so will override any existing VAT numbers if new values are not provided.
-
-        */
        
        card?:Card;
     }

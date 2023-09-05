@@ -288,18 +288,6 @@ Passing credit card details to this API involves PCI liability at your end as se
       update_card_for_customer(customer_id:string, input:UpdateCardForCustomerInputParam):ChargebeeRequest<UpdateCardForCustomerResponse>;
     }
     export interface CopyCardForCustomerResponse {  
-      /**
-        * @description #### deprecated
-
-The [Payment Sources API](/docs/api/payment_sources), with its additional options and improvements, obsoletes the Cards APIs. This request is obsoleted by the [Export payment source API](/docs/api/payment_sources#export_payment_source).
-
-Copies the customer&#x27;s card information to another payment gateway. This is useful if you want to port your customer&#x27;s card details to another gateway.
-
-**Limitation**   
-This request does not support copying of cards between Braintree and Stripe payment gateways. Contact [Chargebee Support](https://chargebee.freshdesk.com/support/home) to perform those actions.
-
-        */
-       
        third_party_payment_method:ThirdPartyPaymentMethod;
     }
     export interface CopyCardForCustomerInputParam {
@@ -312,44 +300,11 @@ This request does not support copying of cards between Braintree and Stripe paym
       gateway_account_id:string;
     }
     export interface RetrieveResponse {  
-      /**
-        * @description #### Deprecated
-
-This operation is obsoleted by the [Retrieve a payment source API](/docs/api/payment_sources#retrieve_a_payment_source).
-
-Retrieves the credit card for the customer id.
-
-        */
-       
        card:Card;
     }
     
     export interface SwitchGatewayForCustomerResponse {  
-      /**
-        * @description #### Deprecated
-
-This request is obsoleted by the [Switch gateway account API](/docs/api/payment_sources#switch_gateway_account) for Payment Sources.
-
-Switches the gateway in which customer&#x27;s card information is stored. This is applicable only if the payment method is &#x60;card&#x60;.
-
-**Limitation**   
-This request does not support switching between Braintree and Stripe payment gateways. Contact [Chargebee Support](https://chargebee.freshdesk.com/support/home) to perform those actions.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description #### Deprecated
-
-This request is obsoleted by the [Switch gateway account API](/docs/api/payment_sources#switch_gateway_account) for Payment Sources.
-
-Switches the gateway in which customer&#x27;s card information is stored. This is applicable only if the payment method is &#x60;card&#x60;.
-
-**Limitation**   
-This request does not support switching between Braintree and Stripe payment gateways. Contact [Chargebee Support](https://chargebee.freshdesk.com/support/home) to perform those actions.
-
-        */
        
        card:Card;
     }
@@ -363,76 +318,11 @@ This request does not support switching between Braintree and Stripe payment gat
       gateway_account_id:string;
     }
     export interface DeleteCardForCustomerResponse {  
-      /**
-        * @description #### deprecated
-
-The [Payment Sources API](/docs/api/payment_sources), with its additional options and improvements, obsoletes the Cards APIs. This request is obsoleted by the [Delete a payment source API](/docs/api/payment_sources#delete_a_payment_source).
-
-Deletes the card for a customer. Upon successful deletion the &#x60;auto_collection&#x60; attribute for the customer is set to &#x60;off&#x60; and a &#x60;card_deleted&#x60; event is triggered. If there is no card found at the gateway for the customer, this API returns without errors.
-
-        */
-       
        customer:Customer;
     }
     
     export interface UpdateCardForCustomerResponse {  
-      /**
-        * @description #### Deprecated
-
-The [Payment Sources API](/docs/api/payment_sources), with its additional options and improvements, obsoletes the [Cards APIs](/docs/api/cards). This operation is obsoleted by the following:
-
-* [Create using temporary token](/docs/api/payment_sources#create_using_temporary_token)
-* [Create using permanent token](/docs/api/payment_sources#create_using_permanent_token)
-* [Create a card payment source](/docs/api/payment_sources#create_a_card_payment_source)
-
-Adds or replaces card details of a customer. Updating card details replaces the present payment method.
-
-Passing credit card details to this API involves PCI liability at your end as sensitive card info passes through your servers. If you wish to avoid that, you can use one of the following integration methodologies if applicable
-
-* If you are using Stripe gateway, you can use [Stripe.js](https://stripe.com/docs/stripe.js) with your card update form.
-* If you are using Braintree gateway, you can use [Braintree.js](https://www.braintreepayments.com/docs/javascript) with your card update form.
-* If you are using Authorize.Net gateway, you use [Accept.js](https://developer.authorize.net/api/reference/features/acceptjs.html) with your card update form.
-* In case you are using the Adyen gateway, you will have to use the Adyen&#x27;s [Client Side Encryption](https://docs.adyen.com/developers/features/client-side-encryption) to encrypt sensitive cardholder data. Once the cardholder data is encrypted, pass the value in adyen.encrypted.data as temp token in this API.
-* You can also use our [Hosted Pages](https://www.chargebee.com/docs/hosted_pages.html) based integration. Use our [Hosted Page - Update Card](/docs/api/hosted_pages#update_card) API to generate a &#x27;Update Card&#x27; Hosted Page link.
-
-
-
-**Legacy behavior:**
-
-* **For [sites](https://www.chargebee.com/docs/sites-intro.html) created before March 1st, 2014:** On making this request, the &#x60;billing_address&#x60; and &#x60;vat_number&#x60; of the customer are **deleted** and replaced by the values passed with this request. Ensure that you pass the [billing address parameters](/docs/api/subscriptions?prod_cat_ver&#x3D;1#create_a_subscription_card_billing_addr1) and the &#x60;vat_number&#x60; parameters each time you make this request, to avoid losing the same information at the customer-level.
-* **For [sites](https://www.chargebee.com/docs/sites-intro.html) created on or after March 1st, 2014:** This request does not alter the &#x60;billing_address&#x60; and &#x60;vat_number&#x60; of the customer.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description #### Deprecated
-
-The [Payment Sources API](/docs/api/payment_sources), with its additional options and improvements, obsoletes the [Cards APIs](/docs/api/cards). This operation is obsoleted by the following:
-
-* [Create using temporary token](/docs/api/payment_sources#create_using_temporary_token)
-* [Create using permanent token](/docs/api/payment_sources#create_using_permanent_token)
-* [Create a card payment source](/docs/api/payment_sources#create_a_card_payment_source)
-
-Adds or replaces card details of a customer. Updating card details replaces the present payment method.
-
-Passing credit card details to this API involves PCI liability at your end as sensitive card info passes through your servers. If you wish to avoid that, you can use one of the following integration methodologies if applicable
-
-* If you are using Stripe gateway, you can use [Stripe.js](https://stripe.com/docs/stripe.js) with your card update form.
-* If you are using Braintree gateway, you can use [Braintree.js](https://www.braintreepayments.com/docs/javascript) with your card update form.
-* If you are using Authorize.Net gateway, you use [Accept.js](https://developer.authorize.net/api/reference/features/acceptjs.html) with your card update form.
-* In case you are using the Adyen gateway, you will have to use the Adyen&#x27;s [Client Side Encryption](https://docs.adyen.com/developers/features/client-side-encryption) to encrypt sensitive cardholder data. Once the cardholder data is encrypted, pass the value in adyen.encrypted.data as temp token in this API.
-* You can also use our [Hosted Pages](https://www.chargebee.com/docs/hosted_pages.html) based integration. Use our [Hosted Page - Update Card](/docs/api/hosted_pages#update_card) API to generate a &#x27;Update Card&#x27; Hosted Page link.
-
-
-
-**Legacy behavior:**
-
-* **For [sites](https://www.chargebee.com/docs/sites-intro.html) created before March 1st, 2014:** On making this request, the &#x60;billing_address&#x60; and &#x60;vat_number&#x60; of the customer are **deleted** and replaced by the values passed with this request. Ensure that you pass the [billing address parameters](/docs/api/subscriptions?prod_cat_ver&#x3D;1#create_a_subscription_card_billing_addr1) and the &#x60;vat_number&#x60; parameters each time you make this request, to avoid losing the same information at the customer-level.
-* **For [sites](https://www.chargebee.com/docs/sites-intro.html) created on or after March 1st, 2014:** This request does not alter the &#x60;billing_address&#x60; and &#x60;vat_number&#x60; of the customer.
-
-        */
        
        card:Card;
     }

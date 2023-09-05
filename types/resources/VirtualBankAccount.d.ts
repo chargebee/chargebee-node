@@ -152,20 +152,10 @@ declare module 'chargebee' {
       create_using_permanent_token(input:CreateUsingPermanentTokenInputParam):ChargebeeRequest<CreateUsingPermanentTokenResponse>;
     }
     export interface DeleteLocalResponse {  
-      /**
-        * @description Deletes virtual bank accounts from Chargebee. Payment method in the payment gateway, and Auto Collection settings in Chargebee are not affected.
-
-        */
-       
        virtual_bank_account:VirtualBankAccount;
     }
     
     export interface DeleteResponse {  
-      /**
-        * @description Deletes a virtual bank account. If there is no virtual bank account present in the gateway for the customer, this API will return successfully without throwing an error.
-
-        */
-       
        virtual_bank_account:VirtualBankAccount;
     }
     
@@ -222,17 +212,7 @@ declare module 'chargebee' {
       created_at?:{after?:string,before?:string,between?:string,on?:string};
     }
     export interface CreateResponse {  
-      /**
-        * @description Creates a virtual bank account for a customer. Email address is mandatory for virtual bank account creation. All notifications related to this virtual bank account will be sent to the email address you specify.
-
-        */
-       
        virtual_bank_account:VirtualBankAccount;
-       
-      /**
-        * @description Creates a virtual bank account for a customer. Email address is mandatory for virtual bank account creation. All notifications related to this virtual bank account will be sent to the email address you specify.
-
-        */
        
        customer?:Customer;
     }
@@ -260,26 +240,11 @@ declare module 'chargebee' {
       scheme?:'ach_credit' | 'sepa_credit';
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves the virtual bank account identified by the unique identifier.
-
-        */
-       
        virtual_bank_account:VirtualBankAccount;
     }
     
     export interface CreateUsingPermanentTokenResponse {  
-      /**
-        * @description Creates a virtual bank account using the identifier provided by the gateway.
-
-        */
-       
        virtual_bank_account:VirtualBankAccount;
-       
-      /**
-        * @description Creates a virtual bank account using the identifier provided by the gateway.
-
-        */
        
        customer?:Customer;
     }

@@ -733,17 +733,7 @@ For contract terms in &#x60;active&#x60; state, import is allowed only if the as
       pause(subscription_id:string, input?:PauseInputParam):ChargebeeRequest<PauseResponse>;
     }
     export interface RemoveAdvanceInvoiceScheduleResponse {  
-      /**
-        * @description Deletes an advance invoicing schedule. When *schedule_type &#x3D; specific_dates*, you also have the option of deleting a part of the schedule.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description Deletes an advance invoicing schedule. When *schedule_type &#x3D; specific_dates*, you also have the option of deleting a part of the schedule.
-
-        */
        
        advance_invoice_schedules?:AdvanceInvoiceSchedule[];
     }
@@ -757,57 +747,15 @@ For contract terms in &#x60;active&#x60; state, import is allowed only if the as
       specific_dates_schedule?:{id?:string}[];
     }
     export interface UpdateForItemsResponse {  
-      /**
-        * @description **Note:** This endpoint optionally supports 3DS. To use it, [create](./payment_intents?prod_cat_ver&#x3D;2#create_a_payment_intent) a &#x60;payment_intent&#x60; and provide it via this endpoint.
-
-Updates the specified subscription by setting the parameters passed. Any parameters not provided are left unmodified. If an invoice is generated for this operation, any available [credits and excess payments](./customers?prod_cat_ver&#x3D;2#customer_balances) for the customer are automatically applied.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description **Note:** This endpoint optionally supports 3DS. To use it, [create](./payment_intents?prod_cat_ver&#x3D;2#create_a_payment_intent) a &#x60;payment_intent&#x60; and provide it via this endpoint.
-
-Updates the specified subscription by setting the parameters passed. Any parameters not provided are left unmodified. If an invoice is generated for this operation, any available [credits and excess payments](./customers?prod_cat_ver&#x3D;2#customer_balances) for the customer are automatically applied.
-
-        */
        
        customer:Customer;
        
-      /**
-        * @description **Note:** This endpoint optionally supports 3DS. To use it, [create](./payment_intents?prod_cat_ver&#x3D;2#create_a_payment_intent) a &#x60;payment_intent&#x60; and provide it via this endpoint.
-
-Updates the specified subscription by setting the parameters passed. Any parameters not provided are left unmodified. If an invoice is generated for this operation, any available [credits and excess payments](./customers?prod_cat_ver&#x3D;2#customer_balances) for the customer are automatically applied.
-
-        */
-       
        card?:Card;
-       
-      /**
-        * @description **Note:** This endpoint optionally supports 3DS. To use it, [create](./payment_intents?prod_cat_ver&#x3D;2#create_a_payment_intent) a &#x60;payment_intent&#x60; and provide it via this endpoint.
-
-Updates the specified subscription by setting the parameters passed. Any parameters not provided are left unmodified. If an invoice is generated for this operation, any available [credits and excess payments](./customers?prod_cat_ver&#x3D;2#customer_balances) for the customer are automatically applied.
-
-        */
        
        invoice?:Invoice;
        
-      /**
-        * @description **Note:** This endpoint optionally supports 3DS. To use it, [create](./payment_intents?prod_cat_ver&#x3D;2#create_a_payment_intent) a &#x60;payment_intent&#x60; and provide it via this endpoint.
-
-Updates the specified subscription by setting the parameters passed. Any parameters not provided are left unmodified. If an invoice is generated for this operation, any available [credits and excess payments](./customers?prod_cat_ver&#x3D;2#customer_balances) for the customer are automatically applied.
-
-        */
-       
        unbilled_charges?:UnbilledCharge[];
-       
-      /**
-        * @description **Note:** This endpoint optionally supports 3DS. To use it, [create](./payment_intents?prod_cat_ver&#x3D;2#create_a_payment_intent) a &#x60;payment_intent&#x60; and provide it via this endpoint.
-
-Updates the specified subscription by setting the parameters passed. Any parameters not provided are left unmodified. If an invoice is generated for this operation, any available [credits and excess payments](./customers?prod_cat_ver&#x3D;2#customer_balances) for the customer are automatically applied.
-
-        */
        
        credit_notes?:CreditNote[];
     }
@@ -1168,24 +1116,9 @@ Applicable only when [Metered Billing](https://www.chargebee.com/docs/metered_bi
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
     export interface RemoveCouponsResponse {  
-      /**
-        * @description Removes Coupons associated with the Subscription. If the param &#x27;coupon_ids&#x27; is not specified, all the Coupons linked to the Subscription will be removed.
-
-        */
-       
        subscription:Subscription;
        
-      /**
-        * @description Removes Coupons associated with the Subscription. If the param &#x27;coupon_ids&#x27; is not specified, all the Coupons linked to the Subscription will be removed.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Removes Coupons associated with the Subscription. If the param &#x27;coupon_ids&#x27; is not specified, all the Coupons linked to the Subscription will be removed.
-
-        */
        
        card?:Card;
     }
@@ -1199,133 +1132,13 @@ Applicable only when [Metered Billing](https://www.chargebee.com/docs/metered_bi
       coupon_ids?:string[];
     }
     export interface ResumeResponse {  
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds-implementation-guide) and pass it as input parameter to this API.
-
-This API is used to resume a **paused** subscription. On resumption the subscription will be activated and any applicable charges will be initiated.
-
-You could schedule the resumption by passing **specific_date** parameter in resume_option. If scheduled, the subscription will be resumed on the **specific_date** and moved to Active state.
-
-For in-term resumption, unless there are scheduled changes, unbilled charges will not be charged.
-
-**What is an &quot;in-term resumption&quot;?**   
-An &quot;in-term resumption&quot; is when the pause and resumption happens within the billing term of the subscription.
-
-**Example :** A subscription was billed from 1st to 31st of a month. It was paused on the 20th and resumed before 31st. This is an in-term resumption.
-
-#### UNPAID INVOICES
-
-Specifying **unpaid_invoices** allows you to close invoices of the subscription which have amounts due. The invoices are chosen for payment collection after applying the available credits and excess payments.
-
-If specified as **schedule_payment_collection**, payment collection for the amount due of past invoices will be attempted. The payment method available will be charged if auto-collection is enabled for the customer, and appropriate payment collection(payment succeeded or payment failed) events will be triggered. If the payment collection fails, no further retries will be made on the invoices.
-
-**Note:** If the invoices of the subscription are consolidated, and any of the subscriptions in the consolidated invoice are cancelled, these invoices will not be selected for collection.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds-implementation-guide) and pass it as input parameter to this API.
-
-This API is used to resume a **paused** subscription. On resumption the subscription will be activated and any applicable charges will be initiated.
-
-You could schedule the resumption by passing **specific_date** parameter in resume_option. If scheduled, the subscription will be resumed on the **specific_date** and moved to Active state.
-
-For in-term resumption, unless there are scheduled changes, unbilled charges will not be charged.
-
-**What is an &quot;in-term resumption&quot;?**   
-An &quot;in-term resumption&quot; is when the pause and resumption happens within the billing term of the subscription.
-
-**Example :** A subscription was billed from 1st to 31st of a month. It was paused on the 20th and resumed before 31st. This is an in-term resumption.
-
-#### UNPAID INVOICES
-
-Specifying **unpaid_invoices** allows you to close invoices of the subscription which have amounts due. The invoices are chosen for payment collection after applying the available credits and excess payments.
-
-If specified as **schedule_payment_collection**, payment collection for the amount due of past invoices will be attempted. The payment method available will be charged if auto-collection is enabled for the customer, and appropriate payment collection(payment succeeded or payment failed) events will be triggered. If the payment collection fails, no further retries will be made on the invoices.
-
-**Note:** If the invoices of the subscription are consolidated, and any of the subscriptions in the consolidated invoice are cancelled, these invoices will not be selected for collection.
-
-        */
        
        customer:Customer;
        
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds-implementation-guide) and pass it as input parameter to this API.
-
-This API is used to resume a **paused** subscription. On resumption the subscription will be activated and any applicable charges will be initiated.
-
-You could schedule the resumption by passing **specific_date** parameter in resume_option. If scheduled, the subscription will be resumed on the **specific_date** and moved to Active state.
-
-For in-term resumption, unless there are scheduled changes, unbilled charges will not be charged.
-
-**What is an &quot;in-term resumption&quot;?**   
-An &quot;in-term resumption&quot; is when the pause and resumption happens within the billing term of the subscription.
-
-**Example :** A subscription was billed from 1st to 31st of a month. It was paused on the 20th and resumed before 31st. This is an in-term resumption.
-
-#### UNPAID INVOICES
-
-Specifying **unpaid_invoices** allows you to close invoices of the subscription which have amounts due. The invoices are chosen for payment collection after applying the available credits and excess payments.
-
-If specified as **schedule_payment_collection**, payment collection for the amount due of past invoices will be attempted. The payment method available will be charged if auto-collection is enabled for the customer, and appropriate payment collection(payment succeeded or payment failed) events will be triggered. If the payment collection fails, no further retries will be made on the invoices.
-
-**Note:** If the invoices of the subscription are consolidated, and any of the subscriptions in the consolidated invoice are cancelled, these invoices will not be selected for collection.
-
-        */
-       
        card?:Card;
        
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds-implementation-guide) and pass it as input parameter to this API.
-
-This API is used to resume a **paused** subscription. On resumption the subscription will be activated and any applicable charges will be initiated.
-
-You could schedule the resumption by passing **specific_date** parameter in resume_option. If scheduled, the subscription will be resumed on the **specific_date** and moved to Active state.
-
-For in-term resumption, unless there are scheduled changes, unbilled charges will not be charged.
-
-**What is an &quot;in-term resumption&quot;?**   
-An &quot;in-term resumption&quot; is when the pause and resumption happens within the billing term of the subscription.
-
-**Example :** A subscription was billed from 1st to 31st of a month. It was paused on the 20th and resumed before 31st. This is an in-term resumption.
-
-#### UNPAID INVOICES
-
-Specifying **unpaid_invoices** allows you to close invoices of the subscription which have amounts due. The invoices are chosen for payment collection after applying the available credits and excess payments.
-
-If specified as **schedule_payment_collection**, payment collection for the amount due of past invoices will be attempted. The payment method available will be charged if auto-collection is enabled for the customer, and appropriate payment collection(payment succeeded or payment failed) events will be triggered. If the payment collection fails, no further retries will be made on the invoices.
-
-**Note:** If the invoices of the subscription are consolidated, and any of the subscriptions in the consolidated invoice are cancelled, these invoices will not be selected for collection.
-
-        */
-       
        invoice?:Invoice;
-       
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds-implementation-guide) and pass it as input parameter to this API.
-
-This API is used to resume a **paused** subscription. On resumption the subscription will be activated and any applicable charges will be initiated.
-
-You could schedule the resumption by passing **specific_date** parameter in resume_option. If scheduled, the subscription will be resumed on the **specific_date** and moved to Active state.
-
-For in-term resumption, unless there are scheduled changes, unbilled charges will not be charged.
-
-**What is an &quot;in-term resumption&quot;?**   
-An &quot;in-term resumption&quot; is when the pause and resumption happens within the billing term of the subscription.
-
-**Example :** A subscription was billed from 1st to 31st of a month. It was paused on the 20th and resumed before 31st. This is an in-term resumption.
-
-#### UNPAID INVOICES
-
-Specifying **unpaid_invoices** allows you to close invoices of the subscription which have amounts due. The invoices are chosen for payment collection after applying the available credits and excess payments.
-
-If specified as **schedule_payment_collection**, payment collection for the amount due of past invoices will be attempted. The payment method available will be charged if auto-collection is enabled for the customer, and appropriate payment collection(payment succeeded or payment failed) events will be triggered. If the payment collection fails, no further retries will be made on the invoices.
-
-**Note:** If the invoices of the subscription are consolidated, and any of the subscriptions in the consolidated invoice are cancelled, these invoices will not be selected for collection.
-
-        */
        
        unbilled_charges?:UnbilledCharge[];
     }
@@ -1374,123 +1187,15 @@ If specified as **schedule_payment_collection**, payment collection for the amou
       payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card',reference_id?:string};
     }
     export interface CancelForItemsResponse {  
-      /**
-        * @description Cancels the subscription.
-
-#### Canceling contract terms
-
-* Subscriptions with contract terms can only be canceled by [terminating the contract term](/docs/api/subscriptions?prod_cat_ver&#x3D;2&amp;lang&#x3D;curl#cancel_subscription_for_items_contract_term_cancel_option).
-* When canceling a contract term, the default value for the following parameters is taken from the [site settings for contract terms](https://www.chargebee.com/docs/2.0/contract-terms.html#configuring-contract-terms) instead of the [site settings for subscription cancellation](https://www.chargebee.com/docs/2.0/cancellations.html#configure-subscription-cancellation).
-  * &#x60;credit_option_for_current_term_charges&#x60;
-  * &#x60;unbilled_charges_option&#x60;
-  * &#x60;account_receivables_handling&#x60;
-  * &#x60;refundable_credits_handling&#x60;
-* From among the parameters for this request, &#x60;end_of_term&#x60; or &#x60;cancel_at&#x60; should not be passed when using contract terms; use &#x60;contract_term_cancel_option&#x60; instead.
-* The &#x60;subscription_items&#x60; parameter is used to override price or quantity for the termination fee. To use this parameter, the following two conditions must be met:
-  * &#x60;contract_term_cancel_option&#x60; must be set to &#x60;terminate_now&#x60;.
-  * the subscription must have a [subscription_items](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_subscription_items) attribute with &#x60;charge_on_event&#x60; set to &#x60;contract_term_termination&#x60;.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description Cancels the subscription.
-
-#### Canceling contract terms
-
-* Subscriptions with contract terms can only be canceled by [terminating the contract term](/docs/api/subscriptions?prod_cat_ver&#x3D;2&amp;lang&#x3D;curl#cancel_subscription_for_items_contract_term_cancel_option).
-* When canceling a contract term, the default value for the following parameters is taken from the [site settings for contract terms](https://www.chargebee.com/docs/2.0/contract-terms.html#configuring-contract-terms) instead of the [site settings for subscription cancellation](https://www.chargebee.com/docs/2.0/cancellations.html#configure-subscription-cancellation).
-  * &#x60;credit_option_for_current_term_charges&#x60;
-  * &#x60;unbilled_charges_option&#x60;
-  * &#x60;account_receivables_handling&#x60;
-  * &#x60;refundable_credits_handling&#x60;
-* From among the parameters for this request, &#x60;end_of_term&#x60; or &#x60;cancel_at&#x60; should not be passed when using contract terms; use &#x60;contract_term_cancel_option&#x60; instead.
-* The &#x60;subscription_items&#x60; parameter is used to override price or quantity for the termination fee. To use this parameter, the following two conditions must be met:
-  * &#x60;contract_term_cancel_option&#x60; must be set to &#x60;terminate_now&#x60;.
-  * the subscription must have a [subscription_items](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_subscription_items) attribute with &#x60;charge_on_event&#x60; set to &#x60;contract_term_termination&#x60;.
-
-        */
        
        customer:Customer;
        
-      /**
-        * @description Cancels the subscription.
-
-#### Canceling contract terms
-
-* Subscriptions with contract terms can only be canceled by [terminating the contract term](/docs/api/subscriptions?prod_cat_ver&#x3D;2&amp;lang&#x3D;curl#cancel_subscription_for_items_contract_term_cancel_option).
-* When canceling a contract term, the default value for the following parameters is taken from the [site settings for contract terms](https://www.chargebee.com/docs/2.0/contract-terms.html#configuring-contract-terms) instead of the [site settings for subscription cancellation](https://www.chargebee.com/docs/2.0/cancellations.html#configure-subscription-cancellation).
-  * &#x60;credit_option_for_current_term_charges&#x60;
-  * &#x60;unbilled_charges_option&#x60;
-  * &#x60;account_receivables_handling&#x60;
-  * &#x60;refundable_credits_handling&#x60;
-* From among the parameters for this request, &#x60;end_of_term&#x60; or &#x60;cancel_at&#x60; should not be passed when using contract terms; use &#x60;contract_term_cancel_option&#x60; instead.
-* The &#x60;subscription_items&#x60; parameter is used to override price or quantity for the termination fee. To use this parameter, the following two conditions must be met:
-  * &#x60;contract_term_cancel_option&#x60; must be set to &#x60;terminate_now&#x60;.
-  * the subscription must have a [subscription_items](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_subscription_items) attribute with &#x60;charge_on_event&#x60; set to &#x60;contract_term_termination&#x60;.
-
-        */
-       
        card?:Card;
-       
-      /**
-        * @description Cancels the subscription.
-
-#### Canceling contract terms
-
-* Subscriptions with contract terms can only be canceled by [terminating the contract term](/docs/api/subscriptions?prod_cat_ver&#x3D;2&amp;lang&#x3D;curl#cancel_subscription_for_items_contract_term_cancel_option).
-* When canceling a contract term, the default value for the following parameters is taken from the [site settings for contract terms](https://www.chargebee.com/docs/2.0/contract-terms.html#configuring-contract-terms) instead of the [site settings for subscription cancellation](https://www.chargebee.com/docs/2.0/cancellations.html#configure-subscription-cancellation).
-  * &#x60;credit_option_for_current_term_charges&#x60;
-  * &#x60;unbilled_charges_option&#x60;
-  * &#x60;account_receivables_handling&#x60;
-  * &#x60;refundable_credits_handling&#x60;
-* From among the parameters for this request, &#x60;end_of_term&#x60; or &#x60;cancel_at&#x60; should not be passed when using contract terms; use &#x60;contract_term_cancel_option&#x60; instead.
-* The &#x60;subscription_items&#x60; parameter is used to override price or quantity for the termination fee. To use this parameter, the following two conditions must be met:
-  * &#x60;contract_term_cancel_option&#x60; must be set to &#x60;terminate_now&#x60;.
-  * the subscription must have a [subscription_items](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_subscription_items) attribute with &#x60;charge_on_event&#x60; set to &#x60;contract_term_termination&#x60;.
-
-        */
        
        invoice?:Invoice;
        
-      /**
-        * @description Cancels the subscription.
-
-#### Canceling contract terms
-
-* Subscriptions with contract terms can only be canceled by [terminating the contract term](/docs/api/subscriptions?prod_cat_ver&#x3D;2&amp;lang&#x3D;curl#cancel_subscription_for_items_contract_term_cancel_option).
-* When canceling a contract term, the default value for the following parameters is taken from the [site settings for contract terms](https://www.chargebee.com/docs/2.0/contract-terms.html#configuring-contract-terms) instead of the [site settings for subscription cancellation](https://www.chargebee.com/docs/2.0/cancellations.html#configure-subscription-cancellation).
-  * &#x60;credit_option_for_current_term_charges&#x60;
-  * &#x60;unbilled_charges_option&#x60;
-  * &#x60;account_receivables_handling&#x60;
-  * &#x60;refundable_credits_handling&#x60;
-* From among the parameters for this request, &#x60;end_of_term&#x60; or &#x60;cancel_at&#x60; should not be passed when using contract terms; use &#x60;contract_term_cancel_option&#x60; instead.
-* The &#x60;subscription_items&#x60; parameter is used to override price or quantity for the termination fee. To use this parameter, the following two conditions must be met:
-  * &#x60;contract_term_cancel_option&#x60; must be set to &#x60;terminate_now&#x60;.
-  * the subscription must have a [subscription_items](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_subscription_items) attribute with &#x60;charge_on_event&#x60; set to &#x60;contract_term_termination&#x60;.
-
-        */
-       
        unbilled_charges?:UnbilledCharge[];
-       
-      /**
-        * @description Cancels the subscription.
-
-#### Canceling contract terms
-
-* Subscriptions with contract terms can only be canceled by [terminating the contract term](/docs/api/subscriptions?prod_cat_ver&#x3D;2&amp;lang&#x3D;curl#cancel_subscription_for_items_contract_term_cancel_option).
-* When canceling a contract term, the default value for the following parameters is taken from the [site settings for contract terms](https://www.chargebee.com/docs/2.0/contract-terms.html#configuring-contract-terms) instead of the [site settings for subscription cancellation](https://www.chargebee.com/docs/2.0/cancellations.html#configure-subscription-cancellation).
-  * &#x60;credit_option_for_current_term_charges&#x60;
-  * &#x60;unbilled_charges_option&#x60;
-  * &#x60;account_receivables_handling&#x60;
-  * &#x60;refundable_credits_handling&#x60;
-* From among the parameters for this request, &#x60;end_of_term&#x60; or &#x60;cancel_at&#x60; should not be passed when using contract terms; use &#x60;contract_term_cancel_option&#x60; instead.
-* The &#x60;subscription_items&#x60; parameter is used to override price or quantity for the termination fee. To use this parameter, the following two conditions must be met:
-  * &#x60;contract_term_cancel_option&#x60; must be set to &#x60;terminate_now&#x60;.
-  * the subscription must have a [subscription_items](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_subscription_items) attribute with &#x60;charge_on_event&#x60; set to &#x60;contract_term_termination&#x60;.
-
-        */
        
        credit_notes?:CreditNote[];
     }
@@ -1588,41 +1293,7 @@ If specified as **schedule_payment_collection**, payment collection for the amou
       subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
     }
     export interface RegenerateInvoiceResponse {  
-      /**
-        * @description Regenerates the current invoice for the subscription. The current invoice is that which includes non-&#x60;metered&#x60; items from the current term and &#x60;metered&#x60; items from the previous term of the subscription.  
-
-#### prerequisites
-
-* The current invoice of the subscription must have been [voided](/docs/api/invoices?prod_cat_ver&#x3D;2#void_an_invoice) or [deleted](/docs/api/invoices?prod_cat_ver&#x3D;2#delete_an_invoice).
-* The subscription &#x60;status&#x60; must be &#x60;active&#x60; or &#x60;non_renewing&#x60;.
-* There should be no [unbilled charges](/docs/api/unbilled_charges?prod_cat_ver&#x3D;2) for non-&#x60;metered&#x60; items for the current term.
-* There should be no [unbilled charges](/docs/api/unbilled_charges?prod_cat_ver&#x3D;2) for &#x60;metered&#x60; items for the previous term.
-* The subscription must not have any [advance invoice](https://www.chargebee.com/docs/2.0/advance-invoices.html#generating-an-advance-invoice) or [advance invoice schedule](https://www.chargebee.com/docs/2.0/advance-invoices.html#generating-an-advance-invoice_setting-up-an-advance-invoicing-schedule).
-
-#### deleting an invoice
-
-Usages are also deleted when an invoice is deleted. Therefore, if the invoice was deleted, you may [add](/docs/api/usages?prod_cat_ver&#x3D;2#create_a_usage) or [bulk import](https://www.chargebee.com/docs/2.0/bulk-operations.html#overview_available-bulk-operations) usages before regenerating an invoice.
-
-        */
-       
        invoice?:Invoice;
-       
-      /**
-        * @description Regenerates the current invoice for the subscription. The current invoice is that which includes non-&#x60;metered&#x60; items from the current term and &#x60;metered&#x60; items from the previous term of the subscription.  
-
-#### prerequisites
-
-* The current invoice of the subscription must have been [voided](/docs/api/invoices?prod_cat_ver&#x3D;2#void_an_invoice) or [deleted](/docs/api/invoices?prod_cat_ver&#x3D;2#delete_an_invoice).
-* The subscription &#x60;status&#x60; must be &#x60;active&#x60; or &#x60;non_renewing&#x60;.
-* There should be no [unbilled charges](/docs/api/unbilled_charges?prod_cat_ver&#x3D;2) for non-&#x60;metered&#x60; items for the current term.
-* There should be no [unbilled charges](/docs/api/unbilled_charges?prod_cat_ver&#x3D;2) for &#x60;metered&#x60; items for the previous term.
-* The subscription must not have any [advance invoice](https://www.chargebee.com/docs/2.0/advance-invoices.html#generating-an-advance-invoice) or [advance invoice schedule](https://www.chargebee.com/docs/2.0/advance-invoices.html#generating-an-advance-invoice_setting-up-an-advance-invoicing-schedule).
-
-#### deleting an invoice
-
-Usages are also deleted when an invoice is deleted. Therefore, if the invoice was deleted, you may [add](/docs/api/usages?prod_cat_ver&#x3D;2#create_a_usage) or [bulk import](https://www.chargebee.com/docs/2.0/bulk-operations.html#overview_available-bulk-operations) usages before regenerating an invoice.
-
-        */
        
        unbilled_charges?:UnbilledCharge[];
     }
@@ -1847,31 +1518,11 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string};
     }
     export interface ImportForItemsResponse {  
-      /**
-        * @description Imports a subscription into Chargebee.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description Imports a subscription into Chargebee.
-
-        */
        
        customer:Customer;
        
-      /**
-        * @description Imports a subscription into Chargebee.
-
-        */
-       
        card?:Card;
-       
-      /**
-        * @description Imports a subscription into Chargebee.
-
-        */
        
        invoice?:Invoice;
     }
@@ -2138,45 +1789,13 @@ Applicable only when [Metered Billing](https://www.chargebee.com/docs/metered_bi
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
     export interface RetrieveAdvanceInvoiceScheduleResponse {  
-      /**
-        * @description Retrieves the *advance_invoice_schedule* for a subscription. Note that this endpoint is only applicable for *schedule_type &#x3D; specific_dates* or fixed_intervals.
-
-        */
-       
        advance_invoice_schedules:AdvanceInvoiceSchedule[];
     }
     
     export interface RemoveScheduledCancellationResponse {  
-      /**
-        * @description **Note:** Cannot be called when the subscription is on a [contract term](contract_terms). (That is, when the &#x60;contract_term.status attribute&#x60; is &#x60;active&#x60;.)
-
-If the subscription is in **Non Renewing** or **In Trial** state and is also scheduled to cancel at the end of current term, then this API can be used to remove the scheduled cancellation. When a scheduled cancellation is removed, the subscription will revert to **Active** or **In Trial** state, whichever is the state before cancellation was scheduled.
-
-While removing the scheduled cancellation, you may specify the number of billing cycles. If the billing cycle is not specified, the default billing cycle from the plan will be applied on the subscription.
-
-        */
-       
        subscription:Subscription;
        
-      /**
-        * @description **Note:** Cannot be called when the subscription is on a [contract term](contract_terms). (That is, when the &#x60;contract_term.status attribute&#x60; is &#x60;active&#x60;.)
-
-If the subscription is in **Non Renewing** or **In Trial** state and is also scheduled to cancel at the end of current term, then this API can be used to remove the scheduled cancellation. When a scheduled cancellation is removed, the subscription will revert to **Active** or **In Trial** state, whichever is the state before cancellation was scheduled.
-
-While removing the scheduled cancellation, you may specify the number of billing cycles. If the billing cycle is not specified, the default billing cycle from the plan will be applied on the subscription.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description **Note:** Cannot be called when the subscription is on a [contract term](contract_terms). (That is, when the &#x60;contract_term.status attribute&#x60; is &#x60;active&#x60;.)
-
-If the subscription is in **Non Renewing** or **In Trial** state and is also scheduled to cancel at the end of current term, then this API can be used to remove the scheduled cancellation. When a scheduled cancellation is removed, the subscription will revert to **Active** or **In Trial** state, whichever is the state before cancellation was scheduled.
-
-While removing the scheduled cancellation, you may specify the number of billing cycles. If the billing cycle is not specified, the default billing cycle from the plan will be applied on the subscription.
-
-        */
        
        card?:Card;
     }
@@ -2190,205 +1809,21 @@ While removing the scheduled cancellation, you may specify the number of billing
       billing_cycles?:number;
     }
     export interface RetrieveWithScheduledChangesResponse {  
-      /**
-        * @description Retrieves a subscription with the scheduled changes applied.   
-**Note:** Only the following attributes are changed
-
-* item_id
-* item_price_id
-* billing_period
-* billing_period_unit
-* remaining_billing_cycles
-* coupons
-
-Other attributes such as **status** ,**next_billing_at** are not changed and will reflect the current subscription values.
-
-
-
-
-        */
-       
        subscription:Subscription;
        
-      /**
-        * @description Retrieves a subscription with the scheduled changes applied.   
-**Note:** Only the following attributes are changed
-
-* item_id
-* item_price_id
-* billing_period
-* billing_period_unit
-* remaining_billing_cycles
-* coupons
-
-Other attributes such as **status** ,**next_billing_at** are not changed and will reflect the current subscription values.
-
-
-
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Retrieves a subscription with the scheduled changes applied.   
-**Note:** Only the following attributes are changed
-
-* item_id
-* item_price_id
-* billing_period
-* billing_period_unit
-* remaining_billing_cycles
-* coupons
-
-Other attributes such as **status** ,**next_billing_at** are not changed and will reflect the current subscription values.
-
-
-
-
-        */
        
        card?:Card;
     }
     
     export interface ReactivateResponse {  
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds-implementation-guide) and pass it as input parameter to this API.
-
-This API is used to reactivate a **cancelled** subscription. You may also optionally specify a trial end date, to move the subscription to **In Trial** state. If trial end is not specified, the subscription will be activated and any applicable charges will be initiated.
-
-Unless the billing cycle is specified, it will be set to plan&#x27;s default billing cycle.
-
-During an in-term reactivation^++^, unless the billing cycle is specified, the subscription&#x27;s remaining billing cycles will be restored. If a trial end date is specified, then the plan&#x27;s default billing cycle is used.
-
-**What is an &quot;in-term reactivation&quot;?**   
-An &quot;in-term reactivation&quot; happens when the billing term of the subscription is retained upon cancellation and reactivation is initiated within that term.   
-
-**When is the &#x27;billing term&#x27; retained for a cancelled subscription?**   
-When dunning (payment failure retry settings) is configured with the last retry configured as
-
-* cancel subscription and mark invoice as &#x27;Not Paid&#x27;, or
-* cancel subscription and mark the invoice as &#x27;Voided&#x27; and the case if any of the current term invoices is partially or fully paid, the invoice is not voided but instead Chargebee marks the invoices as &#x27;Not Paid&#x27;.
-
-
-
-**Note :** In both cases, the billing term is retained and upon reactivation the subscription will be moved to active state (if the plan does not have a trial period) and no invoice will be generated. Ensure that you collect any unpaid invoices.   
-
-**Example :** A Subscription was billed from 1st to 31st of a month and it was cancelled on the 20th due to one of the above cases (billing term is not reset). If the reactivation happens on 25th then it is considered an in-term reactivation.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds-implementation-guide) and pass it as input parameter to this API.
-
-This API is used to reactivate a **cancelled** subscription. You may also optionally specify a trial end date, to move the subscription to **In Trial** state. If trial end is not specified, the subscription will be activated and any applicable charges will be initiated.
-
-Unless the billing cycle is specified, it will be set to plan&#x27;s default billing cycle.
-
-During an in-term reactivation^++^, unless the billing cycle is specified, the subscription&#x27;s remaining billing cycles will be restored. If a trial end date is specified, then the plan&#x27;s default billing cycle is used.
-
-**What is an &quot;in-term reactivation&quot;?**   
-An &quot;in-term reactivation&quot; happens when the billing term of the subscription is retained upon cancellation and reactivation is initiated within that term.   
-
-**When is the &#x27;billing term&#x27; retained for a cancelled subscription?**   
-When dunning (payment failure retry settings) is configured with the last retry configured as
-
-* cancel subscription and mark invoice as &#x27;Not Paid&#x27;, or
-* cancel subscription and mark the invoice as &#x27;Voided&#x27; and the case if any of the current term invoices is partially or fully paid, the invoice is not voided but instead Chargebee marks the invoices as &#x27;Not Paid&#x27;.
-
-
-
-**Note :** In both cases, the billing term is retained and upon reactivation the subscription will be moved to active state (if the plan does not have a trial period) and no invoice will be generated. Ensure that you collect any unpaid invoices.   
-
-**Example :** A Subscription was billed from 1st to 31st of a month and it was cancelled on the 20th due to one of the above cases (billing term is not reset). If the reactivation happens on 25th then it is considered an in-term reactivation.
-
-        */
        
        customer:Customer;
        
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds-implementation-guide) and pass it as input parameter to this API.
-
-This API is used to reactivate a **cancelled** subscription. You may also optionally specify a trial end date, to move the subscription to **In Trial** state. If trial end is not specified, the subscription will be activated and any applicable charges will be initiated.
-
-Unless the billing cycle is specified, it will be set to plan&#x27;s default billing cycle.
-
-During an in-term reactivation^++^, unless the billing cycle is specified, the subscription&#x27;s remaining billing cycles will be restored. If a trial end date is specified, then the plan&#x27;s default billing cycle is used.
-
-**What is an &quot;in-term reactivation&quot;?**   
-An &quot;in-term reactivation&quot; happens when the billing term of the subscription is retained upon cancellation and reactivation is initiated within that term.   
-
-**When is the &#x27;billing term&#x27; retained for a cancelled subscription?**   
-When dunning (payment failure retry settings) is configured with the last retry configured as
-
-* cancel subscription and mark invoice as &#x27;Not Paid&#x27;, or
-* cancel subscription and mark the invoice as &#x27;Voided&#x27; and the case if any of the current term invoices is partially or fully paid, the invoice is not voided but instead Chargebee marks the invoices as &#x27;Not Paid&#x27;.
-
-
-
-**Note :** In both cases, the billing term is retained and upon reactivation the subscription will be moved to active state (if the plan does not have a trial period) and no invoice will be generated. Ensure that you collect any unpaid invoices.   
-
-**Example :** A Subscription was billed from 1st to 31st of a month and it was cancelled on the 20th due to one of the above cases (billing term is not reset). If the reactivation happens on 25th then it is considered an in-term reactivation.
-
-        */
-       
        card?:Card;
        
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds-implementation-guide) and pass it as input parameter to this API.
-
-This API is used to reactivate a **cancelled** subscription. You may also optionally specify a trial end date, to move the subscription to **In Trial** state. If trial end is not specified, the subscription will be activated and any applicable charges will be initiated.
-
-Unless the billing cycle is specified, it will be set to plan&#x27;s default billing cycle.
-
-During an in-term reactivation^++^, unless the billing cycle is specified, the subscription&#x27;s remaining billing cycles will be restored. If a trial end date is specified, then the plan&#x27;s default billing cycle is used.
-
-**What is an &quot;in-term reactivation&quot;?**   
-An &quot;in-term reactivation&quot; happens when the billing term of the subscription is retained upon cancellation and reactivation is initiated within that term.   
-
-**When is the &#x27;billing term&#x27; retained for a cancelled subscription?**   
-When dunning (payment failure retry settings) is configured with the last retry configured as
-
-* cancel subscription and mark invoice as &#x27;Not Paid&#x27;, or
-* cancel subscription and mark the invoice as &#x27;Voided&#x27; and the case if any of the current term invoices is partially or fully paid, the invoice is not voided but instead Chargebee marks the invoices as &#x27;Not Paid&#x27;.
-
-
-
-**Note :** In both cases, the billing term is retained and upon reactivation the subscription will be moved to active state (if the plan does not have a trial period) and no invoice will be generated. Ensure that you collect any unpaid invoices.   
-
-**Example :** A Subscription was billed from 1st to 31st of a month and it was cancelled on the 20th due to one of the above cases (billing term is not reset). If the reactivation happens on 25th then it is considered an in-term reactivation.
-
-        */
-       
        invoice?:Invoice;
-       
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds-implementation-guide) and pass it as input parameter to this API.
-
-This API is used to reactivate a **cancelled** subscription. You may also optionally specify a trial end date, to move the subscription to **In Trial** state. If trial end is not specified, the subscription will be activated and any applicable charges will be initiated.
-
-Unless the billing cycle is specified, it will be set to plan&#x27;s default billing cycle.
-
-During an in-term reactivation^++^, unless the billing cycle is specified, the subscription&#x27;s remaining billing cycles will be restored. If a trial end date is specified, then the plan&#x27;s default billing cycle is used.
-
-**What is an &quot;in-term reactivation&quot;?**   
-An &quot;in-term reactivation&quot; happens when the billing term of the subscription is retained upon cancellation and reactivation is initiated within that term.   
-
-**When is the &#x27;billing term&#x27; retained for a cancelled subscription?**   
-When dunning (payment failure retry settings) is configured with the last retry configured as
-
-* cancel subscription and mark invoice as &#x27;Not Paid&#x27;, or
-* cancel subscription and mark the invoice as &#x27;Voided&#x27; and the case if any of the current term invoices is partially or fully paid, the invoice is not voided but instead Chargebee marks the invoices as &#x27;Not Paid&#x27;.
-
-
-
-**Note :** In both cases, the billing term is retained and upon reactivation the subscription will be moved to active state (if the plan does not have a trial period) and no invoice will be generated. Ensure that you collect any unpaid invoices.   
-
-**Example :** A Subscription was billed from 1st to 31st of a month and it was cancelled on the 20th due to one of the above cases (billing term is not reset). If the reactivation happens on 25th then it is considered an in-term reactivation.
-
-        */
        
        unbilled_charges?:UnbilledCharge[];
     }
@@ -2484,38 +1919,13 @@ When dunning (payment failure retry settings) is configured with the last retry 
       payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card',reference_id?:string};
     }
     export interface ChargeFutureRenewalsResponse {  
-      /**
-        * @description Creates an advance invoice or an [advance invoicing schedule](advance_invoice_schedules#advance_invoice_schedule). When an advance invoice is generated, and [&#x60;auto_collection&#x60;](subscriptions#subscription_auto_collection) is &#x60;on&#x60; for the subscription, the [&#x60;payment_source&#x60;](subscriptions#subscription_payment_source_id) associated with the subscription is charged. Any changes scheduled for the subscription are taken into account automatically while generating an advance invoice. Advance invoices are not generated for a subscription when it is in the [&#x60;paused&#x60;](subscriptions#subscription_status) status. Advance invoices are generated only for non-&#x60;metered&#x60; items in a subscription.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description Creates an advance invoice or an [advance invoicing schedule](advance_invoice_schedules#advance_invoice_schedule). When an advance invoice is generated, and [&#x60;auto_collection&#x60;](subscriptions#subscription_auto_collection) is &#x60;on&#x60; for the subscription, the [&#x60;payment_source&#x60;](subscriptions#subscription_payment_source_id) associated with the subscription is charged. Any changes scheduled for the subscription are taken into account automatically while generating an advance invoice. Advance invoices are not generated for a subscription when it is in the [&#x60;paused&#x60;](subscriptions#subscription_status) status. Advance invoices are generated only for non-&#x60;metered&#x60; items in a subscription.
-
-        */
        
        customer:Customer;
        
-      /**
-        * @description Creates an advance invoice or an [advance invoicing schedule](advance_invoice_schedules#advance_invoice_schedule). When an advance invoice is generated, and [&#x60;auto_collection&#x60;](subscriptions#subscription_auto_collection) is &#x60;on&#x60; for the subscription, the [&#x60;payment_source&#x60;](subscriptions#subscription_payment_source_id) associated with the subscription is charged. Any changes scheduled for the subscription are taken into account automatically while generating an advance invoice. Advance invoices are not generated for a subscription when it is in the [&#x60;paused&#x60;](subscriptions#subscription_status) status. Advance invoices are generated only for non-&#x60;metered&#x60; items in a subscription.
-
-        */
-       
        card?:Card;
        
-      /**
-        * @description Creates an advance invoice or an [advance invoicing schedule](advance_invoice_schedules#advance_invoice_schedule). When an advance invoice is generated, and [&#x60;auto_collection&#x60;](subscriptions#subscription_auto_collection) is &#x60;on&#x60; for the subscription, the [&#x60;payment_source&#x60;](subscriptions#subscription_payment_source_id) associated with the subscription is charged. Any changes scheduled for the subscription are taken into account automatically while generating an advance invoice. Advance invoices are not generated for a subscription when it is in the [&#x60;paused&#x60;](subscriptions#subscription_status) status. Advance invoices are generated only for non-&#x60;metered&#x60; items in a subscription.
-
-        */
-       
        invoice?:Invoice;
-       
-      /**
-        * @description Creates an advance invoice or an [advance invoicing schedule](advance_invoice_schedules#advance_invoice_schedule). When an advance invoice is generated, and [&#x60;auto_collection&#x60;](subscriptions#subscription_auto_collection) is &#x60;on&#x60; for the subscription, the [&#x60;payment_source&#x60;](subscriptions#subscription_payment_source_id) associated with the subscription is charged. Any changes scheduled for the subscription are taken into account automatically while generating an advance invoice. Advance invoices are not generated for a subscription when it is in the [&#x60;paused&#x60;](subscriptions#subscription_status) status. Advance invoices are generated only for non-&#x60;metered&#x60; items in a subscription.
-
-        */
        
        advance_invoice_schedules?:AdvanceInvoiceSchedule[];
     }
@@ -2559,13 +1969,6 @@ When dunning (payment failure retry settings) is configured with the last retry 
       specific_dates_schedule?:{date?:number,terms_to_charge?:number}[];
     }
     export interface AddChargeAtTermEndResponse {  
-      /**
-        * @description Adds a one time charge to the subscription which will be added to the invoice generated at the end of the current term. If there are any applicable coupons in the subscription, an appropriate discount will be applied.
-
-To collect a charge immediately, [use this API](/docs/api/invoices#create_invoice_for_charge).
-
-        */
-       
        estimate:Estimate;
     }
     export interface AddChargeAtTermEndInputParam {
@@ -2627,111 +2030,25 @@ To collect a charge immediately, [use this API](/docs/api/invoices#create_invoic
       date_to?:number;
     }
     export interface RemoveScheduledChangesResponse {  
-      /**
-        * @description Removes the subscription changes scheduled on next renewal. Advance charges, if any, will be refunded as credits and a new invoice will be generated on renewal.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description Removes the subscription changes scheduled on next renewal. Advance charges, if any, will be refunded as credits and a new invoice will be generated on renewal.
-
-        */
        
        customer:Customer;
        
-      /**
-        * @description Removes the subscription changes scheduled on next renewal. Advance charges, if any, will be refunded as credits and a new invoice will be generated on renewal.
-
-        */
-       
        card?:Card;
-       
-      /**
-        * @description Removes the subscription changes scheduled on next renewal. Advance charges, if any, will be refunded as credits and a new invoice will be generated on renewal.
-
-        */
        
        credit_notes?:CreditNote[];
     }
     
     export interface ChangeTermEndResponse {  
-      /**
-        * @description Changes the subscription&#x27;s current term end date. Depending on the &quot;status&quot; of the subscription, &quot;term end date&quot; has different effects.
-
-* If the Subscription is in **trial**, it affects trial end date.
-* If the Subscription is **active**, it affects the next billing date.
-* If the Subscription&#x27;s status is **non_renewing**, this affects the upcoming cancellation date.
-
-**Tip**: To cycle through a couple of billing cycles and test webhooks, you may use this API.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description Changes the subscription&#x27;s current term end date. Depending on the &quot;status&quot; of the subscription, &quot;term end date&quot; has different effects.
-
-* If the Subscription is in **trial**, it affects trial end date.
-* If the Subscription is **active**, it affects the next billing date.
-* If the Subscription&#x27;s status is **non_renewing**, this affects the upcoming cancellation date.
-
-**Tip**: To cycle through a couple of billing cycles and test webhooks, you may use this API.
-
-        */
        
        customer:Customer;
        
-      /**
-        * @description Changes the subscription&#x27;s current term end date. Depending on the &quot;status&quot; of the subscription, &quot;term end date&quot; has different effects.
-
-* If the Subscription is in **trial**, it affects trial end date.
-* If the Subscription is **active**, it affects the next billing date.
-* If the Subscription&#x27;s status is **non_renewing**, this affects the upcoming cancellation date.
-
-**Tip**: To cycle through a couple of billing cycles and test webhooks, you may use this API.
-
-        */
-       
        card?:Card;
-       
-      /**
-        * @description Changes the subscription&#x27;s current term end date. Depending on the &quot;status&quot; of the subscription, &quot;term end date&quot; has different effects.
-
-* If the Subscription is in **trial**, it affects trial end date.
-* If the Subscription is **active**, it affects the next billing date.
-* If the Subscription&#x27;s status is **non_renewing**, this affects the upcoming cancellation date.
-
-**Tip**: To cycle through a couple of billing cycles and test webhooks, you may use this API.
-
-        */
        
        invoice?:Invoice;
        
-      /**
-        * @description Changes the subscription&#x27;s current term end date. Depending on the &quot;status&quot; of the subscription, &quot;term end date&quot; has different effects.
-
-* If the Subscription is in **trial**, it affects trial end date.
-* If the Subscription is **active**, it affects the next billing date.
-* If the Subscription&#x27;s status is **non_renewing**, this affects the upcoming cancellation date.
-
-**Tip**: To cycle through a couple of billing cycles and test webhooks, you may use this API.
-
-        */
-       
        unbilled_charges?:UnbilledCharge[];
-       
-      /**
-        * @description Changes the subscription&#x27;s current term end date. Depending on the &quot;status&quot; of the subscription, &quot;term end date&quot; has different effects.
-
-* If the Subscription is in **trial**, it affects trial end date.
-* If the Subscription is **active**, it affects the next billing date.
-* If the Subscription&#x27;s status is **non_renewing**, this affects the upcoming cancellation date.
-
-**Tip**: To cycle through a couple of billing cycles and test webhooks, you may use this API.
-
-        */
        
        credit_notes?:CreditNote[];
     }
@@ -2760,86 +2077,21 @@ To collect a charge immediately, [use this API](/docs/api/invoices#create_invoic
       invoice_immediately?:boolean;
     }
     export interface DeleteResponse {  
-      /**
-        * @description Deletes the subscription resource.
-
-        */
-       
        subscription:Subscription;
        
-      /**
-        * @description Deletes the subscription resource.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Deletes the subscription resource.
-
-        */
        
        card?:Card;
     }
     
     export interface CreateWithItemsResponse {  
-      /**
-        * @description **Note:** This endpoint optionally supports 3DS. To use it [create](./payment_intents?prod_cat_ver&#x3D;2#create_a_payment_intent) a &#x60;payment_intent&#x60; and provide it via this endpoint.
-
-Creates a new subscription for an existing customer in Chargebee. Any available [credits and excess payments](./customers?prod_cat_ver&#x3D;2#customer_balances) for the customer are automatically applied on the invoice.  
-**See also**
-
-* [Create a purchase](https://apidocs.chargebee.com/docs/api/purchases#create_a_purchase): an operation that creates a purchase representing multiple subscriptions bought together by a customer.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description **Note:** This endpoint optionally supports 3DS. To use it [create](./payment_intents?prod_cat_ver&#x3D;2#create_a_payment_intent) a &#x60;payment_intent&#x60; and provide it via this endpoint.
-
-Creates a new subscription for an existing customer in Chargebee. Any available [credits and excess payments](./customers?prod_cat_ver&#x3D;2#customer_balances) for the customer are automatically applied on the invoice.  
-**See also**
-
-* [Create a purchase](https://apidocs.chargebee.com/docs/api/purchases#create_a_purchase): an operation that creates a purchase representing multiple subscriptions bought together by a customer.
-
-        */
        
        customer:Customer;
        
-      /**
-        * @description **Note:** This endpoint optionally supports 3DS. To use it [create](./payment_intents?prod_cat_ver&#x3D;2#create_a_payment_intent) a &#x60;payment_intent&#x60; and provide it via this endpoint.
-
-Creates a new subscription for an existing customer in Chargebee. Any available [credits and excess payments](./customers?prod_cat_ver&#x3D;2#customer_balances) for the customer are automatically applied on the invoice.  
-**See also**
-
-* [Create a purchase](https://apidocs.chargebee.com/docs/api/purchases#create_a_purchase): an operation that creates a purchase representing multiple subscriptions bought together by a customer.
-
-        */
-       
        card?:Card;
        
-      /**
-        * @description **Note:** This endpoint optionally supports 3DS. To use it [create](./payment_intents?prod_cat_ver&#x3D;2#create_a_payment_intent) a &#x60;payment_intent&#x60; and provide it via this endpoint.
-
-Creates a new subscription for an existing customer in Chargebee. Any available [credits and excess payments](./customers?prod_cat_ver&#x3D;2#customer_balances) for the customer are automatically applied on the invoice.  
-**See also**
-
-* [Create a purchase](https://apidocs.chargebee.com/docs/api/purchases#create_a_purchase): an operation that creates a purchase representing multiple subscriptions bought together by a customer.
-
-        */
-       
        invoice?:Invoice;
-       
-      /**
-        * @description **Note:** This endpoint optionally supports 3DS. To use it [create](./payment_intents?prod_cat_ver&#x3D;2#create_a_payment_intent) a &#x60;payment_intent&#x60; and provide it via this endpoint.
-
-Creates a new subscription for an existing customer in Chargebee. Any available [credits and excess payments](./customers?prod_cat_ver&#x3D;2#customer_balances) for the customer are automatically applied on the invoice.  
-**See also**
-
-* [Create a purchase](https://apidocs.chargebee.com/docs/api/purchases#create_a_purchase): an operation that creates a purchase representing multiple subscriptions bought together by a customer.
-
-        */
        
        unbilled_charges?:UnbilledCharge[];
     }
@@ -3108,11 +2360,6 @@ If any non-&#x60;metered&#x60; items are present for the current term, they&#x27
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
     export interface ImportUnbilledChargesResponse {  
-      /**
-        * @description Imports unbilled charges into Chargebee.
-
-        */
-       
        unbilled_charges:UnbilledCharge[];
     }
     export interface ImportUnbilledChargesInputParam {
@@ -3139,59 +2386,22 @@ If any non-&#x60;metered&#x60; items are present for the current term, they&#x27
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,quantity_used?:number,quantity_used_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string,unbilled_charge_id:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
     }
     export interface RemoveScheduledResumptionResponse {  
-      /**
-        * @description If the subscription is in **Paused** state and is scheduled to resume on a specific_date, this API can be used to remove the scheduled resumption. When the scheduled resumption is removed, the subscription will remain **Paused**.
-
-        */
-       
        subscription:Subscription;
        
-      /**
-        * @description If the subscription is in **Paused** state and is scheduled to resume on a specific_date, this API can be used to remove the scheduled resumption. When the scheduled resumption is removed, the subscription will remain **Paused**.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description If the subscription is in **Paused** state and is scheduled to resume on a specific_date, this API can be used to remove the scheduled resumption. When the scheduled resumption is removed, the subscription will remain **Paused**.
-
-        */
        
        card?:Card;
     }
     
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves a subscription.
-
-        */
-       
        subscription:Subscription;
        
-      /**
-        * @description Retrieves a subscription.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description Retrieves a subscription.
-
-        */
        
        card?:Card;
     }
     
     export interface ImportContractTermResponse {  
-      /**
-        * @description Import previous and active [contract terms](./contract_terms).  
-
-For contract terms in &#x60;active&#x60; state, import is allowed only if the associated subscription is &#x60;active&#x60;, &#x60;in_trial&#x60;, &#x60;future&#x60; or &#x60;non-renewing&#x60;.  
-
-        */
-       
        contract_term:ContractTerm;
     }
     export interface ImportContractTermInputParam {
@@ -3211,17 +2421,7 @@ For contract terms in &#x60;active&#x60; state, import is allowed only if the as
       contract_term?:{action_at_term_end?:'cancel' | 'renew_once' | 'renew' | 'evergreen',billing_cycle?:number,cancellation_cutoff_period?:number,contract_end?:number,contract_start?:number,created_at?:number,id?:string,status?:'active' | 'cancelled' | 'completed' | 'terminated',total_amount_raised?:number,total_amount_raised_before_tax?:number,total_contract_value?:number,total_contract_value_before_tax?:number};
     }
     export interface OverrideBillingProfileResponse {  
-      /**
-        * @description Assigns the payment source and sets auto collection state for the subscription.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description Assigns the payment source and sets auto collection state for the subscription.
-
-        */
        
        payment_source?:PaymentSource;
     }
@@ -3242,34 +2442,14 @@ For contract terms in &#x60;active&#x60; state, import is allowed only if the as
       auto_collection?:AutoCollection;
     }
     export interface RemoveScheduledPauseResponse {  
-      /**
-        * @description If the subscription is in **Active** or **Non Renewing** state and is also scheduled to pause at the end_of_term/specific_date, this API can be used to remove the scheduled pause.
-
-        */
-       
        subscription:Subscription;
        
-      /**
-        * @description If the subscription is in **Active** or **Non Renewing** state and is also scheduled to pause at the end_of_term/specific_date, this API can be used to remove the scheduled pause.
-
-        */
-       
        customer:Customer;
-       
-      /**
-        * @description If the subscription is in **Active** or **Non Renewing** state and is also scheduled to pause at the end_of_term/specific_date, this API can be used to remove the scheduled pause.
-
-        */
        
        card?:Card;
     }
     
     export interface EditAdvanceInvoiceScheduleResponse {  
-      /**
-        * @description Modifies the [advance invoicing schedule](advance_invoice_schedules#advance_invoice_schedule) for a subscription.
-
-        */
-       
        advance_invoice_schedules:AdvanceInvoiceSchedule[];
     }
     export interface EditAdvanceInvoiceScheduleInputParam {
@@ -3365,93 +2545,15 @@ For contract terms in &#x60;active&#x60; state, import is allowed only if the as
       offset?:string;
     }
     export interface PauseResponse {  
-      /**
-        * @description Pauses the subscription, changing its &#x60;status&#x60; to &#x60;paused&#x60;. This prevents the subscription from getting renewed. No new charges are created until the subscription is resumed.
-
-
-
-#### Note:
-
-* Applicable only for **active/non-renewing** subscriptions.
-* If paused indefinitely, the subscription is cancelled on the [cancelled_at](/docs/api/subscriptions#subscription_cancelled_at) date.
-* Advance charges, if any, are refunded as credits.
-
-        */
-       
        subscription:Subscription;
-       
-      /**
-        * @description Pauses the subscription, changing its &#x60;status&#x60; to &#x60;paused&#x60;. This prevents the subscription from getting renewed. No new charges are created until the subscription is resumed.
-
-
-
-#### Note:
-
-* Applicable only for **active/non-renewing** subscriptions.
-* If paused indefinitely, the subscription is cancelled on the [cancelled_at](/docs/api/subscriptions#subscription_cancelled_at) date.
-* Advance charges, if any, are refunded as credits.
-
-        */
        
        customer:Customer;
        
-      /**
-        * @description Pauses the subscription, changing its &#x60;status&#x60; to &#x60;paused&#x60;. This prevents the subscription from getting renewed. No new charges are created until the subscription is resumed.
-
-
-
-#### Note:
-
-* Applicable only for **active/non-renewing** subscriptions.
-* If paused indefinitely, the subscription is cancelled on the [cancelled_at](/docs/api/subscriptions#subscription_cancelled_at) date.
-* Advance charges, if any, are refunded as credits.
-
-        */
-       
        card?:Card;
-       
-      /**
-        * @description Pauses the subscription, changing its &#x60;status&#x60; to &#x60;paused&#x60;. This prevents the subscription from getting renewed. No new charges are created until the subscription is resumed.
-
-
-
-#### Note:
-
-* Applicable only for **active/non-renewing** subscriptions.
-* If paused indefinitely, the subscription is cancelled on the [cancelled_at](/docs/api/subscriptions#subscription_cancelled_at) date.
-* Advance charges, if any, are refunded as credits.
-
-        */
        
        invoice?:Invoice;
        
-      /**
-        * @description Pauses the subscription, changing its &#x60;status&#x60; to &#x60;paused&#x60;. This prevents the subscription from getting renewed. No new charges are created until the subscription is resumed.
-
-
-
-#### Note:
-
-* Applicable only for **active/non-renewing** subscriptions.
-* If paused indefinitely, the subscription is cancelled on the [cancelled_at](/docs/api/subscriptions#subscription_cancelled_at) date.
-* Advance charges, if any, are refunded as credits.
-
-        */
-       
        unbilled_charges?:UnbilledCharge[];
-       
-      /**
-        * @description Pauses the subscription, changing its &#x60;status&#x60; to &#x60;paused&#x60;. This prevents the subscription from getting renewed. No new charges are created until the subscription is resumed.
-
-
-
-#### Note:
-
-* Applicable only for **active/non-renewing** subscriptions.
-* If paused indefinitely, the subscription is cancelled on the [cancelled_at](/docs/api/subscriptions#subscription_cancelled_at) date.
-* Advance charges, if any, are refunded as credits.
-
-        */
        
        credit_notes?:CreditNote[];
     }

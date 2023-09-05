@@ -129,11 +129,6 @@ declare module 'chargebee' {
       offset?:string;
     }
     export interface AddItemEntitlementsResponse {  
-      /**
-        * @description Upserts or removes a set of &#x60;item_entitlement&#x60;s for an &#x60;feature&#x60; depending on the &#x60;action&#x60; specified. The API returns the upserted or deleted &#x60;item_entitlements&#x60; after successfully completing the operation. The operation returns an error when the first &#x60;item_entitlement&#x60; fails to be processed. Either all the &#x60;item_entitlement&#x60;s provided in the request are processed or none.
-
-        */
-       
        item_entitlement:ItemEntitlement;
     }
     export interface AddItemEntitlementsInputParam {
@@ -184,11 +179,6 @@ declare module 'chargebee' {
       offset?:string;
     }
     export interface UpsertOrRemoveItemEntitlementsForItemResponse {  
-      /**
-        * @description Upserts or removes a set of &#x60;item_entitlements&#x60; for an [item](items?prod_cat_ver&#x3D;2) depending on the &#x60;action&#x60; specified. The API returns the upserted or deleted &#x60;item_entitlements&#x60; after successfully completing the operation. The operation returns an error when the first &#x60;item_entitlement&#x60; fails to be processed. Either all the &#x60;item_entitlement&#x60;s provided in the request are processed or none.
-
-        */
-       
        item_entitlement:ItemEntitlement;
     }
     export interface UpsertOrRemoveItemEntitlementsForItemInputParam {

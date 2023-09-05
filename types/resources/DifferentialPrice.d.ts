@@ -131,11 +131,6 @@ declare module 'chargebee' {
       update(differential_price_id:string, input:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
     }
     export interface DeleteResponse {  
-      /**
-        * @description Delete a differential price using a &#x60;differential_price_id&#x60; and &#x60;item_price_id&#x60;.
-
-        */
-       
        differential_price:DifferentialPrice;
     }
     export interface DeleteInputParam {
@@ -148,11 +143,6 @@ declare module 'chargebee' {
       item_price_id:string;
     }
     export interface CreateResponse {  
-      /**
-        * @description Create a differential price for addon item price, addon item price with tiered pricing, or charge item price.
-
-        */
-       
        differential_price:DifferentialPrice;
     }
     export interface CreateInputParam {
@@ -252,11 +242,6 @@ declare module 'chargebee' {
       parent_item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieve a differential price using a &#x60;differential_price_id&#x60; and &#x60;item_price_id&#x60;.
-
-        */
-       
        differential_price:DifferentialPrice;
     }
     export interface RetrieveInputParam {
@@ -269,11 +254,6 @@ declare module 'chargebee' {
       item_price_id:string;
     }
     export interface UpdateResponse {  
-      /**
-        * @description Update a differential price using a &#x60;differential_price_id&#x60; and &#x60;item_price_id&#x60;.
-
-        */
-       
        differential_price:DifferentialPrice;
     }
     export interface UpdateInputParam {

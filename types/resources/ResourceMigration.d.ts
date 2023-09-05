@@ -61,11 +61,6 @@ declare module 'chargebee' {
       retrieve_latest(input:RetrieveLatestInputParam):ChargebeeRequest<RetrieveLatestResponse>;
     }
     export interface RetrieveLatestResponse {  
-      /**
-        * @description Gets the last migration details.
-
-        */
-       
        resource_migration:ResourceMigration;
     }
     export interface RetrieveLatestInputParam {

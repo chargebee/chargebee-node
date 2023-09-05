@@ -137,11 +137,6 @@ If this API is called for a Portal Session that currently is in :
       retrieve(portal_session_id:string):ChargebeeRequest<RetrieveResponse>;
     }
     export interface CreateResponse {  
-      /**
-        * @description Creates a portal session for a customer. The session resource in the response contains the access URL. Forward the customer to that access URL. If you would like to logout the customer later via API call, you need to store the id of the portal session resource returned by this API. While creating a session, you also need to pass the redirect URL to which your customers will be sent to upon logout from the portal UI.
-
-        */
-       
        portal_session:PortalSession;
     }
     export interface CreateInputParam {
@@ -170,18 +165,6 @@ If this API is called for a Portal Session that currently is in :
       customer?:{id:string};
     }
     export interface ActivateResponse {  
-      /**
-        * @description When an user is sent back to your return URL with session details, you should validate that information by calling this API. The details passed to the **return_url** should be sent as below:
-
-* **auth_session_id** - this should be sent as part of the endpoint.
-* **auth_session_token** - this should be sent as value for the input parameter **token**.
-
-
-
-**Note:** This API is not applicable for [in-app](https://www.chargebee.com/docs/v3-self-serve-portal.html) portal.
-
-        */
-       
        portal_session:PortalSession;
     }
     export interface ActivateInputParam {
@@ -194,26 +177,10 @@ If this API is called for a Portal Session that currently is in :
       token:string;
     }
     export interface LogoutResponse {  
-      /**
-        * @description Logs out the portal session. Typically this should be called when customers logout of your application.
-
-If this API is called for a Portal Session that currently is in :
-
-* &quot;created&quot; status, the session status will be marked as &quot;logged_out&quot; and the access URL will become invalid.
-* &quot;logged_in&quot; status, the session status will be marked as &quot;logged_out&quot; and customer will not be able to use that session.
-* &quot;logged_out&quot; status, this will return normally without changing any attribute of this resource.
-
-        */
-       
        portal_session:PortalSession;
     }
     
     export interface RetrieveResponse {  
-      /**
-        * @description This API retrieves a portal session using &#x60;portal_session_id&#x60; as a path parameter.
-
-        */
-       
        portal_session:PortalSession;
     }
     

@@ -264,20 +264,10 @@ declare module 'chargebee' {
       sort_by?:{asc?:'date' | 'updated_at',desc?:'date' | 'updated_at'};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves a voucher using the unique &#x60;payment_voucher_id&#x60;.
-
-        */
-       
        payment_voucher:PaymentVoucher;
     }
     
     export interface CreateResponse {  
-      /**
-        * @description Creates a voucher type payment source. If you create this voucher type payment source using customer details, like tax ID, you can then generate a voucher with that payment source.
-
-        */
-       
        payment_voucher:PaymentVoucher;
     }
     export interface CreateInputParam {

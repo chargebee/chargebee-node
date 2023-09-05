@@ -169,11 +169,6 @@ declare module 'chargebee' {
       archived_count?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string};
     }
     export interface CreateResponse {  
-      /**
-        * @description Create a coupon set with a coupon code compatible to your product offers and promotional discounts
-
-        */
-       
        coupon_set:CouponSet;
     }
     export interface CreateInputParam {
@@ -207,11 +202,6 @@ declare module 'chargebee' {
       meta_data?:object;
     }
     export interface UpdateResponse {  
-      /**
-        * @description Use this API to update a specific coupon set by updating its &#x60;name&#x60; and the &#x60;meta_data&#x60;.
-
-        */
-       
        coupon_set:CouponSet;
     }
     export interface UpdateInputParam {
@@ -231,20 +221,10 @@ declare module 'chargebee' {
       meta_data?:object;
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Use this API to retrieve a specific coupon set.
-
-        */
-       
        coupon_set:CouponSet;
     }
     
     export interface AddCouponCodesResponse {  
-      /**
-        * @description This API add coupon codes to an existing coupon set.
-
-        */
-       
        coupon_set:CouponSet;
     }
     export interface AddCouponCodesInputParam {
@@ -257,20 +237,10 @@ declare module 'chargebee' {
       code?:string[];
     }
     export interface DeleteUnusedCouponCodesResponse {  
-      /**
-        * @description Use this API to delete all the unutilised coupon codes from a specific coupon set.
-
-        */
-       
        coupon_set:CouponSet;
     }
     
     export interface DeleteResponse {  
-      /**
-        * @description Use this endpoint to delete a specific coupon set
-
-        */
-       
        coupon_set:CouponSet;
     }
     

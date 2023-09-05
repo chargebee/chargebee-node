@@ -127,11 +127,6 @@ The maximum number of usages that can be recorded for the entire lifetime of a s
       list(input:ListInputParam):ChargebeeRequest<ListResponse>;
     }
     export interface PdfResponse {  
-      /**
-        * @description Retrieves usages record for an invoice in PDF file format.
-
-        */
-       
        download:Download;
     }
     export interface PdfInputParam {
@@ -151,11 +146,6 @@ The maximum number of usages that can be recorded for the entire lifetime of a s
       invoice?:{id:string};
     }
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieves a usage record of a specific subscription.
-
-        */
-       
        usage:Usage;
     }
     export interface RetrieveInputParam {
@@ -168,13 +158,6 @@ The maximum number of usages that can be recorded for the entire lifetime of a s
       id:string;
     }
     export interface CreateResponse {  
-      /**
-        * @description Creates a usage record for an item price in a subscription. The item price must belong to a [metered](/docs/api/items?prod_cat_ver&#x3D;2#item_metered) item.  
-**Max Usages**   
-The maximum number of usages that can be recorded for the entire lifetime of a subscription is 5000. [Contact Support](https://chargebee.freshdesk.com/support/home) if you want this limit to be increased for your site.
-
-        */
-       
        usage:Usage;
     }
     export interface CreateInputParam {
@@ -216,11 +199,6 @@ The maximum number of usages that can be recorded for the entire lifetime of a s
       note?:string;
     }
     export interface DeleteResponse {  
-      /**
-        * @description Deletes a usage record. This operation cannot be invoked for a usage record that has been [invoiced](usages?prod_cat_ver&#x3D;2#invoicing_usages).
-
-        */
-       
        usage:Usage;
     }
     export interface DeleteInputParam {

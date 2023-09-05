@@ -86,22 +86,10 @@ If you want to retrieve the list of comments for an [entity](https://apidocs.cha
       create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
     }
     export interface DeleteResponse {  
-      /**
-        * @description Delete a comment for an [entity](https://apidocs.chargebee.com/docs/api/v1/comments?prod_cat_ver&#x3D;1#create_a_comment_entity_type) identified by comment ID.
-
-Only the comments that are added via Admin console and API can be deleted. Chargebee generated &quot;System&quot; comments cannot be deleted.
-
-        */
-       
        comment:Comment;
     }
     
     export interface RetrieveResponse {  
-      /**
-        * @description Retrieve a comment for an entity identified by comment ID.
-
-        */
-       
        comment:Comment;
     }
     
@@ -175,11 +163,6 @@ If you want to retrieve the list of comments for an [entity](https://apidocs.cha
       sort_by?:{asc?:'created_at',desc?:'created_at'};
     }
     export interface CreateResponse {  
-      /**
-        * @description Create a new comment for an entity. The newly added comment will be shown in the web interface as well.
-
-        */
-       
        comment:Comment;
     }
     export interface CreateInputParam {
