@@ -1,6 +1,22 @@
-### v2.26.1 (2023-08-11)
+### v2.28.0 (2023-09-26)
 * * *
-* Support Descriptions for the attributes and actions has been added.
+
+#### New attributes:
+* venmo has been added to the PaymentSource resource.
+* proration_type has been added to the QuotedCharge, QuotedSubscription and Subscription resource.
+
+#### New Enum values:
+* ebanx has been added to Gateway.
+* venmo has been added to Customer#TypeEnum.
+* venmo has been added to PaymentMethodEnum.
+* venmo has been added to PaymentMethodTypeEnum.
+* venmo has been added to TypeEnum.
+* venmo has been added to PaymentIntent#PaymentMethodTypeEnum.
+
+#### New Input parameters:
+* einvoicing_method has been added to HostedPage#CheckoutOneTimeForItemsRequest.
+* einvoicing_method has been added to HostedPage#CheckoutNewForItemsRequest.
+* additional_information has been added to PaymentSource#CardAdditionalInformation.
 
 ### v2.27.0 (2023-09-05)
 * * *
@@ -20,6 +36,10 @@
 
 #### New Input parameters:
 * avalara_tax_code, hsn_code, taxjar_product_code has been added to Invoice#AddChargeRequest. 
+
+### v2.26.1 (2023-08-11)
+* * *
+* Support Descriptions for the attributes and actions has been added.
 
 
 ### v2.26.0 (2023-07-31)
