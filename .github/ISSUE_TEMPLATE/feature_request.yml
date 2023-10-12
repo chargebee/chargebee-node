@@ -4,15 +4,10 @@ labels:
   - Feature Request
 
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thank you for taking the time to submit your feature request!
-
   - type: textarea
     id: problem
     attributes:
-      label: What problem does uour feature request address?
+      label: What problem does your feature request address?
       description: Please provide a clear and concise description of the problem you'd like to solve. For example, "I'm frequently frustrated when..."
 
   - type: textarea
@@ -32,3 +27,8 @@ body:
     attributes:
       label: Additional context
       description: Feel free to include any other relevant information or context regarding your feature request.
+      
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to submit your feature request!
