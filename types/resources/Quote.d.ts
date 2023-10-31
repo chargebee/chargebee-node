@@ -276,18 +276,18 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
   export namespace Quote {
     export class QuoteResource {  
       /**
-        * @description Create a quote for new subscription line items of a customer.
-
-        */
-      
-      create_sub_items_for_customer_quote(customer_id:string, input?:CreateSubItemsForCustomerQuoteInputParam):ChargebeeRequest<CreateSubItemsForCustomerQuoteResponse>;
-       
-      /**
         * @description Retrieves the quotes identified by the &#x27;number&#x27; specified in the url.
 
         */
       
       retrieve(quote_id:string):ChargebeeRequest<RetrieveResponse>;
+       
+      /**
+        * @description Create a quote for new subscription line items of a customer.
+
+        */
+      
+      create_sub_items_for_customer_quote(customer_id:string, input?:CreateSubItemsForCustomerQuoteInputParam):ChargebeeRequest<CreateSubItemsForCustomerQuoteResponse>;
        
       /**
         * @description Changes the quote produced for creating a new subscription items
@@ -297,39 +297,11 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       edit_create_sub_customer_quote_for_items(quote_id:string, input?:EditCreateSubCustomerQuoteForItemsInputParam):ChargebeeRequest<EditCreateSubCustomerQuoteForItemsResponse>;
        
       /**
-        * @description Updates the status of the quote. Status can be updated to Accepted, Declined, and Closed.
-
-        */
-      
-      update_status(quote_id:string, input:UpdateStatusInputParam):ChargebeeRequest<UpdateStatusResponse>;
-       
-      /**
         * @description Create a quote for updating subscription line items.
 
         */
       
       update_subscription_quote_for_items(input?:UpdateSubscriptionQuoteForItemsInputParam):ChargebeeRequest<UpdateSubscriptionQuoteForItemsResponse>;
-       
-      /**
-        * @description This API retrieves all the quote line groups and lineitems for a quote.
-
-        */
-      
-      quote_line_groups_for_quote(quote_id:string, input?:QuoteLineGroupsForQuoteInputParam):ChargebeeRequest<QuoteLineGroupsForQuoteResponse>;
-       
-      /**
-        * @description Can be used to extend the expiry date of a quote.
-
-        */
-      
-      extend_expiry_date(quote_id:string, input:ExtendExpiryDateInputParam):ChargebeeRequest<ExtendExpiryDateResponse>;
-       
-      /**
-        * @description Changes the quote produced for adding one-time charges and charge items.
-
-        */
-      
-      edit_for_charge_items_and_charges(quote_id:string, input?:EditForChargeItemsAndChargesInputParam):ChargebeeRequest<EditForChargeItemsAndChargesResponse>;
        
       /**
         * @description Changes the quote produced for updating the subscription items.
@@ -339,6 +311,20 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       edit_update_subscription_quote_for_items(quote_id:string, input?:EditUpdateSubscriptionQuoteForItemsInputParam):ChargebeeRequest<EditUpdateSubscriptionQuoteForItemsResponse>;
        
       /**
+        * @description Creates a quote using charge-items and one-time charges.
+
+        */
+      
+      create_for_charge_items_and_charges(input:CreateForChargeItemsAndChargesInputParam):ChargebeeRequest<CreateForChargeItemsAndChargesResponse>;
+       
+      /**
+        * @description Changes the quote produced for adding one-time charges and charge items.
+
+        */
+      
+      edit_for_charge_items_and_charges(quote_id:string, input?:EditForChargeItemsAndChargesInputParam):ChargebeeRequest<EditForChargeItemsAndChargesResponse>;
+       
+      /**
         * @description List all quotes.
 
         */
@@ -346,11 +332,11 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
        
       /**
-        * @description Retrieves the quote as a PDF. The returned URL is secure, allows download and expires in 60 minutes.
+        * @description This API retrieves all the quote line groups and lineitems for a quote.
 
         */
       
-      pdf(quote_id:string, input?:PdfInputParam):ChargebeeRequest<PdfResponse>;
+      quote_line_groups_for_quote(quote_id:string, input?:QuoteLineGroupsForQuoteInputParam):ChargebeeRequest<QuoteLineGroupsForQuoteResponse>;
        
       /**
         * @description This API is to convert a quote to an invoice.
@@ -360,11 +346,18 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       convert(quote_id:string, input?:ConvertInputParam):ChargebeeRequest<ConvertResponse>;
        
       /**
-        * @description Creates a quote using charge-items and one-time charges.
+        * @description Updates the status of the quote. Status can be updated to Accepted, Declined, and Closed.
 
         */
       
-      create_for_charge_items_and_charges(input:CreateForChargeItemsAndChargesInputParam):ChargebeeRequest<CreateForChargeItemsAndChargesResponse>;
+      update_status(quote_id:string, input:UpdateStatusInputParam):ChargebeeRequest<UpdateStatusResponse>;
+       
+      /**
+        * @description Can be used to extend the expiry date of a quote.
+
+        */
+      
+      extend_expiry_date(quote_id:string, input:ExtendExpiryDateInputParam):ChargebeeRequest<ExtendExpiryDateResponse>;
        
       /**
         * @description Delete a quote using this API.
@@ -372,7 +365,22 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
         */
       
       delete(quote_id:string, input?:DeleteInputParam):ChargebeeRequest<DeleteResponse>;
+       
+      /**
+        * @description Retrieves the quote as a PDF. The returned URL is secure, allows download and expires in 60 minutes.
+
+        */
+      
+      pdf(quote_id:string, input?:PdfInputParam):ChargebeeRequest<PdfResponse>;
     }
+    export interface RetrieveResponse {  
+       quote:Quote;
+       
+       quoted_subscription?:QuotedSubscription;
+       
+       quoted_charge?:QuotedCharge;
+    }
+    
     export interface CreateSubItemsForCustomerQuoteResponse {  
        quote:Quote;
        
@@ -478,14 +486,6 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
-    export interface RetrieveResponse {  
-       quote:Quote;
-       
-       quoted_subscription?:QuotedSubscription;
-       
-       quoted_charge?:QuotedCharge;
-    }
-    
     export interface EditCreateSubCustomerQuoteForItemsResponse {  
        quote:Quote;
        
@@ -583,29 +583,6 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
         */
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
-    }
-    export interface UpdateStatusResponse {  
-       quote:Quote;
-       
-       quoted_subscription?:QuotedSubscription;
-       
-       quoted_charge?:QuotedCharge;
-    }
-    export interface UpdateStatusInputParam {
-       
-      /**
-        * @description Status to update for the quote. \* accepted - Accepted. \* closed - Closed \* declined - Declined.
-
-        */
-       
-      status:'declined' | 'accepted' | 'closed';
-       
-      /**
-        * @description An internal [comment](./comments) to be added for this operation, to the quote. This comment is displayed on the Chargebee UI. It is not displayed on any customer-facing [Hosted Page](./hosted_pages) or any document such as the [Quote PDF](./quotes#retrieve_quote_as_pdf).
-
-        */
-       
-      comment?:string;
     }
     export interface UpdateSubscriptionQuoteForItemsResponse {  
        quote:Quote;
@@ -796,137 +773,6 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
-    export interface QuoteLineGroupsForQuoteResponse {  
-      /**
-        * @description This API retrieves all the quote line groups and lineitems for a quote.
-
-        */
-       
-       list:{quote_line_group:QuoteLineGroup}[];
-       
-      /**
-        * @description This API retrieves all the quote line groups and lineitems for a quote.
-
-        */
-       
-       next_offset?:string;
-    }
-    export interface QuoteLineGroupsForQuoteInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-    }
-    export interface ExtendExpiryDateResponse {  
-       quote:Quote;
-       
-       quoted_subscription?:QuotedSubscription;
-       
-       quoted_charge?:QuotedCharge;
-    }
-    export interface ExtendExpiryDateInputParam {
-       
-      /**
-        * @description Quote will be valid till this date. After this date quote will be marked as closed.
-
-        */
-       
-      valid_till:number;
-    }
-    export interface EditForChargeItemsAndChargesResponse {  
-       quote:Quote;
-       
-       quoted_charge?:QuotedCharge;
-    }
-    export interface EditForChargeItemsAndChargesInputParam {
-       
-      /**
-        * @description Purchase Order Number for this quote.
-
-        */
-       
-      po_number?:string;
-       
-      /**
-        * @description Notes specific to this quote that you want customers to see on the quote PDF.
-
-        */
-       
-      notes?:string;
-       
-      /**
-        * @description Quotes will be vaild till this date. After this quote will be marked as closed.
-
-        */
-       
-      expires_at?:number;
-       
-      /**
-        * @description The currency code (ISO 4217 format) of the quote.
-
-        */
-       
-      currency_code?:string;
-       
-      /**
-        * @description The &#x27;One Time&#x27; coupon to be applied.
-
-        */
-       
-      coupon?:string;
-       
-      /**
-        * @description List of Coupons to be added.
-
-        */
-       
-      coupon_ids?:string[];
-       
-      /**
-        * @description Parameters for shipping_address
-
-        */
-       
-      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
-       
-      /**
-        * @description Parameters for item_prices
-
-        */
-       
-      item_prices?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
-       
-      /**
-        * @description Parameters for item_tiers
-
-        */
-       
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
-       
-      /**
-        * @description Parameters for charges
-
-        */
-       
-      charges?:{amount?:number,amount_in_decimal?:string,avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_transaction_type?:number,description?:string,service_period?:number}[];
-       
-      /**
-        * @description Parameters for discounts
-
-        */
-       
-      discounts?:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
-    }
     export interface EditUpdateSubscriptionQuoteForItemsResponse {  
        quote:Quote;
        
@@ -1109,181 +955,6 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
-    export interface ListResponse {  
-      /**
-        * @description List all quotes.
-
-        */
-       
-       list:{quote:Quote,quoted_subscription?:QuotedSubscription}[];
-       
-      /**
-        * @description List all quotes.
-
-        */
-       
-       next_offset?:string;
-    }
-    export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description Indicates whether to include deleted objects in the list. The deleted objects have the attribute \&#x60;deleted\&#x60; as \&#x60;true\&#x60;.
-
-        */
-        
-      include_deleted?:boolean;
-       
-      /**
-        * @description The quote number. Acts as a identifier for quote and typically generated sequentially.
-
-        */
-        
-      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description The identifier of the customer this quote belongs to.
-
-        */
-        
-      customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description To filter based on subscription_id.   
-NOTE: Not to be used if *consolidated invoicing* feature is enabled.
-
-        */
-        
-      subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string};
-       
-      /**
-        * @description Current status of this quote.
-
-        */
-        
-      status?:{in?:string,is?:'declined' | 'invoiced' | 'accepted' | 'closed' | 'open',is_not?:'declined' | 'invoiced' | 'accepted' | 'closed' | 'open',not_in?:string};
-       
-      /**
-        * @description Creation date of the quote. Typically this is the date on which quote is generated.
-
-        */
-        
-      date?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description To filter based on updated at. This attribute will be present only if the resource has been updated after 2016-09-28.
-
-        */
-        
-      updated_at?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description List all quotes.
-
-        */
-        
-      sort_by?:{asc?:'date',desc?:'date'};
-    }
-    export interface PdfResponse {  
-       download:Download;
-    }
-    export interface PdfInputParam {
-       
-      /**
-        * @description When true, the quote PDF has summary of all charges on the quote. When false, the quote PDF has a detailed view of charges grouped by charge event. This parameter does not affect one-time quotes.
-
-        */
-       
-      consolidated_view?:boolean;
-       
-      /**
-        * @description Determines the pdf should be rendered as inline or attachment in the browser. \* attachment - PDF is rendered as attachment in the browser \* inline - PDF is rendered as inline in the browser
-
-        */
-       
-      disposition_type?:DispositionType;
-    }
-    export interface ConvertResponse {  
-       quote:Quote;
-       
-       quoted_subscription?:QuotedSubscription;
-       
-       quoted_charge?:QuotedCharge;
-       
-       customer:Customer;
-       
-       subscription?:Subscription;
-       
-       invoice?:Invoice;
-       
-       credit_note?:CreditNote;
-       
-       unbilled_charges?:UnbilledCharge[];
-    }
-    export interface ConvertInputParam {
-       
-      /**
-        * @description The document date displayed on the invoice PDF. Provide this value to backdate the invoice. Backdating an invoice is done for reasons such as booking revenue for a previous date or when the subscription is effective as of a past date. When not provided, the value is the same as current date. Moreover, if the invoice is created as &#x60;pending&#x60;, and if the site is configured to set invoice dates to date of closing, then upon invoice closure, this date is changed to the invoice closing date. &#x60;taxes&#x60; and &#x60;line_item_taxes&#x60; are computed based on the tax configuration as of &#x60;invoice_date&#x60;. When passing this parameter, the following prerequisites must be met:
-
-* &#x60;invoice_date&#x60; must be in the past.
-* &#x60;invoice_date&#x60; is not more than one calendar month into the past. For example, if today is 13th January, then you cannot pass a value that is earlier than 13th December.
-* The date is not earlier than &#x60;quoted_subscription.start_date&#x60; or &#x60;quoted_subscription.changes_scheduled_at&#x60; (whichever is applicable).
-* &#x60;invoice_immediately&#x60; must be &#x60;true&#x60;.
-.
-
-        */
-       
-      invoice_date?:number;
-       
-      /**
-        * @description This attribute is set to &#x60;true&#x60; automatically for the subscription when it has one or more &#x60;metered&#x60; items. However, when there are no &#x60;metered&#x60; items, you can pass this parameter as &#x60;true&#x60; to force all invoices (except the first) to be created as &#x60;pending&#x60;. This is useful in the following scenarios:
-
-* When you manage metered billing at your end by calculating usage-based charges yourself and add them to the subscription as [one-time charges](https://www.chargebee.com/docs/2.0/charges.html).
-* When your workflow involves inspecting all charges before you close invoices.
-
-**Note:**
-
-* You must enable [Metered Billing](https://www.chargebee.com/docs/2.0/metered_billing.html) for this parameter to be acceptable.
-* To create the first invoice also as &#x60;pending&#x60;, pass &#x60;first_invoice_pending&#x60; as &#x60;true&#x60;.
-.
-
-        */
-       
-      create_pending_invoices?:boolean;
-       
-      /**
-        * @description Non-metered items are billed at the beginning of a billing cycle while metered items are billed at the end. Consequently, the first invoice of the subscription contains only the non-metered items.
-
-By passing this parameter as &#x60;true&#x60;, you create the first invoice as &#x60;pending&#x60; allowing you to add the previous term&#x27;s metered charges to it before closing. This is useful when the subscription is moved to Chargebee from a different billing system. As applicable to all &#x60;pending&#x60; invoices, this invoice is also [closed automatically](https://www.chargebee.com/docs/2.0/metered_billing.html#configuring-metered-billing) or via an [API call](/docs/api/invoices?prod_cat_ver&#x3D;2#close_a_pending_invoice).  
-**Note:**
-
-This parameter is passed only when there are metered items in the subscription or when &#x60;create_pending_invoices&#x60; is &#x60;true&#x60;.
-.
-
-        */
-       
-      first_invoice_pending?:boolean;
-       
-      /**
-        * @description Parameters for subscription
-
-        */
-       
-      subscription?:{auto_close_invoices?:boolean,auto_collection?:AutoCollection,id?:string,po_number?:string};
-    }
     export interface CreateForChargeItemsAndChargesResponse {  
        quote:Quote;
        
@@ -1382,6 +1053,315 @@ This parameter is passed only when there are metered items in the subscription o
        
       discounts?:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
     }
+    export interface EditForChargeItemsAndChargesResponse {  
+       quote:Quote;
+       
+       quoted_charge?:QuotedCharge;
+    }
+    export interface EditForChargeItemsAndChargesInputParam {
+       
+      /**
+        * @description Purchase Order Number for this quote.
+
+        */
+       
+      po_number?:string;
+       
+      /**
+        * @description Notes specific to this quote that you want customers to see on the quote PDF.
+
+        */
+       
+      notes?:string;
+       
+      /**
+        * @description Quotes will be vaild till this date. After this quote will be marked as closed.
+
+        */
+       
+      expires_at?:number;
+       
+      /**
+        * @description The currency code (ISO 4217 format) of the quote.
+
+        */
+       
+      currency_code?:string;
+       
+      /**
+        * @description The &#x27;One Time&#x27; coupon to be applied.
+
+        */
+       
+      coupon?:string;
+       
+      /**
+        * @description List of Coupons to be added.
+
+        */
+       
+      coupon_ids?:string[];
+       
+      /**
+        * @description Parameters for shipping_address
+
+        */
+       
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
+       
+      /**
+        * @description Parameters for item_prices
+
+        */
+       
+      item_prices?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+       
+      /**
+        * @description Parameters for item_tiers
+
+        */
+       
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+       
+      /**
+        * @description Parameters for charges
+
+        */
+       
+      charges?:{amount?:number,amount_in_decimal?:string,avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_transaction_type?:number,description?:string,service_period?:number}[];
+       
+      /**
+        * @description Parameters for discounts
+
+        */
+       
+      discounts?:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
+    }
+    export interface ListResponse {  
+      /**
+        * @description List all quotes.
+
+        */
+       
+       list:{quote:Quote,quoted_subscription?:QuotedSubscription}[];
+       
+      /**
+        * @description List all quotes.
+
+        */
+       
+       next_offset?:string;
+    }
+    export interface ListInputParam {
+      [key : string]: any;  
+      /**
+        * @description List all quotes.
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description List all quotes.
+
+        */
+        
+      offset?:string;
+       
+      /**
+        * @description List all quotes.
+
+        */
+        
+      include_deleted?:boolean;
+       
+      /**
+        * @description List all quotes.
+
+        */
+        
+      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description List all quotes.
+
+        */
+        
+      customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description List all quotes.
+
+        */
+        
+      subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string};
+       
+      /**
+        * @description List all quotes.
+
+        */
+        
+      status?:{in?:string,is?:'declined' | 'invoiced' | 'accepted' | 'closed' | 'open',is_not?:'declined' | 'invoiced' | 'accepted' | 'closed' | 'open',not_in?:string};
+       
+      /**
+        * @description List all quotes.
+
+        */
+        
+      date?:{after?:string,before?:string,between?:string,on?:string};
+       
+      /**
+        * @description List all quotes.
+
+        */
+        
+      updated_at?:{after?:string,before?:string,between?:string,on?:string};
+       
+      /**
+        * @description List all quotes.
+
+        */
+        
+      sort_by?:{asc?:'date',desc?:'date'};
+    }
+    export interface QuoteLineGroupsForQuoteResponse {  
+      /**
+        * @description This API retrieves all the quote line groups and lineitems for a quote.
+
+        */
+       
+       list:{quote_line_group:QuoteLineGroup}[];
+       
+      /**
+        * @description This API retrieves all the quote line groups and lineitems for a quote.
+
+        */
+       
+       next_offset?:string;
+    }
+    export interface QuoteLineGroupsForQuoteInputParam {
+      [key : string]: any;  
+      /**
+        * @description This API retrieves all the quote line groups and lineitems for a quote.
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description This API retrieves all the quote line groups and lineitems for a quote.
+
+        */
+        
+      offset?:string;
+    }
+    export interface ConvertResponse {  
+       quote:Quote;
+       
+       quoted_subscription?:QuotedSubscription;
+       
+       quoted_charge?:QuotedCharge;
+       
+       customer:Customer;
+       
+       subscription?:Subscription;
+       
+       invoice?:Invoice;
+       
+       credit_note?:CreditNote;
+       
+       unbilled_charges?:UnbilledCharge[];
+    }
+    export interface ConvertInputParam {
+       
+      /**
+        * @description The document date displayed on the invoice PDF. Provide this value to backdate the invoice. Backdating an invoice is done for reasons such as booking revenue for a previous date or when the subscription is effective as of a past date. When not provided, the value is the same as current date. Moreover, if the invoice is created as &#x60;pending&#x60;, and if the site is configured to set invoice dates to date of closing, then upon invoice closure, this date is changed to the invoice closing date. &#x60;taxes&#x60; and &#x60;line_item_taxes&#x60; are computed based on the tax configuration as of &#x60;invoice_date&#x60;. When passing this parameter, the following prerequisites must be met:
+
+* &#x60;invoice_date&#x60; must be in the past.
+* &#x60;invoice_date&#x60; is not more than one calendar month into the past. For example, if today is 13th January, then you cannot pass a value that is earlier than 13th December.
+* The date is not earlier than &#x60;quoted_subscription.start_date&#x60; or &#x60;quoted_subscription.changes_scheduled_at&#x60; (whichever is applicable).
+* &#x60;invoice_immediately&#x60; must be &#x60;true&#x60;.
+.
+
+        */
+       
+      invoice_date?:number;
+       
+      /**
+        * @description This attribute is set to &#x60;true&#x60; automatically for the subscription when it has one or more &#x60;metered&#x60; items. However, when there are no &#x60;metered&#x60; items, you can pass this parameter as &#x60;true&#x60; to force all invoices (except the first) to be created as &#x60;pending&#x60;. This is useful in the following scenarios:
+
+* When you manage metered billing at your end by calculating usage-based charges yourself and add them to the subscription as [one-time charges](https://www.chargebee.com/docs/2.0/charges.html).
+* When your workflow involves inspecting all charges before you close invoices.
+
+**Note:**
+
+* You must enable [Metered Billing](https://www.chargebee.com/docs/2.0/metered_billing.html) for this parameter to be acceptable.
+* To create the first invoice also as &#x60;pending&#x60;, pass &#x60;first_invoice_pending&#x60; as &#x60;true&#x60;.
+.
+
+        */
+       
+      create_pending_invoices?:boolean;
+       
+      /**
+        * @description Non-metered items are billed at the beginning of a billing cycle while metered items are billed at the end. Consequently, the first invoice of the subscription contains only the non-metered items.
+
+By passing this parameter as &#x60;true&#x60;, you create the first invoice as &#x60;pending&#x60; allowing you to add the previous term&#x27;s metered charges to it before closing. This is useful when the subscription is moved to Chargebee from a different billing system. As applicable to all &#x60;pending&#x60; invoices, this invoice is also [closed automatically](https://www.chargebee.com/docs/2.0/metered_billing.html#configuring-metered-billing) or via an [API call](/docs/api/invoices?prod_cat_ver&#x3D;2#close_a_pending_invoice).  
+**Note:**
+
+This parameter is passed only when there are metered items in the subscription or when &#x60;create_pending_invoices&#x60; is &#x60;true&#x60;.
+.
+
+        */
+       
+      first_invoice_pending?:boolean;
+       
+      /**
+        * @description Parameters for subscription
+
+        */
+       
+      subscription?:{auto_close_invoices?:boolean,auto_collection?:AutoCollection,id?:string,po_number?:string};
+    }
+    export interface UpdateStatusResponse {  
+       quote:Quote;
+       
+       quoted_subscription?:QuotedSubscription;
+       
+       quoted_charge?:QuotedCharge;
+    }
+    export interface UpdateStatusInputParam {
+       
+      /**
+        * @description Status to update for the quote. \* accepted - Accepted. \* closed - Closed \* declined - Declined.
+
+        */
+       
+      status:'declined' | 'accepted' | 'closed';
+       
+      /**
+        * @description An internal [comment](./comments) to be added for this operation, to the quote. This comment is displayed on the Chargebee UI. It is not displayed on any customer-facing [Hosted Page](./hosted_pages) or any document such as the [Quote PDF](./quotes#retrieve_quote_as_pdf).
+
+        */
+       
+      comment?:string;
+    }
+    export interface ExtendExpiryDateResponse {  
+       quote:Quote;
+       
+       quoted_subscription?:QuotedSubscription;
+       
+       quoted_charge?:QuotedCharge;
+    }
+    export interface ExtendExpiryDateInputParam {
+       
+      /**
+        * @description Quote will be valid till this date. After this date quote will be marked as closed.
+
+        */
+       
+      valid_till:number;
+    }
     export interface DeleteResponse {  
        quote:Quote;
        
@@ -1398,127 +1378,436 @@ This parameter is passed only when there are metered items in the subscription o
        
       comment?:string;
     }
+    export interface PdfResponse {  
+       download:Download;
+    }
+    export interface PdfInputParam {
+       
+      /**
+        * @description When true, the quote PDF has summary of all charges on the quote. When false, the quote PDF has a detailed view of charges grouped by charge event. This parameter does not affect one-time quotes.
+
+        */
+       
+      consolidated_view?:boolean;
+       
+      /**
+        * @description Determines the pdf should be rendered as inline or attachment in the browser. \* attachment - PDF is rendered as attachment in the browser \* inline - PDF is rendered as inline in the browser
+
+        */
+       
+      disposition_type?:DispositionType;
+    }
     export interface LineItem {  
+         /**
+          * @description Uniquely identifies a line_item
+
+          */
+       
       id?:string;
+       
+         /**
+          * @description A unique identifier for the subscription this line item belongs to.
+
+          */
        
       subscription_id?:string;
        
-      date_from?:number;
+         /**
+          * @description Start date of this line item.
+
+          */
        
-      date_to?:number;
+      date_from:number;
        
-      unit_amount?:number;
+         /**
+          * @description End date of this line item.
+
+          */
+       
+      date_to:number;
+       
+         /**
+          * @description Unit amount of the line item.
+
+          */
+       
+      unit_amount:number;
+       
+         /**
+          * @description [Quantity of the recurring item](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_line_items_quantity) which is represented by this line item. For &#x60;metered&#x60; line items, this value is updated from [usages](/docs/api/usages) once when the invoice is generated as &#x60;pending&#x60; and finally when the invoice is [closed](/docs/api/invoices#close_a_pending_invoice).
+
+          */
        
       quantity?:number;
        
+         /**
+          * @description Total amount of this line item. Typically equals to unit amount x quantity
+
+          */
+       
       amount?:number;
+       
+         /**
+          * @description The [pricing scheme](https://www.chargebee.com/docs/2.0/plans.html#pricing-models) for this item price. \* per_unit - A fixed price per unit quantity. \* stairstep - A quantity-based pricing scheme. The item is charged a fixed price based on the tier that the total quantity falls in. \* flat_fee - A fixed price that is not quantity-based. \* tiered - The per unit price is based on the tier that the total quantity falls in. \* volume - There are quantity tiers for which per unit prices are set. Quantities are purchased from successive tiers.
+
+          */
        
       pricing_model?:'volume' | 'per_unit' | 'tiered' | 'flat_fee' | 'stairstep';
        
-      is_taxed?:boolean;
+         /**
+          * @description Specifies whether this line item is taxed or not
+
+          */
+       
+      is_taxed:boolean;
+       
+         /**
+          * @description The tax amount charged for this item
+
+          */
        
       tax_amount?:number;
        
+         /**
+          * @description Rate of tax used to calculate tax for this lineitem
+
+          */
+       
       tax_rate?:number;
+       
+         /**
+          * @description The decimal representation of the unit amount of the &#x60;line_item&#x60;. The value is in major units of the currency. Returned when the &#x60;line_item&#x60; is quantity-based and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
        
       unit_amount_in_decimal?:string;
        
+         /**
+          * @description The decimal representation of the quantity of this line_item. Returned when the &#x60;line_item&#x60; is quantity-based and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
+       
       quantity_in_decimal?:string;
+       
+         /**
+          * @description The decimal representation of the amount for the &#x60;line_item&#x60;, in major units of the currency. Typically equals to &#x60;unit_amount_in_decimal&#x60; x &#x60;quantity_in_decimal&#x60;. Returned when [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
        
       amount_in_decimal?:string;
        
+         /**
+          * @description Total discounts for this line
+
+          */
+       
       discount_amount?:number;
+       
+         /**
+          * @description Line Item-level discounts for this line.
+
+          */
        
       item_level_discount_amount?:number;
        
+         /**
+          * @description Invoice Reference Line Item ID
+
+          */
+       
       reference_line_item_id?:string;
        
-      description?:string;
+         /**
+          * @description Detailed description about this line item.
+
+          */
+       
+      description:string;
+       
+         /**
+          * @description Detailed description about this item.
+
+          */
        
       entity_description?:string;
        
-      entity_type?:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc';
+         /**
+          * @description Specifies the modelled entity this line item is based on. \* addon - Indicates that this lineitem is based on &#x27;Addon&#x27; entity. The &#x27;entity_id&#x27; attribute specifies the [addon](/docs/api/addons#addon_attributes) id \* plan_item_price - Indicates that this line item is based on plan Item Price \* addon_item_price - Indicates that this line item is based on addon Item Price \* charge_item_price - Indicates that this line item is based on charge Item Price \* adhoc - Indicates that this lineitem is not modelled. i.e created adhoc. So the &#x27;entity_id&#x27; attribute will be null in this case \* plan_setup - Indicates that this lineitem is based on &#x27;Plan Setup&#x27; charge. The &#x27;entity_id&#x27; attribute specifies the [plan](/docs/api/plans#plan_attributes) id \* plan - Indicates that this lineitem is based on &#x27;Plan&#x27; entity. The &#x27;entity_id&#x27; attribute specifies the [plan](/docs/api/plans#plan_attributes) id
+
+          */
+       
+      entity_type:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc';
+       
+         /**
+          * @description The reason due to which the line item price/amount is exempted from tax. \* zero_value_item - If the total invoice value/amount is equal to zero. E.g., If the total order value is $10 and a $10 coupon has been applied against that order, the total order value becomes $0. Hence the invoice value also becomes $0. \* reverse_charge - If the Customer is identified as B2B customer (when VAT Number is entered), applicable for EU only \* tax_not_configured - If tax is not enabled for the site \* high_value_physical_goods - If physical goods are sold from outside Australia to customers in Australia, and the price of all the physical good line items is greater than AUD 1000, then tax will not be applied \* product_exempt - If the Plan or Addon is marked as Tax exempt \* zero_rated - If the rate of tax is 0% and no Sales/ GST tax is collectable for that line item \* customer_exempt - If the Customer is marked as Tax exempt \* region_non_taxable - If the product sold is not taxable in this region, but it is taxable in other regions, hence this region is not part of the Taxable jurisdiction \* export - You are not registered for tax in the customer&#x27;s region. This is also the reason code when both &#x60;billing_address&#x60; and &#x60;shipping_address&#x60; have not been provided for the customer and subscription respectively
+
+          */
        
       tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
        
+         /**
+          * @description The identifier of the modelled entity this line item is based on. Will be null for &#x27;adhoc&#x27; entity type
+
+          */
+       
       entity_id?:string;
+       
+         /**
+          * @description A unique identifier for the customer this line item belongs to
+
+          */
        
       customer_id?:string;
     }
     export interface Discount {  
-      amount?:number;
+         /**
+          * @description The amount deducted. The format of this value depends on the [kind of currency](/docs/api?prod_cat_ver&#x3D;2#currencies).
+
+          */
+       
+      amount:number;
+       
+         /**
+          * @description Description for this deduction.
+
+          */
        
       description?:string;
        
+         /**
+          * @description The unique id of the line item that this deduction is for. Is required when &#x60;discounts[entity_type]&#x60; is &#x60;item_level_coupon&#x60; or &#x60;document_level_coupon&#x60;.
+
+          */
+       
       line_item_id?:string;
        
-      entity_type?:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
+         /**
+          * @description The type of deduction and the amount to which it is applied. \* document_level_coupon - The deduction is due to a coupon applied to the invoice &#x60;sub_total&#x60;. The coupon id is passed as &#x60;entity_id&#x60;. \* prorated_credits - The deduction is due to a legacy adjustment credit applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. The legacy credits feature is superseded by [adjustment_credit_notes](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_adjustment_credit_notes). \* item_level_coupon - The deduction is due to a coupon applied to line item. The coupon &#x60;id&#x60; is passed as &#x60;entity_id&#x60;. \* item_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to a line item of the invoice. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* promotional_credits - The deduction is due to a [promotional credit](/docs/api/promotional_credits?prod_cat_ver&#x3D;2) applied to the invoice. \* document_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to the invoice &#x60;sub_total&#x60;. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;.
+
+          */
+       
+      entity_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
+       
+         /**
+          * @description The type of discount that is applied to the line item. Relevant only when &#x60;discounts[entity_type]&#x60; is one of &#x60;item_level_discount&#x60; , &#x60;item_level_coupon&#x60;, &#x60;document_level_discount&#x60;, or &#x60;document_level_coupon&#x60; \* percentage - when percentage is applied as discount \* fixed_amount - when amount is applied as discount
+
+          */
        
       discount_type?:'fixed_amount' | 'percentage';
        
+         /**
+          * @description When the deduction is due to a &#x60;coupon&#x60; or a [discount](discounts), then this is the &#x60;id&#x60; of the coupon or discount.
+
+          */
+       
       entity_id?:string;
+       
+         /**
+          * @description The [coupon code](/docs/api/coupon_codes#coupon_code_code), if applicable, used to provide the discount. The [coupon.id](/docs/api/coupons#coupon_id) is available in &#x60;entity_id&#x60;.
+
+          */
        
       coupon_set_code?:string;
     }
     export interface LineItemDiscount {  
-      line_item_id?:string;
+         /**
+          * @description The unique id of the line item that this deduction is for.
+
+          */
        
-      discount_type?:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
+      line_item_id:string;
+       
+         /**
+          * @description The type of deduction and the amount to which it is applied. \* item_level_coupon - The deduction is due to a coupon applied to a line item of the invoice. The coupon &#x60;id&#x60; is available as &#x60;entity_id&#x60;. \* prorated_credits - The deduction is due to a legacy adjustment credit applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. The legacy credits feature is superseded by [adjustment_credit_notes](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_adjustment_credit_notes). \* document_level_coupon - The deduction is due to a coupon applied to the invoice &#x60;sub_total&#x60;. The coupon &#x60;id&#x60; is available as &#x60;entity_id&#x60;. \* document_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to the invoice &#x60;sub_total&#x60;. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* item_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to a line item of the invoice. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* promotional_credits - The deduction is due to a [promotional credit](/docs/api/promotional_credits) applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case.
+
+          */
+       
+      discount_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
        
       coupon_id?:string;
        
+         /**
+          * @description When the deduction is due to a &#x60;coupon&#x60; or a [discount](discounts), then this is the &#x60;id&#x60; of the coupon or discount.
+
+          */
+       
       entity_id?:string;
        
-      discount_amount?:number;
+         /**
+          * @description The amount deducted. The format of this value depends on the [kind of currency](/docs/api#currencies).
+
+          */
+       
+      discount_amount:number;
     }
     export interface Tax {  
-      name?:string;
+         /**
+          * @description The name of the tax applied. E.g. GST.
+
+          */
        
-      amount?:number;
+      name:string;
+       
+         /**
+          * @description The tax amount.
+
+          */
+       
+      amount:number;
+       
+         /**
+          * @description Description of the tax item.
+
+          */
        
       description?:string;
     }
     export interface LineItemTax {  
+         /**
+          * @description The unique reference id of the line item for which the tax is applicable
+
+          */
+       
       line_item_id?:string;
        
-      tax_name?:string;
+         /**
+          * @description The name of the tax applied
+
+          */
        
-      tax_rate?:number;
+      tax_name:string;
+       
+         /**
+          * @description The rate of tax used to calculate tax amount
+
+          */
+       
+      tax_rate:number;
+       
+         /**
+          * @description Indicates if tax is applied only on a portion of the line item amount.
+
+          */
        
       is_partial_tax_applied?:boolean;
        
+         /**
+          * @description Indicates the non-compliance tax that should not be reported to the jurisdiction.
+
+          */
+       
       is_non_compliance_tax?:boolean;
        
-      taxable_amount?:number;
+         /**
+          * @description Indicates the actual portion of the line item amount that is taxable.
+
+          */
        
-      tax_amount?:number;
+      taxable_amount:number;
+       
+         /**
+          * @description The tax amount
+
+          */
+       
+      tax_amount:number;
+       
+         /**
+          * @description The type of tax jurisdiction \* unincorporated - Combined tax of state and county. \* federal - The tax jurisdiction is a federal \* state - The tax jurisdiction is a state \* county - The tax jurisdiction is a county \* country - The tax jurisdiction is a country \* city - The tax jurisdiction is a city \* other - Jurisdictions other than the ones listed above. \* special - Special tax jurisdiction.
+
+          */
        
       tax_juris_type?:'special' | 'country' | 'unincorporated' | 'other' | 'city' | 'federal' | 'county' | 'state';
        
+         /**
+          * @description The name of the tax jurisdiction
+
+          */
+       
       tax_juris_name?:string;
+       
+         /**
+          * @description The tax jurisdiction code
+
+          */
        
       tax_juris_code?:string;
        
+         /**
+          * @description Total tax amount in the currency of the place of supply. This is applicable only for Invoice and Credit Notes API.
+
+          */
+       
       tax_amount_in_local_currency?:number;
+       
+         /**
+          * @description The currency code (ISO 4217 format) of the place of supply in which VAT needs to be converted and displayed. This is applicable only for Invoice and Credit Notes API.
+
+          */
        
       local_currency_code?:string;
     }
     export interface LineItemTier {  
+         /**
+          * @description Uniquely identifies a line_item
+
+          */
+       
       line_item_id?:string;
        
-      starting_unit?:number;
+         /**
+          * @description The lower limit of a range of units for the tier
+
+          */
+       
+      starting_unit:number;
+       
+         /**
+          * @description The upper limit of a range of units for the tier
+
+          */
        
       ending_unit?:number;
        
-      quantity_used?:number;
+         /**
+          * @description The number of units purchased in a range.
+
+          */
        
-      unit_amount?:number;
+      quantity_used:number;
+       
+         /**
+          * @description The price of the tier if the charge model is a &#x60;stairtstep&#x60; pricing , or the price of each unit in the tier if the charge model is &#x60;tiered&#x60;/&#x60;volume&#x60; pricing.
+
+          */
+       
+      unit_amount:number;
+       
+         /**
+          * @description The decimal representation of the the lowest value of quantity in this tier. This is zero for the lowest tier. For all other tiers, it is the same as &#x60;ending_unit_in_decimal&#x60; of the next lower tier. Returned only when the &#x60;line_items.pricing_model&#x60; is &#x60;tiered&#x60;, &#x60;volume&#x60; or &#x60;stairstep&#x60; and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
        
       starting_unit_in_decimal?:string;
        
+         /**
+          * @description The decimal representation of the highest value of quantity in this tier. This attribute is not applicable for the highest tier. For all other tiers, it must be equal to the &#x60;starting_unit_in_decimal&#x60; of the next higher tier. Returned only when the &#x60;line_items.pricing_model&#x60; is &#x60;tiered&#x60;, &#x60;volume&#x60; or stairstep and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
+       
       ending_unit_in_decimal?:string;
        
+         /**
+          * @description The decimal representation of the quantity purchased from this tier. Returned when the &#x60;line_item&#x60; is quantity-based and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
+       
       quantity_used_in_decimal?:string;
+       
+         /**
+          * @description The decimal representation of the per-unit price for the tier when the &#x60;pricing_model&#x60; is &#x60;tiered&#x60; or &#x60;volume&#x60;. When the &#x60;pricing_model&#x60; is &#x60;stairstep&#x60;, it is the decimal representation of the total price for &#x60;line_item&#x60;. The value is in major units of the currency. Returned when the &#x60;line_item&#x60; is quantity-based and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
        
       unit_amount_in_decimal?:string;
     }
@@ -1633,7 +1922,7 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
 
           */
        
-      index?:number;
+      index:number;
     }
     export interface BillingAddress {  
          /**

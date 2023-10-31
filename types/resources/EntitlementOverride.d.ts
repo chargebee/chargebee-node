@@ -77,13 +77,37 @@ declare module 'chargebee' {
   export namespace EntitlementOverride {
     export class EntitlementOverrideResource {  
       /**
+        * @description Upserts or removes a set of &#x60;entitlement_overrides&#x60; for a &#x60;subscription&#x60; depending on the &#x60;action&#x60; specified. The API returns the upserted or deleted &#x60;entitlement_overrides&#x60; after successfully completing the operation. The operation returns an error when the first &#x60;entitlement_override&#x60; fails to be processed. Either all the &#x60;entitlement_overrides&#x60; provided in the request are processed or none.
+
+        */
+      
+      add_entitlement_override_for_subscription(subscription_id:string, input?:AddEntitlementOverrideForSubscriptionInputParam):ChargebeeRequest<AddEntitlementOverrideForSubscriptionResponse>;
+       
+      /**
         * @description Retrieve the list of entitlement overrides for a subscription.
 
         */
       
       list_entitlement_override_for_subscription(subscription_id:string, input?:ListEntitlementOverrideForSubscriptionInputParam):ChargebeeRequest<ListEntitlementOverrideForSubscriptionResponse>;
+    }
+    export interface AddEntitlementOverrideForSubscriptionResponse {  
+       entitlement_override:EntitlementOverride;
+    }
+    export interface AddEntitlementOverrideForSubscriptionInputParam {
        
-      add_entitlement_override_for_subscription(subscription_id:string, input?:AddEntitlementOverrideForSubscriptionInputParam):ChargebeeRequest<AddEntitlementOverrideForSubscriptionResponse>;
+      /**
+        * @description The specific action to be performed for each &#x60;entitlement_override&#x60; specified. . \* remove - Deletes the &#x60;entitlement_override&#x60; for the &#x60;feature_id&#x60; and &#x60;item_id&#x60; combination, if it exists. \* upsert - If the &#x60;entitlement_override&#x60; already exists for the &#x60;feature_id&#x60; and &#x60;{subscription_id}&#x60; combination, the &#x60;value&#x60; of the &#x60;entitlement_override&#x60; is updated. If it doesn&#x27;t exist, a new &#x60;entitlement_override&#x60; is created.
+
+        */
+       
+      action?:Action;
+       
+      /**
+        * @description Parameters for entitlement_overrides
+
+        */
+       
+      entitlement_overrides?:{expires_at?:number,feature_id:string,value?:string}[];
     }
     export interface ListEntitlementOverrideForSubscriptionResponse {  
       /**
@@ -103,27 +127,18 @@ declare module 'chargebee' {
     export interface ListEntitlementOverrideForSubscriptionInputParam {
       [key : string]: any;  
       /**
-        * @description The number of resources to be returned.
+        * @description Retrieve the list of entitlement overrides for a subscription.
 
         */
         
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Retrieve the list of entitlement overrides for a subscription.
 
         */
         
       offset?:string;
-    }
-    export interface AddEntitlementOverrideForSubscriptionResponse {  
-       entitlement_override:EntitlementOverride;
-    }
-    export interface AddEntitlementOverrideForSubscriptionInputParam {
-       
-      action?:Action;
-       
-      entitlement_overrides?:{expires_at?:number,feature_id:string,value?:string}[];
     }
     
   }

@@ -62,13 +62,6 @@ declare module 'chargebee' {
       retrieve(time_machine_name:string):ChargebeeRequest<RetrieveResponse>;
        
       /**
-        * @description Travel forward in time. This operation is **asynchronous** . You need to check if the &quot;start afresh&quot; operation has completed by checking if the time travel status is **successful** by retrieving the time machine in a loop with a minimum delay of 3 secs between two retrieve requests. Use method **waitForTimeTravelCompletion()** on the returned time_machine resource which will block until the time travel completes.
-
-        */
-      
-      travel_forward(time_machine_name:string, input?:TravelForwardInputParam):ChargebeeRequest<TravelForwardResponse>;
-       
-      /**
         * @description Restart the time machine. This will clear the &quot;customer&quot; data like customer details, subscriptions, invoices, transactions. Also a time travel is initiated to travel back to specified genesis time.
 
 **Note:** This API call is asynchronous. You need to check if the &quot;start afresh&quot; operation has completed by checking if the time travel status is **successful** by retrieving the time machine in a loop with a minimum delay of 3 secs between two retrieve requests. In case you are using any of the client libraries, use the **wait for time travel completion** function provided as a instance method in the library. Use method **waitForTimeTravelCompletion()** on the returned **time_machine** resource which will block until the time travel completes. Use method **waitForTimeTravelCompletion()** on the returned **time_machine** resource which will block until the time travel completes. Use method **wait_for_time_travel_completion** on the returned **time_machine** resource which will block until the time travel completes. Use method **wait_for_time_travel_completion** on the returned **time_machine** resource which will block until the time travel completes. Use method **WaitForTimeTravelCompletion** on the returned **time_machine** resource which will block until the time travel completes. Use method **wait_for_time_travel_completion** on the returned **time_machine** resource which will block until the time travel completes. Use method **waitForTimeTravelCompletion** on the returned **time_machine** resource which will block until the time travel completes. Use method **wait_for_time_travel_completion** on the returned **time_machine** resource which will block until the time travel completes.
@@ -76,23 +69,18 @@ declare module 'chargebee' {
         */
       
       start_afresh(time_machine_name:string, input?:StartAfreshInputParam):ChargebeeRequest<StartAfreshResponse>;
+       
+      /**
+        * @description Travel forward in time. This operation is **asynchronous** . You need to check if the &quot;start afresh&quot; operation has completed by checking if the time travel status is **successful** by retrieving the time machine in a loop with a minimum delay of 3 secs between two retrieve requests. Use method **waitForTimeTravelCompletion()** on the returned time_machine resource which will block until the time travel completes.
+
+        */
+      
+      travel_forward(time_machine_name:string, input?:TravelForwardInputParam):ChargebeeRequest<TravelForwardResponse>;
     }
     export interface RetrieveResponse {  
        time_machine:TimeMachine;
     }
     
-    export interface TravelForwardResponse {  
-       time_machine:TimeMachine;
-    }
-    export interface TravelForwardInputParam {
-       
-      /**
-        * @description The **time** to travel to. Should be between the &#x27;current&#x27; destination time of the time machine and present time.
-
-        */
-       
-      destination_time?:number;
-    }
     export interface StartAfreshResponse {  
        time_machine:TimeMachine;
     }
@@ -105,6 +93,18 @@ declare module 'chargebee' {
         */
        
       genesis_time?:number;
+    }
+    export interface TravelForwardResponse {  
+       time_machine:TimeMachine;
+    }
+    export interface TravelForwardInputParam {
+       
+      /**
+        * @description The **time** to travel to. Should be between the &#x27;current&#x27; destination time of the time machine and present time.
+
+        */
+       
+      destination_time?:number;
     }
     
   }

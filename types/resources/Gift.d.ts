@@ -89,6 +89,27 @@ declare module 'chargebee' {
       create_for_items(input?:CreateForItemsInputParam):ChargebeeRequest<CreateForItemsResponse>;
        
       /**
+        * @description Retrieves a gift subscription. This API accepts the gift &#x27;id&#x27; and returns the gift along with the subscription.
+
+        */
+      
+      retrieve(gift_id:string):ChargebeeRequest<RetrieveResponse>;
+       
+      /**
+        * @description Retrieves the list of gifts.
+
+        */
+      
+      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
+       
+      /**
+        * @description Claiming a gift will move the status to &#x27;claimed&#x27;. Only gifts in &#x27;unclaimed&#x27; state can be claimed.
+
+        */
+      
+      claim(gift_id:string):ChargebeeRequest<ClaimResponse>;
+       
+      /**
         * @description This API allows to cancel gifts. Only gift in &#x27;scheduled&#x27; and &#x27;unclaimed&#x27; states can be cancelled.
 
         */
@@ -101,27 +122,6 @@ declare module 'chargebee' {
         */
       
       update_gift(gift_id:string, input:UpdateGiftInputParam):ChargebeeRequest<UpdateGiftResponse>;
-       
-      /**
-        * @description Retrieves the list of gifts.
-
-        */
-      
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
-       
-      /**
-        * @description Retrieves a gift subscription. This API accepts the gift &#x27;id&#x27; and returns the gift along with the subscription.
-
-        */
-      
-      retrieve(gift_id:string):ChargebeeRequest<RetrieveResponse>;
-       
-      /**
-        * @description Claiming a gift will move the status to &#x27;claimed&#x27;. Only gifts in &#x27;unclaimed&#x27; state can be claimed.
-
-        */
-      
-      claim(gift_id:string):ChargebeeRequest<ClaimResponse>;
     }
     export interface CreateForItemsResponse {  
        gift:Gift;
@@ -186,7 +186,7 @@ declare module 'chargebee' {
 
         */
        
-      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card',reference_id?:string};
+      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card',reference_id?:string};
        
       /**
         * @description Parameters for shipping_address
@@ -202,6 +202,70 @@ declare module 'chargebee' {
        
       subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string}[];
     }
+    export interface RetrieveResponse {  
+       gift:Gift;
+       
+       subscription:Subscription;
+    }
+    
+    export interface ListResponse {  
+      /**
+        * @description Retrieves the list of gifts.
+
+        */
+       
+       list:{gift:Gift,subscription:Subscription}[];
+       
+      /**
+        * @description Retrieves the list of gifts.
+
+        */
+       
+       next_offset?:string;
+    }
+    export interface ListInputParam {
+      [key : string]: any;  
+      /**
+        * @description Retrieves the list of gifts.
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description Retrieves the list of gifts.
+
+        */
+        
+      offset?:string;
+       
+      /**
+        * @description Retrieves the list of gifts.
+
+        */
+        
+      status?:{in?:string,is?:'expired' | 'scheduled' | 'unclaimed' | 'claimed' | 'cancelled',is_not?:'expired' | 'scheduled' | 'unclaimed' | 'claimed' | 'cancelled',not_in?:string};
+       
+      /**
+        * @description Retrieves the list of gifts.
+
+        */
+        
+      gift_receiver?:{customer_id?:{is?:string,is_not?:string,starts_with?:string},email?:{is?:string,is_not?:string,starts_with?:string}};
+       
+      /**
+        * @description Retrieves the list of gifts.
+
+        */
+        
+      gifter?:{customer_id?:{is?:string,is_not?:string,starts_with?:string}};
+    }
+    export interface ClaimResponse {  
+       gift:Gift;
+       
+       subscription:Subscription;
+    }
+    
     export interface CancelResponse {  
        gift:Gift;
        
@@ -229,77 +293,13 @@ declare module 'chargebee' {
        
       comment?:string;
     }
-    export interface ListResponse {  
-      /**
-        * @description Retrieves the list of gifts.
-
-        */
-       
-       list:{gift:Gift,subscription:Subscription}[];
-       
-      /**
-        * @description Retrieves the list of gifts.
-
-        */
-       
-       next_offset?:string;
-    }
-    export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description Status of the gift.
-
-        */
-        
-      status?:{in?:string,is?:'expired' | 'scheduled' | 'unclaimed' | 'claimed' | 'cancelled',is_not?:'expired' | 'scheduled' | 'unclaimed' | 'claimed' | 'cancelled',not_in?:string};
-       
-      /**
-        * @description Parameters for gift_receiver
-
-        */
-        
-      gift_receiver?:{customer_id?:{is?:string,is_not?:string,starts_with?:string},email?:{is?:string,is_not?:string,starts_with?:string}};
-       
-      /**
-        * @description Parameters for gifter
-
-        */
-        
-      gifter?:{customer_id?:{is?:string,is_not?:string,starts_with?:string}};
-    }
-    export interface RetrieveResponse {  
-       gift:Gift;
-       
-       subscription:Subscription;
-    }
-    
-    export interface ClaimResponse {  
-       gift:Gift;
-       
-       subscription:Subscription;
-    }
-    
     export interface Gifter {  
          /**
           * @description Gifter customer id.
 
           */
        
-      customer_id?:string;
+      customer_id:string;
        
          /**
           * @description Invoice raised on the gifter.
@@ -328,14 +328,14 @@ declare module 'chargebee' {
 
           */
        
-      customer_id?:string;
+      customer_id:string;
        
          /**
           * @description Subscription created for the gift.
 
           */
        
-      subscription_id?:string;
+      subscription_id:string;
        
          /**
           * @description First name of the receiver as given by the gifter.
@@ -359,7 +359,17 @@ declare module 'chargebee' {
       email?:string;
     }
     export interface GiftTimeline {  
-      status?:'expired' | 'scheduled' | 'unclaimed' | 'claimed' | 'cancelled';
+         /**
+          * @description Status of the gift. \* cancelled - Gift is cancelled. \* expired - Gift is expired. \* scheduled - Gift has been scheduled. \* claimed - Gift is claimed. \* unclaimed - Gift is not yet claimed and is ready to be claimed.
+
+          */
+       
+      status:'expired' | 'scheduled' | 'unclaimed' | 'claimed' | 'cancelled';
+       
+         /**
+          * @description Timestamp indicating when this event occurred.
+
+          */
        
       occurred_at?:number;
     }

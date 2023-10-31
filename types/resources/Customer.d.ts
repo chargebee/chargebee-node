@@ -478,57 +478,48 @@ If there are additional entity identifiers for the customer not associated with 
   export namespace Customer {
     export class CustomerResource {  
       /**
-        * @description Deletes a particular customer identified by the a unique identifier.
+        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/3ds_card_payments?prod_cat_ver&#x3D;1) and pass it as input parameter to this API.
+
+Creates a customer. You can create a customer and then create subscriptions for the customer when required. When creating a customer, you can pass along the billing address and card details.
+
+Passing raw card data via API involves PCI liability at your end due to the sensitivity of the data. Instead, you can use one of the following integration options as applicable:
+
+Here&#x27;s some resources you can use to collect card information within your checkout form based on the payment gateway you use:
+
+* [Stripe.js](https://stripe.com/docs/js) for Stripe users.
+* [Braintree.js](https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v2) for Braintree users.
+* [Accept.js](https://developer.authorize.net/api/reference/features/acceptjs.html), if you use [Authorize.Net](https://www.authorize.net/).
+* If you are using the Adyen gateway, you will have to use the Adyen&#x27;s [Client-Side Encryption](https://docs.adyen.com/online-payments/classic-integrations/api-integration-ecommerce/cse-integration-ecommerce) to encrypt sensitive cardholder data. Once the cardholder data is encrypted, pass the value in &#x60;adyen.encrypted.data&#x60;as temp token in this API.
+* You can also use our [Hosted Pages](https://www.chargebee.com/docs/1.0/hosted_pages.html) based integration.
+
+When billing address is not passed (say, for customers making offline payments), you can always provide it later using the [Update billing info for a customer API](/docs/api/customers#update_billing_info_for_a_customer).
+
+**Note:**When an invoice is generated for a customer, the billing address provided for the customer is stored with the invoice. If the First Name, Last Name, and Company fields of the billing address do not contain any information, they&#x27;re picked up from the customer details.
 
         */
       
-      delete(customer_id:string, input?:DeleteInputParam):ChargebeeRequest<DeleteResponse>;
+      create(input?:CreateInputParam):ChargebeeRequest<CreateResponse>;
        
       /**
-        * @description Sets a customer into a [hierarchical relationship](https://www.chargebee.com/docs/account-hierarchy.html) with another. The path parameter &#x60;customer_id&#x60; is the ID of the child in the relationship.  
-**Note**
-
-* In the descriptions for &#x60;use_default_hierarchy_settings&#x60;, &#x60;parent_account_access&#x60;, and &#x60;child_account_access&#x60; parameters, the &quot;parent&quot; is the customer whose ID is [payment_owner_id](/docs/api/customers?prod_cat_ver&#x3D;2#link_a_customer_payment_owner_id). However, if the &#x60;payment_owner_id&#x60; is set as the ID of the child itself (&#x60;{customer_id}&#x60;), then the &quot;parent&quot; is [parent_id](/docs/api/customers?prod_cat_ver&#x3D;2#link_a_customer_parent_id).
-* The parent and the child customers must belong to the same [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe).
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
 
         */
       
-      relationships(customer_id:string, input?:RelationshipsInputParam):ChargebeeRequest<RelationshipsResponse>;
+      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
        
       /**
-        * @description Disconnects a child customer from its parent. &#x60;customer_id&#x60; is the [id](/docs/api/customers#customer_id) of the child.
+        * @description Retrieves the details of the desired customer. You can use the unique identifier for a particular customer to retrieve the desired details.
 
         */
       
-      delete_relationship(customer_id:string):ChargebeeRequest<DeleteRelationshipResponse>;
+      retrieve(customer_id:string):ChargebeeRequest<RetrieveResponse>;
        
       /**
-        * @description Deletes a particular contact for a customer. You can delete a contact by giving the Contact ID as the input parameter.
+        * @description Updates the customer resource. However, this method cannot be used for updating the &#x27;Billing Info&#x27; - the Billing Address and &#x27;vat_number&#x27; attributes - of the customer. To update the same, use our [Update Billing Info](/docs/api/customers#update_billing_info_for_a_customer) API.
 
         */
       
-      delete_contact(customer_id:string, input?:DeleteContactInputParam):ChargebeeRequest<DeleteContactResponse>;
-       
-      /**
-        * @description Assign Primary or Backup payment role or unassign role for the payment source based on the preference for the payment collection.
-
-        */
-      
-      assign_payment_role(customer_id:string, input:AssignPaymentRoleInputParam):ChargebeeRequest<AssignPaymentRoleResponse>;
-       
-      /**
-        * @description This API copies a customer object from one site to another. The destination site (the site to which the customer is copied) is specified by the path parameter &#x60;{site}&#x60;; whereas, the source site (the site from which the customer is copied) is specified by the query parameter &#x60;from_site&#x60;.
-
-        */
-      
-      move(input:MoveInputParam):ChargebeeRequest<MoveResponse>;
-       
-      /**
-        * @description Retrieves the [account hierarchy tree](/docs/api/hierarchies) for the customer.
-
-        */
-      
-      hierarchy(customer_id:string, input:HierarchyInputParam):ChargebeeRequest<HierarchyResponse>;
+      update(customer_id:string, input?:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
        
       /**
         * @description We recently released [Payment Sources](/docs/api/payment_sources), which comes with additional options and improvements to the [Card APIs](/docs/api/cards). For this operation, use the [Create using temporary token](/docs/api/payment_sources#create_using_temporary_token) API or [Create using permanent token](/docs/api/payment_sources#create_using_permanent_token) API under Payment Sources to update payment method for the customer.
@@ -583,62 +574,15 @@ The format of reference_id will differ based on where the bank account is stored
       update_payment_method(customer_id:string, input?:UpdatePaymentMethodInputParam):ChargebeeRequest<UpdatePaymentMethodResponse>;
        
       /**
-        * @description Retrieves the details of the desired customer. You can use the unique identifier for a particular customer to retrieve the desired details.
+        * @description This method is used for updating the &#x60;billing_address&#x60; and &#x60;vat_number&#x60; attributes of the &#x60;customer&#x60;. For updating the other customer attributes use [Update Customer API](customers#update_a_customer).
+
+During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60; are not already present, they&#x27;re added. Whereas if present, the existing values are replaced with the new values passed. The only exception here is for &#x60;entity_identifiers[i]&#x60; when &#x60;entity_identifiers[operation][i]&#x60; is passed as &#x60;delete&#x60;.
+
+**Note:**When an invoice is generated for a customer, the billing address provided for the customer will be stored with the invoice. If the First Name, Last Name, and Company fields do not contain any information under Billing Info, the same will be picked from Customer Details if the same is available there.Please ensure that the VAT number is provided whenever the billing address is updated, as failing to do so will override any existing VAT numbers if new values are not provided.
 
         */
       
-      retrieve(customer_id:string):ChargebeeRequest<RetrieveResponse>;
-       
-      /**
-        * @description Updates the customer resource. However, this method cannot be used for updating the &#x27;Billing Info&#x27; - the Billing Address and &#x27;vat_number&#x27; attributes - of the customer. To update the same, use our [Update Billing Info](/docs/api/customers#update_billing_info_for_a_customer) API.
-
-        */
-      
-      update(customer_id:string, input?:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
-       
-      /**
-        * @description Applicable when *calendar billing* (with customer specific billing date support) is enabled. Changes the customer&#x27;s *billing_date* and/or *billing_day_of_week*.
-
-        */
-      
-      change_billing_date(customer_id:string, input?:ChangeBillingDateInputParam):ChargebeeRequest<ChangeBillingDateResponse>;
-       
-      /**
-        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
-
-        */
-      
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
-       
-      /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/3ds_card_payments?prod_cat_ver&#x3D;1) and pass it as input parameter to this API.
-
-Creates a customer. You can create a customer and then create subscriptions for the customer when required. When creating a customer, you can pass along the billing address and card details.
-
-Passing raw card data via API involves PCI liability at your end due to the sensitivity of the data. Instead, you can use one of the following integration options as applicable:
-
-Here&#x27;s some resources you can use to collect card information within your checkout form based on the payment gateway you use:
-
-* [Stripe.js](https://stripe.com/docs/js) for Stripe users.
-* [Braintree.js](https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v2) for Braintree users.
-* [Accept.js](https://developer.authorize.net/api/reference/features/acceptjs.html), if you use [Authorize.Net](https://www.authorize.net/).
-* If you are using the Adyen gateway, you will have to use the Adyen&#x27;s [Client-Side Encryption](https://docs.adyen.com/developers/features/client-side-encryption) to encrypt sensitive cardholder data. Once the cardholder data is encrypted, pass the value in &#x60;adyen.encrypted.data&#x60;as temp token in this API.
-* You can also use our [Hosted Pages](https://www.chargebee.com/docs/1.0/hosted_pages.html) based integration.
-
-When billing address is not passed (say, for customers making offline payments), you can always provide it later using the [Update billing info for a customer API](/docs/api/customers#update_billing_info_for_a_customer).
-
-**Note:**When an invoice is generated for a customer, the billing address provided for the customer is stored with the invoice. If the First Name, Last Name, and Company fields of the billing address do not contain any information, they&#x27;re picked up from the customer details.
-
-        */
-      
-      create(input?:CreateInputParam):ChargebeeRequest<CreateResponse>;
-       
-      /**
-        * @description Adds the required contact to a customer. You can give the First Name, Last Name, Email ID and more details as input parameters to add them under the desired customer.
-
-        */
-      
-      add_contact(customer_id:string, input?:AddContactInputParam):ChargebeeRequest<AddContactResponse>;
+      update_billing_info(customer_id:string, input?:UpdateBillingInfoInputParam):ChargebeeRequest<UpdateBillingInfoResponse>;
        
       /**
         * @description This API retrieves all the contacts for a customer.
@@ -648,11 +592,69 @@ When billing address is not passed (say, for customers making offline payments),
       contacts_for_customer(customer_id:string, input?:ContactsForCustomerInputParam):ChargebeeRequest<ContactsForCustomerResponse>;
        
       /**
-        * @description Clear personal details of a customer using this API.
+        * @description Assign Primary or Backup payment role or unassign role for the payment source based on the preference for the payment collection.
 
         */
       
-      clear_personal_data(customer_id:string):ChargebeeRequest<ClearPersonalDataResponse>;
+      assign_payment_role(customer_id:string, input:AssignPaymentRoleInputParam):ChargebeeRequest<AssignPaymentRoleResponse>;
+       
+      /**
+        * @description Adds the required contact to a customer. You can give the First Name, Last Name, Email ID and more details as input parameters to add them under the desired customer.
+
+        */
+      
+      add_contact(customer_id:string, input?:AddContactInputParam):ChargebeeRequest<AddContactResponse>;
+       
+      /**
+        * @description Updates the details of a contact for a customer. You can give the field data to be updated as input parameters along with the Contact ID to update it.
+
+        */
+      
+      update_contact(customer_id:string, input?:UpdateContactInputParam):ChargebeeRequest<UpdateContactResponse>;
+       
+      /**
+        * @description Deletes a particular contact for a customer. You can delete a contact by giving the Contact ID as the input parameter.
+
+        */
+      
+      delete_contact(customer_id:string, input?:DeleteContactInputParam):ChargebeeRequest<DeleteContactResponse>;
+       
+      /**
+        * @description Use this API to record any [excess payments](//www.chargebee.com/docs/customers.html#excess-payments) made by the customer, such as advance payments. Such payments will be automatically applied to the future invoices. It can also be [manually applied](//www.chargebee.com/docs/invoice-operations.html#apply-excess-payments) to the existing *Not Paid* or *Payment Due* invoices.
+
+        */
+      
+      record_excess_payment(customer_id:string, input?:RecordExcessPaymentInputParam):ChargebeeRequest<RecordExcessPaymentResponse>;
+       
+      /**
+        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds_card_payments) and pass it as input parameter to this API.
+
+This API can be used to collect the payments for customer&#x27;s **payment_due** and **not_paid** invoices. You can either choose to collect the payment from an existing payment source or a new payment source. You can choose to either retain or discard the new payment source, which is being used for payment. If the amount collected exceeds the invoice amount, the surplus will be counted in as excess payments.
+
+        */
+      
+      collect_payment(customer_id:string, input?:CollectPaymentInputParam):ChargebeeRequest<CollectPaymentResponse>;
+       
+      /**
+        * @description Deletes a particular customer identified by the a unique identifier.
+
+        */
+      
+      delete(customer_id:string, input?:DeleteInputParam):ChargebeeRequest<DeleteResponse>;
+       
+      /**
+        * @description This API copies a customer object from one site to another. The destination site (the site to which the customer is copied) is specified by the path parameter &#x60;{site}&#x60;; whereas, the source site (the site from which the customer is copied) is specified by the query parameter &#x60;from_site&#x60;.
+
+        */
+      
+      move(input:MoveInputParam):ChargebeeRequest<MoveResponse>;
+       
+      /**
+        * @description Applicable when *calendar billing* (with customer specific billing date support) is enabled. Changes the customer&#x27;s *billing_date* and/or *billing_day_of_week*.
+
+        */
+      
+      change_billing_date(customer_id:string, input?:ChangeBillingDateInputParam):ChargebeeRequest<ChangeBillingDateResponse>;
        
       /**
         * @description This API moves a customer&#x27;s payment methods, subscriptions, invoices, credit notes, transactions, unbilled charges, and orders to another customer. Events and email logs will not be moved. The API execution is asynchronous.  
@@ -666,27 +668,36 @@ When billing address is not passed (say, for customers making offline payments),
       merge(input:MergeInputParam):ChargebeeRequest<MergeResponse>;
        
       /**
-        * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds_card_payments) and pass it as input parameter to this API.
-
-This API can be used to collect the payments for customer&#x27;s **payment_due** and **not_paid** invoices. You can either choose to collect the payment from an existing payment source or a new payment source. You can choose to either retain or discard the new payment source, which is being used for payment. If the amount collected exceeds the invoice amount, the surplus will be counted in as excess payments.
+        * @description Clear personal details of a customer using this API.
 
         */
       
-      collect_payment(customer_id:string, input?:CollectPaymentInputParam):ChargebeeRequest<CollectPaymentResponse>;
+      clear_personal_data(customer_id:string):ChargebeeRequest<ClearPersonalDataResponse>;
        
       /**
-        * @description Use this API to record any [excess payments](//www.chargebee.com/docs/customers.html#excess-payments) made by the customer, such as advance payments. Such payments will be automatically applied to the future invoices. It can also be [manually applied](//www.chargebee.com/docs/invoice-operations.html#apply-excess-payments) to the existing *Not Paid* or *Payment Due* invoices.
+        * @description Sets a customer into a [hierarchical relationship](https://www.chargebee.com/docs/account-hierarchy.html) with another. The path parameter &#x60;customer_id&#x60; is the ID of the child in the relationship.  
+**Note**
+
+* In the descriptions for &#x60;use_default_hierarchy_settings&#x60;, &#x60;parent_account_access&#x60;, and &#x60;child_account_access&#x60; parameters, the &quot;parent&quot; is the customer whose ID is [payment_owner_id](/docs/api/customers?prod_cat_ver&#x3D;2#link_a_customer_payment_owner_id). However, if the &#x60;payment_owner_id&#x60; is set as the ID of the child itself (&#x60;{customer_id}&#x60;), then the &quot;parent&quot; is [parent_id](/docs/api/customers?prod_cat_ver&#x3D;2#link_a_customer_parent_id).
+* The parent and the child customers must belong to the same [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe).
 
         */
       
-      record_excess_payment(customer_id:string, input?:RecordExcessPaymentInputParam):ChargebeeRequest<RecordExcessPaymentResponse>;
+      relationships(customer_id:string, input?:RelationshipsInputParam):ChargebeeRequest<RelationshipsResponse>;
        
       /**
-        * @description Updates the details of a contact for a customer. You can give the field data to be updated as input parameters along with the Contact ID to update it.
+        * @description Disconnects a child customer from its parent. &#x60;customer_id&#x60; is the [id](/docs/api/customers#customer_id) of the child.
 
         */
       
-      update_contact(customer_id:string, input?:UpdateContactInputParam):ChargebeeRequest<UpdateContactResponse>;
+      delete_relationship(customer_id:string):ChargebeeRequest<DeleteRelationshipResponse>;
+       
+      /**
+        * @description Retrieves the [account hierarchy tree](/docs/api/hierarchies) for the customer.
+
+        */
+      
+      hierarchy(customer_id:string, input:HierarchyInputParam):ChargebeeRequest<HierarchyResponse>;
        
       /**
         * @description Changes the level of access that the parent or the child itself has to the child&#x27;s information.
@@ -705,554 +716,6 @@ The &#x27;parent&#x27; is the customer whose id is [payment_owner_id](/docs/api/
         */
       
       update_hierarchy_settings(customer_id:string, input?:UpdateHierarchySettingsInputParam):ChargebeeRequest<UpdateHierarchySettingsResponse>;
-       
-      /**
-        * @description This method is used for updating the &#x60;billing_address&#x60; and &#x60;vat_number&#x60; attributes of the &#x60;customer&#x60;. For updating the other customer attributes use [Update Customer API](customers#update_a_customer).
-
-During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60; are not already present, they&#x27;re added. Whereas if present, the existing values are replaced with the new values passed. The only exception here is for &#x60;entity_identifiers[i]&#x60; when &#x60;entity_identifiers[operation][i]&#x60; is passed as &#x60;delete&#x60;.
-
-**Note:**When an invoice is generated for a customer, the billing address provided for the customer will be stored with the invoice. If the First Name, Last Name, and Company fields do not contain any information under Billing Info, the same will be picked from Customer Details if the same is available there.Please ensure that the VAT number is provided whenever the billing address is updated, as failing to do so will override any existing VAT numbers if new values are not provided.
-
-        */
-      
-      update_billing_info(customer_id:string, input?:UpdateBillingInfoInputParam):ChargebeeRequest<UpdateBillingInfoResponse>;
-    }
-    export interface DeleteResponse {  
-       customer:Customer;
-       
-       card?:Card;
-    }
-    export interface DeleteInputParam {
-       
-      /**
-        * @description Deletes the Payment Method from the gateway/vault.
-
-        */
-       
-      delete_payment_method?:boolean;
-    }
-    export interface RelationshipsResponse {  
-       customer:Customer;
-    }
-    export interface RelationshipsInputParam {
-       
-      /**
-        * @description The &#x60;id&#x60; of the customer which is to be set as the immediate parent.
-
-        */
-       
-      parent_id?:string;
-       
-      /**
-        * @description The &#x60;id&#x60; of the customer who will pay the invoices for this customer. Can be the child itself or the &#x60;invoice_owner_id&#x60;.
-
-        */
-       
-      payment_owner_id?:string;
-       
-      /**
-        * @description The &#x60;id&#x60; of the customer who will be invoiced for charges incurred. Can be the child itself or any parent in its hierarchy.
-
-        */
-       
-      invoice_owner_id?:string;
-       
-      /**
-        * @description The level of access that the parent and the child itself have to the child&#x27;s information can be set here. This data falls into two categories:
-
-* **Self-Serve Portal data:** subscriptions and invoices of the child.
-* **Email Notifications:** subscription-, invoice- and payment-related notifications for the child.
-
-
-
-**Usage:**
-
-* Value set to &#x60;true&#x60;: Applies the global access levels defined in the Account Hierarchy settings to this child. These global settings are configured in the admin console
-* Value set to &#x60;false&#x60;: Customizes the access levels for this customer. Pass the &#x60;parent_account_access&#x60; and &#x60;child_account_access&#x60; parameters to specify the settings. If you skip passing any parameters, the global settings are applied for them.
-.
-
-        */
-       
-      use_default_hierarchy_settings?:boolean;
-       
-      /**
-        * @description Parameters for parent_account_access
-
-        */
-       
-      parent_account_access?:{portal_download_child_invoices?:'no' | 'yes' | 'view_only',portal_edit_child_subscriptions?:'no' | 'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
-       
-      /**
-        * @description Parameters for child_account_access
-
-        */
-       
-      child_account_access?:{portal_download_invoices?:'no' | 'yes' | 'view_only',portal_edit_subscriptions?:'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
-    }
-    export interface DeleteRelationshipResponse {  
-       customer:Customer;
-    }
-    
-    export interface DeleteContactResponse {  
-       customer:Customer;
-       
-       card?:Card;
-    }
-    export interface DeleteContactInputParam {
-       
-      /**
-        * @description Parameters for contact
-
-        */
-       
-      contact?:{id:string};
-    }
-    export interface AssignPaymentRoleResponse {  
-       customer:Customer;
-       
-       payment_source:PaymentSource;
-    }
-    export interface AssignPaymentRoleInputParam {
-       
-      /**
-        * @description Payment source id this role will be assigned to.
-
-        */
-       
-      payment_source_id:string;
-       
-      /**
-        * @description Indicates whether the payment source is Primary, Backup, or neither. \* backup - Backup \* none - None \* primary - Primary
-
-        */
-       
-      role:Role;
-    }
-    export interface MoveResponse {  
-       resource_migration:ResourceMigration;
-    }
-    export interface MoveInputParam {
-       
-      /**
-        * @description Id of the customer to be copied.
-
-        */
-       
-      id_at_from_site:string;
-       
-      /**
-        * @description Name of the site from which this customer need to be copied.
-
-        */
-       
-      from_site:string;
-    }
-    export interface HierarchyResponse {  
-       hierarchies:Hierarchy[];
-    }
-    export interface HierarchyInputParam {
-       
-      /**
-        * @description Retrieves the [account hierarchy tree](/docs/api/hierarchies) for the customer.
-
-        */
-        
-      hierarchy_operation_type:'complete_hierarchy' | 'subordinates' | 'path_to_root';
-    }
-    export interface UpdatePaymentMethodResponse {  
-       customer:Customer;
-       
-       card?:Card;
-    }
-    export interface UpdatePaymentMethodInputParam {
-       
-      /**
-        * @description Parameters for payment_method
-
-        */
-       
-      payment_method?:{additional_information?:object,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type:Type};
-    }
-    export interface RetrieveResponse {  
-       customer:Customer;
-       
-       card?:Card;
-    }
-    
-    export interface UpdateResponse {  
-       customer:Customer;
-       
-       card?:Card;
-    }
-    export interface UpdateInputParam {
-      [key : string] : any;  
-      /**
-        * @description First name of the customer.
-
-        */
-       
-      first_name?:string;
-       
-      /**
-        * @description Last name of the customer.
-
-        */
-       
-      last_name?:string;
-       
-      /**
-        * @description Email of the customer. Configured email notifications will be sent to this email.
-
-        */
-       
-      email?:string;
-       
-      /**
-        * @description The currency code (ISO 4217 format) of the customer. Applicable if Multicurrency is enabled.
-
-        */
-       
-      preferred_currency_code?:string;
-       
-      /**
-        * @description Phone number of the customer.
-
-        */
-       
-      phone?:string;
-       
-      /**
-        * @description Company name of the customer.
-
-        */
-       
-      company?:string;
-       
-      /**
-        * @description Whether payments needs to be collected automatically for this customer. \* on - Whenever an invoice is created, an automatic attempt to charge the customer&#x27;s payment method is made. \* off - Automatic collection of charges will not be made. All payments must be recorded offline.
-
-        */
-       
-      auto_collection?:AutoCollection;
-       
-      /**
-        * @description Whether the customer can pay via Direct Debit.
-
-        */
-       
-      allow_direct_debit?:boolean;
-       
-      /**
-        * @description The number of days within which the customer has to make payment for the invoice. .
-
-        */
-       
-      net_term_days?:number;
-       
-      /**
-        * @description Specifies if the customer is liable for tax. \* taxable - Computes tax for the customer based on the [site configuration](https://www.chargebee.com/docs/tax.html). In some cases, depending on the region, shipping_address is needed. If not provided, then billing_address is used to compute tax. If that&#x27;s not available either, the tax is taken as zero. \* exempt -
-
-* Customer is exempted from tax. When using Chargebee&#x27;s native [Taxes](https://www.chargebee.com/docs/tax.html) feature or when using the [TaxJar integration](https://www.chargebee.com/docs/taxjar.html), no other action is needed.
-* However, when using our [Avalara integration](https://www.chargebee.com/docs/avalara.html), optionally, specify &#x60;entity_code&#x60; or &#x60;exempt_number&#x60; attributes if you use Chargebee&#x27;s [AvaTax for Sales](https://www.chargebee.com/docs/avalara.html#configuring-tax-exemption) or specify &#x60;exemption_details&#x60; attribute if you use [Chargebee&#x27;s AvaTax for Communications](https://www.chargebee.com/docs/avatax-for-communication.html) integration. Tax may still be applied by Avalara for certain values of &#x60;entity_code&#x60;/&#x60;exempt_number&#x60;/&#x60;exemption_details&#x60; based on the state/region/province of the taxable address.
-
-        */
-       
-      taxability?:Taxability;
-       
-      /**
-        * @description Indicates the exemption information. You can customize customer exemption based on specific Location, Tax level (Federal, State, County and Local), Category of Tax or specific Tax Name. This is applicable only if you use [Chargebee&#x27;s AvaTax for Communications](https://www.chargebee.com/docs/avatax-for-communication.html) integration.  
-To know more about what values you need to provide, refer to this [Avalara&#x27;s API document](https://developer.avalara.com/communications/dev-guide_rest_v2/customizing-transactions/sample-transactions/exemption/).
-
-        */
-       
-      exemption_details?:any[];
-       
-      /**
-        * @description Indicates the type of the customer. This is applicable only if you use [Chargebee&#x27;s AvaTax for Communications](https://www.chargebee.com/docs/avatax-for-communication.html) integration. \* senior_citizen - When the purchase is made by a customer who meets the jurisdiction requirements to be considered a senior citizen and qualifies for senior citizen tax breaks \* industrial - When the purchase is made by an industrial business \* business - When the purchase is made at a place of business \* residential - When the purchase is made by a customer for home use
-
-        */
-       
-      customer_type?:CustomerType;
-       
-      /**
-        * @description Indicates the Client profile id for the customer. This is applicable only if you use [Chargebee&#x27;s AvaTax for Communications](https://www.chargebee.com/docs/avatax-for-communication.html) integration.
-
-        */
-       
-      client_profile_id?:string;
-       
-      /**
-        * @description Indicates the exemption type of the customer. This is applicable only if you use Chargebee&#x27;s TaxJar integration. \* government - Government \* other - Other \* wholesale - Whole-sale
-
-        */
-       
-      taxjar_exemption_category?:TaxjarExemptionCategory;
-       
-      /**
-        * @description Determines which region-specific language Chargebee uses to communicate with the customer. In the absence of the locale attribute, Chargebee will use your site&#x27;s default language for customer communication.
-
-        */
-       
-      locale?:string;
-       
-      /**
-        * @description The exemption category of the customer, for USA and Canada. Applicable if you use Chargebee&#x27;s [AvaTax for Sales integration](https://www.chargebee.com/docs/avalara.html#configuring-tax-exemption). \* med2 - US Medical Device Excise Tax with taxable sales tax \* med1 - US Medical Device Excise Tax with exempt sales tax \* d - Foreign diplomat \* e - Charitable or benevolent organization \* f - Religious organization \* g - Resale \* a - Federal government \* b - State government \* c - Tribe/Status Indian/Indian Band \* l - Other or custom \* m - Educational organization \* n - Local government \* h - Commercial agricultural production \* i - Industrial production/manufacturer \* j - Direct pay permit \* k - Direct mail \* p - Commercial aquaculture \* q - Commercial Fishery \* r - Non-resident
-
-        */
-       
-      entity_code?:EntityCode;
-       
-      /**
-        * @description Any string value that will cause the sale to be exempted. Use this if your finance team manually verifies and tracks exemption certificates. Applicable if you use Chargebee&#x27;s [AvaTax for Sales integration](https://www.chargebee.com/docs/avalara.html#configuring-tax-exemption).
-
-        */
-       
-      exempt_number?:string;
-       
-      /**
-        * @description The preferred offline payment method for the customer. \* bank_transfer - Bank Transfer \* sepa_credit - SEPA Credit \* cash - Cash \* check - Check \* no_preference - No Preference \* ach_credit - ACH Credit
-
-        */
-       
-      offline_payment_method?:OfflinePaymentMethod;
-       
-      /**
-        * @description A customer-facing note added to all invoices associated with this API resource. This note becomes one among [all the notes](/docs/api/invoices#invoice_notes) displayed on the invoice PDF.
-
-        */
-       
-      invoice_notes?:string;
-       
-      /**
-        * @description Override for this customer, the [site-level setting](https://www.chargebee.com/docs/2.0/metered_billing.html#configuring-metered-billing) for auto-closing invoices. Only applicable when auto-closing invoices has been enabled for the site. This attribute is also available at the [subscription level](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_auto_close_invoices) which takes precedence.
-
-        */
-       
-      auto_close_invoices?:boolean;
-       
-      /**
-        * @description A set of key-value pairs stored as additional information for the customer. [Learn more](./#meta_data).
-
-        */
-       
-      meta_data?:object;
-       
-      /**
-        * @description Indicates whether or not the customer has been identified as fraudulent. \* fraudulent - The customer has been marked as fraudulent \* suspicious - The customer has been identified as potentially fraudulent by the gateway \* safe - The customer has been marked as safe
-
-        */
-       
-      fraud_flag?:'safe' | 'fraudulent';
-       
-      /**
-        * @description Indicates whether invoices raised on the same day for the &#x60;customer&#x60; are consolidated. When provided, this overrides the default configuration at the [site-level](https://www.chargebee.com/docs/consolidated-invoicing.html#configuring-consolidated-invoicing). This parameter can be provided only when [Consolidated Invoicing](https://www.chargebee.com/docs/consolidated-invoicing.html) is enabled.  
-**Note:**
-
-Any invoices raised when a subscription activates from &#x60;in_trial&#x60; or &#x60;future&#x60; &#x60;status&#x60;, are not consolidated by default. [Contact Support](https://chargebee.freshdesk.com/support/home) to enable consolidation for such invoices.
-.
-
-        */
-       
-      consolidated_invoicing?:boolean;
-    }
-    export interface ChangeBillingDateResponse {  
-       customer:Customer;
-    }
-    export interface ChangeBillingDateInputParam {
-       
-      /**
-        * @description Applicable when *calendar billing* (with customer specific billing date support) is enabled. When set, renewals of all the monthly and yearly subscriptions of this customer will be aligned to this date.
-
-        */
-       
-      billing_date?:number;
-       
-      /**
-        * @description &#x60;billing_month&#x60;, together with &#x60;billing_date&#x60;, specify, for this customer, the day of the year when the renewals of all the year-based subscriptions take place.
-
-For example, the renewals happen on 15th July when &#x60;billing_month&#x60; is &#x60;7&#x60; and &#x60;billing_date&#x60; is &#x60;15&#x60;.  
-**Note**
-
-Applicable when [Calendar Billing](https://www.chargebee.com/docs/calendar-billing.html) (with customer-specific billing date support) is enabled and &#x60;billing_date_mode&#x60; is &#x60;manually_set&#x60;.
-
-        */
-       
-      billing_month?:number;
-       
-      /**
-        * @description Indicates whether this customer&#x27;s *billing_date* value is derived as per configurations or its specifically set (overriden). When specifically set, the *billing_date* will not be reset even when all of the monthly/yearly subscriptions are cancelled. \* manually_set - Billing date is specifically set (default configuration is overridden) \* using_defaults - Billing date is set based on defaults configured.
-
-        */
-       
-      billing_date_mode?:BillingDateMode;
-       
-      /**
-        * @description Applicable when *calendar billing* (with customer specific billing date support) is enabled. When set, renewals of all the weekly subscriptions of this customer will be aligned to this week day. \* sunday - Sunday \* wednesday - Wednesday \* tuesday - Tuesday \* monday - Monday \* saturday - Saturday \* friday - Friday \* thursday - Thursday
-
-        */
-       
-      billing_day_of_week?:'sunday' | 'saturday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'monday';
-       
-      /**
-        * @description Indicates whether this customer&#x27;s *billing_day_of_week* value is derived as per configurations or its specifically set (overriden). When specifically set, the *billing_day_of_week* will not be reset even when all of the weekly subscriptions are cancelled. \* manually_set - Billing date is specifically set (default configuration is overridden) \* using_defaults - Billing date is set based on defaults configured.
-
-        */
-       
-      billing_day_of_week_mode?:BillingDayOfWeekMode;
-    }
-    export interface ListResponse {  
-      /**
-        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
-
-        */
-       
-       list:{customer:Customer,card?:Card}[];
-       
-      /**
-        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
-
-        */
-       
-       next_offset?:string;
-    }
-    export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description Indicates whether to include deleted objects in the list. The deleted objects have the attribute \&#x60;deleted\&#x60; as \&#x60;true\&#x60;.
-
-        */
-        
-      include_deleted?:boolean;
-       
-      /**
-        * @description Identifier of the customer.
-
-        */
-        
-      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description First name of the customer
-
-        */
-        
-      first_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
-       
-      /**
-        * @description Last name of the customer
-
-        */
-        
-      last_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
-       
-      /**
-        * @description Email of the customer. Configured email notifications will be sent to this email.
-
-        */
-        
-      email?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
-       
-      /**
-        * @description Company name of the customer.
-
-        */
-        
-      company?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
-       
-      /**
-        * @description Phone number of the customer
-
-        */
-        
-      phone?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
-       
-      /**
-        * @description Whether payments needs to be collected automatically for this customer
-
-        */
-        
-      auto_collection?:{in?:string,is?:'off' | 'on',is_not?:'off' | 'on',not_in?:string};
-       
-      /**
-        * @description Specifies if the customer is liable for tax
-
-        */
-        
-      taxability?:{in?:string,is?:'taxable' | 'exempt',is_not?:'taxable' | 'exempt',not_in?:string};
-       
-      /**
-        * @description Timestamp indicating when this customer resource is created.
-
-        */
-        
-      created_at?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description To filter based on &#x60;updated_at&#x60;. This attribute will be present only if the resource has been updated after 2016-09-28. It is advisable when using this filter, to pass the &#x60;sort_by&#x60; input parameter as &#x60;updated_at&#x60; for a faster response.
-
-        */
-        
-      updated_at?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description The unique ID of the [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe) of this subscription. This is always the same as the [business entity](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_customer_id) of the customer.  
-The ID of the business entity created for the site. For Product Catalog 1.0, all the site data is tied to this business entity.  
-**Note**
-
-[Multiple Business Entities](/docs/api?prod_cat_ver&#x3D;2#mbe) is a feature available only on Product Catalog 2.0.
-
-        */
-        
-      business_entity_id?:{is?:string,is_not?:string,starts_with?:string};
-       
-      /**
-        * @description The preferred offline payment method for the customer.
-
-        */
-        
-      offline_payment_method?:{in?:string,is?:'bank_transfer' | 'no_preference' | 'ach_credit' | 'boleto' | 'check' | 'sepa_credit' | 'cash',is_not?:'bank_transfer' | 'no_preference' | 'ach_credit' | 'boleto' | 'check' | 'sepa_credit' | 'cash',not_in?:string};
-       
-      /**
-        * @description Override for this customer, the [site-level setting](https://www.chargebee.com/docs/2.0/metered_billing.html#configuring-metered-billing) for auto-closing invoices. Only applicable when auto-closing invoices has been enabled for the site. This attribute is also available at the [subscription level](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_auto_close_invoices) which takes precedence.
-
-        */
-        
-      auto_close_invoices?:{is?:'true' | 'false'};
-       
-      /**
-        * @description The subscription channel this object originated from and is maintained in.
-
-        */
-        
-      channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string};
-       
-      /**
-        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
-
-        */
-        
-      sort_by?:{asc?:'updated_at' | 'created_at',desc?:'updated_at' | 'created_at'};
-       
-      /**
-        * @description Parameters for relationship
-
-        */
-        
-      relationship?:{invoice_owner_id?:{is?:string,is_not?:string,starts_with?:string},parent_id?:{is?:string,is_not?:string,starts_with?:string},payment_owner_id?:{is?:string,is_not?:string,starts_with?:string}};
     }
     export interface CreateResponse {  
        customer:Customer;
@@ -1469,7 +932,9 @@ To know more about what values you need to provide, refer to this [Avalara&#x27;
       exempt_number?:string;
        
       /**
-        * @description A set of key-value pairs stored as additional information for the customer. [Learn more](./#meta_data).
+        * @description A collection of key-value pairs that provides extra information about the customer.  
+**Note:** There&#x27;s a character limit of 65,535.
+[Learn more](advanced-features?prod_cat_ver&#x3D;2#metadata).
 
         */
        
@@ -1551,7 +1016,7 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
 
         */
        
-      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card',reference_id?:string};
+      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card',reference_id?:string};
        
       /**
         * @description Parameters for billing_address
@@ -1567,215 +1032,353 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
        
       entity_identifiers?:{id?:string,scheme?:string,standard?:string,value?:string}[];
     }
-    export interface AddContactResponse {  
-       customer:Customer;
-       
-       card?:Card;
-    }
-    export interface AddContactInputParam {
-       
+    export interface ListResponse {  
       /**
-        * @description Parameters for contact
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
 
         */
        
-      contact?:{email:string,enabled?:boolean,first_name?:string,id?:string,label?:string,last_name?:string,phone?:string,send_account_email?:boolean,send_billing_email?:boolean};
-    }
-    export interface ContactsForCustomerResponse {  
-      /**
-        * @description This API retrieves all the contacts for a customer.
-
-        */
-       
-       list:{contact:Contact}[];
+       list:{customer:Customer,card?:Card}[];
        
       /**
-        * @description This API retrieves all the contacts for a customer.
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
 
         */
        
        next_offset?:string;
     }
-    export interface ContactsForCustomerInputParam {
+    export interface ListInputParam {
       [key : string]: any;  
       /**
-        * @description The number of resources to be returned.
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
 
         */
         
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
 
         */
         
       offset?:string;
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      include_deleted?:boolean;
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      first_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      last_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      email?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      company?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      phone?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      auto_collection?:{in?:string,is?:'off' | 'on',is_not?:'off' | 'on',not_in?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      taxability?:{in?:string,is?:'taxable' | 'exempt',is_not?:'taxable' | 'exempt',not_in?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      created_at?:{after?:string,before?:string,between?:string,on?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      updated_at?:{after?:string,before?:string,between?:string,on?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      business_entity_id?:{is?:string,is_not?:string,starts_with?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      offline_payment_method?:{in?:string,is?:'bank_transfer' | 'no_preference' | 'ach_credit' | 'boleto' | 'check' | 'sepa_credit' | 'cash',is_not?:'bank_transfer' | 'no_preference' | 'ach_credit' | 'boleto' | 'check' | 'sepa_credit' | 'cash',not_in?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      auto_close_invoices?:{is?:'true' | 'false'};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      sort_by?:{asc?:'updated_at' | 'created_at',desc?:'updated_at' | 'created_at'};
+       
+      /**
+        * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
+
+        */
+        
+      relationship?:{invoice_owner_id?:{is?:string,is_not?:string,starts_with?:string},parent_id?:{is?:string,is_not?:string,starts_with?:string},payment_owner_id?:{is?:string,is_not?:string,starts_with?:string}};
     }
-    export interface ClearPersonalDataResponse {  
+    export interface RetrieveResponse {  
        customer:Customer;
+       
+       card?:Card;
     }
     
-    export interface MergeResponse {  
-       customer:Customer;
-    }
-    export interface MergeInputParam {
-       
-      /**
-        * @description From customer id.
-
-        */
-       
-      from_customer_id:string;
-       
-      /**
-        * @description To customer id.
-
-        */
-       
-      to_customer_id:string;
-    }
-    export interface CollectPaymentResponse {  
+    export interface UpdateResponse {  
        customer:Customer;
        
-       transaction:Transaction;
+       card?:Card;
     }
-    export interface CollectPaymentInputParam {
-       
+    export interface UpdateInputParam {
+      [key : string] : any;  
       /**
-        * @description Amount to be collected. If this parameter is not passed then the invoice(s) amount to collect will be collected.
+        * @description First name of the customer.
 
         */
        
-      amount?:number;
+      first_name?:string;
        
       /**
-        * @description Payment source used for the payment.
+        * @description Last name of the customer.
 
         */
        
-      payment_source_id?:string;
+      last_name?:string;
        
       /**
-        * @description Token generated by Chargebee JS representing payment method details.
+        * @description Email of the customer. Configured email notifications will be sent to this email.
 
         */
        
-      token_id?:string;
+      email?:string;
        
       /**
-        * @description Indicates whether the primary payment source should be replaced with this payment source. In case of Create Subscription for Customer endpoint, the default value is True. Otherwise, the default value is False.
+        * @description The currency code (ISO 4217 format) of the customer. Applicable if Multicurrency is enabled.
 
         */
        
-      replace_primary_payment_source?:boolean;
+      preferred_currency_code?:string;
        
       /**
-        * @description Indicates whether the payment source should be retained for the customer.
+        * @description Phone number of the customer.
 
         */
        
-      retain_payment_source?:boolean;
+      phone?:string;
        
       /**
-        * @description null
+        * @description Company name of the customer.
 
         */
        
-      payment_initiator?:PaymentInitiator;
+      company?:string;
+       
+      /**
+        * @description Whether payments needs to be collected automatically for this customer. \* on - Whenever an invoice is created, an automatic attempt to charge the customer&#x27;s payment method is made. \* off - Automatic collection of charges will not be made. All payments must be recorded offline.
+
+        */
+       
+      auto_collection?:AutoCollection;
+       
+      /**
+        * @description Whether the customer can pay via Direct Debit.
+
+        */
+       
+      allow_direct_debit?:boolean;
+       
+      /**
+        * @description The number of days within which the customer has to make payment for the invoice. .
+
+        */
+       
+      net_term_days?:number;
+       
+      /**
+        * @description Specifies if the customer is liable for tax. \* taxable - Computes tax for the customer based on the [site configuration](https://www.chargebee.com/docs/tax.html). In some cases, depending on the region, shipping_address is needed. If not provided, then billing_address is used to compute tax. If that&#x27;s not available either, the tax is taken as zero. \* exempt -
+
+* Customer is exempted from tax. When using Chargebee&#x27;s native [Taxes](https://www.chargebee.com/docs/tax.html) feature or when using the [TaxJar integration](https://www.chargebee.com/docs/taxjar.html), no other action is needed.
+* However, when using our [Avalara integration](https://www.chargebee.com/docs/avalara.html), optionally, specify &#x60;entity_code&#x60; or &#x60;exempt_number&#x60; attributes if you use Chargebee&#x27;s [AvaTax for Sales](https://www.chargebee.com/docs/avalara.html#configuring-tax-exemption) or specify &#x60;exemption_details&#x60; attribute if you use [Chargebee&#x27;s AvaTax for Communications](https://www.chargebee.com/docs/avatax-for-communication.html) integration. Tax may still be applied by Avalara for certain values of &#x60;entity_code&#x60;/&#x60;exempt_number&#x60;/&#x60;exemption_details&#x60; based on the state/region/province of the taxable address.
+
+        */
+       
+      taxability?:Taxability;
+       
+      /**
+        * @description Indicates the exemption information. You can customize customer exemption based on specific Location, Tax level (Federal, State, County and Local), Category of Tax or specific Tax Name. This is applicable only if you use [Chargebee&#x27;s AvaTax for Communications](https://www.chargebee.com/docs/avatax-for-communication.html) integration.  
+To know more about what values you need to provide, refer to this [Avalara&#x27;s API document](https://developer.avalara.com/communications/dev-guide_rest_v2/customizing-transactions/sample-transactions/exemption/).
+
+        */
+       
+      exemption_details?:any[];
+       
+      /**
+        * @description Indicates the type of the customer. This is applicable only if you use [Chargebee&#x27;s AvaTax for Communications](https://www.chargebee.com/docs/avatax-for-communication.html) integration. \* senior_citizen - When the purchase is made by a customer who meets the jurisdiction requirements to be considered a senior citizen and qualifies for senior citizen tax breaks \* industrial - When the purchase is made by an industrial business \* business - When the purchase is made at a place of business \* residential - When the purchase is made by a customer for home use
+
+        */
+       
+      customer_type?:CustomerType;
+       
+      /**
+        * @description Indicates the Client profile id for the customer. This is applicable only if you use [Chargebee&#x27;s AvaTax for Communications](https://www.chargebee.com/docs/avatax-for-communication.html) integration.
+
+        */
+       
+      client_profile_id?:string;
+       
+      /**
+        * @description Indicates the exemption type of the customer. This is applicable only if you use Chargebee&#x27;s TaxJar integration. \* government - Government \* other - Other \* wholesale - Whole-sale
+
+        */
+       
+      taxjar_exemption_category?:TaxjarExemptionCategory;
+       
+      /**
+        * @description Determines which region-specific language Chargebee uses to communicate with the customer. In the absence of the locale attribute, Chargebee will use your site&#x27;s default language for customer communication.
+
+        */
+       
+      locale?:string;
+       
+      /**
+        * @description The exemption category of the customer, for USA and Canada. Applicable if you use Chargebee&#x27;s [AvaTax for Sales integration](https://www.chargebee.com/docs/avalara.html#configuring-tax-exemption). \* med2 - US Medical Device Excise Tax with taxable sales tax \* med1 - US Medical Device Excise Tax with exempt sales tax \* d - Foreign diplomat \* e - Charitable or benevolent organization \* f - Religious organization \* g - Resale \* a - Federal government \* b - State government \* c - Tribe/Status Indian/Indian Band \* l - Other or custom \* m - Educational organization \* n - Local government \* h - Commercial agricultural production \* i - Industrial production/manufacturer \* j - Direct pay permit \* k - Direct mail \* p - Commercial aquaculture \* q - Commercial Fishery \* r - Non-resident
+
+        */
+       
+      entity_code?:EntityCode;
+       
+      /**
+        * @description Any string value that will cause the sale to be exempted. Use this if your finance team manually verifies and tracks exemption certificates. Applicable if you use Chargebee&#x27;s [AvaTax for Sales integration](https://www.chargebee.com/docs/avalara.html#configuring-tax-exemption).
+
+        */
+       
+      exempt_number?:string;
+       
+      /**
+        * @description The preferred offline payment method for the customer. \* bank_transfer - Bank Transfer \* boleto - Boleto \* sepa_credit - SEPA Credit \* cash - Cash \* check - Check \* no_preference - No Preference \* ach_credit - ACH Credit
+
+        */
+       
+      offline_payment_method?:OfflinePaymentMethod;
+       
+      /**
+        * @description A customer-facing note added to all invoices associated with this API resource. This note becomes one among [all the notes](/docs/api/invoices#invoice_notes) displayed on the invoice PDF.
+
+        */
+       
+      invoice_notes?:string;
+       
+      /**
+        * @description Override for this customer, the [site-level setting](https://www.chargebee.com/docs/2.0/metered_billing.html#configuring-metered-billing) for auto-closing invoices. Only applicable when auto-closing invoices has been enabled for the site. This attribute is also available at the [subscription level](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_auto_close_invoices) which takes precedence.
+
+        */
+       
+      auto_close_invoices?:boolean;
+       
+      /**
+        * @description A collection of key-value pairs that provides extra information about the customer.  
+**Note:** There&#x27;s a character limit of 65,535.
+[Learn more](advanced-features?prod_cat_ver&#x3D;2#metadata).
+
+        */
+       
+      meta_data?:object;
+       
+      /**
+        * @description Indicates whether or not the customer has been identified as fraudulent. \* fraudulent - The customer has been marked as fraudulent \* suspicious - The customer has been identified as potentially fraudulent by the gateway \* safe - The customer has been marked as safe
+
+        */
+       
+      fraud_flag?:'safe' | 'fraudulent';
+       
+      /**
+        * @description Indicates whether invoices raised on the same day for the &#x60;customer&#x60; are consolidated. When provided, this overrides the default configuration at the [site-level](https://www.chargebee.com/docs/consolidated-invoicing.html#configuring-consolidated-invoicing). This parameter can be provided only when [Consolidated Invoicing](https://www.chargebee.com/docs/consolidated-invoicing.html) is enabled.  
+**Note:**
+
+Any invoices raised when a subscription activates from &#x60;in_trial&#x60; or &#x60;future&#x60; &#x60;status&#x60;, are not consolidated by default. [Contact Support](https://chargebee.freshdesk.com/support/home) to enable consolidation for such invoices.
+.
+
+        */
+       
+      consolidated_invoicing?:boolean;
+    }
+    export interface UpdatePaymentMethodResponse {  
+       customer:Customer;
+       
+       card?:Card;
+    }
+    export interface UpdatePaymentMethodInputParam {
        
       /**
         * @description Parameters for payment_method
 
         */
        
-      payment_method?:{additional_information?:object,gateway_account_id?:string,reference_id?:string,tmp_token?:string,type?:Type};
-       
-      /**
-        * @description Parameters for card
-
-        */
-       
-      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway_account_id?:string,last_name?:string,number?:string};
-       
-      /**
-        * @description Parameters for payment_intent
-
-        */
-       
-      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card',reference_id?:string};
-       
-      /**
-        * @description Parameters for invoice_allocations
-
-        */
-       
-      invoice_allocations?:{allocation_amount?:number,invoice_id:string}[];
-    }
-    export interface RecordExcessPaymentResponse {  
-       customer:Customer;
-       
-       transaction:Transaction;
-    }
-    export interface RecordExcessPaymentInputParam {
-       
-      /**
-        * @description Remarks, if any, on the payment.
-
-        */
-       
-      comment?:string;
-       
-      /**
-        * @description Parameters for transaction
-
-        */
-       
-      transaction?:{amount:number,currency_code?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
-    }
-    export interface UpdateContactResponse {  
-       customer:Customer;
-       
-       card?:Card;
-    }
-    export interface UpdateContactInputParam {
-       
-      /**
-        * @description Parameters for contact
-
-        */
-       
-      contact?:{email?:string,enabled?:boolean,first_name?:string,id:string,label?:string,last_name?:string,phone?:string,send_account_email?:boolean,send_billing_email?:boolean};
-    }
-    export interface UpdateHierarchySettingsResponse {  
-       customer:Customer;
-    }
-    export interface UpdateHierarchySettingsInputParam {
-       
-      /**
-        * @description Determines whether the site default settings are applied for the access levels.
-
-* Value set to &#x60;true&#x60;: Removes any customized access levels for the customer. The global settings configured in the admin console now apply.
-* Value set to &#x60;false&#x60;: Changes the access levels for this customer. Pass the &#x60;parent_account_access&#x60; and &#x60;child_account_access&#x60; parameters to specify the new settings. If you skip passing any parameters, they will remain unchanged.
-.
-
-        */
-       
-      use_default_hierarchy_settings?:boolean;
-       
-      /**
-        * @description Parameters for parent_account_access
-
-        */
-       
-      parent_account_access?:{portal_download_child_invoices?:'no' | 'yes' | 'view_only',portal_edit_child_subscriptions?:'no' | 'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
-       
-      /**
-        * @description Parameters for child_account_access
-
-        */
-       
-      child_account_access?:{portal_download_invoices?:'no' | 'yes' | 'view_only',portal_edit_subscriptions?:'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
+      payment_method?:{additional_information?:object,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type:Type};
     }
     export interface UpdateBillingInfoResponse {  
        customer:Customer;
@@ -1874,6 +1477,403 @@ It is possible to set a value for this flag even when E-Invoicing is disabled. H
         */
        
       entity_identifiers?:{id?:string,operation?:Operation,scheme?:string,standard?:string,value?:string}[];
+    }
+    export interface ContactsForCustomerResponse {  
+      /**
+        * @description This API retrieves all the contacts for a customer.
+
+        */
+       
+       list:{contact:Contact}[];
+       
+      /**
+        * @description This API retrieves all the contacts for a customer.
+
+        */
+       
+       next_offset?:string;
+    }
+    export interface ContactsForCustomerInputParam {
+      [key : string]: any;  
+      /**
+        * @description This API retrieves all the contacts for a customer.
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description This API retrieves all the contacts for a customer.
+
+        */
+        
+      offset?:string;
+    }
+    export interface AssignPaymentRoleResponse {  
+       customer:Customer;
+       
+       payment_source:PaymentSource;
+    }
+    export interface AssignPaymentRoleInputParam {
+       
+      /**
+        * @description Payment source id this role will be assigned to.
+
+        */
+       
+      payment_source_id:string;
+       
+      /**
+        * @description Indicates whether the payment source is Primary, Backup, or neither. \* backup - Backup \* none - None \* primary - Primary
+
+        */
+       
+      role:Role;
+    }
+    export interface AddContactResponse {  
+       customer:Customer;
+       
+       card?:Card;
+    }
+    export interface AddContactInputParam {
+       
+      /**
+        * @description Parameters for contact
+
+        */
+       
+      contact?:{email:string,enabled?:boolean,first_name?:string,id?:string,label?:string,last_name?:string,phone?:string,send_account_email?:boolean,send_billing_email?:boolean};
+    }
+    export interface UpdateContactResponse {  
+       customer:Customer;
+       
+       card?:Card;
+    }
+    export interface UpdateContactInputParam {
+       
+      /**
+        * @description Parameters for contact
+
+        */
+       
+      contact?:{email?:string,enabled?:boolean,first_name?:string,id:string,label?:string,last_name?:string,phone?:string,send_account_email?:boolean,send_billing_email?:boolean};
+    }
+    export interface DeleteContactResponse {  
+       customer:Customer;
+       
+       card?:Card;
+    }
+    export interface DeleteContactInputParam {
+       
+      /**
+        * @description Parameters for contact
+
+        */
+       
+      contact?:{id:string};
+    }
+    export interface RecordExcessPaymentResponse {  
+       customer:Customer;
+       
+       transaction:Transaction;
+    }
+    export interface RecordExcessPaymentInputParam {
+       
+      /**
+        * @description Remarks, if any, on the payment.
+
+        */
+       
+      comment?:string;
+       
+      /**
+        * @description Parameters for transaction
+
+        */
+       
+      transaction?:{amount:number,currency_code?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
+    }
+    export interface CollectPaymentResponse {  
+       customer:Customer;
+       
+       transaction:Transaction;
+    }
+    export interface CollectPaymentInputParam {
+       
+      /**
+        * @description Amount to be collected. If this parameter is not passed then the invoice(s) amount to collect will be collected.
+
+        */
+       
+      amount?:number;
+       
+      /**
+        * @description Payment source used for the payment.
+
+        */
+       
+      payment_source_id?:string;
+       
+      /**
+        * @description Token generated by Chargebee JS representing payment method details.
+
+        */
+       
+      token_id?:string;
+       
+      /**
+        * @description Indicates whether the primary payment source should be replaced with this payment source. In case of Create Subscription for Customer endpoint, the default value is True. Otherwise, the default value is False.
+
+        */
+       
+      replace_primary_payment_source?:boolean;
+       
+      /**
+        * @description Indicates whether the payment source should be retained for the customer.
+
+        */
+       
+      retain_payment_source?:boolean;
+       
+      /**
+        * @description The type of initiator to be used for the payment request triggered by this operation. \* customer - Pass this value to indicate that the request is initiated by the customer \* merchant - Pass this value to indicate that the request is initiated by the merchant
+
+        */
+       
+      payment_initiator?:PaymentInitiator;
+       
+      /**
+        * @description Parameters for payment_method
+
+        */
+       
+      payment_method?:{additional_information?:object,gateway_account_id?:string,reference_id?:string,tmp_token?:string,type?:Type};
+       
+      /**
+        * @description Parameters for card
+
+        */
+       
+      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway_account_id?:string,last_name?:string,number?:string};
+       
+      /**
+        * @description Parameters for payment_intent
+
+        */
+       
+      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card',reference_id?:string};
+       
+      /**
+        * @description Parameters for invoice_allocations
+
+        */
+       
+      invoice_allocations?:{allocation_amount?:number,invoice_id:string}[];
+    }
+    export interface DeleteResponse {  
+       customer:Customer;
+       
+       card?:Card;
+    }
+    export interface DeleteInputParam {
+       
+      /**
+        * @description Deletes the Payment Method from the gateway/vault.
+
+        */
+       
+      delete_payment_method?:boolean;
+    }
+    export interface MoveResponse {  
+       resource_migration:ResourceMigration;
+    }
+    export interface MoveInputParam {
+       
+      /**
+        * @description Id of the customer to be copied.
+
+        */
+       
+      id_at_from_site:string;
+       
+      /**
+        * @description Name of the site from which this customer need to be copied.
+
+        */
+       
+      from_site:string;
+    }
+    export interface ChangeBillingDateResponse {  
+       customer:Customer;
+    }
+    export interface ChangeBillingDateInputParam {
+       
+      /**
+        * @description Applicable when *calendar billing* (with customer specific billing date support) is enabled. When set, renewals of all the monthly and yearly subscriptions of this customer will be aligned to this date.
+
+        */
+       
+      billing_date?:number;
+       
+      /**
+        * @description &#x60;billing_month&#x60;, together with &#x60;billing_date&#x60;, specify, for this customer, the day of the year when the renewals of all the year-based subscriptions take place.
+
+For example, the renewals happen on 15th July when &#x60;billing_month&#x60; is &#x60;7&#x60; and &#x60;billing_date&#x60; is &#x60;15&#x60;.  
+**Note**
+
+Applicable when [Calendar Billing](https://www.chargebee.com/docs/calendar-billing.html) (with customer-specific billing date support) is enabled and &#x60;billing_date_mode&#x60; is &#x60;manually_set&#x60;.
+
+        */
+       
+      billing_month?:number;
+       
+      /**
+        * @description Indicates whether this customer&#x27;s *billing_date* value is derived as per configurations or its specifically set (overriden). When specifically set, the *billing_date* will not be reset even when all of the monthly/yearly subscriptions are cancelled. \* manually_set - Billing date is specifically set (default configuration is overridden) \* using_defaults - Billing date is set based on defaults configured.
+
+        */
+       
+      billing_date_mode?:BillingDateMode;
+       
+      /**
+        * @description Applicable when *calendar billing* (with customer specific billing date support) is enabled. When set, renewals of all the weekly subscriptions of this customer will be aligned to this week day. \* sunday - Sunday \* wednesday - Wednesday \* tuesday - Tuesday \* monday - Monday \* saturday - Saturday \* friday - Friday \* thursday - Thursday
+
+        */
+       
+      billing_day_of_week?:'sunday' | 'saturday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'monday';
+       
+      /**
+        * @description Indicates whether this customer&#x27;s *billing_day_of_week* value is derived as per configurations or its specifically set (overriden). When specifically set, the *billing_day_of_week* will not be reset even when all of the weekly subscriptions are cancelled. \* manually_set - Billing date is specifically set (default configuration is overridden) \* using_defaults - Billing date is set based on defaults configured.
+
+        */
+       
+      billing_day_of_week_mode?:BillingDayOfWeekMode;
+    }
+    export interface MergeResponse {  
+       customer:Customer;
+    }
+    export interface MergeInputParam {
+       
+      /**
+        * @description From customer id.
+
+        */
+       
+      from_customer_id:string;
+       
+      /**
+        * @description To customer id.
+
+        */
+       
+      to_customer_id:string;
+    }
+    export interface ClearPersonalDataResponse {  
+       customer:Customer;
+    }
+    
+    export interface RelationshipsResponse {  
+       customer:Customer;
+    }
+    export interface RelationshipsInputParam {
+       
+      /**
+        * @description The &#x60;id&#x60; of the customer which is to be set as the immediate parent.
+
+        */
+       
+      parent_id?:string;
+       
+      /**
+        * @description The &#x60;id&#x60; of the customer who will pay the invoices for this customer. Can be the child itself or the &#x60;invoice_owner_id&#x60;.
+
+        */
+       
+      payment_owner_id?:string;
+       
+      /**
+        * @description The &#x60;id&#x60; of the customer who will be invoiced for charges incurred. Can be the child itself or any parent in its hierarchy.
+
+        */
+       
+      invoice_owner_id?:string;
+       
+      /**
+        * @description The level of access that the parent and the child itself have to the child&#x27;s information can be set here. This data falls into two categories:
+
+* **Self-Serve Portal data:** subscriptions and invoices of the child.
+* **Email Notifications:** subscription-, invoice- and payment-related notifications for the child.
+
+
+
+**Usage:**
+
+* Value set to &#x60;true&#x60;: Applies the global access levels defined in the Account Hierarchy settings to this child. These global settings are configured in the admin console
+* Value set to &#x60;false&#x60;: Customizes the access levels for this customer. Pass the &#x60;parent_account_access&#x60; and &#x60;child_account_access&#x60; parameters to specify the settings. If you skip passing any parameters, the global settings are applied for them.
+.
+
+        */
+       
+      use_default_hierarchy_settings?:boolean;
+       
+      /**
+        * @description Parameters for parent_account_access
+
+        */
+       
+      parent_account_access?:{portal_download_child_invoices?:'no' | 'yes' | 'view_only',portal_edit_child_subscriptions?:'no' | 'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
+       
+      /**
+        * @description Parameters for child_account_access
+
+        */
+       
+      child_account_access?:{portal_download_invoices?:'no' | 'yes' | 'view_only',portal_edit_subscriptions?:'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
+    }
+    export interface DeleteRelationshipResponse {  
+       customer:Customer;
+    }
+    
+    export interface HierarchyResponse {  
+       hierarchies:Hierarchy[];
+    }
+    export interface HierarchyInputParam {
+       
+      /**
+        * @description Retrieves the [account hierarchy tree](/docs/api/hierarchies) for the customer.
+
+        */
+        
+      hierarchy_operation_type:'complete_hierarchy' | 'subordinates' | 'path_to_root';
+    }
+    export interface UpdateHierarchySettingsResponse {  
+       customer:Customer;
+    }
+    export interface UpdateHierarchySettingsInputParam {
+       
+      /**
+        * @description Determines whether the site default settings are applied for the access levels.
+
+* Value set to &#x60;true&#x60;: Removes any customized access levels for the customer. The global settings configured in the admin console now apply.
+* Value set to &#x60;false&#x60;: Changes the access levels for this customer. Pass the &#x60;parent_account_access&#x60; and &#x60;child_account_access&#x60; parameters to specify the new settings. If you skip passing any parameters, they will remain unchanged.
+.
+
+        */
+       
+      use_default_hierarchy_settings?:boolean;
+       
+      /**
+        * @description Parameters for parent_account_access
+
+        */
+       
+      parent_account_access?:{portal_download_child_invoices?:'no' | 'yes' | 'view_only',portal_edit_child_subscriptions?:'no' | 'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
+       
+      /**
+        * @description Parameters for child_account_access
+
+        */
+       
+      child_account_access?:{portal_download_invoices?:'no' | 'yes' | 'view_only',portal_edit_subscriptions?:'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
     }
     export interface BillingAddress {  
          /**
@@ -1982,40 +1982,125 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
       validation_status?:ValidationStatus;
     }
     export interface ReferralUrl {  
+         /**
+          * @description External customer id in the referral system
+
+          */
+       
       external_customer_id?:string;
        
-      referral_sharing_url?:string;
+         /**
+          * @description Referral sharing url for the customer
+
+          */
        
-      created_at?:number;
+      referral_sharing_url:string;
        
-      updated_at?:number;
+         /**
+          * @description The referral url creation time
+
+          */
        
-      referral_campaign_id?:string;
+      created_at:number;
        
-      referral_account_id?:string;
+         /**
+          * @description The referral url updation time
+
+          */
+       
+      updated_at:number;
+       
+         /**
+          * @description Referral campaign id
+
+          */
+       
+      referral_campaign_id:string;
+       
+         /**
+          * @description Referral account id
+
+          */
+       
+      referral_account_id:string;
+       
+         /**
+          * @description Referral external campaign id
+
+          */
        
       referral_external_campaign_id?:string;
        
-      referral_system?:'referral_candy' | 'friendbuy' | 'referral_saasquatch';
+         /**
+          * @description Url for the referral system account \* referral_saasquatch - Referral Saasquatch \* friendbuy - Friendbuy \* referral_candy - Referral Candy
+
+          */
+       
+      referral_system:'referral_candy' | 'friendbuy' | 'referral_saasquatch';
     }
     export interface Contact {  
-      id?:string;
+         /**
+          * @description Unique reference ID provided for the contact.
+
+          */
+       
+      id:string;
+       
+         /**
+          * @description First name of the contact.
+
+          */
        
       first_name?:string;
        
+         /**
+          * @description Last name of the contact.
+
+          */
+       
       last_name?:string;
        
-      email?:string;
+         /**
+          * @description Email of the contact.
+
+          */
+       
+      email:string;
+       
+         /**
+          * @description Phone number of the contact.
+
+          */
        
       phone?:string;
        
+         /**
+          * @description Label/Tag provided for contact.
+
+          */
+       
       label?:string;
        
-      enabled?:boolean;
+         /**
+          * @description Contact enabled / disabled
+
+          */
        
-      send_account_email?:boolean;
+      enabled:boolean;
        
-      send_billing_email?:boolean;
+         /**
+          * @description Whether Account Emails option is enabled for the contact.
+
+          */
+       
+      send_account_email:boolean;
+       
+         /**
+          * @description Whether Billing Emails option is enabled for the contact.
+
+          */
+       
+      send_billing_email:boolean;
     }
     export interface PaymentMethod {  
          /**
@@ -2023,14 +2108,14 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
 
           */
        
-      type?:Type;
+      type:Type;
        
          /**
           * @description Name of the gateway the payment method is associated with. \* ecentric - Ecentric provides a seamless payment processing service in South Africa specializing on omnichannel capabilities. \* paypal_payflow_pro - PayPal Payflow Pro is a payment gateway. \* sage_pay - Sage Pay is a payment gateway. \* wepay - WePay is a payment gateway. \* wirecard - WireCard Account is a payment service provider. \* migs - MasterCard Internet Gateway Service payment gateway. \* beanstream - Bambora(formerly known as Beanstream) is a payment gateway. \* adyen - Adyen is a payment gateway. \* razorpay - Razorpay is a fast growing payment service provider in India working with all leading banks and support for major local payment methods including Netbanking, UPI etc. \* braintree - Braintree is a payment gateway. \* nmi - NMI is a payment gateway. \* chargebee_payments - Chargebee Payments gateway \* bluepay - BluePay is a payment gateway. \* paypal - PayPal Commerce is a payment gateway. \* bank_of_america - Bank of America is a payment gateway. \* paypal_pro - PayPal Pro Account is a payment gateway. \* eway_rapid - eWAY Rapid is a payment gateway. \* windcave - Windcave provides an end to end payment processing solution in ANZ and other leading global markets. \* moneris_us - Moneris USA is a payment gateway. \* exact - Exact Payments is a payment gateway. \* paypal_express_checkout - PayPal Express Checkout is a payment gateway. \* tco - 2Checkout is a payment gateway. \* chargebee - Chargebee test gateway. \* stripe - Stripe is a payment gateway. \* eway - eWAY Account is a payment gateway. \* authorize_net - Authorize.net is a payment gateway \* moneris - Moneris is a payment gateway. \* worldpay - WorldPay is a payment gateway \* pin - Pin is a payment gateway \* gocardless - GoCardless is a payment service provider. \* elavon - Elavon Virtual Merchant is a payment solution. \* cybersource - CyberSource is a payment gateway. \* vantiv - Vantiv is a payment gateway. \* amazon_payments - Amazon Payments is a payment service provider. \* global_payments - Global Payments is a payment service provider. \* first_data_global - First Data Global Gateway Virtual Terminal Account \* orbital - Chase Paymentech(Orbital) is a payment gateway. \* checkout_com - Checkout.com is a payment gateway. \* quickbooks - Intuit QuickBooks Payments gateway \* mollie - Mollie is a payment gateway. \* bluesnap - BlueSnap is a payment gateway. \* paymill - PAYMILL is a payment gateway. \* ogone - Ingenico ePayments (formerly known as Ogone) is a payment gateway. \* not_applicable - Indicates that payment gateway is not applicable for this resource. \* hdfc - HDFC Account is a payment gateway. \* balanced_payments - Balanced is a payment gateway \* ingenico_direct - Worldline Online Payments is a payment gateway. \* metrics_global - Metrics global is a leading payment service provider providing unified payment services in the US.
 
           */
        
-      gateway?:Gateway;
+      gateway:Gateway;
        
          /**
           * @description The gateway account this payment method is stored with.
@@ -2044,7 +2129,7 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
 
           */
        
-      status?:'valid' | 'expiring' | 'expired' | 'invalid' | 'pending_verification';
+      status:'valid' | 'expiring' | 'expired' | 'invalid' | 'pending_verification';
        
          /**
           * @description The reference id. In the case of Amazon and PayPal this will be the &#x27;billing agreement id&#x27;. For GoCardless direct debit this will be &#x27;mandate id&#x27;. In the case of card payments this will be the identifier provided by the gateway/card vault for the specific payment method resource.  
@@ -2052,25 +2137,82 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
 
           */
        
-      reference_id?:string;
+      reference_id:string;
     }
     export interface CustomerBalance {  
-      promotional_credits?:number;
+         /**
+          * @description Promotional credits balance of this customer.
+
+          */
        
-      excess_payments?:number;
+      promotional_credits:number;
        
-      refundable_credits?:number;
+         /**
+          * @description Total unused payments associated with the customer.
+
+          */
        
-      unbilled_charges?:number;
+      excess_payments:number;
        
-      currency_code?:string;
+         /**
+          * @description Refundable credits balance of this customer
+
+          */
+       
+      refundable_credits:number;
+       
+         /**
+          * @description Total unbilled charges for this customer.
+
+          */
+       
+      unbilled_charges:number;
+       
+         /**
+          * @description The currency code (ISO 4217 format) for balance
+
+          */
+       
+      currency_code:string;
     }
     export interface EntityIdentifier {  
-      id?:string;
+         /**
+          * @description The unique id for the &#x60;entity_identifier&#x60; in Chargebee. When not provided, it is autogenerated.
+
+          */
+       
+      id:string;
+       
+         /**
+          * @description The value of the &#x60;entity_identifier&#x60;. This identifies the customer entity on the Peppol network. For example: &#x60;10101010-STO-10&#x60;.  
+**Tip:**
+
+
+If there is only one entity identifier for the customer and the value is the same as &#x60;vat_number&#x60;, then there is no need to provide the &#x60;entity_identifiers[]&#x60; array. See [description for &#x60;entity_identifiers[]&#x60;](customers#customer_entity_identifiers).
+
+          */
        
       value?:string;
        
-      scheme?:string;
+         /**
+          * @description The Peppol BIS scheme associated with the [vat_number](customers#customer_vat_number) of the customer. This helps identify the specific type of customer entity. For example, &#x60;DE:VAT&#x60; is used for a German business entity while &#x60;DE:LWID45&#x60; is used for a German government entity. The value must be from the list of possible values and must correspond to the country provided under &#x60;billing_address.country&#x60;. See [list of possible values](https://www.chargebee.com/docs/e-invoicing.html#supported-countries).  
+**Tip:**
+
+
+If there is only one entity identifier for the customer and the value is the same as &#x60;vat_number&#x60;, then there is no need to provide the &#x60;entity_identifiers[]&#x60; array. See [description for &#x60;entity_identifiers[]&#x60;](customers#customer_entity_identifiers).
+
+          */
+       
+      scheme:string;
+       
+         /**
+          * @description The standard used for specifying the &#x60;entity_identifier&#x60; &#x60;scheme&#x60;. Currently, only &#x60;iso6523-actorid-upis&#x60; is supported and is used by default when not provided.  
+**Tip:**
+
+
+If there is only one entity identifier for the customer and the value is the same as &#x60;vat_number&#x60;, then there is no need to provide the &#x60;entity_identifiers[]&#x60; array. See [description for &#x60;entity_identifiers[]&#x60;](customers#customer_entity_identifiers).
+
+          */
        
       standard?:string;
     }
@@ -2087,14 +2229,14 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
 
           */
        
-      payment_owner_id?:string;
+      payment_owner_id:string;
        
          /**
           * @description The &#x60;id&#x60; of the customer who is invoiced for charges incurred. Can be the customer itself or any parent in its hierarchy.
 
           */
        
-      invoice_owner_id?:string;
+      invoice_owner_id:string;
     }
     export interface ParentAccountAccess {  
          /**
@@ -2116,21 +2258,21 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
 
           */
        
-      send_subscription_emails?:boolean;
+      send_subscription_emails:boolean;
        
          /**
           * @description If &#x60;true&#x60;, the parent account will receive invoice-related emails sent to the child account.
 
           */
        
-      send_invoice_emails?:boolean;
+      send_invoice_emails:boolean;
        
          /**
           * @description If &#x60;true&#x60;, the parent account will receive payment-related emails sent to the child account.
 
           */
        
-      send_payment_emails?:boolean;
+      send_payment_emails:boolean;
     }
     export interface ChildAccountAccess {  
          /**
@@ -2152,21 +2294,21 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
 
           */
        
-      send_subscription_emails?:boolean;
+      send_subscription_emails:boolean;
        
          /**
           * @description If &#x60;true&#x60;, the child account will receive invoice-related emails for its own invoices.
 
           */
        
-      send_invoice_emails?:boolean;
+      send_invoice_emails:boolean;
        
          /**
           * @description If &#x60;true&#x60;, the child account will receive payment-related emails for its own invoices.
 
           */
        
-      send_payment_emails?:boolean;
+      send_payment_emails:boolean;
     }
   }
 }

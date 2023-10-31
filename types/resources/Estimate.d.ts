@@ -61,6 +61,57 @@ declare module 'chargebee' {
   export namespace Estimate {
     export class EstimateResource {  
       /**
+        * @description Generates an estimate for creating a subscription when the customer does not exist in Chargebee. This estimate API can be called when the customer has not yet signed up and you want to preview how a new subscription would look like for them.
+
+**Note:** Estimate operations do not make any changes in Chargebee; hence this API does not create an actual &#x60;customer&#x60; or &#x60;subscription&#x60; record.  
+**See also**
+
+* [Estimate a purchase](https://apidocs.chargebee.com/docs/api/purchases#estimates_for_purchase): an operation that estimates a &#x60;purchase&#x60; representing multiple subscriptions bought together by a customer.
+
+The response contains one or more of the following objects:
+
+* &#x60;subscription_estimate&#x60;: The subscription details like the status of the subscription (such as &#x60;in_trial&#x60; or &#x60;active&#x60;), next billing date, and so on.
+* &#x60;invoice_estimate&#x60;:The details of the immediate invoice, if there is one. If the subscription is created in &#x60;trial&#x60;/&#x60;future&#x60; states, &#x60;invoice_estimate&#x60; is unavailable as no immediate invoice is generated.
+* &#x60;next_invoice_estimate&#x60;:This is returned when an immediate invoice is not generated. It contains the details of the invoice that will be generated on the next billing date of the subscription.
+* &#x60;unbilled_charge_estimates&#x60;: This contains the details of charges that have not been invoiced. This is returned only if the &#x60;invoice_immediately&#x60; parameter is set to &#x60;false&#x60;.
+
+
+
+
+        */
+      
+      create_sub_item_estimate(input?:CreateSubItemEstimateInputParam):ChargebeeRequest<CreateSubItemEstimateResponse>;
+       
+      /**
+        * @description Generates an estimate without creating a subscription. This endpoint can be called when you want to preview details of a new subscription before actually creating one.  
+**See also**
+
+* [Estimate a purchase](https://apidocs.chargebee.com/docs/api/purchases#estimates_for_purchase): an operation that estimates a &#x60;purchase&#x60; representing multiple subscriptions bought together by a customer.
+
+        */
+      
+      create_sub_item_for_customer_estimate(customer_id:string, input?:CreateSubItemForCustomerEstimateInputParam):ChargebeeRequest<CreateSubItemForCustomerEstimateResponse>;
+       
+      /**
+        * @description Returns an estimate for updating a subscription.
+
+In the response,
+
+* [subscription_estimate](/docs/api/estimates#subscription_estimate_attributes): The details of the changed subscription such as &#x60;status&#x60;, next billing date, and so on.
+* [invoice_estimate](/docs/api/estimates#invoice_estimate_attributes):The details of the immediate invoice, if it is generated. An immediate invoice is not generated when:
+  * &#x60;end_of_term&#x60; parameter is true
+  * &#x60;prorate&#x60; parameter is &#x60;false&#x60;
+  * No changes are made to the plan item prices or addon item prices in &#x60;subscription_items&#x60;.
+  * For changes such as [quantity downgrades](https://www.chargebee.com/docs/proration.html#proration-mechanism_plan-quantity-downgrade-paid-invoice).
+* [next_invoice_estimate](/docs/api/estimates#next_invoice_estimate_attributes):The details of the invoice to be generated later (if any) on the occasion that no immediate invoice has been generated.
+* [credit_note_estimates](/docs/api/estimates#credit_note_estimate_attributes):The list of credit notes (if any) generated during this operation.
+* [unbilled_charge_estimates](/docs/api/estimates#unbilled_charge_estimate_attributes): The details of charges that have not been invoiced. This is returned only if the &#x60;invoice_immediately&#x60; parameter is set to &#x60;false&#x60;.
+
+        */
+      
+      update_subscription_for_items(input?:UpdateSubscriptionForItemsInputParam):ChargebeeRequest<UpdateSubscriptionForItemsResponse>;
+       
+      /**
         * @description This returns an estimate of the amount that will be charged when the subscription is billed next. The estimate is calculated based on the current recurring items of the subscription - plan, addons, and coupons.
 
 In the response,
@@ -84,97 +135,11 @@ In the response,
       renewal_estimate(subscription_id:string, input?:RenewalEstimateInputParam):ChargebeeRequest<RenewalEstimateResponse>;
        
       /**
-        * @description Generates an estimate for creating a subscription when the customer does not exist in Chargebee. This estimate API can be called when the customer has not yet signed up and you want to preview how a new subscription would look like for them.
-
-**Note:** Estimate operations do not make any changes in Chargebee; hence this API does not create an actual &#x60;customer&#x60; or &#x60;subscription&#x60; record.  
-**See also**
-
-* [Estimate a purchase](https://apidocs.chargebee.com/docs/api/purchases#estimates_for_purchase): an operation that estimates a &#x60;purchase&#x60; representing multiple subscriptions bought together by a customer.
-
-The response contains one or more of the following objects:
-
-* &#x60;subscription_estimate&#x60;: The subscription details like the status of the subscription (such as &#x60;in_trial&#x60; or &#x60;active&#x60;), next billing date, and so on.
-* &#x60;invoice_estimate&#x60;:The details of the immediate invoice, if there is one. If the subscription is created in &#x60;trial&#x60;/&#x60;future&#x60; states, &#x60;invoice_estimate&#x60; is unavailable as no immediate invoice is generated.
-* &#x60;next_invoice_estimate&#x60;:This is returned when an immediate invoice is not generated. It contains the details of the invoice that will be generated on the next billing date of the subscription.
-* &#x60;unbilled_charge_estimates&#x60;: This contains the details of charges that have not been invoiced. This is returned only if the &#x60;invoice_immediately&#x60; parameter is set to &#x60;false&#x60;.
-
-
-
+        * @description This API is used to generate an invoice estimate for preview. Estimate details include the number of billing cycles to be invoiced in advance, the number of billing cycles in one interval, advance invoicing schedules, and so on.
 
         */
       
-      create_sub_item_estimate(input?:CreateSubItemEstimateInputParam):ChargebeeRequest<CreateSubItemEstimateResponse>;
-       
-      /**
-        * @description This creates an estimate for canceling a subscription without actually canceling it. Estimate details include canceling date, unbilled charge options, refund credit handling, the amount to be credited after cancellation, and so on.
-
-        */
-      
-      cancel_subscription_for_items(subscription_id:string, input?:CancelSubscriptionForItemsInputParam):ChargebeeRequest<CancelSubscriptionForItemsResponse>;
-       
-      /**
-        * @description Generates an estimate for the &#x27;resume subscription&#x27; operation. This is similar to the [Resume a subscription](/docs/api/subscriptions#resume_a_subscription) API, but the subscription will not be resumed. Only an estimate for this operation is created.
-
-In the response,
-
-* **estimate.subscription_estimate** has the subscription details.
-* **estimate.invoice_estimate** has details of the invoice that will be generated immediately. This will not be present if no immediate invoice is generated for this operation. This will happen for in-term resumption^++^.   
-
-  **^++^What is an &quot;in-term resumption&quot;?**   
-  An &quot;in-term resumption&quot; is when the resumption happens within the billing term of the subscription.
-* **estimate.next_invoice_estimate** has details of the invoice that will be generated during the next billing date of this subscription. This will be present only if no immediate invoice is generated during this operation (scenario mentioned above) and this subscription has next billing.   
-
-  The generated invoice_estimate/next_invoice_estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any.
-
-        */
-      
-      resume_subscription(subscription_id:string, input?:ResumeSubscriptionInputParam):ChargebeeRequest<ResumeSubscriptionResponse>;
-       
-      /**
-        * @description This endpoint creates an invoice estimate for non-recurring items.
-
-        */
-      
-      create_invoice_for_items(input?:CreateInvoiceForItemsInputParam):ChargebeeRequest<CreateInvoiceForItemsResponse>;
-       
-      /**
-        * @description This endpoint generates an estimate for a subscription that is intended to be a gift. The estimate provides details about the gift sender, gift recipient, address details of the recipient, and the type and details of subscription items included in the gift.
-
-        */
-      
-      gift_subscription_for_items(input?:GiftSubscriptionForItemsInputParam):ChargebeeRequest<GiftSubscriptionForItemsResponse>;
-       
-      /**
-        * @description Returns an estimate for updating a subscription.
-
-In the response,
-
-* [subscription_estimate](/docs/api/estimates#subscription_estimate_attributes): The details of the changed subscription such as &#x60;status&#x60;, next billing date, and so on.
-* [invoice_estimate](/docs/api/estimates#invoice_estimate_attributes):The details of the immediate invoice, if it is generated. An immediate invoice is not generated when:
-  * &#x60;end_of_term&#x60; parameter is true
-  * &#x60;prorate&#x60; parameter is &#x60;false&#x60;
-  * No changes are made to the plan item prices or addon item prices in &#x60;subscription_items&#x60;.
-  * For changes such as [quantity downgrades](https://www.chargebee.com/docs/proration.html#proration-mechanism_plan-quantity-downgrade-paid-invoice).
-* [next_invoice_estimate](/docs/api/estimates#next_invoice_estimate_attributes):The details of the invoice to be generated later (if any) on the occasion that no immediate invoice has been generated.
-* [credit_note_estimates](/docs/api/estimates#credit_note_estimate_attributes):The list of credit notes (if any) generated during this operation.
-* [unbilled_charge_estimates](/docs/api/estimates#unbilled_charge_estimate_attributes): The details of charges that have not been invoiced. This is returned only if the &#x60;invoice_immediately&#x60; parameter is set to &#x60;false&#x60;.
-
-        */
-      
-      update_subscription_for_items(input?:UpdateSubscriptionForItemsInputParam):ChargebeeRequest<UpdateSubscriptionForItemsResponse>;
-       
-      /**
-        * @description Estimate of the upcoming scheduled invoices (subscription activations, renewals etc) of a customer. For now preview of the invoices generated on the immediate upcoming date is supported. Say a customer has couple of subscription renewals scheduled on *Jan,10th* and another subscription renewal scheduled on *Jan,15th* . This API gives the preview of all the invoices scheduled to be generated on *Jan,10th* (immediate upcoming date).
-
-In the response:
-
-* **estimate.invoice_estimates\[\]** has details of the invoices scheduled to be generated.
-
-**Note:** If *consolidated invoicing* is enabled you may use this API to test whether upcoming renewals are consolidated.
-
-        */
-      
-      upcoming_invoices_estimate(customer_id:string):ChargebeeRequest<UpcomingInvoicesEstimateResponse>;
+      advance_invoice_estimate(subscription_id:string, input?:AdvanceInvoiceEstimateInputParam):ChargebeeRequest<AdvanceInvoiceEstimateResponse>;
        
       /**
         * @description Regenerates the invoice for the current term of the subscription. The subscription must have &#x60;status&#x60; as &#x60;active&#x60; or &#x60;non_renewing&#x60;. This operation is not allowed when any of the following conditions hold true for the subscription:
@@ -200,14 +165,17 @@ Returns an &#x60;estimate&#x60; object with one of the following components depe
       regenerate_invoice_estimate(subscription_id:string, input?:RegenerateInvoiceEstimateInputParam):ChargebeeRequest<RegenerateInvoiceEstimateResponse>;
        
       /**
-        * @description Generates an estimate without creating a subscription. This endpoint can be called when you want to preview details of a new subscription before actually creating one.  
-**See also**
+        * @description Estimate of the upcoming scheduled invoices (subscription activations, renewals etc) of a customer. For now preview of the invoices generated on the immediate upcoming date is supported. Say a customer has couple of subscription renewals scheduled on *Jan,10th* and another subscription renewal scheduled on *Jan,15th* . This API gives the preview of all the invoices scheduled to be generated on *Jan,10th* (immediate upcoming date).
 
-* [Estimate a purchase](https://apidocs.chargebee.com/docs/api/purchases#estimates_for_purchase): an operation that estimates a &#x60;purchase&#x60; representing multiple subscriptions bought together by a customer.
+In the response:
+
+* **estimate.invoice_estimates\[\]** has details of the invoices scheduled to be generated.
+
+**Note:** If *consolidated invoicing* is enabled you may use this API to test whether upcoming renewals are consolidated.
 
         */
       
-      create_sub_item_for_customer_estimate(customer_id:string, input?:CreateSubItemForCustomerEstimateInputParam):ChargebeeRequest<CreateSubItemForCustomerEstimateResponse>;
+      upcoming_invoices_estimate(customer_id:string):ChargebeeRequest<UpcomingInvoicesEstimateResponse>;
        
       /**
         * @description Generates an estimate for the &#x27;change term end&#x27; operation. This is similar to the [Change term end](/docs/api/subscriptions#change_term_end) API but the subscription&#x27;s term end will not be changed, only an estimate for this operation is created. This is applicable only for subscriptions in &#x27;in-trial&#x27;, &#x27;active&#x27; and &#x27;non-renewing&#x27; states.
@@ -227,6 +195,13 @@ In the response,
       change_term_end(subscription_id:string, input:ChangeTermEndInputParam):ChargebeeRequest<ChangeTermEndResponse>;
        
       /**
+        * @description This creates an estimate for canceling a subscription without actually canceling it. Estimate details include canceling date, unbilled charge options, refund credit handling, the amount to be credited after cancellation, and so on.
+
+        */
+      
+      cancel_subscription_for_items(subscription_id:string, input?:CancelSubscriptionForItemsInputParam):ChargebeeRequest<CancelSubscriptionForItemsResponse>;
+       
+      /**
         * @description This API provides an estimate of the details pertaining to the [pause_subscription](/docs/api/subscriptions#pause_a_subscription) operation. It returns attributes such as [pause_date](/docs/api/estimates#estimate_subscription_estimate_pause_date) and [resume_date](/docs/api/estimates#estimate_subscription_estimate_resume_date). This is similar to the [Pause a subscription](/docs/api/subscriptions#pause_a_subscription) API with the exception that the subscription is not paused. Only an estimate for this operation is created.
 
 In the response,
@@ -240,108 +215,36 @@ In the response,
       pause_subscription(subscription_id:string, input?:PauseSubscriptionInputParam):ChargebeeRequest<PauseSubscriptionResponse>;
        
       /**
-        * @description This API is used to generate an invoice estimate for preview. Estimate details include the number of billing cycles to be invoiced in advance, the number of billing cycles in one interval, advance invoicing schedules, and so on.
+        * @description Generates an estimate for the &#x27;resume subscription&#x27; operation. This is similar to the [Resume a subscription](/docs/api/subscriptions#resume_a_subscription) API, but the subscription will not be resumed. Only an estimate for this operation is created.
+
+In the response,
+
+* **estimate.subscription_estimate** has the subscription details.
+* **estimate.invoice_estimate** has details of the invoice that will be generated immediately. This will not be present if no immediate invoice is generated for this operation. This will happen for in-term resumption^++^.   
+
+  **^++^What is an &quot;in-term resumption&quot;?**   
+  An &quot;in-term resumption&quot; is when the resumption happens within the billing term of the subscription.
+* **estimate.next_invoice_estimate** has details of the invoice that will be generated during the next billing date of this subscription. This will be present only if no immediate invoice is generated during this operation (scenario mentioned above) and this subscription has next billing.   
+
+  The generated invoice_estimate/next_invoice_estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any.
 
         */
       
-      advance_invoice_estimate(subscription_id:string, input?:AdvanceInvoiceEstimateInputParam):ChargebeeRequest<AdvanceInvoiceEstimateResponse>;
-    }
-    export interface RenewalEstimateResponse {  
-       estimate:Estimate;
-    }
-    export interface RenewalEstimateInputParam {
+      resume_subscription(subscription_id:string, input?:ResumeSubscriptionInputParam):ChargebeeRequest<ResumeSubscriptionResponse>;
        
       /**
-        * @description This returns an estimate of the amount that will be charged when the subscription is billed next. The estimate is calculated based on the current recurring items of the subscription - plan, addons, and coupons.
-
-In the response,
-
-* **estimate.subscription_estimate** has the current subscription details like its status, next billing date, and so on.
-* **estimate.invoice_estimate** has details of the invoice that will be generated at the next billing date.
-
-  The generated invoice estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any. If you don&#x27;t want these balances to be included you can specify &#x27;false&#x27; for the parameter *use_existing_balances*.
-
-  To exclude the [delayed charges](https://www.chargebee.com/docs/charges.html) from the invoice estimate, specify &#x27;false&#x27; for the parameter *include_delayed_charges*.
-
-**Note:**
-
-* This API will not generate a renewal invoice if an [advance invoice](https://www.chargebee.com/docs/advance-invoices.html) is already present for the subscription.
-* For &#x27;Non Renewing&#x27; subscriptions, only the [delayed charges](https://www.chargebee.com/docs/charges.html) will be included in the invoice estimate.
-* This API is not supported for &#x27;Cancelled&#x27; subscriptions.
-* Only the subscription&#x27;s charges will be included. If you have enabled the Consolidated invoicing feature, use the *Upcoming Invoices* estimate available for the Customer object to get the actual estimate invoice for the customer.
+        * @description This endpoint generates an estimate for a subscription that is intended to be a gift. The estimate provides details about the gift sender, gift recipient, address details of the recipient, and the type and details of subscription items included in the gift.
 
         */
-        
-      include_delayed_charges?:boolean;
+      
+      gift_subscription_for_items(input?:GiftSubscriptionForItemsInputParam):ChargebeeRequest<GiftSubscriptionForItemsResponse>;
        
       /**
-        * @description This returns an estimate of the amount that will be charged when the subscription is billed next. The estimate is calculated based on the current recurring items of the subscription - plan, addons, and coupons.
-
-In the response,
-
-* **estimate.subscription_estimate** has the current subscription details like its status, next billing date, and so on.
-* **estimate.invoice_estimate** has details of the invoice that will be generated at the next billing date.
-
-  The generated invoice estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any. If you don&#x27;t want these balances to be included you can specify &#x27;false&#x27; for the parameter *use_existing_balances*.
-
-  To exclude the [delayed charges](https://www.chargebee.com/docs/charges.html) from the invoice estimate, specify &#x27;false&#x27; for the parameter *include_delayed_charges*.
-
-**Note:**
-
-* This API will not generate a renewal invoice if an [advance invoice](https://www.chargebee.com/docs/advance-invoices.html) is already present for the subscription.
-* For &#x27;Non Renewing&#x27; subscriptions, only the [delayed charges](https://www.chargebee.com/docs/charges.html) will be included in the invoice estimate.
-* This API is not supported for &#x27;Cancelled&#x27; subscriptions.
-* Only the subscription&#x27;s charges will be included. If you have enabled the Consolidated invoicing feature, use the *Upcoming Invoices* estimate available for the Customer object to get the actual estimate invoice for the customer.
+        * @description This endpoint creates an invoice estimate for non-recurring items.
 
         */
-        
-      use_existing_balances?:boolean;
-       
-      /**
-        * @description This returns an estimate of the amount that will be charged when the subscription is billed next. The estimate is calculated based on the current recurring items of the subscription - plan, addons, and coupons.
-
-In the response,
-
-* **estimate.subscription_estimate** has the current subscription details like its status, next billing date, and so on.
-* **estimate.invoice_estimate** has details of the invoice that will be generated at the next billing date.
-
-  The generated invoice estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any. If you don&#x27;t want these balances to be included you can specify &#x27;false&#x27; for the parameter *use_existing_balances*.
-
-  To exclude the [delayed charges](https://www.chargebee.com/docs/charges.html) from the invoice estimate, specify &#x27;false&#x27; for the parameter *include_delayed_charges*.
-
-**Note:**
-
-* This API will not generate a renewal invoice if an [advance invoice](https://www.chargebee.com/docs/advance-invoices.html) is already present for the subscription.
-* For &#x27;Non Renewing&#x27; subscriptions, only the [delayed charges](https://www.chargebee.com/docs/charges.html) will be included in the invoice estimate.
-* This API is not supported for &#x27;Cancelled&#x27; subscriptions.
-* Only the subscription&#x27;s charges will be included. If you have enabled the Consolidated invoicing feature, use the *Upcoming Invoices* estimate available for the Customer object to get the actual estimate invoice for the customer.
-
-        */
-        
-      ignore_scheduled_cancellation?:boolean;
-       
-      /**
-        * @description This returns an estimate of the amount that will be charged when the subscription is billed next. The estimate is calculated based on the current recurring items of the subscription - plan, addons, and coupons.
-
-In the response,
-
-* **estimate.subscription_estimate** has the current subscription details like its status, next billing date, and so on.
-* **estimate.invoice_estimate** has details of the invoice that will be generated at the next billing date.
-
-  The generated invoice estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any. If you don&#x27;t want these balances to be included you can specify &#x27;false&#x27; for the parameter *use_existing_balances*.
-
-  To exclude the [delayed charges](https://www.chargebee.com/docs/charges.html) from the invoice estimate, specify &#x27;false&#x27; for the parameter *include_delayed_charges*.
-
-**Note:**
-
-* This API will not generate a renewal invoice if an [advance invoice](https://www.chargebee.com/docs/advance-invoices.html) is already present for the subscription.
-* For &#x27;Non Renewing&#x27; subscriptions, only the [delayed charges](https://www.chargebee.com/docs/charges.html) will be included in the invoice estimate.
-* This API is not supported for &#x27;Cancelled&#x27; subscriptions.
-* Only the subscription&#x27;s charges will be included. If you have enabled the Consolidated invoicing feature, use the *Upcoming Invoices* estimate available for the Customer object to get the actual estimate invoice for the customer.
-
-        */
-        
-      ignore_scheduled_changes?:boolean;
+      
+      create_invoice_for_items(input?:CreateInvoiceForItemsInputParam):ChargebeeRequest<CreateInvoiceForItemsResponse>;
     }
     export interface CreateSubItemEstimateResponse {  
        estimate:Estimate;
@@ -461,181 +364,53 @@ In the response,
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
-    export interface CancelSubscriptionForItemsResponse {  
+    export interface CreateSubItemForCustomerEstimateResponse {  
        estimate:Estimate;
     }
-    export interface CancelSubscriptionForItemsInputParam {
+    export interface CreateSubItemForCustomerEstimateInputParam {
        
       /**
-        * @description Set this to &#x60;true&#x60; if you want to cancel the subscription at the end of the current subscription billing cycle. The subscription &#x60;status&#x60; changes to &#x60;non_renewing&#x60;.
+        * @description The generated invoice_estimate/next_invoice_estimate will include all the balances - Promotional Credits, Refundable Credits, and Excess Payments - if any. If you don&#x27;t want these balances to be included you can specify &#x27;false&#x27; for the parameter *use_existing_balances*.
 
         */
        
-      end_of_term?:boolean;
+      use_existing_balances?:boolean;
        
       /**
-        * @description Specify the date/time at which you want to cancel the subscription. This parameter should not be provided when &#x60;end_of_term&#x60; is passed as &#x60;true&#x60;. &#x60;cancel_at&#x60; can be set to a value in the past. This is called backdating. Use backdating when the subscription has been canceled already but its billing has been delayed. The following prerequisites must be met to allow backdating:
-
-* Backdating must be enabled for subscription cancellation.
-* The current day of the month does not exceed the limit set in Chargebee for backdating subscription cancellation. This limit is typically the day of the month by which the accounting for the previous month must be closed.
-* The date is on or after &#x60;current_term_start&#x60;.
-* The date is on or after the last date/time any of the following changes were made:
-  * Changes in the recurring items or their prices.
-  * Addition of non-recurring items.
-* The date is not more than duration X into the past where X is the billing period of the plan. For example, if the period of the subscription&#x27;s plan is 2 months and today is 14th April, &#x60;changes_scheduled_at&#x60; cannot be earlier than 14th February.
-.
+        * @description If there are charges raised immediately for the subscription, this parameter specifies whether those charges are to be invoiced immediately or added to [unbilled charges](https://www.chargebee.com/docs/unbilled-charges.html). The default value is as per the [site settings](https://www.chargebee.com/docs/unbilled-charges.html#configuration).  
+**Note:** &#x60;invoice_immediately&#x60; only affects charges that are raised at the time of execution of this API call. Any charges scheduled to be raised in the future are not affected by this parameter. .
 
         */
        
-      cancel_at?:number;
+      invoice_immediately?:boolean;
        
       /**
-        * @description For immediate cancellation (&#x60;end_of_term&#x60; &#x3D; &#x60;false&#x60;), specify how to provide credits for current term charges. When not provided, the [site default](https://www.chargebee.com/docs/cancellations.html#configure-subscription-cancellation) is considered. \* none - No credits notes are created. \* full - Credits are issues for the full value of the current term charges. \* prorate - Prorated credits are issued.
+        * @description The number of billing cycles the subscription runs before canceling. If not provided, then the billing cycles [set for the plan-item price](https://apidocs.chargebee.com/docs/api/item_prices?prod_cat_ver&#x3D;2#item_price_billing_cycles) is used.
 
         */
        
-      credit_option_for_current_term_charges?:CreditOptionForCurrentTermCharges;
+      billing_cycles?:number;
        
       /**
-        * @description For immediate cancellation (&#x60;end_of_term&#x60; &#x3D; &#x60;false&#x60;), specify how to handle any unbilled charges. When not provided, the [site default](https://www.chargebee.com/docs/cancellations.html#configure-subscription-cancellation) is considered. \* invoice - An invoice is generated immediately with the unbilled charges. \* delete - The unbilled charges are deleted.
+        * @description Item ids of [mandatorily attached addons](./attached_items?prod_cat_ver&#x3D;2) that are to be removed from the subscription.
 
         */
        
-      unbilled_charges_option?:UnbilledChargesOption;
+      mandatory_items_to_remove?:string[];
        
       /**
-        * @description Applicable when the subscription has past due invoices. Specify this if you want to close the due invoices of the subscription. If specified as schedule_payment_collection/write_off, the due invoices of the subscription will be qualified for the selected operation after the remaining refundable credits and excess payments are applied. **Note:** The payment collection attempt will be asynchronous. Not applicable when &#x27;end_of_term&#x27; is true. \* no_action - No action is taken. \* write_off - The amount due in the invoices will be written-off. Credit notes created due to write-off will not be sent in the response. \* schedule_payment_collection - An automatic charge for the due amount of the past invoices will be attempted on the payment method available, if customer&#x27;s auto-collection property is &#x27;ON&#x27;.
+        * @description The number of subscription billing cycles (including the first one) to [invoice in advance](https://www.chargebee.com/docs/advance-invoices.html).
 
         */
        
-      account_receivables_handling?:AccountReceivablesHandling;
+      terms_to_charge?:number;
        
       /**
-        * @description Applicable when the customer has remaining refundable credits(issued against online payments). If specified as schedule_refund, the refund will be initiated for these credits after they are applied against the subscription&#x27;s past due invoices if any. **Note:** The refunds initiated will be asynchronous. Not applicable when &#x27;end_of_term&#x27; is true. \* schedule_refund - Initiates refund of the remaining credits. \* no_action - No action is taken.
+        * @description Override the [billing alignment mode](https://www.chargebee.com/docs/calendar-billing.html#alignment-of-billing-date) for Calendar Billing. Only applicable when using Calendar Billing. The default value is that which has been configured for the site. \* delayed - Subscription period will be aligned with the configured billing date at the next renewal. \* immediate - Subscription period will be aligned with the configured billing date immediately, with credits or charges raised accordingly..
 
         */
        
-      refundable_credits_handling?:RefundableCreditsHandling;
-       
-      /**
-        * @description Cancels the current contract term.
-
-* &#x60;terminate_immediately&#x60; immediately does the following:
-  * sets the contract term [&#x60;status&#x60;](contract_terms#contract_term_status) to &#x60;terminated&#x60;.
-  * Cancels the subscription.
-  * Collects any [termination fee](contract_terms#termintation_fee).
-* &#x60;end_of_contract_term&#x60; Sets the [&#x60;contract_term[action_at_term_end]&#x60;](contract_terms#contract_term_action_at_term_end) to &#x60;cancel&#x60;. In other words, the contract term is not renewed and the subscription is canceled at the end of the contract term.
-. \* terminate_immediately - Terminate immediately \* end_of_contract_term - End of contract term
-
-        */
-       
-      contract_term_cancel_option?:ContractTermCancelOption;
-       
-      /**
-        * @description The document date displayed on the invoice PDF. The default value is the current date. Provide this value to backdate the invoice. Backdating an invoice is done for reasons such as booking revenue for a previous date or when the subscription is effective as of a past date. Moreover, if &#x60;create_pending_invoices&#x60; is &#x60;true&#x60;, and if the site is configured to set invoice dates to date of closing, then upon invoice closure, this date is changed to the invoice closing date. &#x60;taxes&#x60; and &#x60;line_item_taxes&#x60; are computed based on the &#x60;tax&#x60; configuration as of &#x60;invoice_date&#x60;. When passing this parameter, the following prerequisites must be met:
-
-* &#x60;invoice_date&#x60; must be in the past.
-* &#x60;invoice_date&#x60; is not more than one calendar month into the past. For example, if today is 13th January, then you cannot pass a value that is earlier than 13th December.
-* It is not earlier than &#x60;cancel_at&#x60;.
-.
-
-        */
-       
-      invoice_date?:number;
-       
-      /**
-        * @description Reason code for canceling the subscription. Must be one from a list of reason codes set in the Chargebee app in **Settings \&gt; Configure Chargebee \&gt; Reason Codes \&gt; Subscriptions \&gt; Subscription Cancellation**. Must be passed if set as mandatory in the app. The codes are case-sensitive.
-
-        */
-       
-      cancel_reason_code?:string;
-       
-      /**
-        * @description Parameters for subscription_items
-
-        */
-       
-      subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
-    }
-    export interface ResumeSubscriptionResponse {  
-       estimate:Estimate;
-    }
-    export interface ResumeSubscriptionInputParam {
-       
-      /**
-        * @description List of options to resume the subscription. \* immediately - Resume immediately \* specific_date - Resume on a specific date
-
-        */
-       
-      resume_option?:ResumeOption;
-       
-      /**
-        * @description Applicable when charges get added during this operation and **resume_option** is set as &#x27;immediately&#x27;. Allows to raise invoice immediately or add them to unbilled charges. \* add_to_unbilled_charges - Add to unbilled charges \* invoice_immediately - Invoice immediately
-
-        */
-       
-      charges_handling?:ChargesHandling;
-       
-      /**
-        * @description Parameters for subscription
-
-        */
-       
-      subscription?:{resume_date?:number};
-    }
-    export interface CreateInvoiceForItemsResponse {  
-       estimate:Estimate;
-    }
-    export interface CreateInvoiceForItemsInputParam {
-       
-      /**
-        * @description The currency code (ISO 4217 format) of the invoice amount.
-
-        */
-       
-      currency_code?:string;
-       
-      /**
-        * @description A note for this particular invoice. This, and [all other notes](/docs/api/invoices#invoice_notes) for the invoice are displayed on the PDF invoice sent to the customer.
-
-        */
-       
-      invoice_note?:string;
-       
-      /**
-        * @description Set as &#x60;true&#x60; to remove the **[general note](https://www.chargebee.com/docs/invoice_notes.html#adding-general-notes)** from this invoice.
-
-        */
-       
-      remove_general_note?:boolean;
-       
-      /**
-        * @description List of Coupons to be added.
-
-        */
-       
-      coupon_ids?:string[];
-       
-      /**
-        * @description Authorization transaction to be captured.
-
-        */
-       
-      authorization_transaction_id?:string;
-       
-      /**
-        * @description Payment source to be used for this payment.
-
-        */
-       
-      payment_source_id?:string;
-       
-      /**
-        * @description The customer level auto collection will be override if specified. \* on - Whenever an invoice is created, an automatic attempt will be made to charge. \* off - Whenever an invoice is created as payment due.
-
-        */
-       
-      auto_collection?:AutoCollection;
+      billing_alignment_mode?:BillingAlignmentMode;
        
       /**
         * @description The document date displayed on the invoice PDF. By default, it is the date of creation of the invoice or, when Metered Billing is enabled, it can be the date of closing the invoice. Provide this value to backdate the invoice (set the invoice date to a value in the past). Backdating an invoice is done for reasons such as booking revenue for a previous date or when the non-recurring charge is effective as of a past date. &#x60;taxes&#x60; and &#x60;line_item_taxes&#x60; are computed based on the tax configuration as of this date. The date should not be more than one calendar month into the past. For example, if today is 13th January, then you cannot pass a value that is earlier than 13th December.
@@ -645,60 +420,6 @@ In the response,
       invoice_date?:number;
        
       /**
-        * @description Parameters for invoice
-
-        */
-       
-      invoice?:{customer_id?:string,po_number?:string,subscription_id?:string};
-       
-      /**
-        * @description Parameters for shipping_address
-
-        */
-       
-      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
-       
-      /**
-        * @description Parameters for item_prices
-
-        */
-       
-      item_prices?:{date_from?:number,date_to?:number,item_price_id?:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string}[];
-       
-      /**
-        * @description Parameters for item_tiers
-
-        */
-       
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
-       
-      /**
-        * @description Parameters for charges
-
-        */
-       
-      charges?:{amount?:number,amount_in_decimal?:string,avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_tax_code?:string,avalara_transaction_type?:number,date_from?:number,date_to?:number,description?:string,hsn_code?:string,tax_profile_id?:string,taxable?:boolean,taxjar_product_code?:string}[];
-       
-      /**
-        * @description Parameters for notes_to_remove
-
-        */
-       
-      notes_to_remove?:{entity_id?:string,entity_type?:EntityType}[];
-       
-      /**
-        * @description Parameters for discounts
-
-        */
-       
-      discounts?:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
-    }
-    export interface GiftSubscriptionForItemsResponse {  
-       estimate:Estimate;
-    }
-    export interface GiftSubscriptionForItemsInputParam {
-       
-      /**
         * @description List of coupons to be applied to this subscription. You can provide coupon ids or coupon codes.
 
         */
@@ -706,46 +427,46 @@ In the response,
       coupon_ids?:string[];
        
       /**
-        * @description Parameters for gift
+        * @description Parameters for subscription
 
         */
        
-      gift?:{auto_claim?:boolean,claim_expiry_date?:number,no_expiry?:boolean,scheduled_at?:number};
-       
-      /**
-        * @description Parameters for gifter
-
-        */
-       
-      gifter?:{customer_id:string,note?:string,payment_src_id?:string,signature:string};
-       
-      /**
-        * @description Parameters for gift_receiver
-
-        */
-       
-      gift_receiver?:{customer_id:string,email:string,first_name:string,last_name:string};
-       
-      /**
-        * @description Parameters for payment_intent
-
-        */
-       
-      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card',reference_id?:string};
+      subscription?:{contract_term_billing_cycle_on_renewal?:number,free_period?:number,free_period_unit?:FreePeriodUnit,id?:string,start_date?:number,trial_end?:number,trial_end_action?:TrialEndAction};
        
       /**
         * @description Parameters for shipping_address
 
         */
        
-      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
+      shipping_address?:{city?:string,country?:string,line1?:string,line2?:string,line3?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
+       
+      /**
+        * @description Parameters for contract_term
+
+        */
+       
+      contract_term?:{action_at_term_end?:'cancel' | 'renew' | 'evergreen',cancellation_cutoff_period?:number};
        
       /**
         * @description Parameters for subscription_items
 
         */
        
-      subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string}[];
+      subscription_items?:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+       
+      /**
+        * @description Parameters for discounts
+
+        */
+       
+      discounts?:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+       
+      /**
+        * @description Parameters for item_tiers
+
+        */
+       
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
     export interface UpdateSubscriptionForItemsResponse {  
        estimate:Estimate;
@@ -940,214 +661,102 @@ An immediate previous change was made
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
-    export interface UpcomingInvoicesEstimateResponse {  
+    export interface RenewalEstimateResponse {  
        estimate:Estimate;
     }
-    
-    export interface RegenerateInvoiceEstimateResponse {  
-       estimate:Estimate;
-    }
-    export interface RegenerateInvoiceEstimateInputParam {
+    export interface RenewalEstimateInputParam {
        
       /**
-        * @description The start date of the period being invoiced. The default value is [current_term_start](https://apidocs.chargebee.com/docs/api/subscriptions#subscription_current_term_start ).
+        * @description This returns an estimate of the amount that will be charged when the subscription is billed next. The estimate is calculated based on the current recurring items of the subscription - plan, addons, and coupons.
+
+In the response,
+
+* **estimate.subscription_estimate** has the current subscription details like its status, next billing date, and so on.
+* **estimate.invoice_estimate** has details of the invoice that will be generated at the next billing date.
+
+  The generated invoice estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any. If you don&#x27;t want these balances to be included you can specify &#x27;false&#x27; for the parameter *use_existing_balances*.
+
+  To exclude the [delayed charges](https://www.chargebee.com/docs/charges.html) from the invoice estimate, specify &#x27;false&#x27; for the parameter *include_delayed_charges*.
+
+**Note:**
+
+* This API will not generate a renewal invoice if an [advance invoice](https://www.chargebee.com/docs/advance-invoices.html) is already present for the subscription.
+* For &#x27;Non Renewing&#x27; subscriptions, only the [delayed charges](https://www.chargebee.com/docs/charges.html) will be included in the invoice estimate.
+* This API is not supported for &#x27;Cancelled&#x27; subscriptions.
+* Only the subscription&#x27;s charges will be included. If you have enabled the Consolidated invoicing feature, use the *Upcoming Invoices* estimate available for the Customer object to get the actual estimate invoice for the customer.
 
         */
-       
-      date_from?:number;
+        
+      include_delayed_charges?:boolean;
        
       /**
-        * @description The end date of the period being invoiced. The default value is [current_term_end](https://apidocs.chargebee.com/docs/api/subscriptions#subscription_current_term_end ).
+        * @description This returns an estimate of the amount that will be charged when the subscription is billed next. The estimate is calculated based on the current recurring items of the subscription - plan, addons, and coupons.
+
+In the response,
+
+* **estimate.subscription_estimate** has the current subscription details like its status, next billing date, and so on.
+* **estimate.invoice_estimate** has details of the invoice that will be generated at the next billing date.
+
+  The generated invoice estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any. If you don&#x27;t want these balances to be included you can specify &#x27;false&#x27; for the parameter *use_existing_balances*.
+
+  To exclude the [delayed charges](https://www.chargebee.com/docs/charges.html) from the invoice estimate, specify &#x27;false&#x27; for the parameter *include_delayed_charges*.
+
+**Note:**
+
+* This API will not generate a renewal invoice if an [advance invoice](https://www.chargebee.com/docs/advance-invoices.html) is already present for the subscription.
+* For &#x27;Non Renewing&#x27; subscriptions, only the [delayed charges](https://www.chargebee.com/docs/charges.html) will be included in the invoice estimate.
+* This API is not supported for &#x27;Cancelled&#x27; subscriptions.
+* Only the subscription&#x27;s charges will be included. If you have enabled the Consolidated invoicing feature, use the *Upcoming Invoices* estimate available for the Customer object to get the actual estimate invoice for the customer.
 
         */
-       
-      date_to?:number;
-       
-      /**
-        * @description Whether the charges should be prorated according to the term specified by &#x60;date_from&#x60; and &#x60;date_to&#x60;. Should not be passed without &#x60;date_from&#x60; and &#x60;date_to&#x60;.
-
-        */
-       
-      prorate?:boolean;
-       
-      /**
-        * @description Only applicable when [Consolidated Invoicing](https://www.chargebee.com/docs/consolidated-invoicing.html ) is enabled for the customer. Set to &#x60;false&#x60; to leave the current term charge for the subscription as [unbilled](https://www.chargebee.com/docs/unbilled-charges.html ). Once you have done this for all suitable subscriptions of the customer, call [Create an invoice for unbilled charges](https://apidocs.chargebee.com/docs/api/unbilled_charges#create_an_invoice_for_unbilled_charges ) to invoice them.
-
-        */
-       
-      invoice_immediately?:boolean;
-    }
-    export interface CreateSubItemForCustomerEstimateResponse {  
-       estimate:Estimate;
-    }
-    export interface CreateSubItemForCustomerEstimateInputParam {
-       
-      /**
-        * @description The generated invoice_estimate/next_invoice_estimate will include all the balances - Promotional Credits, Refundable Credits, and Excess Payments - if any. If you don&#x27;t want these balances to be included you can specify &#x27;false&#x27; for the parameter *use_existing_balances*.
-
-        */
-       
+        
       use_existing_balances?:boolean;
        
       /**
-        * @description If there are charges raised immediately for the subscription, this parameter specifies whether those charges are to be invoiced immediately or added to [unbilled charges](https://www.chargebee.com/docs/unbilled-charges.html). The default value is as per the [site settings](https://www.chargebee.com/docs/unbilled-charges.html#configuration).  
-**Note:** &#x60;invoice_immediately&#x60; only affects charges that are raised at the time of execution of this API call. Any charges scheduled to be raised in the future are not affected by this parameter. .
+        * @description This returns an estimate of the amount that will be charged when the subscription is billed next. The estimate is calculated based on the current recurring items of the subscription - plan, addons, and coupons.
+
+In the response,
+
+* **estimate.subscription_estimate** has the current subscription details like its status, next billing date, and so on.
+* **estimate.invoice_estimate** has details of the invoice that will be generated at the next billing date.
+
+  The generated invoice estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any. If you don&#x27;t want these balances to be included you can specify &#x27;false&#x27; for the parameter *use_existing_balances*.
+
+  To exclude the [delayed charges](https://www.chargebee.com/docs/charges.html) from the invoice estimate, specify &#x27;false&#x27; for the parameter *include_delayed_charges*.
+
+**Note:**
+
+* This API will not generate a renewal invoice if an [advance invoice](https://www.chargebee.com/docs/advance-invoices.html) is already present for the subscription.
+* For &#x27;Non Renewing&#x27; subscriptions, only the [delayed charges](https://www.chargebee.com/docs/charges.html) will be included in the invoice estimate.
+* This API is not supported for &#x27;Cancelled&#x27; subscriptions.
+* Only the subscription&#x27;s charges will be included. If you have enabled the Consolidated invoicing feature, use the *Upcoming Invoices* estimate available for the Customer object to get the actual estimate invoice for the customer.
 
         */
-       
-      invoice_immediately?:boolean;
+        
+      ignore_scheduled_cancellation?:boolean;
        
       /**
-        * @description The number of billing cycles the subscription runs before canceling. If not provided, then the billing cycles [set for the plan-item price](https://apidocs.chargebee.com/docs/api/item_prices?prod_cat_ver&#x3D;2#item_price_billing_cycles) is used.
+        * @description This returns an estimate of the amount that will be charged when the subscription is billed next. The estimate is calculated based on the current recurring items of the subscription - plan, addons, and coupons.
+
+In the response,
+
+* **estimate.subscription_estimate** has the current subscription details like its status, next billing date, and so on.
+* **estimate.invoice_estimate** has details of the invoice that will be generated at the next billing date.
+
+  The generated invoice estimate will include all the balances - [Promotional Credits](https://www.chargebee.com/docs/promotional-credits.html), Refundable Credits, and Excess Payments - if any. If you don&#x27;t want these balances to be included you can specify &#x27;false&#x27; for the parameter *use_existing_balances*.
+
+  To exclude the [delayed charges](https://www.chargebee.com/docs/charges.html) from the invoice estimate, specify &#x27;false&#x27; for the parameter *include_delayed_charges*.
+
+**Note:**
+
+* This API will not generate a renewal invoice if an [advance invoice](https://www.chargebee.com/docs/advance-invoices.html) is already present for the subscription.
+* For &#x27;Non Renewing&#x27; subscriptions, only the [delayed charges](https://www.chargebee.com/docs/charges.html) will be included in the invoice estimate.
+* This API is not supported for &#x27;Cancelled&#x27; subscriptions.
+* Only the subscription&#x27;s charges will be included. If you have enabled the Consolidated invoicing feature, use the *Upcoming Invoices* estimate available for the Customer object to get the actual estimate invoice for the customer.
 
         */
-       
-      billing_cycles?:number;
-       
-      /**
-        * @description Item ids of [mandatorily attached addons](./attached_items?prod_cat_ver&#x3D;2) that are to be removed from the subscription.
-
-        */
-       
-      mandatory_items_to_remove?:string[];
-       
-      /**
-        * @description The number of subscription billing cycles (including the first one) to [invoice in advance](https://www.chargebee.com/docs/advance-invoices.html).
-
-        */
-       
-      terms_to_charge?:number;
-       
-      /**
-        * @description Override the [billing alignment mode](https://www.chargebee.com/docs/calendar-billing.html#alignment-of-billing-date) for Calendar Billing. Only applicable when using Calendar Billing. The default value is that which has been configured for the site. \* delayed - Subscription period will be aligned with the configured billing date at the next renewal. \* immediate - Subscription period will be aligned with the configured billing date immediately, with credits or charges raised accordingly..
-
-        */
-       
-      billing_alignment_mode?:BillingAlignmentMode;
-       
-      /**
-        * @description The document date displayed on the invoice PDF. By default, it is the date of creation of the invoice or, when Metered Billing is enabled, it can be the date of closing the invoice. Provide this value to backdate the invoice (set the invoice date to a value in the past). Backdating an invoice is done for reasons such as booking revenue for a previous date or when the non-recurring charge is effective as of a past date. &#x60;taxes&#x60; and &#x60;line_item_taxes&#x60; are computed based on the tax configuration as of this date. The date should not be more than one calendar month into the past. For example, if today is 13th January, then you cannot pass a value that is earlier than 13th December.
-
-        */
-       
-      invoice_date?:number;
-       
-      /**
-        * @description List of coupons to be applied to this subscription. You can provide coupon ids or coupon codes.
-
-        */
-       
-      coupon_ids?:string[];
-       
-      /**
-        * @description Parameters for subscription
-
-        */
-       
-      subscription?:{contract_term_billing_cycle_on_renewal?:number,free_period?:number,free_period_unit?:FreePeriodUnit,id?:string,start_date?:number,trial_end?:number,trial_end_action?:TrialEndAction};
-       
-      /**
-        * @description Parameters for shipping_address
-
-        */
-       
-      shipping_address?:{city?:string,country?:string,line1?:string,line2?:string,line3?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
-       
-      /**
-        * @description Parameters for contract_term
-
-        */
-       
-      contract_term?:{action_at_term_end?:'cancel' | 'renew' | 'evergreen',cancellation_cutoff_period?:number};
-       
-      /**
-        * @description Parameters for subscription_items
-
-        */
-       
-      subscription_items?:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
-       
-      /**
-        * @description Parameters for discounts
-
-        */
-       
-      discounts?:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
-       
-      /**
-        * @description Parameters for item_tiers
-
-        */
-       
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
-    }
-    export interface ChangeTermEndResponse {  
-       estimate:Estimate;
-    }
-    export interface ChangeTermEndInputParam {
-       
-      /**
-        * @description The time at which the current term should end for this subscription.
-
-        */
-       
-      term_ends_at:number;
-       
-      /**
-        * @description Applicable for *active* / *non_renewing* subscriptions. If specified as *true* prorated charges / credits will be added during this operation.
-
-        */
-       
-      prorate?:boolean;
-       
-      /**
-        * @description If there are charges raised immediately for the subscription, this parameter specifies whether those charges are to be invoiced immediately or added to [unbilled charges](https://www.chargebee.com/docs/unbilled-charges.html). The default value is as per the [site settings](https://www.chargebee.com/docs/unbilled-charges.html#configuration).  
-**Note:** &#x60;invoice_immediately&#x60; only affects charges that are raised at the time of execution of this API call. Any charges scheduled to be raised in the future are not affected by this parameter. .
-
-        */
-       
-      invoice_immediately?:boolean;
-    }
-    export interface PauseSubscriptionResponse {  
-       estimate:Estimate;
-    }
-    export interface PauseSubscriptionInputParam {
-       
-      /**
-        * @description List of options to pause the subscription. \* billing_cycles -
-
-Pause at the end of the current term, and resume automatically after the number of billing cycles you specify in [skip_billing_cycles](/docs/api/estimates?prod_cat_ver&#x3D;2#pause_subscription_estimate_subscription_skip_billing_cycles)
-\* immediately - Pause immediately
-\* end_of_term - Pause at the end of current term
-\* specific_date - Pause on a specific date
-
-        */
-       
-      pause_option?:PauseOption;
-       
-      /**
-        * @description Applicable when unbilled charges are present for the subscription and [pause_option](/docs/api/estimates#pause_subscription_estimate_pause_option) is set as &#x60;immediately&#x60;. **Note:** On the invoice raised, an automatic charge is attempted on the payment method available, if customer&#x27;s auto-collection property is set to &#x60;on&#x60;.
-\* invoice -
-
-Invoice charges
-
-If &#x60;invoice&#x60; is chosen, an automatic charge is attempted on the payment method available if the customer has enabled auto-collection. If a payment collection fails or when auto-collection is not enabled, the invoice is closed as unpaid.
-\* no_action -
-
-Retain as unbilled
-
-If &#x60;no_action&#x60; is chosen, charges are added to the resumption invoice.
-
-        */
-       
-      unbilled_charges_handling?:UnbilledChargesHandling;
-       
-      /**
-        * @description Parameters for subscription
-
-        */
-       
-      subscription?:{pause_date?:number,resume_date?:number,skip_billing_cycles?:number};
+        
+      ignore_scheduled_changes?:boolean;
     }
     export interface AdvanceInvoiceEstimateResponse {  
        estimate:Estimate;
@@ -1190,6 +799,397 @@ If &#x60;no_action&#x60; is chosen, charges are added to the resumption invoice.
         */
        
       specific_dates_schedule?:{date?:number,terms_to_charge?:number}[];
+    }
+    export interface RegenerateInvoiceEstimateResponse {  
+       estimate:Estimate;
+    }
+    export interface RegenerateInvoiceEstimateInputParam {
+       
+      /**
+        * @description The start date of the period being invoiced. The default value is [current_term_start](https://apidocs.chargebee.com/docs/api/subscriptions#subscription_current_term_start ).
+
+        */
+       
+      date_from?:number;
+       
+      /**
+        * @description The end date of the period being invoiced. The default value is [current_term_end](https://apidocs.chargebee.com/docs/api/subscriptions#subscription_current_term_end ).
+
+        */
+       
+      date_to?:number;
+       
+      /**
+        * @description Whether the charges should be prorated according to the term specified by &#x60;date_from&#x60; and &#x60;date_to&#x60;. Should not be passed without &#x60;date_from&#x60; and &#x60;date_to&#x60;.
+
+        */
+       
+      prorate?:boolean;
+       
+      /**
+        * @description Only applicable when [Consolidated Invoicing](https://www.chargebee.com/docs/consolidated-invoicing.html ) is enabled for the customer. Set to &#x60;false&#x60; to leave the current term charge for the subscription as [unbilled](https://www.chargebee.com/docs/unbilled-charges.html ). Once you have done this for all suitable subscriptions of the customer, call [Create an invoice for unbilled charges](https://apidocs.chargebee.com/docs/api/unbilled_charges#create_an_invoice_for_unbilled_charges ) to invoice them.
+
+        */
+       
+      invoice_immediately?:boolean;
+    }
+    export interface UpcomingInvoicesEstimateResponse {  
+       estimate:Estimate;
+    }
+    
+    export interface ChangeTermEndResponse {  
+       estimate:Estimate;
+    }
+    export interface ChangeTermEndInputParam {
+       
+      /**
+        * @description The time at which the current term should end for this subscription.
+
+        */
+       
+      term_ends_at:number;
+       
+      /**
+        * @description Applicable for *active* / *non_renewing* subscriptions. If specified as *true* prorated charges / credits will be added during this operation.
+
+        */
+       
+      prorate?:boolean;
+       
+      /**
+        * @description If there are charges raised immediately for the subscription, this parameter specifies whether those charges are to be invoiced immediately or added to [unbilled charges](https://www.chargebee.com/docs/unbilled-charges.html). The default value is as per the [site settings](https://www.chargebee.com/docs/unbilled-charges.html#configuration).  
+**Note:** &#x60;invoice_immediately&#x60; only affects charges that are raised at the time of execution of this API call. Any charges scheduled to be raised in the future are not affected by this parameter. .
+
+        */
+       
+      invoice_immediately?:boolean;
+    }
+    export interface CancelSubscriptionForItemsResponse {  
+       estimate:Estimate;
+    }
+    export interface CancelSubscriptionForItemsInputParam {
+       
+      /**
+        * @description Set this to &#x60;true&#x60; if you want to cancel the subscription at the end of the current subscription billing cycle. The subscription &#x60;status&#x60; changes to &#x60;non_renewing&#x60;.
+
+        */
+       
+      end_of_term?:boolean;
+       
+      /**
+        * @description Specify the date/time at which you want to cancel the subscription. This parameter should not be provided when &#x60;end_of_term&#x60; is passed as &#x60;true&#x60;. &#x60;cancel_at&#x60; can be set to a value in the past. This is called backdating. Use backdating when the subscription has been canceled already but its billing has been delayed. The following prerequisites must be met to allow backdating:
+
+* Backdating must be enabled for subscription cancellation.
+* The current day of the month does not exceed the limit set in Chargebee for backdating subscription cancellation. This limit is typically the day of the month by which the accounting for the previous month must be closed.
+* The date is on or after &#x60;current_term_start&#x60;.
+* The date is on or after the last date/time any of the following changes were made:
+  * Changes in the recurring items or their prices.
+  * Addition of non-recurring items.
+* The date is not more than duration X into the past where X is the billing period of the plan. For example, if the period of the subscription&#x27;s plan is 2 months and today is 14th April, &#x60;changes_scheduled_at&#x60; cannot be earlier than 14th February.
+.
+
+        */
+       
+      cancel_at?:number;
+       
+      /**
+        * @description For immediate cancellation (&#x60;end_of_term&#x60; &#x3D; &#x60;false&#x60;), specify how to provide credits for current term charges. When not provided, the [site default](https://www.chargebee.com/docs/cancellations.html#configure-subscription-cancellation) is considered. \* none - No credits notes are created. \* full - Credits are issues for the full value of the current term charges. \* prorate - Prorated credits are issued.
+
+        */
+       
+      credit_option_for_current_term_charges?:CreditOptionForCurrentTermCharges;
+       
+      /**
+        * @description For immediate cancellation (&#x60;end_of_term&#x60; &#x3D; &#x60;false&#x60;), specify how to handle any unbilled charges. When not provided, the [site default](https://www.chargebee.com/docs/cancellations.html#configure-subscription-cancellation) is considered. \* invoice - An invoice is generated immediately with the unbilled charges. \* delete - The unbilled charges are deleted.
+
+        */
+       
+      unbilled_charges_option?:UnbilledChargesOption;
+       
+      /**
+        * @description Applicable when the subscription has past due invoices. Specify this if you want to close the due invoices of the subscription. If specified as schedule_payment_collection/write_off, the due invoices of the subscription will be qualified for the selected operation after the remaining refundable credits and excess payments are applied. **Note:** The payment collection attempt will be asynchronous. Not applicable when &#x27;end_of_term&#x27; is true. \* no_action - No action is taken. \* write_off - The amount due in the invoices will be written-off. Credit notes created due to write-off will not be sent in the response. \* schedule_payment_collection - An automatic charge for the due amount of the past invoices will be attempted on the payment method available, if customer&#x27;s auto-collection property is &#x27;ON&#x27;.
+
+        */
+       
+      account_receivables_handling?:AccountReceivablesHandling;
+       
+      /**
+        * @description Applicable when the customer has remaining refundable credits(issued against online payments). If specified as schedule_refund, the refund will be initiated for these credits after they are applied against the subscription&#x27;s past due invoices if any. **Note:** The refunds initiated will be asynchronous. Not applicable when &#x27;end_of_term&#x27; is true. \* schedule_refund - Initiates refund of the remaining credits. \* no_action - No action is taken.
+
+        */
+       
+      refundable_credits_handling?:RefundableCreditsHandling;
+       
+      /**
+        * @description Cancels the current contract term.
+
+* &#x60;terminate_immediately&#x60; immediately does the following:
+  * sets the contract term [&#x60;status&#x60;](contract_terms#contract_term_status) to &#x60;terminated&#x60;.
+  * Cancels the subscription.
+  * Collects any [termination fee](contract_terms#termintation_fee).
+* &#x60;end_of_contract_term&#x60; Sets the [&#x60;contract_term[action_at_term_end]&#x60;](contract_terms#contract_term_action_at_term_end) to &#x60;cancel&#x60;. In other words, the contract term is not renewed and the subscription is canceled at the end of the contract term.
+. \* terminate_immediately - Terminate immediately \* end_of_contract_term - End of contract term
+
+        */
+       
+      contract_term_cancel_option?:ContractTermCancelOption;
+       
+      /**
+        * @description The document date displayed on the invoice PDF. The default value is the current date. Provide this value to backdate the invoice. Backdating an invoice is done for reasons such as booking revenue for a previous date or when the subscription is effective as of a past date. Moreover, if &#x60;create_pending_invoices&#x60; is &#x60;true&#x60;, and if the site is configured to set invoice dates to date of closing, then upon invoice closure, this date is changed to the invoice closing date. &#x60;taxes&#x60; and &#x60;line_item_taxes&#x60; are computed based on the &#x60;tax&#x60; configuration as of &#x60;invoice_date&#x60;. When passing this parameter, the following prerequisites must be met:
+
+* &#x60;invoice_date&#x60; must be in the past.
+* &#x60;invoice_date&#x60; is not more than one calendar month into the past. For example, if today is 13th January, then you cannot pass a value that is earlier than 13th December.
+* It is not earlier than &#x60;cancel_at&#x60;.
+.
+
+        */
+       
+      invoice_date?:number;
+       
+      /**
+        * @description Reason code for canceling the subscription. Must be one from a list of reason codes set in the Chargebee app in **Settings \&gt; Configure Chargebee \&gt; Reason Codes \&gt; Subscriptions \&gt; Subscription Cancellation**. Must be passed if set as mandatory in the app. The codes are case-sensitive.
+
+        */
+       
+      cancel_reason_code?:string;
+       
+      /**
+        * @description Parameters for subscription_items
+
+        */
+       
+      subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+    }
+    export interface PauseSubscriptionResponse {  
+       estimate:Estimate;
+    }
+    export interface PauseSubscriptionInputParam {
+       
+      /**
+        * @description List of options to pause the subscription. \* billing_cycles -
+
+Pause at the end of the current term, and resume automatically after the number of billing cycles you specify in [skip_billing_cycles](/docs/api/estimates?prod_cat_ver&#x3D;2#pause_subscription_estimate_subscription_skip_billing_cycles)
+\* immediately - Pause immediately
+\* end_of_term - Pause at the end of current term
+\* specific_date - Pause on a specific date
+
+        */
+       
+      pause_option?:PauseOption;
+       
+      /**
+        * @description Applicable when unbilled charges are present for the subscription and [pause_option](/docs/api/estimates#pause_subscription_estimate_pause_option) is set as &#x60;immediately&#x60;. **Note:** On the invoice raised, an automatic charge is attempted on the payment method available, if customer&#x27;s auto-collection property is set to &#x60;on&#x60;.
+\* invoice -
+
+Invoice charges
+
+If &#x60;invoice&#x60; is chosen, an automatic charge is attempted on the payment method available if the customer has enabled auto-collection. If a payment collection fails or when auto-collection is not enabled, the invoice is closed as unpaid.
+\* no_action -
+
+Retain as unbilled
+
+If &#x60;no_action&#x60; is chosen, charges are added to the resumption invoice.
+
+        */
+       
+      unbilled_charges_handling?:UnbilledChargesHandling;
+       
+      /**
+        * @description Parameters for subscription
+
+        */
+       
+      subscription?:{pause_date?:number,resume_date?:number,skip_billing_cycles?:number};
+    }
+    export interface ResumeSubscriptionResponse {  
+       estimate:Estimate;
+    }
+    export interface ResumeSubscriptionInputParam {
+       
+      /**
+        * @description List of options to resume the subscription. \* immediately - Resume immediately \* specific_date - Resume on a specific date
+
+        */
+       
+      resume_option?:ResumeOption;
+       
+      /**
+        * @description Applicable when charges get added during this operation and **resume_option** is set as &#x27;immediately&#x27;. Allows to raise invoice immediately or add them to unbilled charges. \* add_to_unbilled_charges - Add to unbilled charges \* invoice_immediately - Invoice immediately
+
+        */
+       
+      charges_handling?:ChargesHandling;
+       
+      /**
+        * @description Parameters for subscription
+
+        */
+       
+      subscription?:{resume_date?:number};
+    }
+    export interface GiftSubscriptionForItemsResponse {  
+       estimate:Estimate;
+    }
+    export interface GiftSubscriptionForItemsInputParam {
+       
+      /**
+        * @description List of coupons to be applied to this subscription. You can provide coupon ids or coupon codes.
+
+        */
+       
+      coupon_ids?:string[];
+       
+      /**
+        * @description Parameters for gift
+
+        */
+       
+      gift?:{auto_claim?:boolean,claim_expiry_date?:number,no_expiry?:boolean,scheduled_at?:number};
+       
+      /**
+        * @description Parameters for gifter
+
+        */
+       
+      gifter?:{customer_id:string,note?:string,payment_src_id?:string,signature:string};
+       
+      /**
+        * @description Parameters for gift_receiver
+
+        */
+       
+      gift_receiver?:{customer_id:string,email:string,first_name:string,last_name:string};
+       
+      /**
+        * @description Parameters for payment_intent
+
+        */
+       
+      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card',reference_id?:string};
+       
+      /**
+        * @description Parameters for shipping_address
+
+        */
+       
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
+       
+      /**
+        * @description Parameters for subscription_items
+
+        */
+       
+      subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string}[];
+    }
+    export interface CreateInvoiceForItemsResponse {  
+       estimate:Estimate;
+    }
+    export interface CreateInvoiceForItemsInputParam {
+       
+      /**
+        * @description The currency code (ISO 4217 format) of the invoice amount.
+
+        */
+       
+      currency_code?:string;
+       
+      /**
+        * @description A note for this particular invoice. This, and [all other notes](/docs/api/invoices#invoice_notes) for the invoice are displayed on the PDF invoice sent to the customer.
+
+        */
+       
+      invoice_note?:string;
+       
+      /**
+        * @description Set as &#x60;true&#x60; to remove the **[general note](https://www.chargebee.com/docs/invoice_notes.html#adding-general-notes)** from this invoice.
+
+        */
+       
+      remove_general_note?:boolean;
+       
+      /**
+        * @description List of Coupons to be added.
+
+        */
+       
+      coupon_ids?:string[];
+       
+      /**
+        * @description Authorization transaction to be captured.
+
+        */
+       
+      authorization_transaction_id?:string;
+       
+      /**
+        * @description Payment source to be used for this payment.
+
+        */
+       
+      payment_source_id?:string;
+       
+      /**
+        * @description The customer level auto collection will be override if specified. \* on - Whenever an invoice is created, an automatic attempt will be made to charge. \* off - Whenever an invoice is created as payment due.
+
+        */
+       
+      auto_collection?:AutoCollection;
+       
+      /**
+        * @description The document date displayed on the invoice PDF. By default, it is the date of creation of the invoice or, when Metered Billing is enabled, it can be the date of closing the invoice. Provide this value to backdate the invoice (set the invoice date to a value in the past). Backdating an invoice is done for reasons such as booking revenue for a previous date or when the non-recurring charge is effective as of a past date. &#x60;taxes&#x60; and &#x60;line_item_taxes&#x60; are computed based on the tax configuration as of this date. The date should not be more than one calendar month into the past. For example, if today is 13th January, then you cannot pass a value that is earlier than 13th December.
+
+        */
+       
+      invoice_date?:number;
+       
+      /**
+        * @description Parameters for invoice
+
+        */
+       
+      invoice?:{customer_id?:string,po_number?:string,subscription_id?:string};
+       
+      /**
+        * @description Parameters for shipping_address
+
+        */
+       
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
+       
+      /**
+        * @description Parameters for item_prices
+
+        */
+       
+      item_prices?:{date_from?:number,date_to?:number,item_price_id?:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string}[];
+       
+      /**
+        * @description Parameters for item_tiers
+
+        */
+       
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+       
+      /**
+        * @description Parameters for charges
+
+        */
+       
+      charges?:{amount?:number,amount_in_decimal?:string,avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_tax_code?:string,avalara_transaction_type?:number,date_from?:number,date_to?:number,description?:string,hsn_code?:string,tax_profile_id?:string,taxable?:boolean,taxjar_product_code?:string}[];
+       
+      /**
+        * @description Parameters for notes_to_remove
+
+        */
+       
+      notes_to_remove?:{entity_id?:string,entity_type?:EntityType}[];
+       
+      /**
+        * @description Parameters for discounts
+
+        */
+       
+      discounts?:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
     }
     
   }

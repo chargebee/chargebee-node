@@ -71,49 +71,49 @@ declare module 'chargebee' {
     export interface ListInputParam {
       [key : string]: any;  
       /**
-        * @description The number of resources to be returned.
+        * @description This endpoint lists the site migration details.
 
         */
         
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description This endpoint lists the site migration details.
 
         */
         
       offset?:string;
        
       /**
-        * @description Entity Id of the record in the other site.
+        * @description This endpoint lists the site migration details.
 
         */
         
       entity_id_at_other_site?:{is?:string,is_not?:string,starts_with?:string};
        
       /**
-        * @description Site name to which the record is moved in/out.
+        * @description This endpoint lists the site migration details.
 
         */
         
       other_site_name?:{is?:string,is_not?:string,starts_with?:string};
        
       /**
-        * @description Id of the entity in this site.
+        * @description This endpoint lists the site migration details.
 
         */
         
       entity_id?:{is?:string,is_not?:string,starts_with?:string};
        
       /**
-        * @description Entity Type of the record
+        * @description This endpoint lists the site migration details.
 
         */
         
       entity_type?:{in?:string,is?:'credit_note' | 'subscription' | 'invoice' | 'transaction' | 'customer' | 'order',is_not?:'credit_note' | 'subscription' | 'invoice' | 'transaction' | 'customer' | 'order',not_in?:string};
        
       /**
-        * @description Status of the migration
+        * @description This endpoint lists the site migration details.
 
         */
         

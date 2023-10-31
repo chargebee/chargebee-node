@@ -166,7 +166,7 @@ In-App Subscriptions is currently in early access. Contact [eap@chargebee.com](m
     channel?:Channel;
     
     /**
-      * @description A set of key-value pairs stored as additional information for the item. [Learn more](./#meta_data).
+      * @description A collection of key-value pairs that provides extra information about the item. [Learn more](advanced-features#metadata).
 
       */
     
@@ -184,25 +184,11 @@ Other details of attaching items can be specified using the [Create](./attached_
   export namespace Item {
     export class ItemResource {  
       /**
-        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
-
-        */
-      
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
-       
-      /**
         * @description Creates a new item.
 
         */
       
       create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
-       
-      /**
-        * @description Deletes an item, marking its &#x60;status&#x60; as deleted. This is not allowed if there are &#x60;active&#x60; or &#x60;archived&#x60; item prices under the item. Once deleted, the id and name of the item can be reused.
-
-        */
-      
-      delete(item_id:string):ChargebeeRequest<DeleteResponse>;
        
       /**
         * @description Retrieve an item resource.
@@ -217,136 +203,20 @@ Other details of attaching items can be specified using the [Create](./attached_
         */
       
       update(item_id:string, input?:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
-    }
-    export interface ListResponse {  
-      /**
-        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
-
-        */
-       
-       list:{item:Item}[];
        
       /**
         * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
 
         */
-       
-       next_offset?:string;
-    }
-    export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
+      
+      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Deletes an item, marking its &#x60;status&#x60; as deleted. This is not allowed if there are &#x60;active&#x60; or &#x60;archived&#x60; item prices under the item. Once deleted, the id and name of the item can be reused.
 
         */
-        
-      offset?:string;
-       
-      /**
-        * @description Filter items based on item id.
-
-        */
-        
-      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description Filter items based on &#x60;item_family_id&#x60;.
-
-        */
-        
-      item_family_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description Filter items based on item &#x60;type&#x60;.
-
-        */
-        
-      type?:{in?:string,is?:'charge' | 'addon' | 'plan',is_not?:'charge' | 'addon' | 'plan',not_in?:string};
-       
-      /**
-        * @description Filter items based on item &#x60;name&#x60;.
-
-        */
-        
-      name?:{is?:string,is_not?:string,starts_with?:string};
-       
-      /**
-        * @description Filter items based on &#x60;item_applicability&#x60;.
-
-        */
-        
-      item_applicability?:{in?:string,is?:'all' | 'restricted',is_not?:'all' | 'restricted',not_in?:string};
-       
-      /**
-        * @description Filter items based on item &#x60;status&#x60;.
-
-        */
-        
-      status?:{in?:string,is?:'archived' | 'deleted' | 'active',is_not?:'archived' | 'deleted' | 'active',not_in?:string};
-       
-      /**
-        * @description Specifies if gift subscriptions can be created for this item.
-
-        */
-        
-      is_giftable?:{is?:'true' | 'false'};
-       
-      /**
-        * @description Filter items based on when the items were last updated.
-
-        */
-        
-      updated_at?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description Allow the plan to subscribed to via Checkout. Applies only for plan-items.   
-**Note:** Only the in-app version of Checkout is supported for Product Catalog v2.
-
-        */
-        
-      enabled_for_checkout?:{is?:'true' | 'false'};
-       
-      /**
-        * @description Allow customers to change their subscription to this plan via the [Self-Serve Portal](https://www.chargebee.com/docs/2.0/inapp-self-serve-portal.html). Applies only for plan-items. This requires the Portal configuration to [allow changing subscriptions](https://www.chargebee.com/docs/2.0/inapp-self-serve-portal.html#allow-change-subscription).
-
-        */
-        
-      enabled_in_portal?:{is?:'true' | 'false'};
-       
-      /**
-        * @description Specifies whether the item undergoes metered billing. When &#x60;true&#x60;, the quantity is calculated from [usage records](/docs/api/usages?prod_cat_ver&#x3D;2). When &#x60;false&#x60;, the &#x60;quantity&#x60; is as determined while adding an item price to the subscription. Applicable only for items of &#x60;type&#x60; &#x60;plan&#x60; or &#x60;addon&#x60; and when [Metered Billing](https://www.chargebee.com/docs/2.0/metered_billing.html) is enabled. The value of this attribute cannot be changed.
-
-        */
-        
-      metered?:{is?:'true' | 'false'};
-       
-      /**
-        * @description How the quantity is calculated from usage data for the item prices belonging to this item. Only applicable when the item is &#x60;metered&#x60;. This value overrides the one [set at the site level](https://www.chargebee.com/docs/2.0/metered_billing.html#configuring-metered-billing).
-
-        */
-        
-      usage_calculation?:{in?:string,is?:'max_usage' | 'sum_of_usages' | 'last_usage',is_not?:'max_usage' | 'sum_of_usages' | 'last_usage',not_in?:string};
-       
-      /**
-        * @description The subscription channel this object originated from and is maintained in.
-
-        */
-        
-      channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string};
-       
-      /**
-        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
-
-        */
-        
-      sort_by?:{asc?:'updated_at' | 'name' | 'id',desc?:'updated_at' | 'name' | 'id'};
+      
+      delete(item_id:string):ChargebeeRequest<DeleteResponse>;
     }
     export interface CreateResponse {  
        item:Item;
@@ -487,16 +357,14 @@ Other details of attaching items can be specified using the [Create](./attached_
       usage_calculation?:'max_usage' | 'sum_of_usages' | 'last_usage';
        
       /**
-        * @description A set of key-value pairs stored as additional information for the item. [Learn more](./#meta_data).
+        * @description A collection of key-value pairs that provides extra information about the item.  
+**Note:** There&#x27;s a character limit of 65,535.
+[Learn more](advanced-features#metadata).
 
         */
        
       metadata?:object;
     }
-    export interface DeleteResponse {  
-       item:Item;
-    }
-    
     export interface RetrieveResponse {  
        item:Item;
     }
@@ -598,7 +466,7 @@ Other details of attaching items can be specified using the [Create](./attached_
       gift_claim_redirect_url?:string;
        
       /**
-        * @description A set of key-value pairs stored as additional information for the item. [Learn more](./#meta_data).
+        * @description A collection of key-value pairs that provides extra information about the item. [Learn more](advanced-features#metadata).
 
         */
        
@@ -618,7 +486,145 @@ Other details of attaching items can be specified using the [Create](./attached_
        
       status?:'archived' | 'active';
     }
+    export interface ListResponse {  
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+       
+       list:{item:Item}[];
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+       
+       next_offset?:string;
+    }
+    export interface ListInputParam {
+      [key : string]: any;  
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      offset?:string;
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      item_family_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      type?:{in?:string,is?:'charge' | 'addon' | 'plan',is_not?:'charge' | 'addon' | 'plan',not_in?:string};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      name?:{is?:string,is_not?:string,starts_with?:string};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      item_applicability?:{in?:string,is?:'all' | 'restricted',is_not?:'all' | 'restricted',not_in?:string};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      status?:{in?:string,is?:'archived' | 'deleted' | 'active',is_not?:'archived' | 'deleted' | 'active',not_in?:string};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      is_giftable?:{is?:'true' | 'false'};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      updated_at?:{after?:string,before?:string,between?:string,on?:string};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      enabled_for_checkout?:{is?:'true' | 'false'};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      enabled_in_portal?:{is?:'true' | 'false'};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      metered?:{is?:'true' | 'false'};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      usage_calculation?:{in?:string,is?:'max_usage' | 'sum_of_usages' | 'last_usage',is_not?:'max_usage' | 'sum_of_usages' | 'last_usage',not_in?:string};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string};
+       
+      /**
+        * @description Returns a list of items satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      sort_by?:{asc?:'updated_at' | 'name' | 'id',desc?:'updated_at' | 'name' | 'id'};
+    }
+    export interface DeleteResponse {  
+       item:Item;
+    }
+    
     export interface ApplicableItem {  
+         /**
+          * @description Id of the addon-item or plan-item that can be applied to the plan-item.
+
+          */
+       
       id?:string;
     }
   }

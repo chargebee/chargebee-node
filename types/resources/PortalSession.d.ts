@@ -103,18 +103,11 @@ declare module 'chargebee' {
       create(input?:CreateInputParam):ChargebeeRequest<CreateResponse>;
        
       /**
-        * @description When an user is sent back to your return URL with session details, you should validate that information by calling this API. The details passed to the **return_url** should be sent as below:
-
-* **auth_session_id** - this should be sent as part of the endpoint.
-* **auth_session_token** - this should be sent as value for the input parameter **token**.
-
-
-
-**Note:** This API is not applicable for [in-app](https://www.chargebee.com/docs/v3-self-serve-portal.html) portal.
+        * @description This API retrieves a portal session using &#x60;portal_session_id&#x60; as a path parameter.
 
         */
       
-      activate(portal_session_id:string, input:ActivateInputParam):ChargebeeRequest<ActivateResponse>;
+      retrieve(portal_session_id:string):ChargebeeRequest<RetrieveResponse>;
        
       /**
         * @description Logs out the portal session. Typically this should be called when customers logout of your application.
@@ -130,11 +123,18 @@ If this API is called for a Portal Session that currently is in :
       logout(portal_session_id:string):ChargebeeRequest<LogoutResponse>;
        
       /**
-        * @description This API retrieves a portal session using &#x60;portal_session_id&#x60; as a path parameter.
+        * @description When an user is sent back to your return URL with session details, you should validate that information by calling this API. The details passed to the **return_url** should be sent as below:
+
+* **auth_session_id** - this should be sent as part of the endpoint.
+* **auth_session_token** - this should be sent as value for the input parameter **token**.
+
+
+
+**Note:** This API is not applicable for [in-app](https://www.chargebee.com/docs/v3-self-serve-portal.html) portal.
 
         */
       
-      retrieve(portal_session_id:string):ChargebeeRequest<RetrieveResponse>;
+      activate(portal_session_id:string, input:ActivateInputParam):ChargebeeRequest<ActivateResponse>;
     }
     export interface CreateResponse {  
        portal_session:PortalSession;
@@ -164,6 +164,14 @@ If this API is called for a Portal Session that currently is in :
        
       customer?:{id:string};
     }
+    export interface RetrieveResponse {  
+       portal_session:PortalSession;
+    }
+    
+    export interface LogoutResponse {  
+       portal_session:PortalSession;
+    }
+    
     export interface ActivateResponse {  
        portal_session:PortalSession;
     }
@@ -176,22 +184,39 @@ If this API is called for a Portal Session that currently is in :
        
       token:string;
     }
-    export interface LogoutResponse {  
-       portal_session:PortalSession;
-    }
-    
-    export interface RetrieveResponse {  
-       portal_session:PortalSession;
-    }
-    
     export interface LinkedCustomer {  
-      customer_id?:string;
+         /**
+          * @description Identifier of the customer.
+
+          */
+       
+      customer_id:string;
+       
+         /**
+          * @description Email of the customer. Configured email notifications will be sent to this email.
+
+          */
        
       email?:string;
        
+         /**
+          * @description The customer has billing address.
+
+          */
+       
       has_billing_address?:boolean;
        
+         /**
+          * @description The customer has payment method.
+
+          */
+       
       has_payment_method?:boolean;
+       
+         /**
+          * @description The customer has atleast one active subscription.
+
+          */
        
       has_active_subscription?:boolean;
     }

@@ -114,88 +114,6 @@ If multiple [business entities](/docs/api/advanced-features#mbe) are created for
       checkout_one_time_for_items(input?:CheckoutOneTimeForItemsInputParam):ChargebeeRequest<CheckoutOneTimeForItemsResponse>;
        
       /**
-        * @description **Note:** If you&#x27;re using [In-App Checkout](https://www.chargebee.com/docs/2.0/checkout.html), use [Manage Payment Sources API](/docs/api/hosted_pages#manage_payment_sources) to request your customers to update their payment method details or change their payment method.
-
-Using this API, you can request your customers to update their payment method details or change their payment method. This is used in scenarios like customers updating their payment methods before the end of trial or customers switching among payment methods.
-
-When this API is invoked, it returns a hosted page URL. When the customers are directed to this URL, they will be able to change/update their payment methods.
-
-Depending on the payment methods (Card, PayPal Express Checkout, Amazon Payments) that you offer your customers, they will find options to switch among the various methods of payment.
-**Note:**
-
-* If the card\[gateway\] parameter is passed, and the customer chooses Card as a payment method, then the card details are stored in the gateway which is passed. However, if the card\[gateway\] parameter is passed and the customer chooses PayPal Express Checkout/Amazon Payments as a payment method, the gateway passed will be ignored.
-* The option of embedding into an iframe is not supported for PayPal Express Checkout and Amazon Payments as customers are redirected to the respective website pages. Hence if you have PayPal Express Checkout/Amazon Payments configured and pass the parameter embed&#x3D;true, this will result in an unsuccessful API request. Also, if you have all the three payment methods (Card, Paypal Express Checkout and Amazon Payments) configured and pass the parameter embed&#x3D;true, the returned hosted page URL will show only Card Payment as a payment method.
-
-        */
-      
-      update_payment_method(input?:UpdatePaymentMethodInputParam):ChargebeeRequest<UpdatePaymentMethodResponse>;
-       
-      /**
-        * @description This API generates a hosted page URL to extend the billing cycle of a subscription.
-
-        */
-      
-      extend_subscription(input?:ExtendSubscriptionInputParam):ChargebeeRequest<ExtendSubscriptionResponse>;
-       
-      /**
-        * @description Use this API to notify Chargebee about important events that occur on your web pages, such as subscription cancellations. An event contains data about affected resources and additional details such as when the change occurred.
-
-        */
-      
-      events(input:EventsInputParam):ChargebeeRequest<EventsResponse>;
-       
-      /**
-        * @description Creates a hosted page for a customer (called the gifter) to gift a subscription to another customer (called the receiver).
-
-#### Gifter customer resource lookup and creation {#gifter_lookup}
-
-When [gifter[customer_id]](/docs/api/hosted_pages#checkout_gift_subscription_for_items_gifter_customer_id) is provided, it is looked up in Chargebee when the gifter completes the hosted page checkout. If not found, a new customer resource is created with this ID.
-
-##### Multiple business entities
-
-If multiple [business entities](/docs/api/advanced-features?prod_cat_ver&#x3D;2#mbe) are created for the site, the lookup and creation of the gifter customer resource happen within the [context](/docs/api/advanced-features#mbe-context) of the business entity specified in this API call. If no business entity is [specified](/docs/api/advanced-features#mbe-header-main), the customer resource lookup is performed within the [site context](/docs/api/advanced-features#mbe-context), and if not found, the resource is created for the [default business entity](/docs/api/advanced-features#mbe-default-be) of the site.
-
-#### Gift receiver customer resource lookup and creation {#receiver_lookup}
-
-Once the gifter checks out using the hosted page returned by this endpoint, Chargebee checks if a customer resource with the receiver&#x27;s email address exists. The first such customer record is considered the receiver&#x27;s customer resource. A new customer resource is created for the receiver if none are found.
-
-##### Multiple business entities
-
-If multiple [business entities](/docs/api/advanced-features?prod_cat_ver&#x3D;2#mbe) are created for the site, the lookup and creation of the gift receiver&#x27;s customer resource happen within the [context](/docs/api/advanced-features#mbe-context) of the business entity of the gifter
-
-        */
-      
-      checkout_gift_for_items(input?:CheckoutGiftForItemsInputParam):ChargebeeRequest<CheckoutGiftForItemsResponse>;
-       
-      /**
-        * @description This API retrieves the list of hosted page resources.
-
-        */
-      
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
-       
-      /**
-        * @description Creates a &#x60;hosted_page&#x60; resource of type, &#x60;view_voucher&#x60;. When your end customers choose the Boleto payment method, you can generate a voucher for their pending invoice. Using this API, you can create a voucher_detail hosted page for your customers and email them a link to this hosted page. Your customers can review the voucher details on the page by clicking the link in the email.
-
-        */
-      
-      view_voucher(input?:ViewVoucherInputParam):ChargebeeRequest<ViewVoucherResponse>;
-       
-      /**
-        * @description This API generates a hosted page URL to collect due payments for the customer.
-
-        */
-      
-      collect_now(input?:CollectNowInputParam):ChargebeeRequest<CollectNowResponse>;
-       
-      /**
-        * @description This API generates a hosted page URL for the customer to accept a quote. If the hosted page URL has expired, a new URL will be generated automatically.
-
-        */
-      
-      accept_quote(input?:AcceptQuoteInputParam):ChargebeeRequest<AcceptQuoteResponse>;
-       
-      /**
         * @description Create a Chargebee hosted page to accept payment details from a customer and checkout a new subscription.
 
 The following steps describe how best to use this API:
@@ -221,13 +139,6 @@ If multiple [business entities](/docs/api/advanced-features?prod_cat_ver&#x3D;2#
       checkout_new_for_items(input?:CheckoutNewForItemsInputParam):ChargebeeRequest<CheckoutNewForItemsResponse>;
        
       /**
-        * @description This API generates a hosted page URL to claim a gifted subscription.
-
-        */
-      
-      claim_gift(input?:ClaimGiftInputParam):ChargebeeRequest<ClaimGiftResponse>;
-       
-      /**
         * @description Create a Chargebee hosted page to accept payment details from a customer and checkout to update the subscription.
 
 The following steps describe how best to use this API:
@@ -246,21 +157,79 @@ The following steps describe how best to use this API:
       checkout_existing_for_items(input?:CheckoutExistingForItemsInputParam):ChargebeeRequest<CheckoutExistingForItemsResponse>;
        
       /**
-        * @description Creates a &#x60;hosted_page&#x60; resource of &#x60;type&#x60; &#x60;pre_cancel&#x60;. Route canceling users to this page to provide them a retention experience and start saving revenue.  
-The hosted page is created in accordance with the retention experience [configured in the Chargebee Retention app](https://help.brightback.com/article/239-steps-to-get-brightback-ready-to-launch-for-chargebee-billing-merchants), along with the data provided as input to this endpoint. Call the endpoint before your customer clicks the **Cancel** button, and when they do, route them to the [url](https://apidocs.chargebee.com/docs/api/hosted_pages#hosted_page_url) in the endpoint response.
+        * @description **Note:** If you&#x27;re using [In-App Checkout](https://www.chargebee.com/docs/2.0/checkout.html), use [Manage Payment Sources API](/docs/api/hosted_pages#manage_payment_sources) to request your customers to update their payment method details or change their payment method.
+
+Using this API, you can request your customers to update their payment method details or change their payment method. This is used in scenarios like customers updating their payment methods before the end of trial or customers switching among payment methods.
+
+When this API is invoked, it returns a hosted page URL. When the customers are directed to this URL, they will be able to change/update their payment methods.
+
+Depending on the payment methods (Card, PayPal Express Checkout, Amazon Payments) that you offer your customers, they will find options to switch among the various methods of payment.
+**Note:**
+
+* If the card\[gateway\] parameter is passed, and the customer chooses Card as a payment method, then the card details are stored in the gateway which is passed. However, if the card\[gateway\] parameter is passed and the customer chooses PayPal Express Checkout/Amazon Payments as a payment method, the gateway passed will be ignored.
+* The option of embedding into an iframe is not supported for PayPal Express Checkout and Amazon Payments as customers are redirected to the respective website pages. Hence if you have PayPal Express Checkout/Amazon Payments configured and pass the parameter embed&#x3D;true, this will result in an unsuccessful API request. Also, if you have all the three payment methods (Card, Paypal Express Checkout and Amazon Payments) configured and pass the parameter embed&#x3D;true, the returned hosted page URL will show only Card Payment as a payment method.
 
         */
       
-      pre_cancel(input?:PreCancelInputParam):ChargebeeRequest<PreCancelResponse>;
+      update_payment_method(input?:UpdatePaymentMethodInputParam):ChargebeeRequest<UpdatePaymentMethodResponse>;
        
       /**
-        * @description When a hosted page is successfully completed by the user and processed by Chargebee, its [&#x60;state&#x60;](hosted_pages#hosted_page_state) is automatically changed to &#x60;succeeded&#x60;. Acknowledging a hosted page confirms that you have moved the customer details from Chargebee into your system and are ready to fulfill it. This API is used to acknowledge the hosted page in &#x60;succeeded&#x60; state and change its state to &#x60;acknowledged&#x60;.  
-
-**Note:** The hosted page status must be succeeded for this API call to be allowed.
+        * @description This API generates a hosted page URL to add new or update existing payment sources for the customer.
 
         */
       
-      acknowledge(hosted_page_id:string):ChargebeeRequest<AcknowledgeResponse>;
+      manage_payment_sources(input?:ManagePaymentSourcesInputParam):ChargebeeRequest<ManagePaymentSourcesResponse>;
+       
+      /**
+        * @description This API generates a hosted page URL to collect due payments for the customer.
+
+        */
+      
+      collect_now(input?:CollectNowInputParam):ChargebeeRequest<CollectNowResponse>;
+       
+      /**
+        * @description This API generates a hosted page URL for the customer to accept a quote. If the hosted page URL has expired, a new URL will be generated automatically.
+
+        */
+      
+      accept_quote(input?:AcceptQuoteInputParam):ChargebeeRequest<AcceptQuoteResponse>;
+       
+      /**
+        * @description This API generates a hosted page URL to extend the billing cycle of a subscription.
+
+        */
+      
+      extend_subscription(input?:ExtendSubscriptionInputParam):ChargebeeRequest<ExtendSubscriptionResponse>;
+       
+      /**
+        * @description Creates a hosted page for a customer (called the gifter) to gift a subscription to another customer (called the receiver).
+
+#### Gifter customer resource lookup and creation {#gifter_lookup}
+
+When [gifter[customer_id]](/docs/api/hosted_pages#checkout_gift_subscription_for_items_gifter_customer_id) is provided, it is looked up in Chargebee when the gifter completes the hosted page checkout. If not found, a new customer resource is created with this ID.
+
+##### Multiple business entities
+
+If multiple [business entities](/docs/api/advanced-features?prod_cat_ver&#x3D;2#mbe) are created for the site, the lookup and creation of the gifter customer resource happen within the [context](/docs/api/advanced-features#mbe-context) of the business entity specified in this API call. If no business entity is [specified](/docs/api/advanced-features#mbe-header-main), the customer resource lookup is performed within the [site context](/docs/api/advanced-features#mbe-context), and if not found, the resource is created for the [default business entity](/docs/api/advanced-features#mbe-default-be) of the site.
+
+#### Gift receiver customer resource lookup and creation {#receiver_lookup}
+
+Once the gifter checks out using the hosted page returned by this endpoint, Chargebee checks if a customer resource with the receiver&#x27;s email address exists. The first such customer record is considered the receiver&#x27;s customer resource. A new customer resource is created for the receiver if none are found.
+
+##### Multiple business entities
+
+If multiple [business entities](/docs/api/advanced-features?prod_cat_ver&#x3D;2#mbe) are created for the site, the lookup and creation of the gift receiver&#x27;s customer resource happen within the [context](/docs/api/advanced-features#mbe-context) of the business entity of the gifter
+
+        */
+      
+      checkout_gift_for_items(input?:CheckoutGiftForItemsInputParam):ChargebeeRequest<CheckoutGiftForItemsResponse>;
+       
+      /**
+        * @description This API generates a hosted page URL to claim a gifted subscription.
+
+        */
+      
+      claim_gift(input?:ClaimGiftInputParam):ChargebeeRequest<ClaimGiftResponse>;
        
       /**
         * @description This is applicable only for Direct Debit via SEPA, Bacs, Bg Autogiro, BECS (for both Australia and New Zealand) and PAD. For Direct Debit, the customer needs to accept an agreement that allows the merchant to debit their bank account. This agreement PDF allows you to easily display scheme-rules compliant Direct Debit mandates to your customers.
@@ -272,6 +241,15 @@ Customer locale is used to generate the PDF in the required language. If a custo
         */
       
       retrieve_agreement_pdf(input:RetrieveAgreementPdfInputParam):ChargebeeRequest<RetrieveAgreementPdfResponse>;
+       
+      /**
+        * @description When a hosted page is successfully completed by the user and processed by Chargebee, its [&#x60;state&#x60;](hosted_pages#hosted_page_state) is automatically changed to &#x60;succeeded&#x60;. Acknowledging a hosted page confirms that you have moved the customer details from Chargebee into your system and are ready to fulfill it. This API is used to acknowledge the hosted page in &#x60;succeeded&#x60; state and change its state to &#x60;acknowledged&#x60;.  
+
+**Note:** The hosted page status must be succeeded for this API call to be allowed.
+
+        */
+      
+      acknowledge(hosted_page_id:string):ChargebeeRequest<AcknowledgeResponse>;
        
       /**
         * @description When you retrieve a hosted page whose &#x60;status&#x60; is &#x60;successful&#x60;, the &#x60;content&#x60; attribute has the following objects based on the &#x60;type&#x60; of the hosted page.
@@ -290,11 +268,33 @@ Customer locale is used to generate the PDF in the required language. If a custo
       retrieve(hosted_page_id:string):ChargebeeRequest<RetrieveResponse>;
        
       /**
-        * @description This API generates a hosted page URL to add new or update existing payment sources for the customer.
+        * @description This API retrieves the list of hosted page resources.
 
         */
       
-      manage_payment_sources(input?:ManagePaymentSourcesInputParam):ChargebeeRequest<ManagePaymentSourcesResponse>;
+      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
+       
+      /**
+        * @description Creates a &#x60;hosted_page&#x60; resource of &#x60;type&#x60; &#x60;pre_cancel&#x60;. Route canceling users to this page to provide them a retention experience and start saving revenue.  
+The hosted page is created in accordance with the retention experience [configured in the Chargebee Retention app](https://help.brightback.com/article/239-steps-to-get-brightback-ready-to-launch-for-chargebee-billing-merchants), along with the data provided as input to this endpoint. Call the endpoint before your customer clicks the **Cancel** button, and when they do, route them to the [url](https://apidocs.chargebee.com/docs/api/hosted_pages#hosted_page_url) in the endpoint response.
+
+        */
+      
+      pre_cancel(input?:PreCancelInputParam):ChargebeeRequest<PreCancelResponse>;
+       
+      /**
+        * @description Use this API to notify Chargebee about important events that occur on your web pages, such as subscription cancellations. An event contains data about affected resources and additional details such as when the change occurred.
+
+        */
+      
+      events(input:EventsInputParam):ChargebeeRequest<EventsResponse>;
+       
+      /**
+        * @description Creates a &#x60;hosted_page&#x60; resource of type, &#x60;view_voucher&#x60;. When your end customers choose the Boleto payment method, you can generate a voucher for their pending invoice. Using this API, you can create a voucher_detail hosted page for your customers and email them a link to this hosted page. Your customers can review the voucher details on the page by clicking the link in the email.
+
+        */
+      
+      view_voucher(input?:ViewVoucherInputParam):ChargebeeRequest<ViewVoucherResponse>;
     }
     export interface CheckoutOneTimeForItemsResponse {  
        hosted_page:HostedPage;
@@ -445,313 +445,6 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
         */
        
       entity_identifiers?:{id?:string,operation?:Operation,scheme?:string,standard?:string,value?:string}[];
-    }
-    export interface UpdatePaymentMethodResponse {  
-       hosted_page:HostedPage;
-    }
-    export interface UpdatePaymentMethodInputParam {
-       
-      /**
-        * @description The customers will be redirected to this URL upon successful checkout. The hosted page id and state will be passed as parameters to this URL.  
-
-**Note** :
-
-* Although the customer will be redirected to the &#x60;redirect_url&#x60; after successful checkout, we do not recommend relying on it for completing critical post-checkout actions. This is because redirection may not happen due to unforeseen reasons such as user closing the tab, or exiting the browser, and so on. If there is any synchronization that you are doing after the redirection, you will have to have a backup. Chargebee recommends listening to appropriate webhooks such as [&#x60;subscription_created&#x60;](https://apidocs.chargebee.com/docs/api/events#subscription_created) or [&#x60;invoice_generated&#x60;](https://apidocs.chargebee.com/docs/api/events#invoice_generated)to verify a successful checkout.
-* Redirect URL configured in Settings \&gt; Hosted Pages Settings would be overriden by this redirect URL.
-* *Eg :* *http://yoursite.com?id&#x3D;* *\&lt;hosted_page_id\&gt;\&amp;state&#x3D;succeeded*
-* This parameter is not applicable for iframe messaging.
-
-        */
-       
-      redirect_url?:string;
-       
-      /**
-        * @description The customers will be redirected to this URL upon canceling checkout. The hosted page id and state will be passed as parameters to this URL.   
-
-**Note** :
-
-* Cancel URL configured in Settings \&gt; Hosted Pages Settings would be overriden by this cancel URL.  
-  *Eg : http://yoursite.com?id&#x3D;\&lt;hosted_page_id\&gt;\&amp;state&#x3D;cancelled*
-* This parameter is not applicable for iframe messaging and [in-app](https://www.chargebee.com/docs/2.0/checkout.html) checkout.
-
-        */
-       
-      cancel_url?:string;
-       
-      /**
-        * @description You can pass through any content specific to the hosted page request and get it back after user had submitted the hosted page.
-
-        */
-       
-      pass_thru_content?:string;
-       
-      /**
-        * @description If true then iframe will communicate with the parent window. Applicable only for embedded(iframe) hosted pages. If you&#x27;re using iframe_messaging you need to implement onSuccess \&amp; onCancel callbacks.  
-
-**Note** : This parameter is not applicable for [in-app](https://www.chargebee.com/docs/checkout-v3.html) checkout.
-
-        */
-       
-      iframe_messaging?:boolean;
-       
-      /**
-        * @description Parameters for customer
-
-        */
-       
-      customer?:{id:string};
-       
-      /**
-        * @description Parameters for card
-
-        */
-       
-      card?:{gateway_account_id?:string};
-    }
-    export interface ExtendSubscriptionResponse {  
-       hosted_page:HostedPage;
-    }
-    export interface ExtendSubscriptionInputParam {
-       
-      /**
-        * @description Expiry (in days) for the link generated. No expiry will be set if this is not specified.
-
-        */
-       
-      expiry?:number;
-       
-      /**
-        * @description Number of billing cycles to extend. If not specified, plan&#x27;s billing cycle will be used.
-
-        */
-       
-      billing_cycle?:number;
-       
-      /**
-        * @description Parameters for subscription
-
-        */
-       
-      subscription?:{id:string};
-    }
-    export interface EventsResponse {  
-       success:boolean;
-    }
-    export interface EventsInputParam {
-       
-      /**
-        * @description null
-
-        */
-       
-      event_name:EventName;
-       
-      /**
-        * @description Timestamp indicating when this event had occurred. .
-
-        */
-       
-      occurred_at?:number;
-       
-      /**
-        * @description The meta data description of the event in key-value pair. The value is a JSON object with the following keys and their values.
-
-* &#x60;subscription_id&#x60;: A unique and immutable identifier for the subscription.
-.
-
-        */
-       
-      event_data:object;
-    }
-    export interface CheckoutGiftForItemsResponse {  
-       hosted_page:HostedPage;
-    }
-    export interface CheckoutGiftForItemsInputParam {
-       
-      /**
-        * @description Sets the [context]() for this operation to the [business entity](/docs/api/advanced-features?prod_cat_ver&#x3D;2#mbe) specified. Applicable only when multiple business entities have been created for the site. When this parameter is provided, the operation is able to read/write data associated only to the business entity specified. When not provided, the operation can read/write data for the entire site.  
-**Note**
-
-An alternative way of passing this parameter is by means of a [custom HTTP header](/docs/api/advanced-features?prod_cat_ver&#x3D;2#mbe-header-main).  
-**See also**
-
-Gifter customer resource lookup and creation.
-
-        */
-       
-      business_entity_id?:string;
-       
-      /**
-        * @description The customers will be redirected to this URL upon successful checkout. The hosted page id and state will be passed as parameters to this URL.  
-
-**Note** :
-
-* Although the customer will be redirected to the &#x60;redirect_url&#x60; after successful checkout, we do not recommend relying on it for completing critical post-checkout actions. This is because redirection may not happen due to unforeseen reasons such as user closing the tab, or exiting the browser, and so on. If there is any synchronization that you are doing after the redirection, you will have to have a backup. Chargebee recommends listening to appropriate webhooks such as [&#x60;subscription_created&#x60;](https://apidocs.chargebee.com/docs/api/events#subscription_created) or [&#x60;invoice_generated&#x60;](https://apidocs.chargebee.com/docs/api/events#invoice_generated)to verify a successful checkout.
-* Redirect URL configured in Settings \&gt; Hosted Pages Settings would be overriden by this redirect URL.
-* *Eg :* *http://yoursite.com?id&#x3D;* *\&lt;hosted_page_id\&gt;\&amp;state&#x3D;succeeded*
-* This parameter is not applicable for iframe messaging.
-
-        */
-       
-      redirect_url?:string;
-       
-      /**
-        * @description List of coupons to be applied to this subscription. You can provide coupon ids or [coupon codes](https://apidocs.chargebee.com/docs/api/coupon_codes).
-
-        */
-       
-      coupon_ids?:string[];
-       
-      /**
-        * @description Parameters for gifter
-
-        */
-       
-      gifter?:{customer_id?:string,locale?:string};
-       
-      /**
-        * @description Parameters for subscription_items
-
-        */
-       
-      subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string}[];
-    }
-    export interface ListResponse {  
-      /**
-        * @description This API retrieves the list of hosted page resources.
-
-        */
-       
-       list:{hosted_page:HostedPage}[];
-       
-      /**
-        * @description This API retrieves the list of hosted page resources.
-
-        */
-       
-       next_offset?:string;
-    }
-    export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description Unique identifier generated for each hosted page requested.
-
-        */
-        
-      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description Type of the requested hosted page.
-
-        */
-        
-      type?:{in?:string,is?:'update_payment_method' | 'checkout_one_time' | 'manage_payment_sources' | 'checkout_new' | 'view_voucher' | 'collect_now' | 'checkout_existing' | 'extend_subscription' | 'pre_cancel',is_not?:'update_payment_method' | 'checkout_one_time' | 'manage_payment_sources' | 'checkout_new' | 'view_voucher' | 'collect_now' | 'checkout_existing' | 'extend_subscription' | 'pre_cancel',not_in?:string};
-       
-      /**
-        * @description Indicating the current state of the hosted page resource.
-
-        */
-        
-      state?:{in?:string,is?:'requested' | 'acknowledged' | 'created' | 'cancelled' | 'succeeded',is_not?:'requested' | 'acknowledged' | 'created' | 'cancelled' | 'succeeded',not_in?:string};
-       
-      /**
-        * @description Timestamp indicating when this hosted page was last updated.
-
-        */
-        
-      updated_at?:{after?:string,before?:string,between?:string,on?:string};
-    }
-    export interface ViewVoucherResponse {  
-       hosted_page:HostedPage;
-    }
-    export interface ViewVoucherInputParam {
-       
-      /**
-        * @description Parameters for payment_voucher
-
-        */
-       
-      payment_voucher?:{id:string};
-       
-      /**
-        * @description Parameters for customer
-
-        */
-       
-      customer?:{locale?:string};
-    }
-    export interface CollectNowResponse {  
-       hosted_page:HostedPage;
-    }
-    export interface CollectNowInputParam {
-       
-      /**
-        * @description Used to specify the destination URL to which a user is redirected after invoices are paid. The [transaction ID](/docs/api/transactions#transaction_id) of the transactions made through the Pay Now hosted page will be sent as return variables along with the URL.
-
-        */
-       
-      redirect_url?:string;
-       
-      /**
-        * @description The currency code (ISO 4217 format) of the specified *credit amount*.
-
-        */
-       
-      currency_code?:string;
-       
-      /**
-        * @description Parameters for customer
-
-        */
-       
-      customer?:{id:string};
-       
-      /**
-        * @description Parameters for card
-
-        */
-       
-      card?:{gateway_account_id?:string};
-    }
-    export interface AcceptQuoteResponse {  
-       hosted_page:HostedPage;
-    }
-    export interface AcceptQuoteInputParam {
-       
-      /**
-        * @description The customers will be redirected to this URL upon successful checkout. The hosted page id and state will be passed as parameters to this URL.  
-
-**Note** :
-
-* Although the customer will be redirected to the &#x60;redirect_url&#x60; after successful checkout, we do not recommend relying on it for completing critical post-checkout actions. This is because redirection may not happen due to unforeseen reasons such as user closing the tab, or exiting the browser, and so on. If there is any synchronization that you are doing after the redirection, you will have to have a backup. Chargebee recommends listening to appropriate webhooks such as [&#x60;subscription_created&#x60;](https://apidocs.chargebee.com/docs/api/events#subscription_created) or [&#x60;invoice_generated&#x60;](https://apidocs.chargebee.com/docs/api/events#invoice_generated)to verify a successful checkout.
-* Redirect URL configured in Settings \&gt; Hosted Pages Settings would be overriden by this redirect URL.
-* *Eg :* *http://yoursite.com?id&#x3D;* *\&lt;hosted_page_id\&gt;\&amp;state&#x3D;succeeded*
-* This parameter is not applicable for iframe messaging.
-
-        */
-       
-      redirect_url?:string;
-       
-      /**
-        * @description Parameters for quote
-
-        */
-       
-      quote?:{id:string};
     }
     export interface CheckoutNewForItemsResponse {  
        hosted_page:HostedPage;
@@ -923,39 +616,6 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
         */
        
       entity_identifiers?:{id?:string,operation?:Operation,scheme?:string,standard?:string,value?:string}[];
-    }
-    export interface ClaimGiftResponse {  
-       hosted_page:HostedPage;
-    }
-    export interface ClaimGiftInputParam {
-       
-      /**
-        * @description The customers will be redirected to this URL upon successful checkout. The hosted page id and state will be passed as parameters to this URL.  
-
-**Note** :
-
-* Although the customer will be redirected to the &#x60;redirect_url&#x60; after successful checkout, we do not recommend relying on it for completing critical post-checkout actions. This is because redirection may not happen due to unforeseen reasons such as user closing the tab, or exiting the browser, and so on. If there is any synchronization that you are doing after the redirection, you will have to have a backup. Chargebee recommends listening to appropriate webhooks such as [&#x60;subscription_created&#x60;](https://apidocs.chargebee.com/docs/api/events#subscription_created) or [&#x60;invoice_generated&#x60;](https://apidocs.chargebee.com/docs/api/events#invoice_generated)to verify a successful checkout.
-* Redirect URL configured in Settings \&gt; Hosted Pages Settings would be overriden by this redirect URL.
-* *Eg :* *http://yoursite.com?id&#x3D;* *\&lt;hosted_page_id\&gt;\&amp;state&#x3D;succeeded*
-* This parameter is not applicable for iframe messaging.
-
-        */
-       
-      redirect_url?:string;
-       
-      /**
-        * @description Parameters for gift
-
-        */
-       
-      gift?:{id:string};
-       
-      /**
-        * @description Parameters for customer
-
-        */
-       
-      customer?:{locale?:string};
     }
     export interface CheckoutExistingForItemsResponse {  
        hosted_page:HostedPage;
@@ -1150,6 +810,344 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
        
       entity_identifiers?:{id?:string,operation?:Operation,scheme?:string,standard?:string,value?:string}[];
     }
+    export interface UpdatePaymentMethodResponse {  
+       hosted_page:HostedPage;
+    }
+    export interface UpdatePaymentMethodInputParam {
+       
+      /**
+        * @description The customers will be redirected to this URL upon successful checkout. The hosted page id and state will be passed as parameters to this URL.  
+
+**Note** :
+
+* Although the customer will be redirected to the &#x60;redirect_url&#x60; after successful checkout, we do not recommend relying on it for completing critical post-checkout actions. This is because redirection may not happen due to unforeseen reasons such as user closing the tab, or exiting the browser, and so on. If there is any synchronization that you are doing after the redirection, you will have to have a backup. Chargebee recommends listening to appropriate webhooks such as [&#x60;subscription_created&#x60;](https://apidocs.chargebee.com/docs/api/events#subscription_created) or [&#x60;invoice_generated&#x60;](https://apidocs.chargebee.com/docs/api/events#invoice_generated)to verify a successful checkout.
+* Redirect URL configured in Settings \&gt; Hosted Pages Settings would be overriden by this redirect URL.
+* *Eg :* *http://yoursite.com?id&#x3D;* *\&lt;hosted_page_id\&gt;\&amp;state&#x3D;succeeded*
+* This parameter is not applicable for iframe messaging.
+
+        */
+       
+      redirect_url?:string;
+       
+      /**
+        * @description The customers will be redirected to this URL upon canceling checkout. The hosted page id and state will be passed as parameters to this URL.   
+
+**Note** :
+
+* Cancel URL configured in Settings \&gt; Hosted Pages Settings would be overriden by this cancel URL.  
+  *Eg : http://yoursite.com?id&#x3D;\&lt;hosted_page_id\&gt;\&amp;state&#x3D;cancelled*
+* This parameter is not applicable for iframe messaging and [in-app](https://www.chargebee.com/docs/2.0/checkout.html) checkout.
+
+        */
+       
+      cancel_url?:string;
+       
+      /**
+        * @description You can pass through any content specific to the hosted page request and get it back after user had submitted the hosted page.
+
+        */
+       
+      pass_thru_content?:string;
+       
+      /**
+        * @description If true then iframe will communicate with the parent window. Applicable only for embedded(iframe) hosted pages. If you&#x27;re using iframe_messaging you need to implement onSuccess \&amp; onCancel callbacks.  
+
+**Note** : This parameter is not applicable for [in-app](https://www.chargebee.com/docs/checkout-v3.html) checkout.
+
+        */
+       
+      iframe_messaging?:boolean;
+       
+      /**
+        * @description Parameters for customer
+
+        */
+       
+      customer?:{id:string};
+       
+      /**
+        * @description Parameters for card
+
+        */
+       
+      card?:{gateway_account_id?:string};
+    }
+    export interface ManagePaymentSourcesResponse {  
+       hosted_page:HostedPage;
+    }
+    export interface ManagePaymentSourcesInputParam {
+       
+      /**
+        * @description URL to redirect after payment method is added.
+
+        */
+       
+      redirect_url?:string;
+       
+      /**
+        * @description Parameters for customer
+
+        */
+       
+      customer?:{id:string};
+       
+      /**
+        * @description Parameters for card
+
+        */
+       
+      card?:{gateway_account_id?:string};
+    }
+    export interface CollectNowResponse {  
+       hosted_page:HostedPage;
+    }
+    export interface CollectNowInputParam {
+       
+      /**
+        * @description Used to specify the destination URL to which a user is redirected after invoices are paid. The [transaction ID](/docs/api/transactions#transaction_id) of the transactions made through the Pay Now hosted page will be sent as return variables along with the URL.
+
+        */
+       
+      redirect_url?:string;
+       
+      /**
+        * @description The currency code (ISO 4217 format) of the specified *credit amount*.
+
+        */
+       
+      currency_code?:string;
+       
+      /**
+        * @description Parameters for customer
+
+        */
+       
+      customer?:{id:string};
+       
+      /**
+        * @description Parameters for card
+
+        */
+       
+      card?:{gateway_account_id?:string};
+    }
+    export interface AcceptQuoteResponse {  
+       hosted_page:HostedPage;
+    }
+    export interface AcceptQuoteInputParam {
+       
+      /**
+        * @description The customers will be redirected to this URL upon successful checkout. The hosted page id and state will be passed as parameters to this URL.  
+
+**Note** :
+
+* Although the customer will be redirected to the &#x60;redirect_url&#x60; after successful checkout, we do not recommend relying on it for completing critical post-checkout actions. This is because redirection may not happen due to unforeseen reasons such as user closing the tab, or exiting the browser, and so on. If there is any synchronization that you are doing after the redirection, you will have to have a backup. Chargebee recommends listening to appropriate webhooks such as [&#x60;subscription_created&#x60;](https://apidocs.chargebee.com/docs/api/events#subscription_created) or [&#x60;invoice_generated&#x60;](https://apidocs.chargebee.com/docs/api/events#invoice_generated)to verify a successful checkout.
+* Redirect URL configured in Settings \&gt; Hosted Pages Settings would be overriden by this redirect URL.
+* *Eg :* *http://yoursite.com?id&#x3D;* *\&lt;hosted_page_id\&gt;\&amp;state&#x3D;succeeded*
+* This parameter is not applicable for iframe messaging.
+
+        */
+       
+      redirect_url?:string;
+       
+      /**
+        * @description Parameters for quote
+
+        */
+       
+      quote?:{id:string};
+    }
+    export interface ExtendSubscriptionResponse {  
+       hosted_page:HostedPage;
+    }
+    export interface ExtendSubscriptionInputParam {
+       
+      /**
+        * @description Expiry (in days) for the link generated. No expiry will be set if this is not specified.
+
+        */
+       
+      expiry?:number;
+       
+      /**
+        * @description Number of billing cycles to extend. If not specified, plan&#x27;s billing cycle will be used.
+
+        */
+       
+      billing_cycle?:number;
+       
+      /**
+        * @description Parameters for subscription
+
+        */
+       
+      subscription?:{id:string};
+    }
+    export interface CheckoutGiftForItemsResponse {  
+       hosted_page:HostedPage;
+    }
+    export interface CheckoutGiftForItemsInputParam {
+       
+      /**
+        * @description Sets the [context]() for this operation to the [business entity](/docs/api/advanced-features?prod_cat_ver&#x3D;2#mbe) specified. Applicable only when multiple business entities have been created for the site. When this parameter is provided, the operation is able to read/write data associated only to the business entity specified. When not provided, the operation can read/write data for the entire site.  
+**Note**
+
+An alternative way of passing this parameter is by means of a [custom HTTP header](/docs/api/advanced-features?prod_cat_ver&#x3D;2#mbe-header-main).  
+**See also**
+
+Gifter customer resource lookup and creation.
+
+        */
+       
+      business_entity_id?:string;
+       
+      /**
+        * @description The customers will be redirected to this URL upon successful checkout. The hosted page id and state will be passed as parameters to this URL.  
+
+**Note** :
+
+* Although the customer will be redirected to the &#x60;redirect_url&#x60; after successful checkout, we do not recommend relying on it for completing critical post-checkout actions. This is because redirection may not happen due to unforeseen reasons such as user closing the tab, or exiting the browser, and so on. If there is any synchronization that you are doing after the redirection, you will have to have a backup. Chargebee recommends listening to appropriate webhooks such as [&#x60;subscription_created&#x60;](https://apidocs.chargebee.com/docs/api/events#subscription_created) or [&#x60;invoice_generated&#x60;](https://apidocs.chargebee.com/docs/api/events#invoice_generated)to verify a successful checkout.
+* Redirect URL configured in Settings \&gt; Hosted Pages Settings would be overriden by this redirect URL.
+* *Eg :* *http://yoursite.com?id&#x3D;* *\&lt;hosted_page_id\&gt;\&amp;state&#x3D;succeeded*
+* This parameter is not applicable for iframe messaging.
+
+        */
+       
+      redirect_url?:string;
+       
+      /**
+        * @description List of coupons to be applied to this subscription. You can provide coupon ids or [coupon codes](https://apidocs.chargebee.com/docs/api/coupon_codes).
+
+        */
+       
+      coupon_ids?:string[];
+       
+      /**
+        * @description Parameters for gifter
+
+        */
+       
+      gifter?:{customer_id?:string,locale?:string};
+       
+      /**
+        * @description Parameters for subscription_items
+
+        */
+       
+      subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string}[];
+    }
+    export interface ClaimGiftResponse {  
+       hosted_page:HostedPage;
+    }
+    export interface ClaimGiftInputParam {
+       
+      /**
+        * @description The customers will be redirected to this URL upon successful checkout. The hosted page id and state will be passed as parameters to this URL.  
+
+**Note** :
+
+* Although the customer will be redirected to the &#x60;redirect_url&#x60; after successful checkout, we do not recommend relying on it for completing critical post-checkout actions. This is because redirection may not happen due to unforeseen reasons such as user closing the tab, or exiting the browser, and so on. If there is any synchronization that you are doing after the redirection, you will have to have a backup. Chargebee recommends listening to appropriate webhooks such as [&#x60;subscription_created&#x60;](https://apidocs.chargebee.com/docs/api/events#subscription_created) or [&#x60;invoice_generated&#x60;](https://apidocs.chargebee.com/docs/api/events#invoice_generated)to verify a successful checkout.
+* Redirect URL configured in Settings \&gt; Hosted Pages Settings would be overriden by this redirect URL.
+* *Eg :* *http://yoursite.com?id&#x3D;* *\&lt;hosted_page_id\&gt;\&amp;state&#x3D;succeeded*
+* This parameter is not applicable for iframe messaging.
+
+        */
+       
+      redirect_url?:string;
+       
+      /**
+        * @description Parameters for gift
+
+        */
+       
+      gift?:{id:string};
+       
+      /**
+        * @description Parameters for customer
+
+        */
+       
+      customer?:{locale?:string};
+    }
+    export interface RetrieveAgreementPdfResponse {  
+       hosted_page:HostedPage;
+    }
+    export interface RetrieveAgreementPdfInputParam {
+       
+      /**
+        * @description Payment source to be used for this payment.
+
+        */
+       
+      payment_source_id:string;
+    }
+    export interface AcknowledgeResponse {  
+       hosted_page:HostedPage;
+    }
+    
+    export interface RetrieveResponse {  
+       hosted_page:HostedPage;
+    }
+    
+    export interface ListResponse {  
+      /**
+        * @description This API retrieves the list of hosted page resources.
+
+        */
+       
+       list:{hosted_page:HostedPage}[];
+       
+      /**
+        * @description This API retrieves the list of hosted page resources.
+
+        */
+       
+       next_offset?:string;
+    }
+    export interface ListInputParam {
+      [key : string]: any;  
+      /**
+        * @description This API retrieves the list of hosted page resources.
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description This API retrieves the list of hosted page resources.
+
+        */
+        
+      offset?:string;
+       
+      /**
+        * @description This API retrieves the list of hosted page resources.
+
+        */
+        
+      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description This API retrieves the list of hosted page resources.
+
+        */
+        
+      type?:{in?:string,is?:'update_payment_method' | 'checkout_one_time' | 'manage_payment_sources' | 'checkout_new' | 'view_voucher' | 'collect_now' | 'checkout_existing' | 'extend_subscription' | 'pre_cancel',is_not?:'update_payment_method' | 'checkout_one_time' | 'manage_payment_sources' | 'checkout_new' | 'view_voucher' | 'collect_now' | 'checkout_existing' | 'extend_subscription' | 'pre_cancel',not_in?:string};
+       
+      /**
+        * @description This API retrieves the list of hosted page resources.
+
+        */
+        
+      state?:{in?:string,is?:'requested' | 'acknowledged' | 'created' | 'cancelled' | 'succeeded',is_not?:'requested' | 'acknowledged' | 'created' | 'cancelled' | 'succeeded',not_in?:string};
+       
+      /**
+        * @description This API retrieves the list of hosted page resources.
+
+        */
+        
+      updated_at?:{after?:string,before?:string,between?:string,on?:string};
+    }
     export interface PreCancelResponse {  
        hosted_page:HostedPage;
     }
@@ -1186,51 +1184,53 @@ Although only &#x60;pass_thru_content.custom&#x60; is sent to Chargebee Retentio
        
       subscription?:{id:string};
     }
-    export interface AcknowledgeResponse {  
-       hosted_page:HostedPage;
+    export interface EventsResponse {  
+       success:boolean;
     }
-    
-    export interface RetrieveAgreementPdfResponse {  
-       hosted_page:HostedPage;
-    }
-    export interface RetrieveAgreementPdfInputParam {
+    export interface EventsInputParam {
        
       /**
-        * @description Payment source to be used for this payment.
+        * @description The event that need to passed to a different system. \* cancellation_page_loaded - Indicates native cancellation flow provided by the merchant is loaded rather than the retention flow.
 
         */
        
-      payment_source_id:string;
-    }
-    export interface RetrieveResponse {  
-       hosted_page:HostedPage;
-    }
-    
-    export interface ManagePaymentSourcesResponse {  
-       hosted_page:HostedPage;
-    }
-    export interface ManagePaymentSourcesInputParam {
+      event_name:EventName;
        
       /**
-        * @description URL to redirect after payment method is added.
+        * @description Timestamp indicating when this event had occurred. .
 
         */
        
-      redirect_url?:string;
+      occurred_at?:number;
+       
+      /**
+        * @description The meta data description of the event in key-value pair. The value is a JSON object with the following keys and their values.
+
+* &#x60;subscription_id&#x60;: A unique and immutable identifier for the subscription.
+.
+
+        */
+       
+      event_data:object;
+    }
+    export interface ViewVoucherResponse {  
+       hosted_page:HostedPage;
+    }
+    export interface ViewVoucherInputParam {
+       
+      /**
+        * @description Parameters for payment_voucher
+
+        */
+       
+      payment_voucher?:{id:string};
        
       /**
         * @description Parameters for customer
 
         */
        
-      customer?:{id:string};
-       
-      /**
-        * @description Parameters for card
-
-        */
-       
-      card?:{gateway_account_id?:string};
+      customer?:{locale?:string};
     }
     
   }

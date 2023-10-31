@@ -73,7 +73,7 @@ The following subsections describe the types of groups in detail.
 
 You can specify up to 10 groups,
 
-* with a recommended subscription group of 5. To increase this limit to a maximum of 8, contact [Chargebee Support](https://support.chargebee.com).
+* with a recommended subscription group of 5. To increase this limit to a maximum of 8, contact [Chargebee Support](https://support.chargebee.com/support/home).
 * with a maximum of 10 one-time charge groups by default.
 
 The total limit for group items for a single purchase is 60.
@@ -83,7 +83,7 @@ The total limit for group items for a single purchase is 60.
 To create a subscription, specify a *subscription group* . A subscription [group](#groups) is a group of item prices that contains exactly one item price of &#x60;type&#x60; &#x60;plan&#x60;. To create multiple subscriptions, provide multiple subscription groups.  
 **Note**
 
-A subscription group can have up to 20 non-plan item prices. To increase this limit to a maximum of 60, contact [Chargebee Support](https://support.chargebee.com).  
+A subscription group can have up to 20 non-plan item prices. To increase this limit to a maximum of 60, contact [Chargebee Support](https://support.chargebee.com/support/home).  
 
 #### Custom Fields {#custom-fields}
 
@@ -94,7 +94,7 @@ Purchase API supports custom fields of Subscriptions, use the following format t
 A one-time charge [group](#groups) is a group of charge item prices (i.e. item prices belonging to items of &#x60;type&#x60; &#x60;charge&#x60;). Charge item prices can be added to subscription groups as well. The charges within and across each one-time group must be unique.  
 **Note**
 
-* A one-time charge group can have up to 20 item prices. To increase this limit to a maximum of 60, contact [Chargebee Support](https://support.chargebee.com).
+* A one-time charge group can have up to 20 item prices. To increase this limit to a maximum of 60, contact [Chargebee Support](https://support.chargebee.com/support/home).
 * A charge item price can only be added to a single one-time charge group. However, it can be part of multiple [subscription groups](#subscription).
 
 ### Applying discounts {#discounts}

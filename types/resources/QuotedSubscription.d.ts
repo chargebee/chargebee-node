@@ -128,90 +128,309 @@ declare module 'chargebee' {
     
     
     export interface Coupon {  
+         /**
+          * @description Used to uniquely identify the coupon
+
+          */
+       
       coupon_id?:string;
     }
     export interface Discount {  
+         /**
+          * @description An immutable unique id for the discount. It is always auto-generated.
+
+          */
+       
       id?:string;
+       
+         /**
+          * @description The name of the discount as it should appear on customer-facing pages and documents such as [invoices](/docs/api/invoices?prod_cat_ver&#x3D;2) and [hosted pages](/docs/api/hosted_pages?prod_cat_ver&#x3D;2). This is auto-generated based on the &#x60;type&#x60;, &#x60;amount&#x60;, and &#x60;currency_code&#x60; of the discount. For example, it can be &#x60;10% off&#x60; or &#x60;10$ off&#x60;.
+
+          */
        
       invoice_name?:string;
        
+         /**
+          * @description The type of discount. Possible value are: \* fixed_amount - The specified amount will be given as discount. \* percentage - The specified percentage will be given as discount.
+
+          */
+       
       type?:'fixed_amount' | 'percentage';
+       
+         /**
+          * @description The percentage of the original amount that should be deducted from it. Only applicable when &#x60;discount.type&#x60; is percentage.
+
+          */
        
       percentage?:number;
        
+         /**
+          * @description The value of the discount. [The format of this value](https://apidocs.chargebee.com/docs/api?prod_cat_ver&#x3D;2#currencies) depends on the kind of currency. This is only applicable when &#x60;discount.type&#x60; is &#x60;fixed_amount&#x60;.
+
+          */
+       
       amount?:number;
+       
+         /**
+          * @description The currency code ([ISO 4217 format](https://www.chargebee.com/docs/supported-currencies.html)) of the discount. This is only applicable when &#x60;discount.type&#x60; is &#x60;fixed_amount&#x60;.
+
+          */
        
       currency_code?:string;
        
+         /**
+          * @description Specifies the time duration for which this discount is attached to the subscription. \* forever - The discount is attached to the subscription and applied on the invoices till it is [explicitly removed](/docs/api/subscriptions?prod_cat_ver&#x3D;2#update_subscription_for_items_discounts_operation_type). \* one_time - The discount stays attached to the subscription till it is applied on an invoice **once** . It is removed after that from the subscription. \* limited_period - The discount is attached to the subscription and applied on the invoices for a limited duration. This duration starts from the point it is applied to an invoice for the first time and expires after a period specified by &#x60;period&#x60; and &#x60;period_unit&#x60;.
+
+          */
+       
       duration_type?:'limited_period' | 'one_time' | 'forever';
+       
+         /**
+          * @description The duration of time for which the discount is attached to the subscription, in &#x60;period_units&#x60;. Applicable only when &#x60;duration_type&#x60; is &#x60;limited_period&#x60;.
+
+          */
        
       period?:number;
        
+         /**
+          * @description The unit of time for &#x60;period&#x60;. Applicable only when &#x60;duration_type&#x60; is &#x60;limited_period&#x60;. \* day - A period of 24 hours. \* year - A period of 1 calendar year. \* week - A period of 7 days. \* month - A period of 1 calendar month.
+
+          */
+       
       period_unit?:'week' | 'month' | 'year' | 'day';
+       
+         /**
+          * @description The discount is included in MRR calculations for your site. This attribute is only applicable when &#x60;duration_type&#x60; is &#x60;one_time&#x60; and when the [feature is enabled](https://www.chargebee.com/docs/reporting.html#dashboards_flexible-mrr-calculation) in Chargebee. Also, If the [site-level setting](https://www.chargebee.com/docs/reporting.html#chart_flexible-mrr-calculation) is to exclude one-time discounts from MRR calculations, this value is always returned &#x60;false&#x60;.
+
+          */
        
       included_in_mrr?:boolean;
        
+         /**
+          * @description The amount on the invoice to which the discount is applied. \* invoice_amount - The discount is applied to the invoice &#x60;sub_total&#x60;. \* specific_item_price - The discount is applied to the &#x60;invoice.line_item.amount&#x60; that corresponds to the item price specified by &#x60;item_price_id&#x60;.
+
+          */
+       
       apply_on?:'specific_item_price' | 'invoice_amount';
+       
+         /**
+          * @description The [id of the item price](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_subscription_items_item_price_id) in the subscription to which the discount is to be applied. Relevant only when &#x60;apply_on&#x60; &#x3D; &#x60;specific_item_price&#x60;.
+
+          */
        
       item_price_id?:string;
        
+         /**
+          * @description Timestamp indicating when this discount is created.
+
+          */
+       
       created_at?:number;
+       
+         /**
+          * @description Specifies till when the limited period discount is applicable. This attribute will be sent in the response only for &#x60;limited_period&#x60; duration type discount.
+
+          */
        
       apply_till?:number;
        
+         /**
+          * @description Specifies the number of times the discount has been applied.
+
+          */
+       
       applied_count?:number;
        
+         /**
+          * @description Used to uniquely identify the coupon in your website/application and to integrate with Chargebee.  
+**Note:**
+
+
+When the coupon ID contains a special character; for example: &#x60;#&#x60;, the API returns an error.
+Make sure that you [encode](https://www.urlencoder.org/) the coupon ID in the path parameter before making an API call.
+
+          */
+       
       coupon_id?:string;
+       
+         /**
+          * @description The index number of the subscription to which the item price is added. Provide a unique number between &#x60;0&#x60; and &#x60;4&#x60; (inclusive) for each subscription that is to be created.
+
+          */
        
       index?:number;
     }
     export interface SubscriptionItem {  
+         /**
+          * @description The unique identifier of the item price.
+
+          */
+       
       item_price_id?:string;
+       
+         /**
+          * @description The type of item. There must be one and only one item of type &#x60;plan&#x60; in this list. \* plan - Plan \* addon - Addon \* charge - Charge
+
+          */
        
       item_type?:'charge' | 'addon' | 'plan';
        
+         /**
+          * @description The quantity of the item purchased
+
+          */
+       
       quantity?:number;
+       
+         /**
+          * @description The decimal representation of the quantity of the item purchased. Can be provided for quantity-based item prices and only when [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units) is enabled.
+
+          */
        
       quantity_in_decimal?:string;
        
+         /**
+          * @description The price/per unit price of the item. When not provided, [the value set](/docs/api/item_prices?prod_cat_ver&#x3D;2#item_price_attributes) for the item price is used. This is only applicable when the &#x60;pricing_model&#x60; of the item price is &#x60;flat_fee&#x60; or &#x60;per_unit&#x60;. Also, it is only allowed when [price overriding](https://www.chargebee.com/docs/price-override.html) is enabled for the site. The value depends on the type of currency. If &#x60;changes_scheduled_at&#x60; is in the past and a &#x60;unit_price&#x60; is not passed, then the item price&#x27;s current unit price is considered even if the item price did not exist on the date as of when the change is scheduled.
+
+          */
+       
       unit_price?:number;
+       
+         /**
+          * @description The decimal representation of the price or per-unit price of the plan. The value is in major units of the currency. Always returned when [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units) is enabled.
+
+          */
        
       unit_price_in_decimal?:string;
        
+         /**
+          * @description The total amount for the item as determined from &#x60;unit_price&#x60;, &#x60;free_quantity&#x60;, &#x60;quantity&#x60; and &#x60;item_tiers&#x60; as applicable. The value depends on the [type of currency](./#handling_currency_units).
+
+          */
+       
       amount?:number;
+       
+         /**
+          * @description The decimal representation of the total amount for the item, in major units of the currency. Always returned when [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units) is enabled.
+
+          */
        
       amount_in_decimal?:string;
        
+         /**
+          * @description The &#x60;free_quantity&#x60; of the plan-item as [specified](./item_prices?prod_cat_ver&#x3D;2) for the item price.
+
+          */
+       
       free_quantity?:number;
+       
+         /**
+          * @description The &#x60;free_quantity_in_decimal&#x60; as set for the item price. Returned for quantity-based item prices when [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units) is enabled.
+
+          */
        
       free_quantity_in_decimal?:string;
        
+         /**
+          * @description The date/time when the trial period of the item ends. Applies to plan-items and----when [enabled](https://www.chargebee.com/docs/2.0/addons-trial.html)----addon-items as well.
+
+          */
+       
       trial_end?:number;
+       
+         /**
+          * @description For the plan-item price:  
+the value determines the number of billing cycles the subscription runs before canceling automatically. If not provided, then [the value set](./item_prices?prod_cat_ver&#x3D;2#item_price_attributes) for the plan-item price is used.  
+
+For addon-item prices:  
+If [addon billing cycles](https://www.chargebee.com/docs/2.0/addons-billingcycle.html) are enabled then this is the number of subscription billing cycles for which the addon is included. If not provided, then [the value set under attached addons](./attached_items?prod_cat_ver&#x3D;2#attached_item_attributes) is used. Further, if that value is not provided, then [the value set for the addon-item price](./item_prices?prod_cat_ver&#x3D;2#item_price_attributes) is used.
+
+          */
        
       billing_cycles?:number;
        
+         /**
+          * @description The service period of the item in days from the day of charge.
+
+          */
+       
       service_period_days?:number;
+       
+         /**
+          * @description When &#x60;charge_on_option&#x60; option is set to &#x60;on_event&#x60;, this parameter specifies the event at which the charge-item is applied to the subscription. This parameter only applies to charge-items. \* plan_activation - same as subscription activation, but also includes the case when the plan-item of the subscription is changed. \* subscription_activation - the moment a subscription enters an &#x60;active&#x60; or &#x60;non-renewing&#x60; state. Also includes reactivations of canceled subscriptions. \* contract_termination - when a contract term is [terminated](./subscriptions?prod_cat_ver&#x3D;2#cancel_subscription_for_items_contract_term_cancel_option). \* subscription_trial_start - the time when the trial period of the subscription begins. \* subscription_creation - the time of creation of the subscription.
+
+          */
        
       charge_on_event?:'subscription_creation' | 'subscription_activation' | 'subscription_trial_start' | 'contract_termination' | 'plan_activation';
        
+         /**
+          * @description Indicates if the charge-item is to be charged only once or each time the &#x60;charge_on_event&#x60; occurs. This parameter only applies to charge-items.
+
+          */
+       
       charge_once?:boolean;
+       
+         /**
+          * @description Indicates when the charge-item is to be charged. This parameter only applies to charge-items. \* on_event - The item is charged at the occurrence of the event specified as &#x60;charge_on_event&#x60;. \* immediately - The item is charged immediately on being added to the subscription.
+
+          */
        
       charge_on_option?:'on_event' | 'immediately';
     }
     export interface ItemTier {  
+         /**
+          * @description The id of the item price to which this tier belongs.
+
+          */
+       
       item_price_id?:string;
+       
+         /**
+          * @description The lowest value in the quantity tier.
+
+          */
        
       starting_unit?:number;
        
+         /**
+          * @description The highest value in the quantity tier.
+
+          */
+       
       ending_unit?:number;
+       
+         /**
+          * @description The per-unit price for the tier when the &#x60;pricing_model&#x60; is &#x60;tiered&#x60; or &#x60;volume&#x60;. The total cost for the item price when the &#x60;pricing_model&#x60; is &#x60;stairstep&#x60;. The value is in the minor unit of the currency.
+
+          */
        
       price?:number;
        
+         /**
+          * @description The decimal representation of the the lowest value of quantity in this tier. This is zero for the lowest tier. For all other tiers, it is the same as &#x60;ending_unit_in_decimal&#x60; of the next lower tier. Returned only when the pricing_model is &#x60;tiered&#x60;, &#x60;volume&#x60; or &#x60;stairstep&#x60; and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units) is enabled.
+
+          */
+       
       starting_unit_in_decimal?:string;
+       
+         /**
+          * @description The decimal representation of the highest value of quantity in this tier. This attribute is not applicable for the highest tier. For all other tiers, it must be equal to the &#x60;starting_unit_in_decimal&#x60; of the next higher tier. Returned only when the pricing_model is &#x60;tiered&#x60;, &#x60;volume&#x60; or &#x60;stairstep&#x60; and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units) is enabled.
+
+          */
        
       ending_unit_in_decimal?:string;
        
+         /**
+          * @description The decimal representation of the per-unit price for the tier when the &#x60;pricing_model&#x60; is &#x60;tiered&#x60; or &#x60;volume&#x60;. When the &#x60;pricing_model&#x60; is &#x60;stairstep&#x60;, it is the decimal representation of the total price for the item. The value is in major units of the currency. Returned when the plan is quantity-based and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units) is enabled.
+
+          */
+       
       price_in_decimal?:string;
+       
+         /**
+          * @description The index number of the subscription to which the item price is added. Provide a unique number between &#x60;0&#x60; and &#x60;4&#x60; (inclusive) for each subscription that is to be created.
+
+          */
        
       index?:number;
     }

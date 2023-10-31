@@ -89,18 +89,13 @@ declare module 'chargebee' {
   export namespace PromotionalCredit {
     export class PromotionalCreditResource {  
       /**
-        * @description This endpoint retrieves the promotional credit based on the promotional credit id
+        * @description This API call can be used to add promotional credits to a customer. [Learn more about Promotional Credits](https://www.chargebee.com/docs/2.0/credit-notes.html#creating-promotional-credits).
+
+For example, if a customer has credits of $10, if you pass the **amount** as $10, then the customer&#x27;s credit balance would become $20.
 
         */
       
-      retrieve(account_credit_id:string):ChargebeeRequest<RetrieveResponse>;
-       
-      /**
-        * @description This endpoint lists the promotional credits set for a customer
-
-        */
-      
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
+      add(input:AddInputParam):ChargebeeRequest<AddResponse>;
        
       /**
         * @description This API call can be used to deduct promotional credits for a customer. [Learn more about Promotional Credits](https://www.chargebee.com/docs/2.0/credit-notes.html#creating-promotional-credits).
@@ -123,76 +118,74 @@ For example, if a customer has a credit balance of $10 and if you would like to 
       set(input:SetInputParam):ChargebeeRequest<SetResponse>;
        
       /**
-        * @description This API call can be used to add promotional credits to a customer. [Learn more about Promotional Credits](https://www.chargebee.com/docs/2.0/credit-notes.html#creating-promotional-credits).
-
-For example, if a customer has credits of $10, if you pass the **amount** as $10, then the customer&#x27;s credit balance would become $20.
+        * @description This endpoint lists the promotional credits set for a customer
 
         */
       
-      add(input:AddInputParam):ChargebeeRequest<AddResponse>;
+      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
+       
+      /**
+        * @description This endpoint retrieves the promotional credit based on the promotional credit id
+
+        */
+      
+      retrieve(account_credit_id:string):ChargebeeRequest<RetrieveResponse>;
     }
-    export interface RetrieveResponse {  
+    export interface AddResponse {  
+       customer:Customer;
+       
        promotional_credit:PromotionalCredit;
     }
-    
-    export interface ListResponse {  
-      /**
-        * @description This endpoint lists the promotional credits set for a customer
-
-        */
-       
-       list:{promotional_credit:PromotionalCredit}[];
-       
-      /**
-        * @description This endpoint lists the promotional credits set for a customer
-
-        */
-       
-       next_offset?:string;
-    }
-    export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description Unique reference ID provided for promotional credits
-
-        */
-        
-      id?:{is?:string,is_not?:string,starts_with?:string};
-       
-      /**
-        * @description Timestamp indicating when this promotional credit resource is created.
-
-        */
-        
-      created_at?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description Type of promotional credits
-
-        */
-        
-      type?:{in?:string,is?:'decrement' | 'increment',is_not?:'decrement' | 'increment',not_in?:string};
+    export interface AddInputParam {
        
       /**
         * @description Identifier of the customer.
 
         */
-        
-      customer_id?:{is?:string,is_not?:string,starts_with?:string};
+       
+      customer_id:string;
+       
+      /**
+        * @description Promotional credits amount.
+
+        */
+       
+      amount?:number;
+       
+      /**
+        * @description Amount in decimal.
+
+        */
+       
+      amount_in_decimal?:string;
+       
+      /**
+        * @description The currency code (ISO 4217 format) for promotional credit.
+
+        */
+       
+      currency_code?:string;
+       
+      /**
+        * @description Detailed description of this promotional credits.
+
+        */
+       
+      description:string;
+       
+      /**
+        * @description Type of promotional credits provided to customer. \* general - General \* referral_rewards - Referral \* loyalty_credits - Loyalty Credits
+
+        */
+       
+      credit_type?:CreditType;
+       
+      /**
+        * @description Describes why promotional credits were provided.
+
+        */
+       
+      reference?:string;
     }
     export interface DeductResponse {  
        customer:Customer;
@@ -306,62 +299,69 @@ For example, if a customer has credits of $10, if you pass the **amount** as $10
        
       reference?:string;
     }
-    export interface AddResponse {  
-       customer:Customer;
+    export interface ListResponse {  
+      /**
+        * @description This endpoint lists the promotional credits set for a customer
+
+        */
        
+       list:{promotional_credit:PromotionalCredit}[];
+       
+      /**
+        * @description This endpoint lists the promotional credits set for a customer
+
+        */
+       
+       next_offset?:string;
+    }
+    export interface ListInputParam {
+      [key : string]: any;  
+      /**
+        * @description This endpoint lists the promotional credits set for a customer
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description This endpoint lists the promotional credits set for a customer
+
+        */
+        
+      offset?:string;
+       
+      /**
+        * @description This endpoint lists the promotional credits set for a customer
+
+        */
+        
+      id?:{is?:string,is_not?:string,starts_with?:string};
+       
+      /**
+        * @description This endpoint lists the promotional credits set for a customer
+
+        */
+        
+      created_at?:{after?:string,before?:string,between?:string,on?:string};
+       
+      /**
+        * @description This endpoint lists the promotional credits set for a customer
+
+        */
+        
+      type?:{in?:string,is?:'decrement' | 'increment',is_not?:'decrement' | 'increment',not_in?:string};
+       
+      /**
+        * @description This endpoint lists the promotional credits set for a customer
+
+        */
+        
+      customer_id?:{is?:string,is_not?:string,starts_with?:string};
+    }
+    export interface RetrieveResponse {  
        promotional_credit:PromotionalCredit;
     }
-    export interface AddInputParam {
-       
-      /**
-        * @description Identifier of the customer.
-
-        */
-       
-      customer_id:string;
-       
-      /**
-        * @description Promotional credits amount.
-
-        */
-       
-      amount?:number;
-       
-      /**
-        * @description Amount in decimal.
-
-        */
-       
-      amount_in_decimal?:string;
-       
-      /**
-        * @description The currency code (ISO 4217 format) for promotional credit.
-
-        */
-       
-      currency_code?:string;
-       
-      /**
-        * @description Detailed description of this promotional credits.
-
-        */
-       
-      description:string;
-       
-      /**
-        * @description Type of promotional credits provided to customer. \* general - General \* referral_rewards - Referral \* loyalty_credits - Loyalty Credits
-
-        */
-       
-      credit_type?:CreditType;
-       
-      /**
-        * @description Describes why promotional credits were provided.
-
-        */
-       
-      reference?:string;
-    }
+    
     
   }
 }

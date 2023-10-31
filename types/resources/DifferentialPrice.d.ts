@@ -96,25 +96,11 @@ declare module 'chargebee' {
   export namespace DifferentialPrice {
     export class DifferentialPriceResource {  
       /**
-        * @description Delete a differential price using a &#x60;differential_price_id&#x60; and &#x60;item_price_id&#x60;.
-
-        */
-      
-      delete(differential_price_id:string, input:DeleteInputParam):ChargebeeRequest<DeleteResponse>;
-       
-      /**
         * @description Create a differential price for addon item price, addon item price with tiered pricing, or charge item price.
 
         */
       
       create(item_price_id:string, input:CreateInputParam):ChargebeeRequest<CreateResponse>;
-       
-      /**
-        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
-
-        */
-      
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
        
       /**
         * @description Retrieve a differential price using a &#x60;differential_price_id&#x60; and &#x60;item_price_id&#x60;.
@@ -129,18 +115,20 @@ declare module 'chargebee' {
         */
       
       update(differential_price_id:string, input:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
-    }
-    export interface DeleteResponse {  
-       differential_price:DifferentialPrice;
-    }
-    export interface DeleteInputParam {
        
       /**
-        * @description The id of the item price (&#x60;addon&#x60; or &#x60;charge&#x60;) whose price should change according to the plan-item it is applied to.
+        * @description Delete a differential price using a &#x60;differential_price_id&#x60; and &#x60;item_price_id&#x60;.
 
         */
+      
+      delete(differential_price_id:string, input:DeleteInputParam):ChargebeeRequest<DeleteResponse>;
        
-      item_price_id:string;
+      /**
+        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
+
+        */
+      
+      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
     }
     export interface CreateResponse {  
        differential_price:DifferentialPrice;
@@ -181,65 +169,6 @@ declare module 'chargebee' {
         */
        
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
-    }
-    export interface ListResponse {  
-      /**
-        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
-
-        */
-       
-       list:{differential_price:DifferentialPrice}[];
-       
-      /**
-        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
-
-        */
-       
-       next_offset?:string;
-    }
-    export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description The id of the item price (&#x60;addon&#x60; or &#x60;charge&#x60;) whose price should change according to the plan-item it is applied to.
-
-        */
-        
-      item_price_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description Item Id of Addon / Charge item price for which differential pricing is applied to
-
-        */
-        
-      item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description A unique and immutable id for the differential price. It is auto-generated when the differential price is created.
-
-        */
-        
-      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description The id of the plan-item, in relation to which, the differential pricing for the addon or charge is defined. For example, this would be the id of the *Standard* or *Enterprise* plans-items mentioned in the [examples above](./differential_prices?prod_cat_ver&#x3D;2).
-
-        */
-        
-      parent_item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
     }
     export interface RetrieveResponse {  
        differential_price:DifferentialPrice;
@@ -293,12 +222,98 @@ declare module 'chargebee' {
        
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
     }
+    export interface DeleteResponse {  
+       differential_price:DifferentialPrice;
+    }
+    export interface DeleteInputParam {
+       
+      /**
+        * @description The id of the item price (&#x60;addon&#x60; or &#x60;charge&#x60;) whose price should change according to the plan-item it is applied to.
+
+        */
+       
+      item_price_id:string;
+    }
+    export interface ListResponse {  
+      /**
+        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
+
+        */
+       
+       list:{differential_price:DifferentialPrice}[];
+       
+      /**
+        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
+
+        */
+       
+       next_offset?:string;
+    }
+    export interface ListInputParam {
+      [key : string]: any;  
+      /**
+        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
+
+        */
+        
+      offset?:string;
+       
+      /**
+        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
+
+        */
+        
+      item_price_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
+
+        */
+        
+      item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
+
+        */
+        
+      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Returns a list of differential prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order (latest first).
+
+        */
+        
+      parent_item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+    }
     export interface Tier {  
-      starting_unit?:number;
+         /**
+          * @description The lower limit of a range of units for the tier
+
+          */
+       
+      starting_unit:number;
+       
+         /**
+          * @description The upper limit of a range of units for the tier
+
+          */
        
       ending_unit?:number;
        
-      price?:number;
+         /**
+          * @description The per-unit price for the tier when the &#x60;pricing_model&#x60; is &#x60;tiered&#x60; or &#x60;volume&#x60;; the total cost for the item price when the &#x60;pricing_model&#x60; is &#x60;stairstep&#x60;. The value is in the [minor unit of the currency](https://apidocs.chargebee.com/docs/api#handling_currency_units).
+
+          */
+       
+      price:number;
        
       starting_unit_in_decimal?:string;
        
@@ -307,7 +322,17 @@ declare module 'chargebee' {
       price_in_decimal?:string;
     }
     export interface ParentPeriod {  
-      period_unit?:'week' | 'month' | 'year' | 'day';
+         /**
+          * @description The unit of time for &#x60;period&#x60;. \* month - A period of 1 calendar month. \* day - A period of 24 hours. \* week - A period of 7 days. \* year - A period of 1 calendar year.
+
+          */
+       
+      period_unit:'week' | 'month' | 'year' | 'day';
+       
+         /**
+          * @description The billing period of the plan in &#x60;period_unit&#x60;s. For example, a 6 month plan has &#x60;period&#x60; as 6 and &#x60;period_unit&#x60; as &#x60;month&#x60;.
+
+          */
        
       period?:any[];
     }

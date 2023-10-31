@@ -78,8 +78,6 @@ declare module 'chargebee' {
   }
   export namespace SubscriptionEntitlement {
     export class SubscriptionEntitlementResource {  
-      set_subscription_entitlement_availability(subscription_id:string, input:SetSubscriptionEntitlementAvailabilityInputParam):ChargebeeRequest<SetSubscriptionEntitlementAvailabilityResponse>;
-       
       /**
         * @description Retrieves the list of &#x60;subscription_entitlements&#x60; for the [subscription](/docs/api/subscriptions).  
 **Note:**
@@ -89,15 +87,13 @@ The &#x60;components&#x60; attribute is not returned for any of the &#x60;subscr
         */
       
       subscription_entitlements_for_subscription(subscription_id:string, input?:SubscriptionEntitlementsForSubscriptionInputParam):ChargebeeRequest<SubscriptionEntitlementsForSubscriptionResponse>;
-    }
-    export interface SetSubscriptionEntitlementAvailabilityResponse {  
-       subscription_entitlement:SubscriptionEntitlement;
-    }
-    export interface SetSubscriptionEntitlementAvailabilityInputParam {
        
-      is_enabled:boolean;
-       
-      subscription_entitlements?:{feature_id:string}[];
+      /**
+        * @description Enables or disables specific &#x60;subscription_entitlements&#x60; for a subscription.
+
+        */
+      
+      set_subscription_entitlement_availability(subscription_id:string, input:SetSubscriptionEntitlementAvailabilityInputParam):ChargebeeRequest<SetSubscriptionEntitlementAvailabilityResponse>;
     }
     export interface SubscriptionEntitlementsForSubscriptionResponse {  
       /**
@@ -123,18 +119,43 @@ The &#x60;components&#x60; attribute is not returned for any of the &#x60;subscr
     export interface SubscriptionEntitlementsForSubscriptionInputParam {
       [key : string]: any;  
       /**
-        * @description The number of resources to be returned.
+        * @description Retrieves the list of &#x60;subscription_entitlements&#x60; for the [subscription](/docs/api/subscriptions).  
+**Note:**
+
+The &#x60;components&#x60; attribute is not returned for any of the &#x60;subscription_entitlements&#x60;. Use the retrieve operation(coming soon) to obtain the &#x60;components&#x60;.
 
         */
         
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Retrieves the list of &#x60;subscription_entitlements&#x60; for the [subscription](/docs/api/subscriptions).  
+**Note:**
+
+The &#x60;components&#x60; attribute is not returned for any of the &#x60;subscription_entitlements&#x60;. Use the retrieve operation(coming soon) to obtain the &#x60;components&#x60;.
 
         */
         
       offset?:string;
+    }
+    export interface SetSubscriptionEntitlementAvailabilityResponse {  
+       subscription_entitlement:SubscriptionEntitlement;
+    }
+    export interface SetSubscriptionEntitlementAvailabilityInputParam {
+       
+      /**
+        * @description Specifies whether the &#x60;subscription_entitlements&#x60; are to be enabled or disabled.
+
+        */
+       
+      is_enabled:boolean;
+       
+      /**
+        * @description Parameters for subscription_entitlements
+
+        */
+       
+      subscription_entitlements?:{feature_id:string}[];
     }
     export interface Component {  
          /**

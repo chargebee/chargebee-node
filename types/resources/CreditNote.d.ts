@@ -329,29 +329,6 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
   export namespace CreditNote {
     export class CreditNoteResource {  
       /**
-        * @description Use this API to [void a credit note.](https://www.chargebee.com/docs/credit-notes.html#voiding-or-deleting-a-credit-note) A voided credit is a null entity and cannot be used again. A credit note which has already been voided or refunded cannot be voided. An error message will be displayed when you render such credit notes void.
-
-**Note:** When adjustment credit notes are voided, the associated invoice will reflect as NOT PAID, and the amount in the invoice will be recalculated to reflect the amount after considering the voided credit note.
-
-        */
-      
-      void_credit_note(credit_note_id:string, input?:VoidCreditNoteInputParam):ChargebeeRequest<VoidCreditNoteResponse>;
-       
-      /**
-        * @description Refunds a ([refundable](https://www.chargebee.com/docs/credit-notes.html#types-of-credit-notes_refundable-credit-note)) credit note to the [payment source](/docs/api/payment_sources) associated with the [transaction](/docs/api/transactions). Any [linked_tax_withheld_refunds](/docs/api/credit_notes#credit_note_linked_tax_withheld_refunds) recorded against the credit note are not refunded.
-
-        */
-      
-      refund(credit_note_id:string, input?:RefundInputParam):ChargebeeRequest<RefundResponse>;
-       
-      /**
-        * @description Lists all the Credit Notes.
-
-        */
-      
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
-       
-      /**
         * @description Creates a &#x60;credit_note&#x60; for the specified invoice.  
 **Note:**
 
@@ -362,25 +339,18 @@ If the &#x60;credit_note&#x60; [type](/docs/api/credit_notes#create_credit_note_
       create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
        
       /**
-        * @description Refunds a ([refundable](https://www.chargebee.com/docs/credit-notes.html#types-of-credit-notes_refundable-credit-note)) credit note. The refund is provided against &#x60;linked_payments&#x60; first and then against any &#x60;linked_taxes_withheld&#x60; for the [invoice](/docs/api/credit_notes#credit_note_reference_invoice_id) associated with the &#x60;credit_note&#x60;. For payments made via online transactions, the refund request is processed via the [payment source](/docs/api/payment_sources) associated with the [transaction](/docs/api/transactions).
+        * @description Retrieves the Credit Note identified by the specified Credit Note number.
 
         */
       
-      record_refund(credit_note_id:string, input?:RecordRefundInputParam):ChargebeeRequest<RecordRefundResponse>;
+      retrieve(credit_note_id:string):ChargebeeRequest<RetrieveResponse>;
        
       /**
-        * @description Use this api to import credit notes into your Chargebee site. Billing address, Shipping Address, Vat number will be copied from the reference invoice.
+        * @description Gets the credit note as PDF. The returned URL is secure and allows download. The URL will expire in 60 minutes.
 
         */
       
-      import_credit_note(input:ImportCreditNoteInputParam):ChargebeeRequest<ImportCreditNoteResponse>;
-       
-      /**
-        * @description This API [deletes a credit note.](https://www.chargebee.com/docs/credit-notes.html#voiding-or-deleting-a-credit-note) A credit note once deleted, is deleted permanently. You cannot delete a credit which has already been deleted or refunded. If you try to delete a refunded or deleted credit note, an error message will be displayed.
-
-        */
-      
-      delete(credit_note_id:string, input?:DeleteInputParam):ChargebeeRequest<DeleteResponse>;
+      pdf(credit_note_id:string, input?:PdfInputParam):ChargebeeRequest<PdfResponse>;
        
       /**
         * @description Download the e-invoice for the credit note in both XML and PDF formats. The response consists of a &#x60;download&#x60; object for each format. The XML format follows the [structure as per Peppol BIS Billing v3.0](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-creditnote/tree/).  
@@ -394,18 +364,41 @@ If the &#x60;credit_note&#x60; [type](/docs/api/credit_notes#create_credit_note_
       download_einvoice(credit_note_id:string):ChargebeeRequest<DownloadEinvoiceResponse>;
        
       /**
-        * @description Gets the credit note as PDF. The returned URL is secure and allows download. The URL will expire in 60 minutes.
+        * @description Refunds a ([refundable](https://www.chargebee.com/docs/credit-notes.html#types-of-credit-notes_refundable-credit-note)) credit note to the [payment source](/docs/api/payment_sources) associated with the [transaction](/docs/api/transactions). Any [linked_tax_withheld_refunds](/docs/api/credit_notes#credit_note_linked_tax_withheld_refunds) recorded against the credit note are not refunded.
 
         */
       
-      pdf(credit_note_id:string, input?:PdfInputParam):ChargebeeRequest<PdfResponse>;
+      refund(credit_note_id:string, input?:RefundInputParam):ChargebeeRequest<RefundResponse>;
        
       /**
-        * @description Resend failed einvoice in credit notes.
+        * @description Refunds a ([refundable](https://www.chargebee.com/docs/credit-notes.html#types-of-credit-notes_refundable-credit-note)) credit note. The refund is provided against &#x60;linked_payments&#x60; first and then against any &#x60;linked_taxes_withheld&#x60; for the [invoice](/docs/api/credit_notes#credit_note_reference_invoice_id) associated with the &#x60;credit_note&#x60;. For payments made via online transactions, the refund request is processed via the [payment source](/docs/api/payment_sources) associated with the [transaction](/docs/api/transactions).
 
         */
       
-      resend_einvoice(credit_note_id:string):ChargebeeRequest<ResendEinvoiceResponse>;
+      record_refund(credit_note_id:string, input?:RecordRefundInputParam):ChargebeeRequest<RecordRefundResponse>;
+       
+      /**
+        * @description Use this API to [void a credit note.](https://www.chargebee.com/docs/credit-notes.html#voiding-or-deleting-a-credit-note) A voided credit is a null entity and cannot be used again. A credit note which has already been voided or refunded cannot be voided. An error message will be displayed when you render such credit notes void.
+
+**Note:** When adjustment credit notes are voided, the associated invoice will reflect as NOT PAID, and the amount in the invoice will be recalculated to reflect the amount after considering the voided credit note.
+
+        */
+      
+      void_credit_note(credit_note_id:string, input?:VoidCreditNoteInputParam):ChargebeeRequest<VoidCreditNoteResponse>;
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+      
+      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
+       
+      /**
+        * @description This API [deletes a credit note.](https://www.chargebee.com/docs/credit-notes.html#voiding-or-deleting-a-credit-note) A credit note once deleted, is deleted permanently. You cannot delete a credit which has already been deleted or refunded. If you try to delete a refunded or deleted credit note, an error message will be displayed.
+
+        */
+      
+      delete(credit_note_id:string, input?:DeleteInputParam):ChargebeeRequest<DeleteResponse>;
        
       /**
         * @description Removes a [linked_tax_withheld_refunds](/docs/api/credit_notes#credit_note_linked_tax_withheld_refunds) record from the &#x60;credit_note&#x60;.
@@ -415,11 +408,11 @@ If the &#x60;credit_note&#x60; [type](/docs/api/credit_notes#create_credit_note_
       remove_tax_withheld_refund(credit_note_id:string, input?:RemoveTaxWithheldRefundInputParam):ChargebeeRequest<RemoveTaxWithheldRefundResponse>;
        
       /**
-        * @description Retrieves the Credit Note identified by the specified Credit Note number.
+        * @description Resend failed einvoice in credit notes.
 
         */
       
-      retrieve(credit_note_id:string):ChargebeeRequest<RetrieveResponse>;
+      resend_einvoice(credit_note_id:string):ChargebeeRequest<ResendEinvoiceResponse>;
        
       /**
         * @description This endpoint is used to send an e-invoice for invoice.
@@ -442,218 +435,13 @@ This endpoint schedules e-invoices manually. This operation is not allowed when 
         */
       
       send_einvoice(credit_note_id:string):ChargebeeRequest<SendEinvoiceResponse>;
-    }
-    export interface VoidCreditNoteResponse {  
-       credit_note:CreditNote;
-    }
-    export interface VoidCreditNoteInputParam {
        
       /**
-        * @description Reason for voiding credit note. This comment will be added to the credit note.
+        * @description Use this api to import credit notes into your Chargebee site. Billing address, Shipping Address, Vat number will be copied from the reference invoice.
 
         */
-       
-      comment?:string;
-    }
-    export interface RefundResponse {  
-       credit_note:CreditNote;
-       
-       transaction:Transaction;
-    }
-    export interface RefundInputParam {
-       
-      /**
-        * @description The amount to be refunded. If not specified, the entire [refundable amount](/docs/api/credit_notes#credit_note_amount_available) for this &#x60;credit_note&#x60; is refunded. **Note:** Any [linked_tax_withheld_refunds](/docs/api/credit_notes#credit_note_linked_tax_withheld_refunds) associated with the &#x60;credit_note&#x60; cannot be refunded via this operation.
-
-        */
-       
-      refund_amount?:number;
-       
-      /**
-        * @description A note to be added for this operation, to the credit note. This note is displayed on customer-facing documents such as the [Credit Note PDF](./credit_notes#retrieve_credit_note_as_pdf).
-
-        */
-       
-      customer_notes?:string;
-       
-      /**
-        * @description Reason code for the refund. Must be one from a list of reason codes set in the Chargebee app in **Settings \&gt; Configure Chargebee \&gt; Reason Codes \&gt; Credit Notes \&gt; Refund Credit Note**. Must be passed if set as mandatory in the app. The codes are case-sensitive.
-
-        */
-       
-      refund_reason_code?:string;
-    }
-    export interface ListResponse {  
-      /**
-        * @description Lists all the Credit Notes.
-
-        */
-       
-       list:{credit_note:CreditNote}[];
-       
-      /**
-        * @description Lists all the Credit Notes.
-
-        */
-       
-       next_offset?:string;
-    }
-    export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description Indicates whether to include deleted objects in the list. The deleted objects have the attribute \&#x60;deleted\&#x60; as \&#x60;true\&#x60;.
-
-        */
-        
-      include_deleted?:boolean;
-       
-      /**
-        * @description Credit-note id.
-
-        */
-        
-      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description The identifier of the customer this Credit Note belongs to.
-
-        */
-        
-      customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description To filter based on subscription_id.   
-NOTE: Not to be used if *consolidated invoicing* feature is enabled.
-
-        */
-        
-      subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string};
-       
-      /**
-        * @description The identifier of the invoice against which this Credit Note is issued
-
-        */
-        
-      reference_invoice_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description The credit note type.
-
-        */
-        
-      type?:{in?:string,is?:'adjustment' | 'refundable',is_not?:'adjustment' | 'refundable',not_in?:string};
-       
-      /**
-        * @description The reason for issuing this Credit Note. The following reason codes are supported now\[Deprecated; use the [create_reason_code](/docs/api/credit_notes#credit_note_create_reason_code) parameter instead\]
-
-        */
-        
-      reason_code?:{in?:string,is?:'other' | 'product_unsatisfactory' | 'subscription_pause' | 'order_cancellation' | 'service_unsatisfactory' | 'subscription_cancellation' | 'chargeback' | 'order_change' | 'write_off' | 'waiver' | 'subscription_change' | 'fraudulent',is_not?:'other' | 'product_unsatisfactory' | 'subscription_pause' | 'order_cancellation' | 'service_unsatisfactory' | 'subscription_cancellation' | 'chargeback' | 'order_change' | 'write_off' | 'waiver' | 'subscription_change' | 'fraudulent',not_in?:string};
-       
-      /**
-        * @description Reason code for creating the credit note. Must be one from a list of reason codes set in the Chargebee app in **Settings \&gt; Configure Chargebee \&gt; Reason Codes \&gt; Credit Notes \&gt; Create Credit Note**. Must be passed if set as mandatory in the app. The codes are case-sensitive
-
-        */
-        
-      create_reason_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description The credit note status.
-
-        */
-        
-      status?:{in?:string,is?:'refund_due' | 'adjusted' | 'refunded' | 'voided',is_not?:'refund_due' | 'adjusted' | 'refunded' | 'voided',not_in?:string};
-       
-      /**
-        * @description The date the Credit Note is issued.
-
-        */
-        
-      date?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description Credit Note amount in cents.
-
-        */
-        
-      total?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string};
-       
-      /**
-        * @description The price type of the Credit Note.
-
-        */
-        
-      price_type?:{in?:string,is?:'tax_exclusive' | 'tax_inclusive',is_not?:'tax_exclusive' | 'tax_inclusive',not_in?:string};
-       
-      /**
-        * @description The amount allocated to the invoices.
-
-        */
-        
-      amount_allocated?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string};
-       
-      /**
-        * @description The refunds issued from this Credit Note.
-
-        */
-        
-      amount_refunded?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string};
-       
-      /**
-        * @description The yet to be used credits of this Credit Note.
-
-        */
-        
-      amount_available?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string};
-       
-      /**
-        * @description Timestamp indicating the date and time this Credit Note gets voided.
-
-        */
-        
-      voided_at?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description To filter based on updated at. This attribute will be present only if the resource has been updated after 2016-09-28.
-
-        */
-        
-      updated_at?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description Lists all the Credit Notes.
-
-        */
-        
-      sort_by?:{asc?:'date',desc?:'date'};
-       
-      /**
-        * @description The subscription channel this object originated from and is maintained in.
-
-        */
-        
-      channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string};
-       
-      /**
-        * @description Parameters for einvoice
-
-        */
-        
-      einvoice?:{status?:{in?:string,is?:'in_progress' | 'scheduled' | 'success' | 'registered' | 'failed' | 'skipped',is_not?:'in_progress' | 'scheduled' | 'success' | 'registered' | 'failed' | 'skipped',not_in?:string}};
+      
+      import_credit_note(input:ImportCreditNoteInputParam):ChargebeeRequest<ImportCreditNoteResponse>;
     }
     export interface CreateResponse {  
        credit_note:CreditNote;
@@ -725,6 +513,54 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
       line_items?:{amount?:number,date_from?:number,date_to?:number,description?:string,quantity?:number,quantity_in_decimal?:string,reference_line_item_id:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
     }
+    export interface RetrieveResponse {  
+       credit_note:CreditNote;
+    }
+    
+    export interface PdfResponse {  
+       download:Download;
+    }
+    export interface PdfInputParam {
+       
+      /**
+        * @description Determines the pdf should be rendered as inline or attachment in the browser. \* attachment - PDF is rendered as attachment in the browser \* inline - PDF is rendered as inline in the browser
+
+        */
+       
+      disposition_type?:DispositionType;
+    }
+    export interface DownloadEinvoiceResponse {  
+       downloads:Download[];
+    }
+    
+    export interface RefundResponse {  
+       credit_note:CreditNote;
+       
+       transaction:Transaction;
+    }
+    export interface RefundInputParam {
+       
+      /**
+        * @description The amount to be refunded. If not specified, the entire [refundable amount](/docs/api/credit_notes#credit_note_amount_available) for this &#x60;credit_note&#x60; is refunded. **Note:** Any [linked_tax_withheld_refunds](/docs/api/credit_notes#credit_note_linked_tax_withheld_refunds) associated with the &#x60;credit_note&#x60; cannot be refunded via this operation.
+
+        */
+       
+      refund_amount?:number;
+       
+      /**
+        * @description A note to be added for this operation, to the credit note. This note is displayed on customer-facing documents such as the [Credit Note PDF](./credit_notes#retrieve_credit_note_as_pdf).
+
+        */
+       
+      customer_notes?:string;
+       
+      /**
+        * @description Reason code for the refund. Must be one from a list of reason codes set in the Chargebee app in **Settings \&gt; Configure Chargebee \&gt; Reason Codes \&gt; Credit Notes \&gt; Refund Credit Note**. Must be passed if set as mandatory in the app. The codes are case-sensitive.
+
+        */
+       
+      refund_reason_code?:string;
+    }
     export interface RecordRefundResponse {  
        credit_note:CreditNote;
        
@@ -753,6 +589,221 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
       transaction?:{amount?:number,date:number,payment_method:PaymentMethod,reference_number?:string};
     }
+    export interface VoidCreditNoteResponse {  
+       credit_note:CreditNote;
+    }
+    export interface VoidCreditNoteInputParam {
+       
+      /**
+        * @description Reason for voiding credit note. This comment will be added to the credit note.
+
+        */
+       
+      comment?:string;
+    }
+    export interface ListResponse {  
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+       
+       list:{credit_note:CreditNote}[];
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+       
+       next_offset?:string;
+    }
+    export interface ListInputParam {
+      [key : string]: any;  
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      offset?:string;
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      include_deleted?:boolean;
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      reference_invoice_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      type?:{in?:string,is?:'adjustment' | 'refundable',is_not?:'adjustment' | 'refundable',not_in?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      reason_code?:{in?:string,is?:'other' | 'product_unsatisfactory' | 'subscription_pause' | 'order_cancellation' | 'service_unsatisfactory' | 'subscription_cancellation' | 'chargeback' | 'order_change' | 'write_off' | 'waiver' | 'subscription_change' | 'fraudulent',is_not?:'other' | 'product_unsatisfactory' | 'subscription_pause' | 'order_cancellation' | 'service_unsatisfactory' | 'subscription_cancellation' | 'chargeback' | 'order_change' | 'write_off' | 'waiver' | 'subscription_change' | 'fraudulent',not_in?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      create_reason_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      status?:{in?:string,is?:'refund_due' | 'adjusted' | 'refunded' | 'voided',is_not?:'refund_due' | 'adjusted' | 'refunded' | 'voided',not_in?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      date?:{after?:string,before?:string,between?:string,on?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      total?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      price_type?:{in?:string,is?:'tax_exclusive' | 'tax_inclusive',is_not?:'tax_exclusive' | 'tax_inclusive',not_in?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      amount_allocated?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      amount_refunded?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      amount_available?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      voided_at?:{after?:string,before?:string,between?:string,on?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      updated_at?:{after?:string,before?:string,between?:string,on?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      sort_by?:{asc?:'date',desc?:'date'};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string};
+       
+      /**
+        * @description Lists all the Credit Notes.
+
+        */
+        
+      einvoice?:{status?:{in?:string,is?:'in_progress' | 'scheduled' | 'success' | 'registered' | 'failed' | 'skipped',is_not?:'in_progress' | 'scheduled' | 'success' | 'registered' | 'failed' | 'skipped',not_in?:string}};
+    }
+    export interface DeleteResponse {  
+       credit_note:CreditNote;
+    }
+    export interface DeleteInputParam {
+       
+      /**
+        * @description Reason for deleting this credit note. This comment will be added to the associated invoice entity.
+
+        */
+       
+      comment?:string;
+    }
+    export interface RemoveTaxWithheldRefundResponse {  
+       credit_note:CreditNote;
+    }
+    export interface RemoveTaxWithheldRefundInputParam {
+       
+      /**
+        * @description Parameters for tax_withheld
+
+        */
+       
+      tax_withheld?:{id:string};
+    }
+    export interface ResendEinvoiceResponse {  
+       credit_note:CreditNote;
+    }
+    
+    export interface SendEinvoiceResponse {  
+       credit_note:CreditNote;
+    }
+    
     export interface ImportCreditNoteResponse {  
        credit_note:CreditNote;
     }
@@ -917,65 +968,13 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
        
       linked_refunds?:{amount:number,date:number,payment_method:PaymentMethod,reference_number?:string}[];
     }
-    export interface DeleteResponse {  
-       credit_note:CreditNote;
-    }
-    export interface DeleteInputParam {
-       
-      /**
-        * @description Reason for deleting this credit note. This comment will be added to the associated invoice entity.
-
-        */
-       
-      comment?:string;
-    }
-    export interface DownloadEinvoiceResponse {  
-       downloads:Download[];
-    }
-    
-    export interface PdfResponse {  
-       download:Download;
-    }
-    export interface PdfInputParam {
-       
-      /**
-        * @description Determines the pdf should be rendered as inline or attachment in the browser. \* attachment - PDF is rendered as attachment in the browser \* inline - PDF is rendered as inline in the browser
-
-        */
-       
-      disposition_type?:DispositionType;
-    }
-    export interface ResendEinvoiceResponse {  
-       credit_note:CreditNote;
-    }
-    
-    export interface RemoveTaxWithheldRefundResponse {  
-       credit_note:CreditNote;
-    }
-    export interface RemoveTaxWithheldRefundInputParam {
-       
-      /**
-        * @description Parameters for tax_withheld
-
-        */
-       
-      tax_withheld?:{id:string};
-    }
-    export interface RetrieveResponse {  
-       credit_note:CreditNote;
-    }
-    
-    export interface SendEinvoiceResponse {  
-       credit_note:CreditNote;
-    }
-    
     export interface Einvoice {  
          /**
           * @description The unique &#x60;id&#x60; for the e-invoice. This is auto-generated by Chargebee.
 
           */
        
-      id?:string;
+      id:string;
        
          /**
           * @description This attribute is used to populate the unique reference number assigned to an invoice on the Invoice Registration Portal (IRP) network. It is essential for identifying and tracking invoices that are processed through the IRP network. In the future, this field may be used to store similar reference numbers for other networks.
@@ -989,7 +988,7 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
 
           */
        
-      status?:'in_progress' | 'scheduled' | 'success' | 'registered' | 'failed' | 'skipped';
+      status:'in_progress' | 'scheduled' | 'success' | 'registered' | 'failed' | 'skipped';
        
          /**
           * @description Detailed information about the status of the e-invoice. When &#x60;status&#x60; is &#x60;skipped&#x60; or &#x60;failed&#x60;, this contains the reason or error details. The following are some valid examples:
@@ -1002,165 +1001,542 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
       message?:string;
     }
     export interface LineItem {  
+         /**
+          * @description Uniquely identifies a line_item
+
+          */
+       
       id?:string;
+       
+         /**
+          * @description A unique identifier for the subscription this line item belongs to.
+
+          */
        
       subscription_id?:string;
        
-      date_from?:number;
+         /**
+          * @description Start date of this line item.
+
+          */
        
-      date_to?:number;
+      date_from:number;
        
-      unit_amount?:number;
+         /**
+          * @description End date of this line item.
+
+          */
+       
+      date_to:number;
+       
+         /**
+          * @description Unit amount of the line item.
+
+          */
+       
+      unit_amount:number;
+       
+         /**
+          * @description [Quantity of the recurring item](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_line_items_quantity) which is represented by this line item. For &#x60;metered&#x60; line items, this value is updated from [usages](/docs/api/usages) once when the invoice is generated as &#x60;pending&#x60; and finally when the invoice is [closed](/docs/api/invoices#close_a_pending_invoice).
+
+          */
        
       quantity?:number;
        
+         /**
+          * @description Total amount of this line item. Typically equals to unit amount x quantity
+
+          */
+       
       amount?:number;
+       
+         /**
+          * @description The [pricing scheme](https://www.chargebee.com/docs/2.0/plans.html#pricing-models) for this item price. \* stairstep - A quantity-based pricing scheme. The item is charged a fixed price based on the tier that the total quantity falls in. \* flat_fee - A fixed price that is not quantity-based. \* tiered - The per unit price is based on the tier that the total quantity falls in. \* per_unit - A fixed price per unit quantity. \* volume - There are quantity tiers for which per unit prices are set. Quantities are purchased from successive tiers.
+
+          */
        
       pricing_model?:'volume' | 'per_unit' | 'tiered' | 'flat_fee' | 'stairstep';
        
-      is_taxed?:boolean;
+         /**
+          * @description Specifies whether this line item is taxed or not
+
+          */
+       
+      is_taxed:boolean;
+       
+         /**
+          * @description The tax amount charged for this item
+
+          */
        
       tax_amount?:number;
        
+         /**
+          * @description Rate of tax used to calculate tax for this lineitem
+
+          */
+       
       tax_rate?:number;
+       
+         /**
+          * @description The decimal representation of the unit amount of the &#x60;line_item&#x60;. The value is in major units of the currency. Returned when the &#x60;line_item&#x60; is quantity-based and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
        
       unit_amount_in_decimal?:string;
        
+         /**
+          * @description The decimal representation of the quantity of this line_item. Returned when the &#x60;line_item&#x60; is quantity-based and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
+       
       quantity_in_decimal?:string;
+       
+         /**
+          * @description The decimal representation of the amount for the &#x60;line_item&#x60;, in major units of the currency. Typically equals to &#x60;unit_amount_in_decimal&#x60; x &#x60;quantity_in_decimal&#x60;. Returned when [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
        
       amount_in_decimal?:string;
        
+         /**
+          * @description Total discounts for this line
+
+          */
+       
       discount_amount?:number;
+       
+         /**
+          * @description Line Item-level discounts for this line.
+
+          */
        
       item_level_discount_amount?:number;
        
+         /**
+          * @description Invoice Reference Line Item ID
+
+          */
+       
       reference_line_item_id?:string;
        
-      description?:string;
+         /**
+          * @description Detailed description about this line item.
+
+          */
+       
+      description:string;
+       
+         /**
+          * @description Detailed description about this item.
+
+          */
        
       entity_description?:string;
        
-      entity_type?:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc';
+         /**
+          * @description Specifies the modelled entity this line item is based on. \* addon - Indicates that this lineitem is based on &#x27;Addon&#x27; entity. The &#x27;entity_id&#x27; attribute specifies the [addon](/docs/api/addons#addon_attributes) id \* plan - Indicates that this lineitem is based on &#x27;Plan&#x27; entity. The &#x27;entity_id&#x27; attribute specifies the [plan](/docs/api/plans#plan_attributes) id \* plan_item_price - Indicates that this line item is based on plan Item Price \* addon_item_price - Indicates that this line item is based on addon Item Price \* charge_item_price - Indicates that this line item is based on charge Item Price \* adhoc - Indicates that this lineitem is not modelled. i.e created adhoc. So the &#x27;entity_id&#x27; attribute will be null in this case \* plan_setup - Indicates that this lineitem is based on &#x27;Plan Setup&#x27; charge. The &#x27;entity_id&#x27; attribute specifies the [plan](/docs/api/plans#plan_attributes) id
+
+          */
+       
+      entity_type:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc';
+       
+         /**
+          * @description The reason due to which the line item price/amount is exempted from tax. \* zero_value_item - If the total invoice value/amount is equal to zero. E.g., If the total order value is $10 and a $10 coupon has been applied against that order, the total order value becomes $0. Hence the invoice value also becomes $0. \* reverse_charge - If the Customer is identified as B2B customer (when VAT Number is entered), applicable for EU only \* tax_not_configured - If tax is not enabled for the site \* high_value_physical_goods - If physical goods are sold from outside Australia to customers in Australia, and the price of all the physical good line items is greater than AUD 1000, then tax will not be applied \* customer_exempt - If the Customer is marked as Tax exempt \* region_non_taxable - If the product sold is not taxable in this region, but it is taxable in other regions, hence this region is not part of the Taxable jurisdiction \* product_exempt - If the Plan or Addon is marked as Tax exempt \* zero_rated - If the rate of tax is 0% and no Sales/ GST tax is collectable for that line item \* export - You are not registered for tax in the customer&#x27;s region. This is also the reason code when both &#x60;billing_address&#x60; and &#x60;shipping_address&#x60; have not been provided for the customer and subscription respectively
+
+          */
        
       tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
        
+         /**
+          * @description The identifier of the modelled entity this line item is based on. Will be null for &#x27;adhoc&#x27; entity type
+
+          */
+       
       entity_id?:string;
+       
+         /**
+          * @description A unique identifier for the customer this line item belongs to
+
+          */
        
       customer_id?:string;
     }
     export interface Discount {  
-      amount?:number;
+         /**
+          * @description The amount deducted. The format of this value depends on the [kind of currency](/docs/api?prod_cat_ver&#x3D;2#currencies).
+
+          */
+       
+      amount:number;
+       
+         /**
+          * @description Description for this deduction.
+
+          */
        
       description?:string;
        
+         /**
+          * @description The unique id of the line item that this deduction is for. Is required when &#x60;discounts[entity_type]&#x60; is &#x60;item_level_coupon&#x60; or &#x60;document_level_coupon&#x60;.
+
+          */
+       
       line_item_id?:string;
        
-      entity_type?:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
+         /**
+          * @description The type of deduction and the amount to which it is applied. \* prorated_credits - The deduction is due to a legacy adjustment credit applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. The legacy credits feature is superseded by [adjustment_credit_notes](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_adjustment_credit_notes). \* item_level_coupon - The deduction is due to a coupon applied to line item. The coupon &#x60;id&#x60; is passed as &#x60;entity_id&#x60;. \* item_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to a line item of the invoice. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* document_level_coupon - The deduction is due to a coupon applied to the invoice &#x60;sub_total&#x60;. The coupon id is passed as &#x60;entity_id&#x60;. \* promotional_credits - The deduction is due to a [promotional credit](/docs/api/promotional_credits?prod_cat_ver&#x3D;2) applied to the invoice. \* document_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to the invoice &#x60;sub_total&#x60;. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;.
+
+          */
+       
+      entity_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
+       
+         /**
+          * @description The type of discount that is applied to the line item. Relevant only when &#x60;discounts[entity_type]&#x60; is one of &#x60;item_level_discount&#x60; , &#x60;item_level_coupon&#x60;, &#x60;document_level_discount&#x60;, or &#x60;document_level_coupon&#x60; \* percentage - when percentage is applied as discount \* fixed_amount - when amount is applied as discount
+
+          */
        
       discount_type?:'fixed_amount' | 'percentage';
        
+         /**
+          * @description When the deduction is due to a &#x60;coupon&#x60; or a [discount](discounts), then this is the &#x60;id&#x60; of the coupon or discount.
+
+          */
+       
       entity_id?:string;
+       
+         /**
+          * @description The [coupon code](/docs/api/coupon_codes#coupon_code_code), if applicable, used to provide the discount. The [coupon.id](/docs/api/coupons#coupon_id) is available in &#x60;entity_id&#x60;.
+
+          */
        
       coupon_set_code?:string;
     }
     export interface LineItemDiscount {  
-      line_item_id?:string;
+         /**
+          * @description The unique id of the line item that this deduction is for.
+
+          */
        
-      discount_type?:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
+      line_item_id:string;
+       
+         /**
+          * @description The type of deduction and the amount to which it is applied. \* prorated_credits - The deduction is due to a legacy adjustment credit applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. The legacy credits feature is superseded by [adjustment_credit_notes](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_adjustment_credit_notes). \* document_level_coupon - The deduction is due to a coupon applied to the invoice &#x60;sub_total&#x60;. The coupon &#x60;id&#x60; is available as &#x60;entity_id&#x60;. \* promotional_credits - The deduction is due to a [promotional credit](/docs/api/promotional_credits) applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. \* item_level_coupon - The deduction is due to a coupon applied to a line item of the invoice. The coupon &#x60;id&#x60; is available as &#x60;entity_id&#x60;. \* document_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to the invoice &#x60;sub_total&#x60;. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* item_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to a line item of the invoice. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;.
+
+          */
+       
+      discount_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
        
       coupon_id?:string;
        
+         /**
+          * @description When the deduction is due to a &#x60;coupon&#x60; or a [discount](discounts), then this is the &#x60;id&#x60; of the coupon or discount.
+
+          */
+       
       entity_id?:string;
        
-      discount_amount?:number;
+         /**
+          * @description The amount deducted. The format of this value depends on the [kind of currency](/docs/api#currencies).
+
+          */
+       
+      discount_amount:number;
     }
     export interface LineItemTier {  
+         /**
+          * @description Uniquely identifies a line_item
+
+          */
+       
       line_item_id?:string;
        
-      starting_unit?:number;
+         /**
+          * @description The lower limit of a range of units for the tier
+
+          */
+       
+      starting_unit:number;
+       
+         /**
+          * @description The upper limit of a range of units for the tier
+
+          */
        
       ending_unit?:number;
        
-      quantity_used?:number;
+         /**
+          * @description The number of units purchased in a range.
+
+          */
        
-      unit_amount?:number;
+      quantity_used:number;
+       
+         /**
+          * @description The price of the tier if the charge model is a &#x60;stairtstep&#x60; pricing , or the price of each unit in the tier if the charge model is &#x60;tiered&#x60;/&#x60;volume&#x60; pricing.
+
+          */
+       
+      unit_amount:number;
+       
+         /**
+          * @description The decimal representation of the the lowest value of quantity in this tier. This is zero for the lowest tier. For all other tiers, it is the same as &#x60;ending_unit_in_decimal&#x60; of the next lower tier. Returned only when the &#x60;line_items.pricing_model&#x60; is &#x60;tiered&#x60;, &#x60;volume&#x60; or &#x60;stairstep&#x60; and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
        
       starting_unit_in_decimal?:string;
        
+         /**
+          * @description The decimal representation of the highest value of quantity in this tier. This attribute is not applicable for the highest tier. For all other tiers, it must be equal to the &#x60;starting_unit_in_decimal&#x60; of the next higher tier. Returned only when the &#x60;line_items.pricing_model&#x60; is &#x60;tiered&#x60;, &#x60;volume&#x60; or stairstep and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
+       
       ending_unit_in_decimal?:string;
        
+         /**
+          * @description The decimal representation of the quantity purchased from this tier. Returned when the &#x60;line_item&#x60; is quantity-based and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
+       
       quantity_used_in_decimal?:string;
+       
+         /**
+          * @description The decimal representation of the per-unit price for the tier when the &#x60;pricing_model&#x60; is &#x60;tiered&#x60; or &#x60;volume&#x60;. When the &#x60;pricing_model&#x60; is &#x60;stairstep&#x60;, it is the decimal representation of the total price for &#x60;line_item&#x60;. The value is in major units of the currency. Returned when the &#x60;line_item&#x60; is quantity-based and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units ) is enabled.
+
+          */
        
       unit_amount_in_decimal?:string;
     }
     export interface Tax {  
-      name?:string;
+         /**
+          * @description The name of the tax applied. E.g. GST.
+
+          */
        
-      amount?:number;
+      name:string;
+       
+         /**
+          * @description The tax amount.
+
+          */
+       
+      amount:number;
+       
+         /**
+          * @description Description of the tax item.
+
+          */
        
       description?:string;
     }
     export interface LineItemTax {  
+         /**
+          * @description The unique reference id of the line item for which the tax is applicable
+
+          */
+       
       line_item_id?:string;
        
-      tax_name?:string;
+         /**
+          * @description The name of the tax applied
+
+          */
        
-      tax_rate?:number;
+      tax_name:string;
+       
+         /**
+          * @description The rate of tax used to calculate tax amount
+
+          */
+       
+      tax_rate:number;
+       
+         /**
+          * @description Indicates if tax is applied only on a portion of the line item amount.
+
+          */
        
       is_partial_tax_applied?:boolean;
        
+         /**
+          * @description Indicates the non-compliance tax that should not be reported to the jurisdiction.
+
+          */
+       
       is_non_compliance_tax?:boolean;
        
-      taxable_amount?:number;
+         /**
+          * @description Indicates the actual portion of the line item amount that is taxable.
+
+          */
        
-      tax_amount?:number;
+      taxable_amount:number;
+       
+         /**
+          * @description The tax amount
+
+          */
+       
+      tax_amount:number;
+       
+         /**
+          * @description The type of tax jurisdiction \* federal - The tax jurisdiction is a federal \* state - The tax jurisdiction is a state \* county - The tax jurisdiction is a county \* country - The tax jurisdiction is a country \* city - The tax jurisdiction is a city \* special - Special tax jurisdiction. \* unincorporated - Combined tax of state and county. \* other - Jurisdictions other than the ones listed above.
+
+          */
        
       tax_juris_type?:'special' | 'country' | 'unincorporated' | 'other' | 'city' | 'federal' | 'county' | 'state';
        
+         /**
+          * @description The name of the tax jurisdiction
+
+          */
+       
       tax_juris_name?:string;
+       
+         /**
+          * @description The tax jurisdiction code
+
+          */
        
       tax_juris_code?:string;
        
+         /**
+          * @description Total tax amount in the currency of the place of supply. This is applicable only for Invoice and Credit Notes API.
+
+          */
+       
       tax_amount_in_local_currency?:number;
+       
+         /**
+          * @description The currency code (ISO 4217 format) of the place of supply in which VAT needs to be converted and displayed. This is applicable only for Invoice and Credit Notes API.
+
+          */
        
       local_currency_code?:string;
     }
     export interface CreditNoteTransaction {  
-      txn_id?:string;
+         /**
+          * @description Uniquely identifies the transaction.
+
+          */
        
-      applied_amount?:number;
+      txn_id:string;
        
-      applied_at?:number;
+         /**
+          * @description The transaction amount applied to this invoice
+
+          */
+       
+      applied_amount:number;
+       
+         /**
+          * @description Time when the transaction amount applied to this invoice.
+
+          */
+       
+      applied_at:number;
+       
+         /**
+          * @description The status of this transaction. \* needs_attention - Connection with Gateway got terminated abruptly. So, status of this transaction needs to be resolved manually \* voided - The transaction got voided or authorization expired at gateway. \* timeout - Transaction failed because of Gateway not accepting the connection. \* success - The transaction is successful. \* failure - Transaction failed. Refer the &#x27;error_code&#x27; and &#x27;error_text&#x27; fields to know the reason for failure \* in_progress - Transaction is being processed by the gateway. This typically happens for [direct debit transactions](https://www.chargebee.com/docs/direct-debit-payments.html) or, in case of cards, refund transactions. Such transactions can take 2-7 days to complete, depending on the gateway and payment method.
+
+          */
        
       txn_status?:'in_progress' | 'success' | 'failure' | 'voided' | 'timeout' | 'needs_attention';
        
+         /**
+          * @description Indicates when this transaction occurred.
+
+          */
+       
       txn_date?:number;
        
+         /**
+          * @description Total amount of the transaction
+
+          */
+       
       txn_amount?:number;
+       
+         /**
+          * @description Reason code for the refund. Must be one from a list of reason codes set in the Chargebee app in **Settings \&gt; Configure Chargebee \&gt; Reason Codes \&gt; Credit Notes \&gt; Refund Credit Note**. Must be passed if set as mandatory in the app. The codes are case-sensitive
+
+          */
        
       refund_reason_code?:string;
     }
     export interface LinkedTaxWithheldRefund {  
-      id?:string;
+         /**
+          * @description An auto-generated unique identifier for the tax withheld. The value starts with the prefix &#x60;tax_wh_&#x60;. For example, &#x60;tax_wh_16BdDXSlbu4uV1Ee6&#x60;.
+
+          */
+       
+      id:string;
+       
+         /**
+          * @description The amount withheld by the customer as tax from the invoice. The unit depends on the [type of currency](/docs/api#md_disabled).
+
+          */
        
       amount?:number;
        
+         /**
+          * @description The description for this tax withheld.
+
+          */
+       
       description?:string;
        
+         /**
+          * @description Date or time associated with the tax withheld.
+
+          */
+       
       date?:number;
+       
+         /**
+          * @description A unique external reference number for the tax withheld. Typically, this is the reference number used by the system you are integrating the API with. Depending on your integration, this could be the reference number issued by the taxation authority to identify the customer or the specific tax transaction.
+
+          */
        
       reference_number?:string;
     }
     export interface AppliedCredit {  
-      invoice_id?:string;
+         /**
+          * @description Unique identifier of the invoice.
+
+          */
        
-      allocated_amount?:number;
+      invoice_id:string;
        
-      allocated_at?:number;
+         /**
+          * @description Amount of this refund transaction.
+
+          */
+       
+      allocated_amount:number;
+       
+         /**
+          * @description Indicates when this refund occured.
+
+          */
+       
+      allocated_at:number;
+       
+         /**
+          * @description Closing date of the invoice. Typically this is the date on which invoice is generated
+
+          */
        
       invoice_date?:number;
        
-      invoice_status?:'pending' | 'paid' | 'voided' | 'not_paid' | 'posted' | 'payment_due';
+         /**
+          * @description Current status of the invoice. \* not_paid - Indicates the payment is not made and all attempts to collect is failed. \* paid - Indicates a paid invoice. \* voided - Indicates a voided invoice. \* posted - Indicates the payment is not yet collected and will be in this state till the due date to indicate the due period \* pending -  
+The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_status) is yet to be closed (sent for payment collection). An invoice is generated with this &#x60;status&#x60; when it has line items that belong to items that are &#x60;metered&#x60; or when the &#x60;subscription.create_pending_invoices&#x60;attribute is set to &#x60;true&#x60;.  
+The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to be closed (sent for payment collection). All invoices are generated with this &#x60;status&#x60; when [Metered Billing](https://www.chargebee.com/docs/1.0/metered_billing.html) is enabled for the site. \* payment_due - Indicates the payment is not yet collected and is being retried as per retry settings.
+
+          */
+       
+      invoice_status:'pending' | 'paid' | 'voided' | 'not_paid' | 'posted' | 'payment_due';
     }
     export interface ShippingAddress {  
          /**
@@ -1273,7 +1649,7 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
 
           */
        
-      index?:number;
+      index:number;
     }
     export interface BillingAddress {  
          /**

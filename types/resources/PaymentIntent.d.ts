@@ -56,7 +56,7 @@ declare module 'chargebee' {
 
       */
     
-    payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card';
+    payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card';
     
     /**
       * @description The URL the customer will be directed to once 3DS verification is successful. Applicable only when &#x60;payment_method_type&#x60; is &#x60;ideal&#x60;, &#x60;sofort&#x60;, &#x60;dotpay&#x60; or &#x60;giropay&#x60;.
@@ -134,20 +134,6 @@ declare module 'chargebee' {
   export namespace PaymentIntent {
     export class PaymentIntentResource {  
       /**
-        * @description Retrieves the PaymentIntent resource.
-
-        */
-      
-      retrieve(payment_intent_id:string):ChargebeeRequest<RetrieveResponse>;
-       
-      /**
-        * @description Updating properties on a PaymentIntent object. All the subsequent 3DS transaction attempts will have the updated values.
-
-        */
-      
-      update(payment_intent_id:string, input?:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
-       
-      /**
         * @description Creates a PaymentIntent object. This is to be used with Chargebee.js API to complete the 3DS flow for new or stored cards.
 
 While creating, specify the appropriate gateway account and amount. Exact amount can be estimated using our [Estimate API](/docs/api/estimates).
@@ -163,57 +149,20 @@ If multiple [business entities](/docs/api/advanced-features#mbe) are created for
         */
       
       create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
-    }
-    export interface RetrieveResponse {  
-       payment_intent:PaymentIntent;
-    }
-    
-    export interface UpdateResponse {  
-       payment_intent:PaymentIntent;
-    }
-    export interface UpdateInputParam {
        
       /**
-        * @description Amount(in cents) to be authorized for 3DS flow.
+        * @description Updating properties on a PaymentIntent object. All the subsequent 3DS transaction attempts will have the updated values.
 
         */
-       
-      amount?:number;
+      
+      update(payment_intent_id:string, input?:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
        
       /**
-        * @description The currency code (ISO 4217 format) of the amount used in transaction.
+        * @description Retrieves the PaymentIntent resource.
 
         */
-       
-      currency_code?:string;
-       
-      /**
-        * @description The gateway account used for performing the 3DS flow.
-
-        */
-       
-      gateway_account_id?:string;
-       
-      /**
-        * @description The payment method of this intent. \* google_pay - google_pay \* apple_pay - apple_pay \* ideal - ideal \* bancontact - bancontact \* netbanking_emandates - netbanking_emandates \* direct_debit - direct_debit \* card - card \* dotpay - dotpay \* giropay - giropay \* upi - upi \* sofort - sofort \* paypal_express_checkout - paypal_express_checkout
-
-        */
-       
-      payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card';
-       
-      /**
-        * @description The URL the customer will be directed to once 3DS verification is successful. Applicable only when &#x60;payment_method_type&#x60; is &#x60;ideal&#x60;, &#x60;sofort&#x60;, &#x60;dotpay&#x60; or &#x60;giropay&#x60;.
-
-        */
-       
-      success_url?:string;
-       
-      /**
-        * @description The URL the customer will be directed to when 3DS verification fails. Applicable only when &#x60;payment_method_type&#x60; is &#x60;ideal&#x60;, &#x60;sofort&#x60;, &#x60;dotpay&#x60; or &#x60;giropay&#x60;.
-
-        */
-       
-      failure_url?:string;
+      
+      retrieve(payment_intent_id:string):ChargebeeRequest<RetrieveResponse>;
     }
     export interface CreateResponse {  
        payment_intent:PaymentIntent;
@@ -277,7 +226,7 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
 
         */
        
-      payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card';
+      payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card';
        
       /**
         * @description The URL the customer will be directed to once 3DS verification is successful. Applicable only when &#x60;payment_method_type&#x60; is &#x60;ideal&#x60;, &#x60;sofort&#x60;, &#x60;dotpay&#x60; or &#x60;giropay&#x60;.
@@ -293,6 +242,57 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
        
       failure_url?:string;
     }
+    export interface UpdateResponse {  
+       payment_intent:PaymentIntent;
+    }
+    export interface UpdateInputParam {
+       
+      /**
+        * @description Amount(in cents) to be authorized for 3DS flow.
+
+        */
+       
+      amount?:number;
+       
+      /**
+        * @description The currency code (ISO 4217 format) of the amount used in transaction.
+
+        */
+       
+      currency_code?:string;
+       
+      /**
+        * @description The gateway account used for performing the 3DS flow.
+
+        */
+       
+      gateway_account_id?:string;
+       
+      /**
+        * @description The payment method of this intent. \* google_pay - google_pay \* boleto - boleto \* apple_pay - apple_pay \* ideal - ideal \* bancontact - bancontact \* netbanking_emandates - netbanking_emandates \* direct_debit - direct_debit \* card - card \* dotpay - dotpay \* giropay - giropay \* upi - upi \* sofort - sofort \* paypal_express_checkout - paypal_express_checkout
+
+        */
+       
+      payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card';
+       
+      /**
+        * @description The URL the customer will be directed to once 3DS verification is successful. Applicable only when &#x60;payment_method_type&#x60; is &#x60;ideal&#x60;, &#x60;sofort&#x60;, &#x60;dotpay&#x60; or &#x60;giropay&#x60;.
+
+        */
+       
+      success_url?:string;
+       
+      /**
+        * @description The URL the customer will be directed to when 3DS verification fails. Applicable only when &#x60;payment_method_type&#x60; is &#x60;ideal&#x60;, &#x60;sofort&#x60;, &#x60;dotpay&#x60; or &#x60;giropay&#x60;.
+
+        */
+       
+      failure_url?:string;
+    }
+    export interface RetrieveResponse {  
+       payment_intent:PaymentIntent;
+    }
+    
     export interface PaymentAttempt {  
          /**
           * @description Identifier for PaymentIntent&#x27;s active payment attempt.
@@ -313,7 +313,7 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
 
           */
        
-      payment_method_type?:'giropay' | 'ideal' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'sofort' | 'upi' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'card';
+      payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card';
        
          /**
           * @description Reference of PaymentIntent at gateway

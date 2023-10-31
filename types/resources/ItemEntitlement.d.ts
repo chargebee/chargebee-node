@@ -70,6 +70,13 @@ declare module 'chargebee' {
   export namespace ItemEntitlement {
     export class ItemEntitlementResource {  
       /**
+        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
+
+        */
+      
+      item_entitlements_for_item(item_id:string, input?:ItemEntitlementsForItemInputParam):ChargebeeRequest<ItemEntitlementsForItemResponse>;
+       
+      /**
         * @description Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
 
         */
@@ -84,18 +91,42 @@ declare module 'chargebee' {
       add_item_entitlements(feature_id:string, input:AddItemEntitlementsInputParam):ChargebeeRequest<AddItemEntitlementsResponse>;
        
       /**
-        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
-
-        */
-      
-      item_entitlements_for_item(item_id:string, input?:ItemEntitlementsForItemInputParam):ChargebeeRequest<ItemEntitlementsForItemResponse>;
-       
-      /**
         * @description Upserts or removes a set of &#x60;item_entitlements&#x60; for an [item](items?prod_cat_ver&#x3D;2) depending on the &#x60;action&#x60; specified. The API returns the upserted or deleted &#x60;item_entitlements&#x60; after successfully completing the operation. The operation returns an error when the first &#x60;item_entitlement&#x60; fails to be processed. Either all the &#x60;item_entitlement&#x60;s provided in the request are processed or none.
 
         */
       
       upsert_or_remove_item_entitlements_for_item(item_id:string, input:UpsertOrRemoveItemEntitlementsForItemInputParam):ChargebeeRequest<UpsertOrRemoveItemEntitlementsForItemResponse>;
+    }
+    export interface ItemEntitlementsForItemResponse {  
+      /**
+        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
+
+        */
+       
+       list:{item_entitlement:ItemEntitlement}[];
+       
+      /**
+        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
+
+        */
+       
+       next_offset?:string;
+    }
+    export interface ItemEntitlementsForItemInputParam {
+      [key : string]: any;  
+      /**
+        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
+
+        */
+        
+      offset?:string;
     }
     export interface ItemEntitlementsForFeatureResponse {  
       /**
@@ -115,14 +146,14 @@ declare module 'chargebee' {
     export interface ItemEntitlementsForFeatureInputParam {
       [key : string]: any;  
       /**
-        * @description The number of resources to be returned.
+        * @description Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
 
         */
         
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
 
         */
         
@@ -146,37 +177,6 @@ declare module 'chargebee' {
         */
        
       item_entitlements?:{item_id:string,item_type?:'item' | 'charge' | 'addon' | 'subscription' | 'plan',value?:string}[];
-    }
-    export interface ItemEntitlementsForItemResponse {  
-      /**
-        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
-
-        */
-       
-       list:{item_entitlement:ItemEntitlement}[];
-       
-      /**
-        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
-
-        */
-       
-       next_offset?:string;
-    }
-    export interface ItemEntitlementsForItemInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
     }
     export interface UpsertOrRemoveItemEntitlementsForItemResponse {  
        item_entitlement:ItemEntitlement;

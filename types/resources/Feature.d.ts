@@ -91,20 +91,6 @@ declare module 'chargebee' {
       create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
        
       /**
-        * @description Deletes a feature. Any item entitlements and subscription entitlements defined for the feature are also removed. This action is not permissible when the &#x60;status&#x60; of the feature is &#x60;active&#x60;.
-
-        */
-      
-      delete(feature_id:string):ChargebeeRequest<DeleteResponse>;
-       
-      /**
-        * @description Retrieve a specific feature using its id.
-
-        */
-      
-      retrieve(feature_id:string):ChargebeeRequest<RetrieveResponse>;
-       
-      /**
         * @description Updates a specific feature.  
 **Note**
 
@@ -146,11 +132,18 @@ However, changing &#x60;levels[]&#x60; to the state shown below is not permissib
       update(feature_id:string, input?:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
        
       /**
-        * @description Archives an &#x60;active&#x60; feature so that no **new** [item](item_entitlements) or [subscription entitlements](subscription_entitlements) can be created towards the feature. Any pre-existing item or subscription entitlements from the time that the feature was &#x60;active&#x60; remain effective. This operation changes the [status](features#feature_status) of the feature to &#x60;archived&#x60;. The feature &#x60;status&#x60; must be &#x60;active&#x60; when calling this endpoint.
+        * @description Retrieve a specific feature using its id.
 
         */
       
-      archive(feature_id:string):ChargebeeRequest<ArchiveResponse>;
+      retrieve(feature_id:string):ChargebeeRequest<RetrieveResponse>;
+       
+      /**
+        * @description Deletes a feature. Any item entitlements and subscription entitlements defined for the feature are also removed. This action is not permissible when the &#x60;status&#x60; of the feature is &#x60;active&#x60;.
+
+        */
+      
+      delete(feature_id:string):ChargebeeRequest<DeleteResponse>;
        
       /**
         * @description Activates a &#x60;draft&#x60; feature so that any [item](item_entitlements) or [subscription entitlements](subscription_entitlements) defined towards it take effect immediately. This operation changes the [status](features#feature_status) of the feature to &#x60;active&#x60;. The feature &#x60;status&#x60; must be &#x60;draft&#x60; when calling this endpoint.
@@ -158,6 +151,13 @@ However, changing &#x60;levels[]&#x60; to the state shown below is not permissib
         */
       
       activate(feature_id:string):ChargebeeRequest<ActivateResponse>;
+       
+      /**
+        * @description Archives an &#x60;active&#x60; feature so that no **new** [item](item_entitlements) or [subscription entitlements](subscription_entitlements) can be created towards the feature. Any pre-existing item or subscription entitlements from the time that the feature was &#x60;active&#x60; remain effective. This operation changes the [status](features#feature_status) of the feature to &#x60;archived&#x60;. The feature &#x60;status&#x60; must be &#x60;active&#x60; when calling this endpoint.
+
+        */
+      
+      archive(feature_id:string):ChargebeeRequest<ArchiveResponse>;
        
       /**
         * @description Reactivates an archived feature so that **new** [item](item_entitlements) or [subscription entitlements](subscription_entitlements) can be created towards the feature. This operation changes the [status](features#feature_status) of the feature to &#x60;active&#x60;. The feature &#x60;status&#x60; must be &#x60;archived&#x60; when calling this endpoint.
@@ -184,43 +184,42 @@ However, changing &#x60;levels[]&#x60; to the state shown below is not permissib
     export interface ListInputParam {
       [key : string]: any;  
       /**
-        * @description The number of resources to be returned.
+        * @description &quot;This API fetches all the available features. &quot; If the limit parameter is not set, it will return upto 10 features. &quot;
 
         */
         
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description &quot;This API fetches all the available features. &quot; If the limit parameter is not set, it will return upto 10 features. &quot;
 
         */
         
       offset?:string;
        
       /**
-        * @description A case-sensitive unique name for the feature. For example: &#x60;user license&#x60;, &#x60;data storage&#x60;, &#x60;Salesforce Integration&#x60;, &#x60;devices&#x60;, &#x60;UHD Streaming&#x60;, and so on.   
-**Note:** This name is not displayed on any customer-facing documents or pages such as [invoice PDFs](invoices#retrieve_invoice_as_pdf) or [hosted pages](hosted_pages). However, in the future, it is likely to be introduced on the [Self-Serve Portal](portal_sessions).
+        * @description &quot;This API fetches all the available features. &quot; If the limit parameter is not set, it will return upto 10 features. &quot;
 
         */
         
       name?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
        
       /**
-        * @description A unique and immutable identifier for the feature. You can set it yourself, in which case it is recommended that a human-readable format (or slug) be used. For example, &#x60;number-of-users-ccjht01&#x60;. When not provided, a random value is automatically set.
+        * @description &quot;This API fetches all the available features. &quot; If the limit parameter is not set, it will return upto 10 features. &quot;
 
         */
         
       id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
        
       /**
-        * @description The current status of the feature.
+        * @description &quot;This API fetches all the available features. &quot; If the limit parameter is not set, it will return upto 10 features. &quot;
 
         */
         
       status?:{in?:string,is?:'archived' | 'draft' | 'active',is_not?:'archived' | 'draft' | 'active',not_in?:string};
        
       /**
-        * @description The type of feature.
+        * @description &quot;This API fetches all the available features. &quot; If the limit parameter is not set, it will return upto 10 features. &quot;
 
         */
         
@@ -281,14 +280,6 @@ However, changing &#x60;levels[]&#x60; to the state shown below is not permissib
        
       levels?:{is_unlimited?:boolean,level?:number,name?:string,value?:string}[];
     }
-    export interface DeleteResponse {  
-       feature:Feature;
-    }
-    
-    export interface RetrieveResponse {  
-       feature:Feature;
-    }
-    
     export interface UpdateResponse {  
        feature:Feature;
     }
@@ -330,11 +321,19 @@ However, changing &#x60;levels[]&#x60; to the state shown below is not permissib
        
       levels?:{is_unlimited?:boolean,level?:number,name?:string,value?:string}[];
     }
-    export interface ArchiveResponse {  
+    export interface RetrieveResponse {  
+       feature:Feature;
+    }
+    
+    export interface DeleteResponse {  
        feature:Feature;
     }
     
     export interface ActivateResponse {  
+       feature:Feature;
+    }
+    
+    export interface ArchiveResponse {  
        feature:Feature;
     }
     
@@ -343,13 +342,45 @@ However, changing &#x60;levels[]&#x60; to the state shown below is not permissib
     }
     
     export interface Level {  
+         /**
+          * @description A case-sensitive display name for the entitlement level. Provide a name that helps you clearly identify the entitlement level. For example: a feature such as &#x60;Email Support&#x60; can have entitlement levels named as &#x60;All weekdays&#x60;, &#x60;All days&#x60;, &#x60;40 hours per week&#x60; and so on. When not provided for &#x60;feature.type&#x60; &#x60;quantity&#x60; or &#x60;range&#x60;, this name is auto-generated as the space-separated concatenation of &#x60;levels[].value&#x60; and the pluralized version of &#x60;unit&#x60;. For example, if &#x60;levels[].value&#x60; is &#x60;20&#x60; and &#x60;unit&#x60; is &#x60;user&#x60;, then &#x60;levels[].name&#x60; becomes &#x60;20 users&#x60;.
+
+          */
+       
       name?:string;
        
-      value?:string;
+         /**
+          * @description The value denoting the entitlement level granted.
+
+* **When &#x60;type&#x60; is &#x60;quantity&#x60;:** this attribute denotes the quantity of units of the feature for this entitlement level. For example, a feature such as &#x60;number of users&#x60; can have &#x60;levels[].value&#x60; as &#x60;5&#x60;, &#x60;20&#x60;, &#x60;50&#x60;, and &#x60;100&#x60;. &#x60;levels[].is_unlimited&#x60; is used to set the entitlement level to &quot;unlimited&quot;.
+* **When &#x60;type&#x60; is &#x60;range&#x60;:** there can be be only two elements in the &#x60;levels[]&#x60; array; one corresponding to the minimum value (&#x60;levels[0]&#x60;) and the other to the maximum value (&#x60;levels[1]&#x60;) of the range of possible entitlement levels. For example, a feature such as &#x60;number of users&#x60; may have &#x60;levels[0].value&#x60; &#x3D; &#x60;5&#x60; and &#x60;levels[1].value&#x60; &#x3D; &#x60;50000&#x60;. When the upper limit is &quot;unlimited&quot;, then &#x60;levels[1].value&#x60; is not set and &#x60;levels[1].is_unlimited&#x60; is &#x60;true&#x60;.
+* **When &#x60;type&#x60; is &#x60;custom&#x60;:** this attribute denotes the value of this custom entitlement level. For example, a feature &#x60;Email Support&#x60; can have &#x60;levels[].value&#x60; as one of say, &#x60;24×7&#x60; and &#x60;24×5&#x60;.
+
+          */
        
-      level?:number;
+      value:string;
        
-      is_unlimited?:boolean;
+         /**
+          * @description This attribute represents the order of the entitlement levels from lowest to highest.  
+
+* When &#x60;type&#x60; is &#x60;quantity&#x60; or &#x60;custom&#x60;: The lowest entitlement level has the value &#x60;0&#x60;, the next higher level has the value &#x60;1&#x60;, followed by &#x60;2&#x60;, and so on.
+* When &#x60;type&#x60; is &#x60;range&#x60;: This attribute is &#x60;0&#x60; for the minimum value and &#x60;1&#x60; for the maximum value in the range.
+
+When not defined, it is assumed as the index of the &#x60;levels[]&#x60; array.
+
+          */
+       
+      level:number;
+       
+         /**
+          * @description When &#x60;type&#x60; is &#x60;quantity&#x60; or &#x60;range&#x60;, this attribute indicates whether the entitlement level corresponds to unlimited units of the feature. Possible values:
+
+* &#x60;true&#x60;: The entitlement level corresponds to unlimited units of the feature. &#x60;levels[].value&#x60; is ignored for this level. This can only be set for the level that has the highest value for &#x60;levels[].level.&#x60;
+* &#x60;false&#x60;: The entitlement level does not correspond to unlimited units of the feature.
+
+          */
+       
+      is_unlimited:boolean;
     }
   }
 }

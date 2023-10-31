@@ -40,23 +40,80 @@ declare module 'chargebee' {
   export namespace InAppSubscription {
     export class InAppSubscriptionResource {  
       /**
-        * @description This API verifies the application id &#x60;{in_app_subscription_app_id}&#x60; and &#x60;receipt&#x60; then returns the subscription details associated with the purchase.
+        * @description Verifies an in-app purchase made by your customer and creates a subscription in Chargebee.  
+**Tip**
 
-#### Path Parameter
+The recommended approach is to call this endpoint from the client-side app directly. However, if you are using this API to replace an existing direct integration with Apple or Google, then you may choose to call this API from the server-side.  
+**Note:**   
 
-in_app_subscription_app_id  
-required, string  
+if App Store or Play Store products have not been imported to Chargebee and this API is invoked, Chargebee will automatically create plans that correspond to the store product IDs. However, if historical subscriptions are to be imported using the [import receipt](https://apidocs.chargebee.com/docs/api/in_app_subscriptions#import_receipt) API, importing products is mandatory. [Learn more](https://www.chargebee.com/docs/mobile_subscriptions.html).  
 
-The handle is created by Chargebee for your Apple App Store or Google Play Store app. It can be obtained from the Chargebee web app.
+Apple App Store {#app_store}
+----------------------------
+
+This section provides details of the Process Purchase Command operation when performed for the Apple App Store. This API processes only the latest in-app transaction on the receipt. Sync historical subscriptions into Chargebee using [bulk import](https://www.chargebee.com/docs/2.0/mobile-app-store-product-iap.html#import-in-app-purchase-receipts) of In-App Purchase receipts.  
+**Important**   
+
+* [Integrate Chargebee](https://www.chargebee.com/docs/mobile-app-store-connect.html#connnect-with-your-chargebee-site) with your Apple App Store account using your shared secret from Apple.
+* It is strongly recommended to use this endpoint to notify Chargebee of **new** purchases only.
+* For updates to existing subscriptions, we recommend that you configure Apple App Store to send server notifications to Chargebee.
+
+Chargebee validates the &#x60;receipt&#x60; with Apple App Store and does the following once validation succeeds:
+
+1. Look for [item_family.id](/docs/api/item_families?prod_cat_ver&#x3D;2#item_family_id) that matches the value Apple-App-Store, and create such a product family if not found.
+2. Look for [item.id](/docs/api/items?prod_cat_ver&#x3D;2#item_id) that matches &#x60;product[id]&#x60; and if not found, create such a plan-item under the item family described in the previous step.
+3. Look for [item_price.id](/docs/api/item_prices?prod_cat_ver&#x3D;2#item_price_id) that matches the concatenation of &#x60;product[id]&#x60; and &#x60;product[currency_code]&#x60;, and if not found, create such an item price under the item described in the previous step.
+4. Create/update a subscription:
+   * If the receipt is for a new purchase, a new subscription is created for the plan-item price described in the previous step. The subscription has the following details:
+     * &#x60;id&#x60; set to [original_transaction_id](https://developer.apple.com/documentation/appstorereceipts/original_transaction_id?language&#x3D;objc)
+     * &#x60;start_date&#x60; set to [responseBody.Latest_receipt_info.purchase_date_ms](https://developer.apple.com/documentation/appstorereceipts/responsebody/latest_receipt_info?language&#x3D;objc)
+     * &#x60;current_term_end&#x60; set to &#x60;responseBody.Latest_receipt_info.expires_date_ms&#x60;
+   * Instead, if the receipt belongs to an existing subscription in Chargebee, it is updated to reflect the current state of the subscription at Apple.
+5. The payment is recorded against the subscription invoice. The associated transaction is updated with the following details:
+   * The [transaction.reference_number](/docs/api/transactions?prod_cat_ver&#x3D;2#transaction_reference_number) is set to the [transaction_id](https://developer.apple.com/documentation/appstorereceipts/transaction_id?language&#x3D;objc) of the payment.
+* The [transaction.payment_method](/docs/api/transactions#transaction_payment_method) is set to &#x60;apple_pay&#x60;.  
+
+Google Play Store {#app_store}
+------------------------------
+
+This section provides details of the Process Purchase Command operation when performed for the Google Play Store. This API processes only the latest in-app transaction using the purchase token.  
+**Important**   
+
+* [Integrate Chargebee](https://www.chargebee.com/docs/2.0/mobile-playstore-connect.html#chargebee-configuration) with your Google Play Store account using the service account credentials JSON.
+* It is strongly recommended to use this endpoint to notify Chargebee of **new** purchases only.
+* For updates to existing subscriptions, we recommend that you configure Chargebee to receive Google&#x27;s server notifications through pub/sub topic. [Learn more](https://developer.android.com/google/play/billing/getting-ready#setup-pubsub).
+
+Chargebee validates the purchase **token** with Google Play Store and does the following once validation succeeds:
+
+1. Look for [item_family.id](/docs/api/item_families?prod_cat_ver&#x3D;2#item_family_id) that matches the value &#x60;Google-Play-Store&#x60;, and create such a product family if not found.
+2. Look for [item.id](/docs/api/items?prod_cat_ver&#x3D;2#item_id) that matches &#x60;product[id]&#x60; and if not found, create such a [plan-item](/docs/api/items?prod_cat_ver&#x3D;2#item_type) under the item family described in the previous step.
+3. Look for [item_price.id](/docs/api/item_prices?prod_cat_ver&#x3D;2#item_price_id) that matches the concatenation of &#x60;product[id]&#x60; and [priceCurrencyCode](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions?hl&#x3D;en#SubscriptionPurchase.FIELDS.price_currency_code), and if not found, create such an item price under the item described in the previous step.
+4. Create/update a subscription:
+   * If this token is for a new purchase, a new subscription is created for the plan-item price described in the previous step. The subscription has the following details:
+     * &#x60;id&#x60; set to unique identifier generated by Chargebee and mapped to **token** of the [SubscriptionPurchase](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions?hl&#x3D;en) object from Google response.
+     * &#x60;start_date&#x60; set to &#x60;SubscriptionPurchase.startTimeMillis&#x60;.
+     * &#x60;current_term_end&#x60; set to &#x60;SubscriptionPurchase.expiryTimeMillis&#x60;.
+   * Instead, if the token belongs to an existing subscription in Chargebee, it is updated to reflect the current state of the subscription at Google.
+5. The payment is recorded against the subscription invoice. The associated transaction is updated with the following details:
+   * The [transaction.reference_number](/docs/api/transactions?prod_cat_ver&#x3D;2#transaction_reference_number) is set to the [orderId](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions?hl&#x3D;en#SubscriptionPurchase.FIELDS.order_id) of the payment.
+   * The [transaction.payment_method](/docs/api/transactions#transaction_payment_method) is set to &#x60;play_store&#x60;.
+
+Path Parameter {#path_param_pcv2}
+---------------------------------
+
+&#x60;{in_app_subscription_app_id}&#x60;: The handle created by Chargebee for your Apple App Store or Google Play Store app. It can be obtained from the Chargebee web app.
 
 The following are instructions to obtain the value of the path parameter for the Apple App Store and Google Play Store.
 
 * **Apple App Store** : To obtain the value for &#x60;{in_app_subscription_app_id}&#x60;, click **View Keys** within the **Sync Overview** page of the web app and use the value of generated **App ID** for this parameter. See detailed steps [here](https://www.chargebee.com/docs/1.0/mobile-app-store-product-iap.html#resource-id).
 * **Google Play Store** : To obtain the value for &#x60;{in_app_subscription_app_id}&#x60;, click **Set up notifications** within the **Sync Overview** page of the web app and use the value of generated **App ID** for this parameter. See detailed steps [here](https://www.chargebee.com/docs/1.0/mobile-playstore-notifications.html#app-id).
 
+
+
+
         */
       
-      retrieve_store_subs(in_app_subscription_app_id:string, input:RetrieveStoreSubsInputParam):ChargebeeRequest<RetrieveStoreSubsResponse>;
+      process_receipt(in_app_subscription_app_id:string, input:ProcessReceiptInputParam):ChargebeeRequest<ProcessReceiptResponse>;
        
       /**
         * @description Verifies an Apple App Store or Google Play Store in-app purchase [receipt](https://developer.apple.com/documentation/storekit/original_api_for_in-app_purchase/validating_receipts_with_the_app_store?language&#x3D;objc#overview) and imports [subscriptions](/docs/api/subscriptions) for all historical purchases made by the customer.  
@@ -64,6 +121,7 @@ The following are instructions to obtain the value of the path parameter for the
 An &#x60;in_app_subscription&#x60; is created for every unique &#x60;original_transaction_id&#x60;. Apple creates &#x60;original_transaction_id&#x60; for every create, upgrade, or downgrade of the subscription. A receipt hardly contains more than 100 &#x60;original_transaction_id&#x60;s. If a receipt contains more than 100 &#x60;original_transaction_id&#x60;s, Chargebee creates all subscription records but this endpoint returns the first 100 records in the response.
 
 CSV upload has a file size [limitation](https://www.chargebee.com/docs/mobile-app-store-product-iap.html#upload-in-app-receipts) that increases the processing time and the number of receipts. This API removes such limitations and allows you to import historical in-app subscription receipts.  
+**Note** : This API verifies receipt or token through Apple or Google and then processes them via Chargebee. For bulk imports, limit API calls to **6** per minute (**10** seconds apart) to ensure successful subscription imports.  
 
 Apple App Store {#app_store}
 ----------------------------
@@ -175,7 +233,10 @@ The following are instructions to obtain the value of the path parameter for the
         * @description The Import Subscriptions endpoint is a Chargebee API that allows you to import historic In-App Subscriptions without using a valid Apple App Store receipt. This endpoint is useful if you do not have access to the receipt data which is required for the [Import Receipt](https://apidocs.chargebee.com/docs/api/in_app_subscriptions#import_receipt) API.
 
 With this API, you can import subscriptions and corresponding invoices for historic In-App purchases. The API returns the [in-app-subscriptions object](https://apidocs.chargebee.com/docs/api/in_app_subscriptions#in_app_subscription_attributes) once the historic subscription is successfully imported into Chargebee.  
-**Note**: Subscription cannot be imported from Google Play Store without a receipt or token. Therefore; Chargebee does not allow you to use this API for Google Play Store.
+**Note** :  
+
+* Subscriptions cannot be imported from the Google Play Store without a receipt or token. Therefore; Chargebee does not allow you to use this API for the Google Play Store.
+* Enable V1 notifications in the Apple App Store for subscriptions created without receipts. Chargebee depends on receipt data to update subscription statuses. Apple&#x27;s V2 notifications do not have receipt information; therefore, Chargebee cannot process V2 notifications for subscriptions imported without receipts. Learn more about [++app store notifications++](https://apidocs.chargebee.com/docs/api/in_app_purchase_events?prod_cat_ver&#x3D;2#app_store_notifications) and [++notification URL configuration++](https://www.chargebee.com/docs/mobile-app-store-product-iap.html#connection-keys_notification-url).
 
 ### Apple App Store
 
@@ -239,85 +300,28 @@ To obtain the value of &#x60;in_app_subscription_app_id &#x60;for the Apple App 
       import_subscription(in_app_subscription_app_id:string, input?:ImportSubscriptionInputParam):ChargebeeRequest<ImportSubscriptionResponse>;
        
       /**
-        * @description Verifies an in-app purchase made by your customer and creates a subscription in Chargebee.  
-**Tip**
+        * @description This API verifies the application id &#x60;{in_app_subscription_app_id}&#x60; and &#x60;receipt&#x60; then returns the subscription details associated with the purchase.
 
-The recommended approach is to call this endpoint from the client-side app directly. However, if you are using this API to replace an existing direct integration with Apple or Google, then you may choose to call this API from the server-side.  
-**Note:**   
+#### Path Parameter
 
-if App Store or Play Store products have not been imported to Chargebee and this API is invoked, Chargebee will automatically create plans that correspond to the store product IDs. However, if historical subscriptions are to be imported using the [import receipt](https://apidocs.chargebee.com/docs/api/in_app_subscriptions#import_receipt) API, importing products is mandatory. [Learn more](https://www.chargebee.com/docs/mobile_subscriptions.html).  
+in_app_subscription_app_id  
+required, string  
 
-Apple App Store {#app_store}
-----------------------------
-
-This section provides details of the Process Purchase Command operation when performed for the Apple App Store. This API processes only the latest in-app transaction on the receipt. Sync historical subscriptions into Chargebee using [bulk import](https://www.chargebee.com/docs/2.0/mobile-app-store-product-iap.html#import-in-app-purchase-receipts) of In-App Purchase receipts.  
-**Important**   
-
-* [Integrate Chargebee](https://www.chargebee.com/docs/mobile-app-store-connect.html#connnect-with-your-chargebee-site) with your Apple App Store account using your shared secret from Apple.
-* It is strongly recommended to use this endpoint to notify Chargebee of **new** purchases only.
-* For updates to existing subscriptions, we recommend that you configure Apple App Store to send server notifications to Chargebee.
-
-Chargebee validates the &#x60;receipt&#x60; with Apple App Store and does the following once validation succeeds:
-
-1. Look for [item_family.id](/docs/api/item_families?prod_cat_ver&#x3D;2#item_family_id) that matches the value Apple-App-Store, and create such a product family if not found.
-2. Look for [item.id](/docs/api/items?prod_cat_ver&#x3D;2#item_id) that matches &#x60;product[id]&#x60; and if not found, create such a plan-item under the item family described in the previous step.
-3. Look for [item_price.id](/docs/api/item_prices?prod_cat_ver&#x3D;2#item_price_id) that matches the concatenation of &#x60;product[id]&#x60; and &#x60;product[currency_code]&#x60;, and if not found, create such an item price under the item described in the previous step.
-4. Create/update a subscription:
-   * If the receipt is for a new purchase, a new subscription is created for the plan-item price described in the previous step. The subscription has the following details:
-     * &#x60;id&#x60; set to [original_transaction_id](https://developer.apple.com/documentation/appstorereceipts/original_transaction_id?language&#x3D;objc)
-     * &#x60;start_date&#x60; set to [responseBody.Latest_receipt_info.purchase_date_ms](https://developer.apple.com/documentation/appstorereceipts/responsebody/latest_receipt_info?language&#x3D;objc)
-     * &#x60;current_term_end&#x60; set to &#x60;responseBody.Latest_receipt_info.expires_date_ms&#x60;
-   * Instead, if the receipt belongs to an existing subscription in Chargebee, it is updated to reflect the current state of the subscription at Apple.
-5. The payment is recorded against the subscription invoice. The associated transaction is updated with the following details:
-   * The [transaction.reference_number](/docs/api/transactions?prod_cat_ver&#x3D;2#transaction_reference_number) is set to the [transaction_id](https://developer.apple.com/documentation/appstorereceipts/transaction_id?language&#x3D;objc) of the payment.
-* The [transaction.payment_method](/docs/api/transactions#transaction_payment_method) is set to &#x60;apple_pay&#x60;.  
-
-Google Play Store {#app_store}
-------------------------------
-
-This section provides details of the Process Purchase Command operation when performed for the Google Play Store. This API processes only the latest in-app transaction using the purchase token.  
-**Important**   
-
-* [Integrate Chargebee](https://www.chargebee.com/docs/2.0/mobile-playstore-connect.html#chargebee-configuration) with your Google Play Store account using the service account credentials JSON.
-* It is strongly recommended to use this endpoint to notify Chargebee of **new** purchases only.
-* For updates to existing subscriptions, we recommend that you configure Chargebee to receive Google&#x27;s server notifications through pub/sub topic. [Learn more](https://developer.android.com/google/play/billing/getting-ready#setup-pubsub).
-
-Chargebee validates the purchase **token** with Google Play Store and does the following once validation succeeds:
-
-1. Look for [item_family.id](/docs/api/item_families?prod_cat_ver&#x3D;2#item_family_id) that matches the value &#x60;Google-Play-Store&#x60;, and create such a product family if not found.
-2. Look for [item.id](/docs/api/items?prod_cat_ver&#x3D;2#item_id) that matches &#x60;product[id]&#x60; and if not found, create such a [plan-item](/docs/api/items?prod_cat_ver&#x3D;2#item_type) under the item family described in the previous step.
-3. Look for [item_price.id](/docs/api/item_prices?prod_cat_ver&#x3D;2#item_price_id) that matches the concatenation of &#x60;product[id]&#x60; and [priceCurrencyCode](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions?hl&#x3D;en#SubscriptionPurchase.FIELDS.price_currency_code), and if not found, create such an item price under the item described in the previous step.
-4. Create/update a subscription:
-   * If this token is for a new purchase, a new subscription is created for the plan-item price described in the previous step. The subscription has the following details:
-     * &#x60;id&#x60; set to unique identifier generated by Chargebee and mapped to **token** of the [SubscriptionPurchase](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions?hl&#x3D;en) object from Google response.
-     * &#x60;start_date&#x60; set to &#x60;SubscriptionPurchase.startTimeMillis&#x60;.
-     * &#x60;current_term_end&#x60; set to &#x60;SubscriptionPurchase.expiryTimeMillis&#x60;.
-   * Instead, if the token belongs to an existing subscription in Chargebee, it is updated to reflect the current state of the subscription at Google.
-5. The payment is recorded against the subscription invoice. The associated transaction is updated with the following details:
-   * The [transaction.reference_number](/docs/api/transactions?prod_cat_ver&#x3D;2#transaction_reference_number) is set to the [orderId](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions?hl&#x3D;en#SubscriptionPurchase.FIELDS.order_id) of the payment.
-   * The [transaction.payment_method](/docs/api/transactions#transaction_payment_method) is set to &#x60;play_store&#x60;.
-
-Path Parameter {#path_param_pcv2}
----------------------------------
-
-&#x60;{in_app_subscription_app_id}&#x60;: The handle created by Chargebee for your Apple App Store or Google Play Store app. It can be obtained from the Chargebee web app.
+The handle is created by Chargebee for your Apple App Store or Google Play Store app. It can be obtained from the Chargebee web app.
 
 The following are instructions to obtain the value of the path parameter for the Apple App Store and Google Play Store.
 
 * **Apple App Store** : To obtain the value for &#x60;{in_app_subscription_app_id}&#x60;, click **View Keys** within the **Sync Overview** page of the web app and use the value of generated **App ID** for this parameter. See detailed steps [here](https://www.chargebee.com/docs/1.0/mobile-app-store-product-iap.html#resource-id).
 * **Google Play Store** : To obtain the value for &#x60;{in_app_subscription_app_id}&#x60;, click **Set up notifications** within the **Sync Overview** page of the web app and use the value of generated **App ID** for this parameter. See detailed steps [here](https://www.chargebee.com/docs/1.0/mobile-playstore-notifications.html#app-id).
 
-
-
-
         */
       
-      process_receipt(in_app_subscription_app_id:string, input:ProcessReceiptInputParam):ChargebeeRequest<ProcessReceiptResponse>;
+      retrieve_store_subs(in_app_subscription_app_id:string, input:RetrieveStoreSubsInputParam):ChargebeeRequest<RetrieveStoreSubsResponse>;
     }
-    export interface RetrieveStoreSubsResponse {  
-       in_app_subscriptions:InAppSubscription[];
+    export interface ProcessReceiptResponse {  
+       in_app_subscription:InAppSubscription;
     }
-    export interface RetrieveStoreSubsInputParam {
+    export interface ProcessReceiptInputParam {
        
       /**
         * @description **Apple App Store** : The Base64 encoded [App Store in-app purchase receipt](https://developer.apple.com/documentation/storekit/original_api_for_in-app_purchase/validating_receipts_with_the_app_store?language&#x3D;objc#overview) taken from the Apple device after successful creation of the in-app purchase subscription.
@@ -327,6 +331,20 @@ The following are instructions to obtain the value of the path parameter for the
         */
        
       receipt:string;
+       
+      /**
+        * @description Parameters for product
+
+        */
+       
+      product?:{currency_code:string,id:string,name?:string,period?:string,period_unit?:string,price:number,price_in_decimal?:string};
+       
+      /**
+        * @description Parameters for customer
+
+        */
+       
+      customer?:{email?:string,first_name?:string,id?:string,last_name?:string};
     }
     export interface ImportReceiptResponse {  
        in_app_subscriptions:InAppSubscription[];
@@ -375,10 +393,10 @@ The following are instructions to obtain the value of the path parameter for the
        
       customer?:{email?:string,id?:string};
     }
-    export interface ProcessReceiptResponse {  
-       in_app_subscription:InAppSubscription;
+    export interface RetrieveStoreSubsResponse {  
+       in_app_subscriptions:InAppSubscription[];
     }
-    export interface ProcessReceiptInputParam {
+    export interface RetrieveStoreSubsInputParam {
        
       /**
         * @description **Apple App Store** : The Base64 encoded [App Store in-app purchase receipt](https://developer.apple.com/documentation/storekit/original_api_for_in-app_purchase/validating_receipts_with_the_app_store?language&#x3D;objc#overview) taken from the Apple device after successful creation of the in-app purchase subscription.
@@ -388,20 +406,6 @@ The following are instructions to obtain the value of the path parameter for the
         */
        
       receipt:string;
-       
-      /**
-        * @description Parameters for product
-
-        */
-       
-      product?:{currency_code:string,id:string,name?:string,period?:string,period_unit?:string,price:number,price_in_decimal?:string};
-       
-      /**
-        * @description Parameters for customer
-
-        */
-       
-      customer?:{email?:string,first_name?:string,id?:string,last_name?:string};
     }
     
   }

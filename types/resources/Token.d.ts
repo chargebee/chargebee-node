@@ -89,13 +89,6 @@ declare module 'chargebee' {
   export namespace Token {
     export class TokenResource {  
       /**
-        * @description Generate a token using the one time token created by payment gateways for any specific payment method.
-
-        */
-      
-      create_using_temp_token(input:CreateUsingTempTokenInputParam):ChargebeeRequest<CreateUsingTempTokenResponse>;
-       
-      /**
         * @description Generate a token that holds card related information.
 
         */
@@ -103,11 +96,30 @@ declare module 'chargebee' {
       create_for_card(input?:CreateForCardInputParam):ChargebeeRequest<CreateForCardResponse>;
        
       /**
+        * @description Generate a token using the one time token created by payment gateways for any specific payment method.
+
+        */
+      
+      create_using_temp_token(input:CreateUsingTempTokenInputParam):ChargebeeRequest<CreateUsingTempTokenResponse>;
+       
+      /**
         * @description Retrieve a token using token ID.
 
         */
       
       retrieve(cb_token_id:string):ChargebeeRequest<RetrieveResponse>;
+    }
+    export interface CreateForCardResponse {  
+       token:Token;
+    }
+    export interface CreateForCardInputParam {
+       
+      /**
+        * @description Parameters for card
+
+        */
+       
+      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,card_type?:'discover' | 'bancontact' | 'other' | 'visa' | 'jcb' | 'diners_club' | 'mastercard' | 'not_applicable' | 'american_express',cvv?:string,expiry_month:number,expiry_year:number,first_name?:string,gateway_account_id?:string,last_name?:string,number:string};
     }
     export interface CreateUsingTempTokenResponse {  
        token:Token;
@@ -150,17 +162,17 @@ declare module 'chargebee' {
       currency_code?:string;
        
       /**
-        * @description * &#x60;checkout_com&#x60;: While adding a new payment method using [permanent token](./payment_sources?#create_using_permanent_token) or passing raw card details to Checkout.com, &#x60;document&#x60; ID and &#x60;country_of_residence&#x60; are required to support payments through [dLocal](https://docs.checkout.com/payment-methods/cards/dlocal).
+        * @description * &#x60;checkout_com&#x60;: While adding a new payment method using [permanent token](./payment_sources?#create_using_permanent_token) or passing raw card details to Checkout.com, &#x60;document&#x60; ID and &#x60;country_of_residence&#x60; are required to support payments through [dLocal](https://www.checkout.com/docs/previous/payments/payment-methods/cards/dlocal).
   * &#x60;payer&#x60;: User related information.
-    * &#x60;country_of_residence&#x60;: This is required since the billing country associated with the user&#x27;s payment method may not be the same as their country of residence. Hence the user&#x27;s country of residence needs to be specified. The country code should be a [two-character ISO code](https://docs.checkout.com/resources/codes/country-codes).
-    * &#x60;document&#x60;: Document ID is the user&#x27;s [identification number](https://docs.dlocal.com/api-documentation/payins-api-reference/country-reference#documents) based on their country.
-* &#x60;bluesnap&#x60;: While passing raw card details to BlueSnap, if &#x60;fraud_session_id&#x60; is added, [additional validation](https://developers.bluesnap.com/docs/fraud-prevention) is performed to avoid fraudulent transactions.
+    * &#x60;country_of_residence&#x60;: This is required since the billing country associated with the user&#x27;s payment method may not be the same as their country of residence. Hence the user&#x27;s country of residence needs to be specified. The country code should be a [two-character ISO code](https://www.checkout.com/docs/developer-resources/testing/codes/country-codes).
+    * &#x60;document&#x60;: Document ID is the user&#x27;s [identification number](https://docs.dlocal.com/reference/country-reference#documents) based on their country.
+* &#x60;bluesnap&#x60;: While passing raw card details to BlueSnap, if &#x60;fraud_session_id&#x60; is added, [additional validation](https://developers.bluesnap.com/reference/fraud-prevention) is performed to avoid fraudulent transactions.
   * &#x60;fraud&#x60;: Fraud identification related information.
-    * &#x60;fraud_session_id&#x60;: Your [BlueSnap fraud session ID](https://developers.bluesnap.com/docs/fraud-prevention#section-implementing-device-data-collector) required to perform anti-fraud validation.
-* &#x60;braintree&#x60;: While passing raw card details to Braintree, your &#x60;fraud_merchant_id&#x60; and the user&#x27;s &#x60;device_session_id&#x60; can be added to perform [additional validation](https://developers.braintreepayments.com/guides/premium-fraud-management-tools/device-data-collection/javascript/v3#collecting-device-data) and avoid fraudulent transactions.
+    * &#x60;fraud_session_id&#x60;: Your [BlueSnap fraud session ID](https://developers.bluesnap.com/reference/fraud-prevention#section-implementing-device-data-collector) required to perform anti-fraud validation.
+* &#x60;braintree&#x60;: While passing raw card details to Braintree, your &#x60;fraud_merchant_id&#x60; and the user&#x27;s &#x60;device_session_id&#x60; can be added to perform [additional validation](https://developer.paypal.com/braintree/docs/guides/premium-fraud-management-tools/device-data-collection/javascript/v3#collecting-device-data) and avoid fraudulent transactions.
   * &#x60;fraud&#x60;: Fraud identification related information.
     * &#x60;device_session_id&#x60;: Session ID associated with the user&#x27;s device.
-    * &#x60;fraud_merchant_id&#x60;: Your [merchant ID](https://developers.braintreepayments.com/guides/premium-fraud-management-tools/device-data-collection/javascript/v3#collecting-device-data) for fraud detection.
+    * &#x60;fraud_merchant_id&#x60;: Your [merchant ID](https://developer.paypal.com/braintree/docs/guides/premium-fraud-management-tools/device-data-collection/javascript/v3#collecting-device-data) for fraud detection.
 * &#x60;chargebee_payments&#x60;: While passing raw card details to Chargebee Payments, if &#x60;fraud_session_id&#x60; is added, additional validation is performed to avoid fraudulent transactions.
   * &#x60;fraud&#x60;: Fraud identification related information.
     * &#x60;fraud_session_id&#x60;: Your Chargebee Payments fraud session ID required to perform anti-fraud validation.
@@ -183,18 +195,6 @@ declare module 'chargebee' {
         */
        
       token_billing_address?:{city?:string,country_code?:string,line1?:string,line2?:string,state?:string,state_code?:string,zip?:string};
-    }
-    export interface CreateForCardResponse {  
-       token:Token;
-    }
-    export interface CreateForCardInputParam {
-       
-      /**
-        * @description Parameters for card
-
-        */
-       
-      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,card_type?:'discover' | 'bancontact' | 'other' | 'visa' | 'jcb' | 'diners_club' | 'mastercard' | 'not_applicable' | 'american_express',cvv?:string,expiry_month:number,expiry_year:number,first_name?:string,gateway_account_id?:string,last_name?:string,number:string};
     }
     export interface RetrieveResponse {  
        token:Token;

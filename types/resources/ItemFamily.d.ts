@@ -54,20 +54,6 @@ declare module 'chargebee' {
   export namespace ItemFamily {
     export class ItemFamilyResource {  
       /**
-        * @description Deletes an item family, marking its &#x60;status&#x60; as &#x60;deleted&#x60;. This is not allowed if there are &#x60;active&#x60; items under the item family. Once deleted, the &#x60;id&#x60; and &#x60;name&#x60; of the item family can be reused to create a new item family.
-
-        */
-      
-      delete(item_family_id:string):ChargebeeRequest<DeleteResponse>;
-       
-      /**
-        * @description Returns a list of item families satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
-
-        */
-      
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
-       
-      /**
         * @description This endpoint creates an item family for your product line or service.
 
         */
@@ -82,67 +68,25 @@ declare module 'chargebee' {
       retrieve(item_family_id:string):ChargebeeRequest<RetrieveResponse>;
        
       /**
+        * @description Returns a list of item families satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+      
+      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
+       
+      /**
         * @description This endpoint updates the name and/or description of the item family.
 
         */
       
       update(item_family_id:string, input?:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
-    }
-    export interface DeleteResponse {  
-       item_family:ItemFamily;
-    }
-    
-    export interface ListResponse {  
-      /**
-        * @description Returns a list of item families satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
-
-        */
-       
-       list:{item_family:ItemFamily}[];
        
       /**
-        * @description Returns a list of item families satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+        * @description Deletes an item family, marking its &#x60;status&#x60; as &#x60;deleted&#x60;. This is not allowed if there are &#x60;active&#x60; items under the item family. Once deleted, the &#x60;id&#x60; and &#x60;name&#x60; of the item family can be reused to create a new item family.
 
         */
-       
-       next_offset?:string;
-    }
-    export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description The identifier for the item family. It is unique and immutable.
-
-        */
-        
-      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description A unique display name for the item family. This is visible only in Chargebee and not to customers.
-
-        */
-        
-      name?:{is?:string,is_not?:string,starts_with?:string};
-       
-      /**
-        * @description When the item family was last updated.
-
-        */
-        
-      updated_at?:{after?:string,before?:string,between?:string,on?:string};
+      
+      delete(item_family_id:string):ChargebeeRequest<DeleteResponse>;
     }
     export interface CreateResponse {  
        item_family:ItemFamily;
@@ -174,6 +118,58 @@ declare module 'chargebee' {
        item_family:ItemFamily;
     }
     
+    export interface ListResponse {  
+      /**
+        * @description Returns a list of item families satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+       
+       list:{item_family:ItemFamily}[];
+       
+      /**
+        * @description Returns a list of item families satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+       
+       next_offset?:string;
+    }
+    export interface ListInputParam {
+      [key : string]: any;  
+      /**
+        * @description Returns a list of item families satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description Returns a list of item families satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      offset?:string;
+       
+      /**
+        * @description Returns a list of item families satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Returns a list of item families satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      name?:{is?:string,is_not?:string,starts_with?:string};
+       
+      /**
+        * @description Returns a list of item families satisfying **all** the conditions specified in the filter parameters below. The list is sorted by date of creation, in descending order.
+
+        */
+        
+      updated_at?:{after?:string,before?:string,between?:string,on?:string};
+    }
     export interface UpdateResponse {  
        item_family:ItemFamily;
     }
@@ -193,6 +189,10 @@ declare module 'chargebee' {
        
       description?:string;
     }
+    export interface DeleteResponse {  
+       item_family:ItemFamily;
+    }
+    
     
   }
 }
