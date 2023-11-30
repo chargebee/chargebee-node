@@ -547,7 +547,7 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
 
         */
        
-      subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,start_date?:number,trial_end?:number};
+      subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,po_number?:string,start_date?:number,trial_end?:number};
        
       /**
         * @description Parameters for shipping_address

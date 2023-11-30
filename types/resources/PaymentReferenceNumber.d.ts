@@ -14,7 +14,7 @@ declare module 'chargebee' {
 
       */
     
-    type:'frn' | 'kid' | 'fik' | 'ocr';
+    type:'frn' | 'kid' | 'fik' | 'swiss_reference' | 'ocr';
     
     /**
       * @description A number is generated based on the configuration type of the PRN during the invoice creation process.
