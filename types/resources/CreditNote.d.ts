@@ -375,7 +375,7 @@ If the &#x60;credit_note&#x60; [type](/docs/api/credit_notes#create_credit_note_
 
         */
       
-      record_refund(credit_note_id:string, input?:RecordRefundInputParam):ChargebeeRequest<RecordRefundResponse>;
+      record_refund(credit_note_id:string, input:RecordRefundInputParam):ChargebeeRequest<RecordRefundResponse>;
        
       /**
         * @description Use this API to [void a credit note.](https://www.chargebee.com/docs/credit-notes.html#voiding-or-deleting-a-credit-note) A voided credit is a null entity and cannot be used again. A credit note which has already been voided or refunded cannot be voided. An error message will be displayed when you render such credit notes void.
@@ -587,7 +587,7 @@ This endpoint schedules e-invoices manually. This operation is not allowed when 
 
         */
        
-      transaction?:{amount?:number,date:number,payment_method:PaymentMethod,reference_number?:string};
+      transaction:{amount?:number,custom_payment_method_id?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
     }
     export interface VoidCreditNoteResponse {  
        credit_note:CreditNote;
@@ -1350,6 +1350,27 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
           */
        
       tax_rate:number;
+       
+         /**
+          * @description Indicates the service period end of the tax rate for the line item.
+
+          */
+       
+      date_to?:number;
+       
+         /**
+          * @description Indicates the service period start of the tax rate for the line item.
+
+          */
+       
+      date_from?:number;
+       
+         /**
+          * @description Indicates the prorated line item amount in cents.
+
+          */
+       
+      prorated_taxable_amount?:number;
        
          /**
           * @description Indicates if tax is applied only on a portion of the line item amount.

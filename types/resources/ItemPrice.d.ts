@@ -61,6 +61,13 @@ If your input contains characters that are subjected to sanitization (like incom
     external_name?:string;
     
     /**
+      * @description null
+
+      */
+    
+    proration_type?:'partial_term' | 'full_term' | 'site_default';
+    
+    /**
       * @description The [pricing scheme](https://www.chargebee.com/docs/2.0/plans.html#pricing-models) for this item price. If subscriptions, invoices or [differential prices](./differential_prices?prod_cat_ver&#x3D;2) exist for this item price, &#x60;pricing_model&#x60; cannot be changed.
 \* tiered - The per unit price is based on the tier that the total quantity falls in.
 \* per_unit - A fixed price per unit quantity.
@@ -374,6 +381,13 @@ If your input contains characters that are subjected to sanitization (like incom
       invoice_notes?:string;
        
       /**
+        * @description null
+
+        */
+       
+      proration_type?:'partial_term' | 'full_term' | 'site_default';
+       
+      /**
         * @description The name of the item price used in customer-facing pages and documents. These include [invoices](./invoices?prod_cat_ver&#x3D;2) and [hosted pages](hosted_pages?prod_cat_ver&#x3D;2). If not provided, then &#x60;name&#x60; is used.
 
         */
@@ -568,6 +582,13 @@ If your input contains characters that are subjected to sanitization (like incom
         */
        
       description?:string;
+       
+      /**
+        * @description null
+
+        */
+       
+      proration_type?:'partial_term' | 'full_term' | 'site_default';
        
       /**
         * @description The status of the item price. \* archived - The item price is no longer active and cannot be used in new subscriptions or added to existing ones. Existing subscriptions that already have this item price will continue to renew with the item price. \* active - The item price can be used in subscriptions. \* deleted - Indicates that the item price has been deleted. The &#x60;id&#x60; and &#x60;name&#x60; can be reused.

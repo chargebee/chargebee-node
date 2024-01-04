@@ -42,9 +42,9 @@ declare module 'chargebee' {
        
       subscription_id?:string;
        
-      date_from?:number;
+      date_from:number;
        
-      date_to?:number;
+      date_to:number;
        
       unit_amount?:number;
        

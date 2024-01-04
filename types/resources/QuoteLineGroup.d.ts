@@ -123,21 +123,21 @@ declare module 'chargebee' {
 
           */
        
-      date_from?:number;
+      date_from:number;
        
          /**
           * @description End date of this line item.
 
           */
        
-      date_to?:number;
+      date_to:number;
        
          /**
           * @description Unit amount of the line item.
 
           */
        
-      unit_amount?:number;
+      unit_amount:number;
        
          /**
           * @description [Quantity of the recurring item](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_line_items_quantity) which is represented by this line item. For &#x60;metered&#x60; line items, this value is updated from [usages](/docs/api/usages) once when the invoice is generated as &#x60;pending&#x60; and finally when the invoice is [closed](/docs/api/invoices#close_a_pending_invoice).
@@ -165,7 +165,7 @@ declare module 'chargebee' {
 
           */
        
-      is_taxed?:boolean;
+      is_taxed:boolean;
        
          /**
           * @description The tax amount charged for this item
@@ -228,7 +228,7 @@ declare module 'chargebee' {
 
           */
        
-      description?:string;
+      description:string;
        
          /**
           * @description Detailed description about this item.
@@ -242,7 +242,7 @@ declare module 'chargebee' {
 
           */
        
-      entity_type?:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc';
+      entity_type:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc';
        
          /**
           * @description The reason due to which the line item price/amount is exempted from tax. \* reverse_charge - If the Customer is identified as B2B customer (when VAT Number is entered), applicable for EU only \* tax_not_configured - If tax is not enabled for the site \* high_value_physical_goods - If physical goods are sold from outside Australia to customers in Australia, and the price of all the physical good line items is greater than AUD 1000, then tax will not be applied \* product_exempt - If the Plan or Addon is marked as Tax exempt \* zero_rated - If the rate of tax is 0% and no Sales/ GST tax is collectable for that line item \* customer_exempt - If the Customer is marked as Tax exempt \* region_non_taxable - If the product sold is not taxable in this region, but it is taxable in other regions, hence this region is not part of the Taxable jurisdiction \* export - You are not registered for tax in the customer&#x27;s region. This is also the reason code when both &#x60;billing_address&#x60; and &#x60;shipping_address&#x60; have not been provided for the customer and subscription respectively
@@ -271,7 +271,7 @@ declare module 'chargebee' {
 
           */
        
-      amount?:number;
+      amount:number;
        
          /**
           * @description Description for this deduction.
@@ -292,7 +292,7 @@ declare module 'chargebee' {
 
           */
        
-      entity_type?:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
+      entity_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
        
          /**
           * @description The type of discount that is applied to the line item. Relevant only when &#x60;discounts[entity_type]&#x60; is one of &#x60;item_level_discount&#x60; , &#x60;item_level_coupon&#x60;, &#x60;document_level_discount&#x60;, or &#x60;document_level_coupon&#x60; \* percentage - when percentage is applied as discount \* fixed_amount - when amount is applied as discount
@@ -321,14 +321,14 @@ declare module 'chargebee' {
 
           */
        
-      line_item_id?:string;
+      line_item_id:string;
        
          /**
           * @description The type of deduction and the amount to which it is applied. \* item_level_coupon - The deduction is due to a coupon applied to a line item of the invoice. The coupon &#x60;id&#x60; is available as &#x60;entity_id&#x60;. \* prorated_credits - The deduction is due to a legacy adjustment credit applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. The legacy credits feature is superseded by [adjustment_credit_notes](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_adjustment_credit_notes). \* document_level_coupon - The deduction is due to a coupon applied to the invoice &#x60;sub_total&#x60;. The coupon &#x60;id&#x60; is available as &#x60;entity_id&#x60;. \* document_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to the invoice &#x60;sub_total&#x60;. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* item_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to a line item of the invoice. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* promotional_credits - The deduction is due to a [promotional credit](/docs/api/promotional_credits) applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case.
 
           */
        
-      discount_type?:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
+      discount_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
        
       coupon_id?:string;
        
@@ -344,7 +344,7 @@ declare module 'chargebee' {
 
           */
        
-      discount_amount?:number;
+      discount_amount:number;
     }
     export interface Tax {  
          /**
@@ -352,14 +352,14 @@ declare module 'chargebee' {
 
           */
        
-      name?:string;
+      name:string;
        
          /**
           * @description The tax amount.
 
           */
        
-      amount?:number;
+      amount:number;
        
          /**
           * @description Description of the tax item.
@@ -381,14 +381,20 @@ declare module 'chargebee' {
 
           */
        
-      tax_name?:string;
+      tax_name:string;
        
          /**
           * @description The rate of tax used to calculate tax amount
 
           */
        
-      tax_rate?:number;
+      tax_rate:number;
+       
+      date_to?:number;
+       
+      date_from?:number;
+       
+      prorated_taxable_amount?:number;
        
          /**
           * @description Indicates if tax is applied only on a portion of the line item amount.
@@ -409,14 +415,14 @@ declare module 'chargebee' {
 
           */
        
-      taxable_amount?:number;
+      taxable_amount:number;
        
          /**
           * @description The tax amount
 
           */
        
-      tax_amount?:number;
+      tax_amount:number;
        
          /**
           * @description The type of tax jurisdiction \* unincorporated - Combined tax of state and county. \* federal - The tax jurisdiction is a federal \* state - The tax jurisdiction is a state \* county - The tax jurisdiction is a county \* country - The tax jurisdiction is a country \* city - The tax jurisdiction is a city \* other - Jurisdictions other than the ones listed above. \* special - Special tax jurisdiction.

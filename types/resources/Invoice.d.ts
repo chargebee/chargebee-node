@@ -39,9 +39,9 @@ declare module 'chargebee' {
     recurring:boolean;
     
     /**
-      * @description Current status of this invoice. \* not_paid - Indicates the payment is not made and all attempts to collect is failed. \* voided - Indicates a voided invoice. \* paid - Indicates a paid invoice. \* posted - Indicates the payment is not yet collected and will be in this state till the due date to indicate the due period \* pending -  
+      * @description Current status of this invoice. \* paid - Indicates a paid invoice. \* posted - Indicates the payment is not yet collected and will be in this state till the due date to indicate the due period \* pending -  
 The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_status) is yet to be closed (sent for payment collection). An invoice is generated with this &#x60;status&#x60; when it has line items that belong to items that are &#x60;metered&#x60; or when the &#x60;subscription.create_pending_invoices&#x60;attribute is set to &#x60;true&#x60;.  
-The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to be closed (sent for payment collection). All invoices are generated with this &#x60;status&#x60; when [Metered Billing](https://www.chargebee.com/docs/1.0/metered_billing.html) is enabled for the site. \* payment_due - Indicates the payment is not yet collected and is being retried as per retry settings.
+The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to be closed (sent for payment collection). All invoices are generated with this &#x60;status&#x60; when [Metered Billing](https://www.chargebee.com/docs/1.0/metered_billing.html) is enabled for the site. \* payment_due - Indicates the payment is not yet collected and is being retried as per retry settings. \* not_paid - Indicates the payment is not made and all attempts to collect is failed. \* voided - Indicates a voided invoice.
 
       */
     
@@ -55,7 +55,7 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
     vat_number?:string;
     
     /**
-      * @description The price type of the invoice. \* tax_inclusive - All amounts in the document are inclusive of tax. \* tax_exclusive - All amounts in the document are exclusive of tax.
+      * @description The price type of the invoice. \* tax_exclusive - All amounts in the document are exclusive of tax. \* tax_inclusive - All amounts in the document are inclusive of tax.
 
       */
     
@@ -330,10 +330,9 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
     vat_number_prefix?:string;
     
     /**
-      * @description The subscription channel this object originated from and is maintained in. \* play_store - The object data is synchronized with data from [in-app subscription(s)](https://apidocs.chargebee.com/docs/api/in_app_subscriptions) created in Google Play Store. Direct manipulation of this object via UI or API is disallowed.  
+      * @description The subscription channel this object originated from and is maintained in. \* app_store - The object data is synchronized with data from [in-app subscription(s)](https://apidocs.chargebee.com/docs/api/in_app_subscriptions) created in Apple App Store. Direct manipulation of this object via UI or API is disallowed. \* play_store - The object data is synchronized with data from [in-app subscription(s)](https://apidocs.chargebee.com/docs/api/in_app_subscriptions) created in Google Play Store. Direct manipulation of this object via UI or API is disallowed.  
 
-In-App Subscriptions is currently in early access. Contact [eap@chargebee.com](mailto:eap@chargebee.com) for more information.
-\* web - The object was created (and is maintained) for the web channel directly in Chargebee via API or UI. \* app_store - The object data is synchronized with data from [in-app subscription(s)](https://apidocs.chargebee.com/docs/api/in_app_subscriptions) created in Apple App Store. Direct manipulation of this object via UI or API is disallowed.
+In-App Subscriptions is currently in early access. Contact [eap@chargebee.com](mailto:eap@chargebee.com) for more information. \* web - The object was created (and is maintained) for the web channel directly in Chargebee via API or UI.
 
       */
     
@@ -447,6 +446,11 @@ In-App Subscriptions is currently in early access. Contact [eap@chargebee.com](m
     
     shipping_address?:Invoice.ShippingAddress;
     
+    /**
+      * @description Statement descriptor for the invoice.
+
+      */
+    
     statement_descriptor?:Invoice.StatementDescriptor;
     
     /**
@@ -477,7 +481,7 @@ In-App Subscriptions is currently in early access. Contact [eap@chargebee.com](m
 
         */
       
-      create_for_charge_items_and_charges(input?:CreateForChargeItemsAndChargesInputParam):ChargebeeRequest<CreateForChargeItemsAndChargesResponse>;
+      create_for_charge_items_and_charges(input:CreateForChargeItemsAndChargesInputParam):ChargebeeRequest<CreateForChargeItemsAndChargesResponse>;
        
       /**
         * @description This API is used to stop dunning for &quot;Payment Due&quot; invoices that have been enabled for Auto Collection. When dunning is stopped, the status of the invoice will be changed to &quot;Not Paid&quot;.
@@ -580,7 +584,7 @@ For example, if you have an excess payment of $25.00, and the invoice to which y
 
         */
       
-      add_charge_item(invoice_id:string, input?:AddChargeItemInputParam):ChargebeeRequest<AddChargeItemResponse>;
+      add_charge_item(invoice_id:string, input:AddChargeItemInputParam):ChargebeeRequest<AddChargeItemResponse>;
        
       /**
         * @description Invoices for a subscription are created with a &#x60;pending&#x60; &#x60;status&#x60; when the subscription has &#x60;create_pending_invoices&#x60; attribute set to &#x60;true&#x60;. This API call finalizes a &#x60;pending&#x60; invoice. Any &#x60;refundable_credits&#x60; and &#x60;excess_payments&#x60; for the customer are applied to the invoice, and any payment due is collected automatically if &#x60;auto_collection&#x60; is &#x60;on&#x60; for the customer.
@@ -594,9 +598,12 @@ This operation can be automated by using a [site setting](https://www.chargebee.
       close(invoice_id:string, input?:CloseInputParam):ChargebeeRequest<CloseResponse>;
        
       /**
-        * @description Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
+        * @description **Important:**
 
-This API is used to collect payments for &#x60;payment_due&#x60; and &#x60;not_paid&#x60; invoices. If no payment methods are present for the customer or if the payment is unsuccessful, the corresponding error will be thrown.
+* Storing card after successful 3DS completion is not supported in this API. Use [create using Payment Intent API](https://apidocs.chargebee.com/docs/api/payment_sources#create_using_payment_intent) under Payment source to store the card after successful 3DS flow completion.
+* This endpoint returns an error if a payment is initiated for an invoice with a [status](https://apidocs.chargebee.com/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_status) of &#x60;payment_due&#x60; associated with the &#x60;app_store&#x60; and &#x60;play_store&#x60; [channels](https://apidocs.chargebee.com/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_channel).
+
+This API is used to collect payments for &#x60;payment_due&#x60; and &#x60;not_paid invoices&#x60;. If no payment methods are present for the customer or if the payment is unsuccessful, the corresponding error will be thrown.
 
 Pass &#x60;authorization_transaction_id&#x60; to capture the already blocked funds to collect payments. Note that if the invoice due amount is greater than the authorized amount, the invoice status is returned as &#x60;payment_due&#x60;.
 
@@ -613,7 +620,7 @@ The invoice status will be marked as &#x27;paid&#x27; if its amount due becomes 
 
         */
       
-      record_payment(invoice_id:string, input?:RecordPaymentInputParam):ChargebeeRequest<RecordPaymentResponse>;
+      record_payment(invoice_id:string, input:RecordPaymentInputParam):ChargebeeRequest<RecordPaymentResponse>;
        
       /**
         * @description Records [tax_withheld](/docs/api/tax_withheld) by the customer against the invoice specified. This operation is allowed only when all of the following conditions are true:
@@ -625,7 +632,7 @@ The invoice status will be marked as &#x27;paid&#x27; if its amount due becomes 
 
         */
       
-      record_tax_withheld(invoice_id:string, input?:RecordTaxWithheldInputParam):ChargebeeRequest<RecordTaxWithheldResponse>;
+      record_tax_withheld(invoice_id:string, input:RecordTaxWithheldInputParam):ChargebeeRequest<RecordTaxWithheldResponse>;
        
       /**
         * @description Removes a [linked_taxes_withheld](/docs/api/invoices#invoice_linked_taxes_withheld) record from the &#x60;invoice&#x60; specified. This operation is allowed only when all of the following conditions are true:
@@ -636,7 +643,7 @@ The invoice status will be marked as &#x27;paid&#x27; if its amount due becomes 
 
         */
       
-      remove_tax_withheld(invoice_id:string, input?:RemoveTaxWithheldInputParam):ChargebeeRequest<RemoveTaxWithheldResponse>;
+      remove_tax_withheld(invoice_id:string, input:RemoveTaxWithheldInputParam):ChargebeeRequest<RemoveTaxWithheldResponse>;
        
       /**
         * @description Refunds the invoice. The [refund](https://www.chargebee.com/docs/refunds.html) request is processed via the payment gateway originally used to charge the customer. You can choose to either make a full refund for the entire amount or make many partial refunds until you reach the total amount charged for the invoice. The API returns an error if an attempt is made to:
@@ -678,14 +685,14 @@ If the order of precendence described above does not work for your use case, and
 
         */
       
-      record_refund(invoice_id:string, input?:RecordRefundInputParam):ChargebeeRequest<RecordRefundResponse>;
+      record_refund(invoice_id:string, input:RecordRefundInputParam):ChargebeeRequest<RecordRefundResponse>;
        
       /**
         * @description This API [removes payments](https://www.chargebee.com/docs/2.0/invoice-operations.html#actions-for-paid-invoices_remove-payment) applied to an invoice. Once the applied payment is removed, the invoice status returns to &#x60;not_paid&#x60; or &#x60;payment_due&#x60;. The removed payment is then added to the customer&#x27;s excess payment balance.
 
         */
       
-      remove_payment(invoice_id:string, input?:RemovePaymentInputParam):ChargebeeRequest<RemovePaymentResponse>;
+      remove_payment(invoice_id:string, input:RemovePaymentInputParam):ChargebeeRequest<RemovePaymentResponse>;
        
       /**
         * @description This API removes a credit note attached to an invoice. When you remove a credit note from an invoice, the invoice status returns to &#x60;not_paid&#x60;.
@@ -694,7 +701,7 @@ If the order of precendence described above does not work for your use case, and
 
         */
       
-      remove_credit_note(invoice_id:string, input?:RemoveCreditNoteInputParam):ChargebeeRequest<RemoveCreditNoteResponse>;
+      remove_credit_note(invoice_id:string, input:RemoveCreditNoteInputParam):ChargebeeRequest<RemoveCreditNoteResponse>;
        
       /**
         * @description Voids the specified invoice. Any payments must be [removed](/docs/api/invoices?prod_cat_ver&#x3D;2#remove_payment_from_an_invoice) from the invoice before voiding it.
@@ -877,6 +884,13 @@ The invoice is [linked](/docs/api?prod_cat_ver&#x3D;2#mbe-linked-be) to the same
       retain_payment_source?:boolean;
        
       /**
+        * @description null
+
+        */
+       
+      payment_initiator?:PaymentInitiator;
+       
+      /**
         * @description Parameters for shipping_address
 
         */
@@ -951,7 +965,7 @@ The invoice is [linked](/docs/api?prod_cat_ver&#x3D;2#mbe-linked-be) to the same
 
         */
        
-      discounts?:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
+      discounts:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
     }
     export interface StopDunningResponse {  
        invoice:Invoice;
@@ -1159,42 +1173,42 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
 
         */
        
-      line_items?:{amount?:number,amount_in_decimal?:string,date_from?:number,date_to?:number,description:string,entity_id?:string,entity_type?:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc',id?:string,item_level_discount1_amount?:number,item_level_discount1_entity_id?:string,item_level_discount2_amount?:number,item_level_discount2_entity_id?:string,quantity?:number,quantity_in_decimal?:string,subscription_id?:string,tax10_amount?:number,tax10_name?:string,tax1_amount?:number,tax1_name?:string,tax2_amount?:number,tax2_name?:string,tax3_amount?:number,tax3_name?:string,tax4_amount?:number,tax4_name?:string,tax5_amount?:number,tax5_name?:string,tax6_amount?:number,tax6_name?:string,tax7_amount?:number,tax7_name?:string,tax8_amount?:number,tax8_name?:string,tax9_amount?:number,tax9_name?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
+      line_items:{amount?:number,amount_in_decimal?:string,date_from?:number,date_to?:number,description:string,entity_id?:string,entity_type?:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc',id?:string,item_level_discount1_amount?:number,item_level_discount1_entity_id?:string,item_level_discount2_amount?:number,item_level_discount2_entity_id?:string,quantity?:number,quantity_in_decimal?:string,subscription_id?:string,tax10_amount?:number,tax10_name?:string,tax1_amount?:number,tax1_name?:string,tax2_amount?:number,tax2_name?:string,tax3_amount?:number,tax3_name?:string,tax4_amount?:number,tax4_name?:string,tax5_amount?:number,tax5_name?:string,tax6_amount?:number,tax6_name?:string,tax7_amount?:number,tax7_name?:string,tax8_amount?:number,tax8_name?:string,tax9_amount?:number,tax9_name?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
       /**
         * @description Parameters for payment_reference_numbers
 
         */
        
-      payment_reference_numbers?:{id?:string,number:string,type:'frn' | 'kid' | 'fik' | 'ocr'}[];
+      payment_reference_numbers:{id?:string,number:string,type:'frn' | 'kid' | 'fik' | 'swiss_reference' | 'ocr'}[];
        
       /**
         * @description Parameters for line_item_tiers
 
         */
        
-      line_item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,line_item_id:string,quantity_used?:number,quantity_used_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
+      line_item_tiers:{ending_unit?:number,ending_unit_in_decimal?:string,line_item_id:string,quantity_used?:number,quantity_used_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
       /**
         * @description Parameters for discounts
 
         */
        
-      discounts?:{amount:number,description?:string,entity_id?:string,entity_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'document_level_discount' | 'document_level_coupon',line_item_id?:string}[];
+      discounts:{amount:number,description?:string,entity_id?:string,entity_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'document_level_discount' | 'document_level_coupon',line_item_id?:string}[];
        
       /**
         * @description Parameters for taxes
 
         */
        
-      taxes?:{amount?:number,description?:string,juris_code?:string,juris_name?:string,juris_type?:'special' | 'country' | 'unincorporated' | 'other' | 'city' | 'federal' | 'county' | 'state',name:string,rate:number}[];
+      taxes:{amount?:number,description?:string,juris_code?:string,juris_name?:string,juris_type?:'special' | 'country' | 'unincorporated' | 'other' | 'city' | 'federal' | 'county' | 'state',name:string,rate:number}[];
        
       /**
         * @description Parameters for payments
 
         */
        
-      payments?:{amount:number,date?:number,payment_method:PaymentMethod,reference_number?:string}[];
+      payments:{amount:number,date?:number,payment_method:PaymentMethod,reference_number?:string}[];
        
       /**
         * @description Parameters for notes
@@ -1617,7 +1631,7 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
 
         */
        
-      item_price?:{date_from?:number,date_to?:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string};
+      item_price:{date_from?:number,date_to?:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string};
        
       /**
         * @description Parameters for item_tiers
@@ -1727,7 +1741,7 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
 
         */
        
-      transaction?:{amount?:number,date?:number,error_code?:string,error_text?:string,id_at_gateway?:string,payment_method:PaymentMethod,reference_number?:string,status?:'success' | 'failure'};
+      transaction:{amount?:number,custom_payment_method_id?:string,date?:number,error_code?:string,error_text?:string,id_at_gateway?:string,payment_method:PaymentMethod,reference_number?:string,status?:'success' | 'failure'};
     }
     export interface RecordTaxWithheldResponse {  
        invoice:Invoice;
@@ -1739,7 +1753,7 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
 
         */
        
-      tax_withheld?:{amount:number,date?:number,description?:string,reference_number?:string};
+      tax_withheld:{amount:number,date?:number,description?:string,reference_number?:string};
     }
     export interface RemoveTaxWithheldResponse {  
        invoice:Invoice;
@@ -1751,7 +1765,7 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
 
         */
        
-      tax_withheld?:{id:string};
+      tax_withheld:{id:string};
     }
     export interface RefundResponse {  
        invoice:Invoice;
@@ -1818,7 +1832,7 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
 
         */
        
-      transaction?:{amount?:number,date:number,payment_method:PaymentMethod,reference_number?:string};
+      transaction:{amount?:number,custom_payment_method_id?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
        
       /**
         * @description Parameters for credit_note
@@ -1839,7 +1853,7 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
 
         */
        
-      transaction?:{id:string};
+      transaction:{id:string};
     }
     export interface RemoveCreditNoteResponse {  
        invoice:Invoice;
@@ -1853,7 +1867,7 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
 
         */
        
-      credit_note?:{id:string};
+      credit_note:{id:string};
     }
     export interface VoidInvoiceResponse {  
        invoice:Invoice;
@@ -2038,7 +2052,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       amount?:number;
        
          /**
-          * @description The [pricing scheme](https://www.chargebee.com/docs/2.0/plans.html#pricing-models) for this item price. \* stairstep - A quantity-based pricing scheme. The item is charged a fixed price based on the tier that the total quantity falls in. \* flat_fee - A fixed price that is not quantity-based. \* tiered - The per unit price is based on the tier that the total quantity falls in. \* per_unit - A fixed price per unit quantity. \* volume - There are quantity tiers for which per unit prices are set. Quantities are purchased from successive tiers.
+          * @description The [pricing scheme](https://www.chargebee.com/docs/2.0/plans.html#pricing-models) for this item price. \* per_unit - A fixed price per unit quantity. \* volume - There are quantity tiers for which per unit prices are set. Quantities are purchased from successive tiers. \* stairstep - A quantity-based pricing scheme. The item is charged a fixed price based on the tier that the total quantity falls in. \* flat_fee - A fixed price that is not quantity-based. \* tiered - The per unit price is based on the tier that the total quantity falls in.
 
           */
        
@@ -2122,14 +2136,14 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       entity_description?:string;
        
          /**
-          * @description Specifies the modelled entity this line item is based on. \* addon - Indicates that this lineitem is based on &#x27;Addon&#x27; entity. The &#x27;entity_id&#x27; attribute specifies the [addon](/docs/api/addons#addon_attributes) id \* plan - Indicates that this lineitem is based on &#x27;Plan&#x27; entity. The &#x27;entity_id&#x27; attribute specifies the [plan](/docs/api/plans#plan_attributes) id \* plan_item_price - Indicates that this line item is based on plan Item Price \* addon_item_price - Indicates that this line item is based on addon Item Price \* charge_item_price - Indicates that this line item is based on charge Item Price \* adhoc - Indicates that this lineitem is not modelled. i.e created adhoc. So the &#x27;entity_id&#x27; attribute will be null in this case \* plan_setup - Indicates that this lineitem is based on &#x27;Plan Setup&#x27; charge. The &#x27;entity_id&#x27; attribute specifies the [plan](/docs/api/plans#plan_attributes) id
+          * @description Specifies the modelled entity this line item is based on. \* addon_item_price - Indicates that this line item is based on addon Item Price \* adhoc - Indicates that this lineitem is not modelled. i.e created adhoc. So the &#x27;entity_id&#x27; attribute will be null in this case \* addon - Indicates that this lineitem is based on &#x27;Addon&#x27; entity. The &#x27;entity_id&#x27; attribute specifies the [addon](/docs/api/addons#addon_attributes) id \* plan - Indicates that this lineitem is based on &#x27;Plan&#x27; entity. The &#x27;entity_id&#x27; attribute specifies the [plan](/docs/api/plans#plan_attributes) id \* plan_item_price - Indicates that this line item is based on plan Item Price \* charge_item_price - Indicates that this line item is based on charge Item Price \* plan_setup - Indicates that this lineitem is based on &#x27;Plan Setup&#x27; charge. The &#x27;entity_id&#x27; attribute specifies the [plan](/docs/api/plans#plan_attributes) id
 
           */
        
       entity_type:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc';
        
          /**
-          * @description The reason due to which the line item price/amount is exempted from tax. \* zero_value_item - If the total invoice value/amount is equal to zero. E.g., If the total order value is $10 and a $10 coupon has been applied against that order, the total order value becomes $0. Hence the invoice value also becomes $0. \* reverse_charge - If the Customer is identified as B2B customer (when VAT Number is entered), applicable for EU only \* tax_not_configured - If tax is not enabled for the site \* high_value_physical_goods - If physical goods are sold from outside Australia to customers in Australia, and the price of all the physical good line items is greater than AUD 1000, then tax will not be applied \* customer_exempt - If the Customer is marked as Tax exempt \* region_non_taxable - If the product sold is not taxable in this region, but it is taxable in other regions, hence this region is not part of the Taxable jurisdiction \* product_exempt - If the Plan or Addon is marked as Tax exempt \* zero_rated - If the rate of tax is 0% and no Sales/ GST tax is collectable for that line item \* export - You are not registered for tax in the customer&#x27;s region. This is also the reason code when both &#x60;billing_address&#x60; and &#x60;shipping_address&#x60; have not been provided for the customer and subscription respectively
+          * @description The reason due to which the line item price/amount is exempted from tax. \* tax_not_configured - If tax is not enabled for the site \* customer_exempt - If the Customer is marked as Tax exempt \* region_non_taxable - If the product sold is not taxable in this region, but it is taxable in other regions, hence this region is not part of the Taxable jurisdiction \* product_exempt - If the Plan or Addon is marked as Tax exempt \* zero_value_item - If the total invoice value/amount is equal to zero. E.g., If the total order value is $10 and a $10 coupon has been applied against that order, the total order value becomes $0. Hence the invoice value also becomes $0. \* reverse_charge - If the Customer is identified as B2B customer (when VAT Number is entered), applicable for EU only \* high_value_physical_goods - If physical goods are sold from outside Australia to customers in Australia, and the price of all the physical good line items is greater than AUD 1000, then tax will not be applied \* zero_rated - If the rate of tax is 0% and no Sales/ GST tax is collectable for that line item \* export - You are not registered for tax in the customer&#x27;s region. This is also the reason code when both &#x60;billing_address&#x60; and &#x60;shipping_address&#x60; have not been provided for the customer and subscription respectively
 
           */
        
@@ -2172,7 +2186,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       line_item_id?:string;
        
          /**
-          * @description The type of deduction and the amount to which it is applied. \* prorated_credits - The deduction is due to a legacy adjustment credit applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. The legacy credits feature is superseded by [adjustment_credit_notes](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_adjustment_credit_notes). \* item_level_coupon - The deduction is due to a coupon applied to line item. The coupon &#x60;id&#x60; is passed as &#x60;entity_id&#x60;. \* item_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to a line item of the invoice. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* document_level_coupon - The deduction is due to a coupon applied to the invoice &#x60;sub_total&#x60;. The coupon id is passed as &#x60;entity_id&#x60;. \* promotional_credits - The deduction is due to a [promotional credit](/docs/api/promotional_credits?prod_cat_ver&#x3D;2) applied to the invoice. \* document_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to the invoice &#x60;sub_total&#x60;. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;.
+          * @description The type of deduction and the amount to which it is applied. \* prorated_credits - The deduction is due to a legacy adjustment credit applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. The legacy credits feature is superseded by [adjustment_credit_notes](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_adjustment_credit_notes). \* item_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to a line item of the invoice. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* promotional_credits - The deduction is due to a [promotional credit](/docs/api/promotional_credits?prod_cat_ver&#x3D;2) applied to the invoice. \* document_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to the invoice &#x60;sub_total&#x60;. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* item_level_coupon - The deduction is due to a coupon applied to line item. The coupon &#x60;id&#x60; is passed as &#x60;entity_id&#x60;. \* document_level_coupon - The deduction is due to a coupon applied to the invoice &#x60;sub_total&#x60;. The coupon id is passed as &#x60;entity_id&#x60;.
 
           */
        
@@ -2208,7 +2222,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       line_item_id:string;
        
          /**
-          * @description The type of deduction and the amount to which it is applied. \* prorated_credits - The deduction is due to a legacy adjustment credit applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. The legacy credits feature is superseded by [adjustment_credit_notes](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_adjustment_credit_notes). \* document_level_coupon - The deduction is due to a coupon applied to the invoice &#x60;sub_total&#x60;. The coupon &#x60;id&#x60; is available as &#x60;entity_id&#x60;. \* promotional_credits - The deduction is due to a [promotional credit](/docs/api/promotional_credits) applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. \* item_level_coupon - The deduction is due to a coupon applied to a line item of the invoice. The coupon &#x60;id&#x60; is available as &#x60;entity_id&#x60;. \* document_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to the invoice &#x60;sub_total&#x60;. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* item_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to a line item of the invoice. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;.
+          * @description The type of deduction and the amount to which it is applied. \* prorated_credits - The deduction is due to a legacy adjustment credit applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. The legacy credits feature is superseded by [adjustment_credit_notes](/docs/api/invoices?prod_cat_ver&#x3D;2#invoice_adjustment_credit_notes). \* promotional_credits - The deduction is due to a [promotional credit](/docs/api/promotional_credits) applied to the invoice. The &#x60;entity_id&#x60; is &#x60;null&#x60; in this case. \* document_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to the invoice &#x60;sub_total&#x60;. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* item_level_discount - The deduction is due to a [discount](/docs/api/discounts?prod_cat_ver&#x3D;2) applied to a line item of the invoice. The discount &#x60;id&#x60; is available as the &#x60;entity_id&#x60;. \* document_level_coupon - The deduction is due to a coupon applied to the invoice &#x60;sub_total&#x60;. The coupon &#x60;id&#x60; is available as &#x60;entity_id&#x60;. \* item_level_coupon - The deduction is due to a coupon applied to a line item of the invoice. The coupon &#x60;id&#x60; is available as &#x60;entity_id&#x60;.
 
           */
        
@@ -2275,6 +2289,27 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       tax_rate:number;
        
          /**
+          * @description Indicates the service period end of the tax rate for the line item.
+
+          */
+       
+      date_to?:number;
+       
+         /**
+          * @description Indicates the service period start of the tax rate for the line item.
+
+          */
+       
+      date_from?:number;
+       
+         /**
+          * @description Indicates the prorated line item amount in cents.
+
+          */
+       
+      prorated_taxable_amount?:number;
+       
+         /**
           * @description Indicates if tax is applied only on a portion of the line item amount.
 
           */
@@ -2303,7 +2338,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       tax_amount:number;
        
          /**
-          * @description The type of tax jurisdiction \* federal - The tax jurisdiction is a federal \* state - The tax jurisdiction is a state \* county - The tax jurisdiction is a county \* country - The tax jurisdiction is a country \* city - The tax jurisdiction is a city \* special - Special tax jurisdiction. \* unincorporated - Combined tax of state and county. \* other - Jurisdictions other than the ones listed above.
+          * @description The type of tax jurisdiction \* federal - The tax jurisdiction is a federal \* state - The tax jurisdiction is a state \* city - The tax jurisdiction is a city \* special - Special tax jurisdiction. \* unincorporated - Combined tax of state and county. \* county - The tax jurisdiction is a county \* country - The tax jurisdiction is a country \* other - Jurisdictions other than the ones listed above.
 
           */
        
@@ -2424,7 +2459,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       applied_at:number;
        
          /**
-          * @description The status of this transaction. \* timeout - Transaction failed because of Gateway not accepting the connection. \* voided - The transaction got voided or authorization expired at gateway. \* needs_attention - Connection with Gateway got terminated abruptly. So, status of this transaction needs to be resolved manually \* failure - Transaction failed. Refer the &#x27;error_code&#x27; and &#x27;error_text&#x27; fields to know the reason for failure \* in_progress - Transaction is being processed by the gateway. This typically happens for [direct debit transactions](https://www.chargebee.com/docs/direct-debit-payments.html) or, in case of cards, refund transactions. Such transactions can take 2-7 days to complete, depending on the gateway and payment method. \* success - The transaction is successful.
+          * @description The status of this transaction. \* timeout - Transaction failed because of Gateway not accepting the connection. \* failure - Transaction failed. Refer the &#x27;error_code&#x27; and &#x27;error_text&#x27; fields to know the reason for failure \* in_progress - Transaction is being processed by the gateway. This typically happens for [direct debit transactions](https://www.chargebee.com/docs/direct-debit-payments.html) or, in case of cards, refund transactions. Such transactions can take 2-7 days to complete, depending on the gateway and payment method. \* success - The transaction is successful. \* voided - The transaction got voided or authorization expired at gateway. \* needs_attention - Connection with Gateway got terminated abruptly. So, status of this transaction needs to be resolved manually
 
           */
        
@@ -2474,7 +2509,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       created_at?:number;
        
          /**
-          * @description The status of this transaction. \* success - The transaction is successful. \* voided - The transaction got voided or authorization expired at gateway. \* needs_attention - Connection with Gateway got terminated abruptly. So, status of this transaction needs to be resolved manually \* failure - Transaction failed. Refer the &#x27;error_code&#x27; and &#x27;error_text&#x27; fields to know the reason for failure \* in_progress - Transaction is being processed by the gateway. This typically happens for [direct debit transactions](https://www.chargebee.com/docs/direct-debit-payments.html) or, in case of cards, refund transactions. Such transactions can take 2-7 days to complete, depending on the gateway and payment method. \* timeout - Transaction failed because of Gateway not accepting the connection.
+          * @description The status of this transaction. \* success - The transaction is successful. \* needs_attention - Connection with Gateway got terminated abruptly. So, status of this transaction needs to be resolved manually \* failure - Transaction failed. Refer the &#x27;error_code&#x27; and &#x27;error_text&#x27; fields to know the reason for failure \* voided - The transaction got voided or authorization expired at gateway. \* in_progress - Transaction is being processed by the gateway. This typically happens for [direct debit transactions](https://www.chargebee.com/docs/direct-debit-payments.html) or, in case of cards, refund transactions. Such transactions can take 2-7 days to complete, depending on the gateway and payment method. \* timeout - Transaction failed because of Gateway not accepting the connection.
 
           */
        
@@ -2510,7 +2545,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       applied_at:number;
        
          /**
-          * @description Credit note reason code. Deprecated; use the cn_create_reason_code parameter instead \* subscription_change - This reason will be set automatically for Credit Notes created during Change Subscription operation when [proration](https://www.chargebee.com/docs/proration.html) is enabled \* write_off - This reason will be set automatically for the Credit Notes created during invoice [Write Off](https://www.chargebee.com/docs/invoice-operations.html#write-off) operation. \* other - Can be set when none of the above reason codes are applicable \* order_cancellation - Order Cancellation \* order_change - Order Change \* product_unsatisfactory - Product Unsatisfactory \* waiver - Waiver \* chargeback - Can be set when you are recording your customer Chargebacks \* subscription_cancellation - This reason will be set automatically for Credit Notes created during cancel subscription operation \* fraudulent - FRAUDULENT \* subscription_pause - This reason will be automatically set to credit notes created during pause/resume subscription operation. \* service_unsatisfactory - Service Unsatisfactory
+          * @description Credit note reason code. Deprecated; use the cn_create_reason_code parameter instead \* other - Can be set when none of the above reason codes are applicable \* order_cancellation - Order Cancellation \* product_unsatisfactory - Product Unsatisfactory \* chargeback - Can be set when you are recording your customer Chargebacks \* subscription_cancellation - This reason will be set automatically for Credit Notes created during cancel subscription operation \* fraudulent - FRAUDULENT \* subscription_pause - This reason will be automatically set to credit notes created during pause/resume subscription operation. \* service_unsatisfactory - Service Unsatisfactory \* subscription_change - This reason will be set automatically for Credit Notes created during Change Subscription operation when [proration](https://www.chargebee.com/docs/proration.html) is enabled \* write_off - This reason will be set automatically for the Credit Notes created during invoice [Write Off](https://www.chargebee.com/docs/invoice-operations.html#write-off) operation. \* order_change - Order Change \* waiver - Waiver
 
           */
        
@@ -2531,7 +2566,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       cn_date?:number;
        
          /**
-          * @description Credit note status. \* refunded - When the entire credits (Credit Note amount) have been used (i.e either allocated to invoices or refunded). \* voided - When the Credit Note has been cancelled. \* adjusted - When the Credit Note has been adjusted against an invoice. \* refund_due - When the credits are yet to be used, or have been partially used.
+          * @description Credit note status. \* voided - When the Credit Note has been cancelled. \* adjusted - When the Credit Note has been adjusted against an invoice. \* refund_due - When the credits are yet to be used, or have been partially used. \* refunded - When the entire credits (Credit Note amount) have been used (i.e either allocated to invoices or refunded).
 
           */
        
@@ -2546,7 +2581,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       cn_id:string;
        
          /**
-          * @description Credit note reason code. Deprecated; use the cn_create_reason_code parameter instead \* subscription_cancellation - This reason will be set automatically for Credit Notes created during cancel subscription operation \* waiver - Waiver \* subscription_change - This reason will be set automatically for Credit Notes created during Change Subscription operation when [proration](https://www.chargebee.com/docs/proration.html) is enabled \* write_off - This reason will be set automatically for the Credit Notes created during invoice [Write Off](https://www.chargebee.com/docs/invoice-operations.html#write-off) operation. \* service_unsatisfactory - Service Unsatisfactory \* order_cancellation - Order Cancellation \* fraudulent - FRAUDULENT \* product_unsatisfactory - Product Unsatisfactory \* other - Can be set when none of the above reason codes are applicable \* chargeback - Can be set when you are recording your customer Chargebacks \* order_change - Order Change \* subscription_pause - This reason will be automatically set to credit notes created during pause/resume subscription operation.
+          * @description Credit note reason code. Deprecated; use the cn_create_reason_code parameter instead \* subscription_cancellation - This reason will be set automatically for Credit Notes created during cancel subscription operation \* waiver - Waiver \* write_off - This reason will be set automatically for the Credit Notes created during invoice [Write Off](https://www.chargebee.com/docs/invoice-operations.html#write-off) operation. \* service_unsatisfactory - Service Unsatisfactory \* fraudulent - FRAUDULENT \* product_unsatisfactory - Product Unsatisfactory \* order_change - Order Change \* subscription_change - This reason will be set automatically for Credit Notes created during Change Subscription operation when [proration](https://www.chargebee.com/docs/proration.html) is enabled \* order_cancellation - Order Cancellation \* other - Can be set when none of the above reason codes are applicable \* chargeback - Can be set when you are recording your customer Chargebacks \* subscription_pause - This reason will be automatically set to credit notes created during pause/resume subscription operation.
 
           */
        
@@ -2574,7 +2609,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       cn_total?:number;
        
          /**
-          * @description Credit note status. \* voided - When the Credit Note has been cancelled. \* refund_due - When the credits are yet to be used, or have been partially used. \* refunded - When the entire credits (Credit Note amount) have been used (i.e either allocated to invoices or refunded). \* adjusted - When the Credit Note has been adjusted against an invoice.
+          * @description Credit note status. \* refunded - When the entire credits (Credit Note amount) have been used (i.e either allocated to invoices or refunded). \* voided - When the Credit Note has been cancelled. \* refund_due - When the credits are yet to be used, or have been partially used. \* adjusted - When the Credit Note has been adjusted against an invoice.
 
           */
        
@@ -2589,7 +2624,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       cn_id:string;
        
          /**
-          * @description Credit note reason code. Deprecated; use the cn_create_reason_code parameter instead \* fraudulent - FRAUDULENT \* product_unsatisfactory - Product Unsatisfactory \* write_off - This reason will be set automatically for the Credit Notes created during invoice [Write Off](https://www.chargebee.com/docs/invoice-operations.html#write-off) operation. \* subscription_cancellation - This reason will be set automatically for Credit Notes created during cancel subscription operation \* service_unsatisfactory - Service Unsatisfactory \* chargeback - Can be set when you are recording your customer Chargebacks \* subscription_pause - This reason will be automatically set to credit notes created during pause/resume subscription operation. \* waiver - Waiver \* order_change - Order Change \* subscription_change - This reason will be set automatically for Credit Notes created during Change Subscription operation when [proration](https://www.chargebee.com/docs/proration.html) is enabled \* order_cancellation - Order Cancellation \* other - Can be set when none of the above reason codes are applicable
+          * @description Credit note reason code. Deprecated; use the cn_create_reason_code parameter instead \* fraudulent - FRAUDULENT \* chargeback - Can be set when you are recording your customer Chargebacks \* subscription_pause - This reason will be automatically set to credit notes created during pause/resume subscription operation. \* order_change - Order Change \* subscription_change - This reason will be set automatically for Credit Notes created during Change Subscription operation when [proration](https://www.chargebee.com/docs/proration.html) is enabled \* product_unsatisfactory - Product Unsatisfactory \* write_off - This reason will be set automatically for the Credit Notes created during invoice [Write Off](https://www.chargebee.com/docs/invoice-operations.html#write-off) operation. \* subscription_cancellation - This reason will be set automatically for Credit Notes created during cancel subscription operation \* service_unsatisfactory - Service Unsatisfactory \* waiver - Waiver \* order_cancellation - Order Cancellation \* other - Can be set when none of the above reason codes are applicable
 
           */
        
@@ -2617,7 +2652,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       cn_total?:number;
        
          /**
-          * @description Credit note status. \* refund_due - When the credits are yet to be used, or have been partially used. \* adjusted - When the Credit Note has been adjusted against an invoice. \* refunded - When the entire credits (Credit Note amount) have been used (i.e either allocated to invoices or refunded). \* voided - When the Credit Note has been cancelled.
+          * @description Credit note status. \* refund_due - When the credits are yet to be used, or have been partially used. \* adjusted - When the Credit Note has been adjusted against an invoice. \* voided - When the Credit Note has been cancelled. \* refunded - When the entire credits (Credit Note amount) have been used (i.e either allocated to invoices or refunded).
 
           */
        
@@ -2639,14 +2674,14 @@ For metered line items, this value is updated from [usages](https://apidocs.char
       document_number?:string;
        
          /**
-          * @description The status of this order. \* awaiting_shipment - The order has been picked up by an integration system, and synced to a shipping management platform \* new - Order has been created. Applicable only if you are using Chargebee&#x27;s legacy order management system. \* shipped - The order has moved from order management system to a shipping system. \* on_hold - The order is paused from being processed. \* queued - Order is yet to be processed by any system, these are scheduled orders created by Chargebee \* returned - The order has been returned after delivery. \* complete - Order has been processed successfully. Applicable only if you are using Chargebee&#x27;s legacy order management system \* cancelled - Order has been cancelled. Applicable only if you are using Chargebee&#x27;s legacy order management system \* delivered - The order has been delivered to the customer. \* partially_delivered - The order has been partially delivered to the customer. \* voided - Order has been voided. Applicable only if you are using Chargebee&#x27;s legacy order management system \* processing - Order is being processed. Applicable only if you are using Chargebee&#x27;s legacy order management system
+          * @description The status of this order. \* awaiting_shipment - The order has been picked up by an integration system, and synced to a shipping management platform \* queued - Order is yet to be processed by any system, these are scheduled orders created by Chargebee \* returned - The order has been returned after delivery. \* complete - Order has been processed successfully. Applicable only if you are using Chargebee&#x27;s legacy order management system \* processing - Order is being processed. Applicable only if you are using Chargebee&#x27;s legacy order management system \* new - Order has been created. Applicable only if you are using Chargebee&#x27;s legacy order management system. \* shipped - The order has moved from order management system to a shipping system. \* on_hold - The order is paused from being processed. \* cancelled - Order has been cancelled. Applicable only if you are using Chargebee&#x27;s legacy order management system \* delivered - The order has been delivered to the customer. \* partially_delivered - The order has been partially delivered to the customer. \* voided - Order has been voided. Applicable only if you are using Chargebee&#x27;s legacy order management system
 
           */
        
       status?:'new' | 'partially_delivered' | 'queued' | 'delivered' | 'on_hold' | 'shipped' | 'processing' | 'cancelled' | 'voided' | 'complete' | 'awaiting_shipment' | 'returned';
        
          /**
-          * @description Order type \* manual - The order has been created by the the user using Chargebee&#x27;s legacy order management system. \* system_generated - The order has been created by Chargebee automatically based on the preferences set by the user.
+          * @description Order type \* system_generated - The order has been created by Chargebee automatically based on the preferences set by the user. \* manual - The order has been created by the the user using Chargebee&#x27;s legacy order management system.
 
           */
        
@@ -2682,7 +2717,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
     }
     export interface Note {  
          /**
-          * @description Type of entity to which the note belongs. \* subscription - Entity that represents a subscription of customer. \* plan_item_price - Indicates that this line item is based on plan Item Price \* customer - Entity that represents a customer. \* plan - Entity that represents a plan. \* coupon - Entity that represents a coupon. \* tax - The note is configured as part of the [tax configuration](https://www.chargebee.com/docs/tax.html) in Chargebee Billing. \* addon_item_price - Indicates that this line item is based on addon Item Price \* charge_item_price - Indicates that this line item is based on charge Item Price \* addon - Entity that represents an addon.
+          * @description Type of entity to which the note belongs. \* subscription - Entity that represents a subscription of customer. \* customer - Entity that represents a customer. \* plan - Entity that represents a plan. \* tax - The note is configured as part of the [tax configuration](https://www.chargebee.com/docs/tax.html) in Chargebee Billing. \* addon_item_price - Indicates that this line item is based on addon Item Price \* addon - Entity that represents an addon. \* plan_item_price - Indicates that this line item is based on plan Item Price \* coupon - Entity that represents a coupon. \* charge_item_price - Indicates that this line item is based on charge Item Price
 
           */
        
@@ -2816,9 +2851,24 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
       index:number;
     }
     export interface StatementDescriptor {  
+         /**
+          * @description Uniquely identifies a statement_descriptor
+
+          */
+       
       id:string;
        
+         /**
+          * @description Payment descriptor text
+
+          */
+       
       descriptor?:string;
+       
+         /**
+          * @description Payment descriptor additional info
+
+          */
        
       additional_info?:string;
     }
@@ -2922,7 +2972,7 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
       zip?:string;
        
          /**
-          * @description The address verification status. \* valid - Address was validated successfully. \* partially_valid - The address is valid for taxability but has not been validated for shipping. \* invalid - Address is invalid. \* not_validated - Address is not yet validated.
+          * @description The address verification status. \* valid - Address was validated successfully. \* partially_valid - The address is valid for taxability but has not been validated for shipping. \* not_validated - Address is not yet validated. \* invalid - Address is invalid.
 
           */
        
@@ -2944,7 +2994,7 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
       reference_number?:string;
        
          /**
-          * @description The status of processing the e-invoice. To obtain detailed information about the current &#x60;status&#x60;, see &#x60;message&#x60;. \* scheduled - Sending the e-invoice to the customer has been scheduled. \* skipped - The e-invoice was not sent. This could be due to missing information or because the &#x60;entity_identifier&#x60; is not registered on the e-invoicing network. \* success - The e-invoice has been successfully delivered to the customer. \* failed - The e-invoice was sent and there was an error due to which it was not delivered. \* in_progress - The e-invoice has been sent and Chargebee is waiting for confirmation from the receiving entity. \* registered - The e-invoice was sent and there was an error due to which it was not delivered but got cleared in the IRP.
+          * @description The status of processing the e-invoice. To obtain detailed information about the current &#x60;status&#x60;, see &#x60;message&#x60;. \* skipped - The e-invoice was not sent. This could be due to missing information or because the &#x60;entity_identifier&#x60; is not registered on the e-invoicing network. \* failed - The e-invoice was sent and there was an error due to which it was not delivered. \* in_progress - The e-invoice has been sent and Chargebee is waiting for confirmation from the receiving entity. \* scheduled - Sending the e-invoice to the customer has been scheduled. \* success - The e-invoice has been successfully delivered to the customer. \* registered - The e-invoice was sent and there was an error due to which it was not delivered but got cleared in the IRP.
 
           */
        

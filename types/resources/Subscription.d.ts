@@ -67,11 +67,11 @@ declare module 'chargebee' {
     customer_id:string;
     
     /**
-      * @description Current state of the subscription \* future - The subscription is scheduled to start at a future date. \* non_renewing - The subscription will be canceled at the end of the current term. \* active - The subscription is active and will be charged for automatically based on the items in it. \* cancelled - The subscription has been canceled and is no longer in service. \* in_trial - The subscription is in trial. \* paused - The subscription is [paused](https://www.chargebee.com/docs/2.0/pause-subscription.html). The subscription will not renew while in this state.
+      * @description Current state of the subscription \* future - The subscription is scheduled to start at a future date. \* non_renewing - The subscription will be canceled at the end of the current term. \* active - The subscription is active and will be charged for automatically based on the items in it. \* cancelled - The subscription has been canceled and is no longer in service. \* transferred - The &#x60;transferred&#x60; status will be reflected on the source business entity&#x27;s subscription attribute once the [customer transfer](https://www.chargebee.com/docs/2.0/mbe-getting-started-with-customer-transfer.html) activity is completed successfully. This status is only valid for [product catalog 2.0](https://www.chargebee.com/docs/2.0/product-catalog.html) as the Multiple Business Entity features can only be enabled for product catalog 2.0. \* in_trial - The subscription is in trial. \* paused - The subscription is [paused](https://www.chargebee.com/docs/2.0/pause-subscription.html). The subscription will not renew while in this state.
 
       */
     
-    status:'in_trial' | 'paused' | 'future' | 'active' | 'cancelled' | 'non_renewing';
+    status:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing';
     
     /**
       * @description Start of the trial period for the subscription. Presence of this value for &#x60;future&#x60; subscription implies the subscription will go into &#x60;in_trial&#x60; state when it starts.
@@ -247,6 +247,18 @@ declare module 'chargebee' {
       */
     
     net_term_days?:number;
+    
+    /**
+      * @description This attribute represents the identifier of the most recent version of the [subscriptions](/docs/api/subscriptions) resource. When interacting with our API, the &#x60;active_id&#x60; ensures you are always referencing the current and most up-to-date version of the [subscriptions](/docs/api/subscriptions) resource. This mechanism is in place to maintain consistent external references and data integrity across business entity changes and updates. &#x60;active_id&#x60; is present on the resource after the resource is transferred to the destination business entity and it will refer to the most recent version of the resource. Learn more about the [customer transfer feature](https://www.chargebee.com/docs/2.0/mbe-customer-transfer-overview.html) and [setup](https://www.chargebee.com/docs/2.0/mbe-getting-started-with-customer-transfer.html).  
+**Note:**
+
+* If &#x60;active_id&#x60; and &#x60;id&#x60; of the subscription are the same, then it is the most recent version of the resource.
+* If &#x60;active_id&#x60; and &#x60;id&#x60; of the subscription are different, then it is a transferred resource.
+* If &#x60;active_id&#x60; is not present, then the resource is not transferred and there are no business entity-related changes.
+
+      */
+    
+    active_id?:string;
     
     /**
       * @description Total number of invoices that are due for payment against the subscription.  
@@ -441,7 +453,7 @@ Creates a new subscription for an existing customer in Chargebee. Any available 
 
         */
       
-      create_with_items(customer_id:string, input?:CreateWithItemsInputParam):ChargebeeRequest<CreateWithItemsResponse>;
+      create_with_items(customer_id:string, input:CreateWithItemsInputParam):ChargebeeRequest<CreateWithItemsResponse>;
        
       /**
         * @description Returns a list of subscriptions meeting **all** the conditions specified in the filter parameters below.
@@ -523,7 +535,7 @@ Updates the specified subscription by setting the parameters passed. Any paramet
 
         */
       
-      update_for_items(subscription_id:string, input?:UpdateForItemsInputParam):ChargebeeRequest<UpdateForItemsResponse>;
+      update_for_items(subscription_id:string, input:UpdateForItemsInputParam):ChargebeeRequest<UpdateForItemsResponse>;
        
       /**
         * @description Changes the subscription&#x27;s current term end date. Depending on the &quot;status&quot; of the subscription, &quot;term end date&quot; has different effects.
@@ -636,7 +648,7 @@ For contract terms in &#x60;active&#x60; state, import is allowed only if the as
 
         */
       
-      import_unbilled_charges(subscription_id:string, input?:ImportUnbilledChargesInputParam):ChargebeeRequest<ImportUnbilledChargesResponse>;
+      import_unbilled_charges(subscription_id:string, input:ImportUnbilledChargesInputParam):ChargebeeRequest<ImportUnbilledChargesResponse>;
        
       /**
         * @description Imports a subscription into Chargebee.
@@ -1007,14 +1019,14 @@ Creates a new subscription for an existing customer in Chargebee. Any available 
 
         */
        
-      subscription_items?:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
       /**
         * @description Parameters for discounts
 
         */
        
-      discounts?:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
        
       /**
         * @description Parameters for item_tiers
@@ -1094,7 +1106,7 @@ Creates a new subscription for an existing customer in Chargebee. Any available 
 
         */
         
-      status?:{in?:string,is?:'in_trial' | 'paused' | 'future' | 'active' | 'cancelled' | 'non_renewing',is_not?:'in_trial' | 'paused' | 'future' | 'active' | 'cancelled' | 'non_renewing',not_in?:string};
+      status?:{in?:string,is?:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing',is_not?:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing',not_in?:string};
        
       /**
         * @description Returns a list of subscriptions meeting **all** the conditions specified in the filter parameters below.
@@ -1164,7 +1176,7 @@ Creates a new subscription for an existing customer in Chargebee. Any available 
 
         */
         
-      offline_payment_method?:{in?:string,is?:'bank_transfer' | 'no_preference' | 'ach_credit' | 'boleto' | 'check' | 'sepa_credit' | 'cash',is_not?:'bank_transfer' | 'no_preference' | 'ach_credit' | 'boleto' | 'check' | 'sepa_credit' | 'cash',not_in?:string};
+      offline_payment_method?:{in?:string,is?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',is_not?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',not_in?:string};
        
       /**
         * @description Returns a list of subscriptions meeting **all** the conditions specified in the filter parameters below.
@@ -1685,14 +1697,14 @@ Updates the specified subscription by setting the parameters passed. Any paramet
 
         */
        
-      subscription_items?:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,proration_type?:ProrationType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
       /**
         * @description Parameters for discounts
 
         */
        
-      discounts?:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
        
       /**
         * @description Parameters for item_tiers
@@ -2094,21 +2106,21 @@ When dunning (payment failure retry settings) is configured with the last retry 
 
         */
        
-      unbilled_charges?:{amount?:number,amount_in_decimal?:string,date_from:number,date_to:number,description?:string,discount_amount?:number,entity_id?:string,entity_type:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc',id?:string,is_advance_charge?:boolean,quantity?:number,quantity_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string,use_for_proration?:boolean}[];
+      unbilled_charges:{amount?:number,amount_in_decimal?:string,date_from:number,date_to:number,description?:string,discount_amount?:number,entity_id?:string,entity_type:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc',id?:string,is_advance_charge?:boolean,quantity?:number,quantity_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string,use_for_proration?:boolean}[];
        
       /**
         * @description Parameters for discounts
 
         */
        
-      discounts?:{amount:number,description?:string,entity_id?:string,entity_type?:'item_level_coupon' | 'item_level_discount' | 'document_level_discount' | 'document_level_coupon',unbilled_charge_id?:string}[];
+      discounts:{amount:number,description?:string,entity_id?:string,entity_type?:'item_level_coupon' | 'item_level_discount' | 'document_level_discount' | 'document_level_coupon',unbilled_charge_id?:string}[];
        
       /**
         * @description Parameters for tiers
 
         */
        
-      tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,quantity_used?:number,quantity_used_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string,unbilled_charge_id:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
+      tiers:{ending_unit?:number,ending_unit_in_decimal?:string,quantity_used?:number,quantity_used_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string,unbilled_charge_id:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
     }
     export interface ImportForItemsResponse {  
        subscription:Subscription;
@@ -2193,7 +2205,7 @@ When dunning (payment failure retry settings) is configured with the last retry 
 
         */
        
-      status:'in_trial' | 'paused' | 'future' | 'active' | 'cancelled' | 'non_renewing';
+      status:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing';
        
       /**
         * @description End of the current billing term. Subscription is renewed immediately after this. If not given, this will be calculated based on plan billing cycle.
@@ -2358,14 +2370,14 @@ Applicable only when [Metered Billing](https://www.chargebee.com/docs/metered_bi
 
         */
        
-      subscription_items?:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
       /**
         * @description Parameters for discounts
 
         */
        
-      discounts?:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
        
       /**
         * @description Parameters for charged_items

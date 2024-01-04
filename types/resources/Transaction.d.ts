@@ -52,7 +52,7 @@ declare module 'chargebee' {
     reference_number?:string;
     
     /**
-      * @description Gateway through which this transaction was done. Applicable only for &#x27;Card&#x27; Payment Method \* bluesnap - BlueSnap is a payment gateway. \* tco - 2Checkout is a payment gateway. \* razorpay - Razorpay is a fast growing payment service provider in India working with all leading banks and support for major local payment methods including Netbanking, UPI etc. \* checkout_com - Checkout.com is a payment gateway. \* adyen - Adyen is a payment gateway. \* braintree - Braintree is a payment gateway. \* moneris_us - Moneris USA is a payment gateway. \* pin - Pin is a payment gateway \* moneris - Moneris is a payment gateway. \* chargebee - Chargebee test gateway. \* cybersource - CyberSource is a payment gateway. \* ecentric - Ecentric provides a seamless payment processing service in South Africa specializing on omnichannel capabilities. \* first_data_global - First Data Global Gateway Virtual Terminal Account \* exact - Exact Payments is a payment gateway. \* eway - eWAY Account is a payment gateway. \* amazon_payments - Amazon Payments is a payment service provider. \* sage_pay - Sage Pay is a payment gateway. \* elavon - Elavon Virtual Merchant is a payment solution. \* orbital - Chase Paymentech(Orbital) is a payment gateway. \* beanstream - Bambora(formerly known as Beanstream) is a payment gateway. \* hdfc - HDFC Account is a payment gateway. \* bank_of_america - Bank of America Gateway \* gocardless - GoCardless is a payment service provider. \* paymill - PAYMILL is a payment gateway. \* balanced_payments - Balanced is a payment gateway \* bluepay - BluePay is a payment gateway. \* paypal_express_checkout - PayPal Express Checkout is a payment gateway. \* paypal_payflow_pro - PayPal Payflow Pro is a payment gateway. \* global_payments - Global Payments is a payment service provider. \* not_applicable - Indicates that payment gateway is not applicable for this resource. \* nmi - NMI is a payment gateway. \* worldpay - WorldPay is a payment gateway \* authorize_net - Authorize.net is a payment gateway \* stripe - Stripe is a payment gateway. \* metrics_global - Metrics global is a leading payment service provider providing unified payment services in the US. \* windcave - Windcave provides an end to end payment processing solution in ANZ and other leading global markets. \* quickbooks - Intuit QuickBooks Payments gateway \* wepay - WePay is a payment gateway. \* wirecard - WireCard Account is a payment service provider. \* chargebee_payments - Chargebee Payments gateway \* paypal_pro - PayPal Pro Account is a payment gateway. \* paypal - PayPal Commerce is a payment gateway. \* ingenico_direct - Worldline Online Payments is a payment gateway. \* ogone - Ingenico ePayments (formerly known as Ogone) is a payment gateway. \* migs - MasterCard Internet Gateway Service payment gateway. \* vantiv - Vantiv is a payment gateway. \* eway_rapid - eWAY Rapid is a payment gateway. \* mollie - Mollie is a payment gateway.
+      * @description Gateway through which this transaction was done. Applicable only for &#x27;Card&#x27; Payment Method \* bluesnap - BlueSnap is a payment gateway. \* tco - 2Checkout is a payment gateway. \* razorpay - Razorpay is a fast growing payment service provider in India working with all leading banks and support for major local payment methods including Netbanking, UPI etc. \* checkout_com - Checkout.com is a payment gateway. \* adyen - Adyen is a payment gateway. \* braintree - Braintree is a payment gateway. \* moneris_us - Moneris USA is a payment gateway. \* pin - Pin is a payment gateway \* moneris - Moneris is a payment gateway. \* chargebee - Chargebee test gateway. \* cybersource - CyberSource is a payment gateway. \* ecentric - Ecentric provides a seamless payment processing service in South Africa specializing on omnichannel capabilities. \* first_data_global - First Data Global Gateway Virtual Terminal Account \* exact - Exact Payments is a payment gateway. \* eway - eWAY Account is a payment gateway. \* amazon_payments - Amazon Payments is a payment service provider. \* sage_pay - Sage Pay is a payment gateway. \* elavon - Elavon Virtual Merchant is a payment solution. \* orbital - Chase Paymentech(Orbital) is a payment gateway. \* beanstream - Bambora(formerly known as Beanstream) is a payment gateway. \* hdfc - HDFC Account is a payment gateway. \* bank_of_america - Bank of America Gateway \* gocardless - GoCardless is a payment service provider. \* paymill - PAYMILL is a payment gateway. \* balanced_payments - Balanced is a payment gateway \* bluepay - BluePay is a payment gateway. \* paypal_express_checkout - PayPal Express Checkout is a payment gateway. \* paypal_payflow_pro - PayPal Payflow Pro is a payment gateway. \* global_payments - Global Payments is a payment service provider. \* not_applicable - Indicates that payment gateway is not applicable for this resource. \* nmi - NMI is a payment gateway. \* worldpay - WorldPay is a payment gateway \* authorize_net - Authorize.net is a payment gateway \* stripe - Stripe is a payment gateway. \* metrics_global - Metrics global is a leading payment service provider providing unified payment services in the US. \* windcave - Windcave provides an end to end payment processing solution in ANZ and other leading global markets. \* quickbooks - Intuit QuickBooks Payments gateway \* wepay - WePay is a payment gateway. \* wirecard - WireCard Account is a payment service provider. \* chargebee_payments - Chargebee Payments gateway \* paypal_pro - PayPal Pro Account is a payment gateway. \* paypal - PayPal Commerce is a payment gateway. \* ingenico_direct - Worldline Online Payments is a payment gateway. \* ogone - Ingenico ePayments (formerly known as Ogone) is a payment gateway. \* migs - MasterCard Internet Gateway Service payment gateway. \* vantiv - Vantiv is a payment gateway. \* eway_rapid - eWAY Rapid is a payment gateway. \* mollie - Mollie is a payment gateway. \* ebanx - EBANX is a payment gateway, enabling businesses to accept diverse local payment methods from various countries for increased market reach and conversion.
 
       */
     
@@ -184,6 +184,8 @@ declare module 'chargebee' {
     
     fraud_reason?:string;
     
+    custom_payment_method_id?:string;
+    
     /**
       * @description This is the part of the &#x60;amount&#x60; which has not been invoiced yet and is therefore added to [excess_payments](customers#customer_excess_payments) for the customer. Applicable only for a transaction of &#x60;type&#x60; &#x3D; &#x60;payment&#x60;.
 
@@ -275,6 +277,8 @@ declare module 'chargebee' {
     
     payment_method_details?:string;
     
+    custom_payment_method_name?:string;
+    
     /**
       * @description Applicable only for &#x27;Payment&#x27; transactions. The list of invoices this &#x27;payment&#x27; transaction is applied to.
 
@@ -302,6 +306,8 @@ declare module 'chargebee' {
       */
     
     linked_payments?:Transaction.LinkedPayment[];
+    
+    error_detail?:Transaction.GatewayErrorDetail;
   }
   export namespace Transaction {
     export class TransactionResource {  
@@ -432,6 +438,13 @@ declare module 'chargebee' {
       reference_number?:string;
        
       /**
+        * @description Records a refund made offline. Applicable only for &#x60;transaction&#x60;s of [type](transactions#transaction_type) &#x3D; &#x60;payment&#x60;.
+
+        */
+       
+      custom_payment_method_id?:string;
+       
+      /**
         * @description Remarks, if any, on the refund.
 
         */
@@ -528,14 +541,14 @@ declare module 'chargebee' {
 
         */
         
-      payment_method?:{in?:string,is?:'other' | 'netbanking_emandates' | 'ach_credit' | 'dotpay' | 'boleto' | 'direct_debit' | 'chargeback' | 'wechat_pay' | 'pay_to' | 'cash' | 'giropay' | 'bank_transfer' | 'alipay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'custom' | 'unionpay' | 'check' | 'faster_payments' | 'sofort' | 'amazon_payments' | 'upi' | 'venmo' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'sepa_credit' | 'card',is_not?:'other' | 'netbanking_emandates' | 'ach_credit' | 'dotpay' | 'boleto' | 'direct_debit' | 'chargeback' | 'wechat_pay' | 'pay_to' | 'cash' | 'giropay' | 'bank_transfer' | 'alipay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'custom' | 'unionpay' | 'check' | 'faster_payments' | 'sofort' | 'amazon_payments' | 'upi' | 'venmo' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'sepa_credit' | 'card',not_in?:string};
+      payment_method?:{in?:string,is?:'other' | 'netbanking_emandates' | 'ach_credit' | 'dotpay' | 'boleto' | 'direct_debit' | 'automated_bank_transfer' | 'chargeback' | 'wechat_pay' | 'pay_to' | 'cash' | 'giropay' | 'bank_transfer' | 'alipay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'custom' | 'unionpay' | 'check' | 'faster_payments' | 'sofort' | 'amazon_payments' | 'upi' | 'venmo' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'sepa_credit' | 'card',is_not?:'other' | 'netbanking_emandates' | 'ach_credit' | 'dotpay' | 'boleto' | 'direct_debit' | 'automated_bank_transfer' | 'chargeback' | 'wechat_pay' | 'pay_to' | 'cash' | 'giropay' | 'bank_transfer' | 'alipay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'custom' | 'unionpay' | 'check' | 'faster_payments' | 'sofort' | 'amazon_payments' | 'upi' | 'venmo' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'sepa_credit' | 'card',not_in?:string};
        
       /**
         * @description Lists all the transactions.
 
         */
         
-      gateway?:{in?:string,is?:'bluepay' | 'beanstream' | 'elavon' | 'orbital' | 'hdfc' | 'nmi' | 'moneris' | 'metrics_global' | 'ebanx' | 'pin' | 'stripe' | 'quickbooks' | 'razorpay' | 'eway_rapid' | 'balanced_payments' | 'ecentric' | 'wepay' | 'chargebee_payments' | 'bank_of_america' | 'braintree' | 'first_data_global' | 'paypal_express_checkout' | 'ingenico_direct' | 'moneris_us' | 'exact' | 'migs' | 'checkout_com' | 'not_applicable' | 'paypal_pro' | 'ogone' | 'eway' | 'gocardless' | 'global_payments' | 'paymill' | 'adyen' | 'paypal' | 'chargebee' | 'authorize_net' | 'tco' | 'bluesnap' | 'windcave' | 'paypal_payflow_pro' | 'amazon_payments' | 'mollie' | 'cybersource' | 'wirecard' | 'sage_pay' | 'vantiv' | 'worldpay' | 'pay_com',is_not?:'bluepay' | 'beanstream' | 'elavon' | 'orbital' | 'hdfc' | 'nmi' | 'moneris' | 'metrics_global' | 'ebanx' | 'pin' | 'stripe' | 'quickbooks' | 'razorpay' | 'eway_rapid' | 'balanced_payments' | 'ecentric' | 'wepay' | 'chargebee_payments' | 'bank_of_america' | 'braintree' | 'first_data_global' | 'paypal_express_checkout' | 'ingenico_direct' | 'moneris_us' | 'exact' | 'migs' | 'checkout_com' | 'not_applicable' | 'paypal_pro' | 'ogone' | 'eway' | 'gocardless' | 'global_payments' | 'paymill' | 'adyen' | 'paypal' | 'chargebee' | 'authorize_net' | 'tco' | 'bluesnap' | 'windcave' | 'paypal_payflow_pro' | 'amazon_payments' | 'mollie' | 'cybersource' | 'wirecard' | 'sage_pay' | 'vantiv' | 'worldpay' | 'pay_com',not_in?:string};
+      gateway?:{in?:string,is?:'bluepay' | 'beanstream' | 'elavon' | 'orbital' | 'hdfc' | 'nmi' | 'moneris' | 'metrics_global' | 'ebanx' | 'pin' | 'stripe' | 'quickbooks' | 'razorpay' | 'eway_rapid' | 'balanced_payments' | 'ecentric' | 'wepay' | 'chargebee_payments' | 'bank_of_america' | 'braintree' | 'first_data_global' | 'paypal_express_checkout' | 'ingenico_direct' | 'moneris_us' | 'exact' | 'migs' | 'checkout_com' | 'not_applicable' | 'paypal_pro' | 'ogone' | 'eway' | 'dlocal' | 'gocardless' | 'global_payments' | 'paymill' | 'adyen' | 'paypal' | 'chargebee' | 'authorize_net' | 'tco' | 'bluesnap' | 'windcave' | 'paypal_payflow_pro' | 'amazon_payments' | 'mollie' | 'cybersource' | 'wirecard' | 'sage_pay' | 'vantiv' | 'worldpay' | 'pay_com',is_not?:'bluepay' | 'beanstream' | 'elavon' | 'orbital' | 'hdfc' | 'nmi' | 'moneris' | 'metrics_global' | 'ebanx' | 'pin' | 'stripe' | 'quickbooks' | 'razorpay' | 'eway_rapid' | 'balanced_payments' | 'ecentric' | 'wepay' | 'chargebee_payments' | 'bank_of_america' | 'braintree' | 'first_data_global' | 'paypal_express_checkout' | 'ingenico_direct' | 'moneris_us' | 'exact' | 'migs' | 'checkout_com' | 'not_applicable' | 'paypal_pro' | 'ogone' | 'eway' | 'dlocal' | 'gocardless' | 'global_payments' | 'paymill' | 'adyen' | 'paypal' | 'chargebee' | 'authorize_net' | 'tco' | 'bluesnap' | 'windcave' | 'paypal_payflow_pro' | 'amazon_payments' | 'mollie' | 'cybersource' | 'wirecard' | 'sage_pay' | 'vantiv' | 'worldpay' | 'pay_com',not_in?:string};
        
       /**
         * @description Lists all the transactions.
@@ -820,6 +833,25 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
           */
        
       date?:number;
+    }
+    export interface GatewayErrorDetail {  
+      request_id?:string;
+       
+      error_category?:string;
+       
+      error_code?:string;
+       
+      error_message?:string;
+       
+      decline_code?:string;
+       
+      decline_message?:string;
+       
+      network_error_code?:string;
+       
+      error_field?:string;
+       
+      recommendation_code?:string;
     }
   }
 }

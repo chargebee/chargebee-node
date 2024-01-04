@@ -155,7 +155,7 @@ The &#x60;components&#x60; attribute is not returned for any of the &#x60;subscr
 
         */
        
-      subscription_entitlements?:{feature_id:string}[];
+      subscription_entitlements:{feature_id:string}[];
     }
     export interface Component {  
          /**

@@ -94,11 +94,13 @@ declare module 'chargebee' {
         * @description Updates a specific feature.  
 **Note**
 
-The list of objects &#x60;levels[]&#x60; provided as part of this operation fully replaces the existing list of objects [levels[]](features#feature_levels) of the feature.
+The list of objects &#x60;levels[]&#x60; provided as part of this operation fully replaces the existing
+list of objects [levels[]](features#feature_levels) of the feature.
 
 ### Considerations when modifying &#x60;levels&#x60; {#considerations}
 
-This section describes validations that are performed by Chargebee when modifying the &#x60;levels&#x60; list of objects for the feature, using this operation.
+This section describes validations that are performed by Chargebee when modifying the &#x60;levels&#x60; list of
+objects for the feature, using this operation.
 
 #### Adding &#x60;levels&#x60; {#adding}
 
@@ -106,26 +108,96 @@ Adding a new object to the &#x60;levels[]&#x60; list is allowed if and only if t
 
 #### Removing &#x60;levels&#x60; {#removing}
 
-Removing an existing object in the &#x60;levels[]&#x60; list is not allowed if the &#x60;value&#x60; for that object is currently mapped to one or more [item_entitlement](item_entitlements)s or [subscription_entitlement](subscription_entitlements)s.
+Removing an existing object in the &#x60;levels[]&#x60; list is not allowed if the &#x60;value&#x60; for that
+object is currently mapped to one or more [item_entitlement](item_entitlements)s or
+[subscription_entitlement](subscription_entitlements)s.
 
 #### Reordering &#x60;levels&#x60; {#reorder}
 
 **Note**
 
-The validation described in this section is only applicable for features of &#x60;type&#x60; &#x60;custom&#x60;
+The validation described in this section is only applicable for features of &#x60;type&#x60;
+&#x60;custom&#x60;
 
-If any of &#x60;levels[].value&#x60; are currently mapped to &#x60;item_entitlement&#x60;s or &#x60;subscription_entitlement&#x60;s, then the relative order of the corresponding &#x60;levels[].level&#x60; must be preserved when invoking this operation.
+If any of &#x60;levels[].value&#x60; are currently mapped to &#x60;item_entitlement&#x60;s or &#x60;subscription_entitlement&#x60;s,
+then the relative order of the corresponding &#x60;levels[].level&#x60; must be preserved when invoking this
+operation.
 
-For example, consider that the &#x60;levels[]&#x60; list is currently in the state shown below. (For brevity, only the &#x60;value&#x60; and &#x60;level&#x60; key are shown here and the JSONs have been compacted.)  
-&#x60; {&quot;levels&quot;:[{&quot;value&quot;:&quot;email-basic&quot;,&quot;level&quot;:0},{&quot;value&quot;:&quot;email-rise&quot;,&quot;level&quot;:1},{&quot;value&quot;:&quot;email-advanced&quot;,&quot;level&quot;:2},{&quot;value&quot;:&quot;email-pro&quot;,&quot;level&quot;:3},{&quot;value&quot;:&quot;email-scale&quot;,&quot;level&quot;:4}]} &#x60;
+For example, consider that the &#x60;levels[]&#x60; list is currently in the state shown below. (For brevity,
+only the &#x60;value&#x60; and &#x60;level&#x60; key are shown here and the JSONs have been compacted.)  
+&#x60;
+{
+&quot;levels&quot;:[{
+&quot;value&quot;:&quot;email-basic&quot;,
+&quot;level&quot;:0
+},{
+&quot;value&quot;:&quot;email-rise&quot;,
+&quot;level&quot;:1
+},{
+&quot;value&quot;:&quot;email-advanced&quot;,
+&quot;level&quot;:2
+},{
+&quot;value&quot;:&quot;email-pro&quot;,
+&quot;level&quot;:3
+},{
+&quot;value&quot;:&quot;email-scale&quot;,
+&quot;level&quot;:4
+}]
+}
+&#x60;
 
-Now consider that &#x60;email-rise&#x60;, &#x60;email-advanced&#x60;, and &#x60;email-pro&#x60; have already been mapped to &#x60;item_entitlement&#x60;s or &#x60;subscription_entitlement&#x60;s. As seen in the above object, the relative order of &#x60;levels[].level&#x60; is such that &#x60;email-rise&#x60; \&lt; &#x60;email-advanced&#x60; \&lt; &#x60;email-pro&#x60;.
+Now consider that &#x60;email-rise&#x60;, &#x60;email-advanced&#x60;, and &#x60;email-pro&#x60; have already
+been mapped to &#x60;item_entitlement&#x60;s or &#x60;subscription_entitlement&#x60;s. As seen in the above
+object, the relative order of &#x60;levels[].level&#x60; is such that &#x60;email-rise&#x60; \&lt; &#x60;email-advanced&#x60;
+\&lt; &#x60;email-pro&#x60;.
 
-Invoking this API to change &#x60;levels[]&#x60; to the state below is allowed since the relative order of &#x60;level&#x60; corresponding to &#x60;email-rise&#x60;, &#x60;email-advanced&#x60;, and &#x60;email-pro&#x60; has been preserved.  
-&#x60; {&quot;levels&quot;:[{&quot;value&quot;:&quot;email-basic&quot;,&quot;level&quot;:0},{&quot;value&quot;:&quot;email-rise&quot;,&quot;level&quot;:1},{&quot;value&quot;:&quot;email-scale&quot;,&quot;level&quot;:2},{&quot;value&quot;:&quot;email-advanced&quot;,&quot;level&quot;:3},{&quot;value&quot;:&quot;email-pro&quot;,&quot;level&quot;:4}]} &#x60;
+Invoking this API to change &#x60;levels[]&#x60; to the state below is allowed since the relative order of
+&#x60;level&#x60; corresponding to &#x60;email-rise&#x60;, &#x60;email-advanced&#x60;, and
+&#x60;email-pro&#x60; has been preserved.  
+&#x60;
+{
+&quot;levels&quot;:[{
+&quot;value&quot;:&quot;email-basic&quot;,
+&quot;level&quot;:0
+},{
+&quot;value&quot;:&quot;email-rise&quot;,
+&quot;level&quot;:1
+},{
+&quot;value&quot;:&quot;email-scale&quot;,
+&quot;level&quot;:2
+},{
+&quot;value&quot;:&quot;email-advanced&quot;,
+&quot;level&quot;:3
+},{
+&quot;value&quot;:&quot;email-pro&quot;,
+&quot;level&quot;:4
+}]
+}
+&#x60;
 
-However, changing &#x60;levels[]&#x60; to the state shown below is not permissible because the &#x60;level&#x60; of &#x60;email-advanced&#x60; is provided as greater than the &#x60;level&#x60; of &#x60;email-pro&#x60;, thereby disrupting the original order.  
-&#x60; {&quot;levels&quot;:[{&quot;value&quot;:&quot;email-basic&quot;,&quot;level&quot;:0},{&quot;value&quot;:&quot;email-rise&quot;,&quot;level&quot;:1},{&quot;value&quot;:&quot;email-pro&quot;,&quot;level&quot;:2},{&quot;value&quot;:&quot;email-advanced&quot;,&quot;level&quot;:3},{&quot;value&quot;:&quot;email-scale&quot;,&quot;level&quot;:4}]} &#x60;
+However, changing &#x60;levels[]&#x60; to the state shown below is not permissible because the
+&#x60;level&#x60; of &#x60;email-advanced&#x60; is provided as greater than the &#x60;level&#x60; of &#x60;email-pro&#x60;,
+thereby disrupting the original order.  
+&#x60;
+{
+&quot;levels&quot;:[{
+&quot;value&quot;:&quot;email-basic&quot;,
+&quot;level&quot;:0
+},{
+&quot;value&quot;:&quot;email-rise&quot;,
+&quot;level&quot;:1
+},{
+&quot;value&quot;:&quot;email-pro&quot;,
+&quot;level&quot;:2
+},{
+&quot;value&quot;:&quot;email-advanced&quot;,
+&quot;level&quot;:3
+},{
+&quot;value&quot;:&quot;email-scale&quot;,
+&quot;level&quot;:4
+}]
+}
+&#x60;
 
         */
       

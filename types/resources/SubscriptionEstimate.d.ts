@@ -6,7 +6,7 @@ declare module 'chargebee' {
     
     currency_code:string;
     
-    status?:'in_trial' | 'paused' | 'future' | 'active' | 'cancelled' | 'non_renewing';
+    status?:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing';
     
     trial_end_action?:TrialEndAction;
     
@@ -52,30 +52,30 @@ declare module 'chargebee' {
        
       validation_status?:ValidationStatus;
        
-      index?:number;
+      index:number;
     }
     export interface ContractTerm {  
-      id?:string;
+      id:string;
        
-      status?:'active' | 'cancelled' | 'completed' | 'terminated';
+      status:'active' | 'cancelled' | 'completed' | 'terminated';
        
-      contract_start?:number;
+      contract_start:number;
        
-      contract_end?:number;
+      contract_end:number;
        
-      billing_cycle?:number;
+      billing_cycle:number;
        
-      action_at_term_end?:'cancel' | 'renew_once' | 'renew' | 'evergreen';
+      action_at_term_end:'cancel' | 'renew_once' | 'renew' | 'evergreen';
        
-      total_contract_value?:number;
+      total_contract_value:number;
        
-      total_contract_value_before_tax?:number;
+      total_contract_value_before_tax:number;
        
       cancellation_cutoff_period?:number;
        
-      created_at?:number;
+      created_at:number;
        
-      subscription_id?:string;
+      subscription_id:string;
        
       remaining_billing_cycles?:number;
     }

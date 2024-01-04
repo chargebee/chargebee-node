@@ -53,7 +53,11 @@ number](https://en.wikipedia.org/wiki/VAT_identification_number) can be overridd
     vat_number?:string;
     
     /**
-      * @description Whether payments needs to be collected automatically for this customer \* on - Whenever an invoice is created, an automatic attempt to charge the customer&#x27;s payment method is made. \* off - Automatic collection of charges will not be made. All payments must be recorded offline.
+      * @description When the customer has a [payment_method](customers#customer_payment_method) of &#x60;type&#x60; &#x60;card&#x60;, this attribute determines whether to automatically charge the card whenever an invoice [status](invoices#invoice_status) is &#x60;payment_due&#x60;.  
+**Note**
+
+This setting can be [overridden](subscriptions#create_subscription_for_items_auto_collection) for individual subscriptions of the customer.
+\* on - Chargebee automatically charges the card for invoices that enter &#x60;payment_due&#x60; &#x60;status&#x60;. \* off - Automatic charging is disabled; manual payment is required for due invoices.
 
       */
     
@@ -169,26 +173,33 @@ To know more about what values you need to provide, refer to this [Avalara&#x27;
     locale?:string;
     
     /**
-      * @description Applicable when *calendar billing* (with customer specific billing date support) is enabled. When set, renewals of all the monthly and yearly subscriptions of this customer will be aligned to this date.
+      * @description **Note**
+
+Applicable only when [Calendar Billing](https://www.chargebee.com/docs/calendar-billing.html) with support for customer-specific billing date is enabled and &#x60;billing_date_mode&#x60; is &#x60;manually_set&#x60;.
+Specifies the day of the month for subscription renewals on month-based or year-based plans. Month-based and year-based plans are &#x60;item_price&#x60; resources where the &#x60;item_type&#x60; is set to &#x60;plan&#x60; and &#x60;period_unit&#x60; is set to &#x60;month&#x60; and &#x60;year&#x60; respectively.
 
       */
     
     billing_date?:number;
     
     /**
-      * @description &#x60;billing_month&#x60;, together with &#x60;billing_date&#x60;, specify, for this customer, the day of the year when the renewals of all the year-based subscriptions take place.
+      * @description **Note**
 
-For example, the renewals happen on 15th July when &#x60;billing_month&#x60; is &#x60;7&#x60; and &#x60;billing_date&#x60; is &#x60;15&#x60;.  
-**Note**
+Applicable only when [Calendar Billing](https://www.chargebee.com/docs/calendar-billing.htm) with support for customer-specific billing date is enabled and &#x60;billing_date_mode&#x60; is &#x60;manually_set&#x60;.
+Specifies the renewal month for subscriptions on year-based plans. Year-based plans are &#x60;item_price&#x60; resources where &#x60;item_type&#x60; is set to &#x60;plan&#x60; and &#x60;period_unit&#x60; is set to &#x60;year&#x60;.  
+**Example**
 
-Applicable when [Calendar Billing](https://www.chargebee.com/docs/calendar-billing.html) (with customer-specific billing date support) is enabled and &#x60;billing_date_mode&#x60; is &#x60;manually_set&#x60;.
+The renewal date is 15th July when &#x60;billing_date&#x60; is &#x60;15&#x60; and &#x60;billing_month&#x60; is &#x60;7&#x60;.
 
       */
     
     billing_month?:number;
     
     /**
-      * @description Indicates whether this customer&#x27;s *billing_date* value is derived as per configurations or its specifically set (overriden). When specifically set, the *billing_date* will not be reset even when all of the monthly/yearly subscriptions are cancelled. \* manually_set - Billing date is specifically set (default configuration is overridden) \* using_defaults - Billing date is set based on defaults configured.
+      * @description **Note**
+
+Applicable only when [Calendar Billing](https://www.chargebee.com/docs/calendar-billing.html) with support for customer-specific billing date is enabled and &#x60;billing_date_mode&#x60; is &#x60;manually_set&#x60;.
+Indicates whether this customer&#x27;s &#x60;billing_date&#x60; and &#x60;billing_month&#x60; values can be changed via the [Change billing date API](customers#change_billing_date). \* manually_set - &#x60;billing_date&#x60; and &#x60;billing_month&#x60; can be adjusted via API. \* using_defaults - &#x60;billing_date&#x60; and &#x60;billing_month&#x60; are fixed as per Chargebee [site settings](https://www.chargebee.com/docs/2.0/calendar-billing-config.html#configuring-calendar-billing_configuring-site-wide-billing) and not modifiable via API.
 
       */
     
@@ -233,6 +244,18 @@ In-App Subscriptions is currently in early access. Contact [eap@chargebee.com](m
     channel?:Channel;
     
     /**
+      * @description This attribute represents the identifier of the most recent version of the [customers](/docs/api/customers) resource. When interacting with our API, the &#x60;active_id&#x60; ensures you&#x27;re always referencing the current and most up-to-date version of the [customers](/docs/api/customers) resource. This mechanism is in place to maintain consistent external references and data integrity across business entity changes and updates. &#x60;active_id&#x60; is present on the resource after the resource is transferred to the destination business entity and it will refer to the most recent version of the resource. Learn more about the [customer transfer feature](https://www.chargebee.com/docs/2.0/mbe-customer-transfer-overview.html) and [setup](https://www.chargebee.com/docs/2.0/mbe-getting-started-with-customer-transfer.html).  
+**Note:**
+
+* If &#x60;active_id&#x60; and &#x60;id&#x60; of the customer are the same, then it is the most recent version of the resource.
+* If &#x60;active_id&#x60; and &#x60;id&#x60; of the customer are different, then it is a transferred resource.
+* If &#x60;active_id&#x60; is not present, then the resource is not transferred and there are no business entity-related changes.
+
+      */
+    
+    active_id?:string;
+    
+    /**
       * @description Indicates whether or not the customer has been identified as fraudulent. \* suspicious - The customer has been identified as potentially fraudulent by the gateway \* safe - The customer has been marked as safe \* fraudulent - The customer has been marked as fraudulent
 
       */
@@ -240,21 +263,21 @@ In-App Subscriptions is currently in early access. Contact [eap@chargebee.com](m
     fraud_flag?:'safe' | 'suspicious' | 'fraudulent';
     
     /**
-      * @description Primary payment source for the customer.
+      * @description The [identifier](payment_sources#payment_source_id) of the customer&#x27;s [primary payment source](https://www.chargebee.com/docs/2.0/payment-method-overview.html#primary-and-backup-payment-methods)
 
       */
     
     primary_payment_source_id?:string;
     
     /**
-      * @description Backup payment source for the customer. Used to collect payment if primary payment source fails.
+      * @description The [identifier](payment_sources#payment_source_id) of the customer&#x27;s [backup payment source](https://www.chargebee.com/docs/2.0/payment-method-overview.html#primary-and-backup-payment-methods).
 
       */
     
     backup_payment_source_id?:string;
     
     /**
-      * @description A customer-facing note added to all invoices associated with this API resource. This note becomes one among [all the notes](/docs/api/invoices#invoice_notes) displayed on the invoice PDF.
+      * @description A note for the customer that appears on all their invoice PDFs. This is one of [several notes](https://apidocs.chargebee.com/docs/api/invoices#invoice_notes) displayed on the invoice PDF.
 
       */
     
@@ -268,14 +291,17 @@ In-App Subscriptions is currently in early access. Contact [eap@chargebee.com](m
     business_entity_id?:string;
     
     /**
-      * @description The currency code of the customer&#x27;s preferred currency (ISO 4217 format). Applicable if the Multicurrency feature is enabled.
+      * @description **Note**
+
+Applicable only when the [Multi-Currency](https://www.chargebee.com/docs/2.0/multi-currency-pricing.html) feature is enabled.
+Specifies the customer&#x27;s preferred currency in [ISO 4217](https://www.chargebee.com/docs/supported-currencies.html) format.
 
       */
     
     preferred_currency_code?:string;
     
     /**
-      * @description Promotional credits balance of this customer
+      * @description The balance of [promotional credits](promotional_credits) available to the customer.
 
       */
     
@@ -346,7 +372,10 @@ Any invoices raised when a subscription activates from &#x60;in_trial&#x60; or &
     consolidated_invoicing?:boolean;
     
     /**
-      * @description Indicates the type of the customer. This is applicable only if you use [Chargebee&#x27;s AvaTax for Communications](https://www.chargebee.com/docs/avatax-for-communication.html) integration. \* industrial - When the purchase is made by an industrial business \* residential - When the purchase is made by a customer for home use \* senior_citizen - When the purchase is made by a customer who meets the jurisdiction requirements to be considered a senior citizen and qualifies for senior citizen tax breaks \* business - When the purchase is made at a place of business
+      * @description **Note**
+
+Applicable only when the [Chargebee&#x27;s AvaTax for Communications integration](https://www.chargebee.com/docs/avatax-for-communication.html) is enabled.
+Indicates the [Avalara customer type](https://developer.avalara.com/communications-integration/design-considerations/customer-type/). \* industrial - The customer is an industrial business. \* residential - The customer is an individual user. \* senior_citizen - The customer is an individual that meets the jurisdiction requirements to be considered a senior citizen and qualifies for tax breaks. \* business - The customer represents a business.
 
       */
     
@@ -360,7 +389,10 @@ Any invoices raised when a subscription activates from &#x60;in_trial&#x60; or &
     business_customer_without_vat_number?:boolean;
     
     /**
-      * @description Indicates the Client profile id for the customer. This is applicable only if you use [Chargebee&#x27;s AvaTax for Communications](https://www.chargebee.com/docs/avatax-for-communication.html) integration.
+      * @description **Note**
+
+Applicable only when the [Chargebee&#x27;s AvaTax for Communications integration](https://www.chargebee.com/docs/avatax-for-communication.html) is enabled.
+The [Avalara client profile ID](https://developer.avalara.com/communications/dev-guide_rest_v2/customizing-transactions/client-profiles/) assigned to the customer.
 
       */
     
@@ -454,22 +486,22 @@ If there are additional entity identifiers for the customer not associated with 
     entity_identifiers?:Customer.EntityIdentifier[];
     
     /**
-      * @description The [Account Hierarchy](https://www.chargebee.com/docs/account-hierarchy.html) relationship that the customer is part of.
+      * @description The [account hierarchy](https://www.chargebee.com/docs/account-hierarchy.html) relationship that the customer is part of.
 
       */
     
     relationship?:Customer.Relationship;
     
     /**
-      * @description Defines the level of access that the parent account has to the customer&#x27;s information.
-**Note:** the &#x27;parent&#x27; is the customer whose id is [payment_owner_id](/docs/api/customers#customer_relationship_payment_owner_id). However, if the &#x60;payment_owner_id&#x60; is the customer itself, then the parent is [parent_id](/docs/api/customers#customer_relationship_parent_id).
+      * @description When the customer is part of an [account hierarchy](https://www.chargebee.com/docs/account-hierarchy.html), this attribute defines the level of access that the parent account has to the customer&#x27;s information.
+**Note:** the &#x27;parent&#x27; is the customer whose id is [payment_owner_id](customers#customer_relationship_payment_owner_id). However, if the &#x60;payment_owner_id&#x60; is the customer itself, then the parent is [parent_id](customers#customer_relationship_parent_id).
 
       */
     
     parent_account_access?:Customer.ParentAccountAccess;
     
     /**
-      * @description Defines the level of access that the customer has to its own information.
+      * @description When the customer is part of an [account hierarchy](https://www.chargebee.com/docs/account-hierarchy.html), this attribute defines the level of access that the customer has to its own information.
 
       */
     
@@ -624,7 +656,7 @@ During this operation, if &#x60;billing_address&#x60; and &#x60;vat_number&#x60;
 
         */
       
-      record_excess_payment(customer_id:string, input?:RecordExcessPaymentInputParam):ChargebeeRequest<RecordExcessPaymentResponse>;
+      record_excess_payment(customer_id:string, input:RecordExcessPaymentInputParam):ChargebeeRequest<RecordExcessPaymentResponse>;
        
       /**
         * @description **Note:** This operation optionally supports 3DS verification flow. To achieve the same, create the [Payment Intent](/docs/api/#3ds_card_payments) and pass it as input parameter to this API.
@@ -675,43 +707,44 @@ This API can be used to collect the payments for customer&#x27;s **payment_due**
       clear_personal_data(customer_id:string):ChargebeeRequest<ClearPersonalDataResponse>;
        
       /**
-        * @description Sets a customer into a [hierarchical relationship](https://www.chargebee.com/docs/account-hierarchy.html) with another. The path parameter &#x60;customer_id&#x60; is the ID of the child in the relationship.  
+        * @description Establish a [hierarchical relationship](https://www.chargebee.com/docs/account-hierarchy.html) between customers. The path parameter &#x60;customer_id&#x60; identifies the child in this relationship.  
+**Prerequisite**
+
+Both parent and child customers must be part of the same [business entity](advanced-features#mbe).  
 **Note**
 
-* In the descriptions for &#x60;use_default_hierarchy_settings&#x60;, &#x60;parent_account_access&#x60;, and &#x60;child_account_access&#x60; parameters, the &quot;parent&quot; is the customer whose ID is [payment_owner_id](/docs/api/customers?prod_cat_ver&#x3D;2#link_a_customer_payment_owner_id). However, if the &#x60;payment_owner_id&#x60; is set as the ID of the child itself (&#x60;{customer_id}&#x60;), then the &quot;parent&quot; is [parent_id](/docs/api/customers?prod_cat_ver&#x3D;2#link_a_customer_parent_id).
-* The parent and the child customers must belong to the same [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe).
+* A customer can have a maximum of 250 direct children.
+* The hierarchy allows a maximum of 5 levels from the root node to the lowest child node.  
+**Note**
+
+For the &#x60;use_default_hierarchy_settings&#x60;, &#x60;parent_account_access&#x60;, and &#x60;child_account_access&#x60; parameters below, the term &quot;parent&quot; usually refers to the customer with the ID [payment_owner_id](customers#link_a_customer_payment_owner_id). However, if the &#x60;payment_owner_id&#x60; is the same as the child&#x27;s ID (&#x60;{customer_id}&#x60;), the &quot;parent&quot; is identified by [parent_id](customers#link_a_customer_parent_id).
 
         */
       
       relationships(customer_id:string, input?:RelationshipsInputParam):ChargebeeRequest<RelationshipsResponse>;
        
       /**
-        * @description Disconnects a child customer from its parent. &#x60;customer_id&#x60; is the [id](/docs/api/customers#customer_id) of the child.
+        * @description When a customer belongs to an [account hierarchy](https://www.chargebee.com/docs/2.0/account-hierarchy.html), this operation detaches the customer from its parent. The hierarchy, if any, beneath the customer remains unchanged.
 
         */
       
       delete_relationship(customer_id:string):ChargebeeRequest<DeleteRelationshipResponse>;
        
       /**
-        * @description Retrieves the [account hierarchy tree](/docs/api/hierarchies) for the customer.
+        * @description Retrieves the full or partial [account hierarchy](/docs/api/hierarchies) for a customer.
 
         */
       
       hierarchy(customer_id:string, input:HierarchyInputParam):ChargebeeRequest<HierarchyResponse>;
        
       /**
-        * @description Changes the level of access that the parent or the child itself has to the child&#x27;s information.
+        * @description When the customer is part of an [account hierarchy](https://www.chargebee.com/docs/account-hierarchy.html), this operation updates the access privileges that both the customer and its parent have to the customer&#x27;s data.  
+**Terminology**
 
-This data falls into two categories:  
+The term &quot;parent&quot; usually refers to the customer with the ID [payment_owner_id](customers#customer_relationship_payment_owner_id). However, if the &#x60;payment_owner_id&#x60; is the same as the child&#x27;s ID (given by the path parameter), the &quot;parent&quot; is identified by [parent_id](customers#customer_relationship_parent_id).  
+**Tip**
 
-* **Self-Serve Portal data:** subscriptions and invoices of the child.
-* **Email Notifications:** subscription-, invoice- and payment-related notifications for the child.
-
-The &#x27;parent&#x27; is the customer whose id is [payment_owner_id](/docs/api/customers#customer_relationship_payment_owner_id). However, if the &#x60;payment_owner_id&#x60; is the child itself, then the parent is [parent_id](/docs/api/customers#customer_relationship_parent_id). The path parameter &#x60;customer_id&#x60; is the [id](/docs/api/customers#customer_id) of the child in the relationship.
-
-
-
-**Note:** This endpoint cannot be used to change the &#x60;parent_id&#x60;, &#x60;invoice_owner_id&#x60; or &#x60;payment_owner_id&#x60; for the customer. To change them, [delink](/docs/api/customers#delink_a_customer) the customer and then call **Link a customer** again.
+You cannot use this endpoint to change the &#x60;parent_id&#x60;, &#x60;invoice_owner_id&#x60; or &#x60;payment_owner_id&#x60; for the customer. To change them, [unlink the customer](customers#delink_a_customer) and then call [Link a customer](customers?prod_cat_ver&#x3D;2#link_a_customer) with the updated values.
 
         */
       
@@ -1152,7 +1185,7 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
 
         */
         
-      offline_payment_method?:{in?:string,is?:'bank_transfer' | 'no_preference' | 'ach_credit' | 'boleto' | 'check' | 'sepa_credit' | 'cash',is_not?:'bank_transfer' | 'no_preference' | 'ach_credit' | 'boleto' | 'check' | 'sepa_credit' | 'cash',not_in?:string};
+      offline_payment_method?:{in?:string,is?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',is_not?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',not_in?:string};
        
       /**
         * @description Retrieves a list of customers added to your Chargebee site. The list contains the necessary customer details such as First Name, Last Name and the Customer ID.
@@ -1378,7 +1411,7 @@ Any invoices raised when a subscription activates from &#x60;in_trial&#x60; or &
 
         */
        
-      payment_method?:{additional_information?:object,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type:Type};
+      payment_method:{additional_information?:object,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type:Type};
     }
     export interface UpdateBillingInfoResponse {  
        customer:Customer;
@@ -1591,7 +1624,7 @@ It is possible to set a value for this flag even when E-Invoicing is disabled. H
 
         */
        
-      transaction?:{amount:number,currency_code?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
+      transaction:{amount:number,currency_code?:string,custom_payment_method_id?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
     }
     export interface CollectPaymentResponse {  
        customer:Customer;
@@ -1777,53 +1810,45 @@ Applicable when [Calendar Billing](https://www.chargebee.com/docs/calendar-billi
     export interface RelationshipsInputParam {
        
       /**
-        * @description The &#x60;id&#x60; of the customer which is to be set as the immediate parent.
+        * @description ID of the customer intended to be set as the immediate parent of the customer identified by &#x60;customer_id&#x60;.
 
         */
        
       parent_id?:string;
        
       /**
-        * @description The &#x60;id&#x60; of the customer who will pay the invoices for this customer. Can be the child itself or the &#x60;invoice_owner_id&#x60;.
+        * @description The &#x60;id&#x60; of the customer responsible for paying the invoices for the customer identified by &#x60;customer_id&#x60;. This ID must match either &#x60;customer_id&#x60; or &#x60;invoice_owner_id&#x60;.
 
         */
        
       payment_owner_id?:string;
        
       /**
-        * @description The &#x60;id&#x60; of the customer who will be invoiced for charges incurred. Can be the child itself or any parent in its hierarchy.
+        * @description The &#x60;id&#x60; of the customer who receives the invoice for charges incurred by the customer identified by &#x60;customer_id&#x60;. This ID must match either &#x60;customer_id&#x60; or one of its ancestors.
 
         */
        
       invoice_owner_id?:string;
        
       /**
-        * @description The level of access that the parent and the child itself have to the child&#x27;s information can be set here. This data falls into two categories:
+        * @description Decides if Chargebee should apply settings from the [Chargebee Billing UI](https://www.chargebee.com/docs/2.0/account-hierarchy.html#advanced-mode) or from this API request.
 
-* **Self-Serve Portal data:** subscriptions and invoices of the child.
-* **Email Notifications:** subscription-, invoice- and payment-related notifications for the child.
-
-
-
-**Usage:**
-
-* Value set to &#x60;true&#x60;: Applies the global access levels defined in the Account Hierarchy settings to this child. These global settings are configured in the admin console
-* Value set to &#x60;false&#x60;: Customizes the access levels for this customer. Pass the &#x60;parent_account_access&#x60; and &#x60;child_account_access&#x60; parameters to specify the settings. If you skip passing any parameters, the global settings are applied for them.
-.
+* If set to &#x60;true&#x60;: Chargebee uses settings configured in the Chargebee Billing UI.
+* If set to &#x60;false&#x60;: Settings provided in the &#x60;parent_account_access&#x60; and &#x60;child_account_access&#x60; parameters are applied.
 
         */
        
       use_default_hierarchy_settings?:boolean;
        
       /**
-        * @description Parameters for parent_account_access
+        * @description Settings for the parent account&#x27;s access.
 
         */
        
       parent_account_access?:{portal_download_child_invoices?:'no' | 'yes' | 'view_only',portal_edit_child_subscriptions?:'no' | 'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
        
       /**
-        * @description Parameters for child_account_access
+        * @description Settings for the child account&#x27;s access.
 
         */
        
@@ -1839,7 +1864,7 @@ Applicable when [Calendar Billing](https://www.chargebee.com/docs/calendar-billi
     export interface HierarchyInputParam {
        
       /**
-        * @description Retrieves the [account hierarchy tree](/docs/api/hierarchies) for the customer.
+        * @description Retrieves the full or partial [account hierarchy](/docs/api/hierarchies) for a customer.
 
         */
         
@@ -1851,11 +1876,10 @@ Applicable when [Calendar Billing](https://www.chargebee.com/docs/calendar-billi
     export interface UpdateHierarchySettingsInputParam {
        
       /**
-        * @description Determines whether the site default settings are applied for the access levels.
+        * @description Decides if Chargebee should apply settings from the [Chargebee Billing UI](https://www.chargebee.com/docs/2.0/account-hierarchy.html#advanced-mode) or from this API request.
 
-* Value set to &#x60;true&#x60;: Removes any customized access levels for the customer. The global settings configured in the admin console now apply.
-* Value set to &#x60;false&#x60;: Changes the access levels for this customer. Pass the &#x60;parent_account_access&#x60; and &#x60;child_account_access&#x60; parameters to specify the new settings. If you skip passing any parameters, they will remain unchanged.
-.
+* If set to &#x60;true&#x60;: Chargebee removes existing settings stored in the &#x60;parent_account_access&#x60; and &#x60;child_account_access&#x60; attributes of the customer. The settings configured in the Chargebee Billing UI apply for the customer.
+* If set to &#x60;false&#x60;: Chargebee replaces existing settings stored in the &#x60;parent_account_access&#x60; and &#x60;child_account_access&#x60; parameters with those passed in this API call. If any of those parameters are not passed, they remain unchanged for the customer.
 
         */
        
@@ -1869,7 +1893,7 @@ Applicable when [Calendar Billing](https://www.chargebee.com/docs/calendar-billi
       parent_account_access?:{portal_download_child_invoices?:'no' | 'yes' | 'view_only',portal_edit_child_subscriptions?:'no' | 'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
        
       /**
-        * @description Parameters for child_account_access
+        * @description When the customer is part of an [account hierarchy](https://www.chargebee.com/docs/account-hierarchy.html), this attribute defines the level of access that the customer has to its own information.
 
         */
        
@@ -2104,14 +2128,14 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
     }
     export interface PaymentMethod {  
          /**
-          * @description Type of payment source \* google_pay - Payments made via Google Pay. \* sofort - Payments made via Sofort. \* netbanking_emandates - Netbanking (eMandates) Payments. \* apple_pay - Payments made via Apple Pay. \* unionpay - Payments made via UnionPay. \* giropay - Payments made via giropay. \* direct_debit - Represents bank account for which the direct debit or ACH agreement/mandate is created. \* bancontact - Payments made via Bancontact Card. \* upi - UPI Payments. \* alipay - Payments made via Alipay. \* wechat_pay - Payments made via WeChat Pay. \* dotpay - Payments made via Dotpay. \* paypal_express_checkout - Payments made via PayPal Express Checkout. \* ideal - Payments made via iDEAL. \* generic - Payments made via Generic Payment Method. \* amazon_payments - Payments made via Amazon Payments. \* card - Card based payment including credit cards and debit cards. Details about the card can be obtained from the card resource.
+          * @description Type of payment source \* google_pay - Payments made via Google Pay. \* sofort - Payments made via Sofort. \* netbanking_emandates - Netbanking (eMandates) Payments. \* apple_pay - Payments made via Apple Pay. \* unionpay - Payments made via UnionPay. \* giropay - Payments made via giropay. \* direct_debit - Represents bank account for which the direct debit or ACH agreement/mandate is created. \* bancontact - Payments made via Bancontact Card. \* upi - UPI Payments. \* alipay - Payments made via Alipay. \* pay_to - Payments made via PayTo \* wechat_pay - Payments made via WeChat Pay. \* sepa_instant_transfer - Payments made via Sepa Instant Transfer \* dotpay - Payments made via Dotpay. \* paypal_express_checkout - Payments made via PayPal Express Checkout. \* ideal - Payments made via iDEAL. \* generic - Payments made via Generic Payment Method. \* faster_payments - Payments made via Faster Payments \* venmo - Payments made via Venmo \* amazon_payments - Payments made via Amazon Payments. \* card - Card based payment including credit cards and debit cards. Details about the card can be obtained from the card resource.
 
           */
        
       type:Type;
        
          /**
-          * @description Name of the gateway the payment method is associated with. \* ecentric - Ecentric provides a seamless payment processing service in South Africa specializing on omnichannel capabilities. \* paypal_payflow_pro - PayPal Payflow Pro is a payment gateway. \* sage_pay - Sage Pay is a payment gateway. \* wepay - WePay is a payment gateway. \* wirecard - WireCard Account is a payment service provider. \* migs - MasterCard Internet Gateway Service payment gateway. \* beanstream - Bambora(formerly known as Beanstream) is a payment gateway. \* adyen - Adyen is a payment gateway. \* razorpay - Razorpay is a fast growing payment service provider in India working with all leading banks and support for major local payment methods including Netbanking, UPI etc. \* braintree - Braintree is a payment gateway. \* nmi - NMI is a payment gateway. \* chargebee_payments - Chargebee Payments gateway \* bluepay - BluePay is a payment gateway. \* paypal - PayPal Commerce is a payment gateway. \* bank_of_america - Bank of America is a payment gateway. \* paypal_pro - PayPal Pro Account is a payment gateway. \* eway_rapid - eWAY Rapid is a payment gateway. \* windcave - Windcave provides an end to end payment processing solution in ANZ and other leading global markets. \* moneris_us - Moneris USA is a payment gateway. \* exact - Exact Payments is a payment gateway. \* paypal_express_checkout - PayPal Express Checkout is a payment gateway. \* tco - 2Checkout is a payment gateway. \* chargebee - Chargebee test gateway. \* stripe - Stripe is a payment gateway. \* eway - eWAY Account is a payment gateway. \* authorize_net - Authorize.net is a payment gateway \* moneris - Moneris is a payment gateway. \* worldpay - WorldPay is a payment gateway \* pin - Pin is a payment gateway \* gocardless - GoCardless is a payment service provider. \* elavon - Elavon Virtual Merchant is a payment solution. \* cybersource - CyberSource is a payment gateway. \* vantiv - Vantiv is a payment gateway. \* amazon_payments - Amazon Payments is a payment service provider. \* global_payments - Global Payments is a payment service provider. \* first_data_global - First Data Global Gateway Virtual Terminal Account \* orbital - Chase Paymentech(Orbital) is a payment gateway. \* checkout_com - Checkout.com is a payment gateway. \* quickbooks - Intuit QuickBooks Payments gateway \* mollie - Mollie is a payment gateway. \* bluesnap - BlueSnap is a payment gateway. \* paymill - PAYMILL is a payment gateway. \* ogone - Ingenico ePayments (formerly known as Ogone) is a payment gateway. \* not_applicable - Indicates that payment gateway is not applicable for this resource. \* hdfc - HDFC Account is a payment gateway. \* balanced_payments - Balanced is a payment gateway \* ingenico_direct - Worldline Online Payments is a payment gateway. \* metrics_global - Metrics global is a leading payment service provider providing unified payment services in the US.
+          * @description Name of the gateway the payment method is associated with. \* ecentric - Ecentric provides a seamless payment processing service in South Africa specializing on omnichannel capabilities. \* paypal_payflow_pro - PayPal Payflow Pro is a payment gateway. \* sage_pay - Sage Pay is a payment gateway. \* wepay - WePay is a payment gateway. \* wirecard - WireCard Account is a payment service provider. \* migs - MasterCard Internet Gateway Service payment gateway. \* ebanx - EBANX is a payment gateway, enabling businesses to accept diverse local payment methods from various countries for increased market reach and conversion. \* beanstream - Bambora(formerly known as Beanstream) is a payment gateway. \* adyen - Adyen is a payment gateway. \* razorpay - Razorpay is a fast growing payment service provider in India working with all leading banks and support for major local payment methods including Netbanking, UPI etc. \* braintree - Braintree is a payment gateway. \* nmi - NMI is a payment gateway. \* chargebee_payments - Chargebee Payments gateway \* bluepay - BluePay is a payment gateway. \* paypal - PayPal Commerce is a payment gateway. \* bank_of_america - Bank of America is a payment gateway. \* paypal_pro - PayPal Pro Account is a payment gateway. \* eway_rapid - eWAY Rapid is a payment gateway. \* windcave - Windcave provides an end to end payment processing solution in ANZ and other leading global markets. \* moneris_us - Moneris USA is a payment gateway. \* exact - Exact Payments is a payment gateway. \* paypal_express_checkout - PayPal Express Checkout is a payment gateway. \* tco - 2Checkout is a payment gateway. \* pay_com - Pay.com provides payment services focused on simplicity and hassle-free operations for businesses of all sizes. \* chargebee - Chargebee test gateway. \* stripe - Stripe is a payment gateway. \* eway - eWAY Account is a payment gateway. \* authorize_net - Authorize.net is a payment gateway \* moneris - Moneris is a payment gateway. \* worldpay - WorldPay is a payment gateway \* pin - Pin is a payment gateway \* gocardless - GoCardless is a payment service provider. \* elavon - Elavon Virtual Merchant is a payment solution. \* cybersource - CyberSource is a payment gateway. \* vantiv - Vantiv is a payment gateway. \* amazon_payments - Amazon Payments is a payment service provider. \* global_payments - Global Payments is a payment service provider. \* first_data_global - First Data Global Gateway Virtual Terminal Account \* orbital - Chase Paymentech(Orbital) is a payment gateway. \* checkout_com - Checkout.com is a payment gateway. \* quickbooks - Intuit QuickBooks Payments gateway \* mollie - Mollie is a payment gateway. \* bluesnap - BlueSnap is a payment gateway. \* paymill - PAYMILL is a payment gateway. \* ogone - Ingenico ePayments (formerly known as Ogone) is a payment gateway. \* not_applicable - Indicates that payment gateway is not applicable for this resource. \* hdfc - HDFC Account is a payment gateway. \* balanced_payments - Balanced is a payment gateway \* ingenico_direct - Worldline Online Payments is a payment gateway. \* metrics_global - Metrics global is a leading payment service provider providing unified payment services in the US.
 
           */
        
@@ -2218,21 +2242,21 @@ If there is only one entity identifier for the customer and the value is the sam
     }
     export interface Relationship {  
          /**
-          * @description The &#x60;id&#x60; of the customer who is the immediate parent.
+          * @description The &#x60;id&#x60; of the immediate parent of this customer under account hierarchy. If the customer is the root of the hierarchy, this attribute isn&#x27;t returned.
 
           */
        
       parent_id?:string;
        
          /**
-          * @description The &#x60;id&#x60; of the customer who pays the invoices for this customer. Can be the customer itself or the &#x60;invoice_owner_id&#x60;
+          * @description The &#x60;id&#x60; of the customer responsible for paying the invoices for this customer. This ID must match either this customer&#x27;s ID or the &#x60;invoice_owner_id&#x60;.
 
           */
        
       payment_owner_id:string;
        
          /**
-          * @description The &#x60;id&#x60; of the customer who is invoiced for charges incurred. Can be the customer itself or any parent in its hierarchy.
+          * @description The &#x60;id&#x60; of the customer who receives the invoice for charges incurred by the customer. This ID must match either this customer or one of its ancestors.
 
           */
        
@@ -2240,35 +2264,35 @@ If there is only one entity identifier for the customer and the value is the sam
     }
     export interface ParentAccountAccess {  
          /**
-          * @description Sets parent&#x27;s level of access to child subscriptions on the Self-Serve Portal. \* no - The parent account cannot view or edit the subscriptions of the child account. \* view_only - The parent account can only view the subscriptions of the child account. \* yes - The parent account can view and edit the subscriptions of the child account.
+          * @description Determines the parent&#x27;s access to the child&#x27;s subscriptions in the Self-Serve Portal. \* no - The parent can&#x27;t view or edit the child&#x27;s subscriptions. \* view_only - The parent can only view the child&#x27;s subscriptions. \* yes - The parent can view and edit the child&#x27;s subscriptions.
 
           */
        
       portal_edit_child_subscriptions?:'no' | 'yes' | 'view_only';
        
          /**
-          * @description Sets parent&#x27;s level of access to child invoices on the Self-Serve Portal. \* no - The parent account can neither view nor download the invoices of the child account. \* yes - The parent account can view and download the invoices of the child account. \* view_only - The parent account can only view the invoices of the child account.
+          * @description Determines the parent&#x27;s access to the child&#x27;s invoices in the Self-Serve Portal. \* no - The parent can&#x27;t view or download the child&#x27;s invoices. \* yes - The parent can both view and download the child&#x27;s invoices. \* view_only - The parent can view but not download the child&#x27;s invoices.
 
           */
        
       portal_download_child_invoices?:'no' | 'yes' | 'view_only';
        
          /**
-          * @description If &#x60;true&#x60;, the parent account will receive subscription-related emails sent to the child account.
+          * @description Determines whether the parent receives email notifications for the child&#x27;s subscriptions.
 
           */
        
       send_subscription_emails:boolean;
        
          /**
-          * @description If &#x60;true&#x60;, the parent account will receive invoice-related emails sent to the child account.
+          * @description Determines whether the parent receives email notifications for the child&#x27;s invoices.
 
           */
        
       send_invoice_emails:boolean;
        
          /**
-          * @description If &#x60;true&#x60;, the parent account will receive payment-related emails sent to the child account.
+          * @description Determines whether, the parent receives email notifications for payment-related activities on the child&#x27;s invoices.
 
           */
        
@@ -2276,35 +2300,35 @@ If there is only one entity identifier for the customer and the value is the sam
     }
     export interface ChildAccountAccess {  
          /**
-          * @description Sets the child&#x27;s level of access to its own subscriptions on the Self-Serve Portal. \* yes - The child account can view and edit its own subscriptions. \* view_only - The child account can only view its own subscriptions.
+          * @description Determines the child&#x27;s access to its own subscriptions in the Self-Serve Portal. \* yes - The child account can view and edit its subscriptions. \* view_only - The child account can only view its subscriptions.
 
           */
        
       portal_edit_subscriptions?:'yes' | 'view_only';
        
          /**
-          * @description Sets the child&#x27;s level of access to its own invoices on the Self-Serve Portal. \* view_only - The child account can only view its invoices and not download them. \* yes - The child account can view and download its own invoices. \* no - The child account can neither view nor download its own invoices.
+          * @description Determines the child&#x27;s access to its own invoices in the Self-Serve Portal. \* view_only - The child account can view but not download its invoices. \* yes - The child account can both view and download its invoices. \* no - The child account cannot view or download its own invoices.
 
           */
        
       portal_download_invoices?:'no' | 'yes' | 'view_only';
        
          /**
-          * @description If &#x60;true&#x60;, the child account will receive subscription-related emails for its own subscriptions.
+          * @description Determines whether the child account receives email notifications for its subscriptions.
 
           */
        
       send_subscription_emails:boolean;
        
          /**
-          * @description If &#x60;true&#x60;, the child account will receive invoice-related emails for its own invoices.
+          * @description Determines whether the child account receives email notifications for its invoices.
 
           */
        
       send_invoice_emails:boolean;
        
          /**
-          * @description If &#x60;true&#x60;, the child account will receive payment-related emails for its own invoices.
+          * @description Determines whether the child account receives email notifications for payment-related activities for its invoices.
 
           */
        

@@ -42,11 +42,11 @@ declare module 'chargebee' {
        
       subscription_id?:string;
        
-      date_from?:number;
+      date_from:number;
        
-      date_to?:number;
+      date_to:number;
        
-      unit_amount?:number;
+      unit_amount:number;
        
       quantity?:number;
        
@@ -54,7 +54,7 @@ declare module 'chargebee' {
        
       pricing_model?:'volume' | 'per_unit' | 'tiered' | 'flat_fee' | 'stairstep';
        
-      is_taxed?:boolean;
+      is_taxed:boolean;
        
       tax_amount?:number;
        
@@ -72,11 +72,11 @@ declare module 'chargebee' {
        
       reference_line_item_id?:string;
        
-      description?:string;
+      description:string;
        
       entity_description?:string;
        
-      entity_type?:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc';
+      entity_type:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc';
        
       tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
        
@@ -85,13 +85,13 @@ declare module 'chargebee' {
       customer_id?:string;
     }
     export interface Discount {  
-      amount?:number;
+      amount:number;
        
       description?:string;
        
       line_item_id?:string;
        
-      entity_type?:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
+      entity_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
        
       discount_type?:'fixed_amount' | 'percentage';
        
@@ -100,26 +100,32 @@ declare module 'chargebee' {
       coupon_set_code?:string;
     }
     export interface Tax {  
-      name?:string;
+      name:string;
        
-      amount?:number;
+      amount:number;
        
       description?:string;
     }
     export interface LineItemTax {  
       line_item_id?:string;
        
-      tax_name?:string;
+      tax_name:string;
        
-      tax_rate?:number;
+      tax_rate:number;
+       
+      date_to?:number;
+       
+      date_from?:number;
+       
+      prorated_taxable_amount?:number;
        
       is_partial_tax_applied?:boolean;
        
       is_non_compliance_tax?:boolean;
        
-      taxable_amount?:number;
+      taxable_amount:number;
        
-      tax_amount?:number;
+      tax_amount:number;
        
       tax_juris_type?:'special' | 'country' | 'unincorporated' | 'other' | 'city' | 'federal' | 'county' | 'state';
        
@@ -134,13 +140,13 @@ declare module 'chargebee' {
     export interface LineItemTier {  
       line_item_id?:string;
        
-      starting_unit?:number;
+      starting_unit:number;
        
       ending_unit?:number;
        
-      quantity_used?:number;
+      quantity_used:number;
        
-      unit_amount?:number;
+      unit_amount:number;
        
       starting_unit_in_decimal?:string;
        
@@ -151,15 +157,15 @@ declare module 'chargebee' {
       unit_amount_in_decimal?:string;
     }
     export interface LineItemDiscount {  
-      line_item_id?:string;
+      line_item_id:string;
        
-      discount_type?:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
+      discount_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
        
       coupon_id?:string;
        
       entity_id?:string;
        
-      discount_amount?:number;
+      discount_amount:number;
     }
   }
 }

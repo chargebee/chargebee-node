@@ -14,6 +14,7 @@
 ///<reference path='./resources/DifferentialPrice.d.ts' />
 ///<reference path='./resources/Discount.d.ts' />
 ///<reference path='./resources/Download.d.ts' />
+///<reference path='./resources/Entitlement.d.ts' />
 ///<reference path='./resources/EntitlementOverride.d.ts' />
 ///<reference path='./resources/Estimate.d.ts' />
 ///<reference path='./resources/Event.d.ts' />
@@ -72,6 +73,7 @@ declare module 'chargebee' {
     static credit_note: CreditNote.CreditNoteResource;
     static customer: Customer.CustomerResource;
     static differential_price: DifferentialPrice.DifferentialPriceResource;
+    static entitlement: Entitlement.EntitlementResource;
     static entitlement_override: EntitlementOverride.EntitlementOverrideResource;
     static estimate: Estimate.EstimateResource;
     static event: Event.EventResource;
