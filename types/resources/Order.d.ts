@@ -1381,27 +1381,108 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
       validation_status?:ValidationStatus;
     }
     export interface LineItemTax {  
+         /**
+          * @description The unique reference id of the line item for which the tax is applicable
+
+          */
+       
       line_item_id?:string;
        
-      tax_name?:string;
+         /**
+          * @description The name of the tax applied
+
+          */
        
-      tax_rate?:number;
+      tax_name:string;
+       
+         /**
+          * @description The rate of tax used to calculate tax amount
+
+          */
+       
+      tax_rate:number;
+       
+         /**
+          * @description Indicates the service period end of the tax rate for the line item.
+
+          */
+       
+      date_to?:number;
+       
+         /**
+          * @description Indicates the service period start of the tax rate for the line item.
+
+          */
+       
+      date_from?:number;
+       
+         /**
+          * @description Indicates the prorated line item amount in cents.
+
+          */
+       
+      prorated_taxable_amount?:number;
+       
+         /**
+          * @description Indicates if tax is applied only on a portion of the line item amount.
+
+          */
        
       is_partial_tax_applied?:boolean;
        
+         /**
+          * @description Indicates the non-compliance tax that should not be reported to the jurisdiction.
+
+          */
+       
       is_non_compliance_tax?:boolean;
        
-      taxable_amount?:number;
+         /**
+          * @description Indicates the actual portion of the line item amount that is taxable.
+
+          */
        
-      tax_amount?:number;
+      taxable_amount:number;
+       
+         /**
+          * @description The tax amount
+
+          */
+       
+      tax_amount:number;
+       
+         /**
+          * @description The type of tax jurisdiction \* federal - The tax jurisdiction is a federal \* state - The tax jurisdiction is a state \* county - The tax jurisdiction is a county \* country - The tax jurisdiction is a country \* city - The tax jurisdiction is a city \* special - Special tax jurisdiction. \* unincorporated - Combined tax of state and county. \* other - Jurisdictions other than the ones listed above.
+
+          */
        
       tax_juris_type?:'special' | 'country' | 'unincorporated' | 'other' | 'city' | 'federal' | 'county' | 'state';
        
+         /**
+          * @description The name of the tax jurisdiction
+
+          */
+       
       tax_juris_name?:string;
+       
+         /**
+          * @description The tax jurisdiction code
+
+          */
        
       tax_juris_code?:string;
        
+         /**
+          * @description Total tax amount in the currency of the place of supply. This is applicable only for Invoice and Credit Notes API.
+
+          */
+       
       tax_amount_in_local_currency?:number;
+       
+         /**
+          * @description The currency code (ISO 4217 format) of the place of supply in which VAT needs to be converted and displayed. This is applicable only for Invoice and Credit Notes API.
+
+          */
        
       local_currency_code?:string;
     }

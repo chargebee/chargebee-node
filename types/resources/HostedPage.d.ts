@@ -951,6 +951,13 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
       redirect_url?:string;
        
       /**
+        * @description null
+
+        */
+       
+      layout?:Layout;
+       
+      /**
         * @description Parameters for quote
 
         */
