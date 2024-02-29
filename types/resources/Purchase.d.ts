@@ -116,7 +116,7 @@ Discounts, both [manual discounts](discounts) and &lt;coupons&gt;, can be applie
 
         */
       
-      estimate(input?:EstimateInputParam):ChargebeeRequest<EstimateResponse>;
+      estimate(input:EstimateInputParam):ChargebeeRequest<EstimateResponse>;
     }
     export interface CreateResponse {  
        purchase:Purchase;
@@ -142,14 +142,14 @@ Discounts, both [manual discounts](discounts) and &lt;coupons&gt;, can be applie
 
         */
        
-      purchase_items?:{index:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
+      purchase_items:{index:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
       /**
         * @description Parameters for item_tiers
 
         */
        
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,index:number,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      item_tiers:{ending_unit?:number,ending_unit_in_decimal?:string,index:number,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       /**
         * @description Parameters for shipping_addresses
@@ -170,7 +170,7 @@ Discounts, both [manual discounts](discounts) and &lt;coupons&gt;, can be applie
 
         */
        
-      subscription_info?:{billing_cycles?:number,index:number,meta_data?:object,subscription_id?:string}[];
+      subscription_info:{billing_cycles?:number,index:number,meta_data?:object,subscription_id?:string}[];
     }
     export interface EstimateResponse {  
        estimate:Estimate;
@@ -210,14 +210,14 @@ Discounts, both [manual discounts](discounts) and &lt;coupons&gt;, can be applie
 
         */
        
-      purchase_items?:{index:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
+      purchase_items:{index:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
       /**
         * @description Parameters for item_tiers
 
         */
        
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,index:number,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      item_tiers:{ending_unit?:number,ending_unit_in_decimal?:string,index:number,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       /**
         * @description Parameters for shipping_addresses
@@ -238,7 +238,7 @@ Discounts, both [manual discounts](discounts) and &lt;coupons&gt;, can be applie
 
         */
        
-      subscription_info?:{billing_cycles?:number,index:number,subscription_id?:string}[];
+      subscription_info:{billing_cycles?:number,index:number,subscription_id?:string}[];
     }
     
   }

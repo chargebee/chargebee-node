@@ -96,7 +96,7 @@ declare module 'chargebee' {
 
           */
        
-      item_price_id?:string;
+      item_price_id:string;
        
          /**
           * @description Item price quantity
@@ -139,14 +139,14 @@ declare module 'chargebee' {
 
           */
        
-      item_price_id?:string;
+      item_price_id:string;
        
          /**
           * @description The lowest value in the quantity tier.
 
           */
        
-      starting_unit?:number;
+      starting_unit:number;
        
          /**
           * @description The highest value in the quantity tier.
@@ -160,7 +160,7 @@ declare module 'chargebee' {
 
           */
        
-      price?:number;
+      price:number;
        
          /**
           * @description The decimal representation of the the lowest value of quantity in this tier. This is zero for the lowest tier. For all other tiers, it is the same as &#x60;ending_unit_in_decimal&#x60; of the next lower tier. Returned only when the pricing_model is &#x60;tiered&#x60;, &#x60;volume&#x60; or &#x60;stairstep&#x60; and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units) is enabled.
@@ -188,7 +188,7 @@ declare module 'chargebee' {
 
           */
        
-      index?:number;
+      index:number;
     }
     export interface Coupon {  
          /**
@@ -196,7 +196,7 @@ declare module 'chargebee' {
 
           */
        
-      coupon_id?:string;
+      coupon_id:string;
     }
     export interface Discount {  
          /**
@@ -204,7 +204,7 @@ declare module 'chargebee' {
 
           */
        
-      id?:string;
+      id:string;
        
          /**
           * @description The name of the discount as it should appear on customer-facing pages and documents such as [invoices](/docs/api/invoices?prod_cat_ver&#x3D;2) and [hosted pages](/docs/api/hosted_pages?prod_cat_ver&#x3D;2). This is auto-generated based on the &#x60;type&#x60;, &#x60;amount&#x60;, and &#x60;currency_code&#x60; of the discount. For example, it can be &#x60;10% off&#x60; or &#x60;10$ off&#x60;.
@@ -218,7 +218,7 @@ declare module 'chargebee' {
 
           */
        
-      type?:'fixed_amount' | 'percentage';
+      type:'fixed_amount' | 'percentage';
        
          /**
           * @description The percentage of the original amount that should be deducted from it. Only applicable when &#x60;discount.type&#x60; is percentage.
@@ -246,7 +246,7 @@ declare module 'chargebee' {
 
           */
        
-      apply_on?:'specific_item_price' | 'invoice_amount';
+      apply_on:'specific_item_price' | 'invoice_amount';
        
          /**
           * @description The [id of the item price](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_subscription_items_item_price_id) in the subscription to which the discount is to be applied. Relevant only when &#x60;apply_on&#x60; &#x3D; &#x60;specific_item_price&#x60;.
@@ -260,7 +260,7 @@ declare module 'chargebee' {
 
           */
        
-      created_at?:number;
+      created_at:number;
        
          /**
           * @description Used to uniquely identify the coupon in your website/application and to integrate with Chargebee.  
@@ -272,14 +272,14 @@ Make sure that you [encode](https://www.urlencoder.org/) the coupon ID in the pa
 
           */
        
-      coupon_id?:string;
+      coupon_id:string;
        
          /**
           * @description The index number of the subscription to which the item price is added. Provide a unique number between &#x60;0&#x60; and &#x60;4&#x60; (inclusive) for each subscription that is to be created.
 
           */
        
-      index?:number;
+      index:number;
     }
   }
 }

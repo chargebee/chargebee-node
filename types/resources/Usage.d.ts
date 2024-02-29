@@ -124,7 +124,7 @@ The maximum number of usages that can be recorded for the entire lifetime of a s
 
         */
       
-      pdf(input?:PdfInputParam):ChargebeeRequest<PdfResponse>;
+      pdf(input:PdfInputParam):ChargebeeRequest<PdfResponse>;
     }
     export interface CreateResponse {  
        usage:Usage;
@@ -288,7 +288,7 @@ The maximum number of usages that can be recorded for the entire lifetime of a s
 
         */
        
-      invoice?:{id:string};
+      invoice:{id:string};
     }
     
   }

@@ -52,7 +52,7 @@ declare module 'chargebee' {
     reference_id?:string;
     
     /**
-      * @description The payment method of this intent \* google_pay - google_pay \* apple_pay - apple_pay \* ideal - ideal \* bancontact - bancontact \* netbanking_emandates - netbanking_emandates \* dotpay - dotpay \* giropay - giropay \* sofort - sofort \* direct_debit - direct_debit \* paypal_express_checkout - paypal_express_checkout \* boleto - boleto \* card - card \* upi - upi
+      * @description The payment method of this intent \* google_pay - google_pay \* apple_pay - apple_pay \* ideal - ideal \* bancontact - bancontact \* netbanking_emandates - netbanking_emandates \* pay_to - PayTo \* venmo - Venmo \* dotpay - dotpay \* giropay - giropay \* sofort - sofort \* sepa_instant_transfer - SEPA Instant Transfer \* direct_debit - direct_debit \* paypal_express_checkout - paypal_express_checkout \* boleto - boleto \* faster_payments - Faster Payments \* amazon_payments - amazon_payments \* card - card \* upi - upi
 
       */
     
@@ -306,10 +306,10 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
 
           */
        
-      status?:'pending_authorization' | 'inited' | 'refused' | 'requires_challenge' | 'authorized' | 'requires_identification' | 'requires_redirection';
+      status:'pending_authorization' | 'inited' | 'refused' | 'requires_challenge' | 'authorized' | 'requires_identification' | 'requires_redirection';
        
          /**
-          * @description The payment method of this attempt \* ideal - ideal \* sofort - sofort \* paypal_express_checkout - paypal_express_checkout \* giropay - giropay \* bancontact - bancontact \* google_pay - google_pay \* card - card \* upi - upi \* direct_debit - direct_debit \* dotpay - dotpay \* apple_pay - apple_pay \* boleto - boleto \* netbanking_emandates - netbanking_emandates
+          * @description The payment method of this attempt \* venmo - Venmo \* ideal - ideal \* sofort - sofort \* paypal_express_checkout - paypal_express_checkout \* giropay - giropay \* sepa_instant_transfer - SEPA Instant Transfer \* bancontact - bancontact \* google_pay - google_pay \* card - card \* faster_payments - faster payments \* upi - upi \* amazon_payments - amazon_payments \* direct_debit - direct_debit \* dotpay - dotpay \* apple_pay - apple_pay \* boleto - boleto \* pay_to - PayTo \* netbanking_emandates - netbanking_emandates
 
           */
        
@@ -341,14 +341,22 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
 
           */
        
-      created_at?:number;
+      created_at:number;
        
          /**
           * @description Timestamp indicating when the active payment attempt was last modified.
 
           */
        
-      modified_at?:number;
+      modified_at:number;
+       
+         /**
+          * @description Comprehensive information regarding the error experienced during an unsuccessful or declined transaction. Learn more about [gateway error references](gateway_error_references)  
+This attribute will be available soon
+
+          */
+       
+      error_detail?:GatewayErrorDetail;
     }
   }
 }

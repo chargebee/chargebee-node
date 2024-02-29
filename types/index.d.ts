@@ -20,6 +20,7 @@
 ///<reference path='./resources/Event.d.ts' />
 ///<reference path='./resources/Export.d.ts' />
 ///<reference path='./resources/Feature.d.ts' />
+///<reference path='./resources/GatewayErrorDetail.d.ts' />
 ///<reference path='./resources/Gift.d.ts' />
 ///<reference path='./resources/Hierarchy.d.ts' />
 ///<reference path='./resources/HostedPage.d.ts' />

@@ -511,7 +511,7 @@ This endpoint schedules e-invoices manually. This operation is not allowed when 
 
         */
        
-      line_items?:{amount?:number,date_from?:number,date_to?:number,description?:string,quantity?:number,quantity_in_decimal?:string,reference_line_item_id:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
+      line_items:{amount?:number,date_from?:number,date_to?:number,description?:string,quantity?:number,quantity_in_decimal?:string,reference_line_item_id:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
     }
     export interface RetrieveResponse {  
        credit_note:CreditNote;
@@ -794,7 +794,7 @@ This endpoint schedules e-invoices manually. This operation is not allowed when 
 
         */
        
-      tax_withheld?:{id:string};
+      tax_withheld:{id:string};
     }
     export interface ResendEinvoiceResponse {  
        credit_note:CreditNote;
@@ -931,42 +931,42 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
 
         */
        
-      line_items?:{amount?:number,amount_in_decimal?:string,date_from?:number,date_to?:number,description:string,entity_id?:string,entity_type?:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc',id?:string,item_level_discount1_amount?:number,item_level_discount1_entity_id?:string,item_level_discount2_amount?:number,item_level_discount2_entity_id?:string,quantity?:number,quantity_in_decimal?:string,reference_line_item_id?:string,subscription_id?:string,tax10_amount?:number,tax10_name?:string,tax1_amount?:number,tax1_name?:string,tax2_amount?:number,tax2_name?:string,tax3_amount?:number,tax3_name?:string,tax4_amount?:number,tax4_name?:string,tax5_amount?:number,tax5_name?:string,tax6_amount?:number,tax6_name?:string,tax7_amount?:number,tax7_name?:string,tax8_amount?:number,tax8_name?:string,tax9_amount?:number,tax9_name?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
+      line_items:{amount?:number,amount_in_decimal?:string,date_from?:number,date_to?:number,description:string,entity_id?:string,entity_type?:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc',id?:string,item_level_discount1_amount?:number,item_level_discount1_entity_id?:string,item_level_discount2_amount?:number,item_level_discount2_entity_id?:string,quantity?:number,quantity_in_decimal?:string,reference_line_item_id?:string,subscription_id?:string,tax10_amount?:number,tax10_name?:string,tax1_amount?:number,tax1_name?:string,tax2_amount?:number,tax2_name?:string,tax3_amount?:number,tax3_name?:string,tax4_amount?:number,tax4_name?:string,tax5_amount?:number,tax5_name?:string,tax6_amount?:number,tax6_name?:string,tax7_amount?:number,tax7_name?:string,tax8_amount?:number,tax8_name?:string,tax9_amount?:number,tax9_name?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
       /**
         * @description Parameters for line_item_tiers
 
         */
        
-      line_item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,line_item_id:string,quantity_used?:number,quantity_used_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
+      line_item_tiers:{ending_unit?:number,ending_unit_in_decimal?:string,line_item_id:string,quantity_used?:number,quantity_used_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
       /**
         * @description Parameters for discounts
 
         */
        
-      discounts?:{amount:number,description?:string,entity_id?:string,entity_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'document_level_discount' | 'document_level_coupon',line_item_id?:string}[];
+      discounts:{amount:number,description?:string,entity_id?:string,entity_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'document_level_discount' | 'document_level_coupon',line_item_id?:string}[];
        
       /**
         * @description Parameters for taxes
 
         */
        
-      taxes?:{amount?:number,description?:string,juris_code?:string,juris_name?:string,juris_type?:'special' | 'country' | 'unincorporated' | 'other' | 'city' | 'federal' | 'county' | 'state',name:string,rate:number}[];
+      taxes:{amount?:number,description?:string,juris_code?:string,juris_name?:string,juris_type?:'special' | 'country' | 'unincorporated' | 'other' | 'city' | 'federal' | 'county' | 'state',name:string,rate:number}[];
        
       /**
         * @description Parameters for allocations
 
         */
        
-      allocations?:{allocated_amount:number,allocated_at:number,invoice_id:string}[];
+      allocations:{allocated_amount:number,allocated_at:number,invoice_id:string}[];
        
       /**
         * @description Parameters for linked_refunds
 
         */
        
-      linked_refunds?:{amount:number,date:number,payment_method:PaymentMethod,reference_number?:string}[];
+      linked_refunds:{amount:number,date:number,payment_method:PaymentMethod,reference_number?:string}[];
     }
     export interface Einvoice {  
          /**
@@ -1146,7 +1146,7 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
 
           */
        
-      tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
+      tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'tax_not_configured_external_provider' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
        
          /**
           * @description The identifier of the modelled entity this line item is based on. Will be null for &#x27;adhoc&#x27; entity type

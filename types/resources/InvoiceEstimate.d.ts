@@ -69,6 +69,8 @@ declare module 'chargebee' {
       discount_amount?:number;
        
       item_level_discount_amount?:number;
+
+      usage_percentage?:string;
        
       reference_line_item_id?:string;
        
@@ -78,7 +80,7 @@ declare module 'chargebee' {
        
       entity_type:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc';
        
-      tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
+      tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'tax_not_configured_external_provider' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
        
       entity_id?:string;
        

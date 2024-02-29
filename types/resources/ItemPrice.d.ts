@@ -61,7 +61,13 @@ If your input contains characters that are subjected to sanitization (like incom
     external_name?:string;
     
     /**
-      * @description null
+      * @description **Note**
+
+Applicable only for item prices with:
+
+* [item_type](item_prices#item_price_item_type) &#x3D; &#x60;addon&#x60;.
+* [pricing_model](item_prices#item_price_pricing_model) &#x3D; &#x60;per_unit&#x60;.
+Specifies how to manage charges or credits for the addon item price during a [subscription update](subscriptions?prod_cat_ver&#x3D;2#update_subscription_for_items) or [estimating](estimates?prod_cat_ver&#x3D;2#estimate_for_updating_a_subscription) a subscription update. \* full_term - Charge the full price of the addon item price or give the full credit. Don&#x27;t apply any proration. \* site_default - Use the [site-wide proration setting](https://www.chargebee.com/docs/2.0/proration.html#proration-for-subscription-change). \* partial_term - Prorate the charges or credits for the rest of the current term.
 
       */
     
@@ -381,7 +387,13 @@ If your input contains characters that are subjected to sanitization (like incom
       invoice_notes?:string;
        
       /**
-        * @description null
+        * @description **Note**
+
+Applicable only for item prices with:
+
+* [item_type](item_prices#item_price_item_type) &#x3D; &#x60;addon&#x60;.
+* [pricing_model](item_prices#item_price_pricing_model) &#x3D; &#x60;per_unit&#x60;.
+Specifies how to manage charges or credits for the addon item price during a [subscription update](subscriptions?prod_cat_ver&#x3D;2#update_subscription_for_items) or [estimating](estimates?prod_cat_ver&#x3D;2#estimate_for_updating_a_subscription) a subscription update. \* full_term - Charge the full price of the addon item price or give the full credit. Don&#x27;t apply any proration. \* site_default - Use the [site-wide proration setting](https://www.chargebee.com/docs/2.0/proration.html#proration-for-subscription-change). \* partial_term - Prorate the charges or credits for the rest of the current term.
 
         */
        
@@ -584,7 +596,13 @@ If your input contains characters that are subjected to sanitization (like incom
       description?:string;
        
       /**
-        * @description null
+        * @description **Note**
+
+Applicable only for item prices with:
+
+* [item_type](item_prices#item_price_item_type) &#x3D; &#x60;addon&#x60;.
+* [pricing_model](item_prices#item_price_pricing_model) &#x3D; &#x60;per_unit&#x60;.
+Specifies how to manage charges or credits for the addon item price during a [subscription update](subscriptions?prod_cat_ver&#x3D;2#update_subscription_for_items) or [estimating](estimates?prod_cat_ver&#x3D;2#estimate_for_updating_a_subscription) a subscription update. \* full_term - Charge the full price of the addon item price or give the full credit. Don&#x27;t apply any proration. \* site_default - Use the [site-wide proration setting](https://www.chargebee.com/docs/2.0/proration.html#proration-for-subscription-change). \* partial_term - Prorate the charges or credits for the rest of the current term.
 
         */
        

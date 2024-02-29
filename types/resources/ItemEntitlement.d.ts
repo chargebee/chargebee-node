@@ -70,28 +70,42 @@ declare module 'chargebee' {
   export namespace ItemEntitlement {
     export class ItemEntitlementResource {  
       /**
-        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [List entitlements](entitlements?prod_cat_ver&#x3D;2#list_all_entitlements).
+Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
 
         */
       
       item_entitlements_for_item(item_id:string, input?:ItemEntitlementsForItemInputParam):ChargebeeRequest<ItemEntitlementsForItemResponse>;
        
       /**
-        * @description Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [List entitlements](entitlements?prod_cat_ver&#x3D;2#list_all_entitlements).
+Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
 
         */
       
       item_entitlements_for_feature(feature_id:string, input?:ItemEntitlementsForFeatureInputParam):ChargebeeRequest<ItemEntitlementsForFeatureResponse>;
        
       /**
-        * @description Upserts or removes a set of &#x60;item_entitlement&#x60;s for an &#x60;feature&#x60; depending on the &#x60;action&#x60; specified. The API returns the upserted or deleted &#x60;item_entitlements&#x60; after successfully completing the operation. The operation returns an error when the first &#x60;item_entitlement&#x60; fails to be processed. Either all the &#x60;item_entitlement&#x60;s provided in the request are processed or none.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [Manage entitlements](entitlements?prod_cat_ver&#x3D;2#upsert_or_remove_entitlements_for_a_feature).
+
+Upserts or removes a set of &#x60;item_entitlement&#x60;s for an &#x60;feature&#x60; depending on the &#x60;action&#x60; specified. The API returns the upserted or deleted &#x60;item_entitlements&#x60; after successfully completing the operation. The operation returns an error when the first &#x60;item_entitlement&#x60; fails to be processed. Either all the &#x60;item_entitlement&#x60;s provided in the request are processed or none.
 
         */
       
       add_item_entitlements(feature_id:string, input:AddItemEntitlementsInputParam):ChargebeeRequest<AddItemEntitlementsResponse>;
        
       /**
-        * @description Upserts or removes a set of &#x60;item_entitlements&#x60; for an [item](items?prod_cat_ver&#x3D;2) depending on the &#x60;action&#x60; specified. The API returns the upserted or deleted &#x60;item_entitlements&#x60; after successfully completing the operation. The operation returns an error when the first &#x60;item_entitlement&#x60; fails to be processed. Either all the &#x60;item_entitlement&#x60;s provided in the request are processed or none.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [Manage entitlements](entitlements?prod_cat_ver&#x3D;2#upsert_or_remove_entitlements_for_a_feature).
+
+Upserts or removes a set of &#x60;item_entitlements&#x60; for an [item](items?prod_cat_ver&#x3D;2) depending on the &#x60;action&#x60; specified. The API returns the upserted or deleted &#x60;item_entitlements&#x60; after successfully completing the operation. The operation returns an error when the first &#x60;item_entitlement&#x60; fails to be processed. Either all the &#x60;item_entitlement&#x60;s provided in the request are processed or none.
 
         */
       
@@ -99,14 +113,20 @@ declare module 'chargebee' {
     }
     export interface ItemEntitlementsForItemResponse {  
       /**
-        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [List entitlements](entitlements?prod_cat_ver&#x3D;2#list_all_entitlements).
+Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
 
         */
        
        list:{item_entitlement:ItemEntitlement}[];
        
       /**
-        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [List entitlements](entitlements?prod_cat_ver&#x3D;2#list_all_entitlements).
+Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
 
         */
        
@@ -115,14 +135,20 @@ declare module 'chargebee' {
     export interface ItemEntitlementsForItemInputParam {
       [key : string]: any;  
       /**
-        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [List entitlements](entitlements?prod_cat_ver&#x3D;2#list_all_entitlements).
+Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
 
         */
         
       limit?:number;
        
       /**
-        * @description Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [List entitlements](entitlements?prod_cat_ver&#x3D;2#list_all_entitlements).
+Retrieves a list of all the &#x60;item_entitlements&#x60; for the &#x60;item&#x60; specified.
 
         */
         
@@ -130,14 +156,20 @@ declare module 'chargebee' {
     }
     export interface ItemEntitlementsForFeatureResponse {  
       /**
-        * @description Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [List entitlements](entitlements?prod_cat_ver&#x3D;2#list_all_entitlements).
+Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
 
         */
        
        list:{item_entitlement:ItemEntitlement}[];
        
       /**
-        * @description Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [List entitlements](entitlements?prod_cat_ver&#x3D;2#list_all_entitlements).
+Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
 
         */
        
@@ -146,14 +178,20 @@ declare module 'chargebee' {
     export interface ItemEntitlementsForFeatureInputParam {
       [key : string]: any;  
       /**
-        * @description Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [List entitlements](entitlements?prod_cat_ver&#x3D;2#list_all_entitlements).
+Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
 
         */
         
       limit?:number;
        
       /**
-        * @description Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
+        * @description **Deprecated**
+
+This endpoint remains operational, but we recommend transitioning to its successor: [List entitlements](entitlements?prod_cat_ver&#x3D;2#list_all_entitlements).
+Retrieves a list of all the &#x60;item_entitlement&#x60;s for the &#x60;feature&#x60; specified.
 
         */
         

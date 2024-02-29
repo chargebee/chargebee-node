@@ -2794,6 +2794,13 @@ If [addon billing cycles](https://www.chargebee.com/docs/2.0/addons-billingcycle
           */
        
       charge_on_option?:'on_event' | 'immediately';
+       
+         /**
+          * @description null
+
+          */
+       
+      proration_type?:'partial_term' | 'full_term' | 'none';
     }
     export interface ItemTier {  
          /**

@@ -56,6 +56,8 @@ declare module 'chargebee' {
     
     content:object;
     
+    origin_user?:string;
+    
     /**
       * @description Array of webhook call statuses: one for each of the webhooks configured for the site. This object is only available after the first webhook call for the event has completed or timed out. Also, creation/updation of the &#x60;webhook&#x60; object data is a queued operation and hence there can be an additional delay of up to 5 seconds.
 

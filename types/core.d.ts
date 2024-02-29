@@ -73,7 +73,7 @@ declare module 'chargebee' {
   type Role = 'backup' | 'none' | 'primary'
   type ScheduleType = 'immediate' | 'specific_dates' | 'fixed_intervals'
   type Source = 'admin_console' | 'system' | 'scheduled_job' | 'js_api' | 'bulk_operation' | 'hosted_page' | 'migration' | 'api' | 'none' | 'portal' | 'external_service'
-  type TaxExemptReason = 'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt'
+  type TaxExemptReason = 'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'tax_not_configured_external_provider' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt'
   type TaxJurisType = 'special' | 'country' | 'unincorporated' | 'other' | 'city' | 'federal' | 'county' | 'state'
   type TaxOverrideReason = 'id_exempt' | 'customer_exempt' | 'export'
   type Taxability = 'taxable' | 'exempt'

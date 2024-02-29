@@ -3,21 +3,21 @@ declare module 'chargebee' {
   export interface ImpactedSubscription {
     
     /**
-      * @description The total number of subscriptions that have been impacted.
+      * @description The total count of affected subscriptions.
 
       */
     
     count?:number;
     
     /**
-      * @description The list of IDs of the subscriptions that have been impacted. This list can contain a maximum of 1,000 IDs. The full list of subscription IDs is available in &#x60;download&#x60;.
+      * @description The impacted subscription IDs. This list contains up to 1,000 IDs. The complete list of subscription IDs is in the &#x60;download&#x60; resource, which can store up to 100,000 IDs.
 
       */
     
     subscription_ids?:any[];
     
     /**
-      * @description The [download](/docs/api/downloads) resource containing all the impacted subscription IDs. The list of IDs is available as a JSON array in the file at &#x60;download.url&#x60; until &#x60;download.valid_till&#x60;.
+      * @description This [download](downloads) resource contains the impacted subscription IDs. These IDs are in a JSON array in the file at &#x60;download.url&#x60; until &#x60;download.valid_till&#x60;. The file at this URL stores up to 100,000 subscription IDs. [Contact Support](https://support.chargebee.com/support/home) to increase this limit for your Chargebee site.
 
       */
     
@@ -28,18 +28,18 @@ declare module 'chargebee' {
     
     export interface Download {  
          /**
-          * @description The URL at which the file is available for download.
+          * @description The download URL for the file.
 
           */
        
-      download_url?:string;
+      download_url:string;
        
          /**
-          * @description The time until which the &#x60;download_url&#x60; is valid.
+          * @description The expiration time for the &#x60;download_url&#x60;.
 
           */
        
-      valid_till?:number;
+      valid_till:number;
        
          /**
           * @description The [media type](https://en.wikipedia.org/wiki/Media_type) of the file.

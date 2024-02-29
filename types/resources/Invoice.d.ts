@@ -1234,7 +1234,7 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
 
         */
        
-      transactions?:{id?:string}[];
+      transactions?:{amount?:number,id?:string}[];
     }
     export interface SyncUsagesResponse {  
        invoice:Invoice;
@@ -2147,7 +2147,7 @@ For metered line items, this value is updated from [usages](https://apidocs.char
 
           */
        
-      tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
+      tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'tax_not_configured_external_provider' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
        
          /**
           * @description The identifier of the modelled entity this line item is based on. Will be null for &#x27;adhoc&#x27; entity type

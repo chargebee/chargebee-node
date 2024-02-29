@@ -100,7 +100,7 @@ declare module 'chargebee' {
 
         */
       
-      create(input?:CreateInputParam):ChargebeeRequest<CreateResponse>;
+      create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
        
       /**
         * @description This API retrieves a portal session using &#x60;portal_session_id&#x60; as a path parameter.
@@ -162,7 +162,7 @@ If this API is called for a Portal Session that currently is in :
 
         */
        
-      customer?:{id:string};
+      customer:{id:string};
     }
     export interface RetrieveResponse {  
        portal_session:PortalSession;
@@ -204,21 +204,21 @@ If this API is called for a Portal Session that currently is in :
 
           */
        
-      has_billing_address?:boolean;
+      has_billing_address:boolean;
        
          /**
           * @description The customer has payment method.
 
           */
        
-      has_payment_method?:boolean;
+      has_payment_method:boolean;
        
          /**
           * @description The customer has atleast one active subscription.
 
           */
        
-      has_active_subscription?:boolean;
+      has_active_subscription:boolean;
     }
   }
 }

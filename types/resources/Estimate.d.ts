@@ -80,7 +80,7 @@ The response contains one or more of the following objects:
 
         */
       
-      create_sub_item_estimate(input?:CreateSubItemEstimateInputParam):ChargebeeRequest<CreateSubItemEstimateResponse>;
+      create_sub_item_estimate(input:CreateSubItemEstimateInputParam):ChargebeeRequest<CreateSubItemEstimateResponse>;
        
       /**
         * @description Generates an estimate without creating a subscription. This endpoint can be called when you want to preview details of a new subscription before actually creating one.  
@@ -90,7 +90,7 @@ The response contains one or more of the following objects:
 
         */
       
-      create_sub_item_for_customer_estimate(customer_id:string, input?:CreateSubItemForCustomerEstimateInputParam):ChargebeeRequest<CreateSubItemForCustomerEstimateResponse>;
+      create_sub_item_for_customer_estimate(customer_id:string, input:CreateSubItemForCustomerEstimateInputParam):ChargebeeRequest<CreateSubItemForCustomerEstimateResponse>;
        
       /**
         * @description Returns an estimate for updating a subscription.
@@ -109,7 +109,7 @@ In the response,
 
         */
       
-      update_subscription_for_items(input?:UpdateSubscriptionForItemsInputParam):ChargebeeRequest<UpdateSubscriptionForItemsResponse>;
+      update_subscription_for_items(input:UpdateSubscriptionForItemsInputParam):ChargebeeRequest<UpdateSubscriptionForItemsResponse>;
        
       /**
         * @description This returns an estimate of the amount that will be charged when the subscription is billed next. The estimate is calculated based on the current recurring items of the subscription - plan, addons, and coupons.
@@ -237,14 +237,14 @@ In the response,
 
         */
       
-      gift_subscription_for_items(input?:GiftSubscriptionForItemsInputParam):ChargebeeRequest<GiftSubscriptionForItemsResponse>;
+      gift_subscription_for_items(input:GiftSubscriptionForItemsInputParam):ChargebeeRequest<GiftSubscriptionForItemsResponse>;
        
       /**
         * @description This endpoint creates an invoice estimate for non-recurring items.
 
         */
       
-      create_invoice_for_items(input?:CreateInvoiceForItemsInputParam):ChargebeeRequest<CreateInvoiceForItemsResponse>;
+      create_invoice_for_items(input:CreateInvoiceForItemsInputParam):ChargebeeRequest<CreateInvoiceForItemsResponse>;
     }
     export interface CreateSubItemEstimateResponse {  
        estimate:Estimate;
@@ -348,14 +348,14 @@ In the response,
 
         */
        
-      subscription_items?:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
       /**
         * @description Parameters for discounts
 
         */
        
-      discounts?:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
        
       /**
         * @description Parameters for item_tiers
@@ -441,6 +441,16 @@ In the response,
       shipping_address?:{city?:string,country?:string,line1?:string,line2?:string,line3?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       /**
+        * @description Generates an estimate without creating a subscription. This endpoint can be called when you want to preview details of a new subscription before actually creating one.  
+**See also**
+
+* [Estimate a purchase](https://apidocs.chargebee.com/docs/api/purchases#estimates_for_purchase): an operation that estimates a &#x60;purchase&#x60; representing multiple subscriptions bought together by a customer.
+
+        */
+       
+      billing_address?:{city?:string,country?:string,line1?:string,line2?:string,line3?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
+       
+      /**
         * @description Parameters for contract_term
 
         */
@@ -452,14 +462,14 @@ In the response,
 
         */
        
-      subscription_items?:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
       /**
         * @description Parameters for discounts
 
         */
        
-      discounts?:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
        
       /**
         * @description Parameters for item_tiers
@@ -617,7 +627,7 @@ An immediate previous change was made
 
         */
        
-      subscription?:{auto_collection?:AutoCollection,free_period?:number,free_period_unit?:FreePeriodUnit,id:string,offline_payment_method?:OfflinePaymentMethod,start_date?:number,trial_end?:number,trial_end_action?:TrialEndAction};
+      subscription:{auto_collection?:AutoCollection,free_period?:number,free_period_unit?:FreePeriodUnit,id:string,offline_payment_method?:OfflinePaymentMethod,start_date?:number,trial_end?:number,trial_end_action?:TrialEndAction};
        
       /**
         * @description Parameters for billing_address
@@ -645,14 +655,14 @@ An immediate previous change was made
 
         */
        
-      subscription_items?:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,proration_type?:ProrationType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
       /**
         * @description Parameters for discounts
 
         */
        
-      discounts?:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
        
       /**
         * @description Parameters for item_tiers
@@ -1051,14 +1061,14 @@ If &#x60;no_action&#x60; is chosen, charges are added to the resumption invoice.
 
         */
        
-      gifter?:{customer_id:string,note?:string,payment_src_id?:string,signature:string};
+      gifter:{customer_id:string,note?:string,payment_src_id?:string,signature:string};
        
       /**
         * @description Parameters for gift_receiver
 
         */
        
-      gift_receiver?:{customer_id:string,email:string,first_name:string,last_name:string};
+      gift_receiver:{customer_id:string,email:string,first_name:string,last_name:string};
        
       /**
         * @description Parameters for payment_intent
@@ -1189,7 +1199,7 @@ If &#x60;no_action&#x60; is chosen, charges are added to the resumption invoice.
 
         */
        
-      discounts?:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
+      discounts:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
     }
     
   }

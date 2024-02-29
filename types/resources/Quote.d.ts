@@ -1543,7 +1543,7 @@ This parameter is passed only when there are metered items in the subscription o
 
           */
        
-      tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
+      tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'tax_not_configured_external_provider' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
        
          /**
           * @description The identifier of the modelled entity this line item is based on. Will be null for &#x27;adhoc&#x27; entity type

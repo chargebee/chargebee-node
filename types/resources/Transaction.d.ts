@@ -38,7 +38,7 @@ declare module 'chargebee' {
     payment_source_id?:string;
     
     /**
-      * @description The payment method of this transaction \* unionpay - Unionpay \* upi - upi \* check - Check \* custom - Custom \* amazon_payments - Amazon Payments \* boleto - boleto \* direct_debit - Direct Debit \* apple_pay - Apple Pay \* wechat_pay - WeChat Pay \* bancontact - Bancontact \* bank_transfer - Bank Transfer \* paypal_express_checkout - Paypal Express Checkout \* other - Payment Methods other than the above types \* ach_credit - ACH Credit \* sepa_credit - SEPA Credit \* card - Card \* ideal - IDEAL \* chargeback - Only applicable for a transaction of [type](transactions#transaction_type) &#x3D; &#x60;refund&#x60;. This value is set by Chargebee when an automated [chargeback](https://www.chargebee.com/docs/chargeback.html#chargeback-process) occurs. You can also set this explicitly when [recording a refund](transactions#record_an_offline_refund). \* google_pay - Google Pay \* netbanking_emandates - netbanking_emandates \* dotpay - Dotpay \* alipay - Alipay \* sofort - Sofort \* giropay - giropay \* cash - Cash
+      * @description The payment method of this transaction \* unionpay - Unionpay \* upi - upi \* check - Check \* custom - Custom \* amazon_payments - Amazon Payments \* boleto - boleto \* direct_debit - Direct Debit \* sepa_instant_transfer - Sepa Instant Transfer \* apple_pay - Apple Pay \* wechat_pay - WeChat Pay \* bancontact - Bancontact \* faster_payments - Faster Payments \* venmo - Venmo \* bank_transfer - Bank Transfer \* paypal_express_checkout - Paypal Express Checkout \* other - Payment Methods other than the above types \* ach_credit - ACH Credit \* sepa_credit - SEPA Credit \* card - Card \* ideal - IDEAL \* chargeback - Only applicable for a transaction of [type](transactions#transaction_type) &#x3D; &#x60;refund&#x60;. This value is set by Chargebee when an automated [chargeback](https://www.chargebee.com/docs/chargeback.html#chargeback-process) occurs. You can also set this explicitly when [recording a refund](transactions#record_an_offline_refund). \* google_pay - Google Pay \* netbanking_emandates - netbanking_emandates \* pay_to - PayTo \* dotpay - Dotpay \* alipay - Alipay \* sofort - Sofort \* giropay - giropay \* cash - Cash
 
       */
     
@@ -52,7 +52,7 @@ declare module 'chargebee' {
     reference_number?:string;
     
     /**
-      * @description Gateway through which this transaction was done. Applicable only for &#x27;Card&#x27; Payment Method \* bluesnap - BlueSnap is a payment gateway. \* tco - 2Checkout is a payment gateway. \* razorpay - Razorpay is a fast growing payment service provider in India working with all leading banks and support for major local payment methods including Netbanking, UPI etc. \* checkout_com - Checkout.com is a payment gateway. \* adyen - Adyen is a payment gateway. \* braintree - Braintree is a payment gateway. \* moneris_us - Moneris USA is a payment gateway. \* pin - Pin is a payment gateway \* moneris - Moneris is a payment gateway. \* chargebee - Chargebee test gateway. \* cybersource - CyberSource is a payment gateway. \* ecentric - Ecentric provides a seamless payment processing service in South Africa specializing on omnichannel capabilities. \* first_data_global - First Data Global Gateway Virtual Terminal Account \* exact - Exact Payments is a payment gateway. \* eway - eWAY Account is a payment gateway. \* amazon_payments - Amazon Payments is a payment service provider. \* sage_pay - Sage Pay is a payment gateway. \* elavon - Elavon Virtual Merchant is a payment solution. \* orbital - Chase Paymentech(Orbital) is a payment gateway. \* beanstream - Bambora(formerly known as Beanstream) is a payment gateway. \* hdfc - HDFC Account is a payment gateway. \* bank_of_america - Bank of America Gateway \* gocardless - GoCardless is a payment service provider. \* paymill - PAYMILL is a payment gateway. \* balanced_payments - Balanced is a payment gateway \* bluepay - BluePay is a payment gateway. \* paypal_express_checkout - PayPal Express Checkout is a payment gateway. \* paypal_payflow_pro - PayPal Payflow Pro is a payment gateway. \* global_payments - Global Payments is a payment service provider. \* not_applicable - Indicates that payment gateway is not applicable for this resource. \* nmi - NMI is a payment gateway. \* worldpay - WorldPay is a payment gateway \* authorize_net - Authorize.net is a payment gateway \* stripe - Stripe is a payment gateway. \* metrics_global - Metrics global is a leading payment service provider providing unified payment services in the US. \* windcave - Windcave provides an end to end payment processing solution in ANZ and other leading global markets. \* quickbooks - Intuit QuickBooks Payments gateway \* wepay - WePay is a payment gateway. \* wirecard - WireCard Account is a payment service provider. \* chargebee_payments - Chargebee Payments gateway \* paypal_pro - PayPal Pro Account is a payment gateway. \* paypal - PayPal Commerce is a payment gateway. \* ingenico_direct - Worldline Online Payments is a payment gateway. \* ogone - Ingenico ePayments (formerly known as Ogone) is a payment gateway. \* migs - MasterCard Internet Gateway Service payment gateway. \* vantiv - Vantiv is a payment gateway. \* eway_rapid - eWAY Rapid is a payment gateway. \* mollie - Mollie is a payment gateway. \* ebanx - EBANX is a payment gateway, enabling businesses to accept diverse local payment methods from various countries for increased market reach and conversion.
+      * @description Gateway through which this transaction was done. Applicable only for &#x27;Card&#x27; Payment Method \* bluesnap - BlueSnap is a payment gateway. \* tco - 2Checkout is a payment gateway. \* razorpay - Razorpay is a fast growing payment service provider in India working with all leading banks and support for major local payment methods including Netbanking, UPI etc. \* checkout_com - Checkout.com is a payment gateway. \* adyen - Adyen is a payment gateway. \* braintree - Braintree is a payment gateway. \* pay_com - Pay.com provides payment services focused on simplicity and hassle-free operations for businesses of all sizes. \* moneris_us - Moneris USA is a payment gateway. \* pin - Pin is a payment gateway \* moneris - Moneris is a payment gateway. \* chargebee - Chargebee test gateway. \* cybersource - CyberSource is a payment gateway. \* ecentric - Ecentric provides a seamless payment processing service in South Africa specializing on omnichannel capabilities. \* first_data_global - First Data Global Gateway Virtual Terminal Account \* exact - Exact Payments is a payment gateway. \* eway - eWAY Account is a payment gateway. \* amazon_payments - Amazon Payments is a payment service provider. \* sage_pay - Sage Pay is a payment gateway. \* elavon - Elavon Virtual Merchant is a payment solution. \* orbital - Chase Paymentech(Orbital) is a payment gateway. \* beanstream - Bambora(formerly known as Beanstream) is a payment gateway. \* hdfc - HDFC Account is a payment gateway. \* bank_of_america - Bank of America Gateway \* gocardless - GoCardless is a payment service provider. \* paymill - PAYMILL is a payment gateway. \* balanced_payments - Balanced is a payment gateway \* bluepay - BluePay is a payment gateway. \* paypal_express_checkout - PayPal Express Checkout is a payment gateway. \* paypal_payflow_pro - PayPal Payflow Pro is a payment gateway. \* global_payments - Global Payments is a payment service provider. \* not_applicable - Indicates that payment gateway is not applicable for this resource. \* nmi - NMI is a payment gateway. \* worldpay - WorldPay is a payment gateway \* authorize_net - Authorize.net is a payment gateway \* stripe - Stripe is a payment gateway. \* metrics_global - Metrics global is a leading payment service provider providing unified payment services in the US. \* windcave - Windcave provides an end to end payment processing solution in ANZ and other leading global markets. \* quickbooks - Intuit QuickBooks Payments gateway \* wepay - WePay is a payment gateway. \* wirecard - WireCard Account is a payment service provider. \* chargebee_payments - Chargebee Payments gateway \* paypal_pro - PayPal Pro Account is a payment gateway. \* paypal - PayPal Commerce is a payment gateway. \* ingenico_direct - Worldline Online Payments is a payment gateway. \* ogone - Ingenico ePayments (formerly known as Ogone) is a payment gateway. \* migs - MasterCard Internet Gateway Service payment gateway. \* vantiv - Vantiv is a payment gateway. \* eway_rapid - eWAY Rapid is a payment gateway. \* mollie - Mollie is a payment gateway. \* ebanx - EBANX is a payment gateway, enabling businesses to accept diverse local payment methods from various countries for increased market reach and conversion.
 
       */
     
@@ -306,6 +306,11 @@ declare module 'chargebee' {
       */
     
     linked_payments?:Transaction.LinkedPayment[];
+    
+    /**
+      * @description Comprehensive information regarding the error experienced during an unsuccessful or declined transaction. Learn more about [gateway error references](gateway_error_references)
+
+      */
     
     error_detail?:Transaction.GatewayErrorDetail;
   }
@@ -835,23 +840,96 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
       date?:number;
     }
     export interface GatewayErrorDetail {  
+         /**
+          * @description This is a unique identifier assigned by the payment gateway. It is used to track the request at the payment gateway
+
+          */
+       
       request_id?:string;
+       
+         /**
+          * @description This parameter categorizes the type of error that occurred for the request. It helps in understanding whether the error is due to API error, validation, processing, network issues, and more
+
+          */
        
       error_category?:string;
        
+         /**
+          * @description A gateway-specific code that corresponds to the particular error encountered for the request. This code can be used for identifying the error in a standardized manner across the gateway&#x27;s services
+
+          */
+       
       error_code?:string;
+       
+         /**
+          * @description A message provided by the gateway that describes the nature of the error encountered
+
+          */
        
       error_message?:string;
        
+         /**
+          * @description When a transaction is declined, this code is provided by the gateway to specify the reason for the decline
+
+          */
+       
       decline_code?:string;
+       
+         /**
+          * @description This message gives a descriptive explanation of the reason for the transaction&#x27;s decline
+
+          */
        
       decline_message?:string;
        
+         /**
+          * @description This code represents errors that originate from the payment network (such as Visa, MasterCard, and more). It is different from the gateway error code and is specific to the network&#x27;s error-handling system
+
+          */
+       
       network_error_code?:string;
+       
+         /**
+          * @description This the network related error message from the gateway, this is a detailed message provided by the payment network explaining the nature of the network error encountered
+
+          */
+       
+      network_error_message?:string;
+       
+         /**
+          * @description This parameter indicates which specific data field or attribute in the request caused the error
+
+          */
        
       error_field?:string;
        
+         /**
+          * @description After an error has occurred, the gateway or payment network may provide a recommendation code. This code suggests a course of action or remedy that you can follow to resolve the issue
+
+          */
+       
       recommendation_code?:string;
+       
+         /**
+          * @description This message is intended to provide guidance or suggestions on action or remedy that you can follow to resolve the issue
+
+          */
+       
+      recommendation_message?:string;
+       
+         /**
+          * @description This code is provided by the payment processor (the entity that handles the transaction between the bank accounts and the payment networks) and indicates errors that occur at this stage of the payment process
+
+          */
+       
+      processor_error_code?:string;
+       
+         /**
+          * @description This message describes the specific error that the payment processor encountered
+
+          */
+       
+      processor_error_message?:string;
     }
   }
 }

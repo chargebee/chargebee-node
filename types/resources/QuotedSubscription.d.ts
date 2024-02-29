@@ -133,7 +133,7 @@ declare module 'chargebee' {
 
           */
        
-      coupon_id?:string;
+      coupon_id:string;
     }
     export interface Discount {  
          /**
@@ -141,7 +141,7 @@ declare module 'chargebee' {
 
           */
        
-      id?:string;
+      id:string;
        
          /**
           * @description The name of the discount as it should appear on customer-facing pages and documents such as [invoices](/docs/api/invoices?prod_cat_ver&#x3D;2) and [hosted pages](/docs/api/hosted_pages?prod_cat_ver&#x3D;2). This is auto-generated based on the &#x60;type&#x60;, &#x60;amount&#x60;, and &#x60;currency_code&#x60; of the discount. For example, it can be &#x60;10% off&#x60; or &#x60;10$ off&#x60;.
@@ -155,7 +155,7 @@ declare module 'chargebee' {
 
           */
        
-      type?:'fixed_amount' | 'percentage';
+      type:'fixed_amount' | 'percentage';
        
          /**
           * @description The percentage of the original amount that should be deducted from it. Only applicable when &#x60;discount.type&#x60; is percentage.
@@ -183,7 +183,7 @@ declare module 'chargebee' {
 
           */
        
-      duration_type?:'limited_period' | 'one_time' | 'forever';
+      duration_type:'limited_period' | 'one_time' | 'forever';
        
          /**
           * @description The duration of time for which the discount is attached to the subscription, in &#x60;period_units&#x60;. Applicable only when &#x60;duration_type&#x60; is &#x60;limited_period&#x60;.
@@ -204,14 +204,14 @@ declare module 'chargebee' {
 
           */
        
-      included_in_mrr?:boolean;
+      included_in_mrr:boolean;
        
          /**
           * @description The amount on the invoice to which the discount is applied. \* invoice_amount - The discount is applied to the invoice &#x60;sub_total&#x60;. \* specific_item_price - The discount is applied to the &#x60;invoice.line_item.amount&#x60; that corresponds to the item price specified by &#x60;item_price_id&#x60;.
 
           */
        
-      apply_on?:'specific_item_price' | 'invoice_amount';
+      apply_on:'specific_item_price' | 'invoice_amount';
        
          /**
           * @description The [id of the item price](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_subscription_items_item_price_id) in the subscription to which the discount is to be applied. Relevant only when &#x60;apply_on&#x60; &#x3D; &#x60;specific_item_price&#x60;.
@@ -225,7 +225,7 @@ declare module 'chargebee' {
 
           */
        
-      created_at?:number;
+      created_at:number;
        
          /**
           * @description Specifies till when the limited period discount is applicable. This attribute will be sent in the response only for &#x60;limited_period&#x60; duration type discount.
@@ -251,14 +251,14 @@ Make sure that you [encode](https://www.urlencoder.org/) the coupon ID in the pa
 
           */
        
-      coupon_id?:string;
+      coupon_id:string;
        
          /**
           * @description The index number of the subscription to which the item price is added. Provide a unique number between &#x60;0&#x60; and &#x60;4&#x60; (inclusive) for each subscription that is to be created.
 
           */
        
-      index?:number;
+      index:number;
     }
     export interface SubscriptionItem {  
          /**
@@ -266,14 +266,14 @@ Make sure that you [encode](https://www.urlencoder.org/) the coupon ID in the pa
 
           */
        
-      item_price_id?:string;
+      item_price_id:string;
        
          /**
           * @description The type of item. There must be one and only one item of type &#x60;plan&#x60; in this list. \* plan - Plan \* addon - Addon \* charge - Charge
 
           */
        
-      item_type?:'charge' | 'addon' | 'plan';
+      item_type:'charge' | 'addon' | 'plan';
        
          /**
           * @description The quantity of the item purchased
@@ -376,6 +376,13 @@ If [addon billing cycles](https://www.chargebee.com/docs/2.0/addons-billingcycle
           */
        
       charge_on_option?:'on_event' | 'immediately';
+       
+         /**
+          * @description null
+
+          */
+       
+      proration_type?:'partial_term' | 'full_term' | 'none';
     }
     export interface ItemTier {  
          /**
@@ -383,14 +390,14 @@ If [addon billing cycles](https://www.chargebee.com/docs/2.0/addons-billingcycle
 
           */
        
-      item_price_id?:string;
+      item_price_id:string;
        
          /**
           * @description The lowest value in the quantity tier.
 
           */
        
-      starting_unit?:number;
+      starting_unit:number;
        
          /**
           * @description The highest value in the quantity tier.
@@ -404,7 +411,7 @@ If [addon billing cycles](https://www.chargebee.com/docs/2.0/addons-billingcycle
 
           */
        
-      price?:number;
+      price:number;
        
          /**
           * @description The decimal representation of the the lowest value of quantity in this tier. This is zero for the lowest tier. For all other tiers, it is the same as &#x60;ending_unit_in_decimal&#x60; of the next lower tier. Returned only when the pricing_model is &#x60;tiered&#x60;, &#x60;volume&#x60; or &#x60;stairstep&#x60; and [multi-decimal pricing](https://apidocs.chargebee.com/docs/api#handling_currency_units) is enabled.
@@ -432,7 +439,7 @@ If [addon billing cycles](https://www.chargebee.com/docs/2.0/addons-billingcycle
 
           */
        
-      index?:number;
+      index:number;
     }
     export interface QuotedContractTerm {  
          /**
@@ -440,21 +447,21 @@ If [addon billing cycles](https://www.chargebee.com/docs/2.0/addons-billingcycle
 
           */
        
-      contract_start?:number;
+      contract_start:number;
        
          /**
           * @description The end date of the contract term
 
           */
        
-      contract_end?:number;
+      contract_end:number;
        
          /**
           * @description The number of billing cycles of the subscription that the contract term is for.
 
           */
        
-      billing_cycle?:number;
+      billing_cycle:number;
        
          /**
           * @description Action to be taken when the contract term completes. \* renew -
@@ -468,14 +475,14 @@ If [addon billing cycles](https://www.chargebee.com/docs/2.0/addons-billingcycle
 
           */
        
-      action_at_term_end?:'cancel' | 'renew_once' | 'renew' | 'evergreen';
+      action_at_term_end:'cancel' | 'renew_once' | 'renew' | 'evergreen';
        
          /**
           * @description The sum of the [totals](invoices#invoice_total) of all the invoices raised as part of the contract term. For &#x60;active&#x60; contract terms, this is a predicted value. The value depends on the [type of currency](./#handling_currency_units). If the subscription was [imported](#import_a_subscription) with the contract term, then this value includes the value passed for &#x60;total_amount_raised&#x60;.
 
           */
        
-      total_contract_value?:number;
+      total_contract_value:number;
        
          /**
           * @description The number of days before [&#x60;contract_end&#x60;](contract_terms#contract_term_contract_end), during which the customer is barred from canceling the contract term. The customer is allowed to cancel the contract term via the Self-Serve Portal only before this period. This allows you to have sufficient time for processing the contract term closure
