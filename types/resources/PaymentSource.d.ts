@@ -646,7 +646,7 @@ Currently, the &#x60;skip_retrieval&#x60; value as &#x60;true&#x60; is only supp
 
         */
        
-      payment_intent?:{additional_info?:object,additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card',reference_id?:string};
+      payment_intent?:{additional_info?:object,additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card',reference_id?:string};
     }
     export interface CreateVoucherPaymentSourceResponse {  
        customer:Customer;
@@ -847,7 +847,7 @@ Currently, the &#x60;skip_retrieval&#x60; value as &#x60;true&#x60; is only supp
 
         */
         
-      type?:{in?:string,is?:'giropay' | 'alipay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'unionpay' | 'direct_debit' | 'faster_payments' | 'generic' | 'sofort' | 'amazon_payments' | 'upi' | 'venmo' | 'apple_pay' | 'bancontact' | 'automated_bank_transfer' | 'paypal_express_checkout' | 'wechat_pay' | 'pay_to' | 'card',is_not?:'giropay' | 'alipay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'unionpay' | 'direct_debit' | 'faster_payments' | 'generic' | 'sofort' | 'amazon_payments' | 'upi' | 'venmo' | 'apple_pay' | 'bancontact' | 'automated_bank_transfer' | 'paypal_express_checkout' | 'wechat_pay' | 'pay_to' | 'card',not_in?:string};
+      type?:{in?:string,is?:'giropay' | 'alipay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'unionpay' | 'direct_debit' | 'faster_payments' | 'generic' | 'sofort' | 'amazon_payments' | 'upi' | 'venmo' | 'apple_pay' | 'bancontact' | 'automated_bank_transfer' | 'paypal_express_checkout' | 'wechat_pay' | 'pay_to' | 'card',is_not?:'giropay' | 'alipay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'unionpay' | 'direct_debit' | 'faster_payments' | 'generic' | 'sofort' | 'amazon_payments' | 'upi' | 'venmo' | 'apple_pay' | 'bancontact' | 'automated_bank_transfer' | 'paypal_express_checkout' | 'wechat_pay' | 'pay_to' | 'card',not_in?:string};
        
       /**
         * @description Lists all the payment sources

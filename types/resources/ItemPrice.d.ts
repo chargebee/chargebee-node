@@ -24,13 +24,6 @@ declare module 'chargebee' {
     item_family_id?:string;
     
     /**
-      * @description Identifier of the product
-
-      */
-    
-    product_id?:string;
-    
-    /**
       * @description The id of the item that the item price belongs to.
 
       */

@@ -123,6 +123,92 @@ declare module 'chargebee' {
       
       update_gift(gift_id:string, input:UpdateGiftInputParam):ChargebeeRequest<UpdateGiftResponse>;
     }
+    export interface CreateResponse {  
+       gift:Gift;
+       
+       subscription:Subscription;
+       
+       invoice?:Invoice;
+    }
+    export interface CreateInputParam {
+       
+      /**
+        * @description Indicates the date on which the gift notification is sent to the receiver. If not passed, the receiver is notified immediately.
+
+        */
+       
+      scheduled_at?:number;
+       
+      /**
+        * @description When &#x60;true&#x60;, the claim happens automatically. When not passed, the default value in the site settings is used.
+
+        */
+       
+      auto_claim?:boolean;
+       
+      /**
+        * @description When &#x60;true&#x60;, indicates that the gift does not expire. Do not pass or pass as &#x60;false&#x60; when &#x60;auto_claim&#x60; is set. .
+
+        */
+       
+      no_expiry?:boolean;
+       
+      /**
+        * @description The date until which the gift can be claimed. Must be set to a value after &#x60;scheduled_at&#x60;. If the gift is not claimed within &#x60;claim_expiry_date&#x60;, it will expire and the subscription will move to &#x60;cancelled&#x60; state. When not passed, the value specified in the site settings will be used. Pass as &#x60;NULL&#x60; or do not pass when &#x60;auto_claim&#x60; or &#x60;no_expiry&#x60; are set.
+
+        */
+       
+      claim_expiry_date?:number;
+       
+      /**
+        * @description List of coupons to be applied to this subscription. You can provide coupon ids or coupon codes.
+
+        */
+       
+      coupon_ids?:string[];
+       
+      /**
+        * @description Parameters for gifter
+
+        */
+       
+      gifter:{customer_id:string,note?:string,payment_src_id?:string,signature:string};
+       
+      /**
+        * @description Parameters for gift_receiver
+
+        */
+       
+      gift_receiver:{customer_id:string,email:string,first_name:string,last_name:string};
+       
+      /**
+        * @description Parameters for payment_intent
+
+        */
+       
+      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card',reference_id?:string};
+       
+      /**
+        * @description Parameters for shipping_address
+
+        */
+       
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
+       
+      /**
+        * @description Parameters for subscription
+
+        */
+       
+      subscription:object;
+       
+      /**
+        * @description Parameters for addons
+
+        */
+       
+      addons?:{id?:string,quantity?:number,quantity_in_decimal?:string}[];
+    }
     export interface CreateForItemsResponse {  
        gift:Gift;
        
@@ -186,7 +272,7 @@ declare module 'chargebee' {
 
         */
        
-      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card',reference_id?:string};
+      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card',reference_id?:string};
        
       /**
         * @description Parameters for shipping_address

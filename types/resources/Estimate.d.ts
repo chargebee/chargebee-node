@@ -246,6 +246,117 @@ In the response,
       
       create_invoice_for_items(input:CreateInvoiceForItemsInputParam):ChargebeeRequest<CreateInvoiceForItemsResponse>;
     }
+    export interface CreateSubscriptionResponse {  
+       estimate:Estimate;
+    }
+    export interface CreateSubscriptionInputParam {
+       
+      /**
+        * @description Number of cycles(plan interval) this subscription should be charged. After the billing cycles exhausted, the subscription will be cancelled.
+
+        */
+       
+      billing_cycles?:number;
+       
+      /**
+        * @description List of addons IDs that are mandatory to the plan and has to be removed from the subscription.
+
+        */
+       
+      mandatory_addons_to_remove?:string[];
+       
+      /**
+        * @description The number of subscription billing cycles (including the first one) to [invoice in advance](https://www.chargebee.com/docs/advance-invoices.html).
+
+        */
+       
+      terms_to_charge?:number;
+       
+      /**
+        * @description Override the [billing alignment mode](https://www.chargebee.com/docs/calendar-billing.html#alignment-of-billing-date) for Calendar Billing. Only applicable when using Calendar Billing. The default value is that which has been configured for the site. \* immediate - Subscription period will be aligned with the configured billing date immediately, with credits or charges raised accordingly.. \* delayed - Subscription period will be aligned with the configured billing date at the next renewal.
+
+        */
+       
+      billing_alignment_mode?:BillingAlignmentMode;
+       
+      /**
+        * @description List of coupons to be applied to this subscription. You can provide coupon ids or coupon codes.
+
+        */
+       
+      coupon_ids?:string[];
+       
+      /**
+        * @description If there are charges raised immediately for the subscription, this parameter specifies whether those charges are to be invoiced immediately or added to [unbilled charges](https://www.chargebee.com/docs/unbilled-charges.html). The default value is as per the [site settings](https://www.chargebee.com/docs/unbilled-charges.html#configuration).  
+**Note:** &#x60;invoice_immediately&#x60; only affects charges that are raised at the time of execution of this API call. Any charges scheduled to be raised in the future are not affected by this parameter. .
+
+        */
+       
+      invoice_immediately?:boolean;
+       
+      /**
+        * @description The document date displayed on the invoice PDF. By default, it is the date of creation of the invoice or, when Metered Billing is enabled, it can be the date of closing the invoice. Provide this value to backdate the invoice (set the invoice date to a value in the past). Backdating an invoice is done for reasons such as booking revenue for a previous date or when the non-recurring charge is effective as of a past date. &#x60;taxes&#x60; and &#x60;line_item_taxes&#x60; are computed based on the tax configuration as of this date. The date should not be more than one calendar month into the past. For example, if today is 13th January, then you cannot pass a value that is earlier than 13th December.
+
+        */
+       
+      invoice_date?:number;
+       
+      /**
+        * @description Indicates the Client profile id for the customer. This is applicable only if you use [Chargebee&#x27;s AvaTax for Communications](https://www.chargebee.com/docs/avatax-for-communication.html) integration.
+
+        */
+       
+      client_profile_id?:string;
+       
+      /**
+        * @description Parameters for subscription
+
+        */
+       
+      subscription:{contract_term_billing_cycle_on_renewal?:number,free_period?:number,free_period_unit?:FreePeriodUnit,id?:string,offline_payment_method?:OfflinePaymentMethod,plan_id:string,plan_quantity?:number,plan_quantity_in_decimal?:string,plan_unit_price?:number,plan_unit_price_in_decimal?:string,setup_fee?:number,start_date?:number,trial_end?:number,trial_end_action?:TrialEndAction};
+       
+      /**
+        * @description Parameters for billing_address
+
+        */
+       
+      billing_address?:{city?:string,country?:string,line1?:string,line2?:string,line3?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
+       
+      /**
+        * @description Parameters for shipping_address
+
+        */
+       
+      shipping_address?:{city?:string,country?:string,line1?:string,line2?:string,line3?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
+       
+      /**
+        * @description Parameters for customer
+
+        */
+       
+      customer?:{customer_type?:CustomerType,entity_code?:EntityCode,exempt_number?:string,exemption_details?:any[],registered_for_gst?:boolean,taxability?:Taxability,vat_number?:string,vat_number_prefix?:string};
+       
+      /**
+        * @description Parameters for contract_term
+
+        */
+       
+      contract_term?:{action_at_term_end?:'cancel' | 'renew' | 'evergreen',cancellation_cutoff_period?:number};
+       
+      /**
+        * @description Parameters for addons
+
+        */
+       
+      addons?:{billing_cycles?:number,id?:string,quantity?:number,quantity_in_decimal?:string,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+       
+      /**
+        * @description Parameters for event_based_addons
+
+        */
+       
+      event_based_addons?:{charge_on?:ChargeOn,charge_once?:boolean,id?:string,on_event?:OnEvent,quantity?:number,quantity_in_decimal?:string,service_period_in_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+    }
     export interface CreateSubItemEstimateResponse {  
        estimate:Estimate;
     }
@@ -363,6 +474,102 @@ In the response,
         */
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+    }
+    export interface CreateSubForCustomerEstimateResponse {  
+       estimate:Estimate;
+    }
+    export interface CreateSubForCustomerEstimateInputParam {
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      use_existing_balances?:boolean;
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      invoice_immediately?:boolean;
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      billing_cycles?:number;
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      mandatory_addons_to_remove?:string[];
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      terms_to_charge?:number;
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      billing_alignment_mode?:'immediate' | 'delayed';
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      invoice_date?:number;
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      coupon_ids?:string[];
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      subscription?:{contract_term_billing_cycle_on_renewal?:number,free_period?:number,free_period_unit?:FreePeriodUnit,id?:string,offline_payment_method?:OfflinePaymentMethod,plan_id:string,plan_quantity?:number,plan_quantity_in_decimal?:string,plan_unit_price?:number,plan_unit_price_in_decimal?:string,setup_fee?:number,start_date?:number,trial_end?:number,trial_end_action?:TrialEndAction};
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      shipping_address?:{city?:string,country?:string,line1?:string,line2?:string,line3?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      contract_term?:{action_at_term_end?:'cancel' | 'renew' | 'evergreen',cancellation_cutoff_period?:number};
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      addons?:{billing_cycles?:number,id?:string,quantity?:number,quantity_in_decimal?:string,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+       
+      /**
+        * @description Create a subscription for the existing estimate of a customer.
+
+        */
+        
+      event_based_addons?:{charge_on?:ChargeOn,charge_once?:boolean,id?:string,on_event?:OnEvent,quantity?:number,quantity_in_decimal?:string,service_period_in_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
     }
     export interface CreateSubItemForCustomerEstimateResponse {  
        estimate:Estimate;
@@ -874,6 +1081,102 @@ In the response,
        
       invoice_immediately?:boolean;
     }
+    export interface CancelSubscriptionResponse {  
+       estimate:Estimate;
+    }
+    export interface CancelSubscriptionInputParam {
+       
+      /**
+        * @description Set this to &#x60;true&#x60; if you want to cancel the subscription at the end of the current subscription billing cycle. The subscription &#x60;status&#x60; changes to &#x60;non_renewing&#x60;.
+
+        */
+       
+      end_of_term?:boolean;
+       
+      /**
+        * @description Specify the date/time at which you want to cancel the subscription. This parameter should not be provided when &#x60;end_of_term&#x60; is passed as &#x60;true&#x60;. &#x60;cancel_at&#x60; can be set to a value in the past. This is called backdating. Use backdating when the subscription has been canceled already but its billing has been delayed. The following prerequisites must be met to allow backdating:
+
+* Backdating must be enabled for subscription cancellation.
+* The current day of the month does not exceed the limit set in Chargebee for backdating subscription cancellation. This limit is typically the day of the month by which the accounting for the previous month must be closed.
+* The date is on or after &#x60;current_term_start&#x60;.
+* The date is on or after the last date/time any of the following changes were made:
+  * Changes in the recurring items or their prices.
+  * Addition of non-recurring items.
+* The date is not more than duration X into the past where X is the billing period of the plan. For example, if the period of the subscription&#x27;s plan is 2 months and today is 14th April, &#x60;changes_scheduled_at&#x60; cannot be earlier than 14th February.
+.
+
+        */
+       
+      cancel_at?:number;
+       
+      /**
+        * @description For immediate cancellation (&#x60;end_of_term&#x60; &#x3D; &#x60;false&#x60;), specify how to provide credits for current term charges. When not provided, the [site default](https://www.chargebee.com/docs/cancellations.html#configure-subscription-cancellation) is considered. \* none - No credits notes are created. \* full - Credits are issues for the full value of the current term charges. \* prorate - Prorated credits are issued.
+
+        */
+       
+      credit_option_for_current_term_charges?:CreditOptionForCurrentTermCharges;
+       
+      /**
+        * @description For immediate cancellation (&#x60;end_of_term&#x60; &#x3D; &#x60;false&#x60;), specify how to handle any unbilled charges. When not provided, the [site default](https://www.chargebee.com/docs/cancellations.html#configure-subscription-cancellation) is considered. \* invoice - An invoice is generated immediately with the unbilled charges. \* delete - The unbilled charges are deleted.
+
+        */
+       
+      unbilled_charges_option?:UnbilledChargesOption;
+       
+      /**
+        * @description Applicable when the subscription has past due invoices. Specify this if you want to close the due invoices of the subscription. If specified as schedule_payment_collection/write_off, the due invoices of the subscription will be qualified for the selected operation after the remaining refundable credits and excess payments are applied. **Note:** The payment collection attempt will be asynchronous. Not applicable when &#x27;end_of_term&#x27; is true. \* no_action - No action is taken. \* write_off - The amount due in the invoices will be written-off. Credit notes created due to write-off will not be sent in the response. \* schedule_payment_collection - An automatic charge for the due amount of the past invoices will be attempted on the payment method available, if customer&#x27;s auto-collection property is &#x27;ON&#x27;.
+
+        */
+       
+      account_receivables_handling?:AccountReceivablesHandling;
+       
+      /**
+        * @description Applicable when the customer has remaining refundable credits(issued against online payments). If specified as schedule_refund, the refund will be initiated for these credits after they are applied against the subscription&#x27;s past due invoices if any. **Note:** The refunds initiated will be asynchronous. Not applicable when &#x27;end_of_term&#x27; is true. \* schedule_refund - Initiates refund of the remaining credits. \* no_action - No action is taken.
+
+        */
+       
+      refundable_credits_handling?:RefundableCreditsHandling;
+       
+      /**
+        * @description Cancels the current contract term.
+
+* &#x60;terminate_immediately&#x60; immediately does the following:
+  * sets the contract term [&#x60;status&#x60;](contract_terms#contract_term_status) to &#x60;terminated&#x60;.
+  * Cancels the subscription.
+  * Collects any [termination fee](contract_terms#termintation_fee).
+* &#x60;end_of_contract_term&#x60; Sets the [&#x60;contract_term[action_at_term_end]&#x60;](contract_terms#contract_term_action_at_term_end) to &#x60;cancel&#x60;. In other words, the contract term is not renewed and the subscription is canceled at the end of the contract term.
+. \* terminate_immediately - Terminate immediately \* end_of_contract_term - End of contract term
+
+        */
+       
+      contract_term_cancel_option?:ContractTermCancelOption;
+       
+      /**
+        * @description The document date displayed on the invoice PDF. The default value is the current date. Provide this value to backdate the invoice. Backdating an invoice is done for reasons such as booking revenue for a previous date or when the subscription is effective as of a past date. Moreover, if &#x60;create_pending_invoices&#x60; is &#x60;true&#x60;, and if the site is configured to set invoice dates to date of closing, then upon invoice closure, this date is changed to the invoice closing date. &#x60;taxes&#x60; and &#x60;line_item_taxes&#x60; are computed based on the &#x60;tax&#x60; configuration as of &#x60;invoice_date&#x60;. When passing this parameter, the following prerequisites must be met:
+
+* &#x60;invoice_date&#x60; must be in the past.
+* &#x60;invoice_date&#x60; is not more than one calendar month into the past. For example, if today is 13th January, then you cannot pass a value that is earlier than 13th December.
+* It is not earlier than &#x60;cancel_at&#x60;.
+.
+
+        */
+       
+      invoice_date?:number;
+       
+      /**
+        * @description Reason code for canceling the subscription. Must be one from a list of reason codes set in the Chargebee app in **Settings \&gt; Configure Chargebee \&gt; Reason Codes \&gt; Subscriptions \&gt; Subscription Cancellation**. Must be passed if set as mandatory in the app. The codes are case-sensitive.
+
+        */
+       
+      cancel_reason_code?:string;
+       
+      /**
+        * @description Parameters for event_based_addons
+
+        */
+       
+      event_based_addons?:{id?:string,quantity?:number,service_period_in_days?:number,unit_price?:number}[];
+    }
     export interface CancelSubscriptionForItemsResponse {  
        estimate:Estimate;
     }
@@ -1075,7 +1378,7 @@ If &#x60;no_action&#x60; is chosen, charges are added to the resumption invoice.
 
         */
        
-      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card',reference_id?:string};
+      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_token?:string,id?:string,payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card',reference_id?:string};
        
       /**
         * @description Parameters for shipping_address
