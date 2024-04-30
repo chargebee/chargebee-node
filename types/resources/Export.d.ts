@@ -156,6 +156,8 @@ declare module 'chargebee' {
         */
       
       differential_prices(input?:DifferentialPricesInputParam):ChargebeeRequest<DifferentialPricesResponse>;
+       
+      price_variants(input?:PriceVariantsInputParam):ChargebeeRequest<PriceVariantsResponse>;
     }
     export interface RetrieveResponse {  
        export:Export;
@@ -731,6 +733,13 @@ Item Id of Addon / Charge item price for which differential pricing is applied t
         */
        
       differential_price?:{id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},item_price_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},parent_item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string}};
+    }
+    export interface PriceVariantsResponse {  
+       export:Export;
+    }
+    export interface PriceVariantsInputParam {
+       
+      price_variant?:{created_at?:{after?:string,before?:string,between?:string,on?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},name?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},status?:{in?:string,is?:'active' | 'archived',is_not?:'active' | 'archived',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
     }
     export interface Download {  
          /**

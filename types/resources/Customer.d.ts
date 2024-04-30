@@ -99,7 +99,20 @@ This setting can be [overridden](subscriptions#create_subscription_for_items_aut
     allow_direct_debit:boolean;
     
     /**
-      * @description Customer location is validated based on IP address and Card issuing country. If the location is valid, it returns True. If not, it returns False. Applicable only for EU, New Zealand and Australia.
+      * @description **Note**
+
+Applicable only when the customer&#x27;s &#x60;billing_address.country&#x60; is New Zealand, Australia, or in the EU.
+
+When the customer uses a [card](https://apidocs.chargebee.com/docs/api/payment_sources#payment_source_type) [payment source](https://apidocs.chargebee.com/docs/api/customers#customer_primary_payment_source_id), this attribute specifies whether the country of the customer and the card issuer are the same.
+
+The following three location indicators are compared:
+
+* The card issuer&#x27;s country.
+* The &#x60;billing_address.country&#x60;.
+* The country to which &#x60;created_from_ip&#x60; belongs.
+* When all three are the same, this attribute is set to true, otherwise it is set to false.
+
+When all three are the same, this attribute is set to &#x60;true&#x60;, otherwise it is set to &#x60;false&#x60;.
 
       */
     
@@ -113,7 +126,13 @@ This setting can be [overridden](subscriptions#create_subscription_for_items_aut
     created_at:number;
     
     /**
-      * @description The IP address of the customer. Used primarily for [referral integrations](https://www.chargebee.com/docs/marketing-integration-index.html) and EU/UK VAT validation.
+      * @description The IP address of the customer when this customer record was created. It&#x27;s mainly used for [referral integrations](https://www.chargebee.com/docs/marketing-integration-index.html) and validating VAT if the customer is in the EU or UK.
+
+Depending on the method used to create the customer record, the field is set as follows:
+
+* **API** : When creating the &#x60;customer&#x60; resource through the API, you must include the customer&#x27;s IP address in a [custom HTTP request header](https://apidocs.chargebee.com/docs/api/advanced-features#user_details) (&#x60;chargebee-request-origin-ip&#x60;) for Chargebee to capture it.
+* **Checkout** : For &#x60;customer&#x60; resources created through [Chargebee Checkout](https://www.chargebee.com/docs/2.0/hosted-checkout.html), Chargebee automatically captures the IP address of the customer.
+* **UI** : When [creating a &#x60;customer&#x60;](https://www.chargebee.com/docs/2.0/customers.html#creating-a-new-customer) resource via the Chargebee Billing UI, this field is not relevant and the value must be ignored.
 
       */
     
@@ -176,7 +195,11 @@ To know more about what values you need to provide, refer to this [Avalara&#x27;
       * @description **Note**
 
 Applicable only when [Calendar Billing](https://www.chargebee.com/docs/calendar-billing.html) with support for customer-specific billing date is enabled and &#x60;billing_date_mode&#x60; is &#x60;manually_set&#x60;.
-Specifies the day of the month for subscription renewals on month-based or year-based plans. Month-based and year-based plans are &#x60;item_price&#x60; resources where the &#x60;item_type&#x60; is set to &#x60;plan&#x60; and &#x60;period_unit&#x60; is set to &#x60;month&#x60; and &#x60;year&#x60; respectively.
+Specifies the day of the month for subscription renewals on month-based or year-based plans. Month-based and year-based plans are &#x60;item_price&#x60; resources where the &#x60;item_type&#x60; is set to &#x60;plan&#x60; and &#x60;period_unit&#x60; is set to &#x60;month&#x60; and &#x60;year&#x60; respectively.  
+**Example**
+
+* **Month-based subscriptions** : If &#x60;billing_date&#x60; is set to &#x60;15&#x60;, month-based renewals occur on the 15th of the month. It&#x27;s important to note that if the value is set to &#x60;31&#x60;, renewals align with the last day of the month. Additionally, in February, a &#x60;billing_date&#x60; of &#x60;29&#x60;, &#x60;30&#x60;, or &#x60;31&#x60; aligns renewals for the last day of February.
+* **Year-based subscriptions** : A &#x60;billing_date&#x60; of &#x60;15&#x60; and a &#x60;billing_month&#x60; of &#x60;7&#x60; schedules the renewal on the 15th of July.
 
       */
     
@@ -210,7 +233,7 @@ Indicates whether this customer&#x27;s &#x60;billing_date&#x60; and &#x60;billin
 
       */
     
-    billing_day_of_week?:'sunday' | 'saturday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'monday';
+    billing_day_of_week?:'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
     
     /**
       * @description Indicates whether this customer&#x27;s *billing_day_of_week* value is derived as per configurations or its specifically set (overriden). When specifically set, the *billing_day_of_week* will not be reset even when all of the weekly subscriptions are cancelled. \* using_defaults - Billing date is set based on defaults configured. \* manually_set - Billing date is specifically set (default configuration is overridden)
@@ -484,6 +507,8 @@ If there are additional entity identifiers for the customer not associated with 
       */
     
     entity_identifiers?:Customer.EntityIdentifier[];
+    
+    tax_providers_fields?:Customer.TaxProvidersField[];
     
     /**
       * @description The [account hierarchy](https://www.chargebee.com/docs/account-hierarchy.html) relationship that the customer is part of.
@@ -2239,6 +2264,13 @@ If there is only one entity identifier for the customer and the value is the sam
           */
        
       standard?:string;
+    }
+    export interface TaxProvidersField {  
+      provider_name:string;
+       
+      field_id:string;
+       
+      field_value:string;
     }
     export interface Relationship {  
          /**

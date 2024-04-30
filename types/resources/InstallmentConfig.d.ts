@@ -52,6 +52,13 @@ declare module 'chargebee' {
     created_at:number;
     
     /**
+      * @description Version number of this resource. The &#x60;resource_version&#x60; is updated with a new timestamp in milliseconds for every change made to the resource. This attribute will be present only if the resource has been updated after 2016-09-28.
+
+      */
+    
+    resource_version?:number;
+    
+    /**
       * @description The timestamp at which the installment_config was last updated at.
 
       */

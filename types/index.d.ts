@@ -31,6 +31,7 @@
 ///<reference path='./resources/InAppSubscription.d.ts' />
 ///<reference path='./resources/Installment.d.ts' />
 ///<reference path='./resources/InstallmentConfig.d.ts' />
+///<reference path='./resources/InstallmentDetail.d.ts' />
 ///<reference path='./resources/Invoice.d.ts' />
 ///<reference path='./resources/InvoiceEstimate.d.ts' />
 ///<reference path='./resources/Item.d.ts' />
@@ -45,13 +46,16 @@
 ///<reference path='./resources/PaymentSource.d.ts' />
 ///<reference path='./resources/PaymentVoucher.d.ts' />
 ///<reference path='./resources/PortalSession.d.ts' />
+///<reference path='./resources/PriceVariant.d.ts' />
 ///<reference path='./resources/PromotionalCredit.d.ts' />
 ///<reference path='./resources/Purchase.d.ts' />
 ///<reference path='./resources/Quote.d.ts' />
 ///<reference path='./resources/QuoteLineGroup.d.ts' />
 ///<reference path='./resources/QuotedCharge.d.ts' />
 ///<reference path='./resources/QuotedSubscription.d.ts' />
+///<reference path='./resources/Ramp.d.ts' />
 ///<reference path='./resources/ResourceMigration.d.ts' />
+///<reference path='./resources/Session.d.ts' />
 ///<reference path='./resources/SiteMigrationDetail.d.ts' />
 ///<reference path='./resources/Subscription.d.ts' />
 ///<reference path='./resources/SubscriptionEntitlement.d.ts' />
@@ -100,10 +104,13 @@ declare module 'chargebee' {
     static payment_source: PaymentSource.PaymentSourceResource;
     static payment_voucher: PaymentVoucher.PaymentVoucherResource;
     static portal_session: PortalSession.PortalSessionResource;
+    static price_variant: PriceVariant.PriceVariantResource;
     static promotional_credit: PromotionalCredit.PromotionalCreditResource;
     static purchase: Purchase.PurchaseResource;
     static quote: Quote.QuoteResource;
+    static ramp: Ramp.RampResource;
     static resource_migration: ResourceMigration.ResourceMigrationResource;
+    static session: Session.SessionResource;
     static site_migration_detail: SiteMigrationDetail.SiteMigrationDetailResource;
     static subscription: Subscription.SubscriptionResource;
     static subscription_entitlement: SubscriptionEntitlement.SubscriptionEntitlementResource;

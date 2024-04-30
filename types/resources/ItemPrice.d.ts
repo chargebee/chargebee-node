@@ -54,6 +54,13 @@ If your input contains characters that are subjected to sanitization (like incom
     external_name?:string;
     
     /**
+      * @description An immutable unique identifier of a [price variant](price_variants).
+
+      */
+    
+    price_variant_id?:string;
+    
+    /**
       * @description **Note**
 
 Applicable only for item prices with:
@@ -272,6 +279,8 @@ In-App Subscriptions is currently in early access. Contact [eap@chargebee.com](m
     
     tax_detail?:ItemPrice.TaxDetail;
     
+    tax_providers_fields?:ItemPrice.TaxProvidersField[];
+    
     /**
       * @description Accounting integration details. The values are typically dependent on the [accounting integration](https://www.chargebee.com/docs/finance-integration-index.html) used.
 
@@ -405,6 +414,13 @@ Specifies how to manage charges or credits for the addon item price during a [su
         */
        
       currency_code?:string;
+       
+      /**
+        * @description An immutable unique identifier of a [price variant](price_variants).
+
+        */
+       
+      price_variant_id?:string;
        
       /**
         * @description Specifies whether taxes apply to this item price. This value is set and returned even if [Taxes](https://www.chargebee.com/docs/tax.html) have been disabled in Chargebee. However, the value is effective only while Taxes are enabled.
@@ -599,7 +615,14 @@ Specifies how to manage charges or credits for the addon item price during a [su
 
         */
        
-      proration_type?:'partial_term' | 'full_term' | 'site_default';
+      proration_type?:'site_default' | 'partial_term' | 'full_term';
+       
+      /**
+        * @description An immutable unique identifier of a [price variant](price_variants).
+
+        */
+       
+      price_variant_id?:string;
        
       /**
         * @description The status of the item price. \* archived - The item price is no longer active and cannot be used in new subscriptions or added to existing ones. Existing subscriptions that already have this item price will continue to renew with the item price. \* active - The item price can be used in subscriptions. \* deleted - Indicates that the item price has been deleted. The &#x60;id&#x60; and &#x60;name&#x60; can be reused.
@@ -871,6 +894,13 @@ If subscriptions, invoices or [differential prices](./differential_prices?prod_c
 
         */
         
+      price_variant_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Returns a list of item prices satisfying **all** the conditions specified in the filter parameters below. The list is sorted by the date of creation in descending order.
+
+        */
+        
       trial_period?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string};
        
       /**
@@ -1131,6 +1161,13 @@ If an addon-item price has [differential pricing](differential_prices?prod_cat_v
           */
        
       taxjar_product_code?:string;
+    }
+    export interface TaxProvidersField {  
+      provider_name:string;
+       
+      field_id:string;
+       
+      field_value:string;
     }
     export interface AccountingDetail {  
          /**

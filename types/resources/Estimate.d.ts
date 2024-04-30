@@ -691,6 +691,32 @@ In the response,
     export interface UpdateSubscriptionForItemsInputParam {
        
       /**
+        * @description Returns an estimate for updating a subscription.
+
+In the response,
+
+* [subscription_estimate](/docs/api/estimates#subscription_estimate_attributes): The details of the changed subscription such as &#x60;status&#x60;, next billing date, and so on.
+* [invoice_estimate](/docs/api/estimates#invoice_estimate_attributes):The details of the immediate invoice, if it is generated. An immediate invoice is not generated when:
+  * &#x60;end_of_term&#x60; parameter is true
+  * &#x60;prorate&#x60; parameter is &#x60;false&#x60;
+  * No changes are made to the plan item prices or addon item prices in &#x60;subscription_items&#x60;.
+  * For changes such as [quantity downgrades](https://www.chargebee.com/docs/proration.html#proration-mechanism_plan-quantity-downgrade-paid-invoice).
+* [next_invoice_estimate](/docs/api/estimates#next_invoice_estimate_attributes):The details of the invoice to be generated later (if any) on the occasion that no immediate invoice has been generated.
+* [credit_note_estimates](/docs/api/estimates#credit_note_estimate_attributes):The list of credit notes (if any) generated during this operation.
+* [unbilled_charge_estimates](/docs/api/estimates#unbilled_charge_estimate_attributes): The details of charges that have not been invoiced. This is returned only if the &#x60;invoice_immediately&#x60; parameter is set to &#x60;false&#x60;.
+
+        */
+       
+      changes_scheduled_at?:number;
+       
+      /**
+        * @description null
+
+        */
+       
+      change_option?:ChangeOption;
+       
+      /**
         * @description Item ids of [mandatorily attached addons](./attached_items?prod_cat_ver&#x3D;2) that are to be removed from the subscription.
 
         */

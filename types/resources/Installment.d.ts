@@ -44,6 +44,8 @@ declare module 'chargebee' {
     
     created_at:number;
     
+    resource_version?:number;
+    
     /**
       * @description The time when this resource was last updated.
 

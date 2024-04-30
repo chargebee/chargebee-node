@@ -149,6 +149,8 @@ declare module 'chargebee' {
     
     is_advance_charge?:boolean;
     
+    business_entity_id?:string;
+    
     /**
       * @description Indicates that this resource has been deleted.
 

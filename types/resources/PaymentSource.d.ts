@@ -152,6 +152,8 @@ declare module 'chargebee' {
     
     venmo?:PaymentSource.Venmo;
     
+    klarna_pay_now?:PaymentSource.KlarnaPayNow;
+    
     /**
       * @description Mandate details associated with the payment source.
 
@@ -1288,6 +1290,9 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
     }
     export interface Venmo {  
       user_name?:string;
+    }
+    export interface KlarnaPayNow {  
+      email?:string;
     }
     export interface Mandate {  
          /**
