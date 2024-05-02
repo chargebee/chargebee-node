@@ -55,7 +55,6 @@
 ///<reference path='./resources/QuotedSubscription.d.ts' />
 ///<reference path='./resources/Ramp.d.ts' />
 ///<reference path='./resources/ResourceMigration.d.ts' />
-///<reference path='./resources/Session.d.ts' />
 ///<reference path='./resources/SiteMigrationDetail.d.ts' />
 ///<reference path='./resources/Subscription.d.ts' />
 ///<reference path='./resources/SubscriptionEntitlement.d.ts' />
@@ -110,7 +109,6 @@ declare module 'chargebee' {
     static quote: Quote.QuoteResource;
     static ramp: Ramp.RampResource;
     static resource_migration: ResourceMigration.ResourceMigrationResource;
-    static session: Session.SessionResource;
     static site_migration_detail: SiteMigrationDetail.SiteMigrationDetailResource;
     static subscription: Subscription.SubscriptionResource;
     static subscription_entitlement: SubscriptionEntitlement.SubscriptionEntitlementResource;
