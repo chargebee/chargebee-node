@@ -1113,6 +1113,8 @@ You can also use our [Hosted Pages](https://www.chargebee.com/docs/hosted_pages.
         */
        
       event_based_addons?:{charge_on?:ChargeOn,charge_once?:boolean,id?:string,on_event?:OnEvent,quantity?:number,quantity_in_decimal?:string,service_period_in_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
+      
     }
     export interface CreateForCustomerResponse {  
        subscription:Subscription;

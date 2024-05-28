@@ -578,6 +578,8 @@ If subscriptions, invoices or [differential prices](./differential_prices?prod_c
         */
        
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      tax_providers_fields?: { field_id?: string, field_value?: string, provider_name?: string }[];
+      
     }
     export interface RetrieveResponse {  
        item_price:ItemPrice;
@@ -808,6 +810,7 @@ If subscriptions, invoices or [differential prices](./differential_prices?prod_c
         */
        
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      tax_providers_fields?: { field_id?: string, field_value?: string, provider_name?: string }[];
     }
     export interface ListResponse {  
       /**

@@ -473,6 +473,7 @@ In-App Subscriptions is currently in early access. Contact [eap@chargebee.com](m
       */
     
     linked_taxes_withheld?:Invoice.LinkedTaxWithheld[];
+    site_details_at_creation?:Invoice.SiteDetailsAtCreation;
   }
   export namespace Invoice {
     export class InvoiceResource {  
@@ -951,6 +952,7 @@ This endpoint schedules e-invoices manually. This operation is not allowed when 
         */
        
       notes_to_remove?:{entity_id?:string,entity_type?:EntityType}[];
+      tax_providers_fields?: { field_id?: string, field_value?: string, provider_name?: string }[];
     }
     export interface CreateForChargeItemsAndChargesResponse {  
        invoice:Invoice;
@@ -1146,6 +1148,7 @@ The invoice is [linked](/docs/api?prod_cat_ver&#x3D;2#mbe-linked-be) to the same
         */
        
       discounts:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
+      tax_providers_fields?: { field_id?: string, field_value?: string, provider_name?: string }[];
     }
     export interface StopDunningResponse {  
        invoice:Invoice;
@@ -1819,6 +1822,7 @@ The [invoice](/docs/api/invoices?prod_cat_ver&#x3D;1#invoice_status) is yet to b
         */
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      tax_providers_fields?: { field_id?: string, field_value?: string, provider_name?: string }[];
     }
     export interface CloseResponse {  
        invoice:Invoice;
@@ -3244,6 +3248,11 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
           */
        
       reference_number?:string;
+    }
+    
+  export interface SiteDetailsAtCreation {
+      timezone?: string;
+      organization_address?: object;
     }
   }
 }

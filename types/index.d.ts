@@ -2,6 +2,8 @@
 ///<reference path='./resources/AdvanceInvoiceSchedule.d.ts' />
 ///<reference path='./resources/AttachedItem.d.ts' />
 ///<reference path='./resources/Attribute.d.ts' />
+///<reference path='./resources/BusinessEntity.d.ts' />
+///<reference path='./resources/BusinessEntityTransfer.d.ts' />
 ///<reference path='./resources/Card.d.ts' />
 ///<reference path='./resources/Comment.d.ts' />
 ///<reference path='./resources/Contact.d.ts' />
@@ -73,6 +75,8 @@ declare module 'chargebee' {
     static configure({ site, api_key }: { site: string; api_key: string });
     static address: Address.AddressResource;
     static attached_item: AttachedItem.AttachedItemResource;
+    static business_entity: BusinessEntity.BusinessEntityResource;
+    static business_entity_transfer: BusinessEntityTransfer.BusinessEntityTransferResource;
     static card: Card.CardResource;
     static comment: Comment.CommentResource;
     static coupon: Coupon.CouponResource;
