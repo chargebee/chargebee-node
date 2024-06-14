@@ -213,15 +213,15 @@ declare module 'chargebee' {
     }
     export interface CreateInputParam {
       [key : string] : any;  
-      card?:null.null;
+      card?:null;
        
-      bank_account?:null.null;
+      bank_account?:null;
        
-      payment_method?:null.null;
+      payment_method?:null;
        
-      payment_intent?:null.null;
+      payment_intent?:null;
        
-      billing_address?:null.null;
+      billing_address?:null;
        
       entity_identifiers?:{id?:string,scheme?:string,standard?:string,value?:string}[];
        
@@ -321,7 +321,7 @@ declare module 'chargebee' {
 
         */
         
-      relationship?:{invoice_owner_id?:null.null,parent_id?:null.null,payment_owner_id?:null.null};
+      relationship?:{invoice_owner_id?:null,parent_id?:null,payment_owner_id?:null};
        
       /**
         * @description Indicates whether to include deleted objects in the list. The deleted objects have the attribute \&#x60;deleted\&#x60; as \&#x60;true\&#x60;.
@@ -504,7 +504,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface UpdatePaymentMethodInputParam {
        
-      payment_method:null.null;
+      payment_method:null;
     }
     export interface UpdateBillingInfoResponse {  
        customer:Customer;
@@ -513,7 +513,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface UpdateBillingInfoInputParam {
        
-      billing_address?:null.null;
+      billing_address?:null;
        
       entity_identifiers?:{id?:string,operation?:Operation,scheme?:string,standard?:string,value?:string}[];
        
@@ -574,7 +574,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface AddContactInputParam {
        
-      contact:null.null;
+      contact:null;
     }
     export interface UpdateContactResponse {  
        customer:Customer;
@@ -583,7 +583,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface UpdateContactInputParam {
        
-      contact:null.null;
+      contact:null;
     }
     export interface DeleteContactResponse {  
        customer:Customer;
@@ -592,7 +592,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface DeleteContactInputParam {
        
-      contact:null.null;
+      contact:null;
     }
     export interface AddPromotionalCreditsResponse {  
        customer:Customer;
@@ -646,7 +646,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface RecordExcessPaymentInputParam {
        
-      transaction:null.null;
+      transaction:null;
        
       comment?:string;
     }
@@ -657,11 +657,11 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface CollectPaymentInputParam {
        
-      payment_method?:null.null;
+      payment_method?:null;
        
-      card?:null.null;
+      card?:null;
        
-      payment_intent?:null.null;
+      payment_intent?:null;
        
       invoice_allocations:{allocation_amount?:number,invoice_id:string}[];
        
@@ -732,9 +732,9 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface RelationshipsInputParam {
        
-      parent_account_access?:null.null;
+      parent_account_access?:null;
        
-      child_account_access?:null.null;
+      child_account_access?:null;
        
       parent_id?:string;
        
@@ -760,9 +760,9 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface UpdateHierarchySettingsInputParam {
        
-      parent_account_access?:null.null;
+      parent_account_access?:null;
        
-      child_account_access?:null.null;
+      child_account_access?:null;
        
       use_default_hierarchy_settings?:boolean;
     }
