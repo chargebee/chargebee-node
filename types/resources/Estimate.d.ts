@@ -63,15 +63,15 @@ declare module 'chargebee' {
     }
     export interface CreateSubscriptionInputParam {
        
-      subscription:null.null;
+      subscription:null;
        
-      billing_address?:null.null;
+      billing_address?:null;
        
-      shipping_address?:null.null;
+      shipping_address?:null;
        
-      customer?:null.null;
+      customer?:null;
        
-      contract_term?:null.null;
+      contract_term?:null;
        
       addons?:{billing_cycles?:number,id?:string,quantity?:number,quantity_in_decimal?:string,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -100,15 +100,15 @@ declare module 'chargebee' {
     }
     export interface CreateSubItemEstimateInputParam {
        
-      subscription?:null.null;
+      subscription?:null;
        
-      billing_address?:null.null;
+      billing_address?:null;
        
-      shipping_address?:null.null;
+      shipping_address?:null;
        
-      customer?:null.null;
+      customer?:null;
        
-      contract_term?:null.null;
+      contract_term?:null;
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -139,11 +139,11 @@ declare module 'chargebee' {
     }
     export interface CreateSubForCustomerEstimateInputParam {
        
-      subscription?:null.null;
+      subscription?:null;
        
-      shipping_address?:null.null;
+      shipping_address?:null;
        
-      contract_term?:null.null;
+      contract_term?:null;
        
       addons?:{billing_cycles?:number,id?:string,quantity?:number,quantity_in_decimal?:string,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -178,13 +178,13 @@ declare module 'chargebee' {
     }
     export interface CreateSubItemForCustomerEstimateInputParam {
        
-      subscription?:null.null;
+      subscription?:null;
        
-      shipping_address?:null.null;
+      shipping_address?:null;
        
-      billing_address?:null.null;
+      billing_address?:null;
        
-      contract_term?:null.null;
+      contract_term?:null;
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -213,13 +213,13 @@ declare module 'chargebee' {
     }
     export interface UpdateSubscriptionInputParam {
        
-      subscription:null.null;
+      subscription:null;
        
-      billing_address?:null.null;
+      billing_address?:null;
        
-      shipping_address?:null.null;
+      shipping_address?:null;
        
-      customer?:null.null;
+      customer?:null;
        
       addons?:{billing_cycles?:number,id?:string,proration_type?:ProrationType,quantity?:number,quantity_in_decimal?:string,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -266,13 +266,13 @@ declare module 'chargebee' {
     }
     export interface UpdateSubscriptionForItemsInputParam {
        
-      subscription:null.null;
+      subscription:null;
        
-      billing_address?:null.null;
+      billing_address?:null;
        
-      shipping_address?:null.null;
+      shipping_address?:null;
        
-      customer?:null.null;
+      customer?:null;
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,proration_type?:ProrationType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -334,7 +334,7 @@ declare module 'chargebee' {
     }
     export interface AdvanceInvoiceEstimateInputParam {
        
-      fixed_interval_schedule?:null.null;
+      fixed_interval_schedule?:null;
        
       specific_dates_schedule?:{date?:number,terms_to_charge?:number}[];
        
@@ -427,7 +427,7 @@ declare module 'chargebee' {
     }
     export interface PauseSubscriptionInputParam {
        
-      subscription?:null.null;
+      subscription?:null;
        
       pause_option?:PauseOption;
        
@@ -438,7 +438,7 @@ declare module 'chargebee' {
     }
     export interface ResumeSubscriptionInputParam {
        
-      subscription?:null.null;
+      subscription?:null;
        
       resume_option?:ResumeOption;
        
@@ -449,17 +449,17 @@ declare module 'chargebee' {
     }
     export interface GiftSubscriptionInputParam {
        
-      gift?:null.null;
+      gift?:null;
        
-      gifter:null.null;
+      gifter:null;
        
-      gift_receiver:null.null;
+      gift_receiver:null;
        
-      payment_intent?:null.null;
+      payment_intent?:null;
        
-      shipping_address?:null.null;
+      shipping_address?:null;
        
-      subscription:null.null;
+      subscription:null;
        
       addons?:{id?:string,quantity?:number,quantity_in_decimal?:string}[];
        
@@ -470,15 +470,15 @@ declare module 'chargebee' {
     }
     export interface GiftSubscriptionForItemsInputParam {
        
-      gift?:null.null;
+      gift?:null;
        
-      gifter:null.null;
+      gifter:null;
        
-      gift_receiver:null.null;
+      gift_receiver:null;
        
-      payment_intent?:null.null;
+      payment_intent?:null;
        
-      shipping_address?:null.null;
+      shipping_address?:null;
        
       subscription_items?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string}[];
        
@@ -489,9 +489,9 @@ declare module 'chargebee' {
     }
     export interface CreateInvoiceInputParam {
        
-      invoice?:null.null;
+      invoice?:null;
        
-      shipping_address?:null.null;
+      shipping_address?:null;
        
       addons?:{date_from?:number,date_to?:number,id?:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -524,9 +524,9 @@ declare module 'chargebee' {
     }
     export interface CreateInvoiceForItemsInputParam {
        
-      invoice?:null.null;
+      invoice?:null;
        
-      shipping_address?:null.null;
+      shipping_address?:null;
        
       item_prices?:{date_from?:number,date_to?:number,item_price_id?:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string}[];
        
