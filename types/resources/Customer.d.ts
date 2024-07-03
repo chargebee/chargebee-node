@@ -213,15 +213,15 @@ declare module 'chargebee' {
     }
     export interface CreateInputParam {
       [key : string] : any;  
-      card?:null.null;
+      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,tmp_token?:string};
        
-      bank_account?:null.null;
+      bank_account?:{account_holder_type?:AccountHolderType,account_number?:string,account_type?:AccountType,bank_code?:string,bank_name?:string,billing_address?:object,company?:string,echeck_type?:EcheckType,email?:string,first_name?:string,gateway_account_id?:string,iban?:string,issuing_country?:string,last_name?:string,phone?:string,routing_number?:string,swedish_identity_number?:string};
        
-      payment_method?:null.null;
+      payment_method?:{additional_information?:object,gateway?:Gateway,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type?:Type};
        
-      payment_intent?:null.null;
+      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_payment_method_id?:string,gw_token?:string,id?:string,payment_method_type?:'card' | 'ideal' | 'sofort' | 'bancontact' | 'google_pay' | 'dotpay' | 'giropay' | 'apple_pay' | 'upi' | 'netbanking_emandates' | 'paypal_express_checkout' | 'direct_debit' | 'boleto' | 'venmo' | 'amazon_payments' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'klarna_pay_now' | 'online_banking_poland',reference_id?:string};
        
-      billing_address?:null.null;
+      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       entity_identifiers?:{id?:string,scheme?:string,standard?:string,value?:string}[];
        
@@ -321,7 +321,7 @@ declare module 'chargebee' {
 
         */
         
-      relationship?:{invoice_owner_id?:null.null,parent_id?:null.null,payment_owner_id?:null.null};
+      relationship?:{invoice_owner_id?:{is?:string,is_not?:string,starts_with?:string},parent_id?:{is?:string,is_not?:string,starts_with?:string},payment_owner_id?:{is?:string,is_not?:string,starts_with?:string}};
        
       /**
         * @description Indicates whether to include deleted objects in the list. The deleted objects have the attribute \&#x60;deleted\&#x60; as \&#x60;true\&#x60;.
@@ -403,17 +403,6 @@ declare module 'chargebee' {
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
        
       /**
-        * @description The unique ID of the [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe) of this subscription. This is always the same as the [business entity](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_customer_id) of the customer.  
-The ID of the business entity created for the site. For Product Catalog 1.0, all the site data is tied to this business entity.  
-**Note**
-
-[Multiple Business Entities](/docs/api?prod_cat_ver&#x3D;2#mbe) is a feature available only on Product Catalog 2.0.
-
-        */
-        
-      business_entity_id?:{is?:string,is_not?:string,starts_with?:string};
-       
-      /**
         * @description The preferred offline payment method for the customer.
 
         */
@@ -433,6 +422,17 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
         */
         
       channel?:{in?:string,is?:'web' | 'app_store' | 'play_store',is_not?:'web' | 'app_store' | 'play_store',not_in?:string};
+       
+      /**
+        * @description The unique ID of the [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe) of this subscription. This is always the same as the [business entity](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_customer_id) of the customer.  
+The ID of the business entity created for the site. For Product Catalog 1.0, all the site data is tied to this business entity.  
+**Note**
+
+[Multiple Business Entities](/docs/api?prod_cat_ver&#x3D;2#mbe) is a feature available only on Product Catalog 2.0.
+
+        */
+        
+      business_entity_id?:{is?:string};
        
       sort_by?:{asc?:'created_at' | 'updated_at',desc?:'created_at' | 'updated_at'};
     }
@@ -504,7 +504,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface UpdatePaymentMethodInputParam {
        
-      payment_method:null.null;
+      payment_method:{additional_information?:object,gateway?:Gateway,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type:Type};
     }
     export interface UpdateBillingInfoResponse {  
        customer:Customer;
@@ -513,7 +513,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface UpdateBillingInfoInputParam {
        
-      billing_address?:null.null;
+      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       entity_identifiers?:{id?:string,operation?:Operation,scheme?:string,standard?:string,value?:string}[];
        
@@ -574,7 +574,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface AddContactInputParam {
        
-      contact:null.null;
+      contact:{email:string,enabled?:boolean,first_name?:string,id?:string,label?:string,last_name?:string,phone?:string,send_account_email?:boolean,send_billing_email?:boolean};
     }
     export interface UpdateContactResponse {  
        customer:Customer;
@@ -583,7 +583,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface UpdateContactInputParam {
        
-      contact:null.null;
+      contact:{email?:string,enabled?:boolean,first_name?:string,id:string,label?:string,last_name?:string,phone?:string,send_account_email?:boolean,send_billing_email?:boolean};
     }
     export interface DeleteContactResponse {  
        customer:Customer;
@@ -592,7 +592,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface DeleteContactInputParam {
        
-      contact:null.null;
+      contact:{id:string};
     }
     export interface AddPromotionalCreditsResponse {  
        customer:Customer;
@@ -646,7 +646,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface RecordExcessPaymentInputParam {
        
-      transaction:null.null;
+      transaction:{amount:number,currency_code?:string,custom_payment_method_id?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
        
       comment?:string;
     }
@@ -657,11 +657,11 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface CollectPaymentInputParam {
        
-      payment_method?:null.null;
+      payment_method?:{additional_information?:object,gateway_account_id?:string,reference_id?:string,tmp_token?:string,type?:Type};
        
-      card?:null.null;
+      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway_account_id?:string,last_name?:string,number?:string};
        
-      payment_intent?:null.null;
+      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_payment_method_id?:string,gw_token?:string,id?:string,payment_method_type?:'card' | 'ideal' | 'sofort' | 'bancontact' | 'google_pay' | 'dotpay' | 'giropay' | 'apple_pay' | 'upi' | 'netbanking_emandates' | 'paypal_express_checkout' | 'direct_debit' | 'boleto' | 'venmo' | 'amazon_payments' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'klarna_pay_now' | 'online_banking_poland',reference_id?:string};
        
       invoice_allocations:{allocation_amount?:number,invoice_id:string}[];
        
@@ -732,9 +732,9 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface RelationshipsInputParam {
        
-      parent_account_access?:null.null;
+      parent_account_access?:{portal_download_child_invoices?:'yes' | 'view_only' | 'no',portal_edit_child_subscriptions?:'yes' | 'view_only' | 'no',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
        
-      child_account_access?:null.null;
+      child_account_access?:{portal_download_invoices?:'yes' | 'view_only' | 'no',portal_edit_subscriptions?:'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
        
       parent_id?:string;
        
@@ -760,9 +760,9 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface UpdateHierarchySettingsInputParam {
        
-      parent_account_access?:null.null;
+      parent_account_access?:{portal_download_child_invoices?:'yes' | 'view_only' | 'no',portal_edit_child_subscriptions?:'yes' | 'view_only' | 'no',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
        
-      child_account_access?:null.null;
+      child_account_access?:{portal_download_invoices?:'yes' | 'view_only' | 'no',portal_edit_subscriptions?:'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
        
       use_default_hierarchy_settings?:boolean;
     }

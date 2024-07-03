@@ -1,3 +1,28 @@
+### v2.37.0 (2024-07-03)
+* * *
+
+#### New resources:
+* Currency has been added.
+* PricingPageSession Transfer has been added.
+
+#### New Enum 
+* cancel_option Enum has been added. 
+
+#### New Enum values:
+* ONLINE_BANKING_POLAND has been added in PaymentMethod enum.
+* ONLINE_BANKING_POLAND has been added in PaymentMethodType enum.
+* ONLINE_BANKING_POLAND has been added in Type enum.
+* DRAFT has been added in Ramp enum.
+
+#### New Input parameters:
+* cancel_option has been added to Estimate#CancelSubscriptionRequest, Estimate#CancelSubscriptionForItemsRequest.
+* cancel_option has been added to Subscription#CancelForItemsRequest, Subscription#CancelRequest.
+* statement_descriptor[descriptor] has been added to Purchase#ChargeRequest.
+
+#### New Attributes:
+* tax_origin has been added to Invoice.
+* tax_origin has been added to CreditNote.
+
 ### v2.36.0 (2024-05-28)
 * * *
 

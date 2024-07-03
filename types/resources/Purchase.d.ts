@@ -250,6 +250,7 @@ Discounts, both [manual discounts](discounts) and &lt;coupons&gt;, can be applie
         */
        
       contract_terms:{action_at_term_end?:'cancel' | 'renew_once' | 'renew' | 'evergreen',cancellation_cutoff_period?:number,index:number}[];
+      statement_descriptor?:{descriptor?:string};
     }
     export interface EstimateResponse {  
        estimate:Estimate;

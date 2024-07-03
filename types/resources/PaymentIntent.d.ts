@@ -56,7 +56,7 @@ declare module 'chargebee' {
 
       */
     
-    payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card';
+    payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card' | 'online_banking_poland';
     
     /**
       * @description The URL the customer will be directed to once 3DS verification is successful. Applicable only when &#x60;payment_method_type&#x60; is &#x60;ideal&#x60;, &#x60;sofort&#x60;, &#x60;dotpay&#x60; or &#x60;giropay&#x60;.
@@ -226,7 +226,7 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
 
         */
        
-      payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card';
+      payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card' | 'online_banking_poland';
        
       /**
         * @description The URL the customer will be directed to once 3DS verification is successful. Applicable only when &#x60;payment_method_type&#x60; is &#x60;ideal&#x60;, &#x60;sofort&#x60;, &#x60;dotpay&#x60; or &#x60;giropay&#x60;.
@@ -273,7 +273,7 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
 
         */
        
-      payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card';
+      payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card' | 'online_banking_poland';
        
       /**
         * @description The URL the customer will be directed to once 3DS verification is successful. Applicable only when &#x60;payment_method_type&#x60; is &#x60;ideal&#x60;, &#x60;sofort&#x60;, &#x60;dotpay&#x60; or &#x60;giropay&#x60;.
@@ -313,7 +313,7 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
 
           */
        
-      payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card';
+      payment_method_type?:'giropay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'netbanking_emandates' | 'klarna_pay_now' | 'dotpay' | 'boleto' | 'direct_debit' | 'faster_payments' | 'sofort' | 'upi' | 'venmo' | 'amazon_payments' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'pay_to' | 'card' | 'online_banking_poland';
        
          /**
           * @description Reference of PaymentIntent at gateway

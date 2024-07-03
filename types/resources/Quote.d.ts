@@ -135,11 +135,11 @@ declare module 'chargebee' {
     }
     export interface CreateSubForCustomerQuoteInputParam {
        
-      subscription:null.null;
+      subscription:{contract_term_billing_cycle_on_renewal?:number,id?:string,offline_payment_method?:OfflinePaymentMethod,plan_id:string,plan_quantity?:number,plan_quantity_in_decimal?:string,plan_unit_price?:number,plan_unit_price_in_decimal?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      contract_term?:null.null;
+      contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel',cancellation_cutoff_period?:number};
        
       addons?:{billing_cycles?:number,id?:string,quantity?:number,quantity_in_decimal?:string,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -168,11 +168,11 @@ declare module 'chargebee' {
     }
     export interface EditCreateSubForCustomerQuoteInputParam {
        
-      subscription:null.null;
+      subscription:{contract_term_billing_cycle_on_renewal?:number,id?:string,offline_payment_method?:OfflinePaymentMethod,plan_id:string,plan_quantity?:number,plan_quantity_in_decimal?:string,plan_unit_price?:number,plan_unit_price_in_decimal?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      contract_term?:null.null;
+      contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel',cancellation_cutoff_period?:number};
        
       addons?:{billing_cycles?:number,id?:string,quantity?:number,quantity_in_decimal?:string,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -199,15 +199,15 @@ declare module 'chargebee' {
     }
     export interface UpdateSubscriptionQuoteInputParam {
        
-      subscription:null.null;
+      subscription:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,id:string,offline_payment_method?:OfflinePaymentMethod,plan_id?:string,plan_quantity?:number,plan_quantity_in_decimal?:string,plan_unit_price?:number,plan_unit_price_in_decimal?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      billing_address?:null.null;
+      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      customer?:null.null;
+      customer?:{registered_for_gst?:boolean,vat_number?:string,vat_number_prefix?:string};
        
-      contract_term?:null.null;
+      contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',cancellation_cutoff_period?:number};
        
       addons?:{billing_cycles?:number,id?:string,quantity?:number,quantity_in_decimal?:string,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -250,15 +250,15 @@ declare module 'chargebee' {
     }
     export interface EditUpdateSubscriptionQuoteInputParam {
        
-      subscription?:null.null;
+      subscription?:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,offline_payment_method?:OfflinePaymentMethod,plan_id?:string,plan_quantity?:number,plan_quantity_in_decimal?:string,plan_unit_price?:number,plan_unit_price_in_decimal?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      billing_address?:null.null;
+      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      customer?:null.null;
+      customer?:{registered_for_gst?:boolean,vat_number?:string,vat_number_prefix?:string};
        
-      contract_term?:null.null;
+      contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',cancellation_cutoff_period?:number};
        
       addons?:{billing_cycles?:number,id?:string,quantity?:number,quantity_in_decimal?:string,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -299,7 +299,7 @@ declare module 'chargebee' {
     }
     export interface CreateForOnetimeChargesInputParam {
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       addons?:{id?:string,quantity?:number,quantity_in_decimal?:string,service_period?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -330,7 +330,7 @@ declare module 'chargebee' {
     }
     export interface EditOneTimeQuoteInputParam {
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       addons?:{id?:string,quantity?:number,quantity_in_decimal?:string,service_period?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -357,11 +357,11 @@ declare module 'chargebee' {
     }
     export interface CreateSubItemsForCustomerQuoteInputParam {
        
-      subscription?:null.null;
+      subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      contract_term?:null.null;
+      contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel',cancellation_cutoff_period?:number};
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -392,11 +392,11 @@ declare module 'chargebee' {
     }
     export interface EditCreateSubCustomerQuoteForItemsInputParam {
        
-      subscription?:null.null;
+      subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      contract_term?:null.null;
+      contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel',cancellation_cutoff_period?:number};
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -425,15 +425,15 @@ declare module 'chargebee' {
     }
     export interface UpdateSubscriptionQuoteForItemsInputParam {
        
-      subscription:null.null;
+      subscription:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,id:string,offline_payment_method?:OfflinePaymentMethod,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      billing_address?:null.null;
+      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      customer?:null.null;
+      customer?:{registered_for_gst?:boolean,vat_number?:string,vat_number_prefix?:string};
        
-      contract_term?:null.null;
+      contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',cancellation_cutoff_period?:number};
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -478,15 +478,15 @@ declare module 'chargebee' {
     }
     export interface EditUpdateSubscriptionQuoteForItemsInputParam {
        
-      subscription?:null.null;
+      subscription?:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,offline_payment_method?:OfflinePaymentMethod,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      billing_address?:null.null;
+      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      customer?:null.null;
+      customer?:{registered_for_gst?:boolean,vat_number?:string,vat_number_prefix?:string};
        
-      contract_term?:null.null;
+      contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',cancellation_cutoff_period?:number};
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -529,7 +529,7 @@ declare module 'chargebee' {
     }
     export interface CreateForChargeItemsAndChargesInputParam {
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       item_prices?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -564,7 +564,7 @@ declare module 'chargebee' {
     }
     export interface EditForChargeItemsAndChargesInputParam {
        
-      shipping_address?:null.null;
+      shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       item_prices?:{item_price_id?:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
@@ -701,7 +701,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
     }
     export interface ConvertInputParam {
        
-      subscription?:null.null;
+      subscription?:{auto_close_invoices?:boolean,auto_collection?:AutoCollection,id?:string,po_number?:string};
        
       invoice_date?:number;
        
@@ -794,7 +794,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
       entity_description?:string;
        
-      entity_type:'plan_setup' | 'plan' | 'addon' | 'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price';
+      entity_type:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'plan_setup' | 'plan' | 'addon';
        
       tax_exempt_reason?:'tax_not_configured' | 'region_non_taxable' | 'export' | 'customer_exempt' | 'product_exempt' | 'zero_rated' | 'reverse_charge' | 'high_value_physical_goods' | 'zero_value_item' | 'tax_not_configured_external_provider';
        

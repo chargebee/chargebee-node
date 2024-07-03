@@ -18,10 +18,6 @@ declare module 'chargebee' {
     
     amount_available:number;
     
-    round_off_amount?:number;
-    
-    customer_id?:string;
-    
     line_items?:CreditNoteEstimate.LineItem[];
     
     discounts?:CreditNoteEstimate.Discount[];
@@ -33,6 +29,10 @@ declare module 'chargebee' {
     line_item_discounts?:CreditNoteEstimate.LineItemDiscount[];
     
     line_item_tiers?:CreditNoteEstimate.LineItemTier[];
+    
+    round_off_amount?:number;
+    
+    customer_id?:string;
   }
   export namespace CreditNoteEstimate {
     
@@ -52,7 +52,7 @@ declare module 'chargebee' {
        
       amount?:number;
        
-      pricing_model?:'volume' | 'per_unit' | 'tiered' | 'flat_fee' | 'stairstep';
+      pricing_model?:'flat_fee' | 'per_unit' | 'tiered' | 'volume' | 'stairstep';
        
       is_taxed:boolean;
        
@@ -69,7 +69,7 @@ declare module 'chargebee' {
       discount_amount?:number;
        
       item_level_discount_amount?:number;
-              
+       
       usage_percentage?:string;
        
       reference_line_item_id?:string;
@@ -78,9 +78,9 @@ declare module 'chargebee' {
        
       entity_description?:string;
        
-      entity_type:'addon_item_price' | 'plan_item_price' | 'charge_item_price' | 'adhoc';
+      entity_type:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'plan_setup' | 'plan' | 'addon';
        
-      tax_exempt_reason?:'high_value_physical_goods' | 'tax_not_configured' | 'reverse_charge' | 'zero_rated' | 'tax_not_configured_external_provider' | 'customer_exempt' | 'region_non_taxable' | 'zero_value_item' | 'export' | 'product_exempt';
+      tax_exempt_reason?:'tax_not_configured' | 'region_non_taxable' | 'export' | 'customer_exempt' | 'product_exempt' | 'zero_rated' | 'reverse_charge' | 'high_value_physical_goods' | 'zero_value_item' | 'tax_not_configured_external_provider';
        
       entity_id?:string;
        
@@ -91,11 +91,7 @@ declare module 'chargebee' {
        
       description?:string;
        
-      line_item_id?:string;
-       
-      entity_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
-       
-      discount_type?:'fixed_amount' | 'percentage';
+      entity_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
        
       entity_id?:string;
        
@@ -129,7 +125,7 @@ declare module 'chargebee' {
        
       tax_amount:number;
        
-      tax_juris_type?:'special' | 'country' | 'unincorporated' | 'other' | 'city' | 'federal' | 'county' | 'state';
+      tax_juris_type?:'country' | 'federal' | 'state' | 'county' | 'city' | 'special' | 'unincorporated' | 'other';
        
       tax_juris_name?:string;
        
@@ -142,7 +138,7 @@ declare module 'chargebee' {
     export interface LineItemDiscount {  
       line_item_id:string;
        
-      discount_type:'item_level_coupon' | 'promotional_credits' | 'item_level_discount' | 'prorated_credits' | 'document_level_discount' | 'document_level_coupon';
+      discount_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
        
       coupon_id?:string;
        

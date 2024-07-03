@@ -474,6 +474,7 @@ In-App Subscriptions is currently in early access. Contact [eap@chargebee.com](m
     
     linked_taxes_withheld?:Invoice.LinkedTaxWithheld[];
     site_details_at_creation?:Invoice.SiteDetailsAtCreation;
+    tax_origin?:Invoice.TaxOrigin;
   }
   export namespace Invoice {
     export class InvoiceResource {  
@@ -3253,6 +3254,11 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
   export interface SiteDetailsAtCreation {
       timezone?: string;
       organization_address?: object;
+    }
+    export interface TaxOrigin {  
+      country?:string;
+       
+      registration_number?:string;
     }
   }
 }

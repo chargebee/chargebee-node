@@ -13,6 +13,7 @@
 ///<reference path='./resources/CouponSet.d.ts' />
 ///<reference path='./resources/CreditNote.d.ts' />
 ///<reference path='./resources/CreditNoteEstimate.d.ts' />
+///<reference path='./resources/Currency.d.ts' />
 ///<reference path='./resources/Customer.d.ts' />
 ///<reference path='./resources/DifferentialPrice.d.ts' />
 ///<reference path='./resources/Discount.d.ts' />
@@ -49,6 +50,7 @@
 ///<reference path='./resources/PaymentVoucher.d.ts' />
 ///<reference path='./resources/PortalSession.d.ts' />
 ///<reference path='./resources/PriceVariant.d.ts' />
+///<reference path='./resources/PricingPageSession.d.ts' />
 ///<reference path='./resources/PromotionalCredit.d.ts' />
 ///<reference path='./resources/Purchase.d.ts' />
 ///<reference path='./resources/Quote.d.ts' />
@@ -83,6 +85,7 @@ declare module 'chargebee' {
     static coupon_code: CouponCode.CouponCodeResource;
     static coupon_set: CouponSet.CouponSetResource;
     static credit_note: CreditNote.CreditNoteResource;
+    static currency: Currency.CurrencyResource;
     static customer: Customer.CustomerResource;
     static differential_price: DifferentialPrice.DifferentialPriceResource;
     static entitlement: Entitlement.EntitlementResource;
@@ -108,6 +111,7 @@ declare module 'chargebee' {
     static payment_voucher: PaymentVoucher.PaymentVoucherResource;
     static portal_session: PortalSession.PortalSessionResource;
     static price_variant: PriceVariant.PriceVariantResource;
+    static pricing_page_session: PricingPageSession.PricingPageSessionResource;
     static promotional_credit: PromotionalCredit.PromotionalCreditResource;
     static purchase: Purchase.PurchaseResource;
     static quote: Quote.QuoteResource;
@@ -116,6 +120,7 @@ declare module 'chargebee' {
     static site_migration_detail: SiteMigrationDetail.SiteMigrationDetailResource;
     static subscription: Subscription.SubscriptionResource;
     static subscription_entitlement: SubscriptionEntitlement.SubscriptionEntitlementResource;
+    static tax_withheld: TaxWithheld.TaxWithheldResource;
     static time_machine: TimeMachine.TimeMachineResource;
     static token: Token.TokenResource;
     static transaction: Transaction.TransactionResource;
