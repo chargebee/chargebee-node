@@ -1,3 +1,14 @@
+### v2.38.0 (2024-07-19)
+* * *
+
+#### New Input parameters:
+* change_option has been added to HostedPage#CheckoutExistingForItemsRequest.
+* changes_scheduled_at has been added to HostedPage#CheckoutExistingForItemsRequest.
+
+#### Bug Fixes: 
+* index.d.ts referencing to non existing file/ non resources. 
+* missing imports for few resources. 
+
 ### v2.37.0 (2024-07-03)
 * * *
 

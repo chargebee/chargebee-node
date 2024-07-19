@@ -41,7 +41,6 @@
 ///<reference path='./resources/ItemEntitlement.d.ts' />
 ///<reference path='./resources/ItemFamily.d.ts' />
 ///<reference path='./resources/ItemPrice.d.ts' />
-///<reference path='./resources/Media.d.ts' />
 ///<reference path='./resources/NonSubscription.d.ts' />
 ///<reference path='./resources/Order.d.ts' />
 ///<reference path='./resources/PaymentIntent.d.ts' />
@@ -78,7 +77,6 @@ declare module 'chargebee' {
     static address: Address.AddressResource;
     static attached_item: AttachedItem.AttachedItemResource;
     static business_entity: BusinessEntity.BusinessEntityResource;
-    static business_entity_transfer: BusinessEntityTransfer.BusinessEntityTransferResource;
     static card: Card.CardResource;
     static comment: Comment.CommentResource;
     static coupon: Coupon.CouponResource;
@@ -120,9 +118,7 @@ declare module 'chargebee' {
     static site_migration_detail: SiteMigrationDetail.SiteMigrationDetailResource;
     static subscription: Subscription.SubscriptionResource;
     static subscription_entitlement: SubscriptionEntitlement.SubscriptionEntitlementResource;
-    static tax_withheld: TaxWithheld.TaxWithheldResource;
     static time_machine: TimeMachine.TimeMachineResource;
-    static token: Token.TokenResource;
     static transaction: Transaction.TransactionResource;
     static unbilled_charge: UnbilledCharge.UnbilledChargeResource;
     static usage: Usage.UsageResource;

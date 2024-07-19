@@ -70,7 +70,7 @@ declare module 'chargebee' {
 
       */
     
-    installments?:InstallmentConfig.Installment[];
+    installments?:InstallmentConfig.Installments[];
   }
   export namespace InstallmentConfig {
     export class InstallmentConfigResource {  

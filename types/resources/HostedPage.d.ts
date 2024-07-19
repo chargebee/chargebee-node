@@ -445,6 +445,10 @@ An alternative way of passing this parameter is by means of a [custom HTTP heade
         */
        
       entity_identifiers?:{id?:string,operation?:Operation,scheme?:string,standard?:string,value?:string}[];
+      
+      change_option?:ChangeOption;
+       
+      changes_scheduled_at?:number;
     }
     export interface CheckoutNewForItemsResponse {  
        hosted_page:HostedPage;

@@ -1,4 +1,5 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface Customer {
     [key : string] : any;
@@ -116,7 +117,7 @@ declare module 'chargebee' {
     
     excess_payments:number;
     
-    balances?:Customer.CustomerBalance[];
+    balances?:Customer.Balance[];
     
     entity_identifiers?:Customer.EntityIdentifier[];
     

@@ -1,4 +1,5 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface UnbilledCharge {
     
@@ -42,7 +43,7 @@ declare module 'chargebee' {
     
     updated_at:number;
     
-    tiers?:UnbilledCharge.LineItemTier[];
+    tiers?:UnbilledCharge.Tier[];
     
     is_advance_charge?:boolean;
     

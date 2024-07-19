@@ -1,4 +1,6 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
+
 declare module 'chargebee' {
   export interface Subscription {
     [key : string] : any;
@@ -433,14 +435,7 @@ Applicable only when [Metered Billing](https://www.chargebee.com/docs/metered_bi
       */
     
     referral_info?:Subscription.ReferralInfo;
-    
-    /**
-      * @description Contract terms for this subscription
-
-      */
-    
-    contract_term?:Subscription.ContractTerm;
-    
+     
     /**
       * @description List of discounts for this subscription
 
