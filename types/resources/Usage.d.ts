@@ -271,6 +271,13 @@ The maximum number of usages that can be recorded for the entire lifetime of a s
         */
         
       sort_by?:{asc?:'usage_date',desc?:'usage_date'};
+      
+       /**
+        * @description Indicates the date at which this credit note is last updated.
+
+        */
+        
+       updated_at?:{after?:string,before?:string,between?:string,on?:string};
     }
     export interface PdfResponse {  
        download:Download;

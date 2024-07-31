@@ -1,4 +1,5 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface EntitlementOverride {
     
@@ -73,6 +74,11 @@ declare module 'chargebee' {
       */
     
     expires_at?:number;
+
+    effective_from?:number;
+
+    schedule_status?:'activated' | 'scheduled' | 'failed';
+
   }
   export namespace EntitlementOverride {
     export class EntitlementOverrideResource {  
@@ -139,6 +145,12 @@ declare module 'chargebee' {
         */
         
       offset?:string;
+       
+      embed?:string;
+       
+      include_drafts?:boolean;
+       
+      include_scheduled_overrides?:boolean;
     }
     
   }

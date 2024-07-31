@@ -131,6 +131,8 @@ Overrides the [item_tiers](subscriptions#subscription_item_tiers) for specific &
       */
     
     item_tiers?:Ramp.ItemTier[];
+
+    status_transition_reason?:Ramp.StatusTransitionReason;
   }
   export namespace Ramp {
     export class RampResource {  
@@ -739,6 +741,11 @@ If [addon billing cycles](https://www.chargebee.com/docs/2.0/addons-billingcycle
           */
        
       index:number;
+    }
+    export interface StatusTransitionReason {  
+      code?:string;
+       
+      message?:string;
     }
   }
 }

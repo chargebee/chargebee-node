@@ -1,4 +1,5 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface PriceVariant {
     
@@ -27,7 +28,7 @@ declare module 'chargebee' {
       * @description Description of the price variant.
 
       */
-    
+    variant_group?:string;
     description?:string;
     
     /**
@@ -152,6 +153,8 @@ Attributes can be used to store additional information about the price variant. 
         */
        
       attributes:{name:string,value:string}[];
+
+      variant_group?:string;
     }
     export interface RetrieveResponse {  
        price_variant:PriceVariant;
@@ -182,6 +185,8 @@ Attributes can be used to store additional information about the price variant. 
         */
        
       description?:string;
+
+      variant_group?:string;
        
       /**
         * @description Status of a price variant. \* active - Active price variant. This price variant can be attached to [item prices](https://apidocs.chargebee.com/docs/api/item_prices?lang&#x3D;curl). \* deleted - Deleted price variant. The &#x60;id&#x60; and &#x60;name&#x60; of the deleted price variant can be reused. \* archived - Archived price variant. This price variant is no longer &#x60;active&#x60; and cannot be attached to new [item prices](https://apidocs.chargebee.com/docs/api/item_prices?lang&#x3D;curl). Existing item prices that already have this price variant attached will continue to remain as is.

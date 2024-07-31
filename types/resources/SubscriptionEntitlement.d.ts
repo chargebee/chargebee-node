@@ -1,4 +1,5 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface SubscriptionEntitlement {
     
@@ -66,7 +67,10 @@ declare module 'chargebee' {
       * @description Timestamp when the subscription entitlements are going to expire.
 
       */
-    
+    effective_from?:number;
+
+    schedule_status?:'activated' | 'scheduled' | 'failed';
+
     expires_at?:number;
     
     /**
@@ -137,6 +141,12 @@ The &#x60;components&#x60; attribute is not returned for any of the &#x60;subscr
         */
         
       offset?:string;
+       
+      include_drafts?:boolean;
+       
+      embed?:string;
+       
+      include_scheduled_overrides?:boolean;
     }
     export interface SetSubscriptionEntitlementAvailabilityResponse {  
        subscription_entitlement:SubscriptionEntitlement;

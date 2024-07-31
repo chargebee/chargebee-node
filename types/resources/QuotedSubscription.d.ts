@@ -383,6 +383,10 @@ If [addon billing cycles](https://www.chargebee.com/docs/2.0/addons-billingcycle
           */
        
       proration_type?:'partial_term' | 'full_term' | 'none';
+      
+      billing_period?:number;
+       
+      billing_period_unit?:'day' | 'week' | 'month' | 'year';
     }
     export interface ItemTier {  
          /**
