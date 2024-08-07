@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig.cjs.json",
+    "compilerOptions": {
+        "outDir": "./esm",
+        "module": "es2022",
+    },
+    "exclude": [
+        "./src/chargebee.cjs.ts",
+    ],
+}

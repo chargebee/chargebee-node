@@ -1,0 +1,2139 @@
+///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
+///<reference path='./filter.d.ts'/>
+declare module 'chargebee' {
+  export interface Quote {
+    id: string;
+
+    name?: string;
+
+    po_number?: string;
+
+    customer_id: string;
+
+    subscription_id?: string;
+
+    invoice_id?: string;
+
+    status: 'open' | 'accepted' | 'declined' | 'invoiced' | 'closed';
+
+    operation_type:
+      | 'create_subscription_for_customer'
+      | 'change_subscription'
+      | 'onetime_invoice';
+
+    vat_number?: string;
+
+    price_type: PriceType;
+
+    valid_till: number;
+
+    date: number;
+
+    total_payable?: number;
+
+    charge_on_acceptance?: number;
+
+    sub_total: number;
+
+    total?: number;
+
+    credits_applied?: number;
+
+    amount_paid?: number;
+
+    amount_due?: number;
+
+    version?: number;
+
+    resource_version?: number;
+
+    updated_at?: number;
+
+    vat_number_prefix?: string;
+
+    line_items?: Quote.LineItem[];
+
+    discounts?: Quote.Discount[];
+
+    line_item_discounts?: Quote.LineItemDiscount[];
+
+    taxes?: Quote.Tax[];
+
+    line_item_taxes?: Quote.LineItemTax[];
+
+    line_item_tiers?: Quote.LineItemTier[];
+
+    tax_category?: string;
+
+    currency_code: string;
+
+    notes?: any;
+
+    shipping_address?: Quote.ShippingAddress;
+
+    billing_address?: Quote.BillingAddress;
+
+    contract_term_start?: number;
+
+    contract_term_end?: number;
+
+    contract_term_termination_fee?: number;
+
+    business_entity_id: string;
+  }
+  export namespace Quote {
+    export class QuoteResource {
+      retrieve(
+        quote_id: string,
+      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+
+      create_sub_for_customer_quote(
+        customer_id: string,
+        input: CreateSubForCustomerQuoteInputParam,
+      ): ChargebeeRequest<ChargebeeResponse<CreateSubForCustomerQuoteResponse>>;
+
+      edit_create_sub_for_customer_quote(
+        quote_id: string,
+        input: EditCreateSubForCustomerQuoteInputParam,
+      ): ChargebeeRequest<
+        ChargebeeResponse<EditCreateSubForCustomerQuoteResponse>
+      >;
+
+      update_subscription_quote(
+        input: UpdateSubscriptionQuoteInputParam,
+      ): ChargebeeRequest<ChargebeeResponse<UpdateSubscriptionQuoteResponse>>;
+
+      edit_update_subscription_quote(
+        quote_id: string,
+        input?: EditUpdateSubscriptionQuoteInputParam,
+      ): ChargebeeRequest<
+        ChargebeeResponse<EditUpdateSubscriptionQuoteResponse>
+      >;
+
+      create_for_onetime_charges(
+        input: CreateForOnetimeChargesInputParam,
+      ): ChargebeeRequest<ChargebeeResponse<CreateForOnetimeChargesResponse>>;
+
+      edit_one_time_quote(
+        quote_id: string,
+        input?: EditOneTimeQuoteInputParam,
+      ): ChargebeeRequest<ChargebeeResponse<EditOneTimeQuoteResponse>>;
+
+      create_sub_items_for_customer_quote(
+        customer_id: string,
+        input: CreateSubItemsForCustomerQuoteInputParam,
+      ): ChargebeeRequest<
+        ChargebeeResponse<CreateSubItemsForCustomerQuoteResponse>
+      >;
+
+      edit_create_sub_customer_quote_for_items(
+        quote_id: string,
+        input: EditCreateSubCustomerQuoteForItemsInputParam,
+      ): ChargebeeRequest<
+        ChargebeeResponse<EditCreateSubCustomerQuoteForItemsResponse>
+      >;
+
+      update_subscription_quote_for_items(
+        input: UpdateSubscriptionQuoteForItemsInputParam,
+      ): ChargebeeRequest<
+        ChargebeeResponse<UpdateSubscriptionQuoteForItemsResponse>
+      >;
+
+      edit_update_subscription_quote_for_items(
+        quote_id: string,
+        input: EditUpdateSubscriptionQuoteForItemsInputParam,
+      ): ChargebeeRequest<
+        ChargebeeResponse<EditUpdateSubscriptionQuoteForItemsResponse>
+      >;
+
+      create_for_charge_items_and_charges(
+        input: CreateForChargeItemsAndChargesInputParam,
+      ): ChargebeeRequest<
+        ChargebeeResponse<CreateForChargeItemsAndChargesResponse>
+      >;
+
+      edit_for_charge_items_and_charges(
+        quote_id: string,
+        input: EditForChargeItemsAndChargesInputParam,
+      ): ChargebeeRequest<
+        ChargebeeResponse<EditForChargeItemsAndChargesResponse>
+      >;
+
+      list(
+        input?: ListInputParam,
+      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+
+      quote_line_groups_for_quote(
+        quote_id: string,
+        input?: QuoteLineGroupsForQuoteInputParam,
+      ): ChargebeeRequest<ChargebeeResponse<QuoteLineGroupsForQuoteResponse>>;
+
+      convert(
+        quote_id: string,
+        input?: ConvertInputParam,
+      ): ChargebeeRequest<ChargebeeResponse<ConvertResponse>>;
+
+      update_status(
+        quote_id: string,
+        input: UpdateStatusInputParam,
+      ): ChargebeeRequest<ChargebeeResponse<UpdateStatusResponse>>;
+
+      extend_expiry_date(
+        quote_id: string,
+        input: ExtendExpiryDateInputParam,
+      ): ChargebeeRequest<ChargebeeResponse<ExtendExpiryDateResponse>>;
+
+      delete(
+        quote_id: string,
+        input?: DeleteInputParam,
+      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+
+      pdf(
+        quote_id: string,
+        input?: PdfInputParam,
+      ): ChargebeeRequest<ChargebeeResponse<PdfResponse>>;
+    }
+    export interface RetrieveResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+
+      quoted_charge?: QuotedCharge;
+    }
+
+    export interface CreateSubForCustomerQuoteResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+    }
+
+    export interface EditCreateSubForCustomerQuoteResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+    }
+
+    export interface UpdateSubscriptionQuoteResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+    }
+
+    export interface EditUpdateSubscriptionQuoteResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+    }
+
+    export interface CreateForOnetimeChargesResponse {
+      quote: Quote;
+
+      quoted_charge?: QuotedCharge;
+    }
+
+    export interface EditOneTimeQuoteResponse {
+      quote: Quote;
+
+      quoted_charge?: QuotedCharge;
+    }
+
+    export interface CreateSubItemsForCustomerQuoteResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+    }
+
+    export interface EditCreateSubCustomerQuoteForItemsResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+    }
+
+    export interface UpdateSubscriptionQuoteForItemsResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+    }
+
+    export interface EditUpdateSubscriptionQuoteForItemsResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+    }
+
+    export interface CreateForChargeItemsAndChargesResponse {
+      quote: Quote;
+
+      quoted_charge?: QuotedCharge;
+    }
+
+    export interface EditForChargeItemsAndChargesResponse {
+      quote: Quote;
+
+      quoted_charge?: QuotedCharge;
+    }
+
+    export interface ListResponse {
+      list: { quote: Quote; quoted_subscription?: QuotedSubscription }[];
+
+      next_offset?: string;
+    }
+
+    export interface QuoteLineGroupsForQuoteResponse {
+      list: { quote_line_group: QuoteLineGroup }[];
+
+      next_offset?: string;
+    }
+
+    export interface ConvertResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+
+      quoted_charge?: QuotedCharge;
+
+      customer: Customer;
+
+      subscription?: Subscription;
+
+      invoice?: Invoice;
+
+      credit_note?: CreditNote;
+
+      unbilled_charges?: UnbilledCharge[];
+    }
+
+    export interface UpdateStatusResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+
+      quoted_charge?: QuotedCharge;
+    }
+
+    export interface ExtendExpiryDateResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+
+      quoted_charge?: QuotedCharge;
+    }
+
+    export interface DeleteResponse {
+      quote: Quote;
+
+      quoted_subscription?: QuotedSubscription;
+
+      quoted_charge?: QuotedCharge;
+    }
+
+    export interface PdfResponse {
+      download: Download;
+    }
+
+    export interface LineItem {
+      id?: string;
+
+      subscription_id?: string;
+
+      date_from: number;
+
+      date_to: number;
+
+      unit_amount: number;
+
+      quantity?: number;
+
+      amount?: number;
+
+      pricing_model?:
+        | 'flat_fee'
+        | 'per_unit'
+        | 'tiered'
+        | 'volume'
+        | 'stairstep';
+
+      is_taxed: boolean;
+
+      tax_amount?: number;
+
+      tax_rate?: number;
+
+      unit_amount_in_decimal?: string;
+
+      quantity_in_decimal?: string;
+
+      amount_in_decimal?: string;
+
+      discount_amount?: number;
+
+      item_level_discount_amount?: number;
+
+      usage_percentage?: string;
+
+      reference_line_item_id?: string;
+
+      description: string;
+
+      entity_description?: string;
+
+      entity_type:
+        | 'adhoc'
+        | 'plan_item_price'
+        | 'addon_item_price'
+        | 'charge_item_price'
+        | 'plan_setup'
+        | 'plan'
+        | 'addon';
+
+      tax_exempt_reason?:
+        | 'tax_not_configured'
+        | 'region_non_taxable'
+        | 'export'
+        | 'customer_exempt'
+        | 'product_exempt'
+        | 'zero_rated'
+        | 'reverse_charge'
+        | 'high_value_physical_goods'
+        | 'zero_value_item'
+        | 'tax_not_configured_external_provider';
+
+      entity_id?: string;
+
+      customer_id?: string;
+    }
+    export interface Discount {
+      amount: number;
+
+      description?: string;
+
+      entity_type:
+        | 'item_level_coupon'
+        | 'document_level_coupon'
+        | 'promotional_credits'
+        | 'prorated_credits'
+        | 'item_level_discount'
+        | 'document_level_discount';
+
+      entity_id?: string;
+
+      coupon_set_code?: string;
+    }
+    export interface LineItemDiscount {
+      line_item_id: string;
+
+      discount_type:
+        | 'item_level_coupon'
+        | 'document_level_coupon'
+        | 'promotional_credits'
+        | 'prorated_credits'
+        | 'item_level_discount'
+        | 'document_level_discount';
+
+      coupon_id?: string;
+
+      entity_id?: string;
+
+      discount_amount: number;
+    }
+    export interface Tax {
+      name: string;
+
+      amount: number;
+
+      description?: string;
+    }
+    export interface LineItemTax {
+      line_item_id?: string;
+
+      tax_name: string;
+
+      tax_rate: number;
+
+      date_to?: number;
+
+      date_from?: number;
+
+      prorated_taxable_amount?: number;
+
+      is_partial_tax_applied?: boolean;
+
+      is_non_compliance_tax?: boolean;
+
+      taxable_amount: number;
+
+      tax_amount: number;
+
+      tax_juris_type?:
+        | 'country'
+        | 'federal'
+        | 'state'
+        | 'county'
+        | 'city'
+        | 'special'
+        | 'unincorporated'
+        | 'other';
+
+      tax_juris_name?: string;
+
+      tax_juris_code?: string;
+
+      tax_amount_in_local_currency?: number;
+
+      local_currency_code?: string;
+    }
+    export interface LineItemTier {
+      line_item_id?: string;
+
+      starting_unit: number;
+
+      ending_unit?: number;
+
+      quantity_used: number;
+
+      unit_amount: number;
+
+      starting_unit_in_decimal?: string;
+
+      ending_unit_in_decimal?: string;
+
+      quantity_used_in_decimal?: string;
+
+      unit_amount_in_decimal?: string;
+    }
+    export interface ShippingAddress {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      country?: string;
+
+      zip?: string;
+
+      validation_status?: ValidationStatus;
+
+      index: number;
+    }
+    export interface BillingAddress {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      country?: string;
+
+      zip?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    // REQUEST PARAMS
+    //---------------
+
+    export interface CreateSubForCustomerQuoteInputParam {
+      name?: string;
+      notes?: string;
+      expires_at?: number;
+      billing_cycles?: number;
+      mandatory_addons_to_remove?: string[];
+      terms_to_charge?: number;
+      billing_alignment_mode?: BillingAlignmentMode;
+      coupon_ids?: string[];
+      subscription?: SubscriptionCreateSubForCustomerQuoteInputParam;
+      shipping_address?: ShippingAddressCreateSubForCustomerQuoteInputParam;
+      contract_term?: ContractTermCreateSubForCustomerQuoteInputParam;
+      addons?: AddonsCreateSubForCustomerQuoteInputParam[];
+      event_based_addons?: EventBasedAddonsCreateSubForCustomerQuoteInputParam[];
+    }
+    export interface EditCreateSubForCustomerQuoteInputParam {
+      notes?: string;
+      expires_at?: number;
+      billing_cycles?: number;
+      mandatory_addons_to_remove?: string[];
+      terms_to_charge?: number;
+      billing_alignment_mode?: BillingAlignmentMode;
+      coupon_ids?: string[];
+      subscription?: SubscriptionEditCreateSubForCustomerQuoteInputParam;
+      shipping_address?: ShippingAddressEditCreateSubForCustomerQuoteInputParam;
+      contract_term?: ContractTermEditCreateSubForCustomerQuoteInputParam;
+      addons?: AddonsEditCreateSubForCustomerQuoteInputParam[];
+      event_based_addons?: EventBasedAddonsEditCreateSubForCustomerQuoteInputParam[];
+    }
+    export interface UpdateSubscriptionQuoteInputParam {
+      name?: string;
+      notes?: string;
+      expires_at?: number;
+      replace_addon_list?: boolean;
+      mandatory_addons_to_remove?: string[];
+      billing_cycles?: number;
+      terms_to_charge?: number;
+      reactivate_from?: number;
+      billing_alignment_mode?: BillingAlignmentMode;
+      coupon_ids?: string[];
+      replace_coupon_list?: boolean;
+      change_option?: ChangeOption;
+      changes_scheduled_at?: number;
+      force_term_reset?: boolean;
+      reactivate?: boolean;
+      subscription?: SubscriptionUpdateSubscriptionQuoteInputParam;
+      billing_address?: BillingAddressUpdateSubscriptionQuoteInputParam;
+      shipping_address?: ShippingAddressUpdateSubscriptionQuoteInputParam;
+      customer?: CustomerUpdateSubscriptionQuoteInputParam;
+      contract_term?: ContractTermUpdateSubscriptionQuoteInputParam;
+      addons?: AddonsUpdateSubscriptionQuoteInputParam[];
+      event_based_addons?: EventBasedAddonsUpdateSubscriptionQuoteInputParam[];
+    }
+    export interface EditUpdateSubscriptionQuoteInputParam {
+      notes?: string;
+      expires_at?: number;
+      replace_addon_list?: boolean;
+      mandatory_addons_to_remove?: string[];
+      billing_cycles?: number;
+      terms_to_charge?: number;
+      reactivate_from?: number;
+      billing_alignment_mode?: BillingAlignmentMode;
+      coupon_ids?: string[];
+      replace_coupon_list?: boolean;
+      change_option?: ChangeOption;
+      changes_scheduled_at?: number;
+      force_term_reset?: boolean;
+      reactivate?: boolean;
+      subscription?: SubscriptionEditUpdateSubscriptionQuoteInputParam;
+      billing_address?: BillingAddressEditUpdateSubscriptionQuoteInputParam;
+      shipping_address?: ShippingAddressEditUpdateSubscriptionQuoteInputParam;
+      customer?: CustomerEditUpdateSubscriptionQuoteInputParam;
+      contract_term?: ContractTermEditUpdateSubscriptionQuoteInputParam;
+      addons?: AddonsEditUpdateSubscriptionQuoteInputParam[];
+      event_based_addons?: EventBasedAddonsEditUpdateSubscriptionQuoteInputParam[];
+    }
+    export interface CreateForOnetimeChargesInputParam {
+      name?: string;
+      customer_id: string;
+      po_number?: string;
+      notes?: string;
+      expires_at?: number;
+      currency_code?: string;
+      coupon?: string;
+      coupon_ids?: string[];
+      shipping_address?: ShippingAddressCreateForOnetimeChargesInputParam;
+      addons?: AddonsCreateForOnetimeChargesInputParam[];
+      charges?: ChargesCreateForOnetimeChargesInputParam[];
+      tax_providers_fields?: TaxProvidersFieldsCreateForOnetimeChargesInputParam[];
+    }
+    export interface EditOneTimeQuoteInputParam {
+      po_number?: string;
+      notes?: string;
+      expires_at?: number;
+      currency_code?: string;
+      coupon?: string;
+      coupon_ids?: string[];
+      shipping_address?: ShippingAddressEditOneTimeQuoteInputParam;
+      addons?: AddonsEditOneTimeQuoteInputParam[];
+      charges?: ChargesEditOneTimeQuoteInputParam[];
+      tax_providers_fields?: TaxProvidersFieldsEditOneTimeQuoteInputParam[];
+    }
+    export interface CreateSubItemsForCustomerQuoteInputParam {
+      name?: string;
+      notes?: string;
+      expires_at?: number;
+      billing_cycles?: number;
+      mandatory_items_to_remove?: string[];
+      terms_to_charge?: number;
+      billing_alignment_mode?: BillingAlignmentMode;
+      coupon_ids?: string[];
+      subscription?: SubscriptionCreateSubItemsForCustomerQuoteInputParam;
+      shipping_address?: ShippingAddressCreateSubItemsForCustomerQuoteInputParam;
+      contract_term?: ContractTermCreateSubItemsForCustomerQuoteInputParam;
+      subscription_items?: SubscriptionItemsCreateSubItemsForCustomerQuoteInputParam[];
+      discounts?: DiscountsCreateSubItemsForCustomerQuoteInputParam[];
+      item_tiers?: ItemTiersCreateSubItemsForCustomerQuoteInputParam[];
+    }
+    export interface EditCreateSubCustomerQuoteForItemsInputParam {
+      notes?: string;
+      expires_at?: number;
+      billing_cycles?: number;
+      mandatory_items_to_remove?: string[];
+      terms_to_charge?: number;
+      billing_alignment_mode?: BillingAlignmentMode;
+      coupon_ids?: string[];
+      subscription?: SubscriptionEditCreateSubCustomerQuoteForItemsInputParam;
+      shipping_address?: ShippingAddressEditCreateSubCustomerQuoteForItemsInputParam;
+      contract_term?: ContractTermEditCreateSubCustomerQuoteForItemsInputParam;
+      subscription_items?: SubscriptionItemsEditCreateSubCustomerQuoteForItemsInputParam[];
+      discounts?: DiscountsEditCreateSubCustomerQuoteForItemsInputParam[];
+      item_tiers?: ItemTiersEditCreateSubCustomerQuoteForItemsInputParam[];
+    }
+    export interface UpdateSubscriptionQuoteForItemsInputParam {
+      name?: string;
+      notes?: string;
+      expires_at?: number;
+      mandatory_items_to_remove?: string[];
+      replace_items_list?: boolean;
+      billing_cycles?: number;
+      terms_to_charge?: number;
+      reactivate_from?: number;
+      billing_alignment_mode?: BillingAlignmentMode;
+      coupon_ids?: string[];
+      replace_coupon_list?: boolean;
+      change_option?: ChangeOption;
+      changes_scheduled_at?: number;
+      force_term_reset?: boolean;
+      reactivate?: boolean;
+      subscription?: SubscriptionUpdateSubscriptionQuoteForItemsInputParam;
+      billing_address?: BillingAddressUpdateSubscriptionQuoteForItemsInputParam;
+      shipping_address?: ShippingAddressUpdateSubscriptionQuoteForItemsInputParam;
+      customer?: CustomerUpdateSubscriptionQuoteForItemsInputParam;
+      contract_term?: ContractTermUpdateSubscriptionQuoteForItemsInputParam;
+      subscription_items?: SubscriptionItemsUpdateSubscriptionQuoteForItemsInputParam[];
+      discounts?: DiscountsUpdateSubscriptionQuoteForItemsInputParam[];
+      item_tiers?: ItemTiersUpdateSubscriptionQuoteForItemsInputParam[];
+    }
+    export interface EditUpdateSubscriptionQuoteForItemsInputParam {
+      notes?: string;
+      expires_at?: number;
+      mandatory_items_to_remove?: string[];
+      replace_items_list?: boolean;
+      billing_cycles?: number;
+      terms_to_charge?: number;
+      reactivate_from?: number;
+      billing_alignment_mode?: BillingAlignmentMode;
+      coupon_ids?: string[];
+      replace_coupon_list?: boolean;
+      change_option?: ChangeOption;
+      changes_scheduled_at?: number;
+      force_term_reset?: boolean;
+      reactivate?: boolean;
+      subscription?: SubscriptionEditUpdateSubscriptionQuoteForItemsInputParam;
+      billing_address?: BillingAddressEditUpdateSubscriptionQuoteForItemsInputParam;
+      shipping_address?: ShippingAddressEditUpdateSubscriptionQuoteForItemsInputParam;
+      customer?: CustomerEditUpdateSubscriptionQuoteForItemsInputParam;
+      contract_term?: ContractTermEditUpdateSubscriptionQuoteForItemsInputParam;
+      subscription_items?: SubscriptionItemsEditUpdateSubscriptionQuoteForItemsInputParam[];
+      discounts?: DiscountsEditUpdateSubscriptionQuoteForItemsInputParam[];
+      item_tiers?: ItemTiersEditUpdateSubscriptionQuoteForItemsInputParam[];
+    }
+    export interface CreateForChargeItemsAndChargesInputParam {
+      name?: string;
+      customer_id: string;
+      po_number?: string;
+      notes?: string;
+      expires_at?: number;
+      currency_code?: string;
+      coupon?: string;
+      coupon_ids?: string[];
+      shipping_address?: ShippingAddressCreateForChargeItemsAndChargesInputParam;
+      item_prices?: ItemPricesCreateForChargeItemsAndChargesInputParam[];
+      item_tiers?: ItemTiersCreateForChargeItemsAndChargesInputParam[];
+      charges?: ChargesCreateForChargeItemsAndChargesInputParam[];
+      discounts?: DiscountsCreateForChargeItemsAndChargesInputParam[];
+      tax_providers_fields?: TaxProvidersFieldsCreateForChargeItemsAndChargesInputParam[];
+    }
+    export interface EditForChargeItemsAndChargesInputParam {
+      po_number?: string;
+      notes?: string;
+      expires_at?: number;
+      currency_code?: string;
+      coupon?: string;
+      coupon_ids?: string[];
+      shipping_address?: ShippingAddressEditForChargeItemsAndChargesInputParam;
+      item_prices?: ItemPricesEditForChargeItemsAndChargesInputParam[];
+      item_tiers?: ItemTiersEditForChargeItemsAndChargesInputParam[];
+      charges?: ChargesEditForChargeItemsAndChargesInputParam[];
+      discounts?: DiscountsEditForChargeItemsAndChargesInputParam[];
+      tax_providers_fields?: TaxProvidersFieldsEditForChargeItemsAndChargesInputParam[];
+    }
+    export interface ListInputParam {
+      limit?: number;
+      offset?: string;
+      include_deleted?: boolean;
+      id?: filter.String;
+      customer_id?: filter.String;
+      subscription_id?: filter.String;
+      status?: filter.Enum;
+      date?: filter.Timestamp;
+      updated_at?: filter.Timestamp;
+      'sort_by[asc]'?: string;
+      'sort_by[desc]'?: string;
+    }
+    export interface QuoteLineGroupsForQuoteInputParam {
+      limit?: number;
+      offset?: string;
+    }
+    export interface ConvertInputParam {
+      invoice_date?: number;
+      create_pending_invoices?: boolean;
+      first_invoice_pending?: boolean;
+      subscription?: SubscriptionConvertInputParam;
+    }
+    export interface UpdateStatusInputParam {
+      status: 'accepted' | 'declined' | 'closed';
+      comment?: string;
+    }
+    export interface ExtendExpiryDateInputParam {
+      valid_till: number;
+    }
+    export interface DeleteInputParam {
+      comment?: string;
+    }
+    export interface PdfInputParam {
+      consolidated_view?: boolean;
+      disposition_type?: DispositionType;
+    }
+    export interface ShippingAddressCreateSubForCustomerQuoteInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface ContractTermCreateSubForCustomerQuoteInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
+
+      cancellation_cutoff_period?: number;
+    }
+    export interface SubscriptionCreateSubForCustomerQuoteInputParam {
+      id?: string;
+
+      po_number?: string;
+
+      plan_id: string;
+
+      plan_quantity?: number;
+
+      plan_quantity_in_decimal?: string;
+
+      plan_unit_price?: number;
+
+      plan_unit_price_in_decimal?: string;
+
+      setup_fee?: number;
+
+      trial_end?: number;
+
+      start_date?: number;
+
+      offline_payment_method?: OfflinePaymentMethod;
+
+      contract_term_billing_cycle_on_renewal?: number;
+    }
+
+    export interface EventBasedAddonsCreateSubForCustomerQuoteInputParam {
+      id?: string;
+
+      quantity?: number;
+
+      unit_price?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price_in_decimal?: string;
+
+      service_period_in_days?: number;
+
+      on_event?: OnEvent;
+
+      charge_once?: boolean;
+
+      charge_on?: ChargeOn;
+    }
+    export interface AddonsCreateSubForCustomerQuoteInputParam {
+      id?: string;
+
+      quantity?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price?: number;
+
+      unit_price_in_decimal?: string;
+
+      billing_cycles?: number;
+
+      trial_end?: number;
+    }
+    export interface ShippingAddressEditCreateSubForCustomerQuoteInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface ContractTermEditCreateSubForCustomerQuoteInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
+
+      cancellation_cutoff_period?: number;
+    }
+    export interface SubscriptionEditCreateSubForCustomerQuoteInputParam {
+      id?: string;
+
+      po_number?: string;
+
+      plan_id: string;
+
+      plan_quantity?: number;
+
+      plan_quantity_in_decimal?: string;
+
+      plan_unit_price?: number;
+
+      plan_unit_price_in_decimal?: string;
+
+      setup_fee?: number;
+
+      trial_end?: number;
+
+      start_date?: number;
+
+      offline_payment_method?: OfflinePaymentMethod;
+
+      contract_term_billing_cycle_on_renewal?: number;
+    }
+
+    export interface EventBasedAddonsEditCreateSubForCustomerQuoteInputParam {
+      id?: string;
+
+      quantity?: number;
+
+      unit_price?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price_in_decimal?: string;
+
+      service_period_in_days?: number;
+
+      on_event?: OnEvent;
+
+      charge_once?: boolean;
+
+      charge_on?: ChargeOn;
+    }
+    export interface AddonsEditCreateSubForCustomerQuoteInputParam {
+      id?: string;
+
+      quantity?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price?: number;
+
+      unit_price_in_decimal?: string;
+
+      billing_cycles?: number;
+
+      trial_end?: number;
+    }
+    export interface BillingAddressUpdateSubscriptionQuoteInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface CustomerUpdateSubscriptionQuoteInputParam {
+      vat_number?: string;
+
+      vat_number_prefix?: string;
+
+      registered_for_gst?: boolean;
+    }
+    export interface ShippingAddressUpdateSubscriptionQuoteInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface ContractTermUpdateSubscriptionQuoteInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
+
+      cancellation_cutoff_period?: number;
+    }
+    export interface SubscriptionUpdateSubscriptionQuoteInputParam {
+      id: string;
+
+      plan_id?: string;
+
+      plan_quantity?: number;
+
+      plan_unit_price?: number;
+
+      setup_fee?: number;
+
+      plan_quantity_in_decimal?: string;
+
+      plan_unit_price_in_decimal?: string;
+
+      start_date?: number;
+
+      trial_end?: number;
+
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      coupon?: string;
+
+      auto_collection?: AutoCollection;
+
+      offline_payment_method?: OfflinePaymentMethod;
+
+      contract_term_billing_cycle_on_renewal?: number;
+    }
+
+    export interface EventBasedAddonsUpdateSubscriptionQuoteInputParam {
+      id?: string;
+
+      quantity?: number;
+
+      unit_price?: number;
+
+      service_period_in_days?: number;
+
+      charge_on?: ChargeOn;
+
+      on_event?: OnEvent;
+
+      charge_once?: boolean;
+
+      quantity_in_decimal?: string;
+
+      unit_price_in_decimal?: string;
+    }
+    export interface AddonsUpdateSubscriptionQuoteInputParam {
+      id?: string;
+
+      quantity?: number;
+
+      unit_price?: number;
+
+      billing_cycles?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price_in_decimal?: string;
+
+      trial_end?: number;
+    }
+    export interface BillingAddressEditUpdateSubscriptionQuoteInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface CustomerEditUpdateSubscriptionQuoteInputParam {
+      vat_number?: string;
+
+      vat_number_prefix?: string;
+
+      registered_for_gst?: boolean;
+    }
+    export interface ShippingAddressEditUpdateSubscriptionQuoteInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface ContractTermEditUpdateSubscriptionQuoteInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
+
+      cancellation_cutoff_period?: number;
+    }
+    export interface SubscriptionEditUpdateSubscriptionQuoteInputParam {
+      plan_id?: string;
+
+      plan_quantity?: number;
+
+      plan_unit_price?: number;
+
+      setup_fee?: number;
+
+      plan_quantity_in_decimal?: string;
+
+      plan_unit_price_in_decimal?: string;
+
+      start_date?: number;
+
+      trial_end?: number;
+
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      coupon?: string;
+
+      auto_collection?: AutoCollection;
+
+      offline_payment_method?: OfflinePaymentMethod;
+
+      contract_term_billing_cycle_on_renewal?: number;
+    }
+
+    export interface EventBasedAddonsEditUpdateSubscriptionQuoteInputParam {
+      id?: string;
+
+      quantity?: number;
+
+      unit_price?: number;
+
+      service_period_in_days?: number;
+
+      charge_on?: ChargeOn;
+
+      on_event?: OnEvent;
+
+      charge_once?: boolean;
+
+      quantity_in_decimal?: string;
+
+      unit_price_in_decimal?: string;
+    }
+    export interface AddonsEditUpdateSubscriptionQuoteInputParam {
+      id?: string;
+
+      quantity?: number;
+
+      unit_price?: number;
+
+      billing_cycles?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price_in_decimal?: string;
+
+      trial_end?: number;
+    }
+    export interface ShippingAddressCreateForOnetimeChargesInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+
+    export interface ChargesCreateForOnetimeChargesInputParam {
+      amount?: number;
+
+      amount_in_decimal?: string;
+
+      description?: string;
+
+      avalara_sale_type?: AvalaraSaleType;
+
+      avalara_transaction_type?: number;
+
+      avalara_service_type?: number;
+
+      service_period?: number;
+    }
+    export interface AddonsCreateForOnetimeChargesInputParam {
+      id?: string;
+
+      quantity?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price?: number;
+
+      unit_price_in_decimal?: string;
+
+      service_period?: number;
+    }
+    export interface TaxProvidersFieldsCreateForOnetimeChargesInputParam {
+      provider_name?: string;
+
+      field_id?: string;
+
+      field_value?: string;
+    }
+    export interface ShippingAddressEditOneTimeQuoteInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+
+    export interface ChargesEditOneTimeQuoteInputParam {
+      amount?: number;
+
+      amount_in_decimal?: string;
+
+      description?: string;
+
+      avalara_sale_type?: AvalaraSaleType;
+
+      avalara_transaction_type?: number;
+
+      avalara_service_type?: number;
+
+      service_period?: number;
+    }
+    export interface AddonsEditOneTimeQuoteInputParam {
+      id?: string;
+
+      quantity?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price?: number;
+
+      unit_price_in_decimal?: string;
+
+      service_period?: number;
+    }
+    export interface TaxProvidersFieldsEditOneTimeQuoteInputParam {
+      provider_name?: string;
+
+      field_id?: string;
+
+      field_value?: string;
+    }
+    export interface ShippingAddressCreateSubItemsForCustomerQuoteInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface ContractTermCreateSubItemsForCustomerQuoteInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
+
+      cancellation_cutoff_period?: number;
+    }
+    export interface SubscriptionCreateSubItemsForCustomerQuoteInputParam {
+      id?: string;
+
+      po_number?: string;
+
+      trial_end?: number;
+
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      setup_fee?: number;
+
+      start_date?: number;
+
+      contract_term_billing_cycle_on_renewal?: number;
+    }
+
+    export interface SubscriptionItemsCreateSubItemsForCustomerQuoteInputParam {
+      item_price_id: string;
+
+      quantity?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price?: number;
+
+      unit_price_in_decimal?: string;
+
+      billing_cycles?: number;
+
+      trial_end?: number;
+
+      service_period_days?: number;
+
+      charge_on_event?: ChargeOnEvent;
+
+      charge_once?: boolean;
+
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      item_type?: ItemType;
+
+      charge_on_option?: ChargeOnOption;
+    }
+    export interface DiscountsCreateSubItemsForCustomerQuoteInputParam {
+      apply_on: ApplyOn;
+
+      duration_type: DurationType;
+
+      percentage?: number;
+
+      amount?: number;
+
+      period?: number;
+
+      period_unit?: PeriodUnit;
+
+      included_in_mrr?: boolean;
+
+      item_price_id?: string;
+    }
+    export interface ItemTiersCreateSubItemsForCustomerQuoteInputParam {
+      item_price_id?: string;
+
+      starting_unit?: number;
+
+      ending_unit?: number;
+
+      price?: number;
+
+      starting_unit_in_decimal?: string;
+
+      ending_unit_in_decimal?: string;
+
+      price_in_decimal?: string;
+    }
+    export interface ShippingAddressEditCreateSubCustomerQuoteForItemsInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface ContractTermEditCreateSubCustomerQuoteForItemsInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
+
+      cancellation_cutoff_period?: number;
+    }
+    export interface SubscriptionEditCreateSubCustomerQuoteForItemsInputParam {
+      id?: string;
+
+      po_number?: string;
+
+      trial_end?: number;
+
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      setup_fee?: number;
+
+      start_date?: number;
+
+      contract_term_billing_cycle_on_renewal?: number;
+    }
+
+    export interface SubscriptionItemsEditCreateSubCustomerQuoteForItemsInputParam {
+      item_price_id: string;
+
+      quantity?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price?: number;
+
+      unit_price_in_decimal?: string;
+
+      billing_cycles?: number;
+
+      trial_end?: number;
+
+      service_period_days?: number;
+
+      charge_on_event?: ChargeOnEvent;
+
+      charge_once?: boolean;
+
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      item_type?: ItemType;
+
+      charge_on_option?: ChargeOnOption;
+    }
+    export interface DiscountsEditCreateSubCustomerQuoteForItemsInputParam {
+      apply_on: ApplyOn;
+
+      duration_type: DurationType;
+
+      percentage?: number;
+
+      amount?: number;
+
+      period?: number;
+
+      period_unit?: PeriodUnit;
+
+      included_in_mrr?: boolean;
+
+      item_price_id?: string;
+    }
+    export interface ItemTiersEditCreateSubCustomerQuoteForItemsInputParam {
+      item_price_id?: string;
+
+      starting_unit?: number;
+
+      ending_unit?: number;
+
+      price?: number;
+
+      starting_unit_in_decimal?: string;
+
+      ending_unit_in_decimal?: string;
+
+      price_in_decimal?: string;
+    }
+    export interface BillingAddressUpdateSubscriptionQuoteForItemsInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface CustomerUpdateSubscriptionQuoteForItemsInputParam {
+      vat_number?: string;
+
+      vat_number_prefix?: string;
+
+      registered_for_gst?: boolean;
+    }
+    export interface ShippingAddressUpdateSubscriptionQuoteForItemsInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface ContractTermUpdateSubscriptionQuoteForItemsInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
+
+      cancellation_cutoff_period?: number;
+    }
+    export interface SubscriptionUpdateSubscriptionQuoteForItemsInputParam {
+      id: string;
+
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      setup_fee?: number;
+
+      start_date?: number;
+
+      trial_end?: number;
+
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      coupon?: string;
+
+      auto_collection?: AutoCollection;
+
+      offline_payment_method?: OfflinePaymentMethod;
+
+      contract_term_billing_cycle_on_renewal?: number;
+    }
+
+    export interface SubscriptionItemsUpdateSubscriptionQuoteForItemsInputParam {
+      item_price_id: string;
+
+      quantity?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price?: number;
+
+      unit_price_in_decimal?: string;
+
+      billing_cycles?: number;
+
+      trial_end?: number;
+
+      service_period_days?: number;
+
+      charge_on_event?: ChargeOnEvent;
+
+      charge_once?: boolean;
+
+      charge_on_option?: ChargeOnOption;
+
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      item_type?: ItemType;
+    }
+    export interface DiscountsUpdateSubscriptionQuoteForItemsInputParam {
+      apply_on: ApplyOn;
+
+      duration_type: DurationType;
+
+      percentage?: number;
+
+      amount?: number;
+
+      period?: number;
+
+      period_unit?: PeriodUnit;
+
+      included_in_mrr?: boolean;
+
+      item_price_id?: string;
+
+      operation_type: OperationType;
+
+      id?: string;
+    }
+    export interface ItemTiersUpdateSubscriptionQuoteForItemsInputParam {
+      item_price_id?: string;
+
+      starting_unit?: number;
+
+      ending_unit?: number;
+
+      price?: number;
+
+      starting_unit_in_decimal?: string;
+
+      ending_unit_in_decimal?: string;
+
+      price_in_decimal?: string;
+    }
+    export interface BillingAddressEditUpdateSubscriptionQuoteForItemsInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface CustomerEditUpdateSubscriptionQuoteForItemsInputParam {
+      vat_number?: string;
+
+      vat_number_prefix?: string;
+
+      registered_for_gst?: boolean;
+    }
+    export interface ShippingAddressEditUpdateSubscriptionQuoteForItemsInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+    export interface ContractTermEditUpdateSubscriptionQuoteForItemsInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
+
+      cancellation_cutoff_period?: number;
+    }
+    export interface SubscriptionEditUpdateSubscriptionQuoteForItemsInputParam {
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      setup_fee?: number;
+
+      start_date?: number;
+
+      trial_end?: number;
+
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      coupon?: string;
+
+      auto_collection?: AutoCollection;
+
+      offline_payment_method?: OfflinePaymentMethod;
+
+      contract_term_billing_cycle_on_renewal?: number;
+    }
+
+    export interface SubscriptionItemsEditUpdateSubscriptionQuoteForItemsInputParam {
+      item_price_id: string;
+
+      quantity?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price?: number;
+
+      unit_price_in_decimal?: string;
+
+      billing_cycles?: number;
+
+      trial_end?: number;
+
+      service_period_days?: number;
+
+      charge_on_event?: ChargeOnEvent;
+
+      charge_once?: boolean;
+
+      charge_on_option?: ChargeOnOption;
+
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+
+      item_type?: ItemType;
+    }
+    export interface DiscountsEditUpdateSubscriptionQuoteForItemsInputParam {
+      apply_on: ApplyOn;
+
+      duration_type: DurationType;
+
+      percentage?: number;
+
+      amount?: number;
+
+      period?: number;
+
+      period_unit?: PeriodUnit;
+
+      included_in_mrr?: boolean;
+
+      item_price_id?: string;
+
+      operation_type: OperationType;
+
+      id?: string;
+    }
+    export interface ItemTiersEditUpdateSubscriptionQuoteForItemsInputParam {
+      item_price_id?: string;
+
+      starting_unit?: number;
+
+      ending_unit?: number;
+
+      price?: number;
+
+      starting_unit_in_decimal?: string;
+
+      ending_unit_in_decimal?: string;
+
+      price_in_decimal?: string;
+    }
+    export interface ShippingAddressCreateForChargeItemsAndChargesInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+
+    export interface ChargesCreateForChargeItemsAndChargesInputParam {
+      amount?: number;
+
+      amount_in_decimal?: string;
+
+      description?: string;
+
+      avalara_sale_type?: AvalaraSaleType;
+
+      avalara_transaction_type?: number;
+
+      avalara_service_type?: number;
+
+      service_period?: number;
+    }
+    export interface DiscountsCreateForChargeItemsAndChargesInputParam {
+      percentage?: number;
+
+      amount?: number;
+
+      apply_on: ApplyOn;
+
+      item_price_id?: string;
+    }
+    export interface ItemTiersCreateForChargeItemsAndChargesInputParam {
+      item_price_id?: string;
+
+      starting_unit?: number;
+
+      ending_unit?: number;
+
+      price?: number;
+
+      starting_unit_in_decimal?: string;
+
+      ending_unit_in_decimal?: string;
+
+      price_in_decimal?: string;
+    }
+    export interface ItemPricesCreateForChargeItemsAndChargesInputParam {
+      item_price_id?: string;
+
+      quantity?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price?: number;
+
+      unit_price_in_decimal?: string;
+
+      service_period_days?: number;
+    }
+    export interface TaxProvidersFieldsCreateForChargeItemsAndChargesInputParam {
+      provider_name?: string;
+
+      field_id?: string;
+
+      field_value?: string;
+    }
+    export interface ShippingAddressEditForChargeItemsAndChargesInputParam {
+      first_name?: string;
+
+      last_name?: string;
+
+      email?: string;
+
+      company?: string;
+
+      phone?: string;
+
+      line1?: string;
+
+      line2?: string;
+
+      line3?: string;
+
+      city?: string;
+
+      state_code?: string;
+
+      state?: string;
+
+      zip?: string;
+
+      country?: string;
+
+      validation_status?: ValidationStatus;
+    }
+
+    export interface ChargesEditForChargeItemsAndChargesInputParam {
+      amount?: number;
+
+      amount_in_decimal?: string;
+
+      description?: string;
+
+      avalara_sale_type?: AvalaraSaleType;
+
+      avalara_transaction_type?: number;
+
+      avalara_service_type?: number;
+
+      service_period?: number;
+    }
+    export interface DiscountsEditForChargeItemsAndChargesInputParam {
+      percentage?: number;
+
+      amount?: number;
+
+      apply_on: ApplyOn;
+
+      item_price_id?: string;
+    }
+    export interface ItemTiersEditForChargeItemsAndChargesInputParam {
+      item_price_id?: string;
+
+      starting_unit?: number;
+
+      ending_unit?: number;
+
+      price?: number;
+
+      starting_unit_in_decimal?: string;
+
+      ending_unit_in_decimal?: string;
+
+      price_in_decimal?: string;
+    }
+    export interface ItemPricesEditForChargeItemsAndChargesInputParam {
+      item_price_id?: string;
+
+      quantity?: number;
+
+      quantity_in_decimal?: string;
+
+      unit_price?: number;
+
+      unit_price_in_decimal?: string;
+
+      service_period_days?: number;
+    }
+    export interface TaxProvidersFieldsEditForChargeItemsAndChargesInputParam {
+      provider_name?: string;
+
+      field_id?: string;
+
+      field_value?: string;
+    }
+    export interface SubscriptionConvertInputParam {
+      id?: string;
+
+      auto_collection?: AutoCollection;
+
+      po_number?: string;
+
+      auto_close_invoices?: boolean;
+    }
+  }
+}
