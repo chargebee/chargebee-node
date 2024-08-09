@@ -53,14 +53,14 @@ declare module 'chargebee' {
         payment_voucher_id: string,
       ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
 
-      payment_vouchers_for_invoice(
+      payment_vouchersForInvoice(
         invoice_id: string,
         input?: PaymentVouchersForInvoiceInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<Payment_vouchersForInvoiceResponse>
       >;
 
-      payment_vouchers_for_customer(
+      payment_vouchersForCustomer(
         customer_id: string,
         input?: PaymentVouchersForCustomerInputParam,
       ): ChargebeeRequest<

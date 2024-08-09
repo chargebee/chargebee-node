@@ -9,6 +9,8 @@ declare module 'chargebee' {
 
     external_name?: string;
 
+    variant_group?: string;
+
     description?: string;
 
     status?: 'active' | 'archived' | 'deleted';
@@ -81,12 +83,14 @@ declare module 'chargebee' {
       name: string;
       external_name?: string;
       description?: string;
+      variant_group?: string;
       attributes?: AttributesCreateInputParam[];
     }
     export interface UpdateInputParam {
       name?: string;
       external_name?: string;
       description?: string;
+      variant_group?: string;
       status?: 'active' | 'archived';
       attributes?: AttributesUpdateInputParam[];
     }

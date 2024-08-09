@@ -45,7 +45,7 @@ declare module 'chargebee' {
       ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
 
       list(
-        input: ListInputParam,
+        input?: ListInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
 
       pdf(
@@ -99,8 +99,9 @@ declare module 'chargebee' {
       limit?: number;
       offset?: string;
       id?: filter.String;
-      subscription_id: filter.String;
+      subscription_id?: filter.String;
       usage_date?: filter.Timestamp;
+      updated_at?: filter.Timestamp;
       item_price_id?: filter.String;
       invoice_id?: filter.String;
       source?: filter.Enum;

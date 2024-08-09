@@ -8,199 +8,193 @@ type EndpointTuple = [
 ];
 interface Endpoints {
   subscription: EndpointTuple[];
-  contract_term: EndpointTuple[];
+  contractTerm: EndpointTuple[];
   discount: EndpointTuple[];
-  advance_invoice_schedule: EndpointTuple[];
+  advanceInvoiceSchedule: EndpointTuple[];
   customer: EndpointTuple[];
   hierarchy: EndpointTuple[];
   contact: EndpointTuple[];
-  business_entity_transfer: EndpointTuple[];
+  businessEntityTransfer: EndpointTuple[];
   token: EndpointTuple[];
-  payment_source: EndpointTuple[];
-  third_party_payment_method: EndpointTuple[];
-  virtual_bank_account: EndpointTuple[];
+  paymentSource: EndpointTuple[];
+  thirdPartyPaymentMethod: EndpointTuple[];
+  virtualBankAccount: EndpointTuple[];
   card: EndpointTuple[];
-  promotional_credit: EndpointTuple[];
+  promotionalCredit: EndpointTuple[];
   invoice: EndpointTuple[];
-  payment_reference_number: EndpointTuple[];
-  tax_withheld: EndpointTuple[];
-  credit_note: EndpointTuple[];
-  unbilled_charge: EndpointTuple[];
+  paymentReferenceNumber: EndpointTuple[];
+  taxWithheld: EndpointTuple[];
+  creditNote: EndpointTuple[];
+  unbilledCharge: EndpointTuple[];
   order: EndpointTuple[];
   gift: EndpointTuple[];
   transaction: EndpointTuple[];
-  hosted_page: EndpointTuple[];
+  hostedPage: EndpointTuple[];
   estimate: EndpointTuple[];
   quote: EndpointTuple[];
-  quoted_subscription: EndpointTuple[];
-  quoted_charge: EndpointTuple[];
-  quote_line_group: EndpointTuple[];
+  quotedSubscription: EndpointTuple[];
+  quotedCharge: EndpointTuple[];
+  quoteLineGroup: EndpointTuple[];
   plan: EndpointTuple[];
   addon: EndpointTuple[];
   coupon: EndpointTuple[];
-  coupon_set: EndpointTuple[];
-  coupon_code: EndpointTuple[];
+  couponSet: EndpointTuple[];
+  couponCode: EndpointTuple[];
   address: EndpointTuple[];
   usage: EndpointTuple[];
   event: EndpointTuple[];
   comment: EndpointTuple[];
   download: EndpointTuple[];
-  portal_session: EndpointTuple[];
-  site_migration_detail: EndpointTuple[];
-  resource_migration: EndpointTuple[];
-  time_machine: EndpointTuple[];
+  portalSession: EndpointTuple[];
+  siteMigrationDetail: EndpointTuple[];
+  resourceMigration: EndpointTuple[];
+  timeMachine: EndpointTuple[];
   export: EndpointTuple[];
-  payment_intent: EndpointTuple[];
-  gateway_error_detail: EndpointTuple[];
-  item_family: EndpointTuple[];
+  paymentIntent: EndpointTuple[];
+  gatewayErrorDetail: EndpointTuple[];
+  itemFamily: EndpointTuple[];
   item: EndpointTuple[];
-  price_variant: EndpointTuple[];
+  priceVariant: EndpointTuple[];
   attribute: EndpointTuple[];
-  item_price: EndpointTuple[];
-  attached_item: EndpointTuple[];
-  differential_price: EndpointTuple[];
+  itemPrice: EndpointTuple[];
+  attachedItem: EndpointTuple[];
+  differentialPrice: EndpointTuple[];
   feature: EndpointTuple[];
-  impacted_subscription: EndpointTuple[];
-  impacted_item: EndpointTuple[];
-  impacted_item_price: EndpointTuple[];
+  impactedSubscription: EndpointTuple[];
+  impactedItem: EndpointTuple[];
+  impactedItemPrice: EndpointTuple[];
   metadata: EndpointTuple[];
-  subscription_entitlement: EndpointTuple[];
-  item_entitlement: EndpointTuple[];
+  subscriptionEntitlement: EndpointTuple[];
+  itemEntitlement: EndpointTuple[];
   entitlement: EndpointTuple[];
-  in_app_subscription: EndpointTuple[];
-  entitlement_override: EndpointTuple[];
-  business_entity: EndpointTuple[];
+  inAppSubscription: EndpointTuple[];
+  entitlementOverride: EndpointTuple[];
+  businessEntity: EndpointTuple[];
   purchase: EndpointTuple[];
-  payment_voucher: EndpointTuple[];
+  paymentVoucher: EndpointTuple[];
   currency: EndpointTuple[];
   ramp: EndpointTuple[];
-  installment_config: EndpointTuple[];
+  installmentConfig: EndpointTuple[];
   installment: EndpointTuple[];
-  installment_detail: EndpointTuple[];
-  pricing_page_session: EndpointTuple[];
+  installmentDetail: EndpointTuple[];
+  pricingPageSession: EndpointTuple[];
 }
 export const Endpoints: Endpoints = {
   subscription: [
     ['create', 'POST', '/subscriptions', null, false],
-    ['create_for_customer', 'POST', '/customers', '/subscriptions', true],
-    [
-      'create_with_items',
-      'POST',
-      '/customers',
-      '/subscription_for_items',
-      true,
-    ],
+    ['createForCustomer', 'POST', '/customers', '/subscriptions', true],
+    ['createWithItems', 'POST', '/customers', '/subscription_for_items', true],
     ['list', 'GET', '/subscriptions', null, false],
-    ['subscriptions_for_customer', 'GET', '/customers', '/subscriptions', true],
+    ['subscriptionsForCustomer', 'GET', '/customers', '/subscriptions', true],
     [
-      'contract_terms_for_subscription',
+      'contractTermsForSubscription',
       'GET',
       '/subscriptions',
       '/contract_terms',
       true,
     ],
-    ['list_discounts', 'GET', '/subscriptions', '/discounts', true],
+    ['listDiscounts', 'GET', '/subscriptions', '/discounts', true],
     ['retrieve', 'GET', '/subscriptions', null, true],
     [
-      'retrieve_with_scheduled_changes',
+      'retrieveWithScheduledChanges',
       'GET',
       '/subscriptions',
       '/retrieve_with_scheduled_changes',
       true,
     ],
     [
-      'remove_scheduled_changes',
+      'removeScheduledChanges',
       'POST',
       '/subscriptions',
       '/remove_scheduled_changes',
       true,
     ],
     [
-      'remove_scheduled_cancellation',
+      'removeScheduledCancellation',
       'POST',
       '/subscriptions',
       '/remove_scheduled_cancellation',
       true,
     ],
-    ['remove_coupons', 'POST', '/subscriptions', '/remove_coupons', true],
+    ['removeCoupons', 'POST', '/subscriptions', '/remove_coupons', true],
     ['update', 'POST', '/subscriptions', null, true],
-    ['update_for_items', 'POST', '/subscriptions', '/update_for_items', true],
-    ['change_term_end', 'POST', '/subscriptions', '/change_term_end', true],
+    ['updateForItems', 'POST', '/subscriptions', '/update_for_items', true],
+    ['changeTermEnd', 'POST', '/subscriptions', '/change_term_end', true],
     ['reactivate', 'POST', '/subscriptions', '/reactivate', true],
     [
-      'add_charge_at_term_end',
+      'addChargeAtTermEnd',
       'POST',
       '/subscriptions',
       '/add_charge_at_term_end',
       true,
     ],
     [
-      'charge_addon_at_term_end',
+      'chargeAddonAtTermEnd',
       'POST',
       '/subscriptions',
       '/charge_addon_at_term_end',
       true,
     ],
     [
-      'charge_future_renewals',
+      'chargeFutureRenewals',
       'POST',
       '/subscriptions',
       '/charge_future_renewals',
       true,
     ],
     [
-      'edit_advance_invoice_schedule',
+      'editAdvanceInvoiceSchedule',
       'POST',
       '/subscriptions',
       '/edit_advance_invoice_schedule',
       true,
     ],
     [
-      'retrieve_advance_invoice_schedule',
+      'retrieveAdvanceInvoiceSchedule',
       'GET',
       '/subscriptions',
       '/retrieve_advance_invoice_schedule',
       true,
     ],
     [
-      'remove_advance_invoice_schedule',
+      'removeAdvanceInvoiceSchedule',
       'POST',
       '/subscriptions',
       '/remove_advance_invoice_schedule',
       true,
     ],
     [
-      'regenerate_invoice',
+      'regenerateInvoice',
       'POST',
       '/subscriptions',
       '/regenerate_invoice',
       true,
     ],
     [
-      'import_subscription',
+      'importSubscription',
       'POST',
       '/subscriptions',
       '/import_subscription',
       false,
     ],
-    ['import_for_customer', 'POST', '/customers', '/import_subscription', true],
+    ['importForCustomer', 'POST', '/customers', '/import_subscription', true],
     [
-      'import_contract_term',
+      'importContractTerm',
       'POST',
       '/subscriptions',
       '/import_contract_term',
       true,
     ],
     [
-      'import_unbilled_charges',
+      'importUnbilledCharges',
       'POST',
       '/subscriptions',
       '/import_unbilled_charges',
       true,
     ],
-    ['import_for_items', 'POST', '/customers', '/import_for_items', true],
+    ['importForItems', 'POST', '/customers', '/import_for_items', true],
     [
-      'override_billing_profile',
+      'overrideBillingProfile',
       'POST',
       '/subscriptions',
       '/override_billing_profile',
@@ -209,17 +203,17 @@ export const Endpoints: Endpoints = {
     ['delete', 'POST', '/subscriptions', '/delete', true],
     ['pause', 'POST', '/subscriptions', '/pause', true],
     ['cancel', 'POST', '/subscriptions', '/cancel', true],
-    ['cancel_for_items', 'POST', '/subscriptions', '/cancel_for_items', true],
+    ['cancelForItems', 'POST', '/subscriptions', '/cancel_for_items', true],
     ['resume', 'POST', '/subscriptions', '/resume', true],
     [
-      'remove_scheduled_pause',
+      'removeScheduledPause',
       'POST',
       '/subscriptions',
       '/remove_scheduled_pause',
       true,
     ],
     [
-      'remove_scheduled_resumption',
+      'removeScheduledResumption',
       'POST',
       '/subscriptions',
       '/remove_scheduled_resumption',
@@ -227,66 +221,66 @@ export const Endpoints: Endpoints = {
     ],
     ['move', 'POST', '/subscriptions', '/move', true],
   ],
-  contract_term: [],
+  contractTerm: [],
   discount: [],
-  advance_invoice_schedule: [],
+  advanceInvoiceSchedule: [],
   customer: [
     ['create', 'POST', '/customers', null, false],
     ['list', 'GET', '/customers', null, false],
     ['retrieve', 'GET', '/customers', null, true],
     ['update', 'POST', '/customers', null, true],
     [
-      'update_payment_method',
+      'updatePaymentMethod',
       'POST',
       '/customers',
       '/update_payment_method',
       true,
     ],
-    ['update_billing_info', 'POST', '/customers', '/update_billing_info', true],
-    ['contacts_for_customer', 'GET', '/customers', '/contacts', true],
-    ['assign_payment_role', 'POST', '/customers', '/assign_payment_role', true],
-    ['add_contact', 'POST', '/customers', '/add_contact', true],
-    ['update_contact', 'POST', '/customers', '/update_contact', true],
-    ['delete_contact', 'POST', '/customers', '/delete_contact', true],
+    ['updateBillingInfo', 'POST', '/customers', '/update_billing_info', true],
+    ['contactsForCustomer', 'GET', '/customers', '/contacts', true],
+    ['assignPaymentRole', 'POST', '/customers', '/assign_payment_role', true],
+    ['addContact', 'POST', '/customers', '/add_contact', true],
+    ['updateContact', 'POST', '/customers', '/update_contact', true],
+    ['deleteContact', 'POST', '/customers', '/delete_contact', true],
     [
-      'add_promotional_credits',
+      'addPromotionalCredits',
       'POST',
       '/customers',
       '/add_promotional_credits',
       true,
     ],
     [
-      'deduct_promotional_credits',
+      'deductPromotionalCredits',
       'POST',
       '/customers',
       '/deduct_promotional_credits',
       true,
     ],
     [
-      'set_promotional_credits',
+      'setPromotionalCredits',
       'POST',
       '/customers',
       '/set_promotional_credits',
       true,
     ],
     [
-      'record_excess_payment',
+      'recordExcessPayment',
       'POST',
       '/customers',
       '/record_excess_payment',
       true,
     ],
-    ['collect_payment', 'POST', '/customers', '/collect_payment', true],
+    ['collectPayment', 'POST', '/customers', '/collect_payment', true],
     ['delete', 'POST', '/customers', '/delete', true],
     ['move', 'POST', '/customers', '/move', false],
-    ['change_billing_date', 'POST', '/customers', '/change_billing_date', true],
+    ['changeBillingDate', 'POST', '/customers', '/change_billing_date', true],
     ['merge', 'POST', '/customers', '/merge', false],
-    ['clear_personal_data', 'POST', '/customers', '/clear_personal_data', true],
+    ['clearPersonalData', 'POST', '/customers', '/clear_personal_data', true],
     ['relationships', 'POST', '/customers', '/relationships', true],
-    ['delete_relationship', 'POST', '/customers', '/delete_relationship', true],
+    ['deleteRelationship', 'POST', '/customers', '/delete_relationship', true],
     ['hierarchy', 'GET', '/customers', '/hierarchy', true],
     [
-      'update_hierarchy_settings',
+      'updateHierarchySettings',
       'POST',
       '/customers',
       '/update_hierarchy_settings',
@@ -295,62 +289,62 @@ export const Endpoints: Endpoints = {
   ],
   hierarchy: [],
   contact: [],
-  business_entity_transfer: [],
+  businessEntityTransfer: [],
   token: [],
-  payment_source: [
+  paymentSource: [
     [
-      'create_using_temp_token',
+      'createUsingTempToken',
       'POST',
       '/payment_sources',
       '/create_using_temp_token',
       false,
     ],
     [
-      'create_using_permanent_token',
+      'createUsingPermanentToken',
       'POST',
       '/payment_sources',
       '/create_using_permanent_token',
       false,
     ],
     [
-      'create_using_token',
+      'createUsingToken',
       'POST',
       '/payment_sources',
       '/create_using_token',
       false,
     ],
     [
-      'create_using_payment_intent',
+      'createUsingPaymentIntent',
       'POST',
       '/payment_sources',
       '/create_using_payment_intent',
       false,
     ],
     [
-      'create_voucher_payment_source',
+      'createVoucherPaymentSource',
       'POST',
       '/payment_sources',
       '/create_voucher_payment_source',
       false,
     ],
-    ['create_card', 'POST', '/payment_sources', '/create_card', false],
+    ['createCard', 'POST', '/payment_sources', '/create_card', false],
     [
-      'create_bank_account',
+      'createBankAccount',
       'POST',
       '/payment_sources',
       '/create_bank_account',
       false,
     ],
-    ['update_card', 'POST', '/payment_sources', '/update_card', true],
+    ['updateCard', 'POST', '/payment_sources', '/update_card', true],
     [
-      'update_bank_account',
+      'updateBankAccount',
       'POST',
       '/payment_sources',
       '/update_bank_account',
       true,
     ],
     [
-      'verify_bank_account',
+      'verifyBankAccount',
       'POST',
       '/payment_sources',
       '/verify_bank_account',
@@ -359,26 +353,26 @@ export const Endpoints: Endpoints = {
     ['retrieve', 'GET', '/payment_sources', null, true],
     ['list', 'GET', '/payment_sources', null, false],
     [
-      'switch_gateway_account',
+      'switchGatewayAccount',
       'POST',
       '/payment_sources',
       '/switch_gateway_account',
       true,
     ],
     [
-      'export_payment_source',
+      'exportPaymentSource',
       'POST',
       '/payment_sources',
       '/export_payment_source',
       true,
     ],
     ['delete', 'POST', '/payment_sources', '/delete', true],
-    ['delete_local', 'POST', '/payment_sources', '/delete_local', true],
+    ['deleteLocal', 'POST', '/payment_sources', '/delete_local', true],
   ],
-  third_party_payment_method: [],
-  virtual_bank_account: [
+  thirdPartyPaymentMethod: [],
+  virtualBankAccount: [
     [
-      'create_using_permanent_token',
+      'createUsingPermanentToken',
       'POST',
       '/virtual_bank_accounts',
       '/create_using_permanent_token',
@@ -388,22 +382,16 @@ export const Endpoints: Endpoints = {
     ['retrieve', 'GET', '/virtual_bank_accounts', null, true],
     ['list', 'GET', '/virtual_bank_accounts', null, false],
     ['delete', 'POST', '/virtual_bank_accounts', '/delete', true],
-    ['delete_local', 'POST', '/virtual_bank_accounts', '/delete_local', true],
+    ['deleteLocal', 'POST', '/virtual_bank_accounts', '/delete_local', true],
   ],
   card: [
     ['retrieve', 'GET', '/cards', null, true],
-    ['update_card_for_customer', 'POST', '/customers', '/credit_card', true],
-    [
-      'switch_gateway_for_customer',
-      'POST',
-      '/customers',
-      '/switch_gateway',
-      true,
-    ],
-    ['copy_card_for_customer', 'POST', '/customers', '/copy_card', true],
-    ['delete_card_for_customer', 'POST', '/customers', '/delete_card', true],
+    ['updateCardForCustomer', 'POST', '/customers', '/credit_card', true],
+    ['switchGatewayForCustomer', 'POST', '/customers', '/switch_gateway', true],
+    ['copyCardForCustomer', 'POST', '/customers', '/copy_card', true],
+    ['deleteCardForCustomer', 'POST', '/customers', '/delete_card', true],
   ],
-  promotional_credit: [
+  promotionalCredit: [
     ['add', 'POST', '/promotional_credits', '/add', false],
     ['deduct', 'POST', '/promotional_credits', '/deduct', false],
     ['set', 'POST', '/promotional_credits', '/set', false],
@@ -413,95 +401,89 @@ export const Endpoints: Endpoints = {
   invoice: [
     ['create', 'POST', '/invoices', null, false],
     [
-      'create_for_charge_items_and_charges',
+      'createForChargeItemsAndCharges',
       'POST',
       '/invoices',
       '/create_for_charge_items_and_charges',
       false,
     ],
     ['charge', 'POST', '/invoices', '/charge', false],
-    ['charge_addon', 'POST', '/invoices', '/charge_addon', false],
+    ['chargeAddon', 'POST', '/invoices', '/charge_addon', false],
     [
-      'create_for_charge_item',
+      'createForChargeItem',
       'POST',
       '/invoices',
       '/create_for_charge_item',
       false,
     ],
-    ['stop_dunning', 'POST', '/invoices', '/stop_dunning', true],
-    ['import_invoice', 'POST', '/invoices', '/import_invoice', false],
-    ['apply_payments', 'POST', '/invoices', '/apply_payments', true],
-    ['sync_usages', 'POST', '/invoices', '/sync_usages', true],
-    ['delete_line_items', 'POST', '/invoices', '/delete_line_items', true],
-    ['apply_credits', 'POST', '/invoices', '/apply_credits', true],
+    ['stopDunning', 'POST', '/invoices', '/stop_dunning', true],
+    ['importInvoice', 'POST', '/invoices', '/import_invoice', false],
+    ['applyPayments', 'POST', '/invoices', '/apply_payments', true],
+    ['syncUsages', 'POST', '/invoices', '/sync_usages', true],
+    ['deleteLineItems', 'POST', '/invoices', '/delete_line_items', true],
+    ['applyCredits', 'POST', '/invoices', '/apply_credits', true],
     ['list', 'GET', '/invoices', null, false],
-    ['invoices_for_customer', 'GET', '/customers', '/invoices', true],
-    ['invoices_for_subscription', 'GET', '/subscriptions', '/invoices', true],
+    ['invoicesForCustomer', 'GET', '/customers', '/invoices', true],
+    ['invoicesForSubscription', 'GET', '/subscriptions', '/invoices', true],
     ['retrieve', 'GET', '/invoices', null, true],
     ['pdf', 'POST', '/invoices', '/pdf', true],
-    ['download_einvoice', 'GET', '/invoices', '/download_einvoice', true],
+    ['downloadEinvoice', 'GET', '/invoices', '/download_einvoice', true],
     [
-      'list_payment_reference_numbers',
+      'listPaymentReferenceNumbers',
       'GET',
       '/invoices',
       '/payment_reference_numbers',
       false,
     ],
-    ['add_charge', 'POST', '/invoices', '/add_charge', true],
-    ['add_addon_charge', 'POST', '/invoices', '/add_addon_charge', true],
-    ['add_charge_item', 'POST', '/invoices', '/add_charge_item', true],
+    ['addCharge', 'POST', '/invoices', '/add_charge', true],
+    ['addAddonCharge', 'POST', '/invoices', '/add_addon_charge', true],
+    ['addChargeItem', 'POST', '/invoices', '/add_charge_item', true],
     ['close', 'POST', '/invoices', '/close', true],
-    ['collect_payment', 'POST', '/invoices', '/collect_payment', true],
-    ['record_payment', 'POST', '/invoices', '/record_payment', true],
-    ['record_tax_withheld', 'POST', '/invoices', '/record_tax_withheld', true],
-    ['remove_tax_withheld', 'POST', '/invoices', '/remove_tax_withheld', true],
+    ['collectPayment', 'POST', '/invoices', '/collect_payment', true],
+    ['recordPayment', 'POST', '/invoices', '/record_payment', true],
+    ['recordTaxWithheld', 'POST', '/invoices', '/record_tax_withheld', true],
+    ['removeTaxWithheld', 'POST', '/invoices', '/remove_tax_withheld', true],
     ['refund', 'POST', '/invoices', '/refund', true],
-    ['record_refund', 'POST', '/invoices', '/record_refund', true],
-    ['remove_payment', 'POST', '/invoices', '/remove_payment', true],
-    ['remove_credit_note', 'POST', '/invoices', '/remove_credit_note', true],
-    ['void_invoice', 'POST', '/invoices', '/void', true],
-    ['write_off', 'POST', '/invoices', '/write_off', true],
+    ['recordRefund', 'POST', '/invoices', '/record_refund', true],
+    ['removePayment', 'POST', '/invoices', '/remove_payment', true],
+    ['removeCreditNote', 'POST', '/invoices', '/remove_credit_note', true],
+    ['voidInvoice', 'POST', '/invoices', '/void', true],
+    ['writeOff', 'POST', '/invoices', '/write_off', true],
     ['delete', 'POST', '/invoices', '/delete', true],
-    ['update_details', 'POST', '/invoices', '/update_details', true],
+    ['updateDetails', 'POST', '/invoices', '/update_details', true],
     ['installments', 'POST', '/invoices', '/installments', true],
-    ['resend_einvoice', 'POST', '/invoices', '/resend_einvoice', true],
-    ['send_einvoice', 'POST', '/invoices', '/send_einvoice', true],
+    ['resendEinvoice', 'POST', '/invoices', '/resend_einvoice', true],
+    ['sendEinvoice', 'POST', '/invoices', '/send_einvoice', true],
   ],
-  payment_reference_number: [],
-  tax_withheld: [],
-  credit_note: [
+  paymentReferenceNumber: [],
+  taxWithheld: [],
+  creditNote: [
     ['create', 'POST', '/credit_notes', null, false],
     ['retrieve', 'GET', '/credit_notes', null, true],
     ['pdf', 'POST', '/credit_notes', '/pdf', true],
-    ['download_einvoice', 'GET', '/credit_notes', '/download_einvoice', true],
+    ['downloadEinvoice', 'GET', '/credit_notes', '/download_einvoice', true],
     ['refund', 'POST', '/credit_notes', '/refund', true],
-    ['record_refund', 'POST', '/credit_notes', '/record_refund', true],
-    ['void_credit_note', 'POST', '/credit_notes', '/void', true],
+    ['recordRefund', 'POST', '/credit_notes', '/record_refund', true],
+    ['voidCreditNote', 'POST', '/credit_notes', '/void', true],
     ['list', 'GET', '/credit_notes', null, false],
-    ['credit_notes_for_customer', 'GET', '/customers', '/credit_notes', true],
+    ['creditNotesForCustomer', 'GET', '/customers', '/credit_notes', true],
     ['delete', 'POST', '/credit_notes', '/delete', true],
     [
-      'remove_tax_withheld_refund',
+      'removeTaxWithheldRefund',
       'POST',
       '/credit_notes',
       '/remove_tax_withheld_refund',
       true,
     ],
-    ['resend_einvoice', 'POST', '/credit_notes', '/resend_einvoice', true],
-    ['send_einvoice', 'POST', '/credit_notes', '/send_einvoice', true],
-    [
-      'import_credit_note',
-      'POST',
-      '/credit_notes',
-      '/import_credit_note',
-      false,
-    ],
+    ['resendEinvoice', 'POST', '/credit_notes', '/resend_einvoice', true],
+    ['sendEinvoice', 'POST', '/credit_notes', '/send_einvoice', true],
+    ['importCreditNote', 'POST', '/credit_notes', '/import_credit_note', false],
   ],
-  unbilled_charge: [
-    ['create_unbilled_charge', 'POST', '/unbilled_charges', '/create', false],
+  unbilledCharge: [
+    ['createUnbilledCharge', 'POST', '/unbilled_charges', '/create', false],
     ['create', 'POST', '/unbilled_charges', null, false],
     [
-      'invoice_unbilled_charges',
+      'invoiceUnbilledCharges',
       'POST',
       '/unbilled_charges',
       '/invoice_unbilled_charges',
@@ -510,7 +492,7 @@ export const Endpoints: Endpoints = {
     ['delete', 'POST', '/unbilled_charges', '/delete', true],
     ['list', 'GET', '/unbilled_charges', null, false],
     [
-      'invoice_now_estimate',
+      'invoiceNowEstimate',
       'POST',
       '/unbilled_charges',
       '/invoice_now_estimate',
@@ -520,11 +502,11 @@ export const Endpoints: Endpoints = {
   order: [
     ['create', 'POST', '/orders', null, false],
     ['update', 'POST', '/orders', null, true],
-    ['import_order', 'POST', '/orders', '/import_order', false],
-    ['assign_order_number', 'POST', '/orders', '/assign_order_number', true],
+    ['importOrder', 'POST', '/orders', '/import_order', false],
+    ['assignOrderNumber', 'POST', '/orders', '/assign_order_number', true],
     ['cancel', 'POST', '/orders', '/cancel', true],
     [
-      'create_refundable_credit_note',
+      'createRefundableCreditNote',
       'POST',
       '/orders',
       '/create_refundable_credit_note',
@@ -534,108 +516,108 @@ export const Endpoints: Endpoints = {
     ['retrieve', 'GET', '/orders', null, true],
     ['delete', 'POST', '/orders', '/delete', true],
     ['list', 'GET', '/orders', null, false],
-    ['orders_for_invoice', 'GET', '/invoices', '/orders', true],
+    ['ordersForInvoice', 'GET', '/invoices', '/orders', true],
     ['resend', 'POST', '/orders', '/resend', true],
   ],
   gift: [
     ['create', 'POST', '/gifts', null, false],
-    ['create_for_items', 'POST', '/gifts', '/create_for_items', false],
+    ['createForItems', 'POST', '/gifts', '/create_for_items', false],
     ['retrieve', 'GET', '/gifts', null, true],
     ['list', 'GET', '/gifts', null, false],
     ['claim', 'POST', '/gifts', '/claim', true],
     ['cancel', 'POST', '/gifts', '/cancel', true],
-    ['update_gift', 'POST', '/gifts', '/update_gift', true],
+    ['updateGift', 'POST', '/gifts', '/update_gift', true],
   ],
   transaction: [
     [
-      'create_authorization',
+      'createAuthorization',
       'POST',
       '/transactions',
       '/create_authorization',
       false,
     ],
-    ['void_transaction', 'POST', '/transactions', '/void', true],
-    ['record_refund', 'POST', '/transactions', '/record_refund', true],
+    ['voidTransaction', 'POST', '/transactions', '/void', true],
+    ['recordRefund', 'POST', '/transactions', '/record_refund', true],
     ['refund', 'POST', '/transactions', '/refund', true],
     ['list', 'GET', '/transactions', null, false],
-    ['transactions_for_customer', 'GET', '/customers', '/transactions', true],
+    ['transactionsForCustomer', 'GET', '/customers', '/transactions', true],
     [
-      'transactions_for_subscription',
+      'transactionsForSubscription',
       'GET',
       '/subscriptions',
       '/transactions',
       true,
     ],
-    ['payments_for_invoice', 'GET', '/invoices', '/payments', true],
+    ['paymentsForInvoice', 'GET', '/invoices', '/payments', true],
     ['retrieve', 'GET', '/transactions', null, true],
     [
-      'delete_offline_transaction',
+      'deleteOfflineTransaction',
       'POST',
       '/transactions',
       '/delete_offline_transaction',
       true,
     ],
   ],
-  hosted_page: [
-    ['checkout_new', 'POST', '/hosted_pages', '/checkout_new', false],
-    ['checkout_one_time', 'POST', '/hosted_pages', '/checkout_one_time', false],
+  hostedPage: [
+    ['checkoutNew', 'POST', '/hosted_pages', '/checkout_new', false],
+    ['checkoutOneTime', 'POST', '/hosted_pages', '/checkout_one_time', false],
     [
-      'checkout_one_time_for_items',
+      'checkoutOneTimeForItems',
       'POST',
       '/hosted_pages',
       '/checkout_one_time_for_items',
       false,
     ],
     [
-      'checkout_new_for_items',
+      'checkoutNewForItems',
       'POST',
       '/hosted_pages',
       '/checkout_new_for_items',
       false,
     ],
-    ['checkout_existing', 'POST', '/hosted_pages', '/checkout_existing', false],
+    ['checkoutExisting', 'POST', '/hosted_pages', '/checkout_existing', false],
     [
-      'checkout_existing_for_items',
+      'checkoutExistingForItems',
       'POST',
       '/hosted_pages',
       '/checkout_existing_for_items',
       false,
     ],
-    ['update_card', 'POST', '/hosted_pages', '/update_card', false],
+    ['updateCard', 'POST', '/hosted_pages', '/update_card', false],
     [
-      'update_payment_method',
+      'updatePaymentMethod',
       'POST',
       '/hosted_pages',
       '/update_payment_method',
       false,
     ],
     [
-      'manage_payment_sources',
+      'managePaymentSources',
       'POST',
       '/hosted_pages',
       '/manage_payment_sources',
       false,
     ],
-    ['collect_now', 'POST', '/hosted_pages', '/collect_now', false],
-    ['accept_quote', 'POST', '/hosted_pages', '/accept_quote', false],
+    ['collectNow', 'POST', '/hosted_pages', '/collect_now', false],
+    ['acceptQuote', 'POST', '/hosted_pages', '/accept_quote', false],
     [
-      'extend_subscription',
+      'extendSubscription',
       'POST',
       '/hosted_pages',
       '/extend_subscription',
       false,
     ],
-    ['checkout_gift', 'POST', '/hosted_pages', '/checkout_gift', false],
+    ['checkoutGift', 'POST', '/hosted_pages', '/checkout_gift', false],
     [
-      'checkout_gift_for_items',
+      'checkoutGiftForItems',
       'POST',
       '/hosted_pages',
       '/checkout_gift_for_items',
       false,
     ],
-    ['claim_gift', 'POST', '/hosted_pages', '/claim_gift', false],
+    ['claimGift', 'POST', '/hosted_pages', '/claim_gift', false],
     [
-      'retrieve_agreement_pdf',
+      'retrieveAgreementPdf',
       'POST',
       '/hosted_pages',
       '/retrieve_agreement_pdf',
@@ -644,121 +626,109 @@ export const Endpoints: Endpoints = {
     ['acknowledge', 'POST', '/hosted_pages', '/acknowledge', true],
     ['retrieve', 'GET', '/hosted_pages', null, true],
     ['list', 'GET', '/hosted_pages', null, false],
-    ['pre_cancel', 'POST', '/hosted_pages', '/pre_cancel', false],
+    ['preCancel', 'POST', '/hosted_pages', '/pre_cancel', false],
     ['events', 'POST', '/hosted_pages', '/events', false],
-    ['view_voucher', 'POST', '/hosted_pages', '/view_voucher', false],
+    ['viewVoucher', 'POST', '/hosted_pages', '/view_voucher', false],
   ],
   estimate: [
+    ['createSubscription', 'POST', '/estimates', '/create_subscription', false],
     [
-      'create_subscription',
-      'POST',
-      '/estimates',
-      '/create_subscription',
-      false,
-    ],
-    [
-      'create_sub_item_estimate',
+      'createSubItemEstimate',
       'POST',
       '/estimates',
       '/create_subscription_for_items',
       false,
     ],
     [
-      'create_sub_for_customer_estimate',
+      'createSubForCustomerEstimate',
       'GET',
       '/customers',
       '/create_subscription_estimate',
       true,
     ],
     [
-      'create_sub_item_for_customer_estimate',
+      'createSubItemForCustomerEstimate',
       'POST',
       '/customers',
       '/create_subscription_for_items_estimate',
       true,
     ],
+    ['updateSubscription', 'POST', '/estimates', '/update_subscription', false],
     [
-      'update_subscription',
-      'POST',
-      '/estimates',
-      '/update_subscription',
-      false,
-    ],
-    [
-      'update_subscription_for_items',
+      'updateSubscriptionForItems',
       'POST',
       '/estimates',
       '/update_subscription_for_items',
       false,
     ],
-    ['renewal_estimate', 'GET', '/subscriptions', '/renewal_estimate', true],
+    ['renewalEstimate', 'GET', '/subscriptions', '/renewal_estimate', true],
     [
-      'advance_invoice_estimate',
+      'advanceInvoiceEstimate',
       'POST',
       '/subscriptions',
       '/advance_invoice_estimate',
       true,
     ],
     [
-      'regenerate_invoice_estimate',
+      'regenerateInvoiceEstimate',
       'POST',
       '/subscriptions',
       '/regenerate_invoice_estimate',
       true,
     ],
     [
-      'upcoming_invoices_estimate',
+      'upcomingInvoicesEstimate',
       'GET',
       '/customers',
       '/upcoming_invoices_estimate',
       true,
     ],
     [
-      'change_term_end',
+      'changeTermEnd',
       'POST',
       '/subscriptions',
       '/change_term_end_estimate',
       true,
     ],
     [
-      'cancel_subscription',
+      'cancelSubscription',
       'POST',
       '/subscriptions',
       '/cancel_subscription_estimate',
       true,
     ],
     [
-      'cancel_subscription_for_items',
+      'cancelSubscriptionForItems',
       'POST',
       '/subscriptions',
       '/cancel_subscription_for_items_estimate',
       true,
     ],
     [
-      'pause_subscription',
+      'pauseSubscription',
       'POST',
       '/subscriptions',
       '/pause_subscription_estimate',
       true,
     ],
     [
-      'resume_subscription',
+      'resumeSubscription',
       'POST',
       '/subscriptions',
       '/resume_subscription_estimate',
       true,
     ],
-    ['gift_subscription', 'POST', '/estimates', '/gift_subscription', false],
+    ['giftSubscription', 'POST', '/estimates', '/gift_subscription', false],
     [
-      'gift_subscription_for_items',
+      'giftSubscriptionForItems',
       'POST',
       '/estimates',
       '/gift_subscription_for_items',
       false,
     ],
-    ['create_invoice', 'POST', '/estimates', '/create_invoice', false],
+    ['createInvoice', 'POST', '/estimates', '/create_invoice', false],
     [
-      'create_invoice_for_items',
+      'createInvoiceForItems',
       'POST',
       '/estimates',
       '/create_invoice_for_items',
@@ -768,100 +738,94 @@ export const Endpoints: Endpoints = {
   quote: [
     ['retrieve', 'GET', '/quotes', null, true],
     [
-      'create_sub_for_customer_quote',
+      'createSubForCustomerQuote',
       'POST',
       '/customers',
       '/create_subscription_quote',
       true,
     ],
     [
-      'edit_create_sub_for_customer_quote',
+      'editCreateSubForCustomerQuote',
       'POST',
       '/quotes',
       '/edit_create_subscription_quote',
       true,
     ],
     [
-      'update_subscription_quote',
+      'updateSubscriptionQuote',
       'POST',
       '/quotes',
       '/update_subscription_quote',
       false,
     ],
     [
-      'edit_update_subscription_quote',
+      'editUpdateSubscriptionQuote',
       'POST',
       '/quotes',
       '/edit_update_subscription_quote',
       true,
     ],
     [
-      'create_for_onetime_charges',
+      'createForOnetimeCharges',
       'POST',
       '/quotes',
       '/create_for_onetime_charges',
       false,
     ],
-    ['edit_one_time_quote', 'POST', '/quotes', '/edit_one_time_quote', true],
+    ['editOneTimeQuote', 'POST', '/quotes', '/edit_one_time_quote', true],
     [
-      'create_sub_items_for_customer_quote',
+      'createSubItemsForCustomerQuote',
       'POST',
       '/customers',
       '/create_subscription_quote_for_items',
       true,
     ],
     [
-      'edit_create_sub_customer_quote_for_items',
+      'editCreateSubCustomerQuoteForItems',
       'POST',
       '/quotes',
       '/edit_create_subscription_quote_for_items',
       true,
     ],
     [
-      'update_subscription_quote_for_items',
+      'updateSubscriptionQuoteForItems',
       'POST',
       '/quotes',
       '/update_subscription_quote_for_items',
       false,
     ],
     [
-      'edit_update_subscription_quote_for_items',
+      'editUpdateSubscriptionQuoteForItems',
       'POST',
       '/quotes',
       '/edit_update_subscription_quote_for_items',
       true,
     ],
     [
-      'create_for_charge_items_and_charges',
+      'createForChargeItemsAndCharges',
       'POST',
       '/quotes',
       '/create_for_charge_items_and_charges',
       false,
     ],
     [
-      'edit_for_charge_items_and_charges',
+      'editForChargeItemsAndCharges',
       'POST',
       '/quotes',
       '/edit_for_charge_items_and_charges',
       true,
     ],
     ['list', 'GET', '/quotes', null, false],
-    [
-      'quote_line_groups_for_quote',
-      'GET',
-      '/quotes',
-      '/quote_line_groups',
-      true,
-    ],
+    ['quoteLineGroupsForQuote', 'GET', '/quotes', '/quote_line_groups', true],
     ['convert', 'POST', '/quotes', '/convert', true],
-    ['update_status', 'POST', '/quotes', '/update_status', true],
-    ['extend_expiry_date', 'POST', '/quotes', '/extend_expiry_date', true],
+    ['updateStatus', 'POST', '/quotes', '/update_status', true],
+    ['extendExpiryDate', 'POST', '/quotes', '/extend_expiry_date', true],
     ['delete', 'POST', '/quotes', '/delete', true],
     ['pdf', 'POST', '/quotes', '/pdf', true],
   ],
-  quoted_subscription: [],
-  quoted_charge: [],
-  quote_line_group: [],
+  quotedSubscription: [],
+  quotedCharge: [],
+  quoteLineGroup: [],
   plan: [
     ['create', 'POST', '/plans', null, false],
     ['update', 'POST', '/plans', null, true],
@@ -882,8 +846,8 @@ export const Endpoints: Endpoints = {
   ],
   coupon: [
     ['create', 'POST', '/coupons', null, false],
-    ['create_for_items', 'POST', '/coupons', '/create_for_items', false],
-    ['update_for_items', 'POST', '/coupons', '/update_for_items', true],
+    ['createForItems', 'POST', '/coupons', '/create_for_items', false],
+    ['updateForItems', 'POST', '/coupons', '/update_for_items', true],
     ['list', 'GET', '/coupons', null, false],
     ['retrieve', 'GET', '/coupons', null, true],
     ['update', 'POST', '/coupons', null, true],
@@ -891,22 +855,22 @@ export const Endpoints: Endpoints = {
     ['copy', 'POST', '/coupons', '/copy', false],
     ['unarchive', 'POST', '/coupons', '/unarchive', true],
   ],
-  coupon_set: [
+  couponSet: [
     ['create', 'POST', '/coupon_sets', null, false],
-    ['add_coupon_codes', 'POST', '/coupon_sets', '/add_coupon_codes', true],
+    ['addCouponCodes', 'POST', '/coupon_sets', '/add_coupon_codes', true],
     ['list', 'GET', '/coupon_sets', null, false],
     ['retrieve', 'GET', '/coupon_sets', null, true],
     ['update', 'POST', '/coupon_sets', '/update', true],
     ['delete', 'POST', '/coupon_sets', '/delete', true],
     [
-      'delete_unused_coupon_codes',
+      'deleteUnusedCouponCodes',
       'POST',
       '/coupon_sets',
       '/delete_unused_coupon_codes',
       true,
     ],
   ],
-  coupon_code: [
+  couponCode: [
     ['create', 'POST', '/coupon_codes', null, false],
     ['retrieve', 'GET', '/coupon_codes', null, true],
     ['list', 'GET', '/coupon_codes', null, false],
@@ -934,56 +898,56 @@ export const Endpoints: Endpoints = {
     ['delete', 'POST', '/comments', '/delete', true],
   ],
   download: [],
-  portal_session: [
+  portalSession: [
     ['create', 'POST', '/portal_sessions', null, false],
     ['retrieve', 'GET', '/portal_sessions', null, true],
     ['logout', 'POST', '/portal_sessions', '/logout', true],
     ['activate', 'POST', '/portal_sessions', '/activate', true],
   ],
-  site_migration_detail: [
+  siteMigrationDetail: [
     ['list', 'GET', '/site_migration_details', null, false],
   ],
-  resource_migration: [
+  resourceMigration: [
     [
-      'retrieve_latest',
+      'retrieveLatest',
       'GET',
       '/resource_migrations',
       '/retrieve_latest',
       false,
     ],
   ],
-  time_machine: [
+  timeMachine: [
     ['retrieve', 'GET', '/time_machines', null, true],
-    ['start_afresh', 'POST', '/time_machines', '/start_afresh', true],
-    ['travel_forward', 'POST', '/time_machines', '/travel_forward', true],
+    ['startAfresh', 'POST', '/time_machines', '/start_afresh', true],
+    ['travelForward', 'POST', '/time_machines', '/travel_forward', true],
   ],
   export: [
     ['retrieve', 'GET', '/exports', null, true],
-    ['revenue_recognition', 'POST', '/exports', '/revenue_recognition', false],
-    ['deferred_revenue', 'POST', '/exports', '/deferred_revenue', false],
+    ['revenueRecognition', 'POST', '/exports', '/revenue_recognition', false],
+    ['deferredRevenue', 'POST', '/exports', '/deferred_revenue', false],
     ['plans', 'POST', '/exports', '/plans', false],
     ['addons', 'POST', '/exports', '/addons', false],
     ['coupons', 'POST', '/exports', '/coupons', false],
     ['customers', 'POST', '/exports', '/customers', false],
     ['subscriptions', 'POST', '/exports', '/subscriptions', false],
     ['invoices', 'POST', '/exports', '/invoices', false],
-    ['credit_notes', 'POST', '/exports', '/credit_notes', false],
+    ['creditNotes', 'POST', '/exports', '/credit_notes', false],
     ['transactions', 'POST', '/exports', '/transactions', false],
     ['orders', 'POST', '/exports', '/orders', false],
-    ['item_families', 'POST', '/exports', '/item_families', false],
+    ['itemFamilies', 'POST', '/exports', '/item_families', false],
     ['items', 'POST', '/exports', '/items', false],
-    ['item_prices', 'POST', '/exports', '/item_prices', false],
-    ['attached_items', 'POST', '/exports', '/attached_items', false],
-    ['differential_prices', 'POST', '/exports', '/differential_prices', false],
-    ['price_variants', 'POST', '/exports', '/price_variants', false],
+    ['itemPrices', 'POST', '/exports', '/item_prices', false],
+    ['attachedItems', 'POST', '/exports', '/attached_items', false],
+    ['differentialPrices', 'POST', '/exports', '/differential_prices', false],
+    ['priceVariants', 'POST', '/exports', '/price_variants', false],
   ],
-  payment_intent: [
+  paymentIntent: [
     ['create', 'POST', '/payment_intents', null, false],
     ['update', 'POST', '/payment_intents', null, true],
     ['retrieve', 'GET', '/payment_intents', null, true],
   ],
-  gateway_error_detail: [],
-  item_family: [
+  gatewayErrorDetail: [],
+  itemFamily: [
     ['create', 'POST', '/item_families', null, false],
     ['retrieve', 'GET', '/item_families', null, true],
     ['list', 'GET', '/item_families', null, false],
@@ -997,7 +961,7 @@ export const Endpoints: Endpoints = {
     ['list', 'GET', '/items', null, false],
     ['delete', 'POST', '/items', '/delete', true],
   ],
-  price_variant: [
+  priceVariant: [
     ['create', 'POST', '/price_variants', null, false],
     ['retrieve', 'GET', '/price_variants', null, true],
     ['update', 'POST', '/price_variants', null, true],
@@ -1005,29 +969,29 @@ export const Endpoints: Endpoints = {
     ['list', 'GET', '/price_variants', null, false],
   ],
   attribute: [],
-  item_price: [
+  itemPrice: [
     ['create', 'POST', '/item_prices', null, false],
     ['retrieve', 'GET', '/item_prices', null, true],
     ['update', 'POST', '/item_prices', null, true],
     ['list', 'GET', '/item_prices', null, false],
     ['delete', 'POST', '/item_prices', '/delete', true],
-    ['find_applicable_items', 'GET', '/item_prices', '/applicable_items', true],
+    ['findApplicableItems', 'GET', '/item_prices', '/applicable_items', true],
     [
-      'find_applicable_item_prices',
+      'findApplicableItemPrices',
       'GET',
       '/item_prices',
       '/applicable_item_prices',
       true,
     ],
   ],
-  attached_item: [
+  attachedItem: [
     ['create', 'POST', '/items', '/attached_items', true],
     ['update', 'POST', '/attached_items', null, true],
     ['retrieve', 'GET', '/attached_items', null, true],
     ['delete', 'POST', '/attached_items', '/delete', true],
     ['list', 'GET', '/items', '/attached_items', true],
   ],
-  differential_price: [
+  differentialPrice: [
     ['create', 'POST', '/item_prices', '/differential_prices', true],
     ['retrieve', 'GET', '/differential_prices', null, true],
     ['update', 'POST', '/differential_prices', null, true],
@@ -1044,38 +1008,38 @@ export const Endpoints: Endpoints = {
     ['archive', 'POST', '/features', '/archive_command', true],
     ['reactivate', 'POST', '/features', '/reactivate_command', true],
   ],
-  impacted_subscription: [],
-  impacted_item: [],
-  impacted_item_price: [],
+  impactedSubscription: [],
+  impactedItem: [],
+  impactedItemPrice: [],
   metadata: [],
-  subscription_entitlement: [
+  subscriptionEntitlement: [
     [
-      'subscription_entitlements_for_subscription',
+      'subscriptionEntitlementsForSubscription',
       'GET',
       '/subscriptions',
       '/subscription_entitlements',
       true,
     ],
     [
-      'set_subscription_entitlement_availability',
+      'setSubscriptionEntitlementAvailability',
       'POST',
       '/subscriptions',
       '/subscription_entitlements/set_availability',
       true,
     ],
   ],
-  item_entitlement: [
-    ['item_entitlements_for_item', 'GET', '/items', '/item_entitlements', true],
+  itemEntitlement: [
+    ['itemEntitlementsForItem', 'GET', '/items', '/item_entitlements', true],
     [
-      'item_entitlements_for_feature',
+      'itemEntitlementsForFeature',
       'GET',
       '/features',
       '/item_entitlements',
       true,
     ],
-    ['add_item_entitlements', 'POST', '/features', '/item_entitlements', true],
+    ['addItemEntitlements', 'POST', '/features', '/item_entitlements', true],
     [
-      'upsert_or_remove_item_entitlements_for_item',
+      'upsertOrRemoveItemEntitlementsForItem',
       'POST',
       '/items',
       '/item_entitlements',
@@ -1086,66 +1050,60 @@ export const Endpoints: Endpoints = {
     ['list', 'GET', '/entitlements', null, false],
     ['create', 'POST', '/entitlements', null, false],
   ],
-  in_app_subscription: [
+  inAppSubscription: [
     [
-      'process_receipt',
+      'processReceipt',
       'POST',
       '/in_app_subscriptions',
       '/process_purchase_command',
       true,
     ],
+    ['importReceipt', 'POST', '/in_app_subscriptions', '/import_receipt', true],
     [
-      'import_receipt',
-      'POST',
-      '/in_app_subscriptions',
-      '/import_receipt',
-      true,
-    ],
-    [
-      'import_subscription',
+      'importSubscription',
       'POST',
       '/in_app_subscriptions',
       '/import_subscription',
       true,
     ],
-    ['retrieve_store_subs', 'POST', '/in_app_subscriptions', '/retrieve', true],
+    ['retrieveStoreSubs', 'POST', '/in_app_subscriptions', '/retrieve', true],
   ],
-  entitlement_override: [
+  entitlementOverride: [
     [
-      'add_entitlement_override_for_subscription',
+      'addEntitlementOverrideForSubscription',
       'POST',
       '/subscriptions',
       '/entitlement_overrides',
       true,
     ],
     [
-      'list_entitlement_override_for_subscription',
+      'listEntitlementOverrideForSubscription',
       'GET',
       '/subscriptions',
       '/entitlement_overrides',
       true,
     ],
   ],
-  business_entity: [
-    ['create_transfers', 'POST', '/business_entities', '/transfers', false],
-    ['get_transfers', 'GET', '/business_entities', '/transfers', false],
+  businessEntity: [
+    ['createTransfers', 'POST', '/business_entities', '/transfers', false],
+    ['getTransfers', 'GET', '/business_entities', '/transfers', false],
   ],
   purchase: [
     ['create', 'POST', '/purchases', null, false],
     ['estimate', 'POST', '/purchases', '/estimate', false],
   ],
-  payment_voucher: [
+  paymentVoucher: [
     ['create', 'POST', '/payment_vouchers', null, false],
     ['retrieve', 'GET', '/payment_vouchers', null, true],
     [
-      'payment_vouchers_for_invoice',
+      'payment_vouchersForInvoice',
       'GET',
       '/invoices',
       '/payment_vouchers',
       true,
     ],
     [
-      'payment_vouchers_for_customer',
+      'payment_vouchersForCustomer',
       'GET',
       '/customers',
       '/payment_vouchers',
@@ -1157,16 +1115,16 @@ export const Endpoints: Endpoints = {
     ['retrieve', 'GET', '/currencies', null, true],
     ['create', 'POST', '/currencies', null, false],
     ['update', 'POST', '/currencies', null, true],
-    ['add_schedule', 'POST', '/currencies', '/add_schedule', true],
-    ['remove_schedule', 'POST', '/currencies', '/remove_schedule', true],
+    ['addSchedule', 'POST', '/currencies', '/add_schedule', true],
+    ['removeSchedule', 'POST', '/currencies', '/remove_schedule', true],
   ],
   ramp: [
-    ['create_for_subscription', 'POST', '/subscriptions', '/create_ramp', true],
+    ['createForSubscription', 'POST', '/subscriptions', '/create_ramp', true],
     ['retrieve', 'GET', '/ramps', null, true],
     ['delete', 'POST', '/ramps', '/delete', true],
     ['list', 'GET', '/ramps', null, false],
   ],
-  installment_config: [
+  installmentConfig: [
     ['create', 'POST', '/installment_configs', null, false],
     ['retrieve', 'GET', '/installment_configs', null, true],
     ['delete', 'POST', '/installment_configs', '/delete', true],
@@ -1175,17 +1133,17 @@ export const Endpoints: Endpoints = {
     ['retrieve', 'GET', '/installments', null, true],
     ['list', 'GET', '/installments', null, false],
   ],
-  installment_detail: [],
-  pricing_page_session: [
+  installmentDetail: [],
+  pricingPageSession: [
     [
-      'create_for_new_subscription',
+      'createForNewSubscription',
       'POST',
       '/pricing_page_sessions',
       '/create_for_new_subscription',
       false,
     ],
     [
-      'create_for_existing_subscription',
+      'createForExistingSubscription',
       'POST',
       '/pricing_page_sessions',
       '/create_for_existing_subscription',

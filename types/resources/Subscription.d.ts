@@ -179,12 +179,12 @@ declare module 'chargebee' {
         input: CreateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
 
-      create_for_customer(
+      createForCustomer(
         customer_id: string,
         input: CreateForCustomerInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateForCustomerResponse>>;
 
-      create_with_items(
+      createWithItems(
         customer_id: string,
         input: CreateWithItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateWithItemsResponse>>;
@@ -193,19 +193,19 @@ declare module 'chargebee' {
         input?: ListInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
 
-      subscriptions_for_customer(
+      subscriptionsForCustomer(
         customer_id: string,
         input?: SubscriptionsForCustomerInputParam,
       ): ChargebeeRequest<ChargebeeResponse<SubscriptionsForCustomerResponse>>;
 
-      contract_terms_for_subscription(
+      contractTermsForSubscription(
         subscription_id: string,
         input?: ContractTermsForSubscriptionInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<ContractTermsForSubscriptionResponse>
       >;
 
-      list_discounts(
+      listDiscounts(
         subscription_id: string,
         input?: ListDiscountsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ListDiscountsResponse>>;
@@ -214,24 +214,24 @@ declare module 'chargebee' {
         subscription_id: string,
       ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
 
-      retrieve_with_scheduled_changes(
+      retrieveWithScheduledChanges(
         subscription_id: string,
       ): ChargebeeRequest<
         ChargebeeResponse<RetrieveWithScheduledChangesResponse>
       >;
 
-      remove_scheduled_changes(
+      removeScheduledChanges(
         subscription_id: string,
       ): ChargebeeRequest<ChargebeeResponse<RemoveScheduledChangesResponse>>;
 
-      remove_scheduled_cancellation(
+      removeScheduledCancellation(
         subscription_id: string,
         input?: RemoveScheduledCancellationInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<RemoveScheduledCancellationResponse>
       >;
 
-      remove_coupons(
+      removeCoupons(
         subscription_id: string,
         input?: RemoveCouponsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RemoveCouponsResponse>>;
@@ -241,12 +241,12 @@ declare module 'chargebee' {
         input?: UpdateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateResponse>>;
 
-      update_for_items(
+      updateForItems(
         subscription_id: string,
         input: UpdateForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateForItemsResponse>>;
 
-      change_term_end(
+      changeTermEnd(
         subscription_id: string,
         input: ChangeTermEndInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ChangeTermEndResponse>>;
@@ -256,71 +256,71 @@ declare module 'chargebee' {
         input?: ReactivateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ReactivateResponse>>;
 
-      add_charge_at_term_end(
+      addChargeAtTermEnd(
         subscription_id: string,
         input: AddChargeAtTermEndInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AddChargeAtTermEndResponse>>;
 
-      charge_addon_at_term_end(
+      chargeAddonAtTermEnd(
         subscription_id: string,
         input: ChargeAddonAtTermEndInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ChargeAddonAtTermEndResponse>>;
 
-      charge_future_renewals(
+      chargeFutureRenewals(
         subscription_id: string,
         input?: ChargeFutureRenewalsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ChargeFutureRenewalsResponse>>;
 
-      edit_advance_invoice_schedule(
+      editAdvanceInvoiceSchedule(
         subscription_id: string,
         input?: EditAdvanceInvoiceScheduleInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<EditAdvanceInvoiceScheduleResponse>
       >;
 
-      retrieve_advance_invoice_schedule(
+      retrieveAdvanceInvoiceSchedule(
         subscription_id: string,
       ): ChargebeeRequest<
         ChargebeeResponse<RetrieveAdvanceInvoiceScheduleResponse>
       >;
 
-      remove_advance_invoice_schedule(
+      removeAdvanceInvoiceSchedule(
         subscription_id: string,
         input?: RemoveAdvanceInvoiceScheduleInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<RemoveAdvanceInvoiceScheduleResponse>
       >;
 
-      regenerate_invoice(
+      regenerateInvoice(
         subscription_id: string,
         input?: RegenerateInvoiceInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RegenerateInvoiceResponse>>;
 
-      import_subscription(
+      importSubscription(
         input: ImportSubscriptionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ImportSubscriptionResponse>>;
 
-      import_for_customer(
+      importForCustomer(
         customer_id: string,
         input: ImportForCustomerInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ImportForCustomerResponse>>;
 
-      import_contract_term(
+      importContractTerm(
         subscription_id: string,
         input?: ImportContractTermInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ImportContractTermResponse>>;
 
-      import_unbilled_charges(
+      importUnbilledCharges(
         subscription_id: string,
         input: ImportUnbilledChargesInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ImportUnbilledChargesResponse>>;
 
-      import_for_items(
+      importForItems(
         customer_id: string,
         input: ImportForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ImportForItemsResponse>>;
 
-      override_billing_profile(
+      overrideBillingProfile(
         subscription_id: string,
         input?: OverrideBillingProfileInputParam,
       ): ChargebeeRequest<ChargebeeResponse<OverrideBillingProfileResponse>>;
@@ -339,7 +339,7 @@ declare module 'chargebee' {
         input?: CancelInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CancelResponse>>;
 
-      cancel_for_items(
+      cancelForItems(
         subscription_id: string,
         input?: CancelForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CancelForItemsResponse>>;
@@ -349,11 +349,11 @@ declare module 'chargebee' {
         input?: ResumeInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ResumeResponse>>;
 
-      remove_scheduled_pause(
+      removeScheduledPause(
         subscription_id: string,
       ): ChargebeeRequest<ChargebeeResponse<RemoveScheduledPauseResponse>>;
 
-      remove_scheduled_resumption(
+      removeScheduledResumption(
         subscription_id: string,
       ): ChargebeeRequest<ChargebeeResponse<RemoveScheduledResumptionResponse>>;
 
@@ -704,6 +704,10 @@ declare module 'chargebee' {
       amount?: number;
 
       amount_in_decimal?: string;
+
+      billing_period?: number;
+
+      billing_period_unit?: 'day' | 'week' | 'month' | 'year';
 
       free_quantity?: number;
 
@@ -1217,6 +1221,7 @@ declare module 'chargebee' {
       auto_close_invoices?: boolean;
       trial_end_action?: TrialEndAction;
       payment_initiator?: PaymentInitiator;
+      invoice_usages?: boolean;
       card?: CardUpdateForItemsInputParam;
       payment_method?: PaymentMethodUpdateForItemsInputParam;
       payment_intent?: PaymentIntentUpdateForItemsInputParam;

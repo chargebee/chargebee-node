@@ -32,12 +32,12 @@ declare module 'chargebee' {
         input: UpdateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateResponse>>;
 
-      add_schedule(
+      addSchedule(
         site_currency_id: string,
         input: AddScheduleInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AddScheduleResponse>>;
 
-      remove_schedule(
+      removeSchedule(
         site_currency_id: string,
       ): ChargebeeRequest<ChargebeeResponse<RemoveScheduleResponse>>;
     }

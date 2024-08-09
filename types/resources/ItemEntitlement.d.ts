@@ -19,24 +19,24 @@ declare module 'chargebee' {
   }
   export namespace ItemEntitlement {
     export class ItemEntitlementResource {
-      item_entitlements_for_item(
+      itemEntitlementsForItem(
         item_id: string,
         input?: ItemEntitlementsForItemInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ItemEntitlementsForItemResponse>>;
 
-      item_entitlements_for_feature(
+      itemEntitlementsForFeature(
         feature_id: string,
         input?: ItemEntitlementsForFeatureInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<ItemEntitlementsForFeatureResponse>
       >;
 
-      add_item_entitlements(
+      addItemEntitlements(
         feature_id: string,
         input: AddItemEntitlementsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AddItemEntitlementsResponse>>;
 
-      upsert_or_remove_item_entitlements_for_item(
+      upsertOrRemoveItemEntitlementsForItem(
         item_id: string,
         input: UpsertOrRemoveItemEntitlementsForItemInputParam,
       ): ChargebeeRequest<

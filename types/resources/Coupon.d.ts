@@ -79,11 +79,11 @@ declare module 'chargebee' {
         input: CreateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
 
-      create_for_items(
+      createForItems(
         input: CreateForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateForItemsResponse>>;
 
-      update_for_items(
+      updateForItems(
         coupon_id: string,
         input: UpdateForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateForItemsResponse>>;

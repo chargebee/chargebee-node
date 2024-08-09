@@ -25,14 +25,14 @@ declare module 'chargebee' {
   }
   export namespace EntitlementOverride {
     export class EntitlementOverrideResource {
-      add_entitlement_override_for_subscription(
+      addEntitlementOverrideForSubscription(
         subscription_id: string,
         input: AddEntitlementOverrideForSubscriptionInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<AddEntitlementOverrideForSubscriptionResponse>
       >;
 
-      list_entitlement_override_for_subscription(
+      listEntitlementOverrideForSubscription(
         subscription_id: string,
         input?: ListEntitlementOverrideForSubscriptionInputParam,
       ): ChargebeeRequest<

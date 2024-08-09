@@ -23,7 +23,7 @@ declare module 'chargebee' {
         input: CreateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
 
-      add_coupon_codes(
+      addCouponCodes(
         coupon_set_id: string,
         input?: AddCouponCodesInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AddCouponCodesResponse>>;
@@ -45,7 +45,7 @@ declare module 'chargebee' {
         coupon_set_id: string,
       ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
 
-      delete_unused_coupon_codes(
+      deleteUnusedCouponCodes(
         coupon_set_id: string,
       ): ChargebeeRequest<ChargebeeResponse<DeleteUnusedCouponCodesResponse>>;
     }

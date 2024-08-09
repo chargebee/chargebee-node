@@ -147,7 +147,7 @@ declare module 'chargebee' {
         input?: CreateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
 
-      create_for_charge_items_and_charges(
+      createForChargeItemsAndCharges(
         input: CreateForChargeItemsAndChargesInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<CreateForChargeItemsAndChargesResponse>
@@ -157,38 +157,38 @@ declare module 'chargebee' {
         input: ChargeInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ChargeResponse>>;
 
-      charge_addon(
+      chargeAddon(
         input: ChargeAddonInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ChargeAddonResponse>>;
 
-      create_for_charge_item(
+      createForChargeItem(
         input: CreateForChargeItemInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateForChargeItemResponse>>;
 
-      stop_dunning(
+      stopDunning(
         invoice_id: string,
         input?: StopDunningInputParam,
       ): ChargebeeRequest<ChargebeeResponse<StopDunningResponse>>;
 
-      import_invoice(
+      importInvoice(
         input: ImportInvoiceInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ImportInvoiceResponse>>;
 
-      apply_payments(
+      applyPayments(
         invoice_id: string,
         input?: ApplyPaymentsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ApplyPaymentsResponse>>;
 
-      sync_usages(
+      syncUsages(
         invoice_id: string,
       ): ChargebeeRequest<ChargebeeResponse<SyncUsagesResponse>>;
 
-      delete_line_items(
+      deleteLineItems(
         invoice_id: string,
         input?: DeleteLineItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<DeleteLineItemsResponse>>;
 
-      apply_credits(
+      applyCredits(
         invoice_id: string,
         input?: ApplyCreditsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ApplyCreditsResponse>>;
@@ -197,12 +197,12 @@ declare module 'chargebee' {
         input?: ListInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
 
-      invoices_for_customer(
+      invoicesForCustomer(
         customer_id: string,
         input?: InvoicesForCustomerInputParam,
       ): ChargebeeRequest<ChargebeeResponse<InvoicesForCustomerResponse>>;
 
-      invoices_for_subscription(
+      invoicesForSubscription(
         subscription_id: string,
         input?: InvoicesForSubscriptionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<InvoicesForSubscriptionResponse>>;
@@ -216,27 +216,27 @@ declare module 'chargebee' {
         input?: PdfInputParam,
       ): ChargebeeRequest<ChargebeeResponse<PdfResponse>>;
 
-      download_einvoice(
+      downloadEinvoice(
         invoice_id: string,
       ): ChargebeeRequest<ChargebeeResponse<DownloadEinvoiceResponse>>;
 
-      list_payment_reference_numbers(
+      listPaymentReferenceNumbers(
         input?: ListPaymentReferenceNumbersInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<ListPaymentReferenceNumbersResponse>
       >;
 
-      add_charge(
+      addCharge(
         invoice_id: string,
         input: AddChargeInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AddChargeResponse>>;
 
-      add_addon_charge(
+      addAddonCharge(
         invoice_id: string,
         input: AddAddonChargeInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AddAddonChargeResponse>>;
 
-      add_charge_item(
+      addChargeItem(
         invoice_id: string,
         input: AddChargeItemInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AddChargeItemResponse>>;
@@ -246,22 +246,22 @@ declare module 'chargebee' {
         input?: CloseInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CloseResponse>>;
 
-      collect_payment(
+      collectPayment(
         invoice_id: string,
         input?: CollectPaymentInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CollectPaymentResponse>>;
 
-      record_payment(
+      recordPayment(
         invoice_id: string,
         input: RecordPaymentInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RecordPaymentResponse>>;
 
-      record_tax_withheld(
+      recordTaxWithheld(
         invoice_id: string,
         input: RecordTaxWithheldInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RecordTaxWithheldResponse>>;
 
-      remove_tax_withheld(
+      removeTaxWithheld(
         invoice_id: string,
         input: RemoveTaxWithheldInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RemoveTaxWithheldResponse>>;
@@ -271,27 +271,27 @@ declare module 'chargebee' {
         input?: RefundInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RefundResponse>>;
 
-      record_refund(
+      recordRefund(
         invoice_id: string,
         input: RecordRefundInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RecordRefundResponse>>;
 
-      remove_payment(
+      removePayment(
         invoice_id: string,
         input: RemovePaymentInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RemovePaymentResponse>>;
 
-      remove_credit_note(
+      removeCreditNote(
         invoice_id: string,
         input: RemoveCreditNoteInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RemoveCreditNoteResponse>>;
 
-      void_invoice(
+      voidInvoice(
         invoice_id: string,
         input?: VoidInvoiceInputParam,
       ): ChargebeeRequest<ChargebeeResponse<VoidInvoiceResponse>>;
 
-      write_off(
+      writeOff(
         invoice_id: string,
         input?: WriteOffInputParam,
       ): ChargebeeRequest<ChargebeeResponse<WriteOffResponse>>;
@@ -301,7 +301,7 @@ declare module 'chargebee' {
         input?: DeleteInputParam,
       ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
 
-      update_details(
+      updateDetails(
         invoice_id: string,
         input?: UpdateDetailsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateDetailsResponse>>;
@@ -311,11 +311,11 @@ declare module 'chargebee' {
         input: InstallmentsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<InstallmentsResponse>>;
 
-      resend_einvoice(
+      resendEinvoice(
         invoice_id: string,
       ): ChargebeeRequest<ChargebeeResponse<ResendEinvoiceResponse>>;
 
-      send_einvoice(
+      sendEinvoice(
         invoice_id: string,
       ): ChargebeeRequest<ChargebeeResponse<SendEinvoiceResponse>>;
     }

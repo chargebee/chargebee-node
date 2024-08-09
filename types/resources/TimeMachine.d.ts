@@ -23,12 +23,12 @@ declare module 'chargebee' {
         time_machine_name: string,
       ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
 
-      start_afresh(
+      startAfresh(
         time_machine_name: string,
         input?: StartAfreshInputParam,
       ): ChargebeeRequest<ChargebeeResponse<StartAfreshResponse>>;
 
-      travel_forward(
+      travelForward(
         time_machine_name: string,
         input?: TravelForwardInputParam,
       ): ChargebeeRequest<ChargebeeResponse<TravelForwardResponse>>;

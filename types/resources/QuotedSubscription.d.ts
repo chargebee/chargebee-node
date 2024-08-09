@@ -117,6 +117,10 @@ declare module 'chargebee' {
 
       amount_in_decimal?: string;
 
+      billing_period?: number;
+
+      billing_period_unit?: 'day' | 'week' | 'month' | 'year';
+
       free_quantity?: number;
 
       free_quantity_in_decimal?: string;

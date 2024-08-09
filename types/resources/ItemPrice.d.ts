@@ -111,12 +111,12 @@ declare module 'chargebee' {
         item_price_id: string,
       ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
 
-      find_applicable_items(
+      findApplicableItems(
         item_price_id: string,
         input?: FindApplicableItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<FindApplicableItemsResponse>>;
 
-      find_applicable_item_prices(
+      findApplicableItemPrices(
         item_price_id: string,
         input?: FindApplicableItemPricesInputParam,
       ): ChargebeeRequest<ChargebeeResponse<FindApplicableItemPricesResponse>>;

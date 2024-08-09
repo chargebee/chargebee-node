@@ -21,11 +21,11 @@ declare module 'chargebee' {
         export_id: string,
       ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
 
-      revenue_recognition(
+      revenueRecognition(
         input: RevenueRecognitionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RevenueRecognitionResponse>>;
 
-      deferred_revenue(
+      deferredRevenue(
         input: DeferredRevenueInputParam,
       ): ChargebeeRequest<ChargebeeResponse<DeferredRevenueResponse>>;
 
@@ -53,7 +53,7 @@ declare module 'chargebee' {
         input?: InvoicesInputParam,
       ): ChargebeeRequest<ChargebeeResponse<InvoicesResponse>>;
 
-      credit_notes(
+      creditNotes(
         input?: CreditNotesInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreditNotesResponse>>;
 
@@ -65,7 +65,7 @@ declare module 'chargebee' {
         input?: OrdersInputParam,
       ): ChargebeeRequest<ChargebeeResponse<OrdersResponse>>;
 
-      item_families(
+      itemFamilies(
         input?: ItemFamiliesInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ItemFamiliesResponse>>;
 
@@ -73,19 +73,19 @@ declare module 'chargebee' {
         input?: ItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ItemsResponse>>;
 
-      item_prices(
+      itemPrices(
         input?: ItemPricesInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ItemPricesResponse>>;
 
-      attached_items(
+      attachedItems(
         input?: AttachedItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AttachedItemsResponse>>;
 
-      differential_prices(
+      differentialPrices(
         input?: DifferentialPricesInputParam,
       ): ChargebeeRequest<ChargebeeResponse<DifferentialPricesResponse>>;
 
-      price_variants(
+      priceVariants(
         input?: PriceVariantsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<PriceVariantsResponse>>;
     }

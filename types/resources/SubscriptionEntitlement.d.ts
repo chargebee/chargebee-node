@@ -11,6 +11,8 @@ declare module 'chargebee' {
 
     feature_unit?: string;
 
+    feature_type?: string;
+
     value?: string;
 
     name?: string;
@@ -29,14 +31,14 @@ declare module 'chargebee' {
   }
   export namespace SubscriptionEntitlement {
     export class SubscriptionEntitlementResource {
-      subscription_entitlements_for_subscription(
+      subscriptionEntitlementsForSubscription(
         subscription_id: string,
         input?: SubscriptionEntitlementsForSubscriptionInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<SubscriptionEntitlementsForSubscriptionResponse>
       >;
 
-      set_subscription_entitlement_availability(
+      setSubscriptionEntitlementAvailability(
         subscription_id: string,
         input: SetSubscriptionEntitlementAvailabilityInputParam,
       ): ChargebeeRequest<

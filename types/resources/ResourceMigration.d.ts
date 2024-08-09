@@ -19,7 +19,7 @@ declare module 'chargebee' {
   }
   export namespace ResourceMigration {
     export class ResourceMigrationResource {
-      retrieve_latest(
+      retrieveLatest(
         input: RetrieveLatestInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RetrieveLatestResponse>>;
     }

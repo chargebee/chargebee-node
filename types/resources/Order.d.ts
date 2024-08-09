@@ -152,11 +152,11 @@ declare module 'chargebee' {
         input?: UpdateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateResponse>>;
 
-      import_order(
+      importOrder(
         input: ImportOrderInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ImportOrderResponse>>;
 
-      assign_order_number(
+      assignOrderNumber(
         order_id: string,
       ): ChargebeeRequest<ChargebeeResponse<AssignOrderNumberResponse>>;
 
@@ -165,7 +165,7 @@ declare module 'chargebee' {
         input: CancelInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CancelResponse>>;
 
-      create_refundable_credit_note(
+      createRefundableCreditNote(
         order_id: string,
         input: CreateRefundableCreditNoteInputParam,
       ): ChargebeeRequest<
@@ -189,7 +189,7 @@ declare module 'chargebee' {
         input?: ListInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
 
-      orders_for_invoice(
+      ordersForInvoice(
         invoice_id: string,
         input?: OrdersForInvoiceInputParam,
       ): ChargebeeRequest<ChargebeeResponse<OrdersForInvoiceResponse>>;

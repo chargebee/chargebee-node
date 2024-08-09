@@ -103,23 +103,18 @@ declare module 'chargebee' {
   }
   export namespace Transaction {
     export class TransactionResource {
-      create_authorization(
+      createAuthorization(
         input: CreateAuthorizationInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateAuthorizationResponse>>;
 
-      void_transaction(
+      voidTransaction(
         transaction_id: string,
       ): ChargebeeRequest<ChargebeeResponse<VoidTransactionResponse>>;
 
-      record_refund(
+      recordRefund(
         transaction_id: string,
         input: RecordRefundInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RecordRefundResponse>>;
-
-      update(
-        transaction_id: string,
-        input?: UpdateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateResponse>>;
 
       refund(
         transaction_id: string,
@@ -130,19 +125,19 @@ declare module 'chargebee' {
         input?: ListInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
 
-      transactions_for_customer(
+      transactionsForCustomer(
         customer_id: string,
         input?: TransactionsForCustomerInputParam,
       ): ChargebeeRequest<ChargebeeResponse<TransactionsForCustomerResponse>>;
 
-      transactions_for_subscription(
+      transactionsForSubscription(
         subscription_id: string,
         input?: TransactionsForSubscriptionInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<TransactionsForSubscriptionResponse>
       >;
 
-      payments_for_invoice(
+      paymentsForInvoice(
         invoice_id: string,
         input?: PaymentsForInvoiceInputParam,
       ): ChargebeeRequest<ChargebeeResponse<PaymentsForInvoiceResponse>>;
@@ -151,7 +146,7 @@ declare module 'chargebee' {
         transaction_id: string,
       ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
 
-      delete_offline_transaction(
+      deleteOfflineTransaction(
         transaction_id: string,
         input?: DeleteOfflineTransactionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<DeleteOfflineTransactionResponse>>;
@@ -165,10 +160,6 @@ declare module 'chargebee' {
     }
 
     export interface RecordRefundResponse {
-      transaction: Transaction;
-    }
-
-    export interface UpdateResponse {
       transaction: Transaction;
     }
 
@@ -331,11 +322,6 @@ declare module 'chargebee' {
       reference_number?: string;
       custom_payment_method_id?: string;
       comment?: string;
-    }
-    export interface UpdateInputParam {
-      id_at_gateway?: string;
-      customer_id?: string;
-      status?: Status;
     }
     export interface RefundInputParam {
       amount?: number;

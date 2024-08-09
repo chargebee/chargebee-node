@@ -122,7 +122,7 @@ declare module 'chargebee' {
         input?: PdfInputParam,
       ): ChargebeeRequest<ChargebeeResponse<PdfResponse>>;
 
-      download_einvoice(
+      downloadEinvoice(
         credit_note_id: string,
       ): ChargebeeRequest<ChargebeeResponse<DownloadEinvoiceResponse>>;
 
@@ -131,12 +131,12 @@ declare module 'chargebee' {
         input?: RefundInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RefundResponse>>;
 
-      record_refund(
+      recordRefund(
         credit_note_id: string,
         input: RecordRefundInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RecordRefundResponse>>;
 
-      void_credit_note(
+      voidCreditNote(
         credit_note_id: string,
         input?: VoidCreditNoteInputParam,
       ): ChargebeeRequest<ChargebeeResponse<VoidCreditNoteResponse>>;
@@ -145,7 +145,7 @@ declare module 'chargebee' {
         input?: ListInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
 
-      credit_notes_for_customer(
+      creditNotesForCustomer(
         customer_id: string,
         input?: CreditNotesForCustomerInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreditNotesForCustomerResponse>>;
@@ -155,20 +155,20 @@ declare module 'chargebee' {
         input?: DeleteInputParam,
       ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
 
-      remove_tax_withheld_refund(
+      removeTaxWithheldRefund(
         credit_note_id: string,
         input: RemoveTaxWithheldRefundInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RemoveTaxWithheldRefundResponse>>;
 
-      resend_einvoice(
+      resendEinvoice(
         credit_note_id: string,
       ): ChargebeeRequest<ChargebeeResponse<ResendEinvoiceResponse>>;
 
-      send_einvoice(
+      sendEinvoice(
         credit_note_id: string,
       ): ChargebeeRequest<ChargebeeResponse<SendEinvoiceResponse>>;
 
-      import_credit_note(
+      importCreditNote(
         input: ImportCreditNoteInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ImportCreditNoteResponse>>;
     }

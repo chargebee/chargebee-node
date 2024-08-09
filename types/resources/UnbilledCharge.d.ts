@@ -60,7 +60,7 @@ declare module 'chargebee' {
   }
   export namespace UnbilledCharge {
     export class UnbilledChargeResource {
-      create_unbilled_charge(
+      createUnbilledCharge(
         input: CreateUnbilledChargeInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateUnbilledChargeResponse>>;
 
@@ -68,7 +68,7 @@ declare module 'chargebee' {
         input: CreateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
 
-      invoice_unbilled_charges(
+      invoiceUnbilledCharges(
         input?: InvoiceUnbilledChargesInputParam,
       ): ChargebeeRequest<ChargebeeResponse<InvoiceUnbilledChargesResponse>>;
 
@@ -80,7 +80,7 @@ declare module 'chargebee' {
         input?: ListInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
 
-      invoice_now_estimate(
+      invoiceNowEstimate(
         input?: InvoiceNowEstimateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<InvoiceNowEstimateResponse>>;
     }

@@ -88,72 +88,72 @@ declare module 'chargebee' {
         quote_id: string,
       ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
 
-      create_sub_for_customer_quote(
+      createSubForCustomerQuote(
         customer_id: string,
         input: CreateSubForCustomerQuoteInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateSubForCustomerQuoteResponse>>;
 
-      edit_create_sub_for_customer_quote(
+      editCreateSubForCustomerQuote(
         quote_id: string,
         input: EditCreateSubForCustomerQuoteInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<EditCreateSubForCustomerQuoteResponse>
       >;
 
-      update_subscription_quote(
+      updateSubscriptionQuote(
         input: UpdateSubscriptionQuoteInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateSubscriptionQuoteResponse>>;
 
-      edit_update_subscription_quote(
+      editUpdateSubscriptionQuote(
         quote_id: string,
         input?: EditUpdateSubscriptionQuoteInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<EditUpdateSubscriptionQuoteResponse>
       >;
 
-      create_for_onetime_charges(
+      createForOnetimeCharges(
         input: CreateForOnetimeChargesInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateForOnetimeChargesResponse>>;
 
-      edit_one_time_quote(
+      editOneTimeQuote(
         quote_id: string,
         input?: EditOneTimeQuoteInputParam,
       ): ChargebeeRequest<ChargebeeResponse<EditOneTimeQuoteResponse>>;
 
-      create_sub_items_for_customer_quote(
+      createSubItemsForCustomerQuote(
         customer_id: string,
         input: CreateSubItemsForCustomerQuoteInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<CreateSubItemsForCustomerQuoteResponse>
       >;
 
-      edit_create_sub_customer_quote_for_items(
+      editCreateSubCustomerQuoteForItems(
         quote_id: string,
         input: EditCreateSubCustomerQuoteForItemsInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<EditCreateSubCustomerQuoteForItemsResponse>
       >;
 
-      update_subscription_quote_for_items(
+      updateSubscriptionQuoteForItems(
         input: UpdateSubscriptionQuoteForItemsInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<UpdateSubscriptionQuoteForItemsResponse>
       >;
 
-      edit_update_subscription_quote_for_items(
+      editUpdateSubscriptionQuoteForItems(
         quote_id: string,
         input: EditUpdateSubscriptionQuoteForItemsInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<EditUpdateSubscriptionQuoteForItemsResponse>
       >;
 
-      create_for_charge_items_and_charges(
+      createForChargeItemsAndCharges(
         input: CreateForChargeItemsAndChargesInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<CreateForChargeItemsAndChargesResponse>
       >;
 
-      edit_for_charge_items_and_charges(
+      editForChargeItemsAndCharges(
         quote_id: string,
         input: EditForChargeItemsAndChargesInputParam,
       ): ChargebeeRequest<
@@ -164,7 +164,7 @@ declare module 'chargebee' {
         input?: ListInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
 
-      quote_line_groups_for_quote(
+      quoteLineGroupsForQuote(
         quote_id: string,
         input?: QuoteLineGroupsForQuoteInputParam,
       ): ChargebeeRequest<ChargebeeResponse<QuoteLineGroupsForQuoteResponse>>;
@@ -174,12 +174,12 @@ declare module 'chargebee' {
         input?: ConvertInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ConvertResponse>>;
 
-      update_status(
+      updateStatus(
         quote_id: string,
         input: UpdateStatusInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateStatusResponse>>;
 
-      extend_expiry_date(
+      extendExpiryDate(
         quote_id: string,
         input: ExtendExpiryDateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ExtendExpiryDateResponse>>;

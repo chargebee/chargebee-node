@@ -47,67 +47,67 @@ declare module 'chargebee' {
   }
   export namespace HostedPage {
     export class HostedPageResource {
-      checkout_new(
+      checkoutNew(
         input: CheckoutNewInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CheckoutNewResponse>>;
 
-      checkout_one_time(
+      checkoutOneTime(
         input?: CheckoutOneTimeInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CheckoutOneTimeResponse>>;
 
-      checkout_one_time_for_items(
+      checkoutOneTimeForItems(
         input: CheckoutOneTimeForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CheckoutOneTimeForItemsResponse>>;
 
-      checkout_new_for_items(
+      checkoutNewForItems(
         input: CheckoutNewForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CheckoutNewForItemsResponse>>;
 
-      checkout_existing(
+      checkoutExisting(
         input: CheckoutExistingInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CheckoutExistingResponse>>;
 
-      checkout_existing_for_items(
+      checkoutExistingForItems(
         input: CheckoutExistingForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CheckoutExistingForItemsResponse>>;
 
-      update_card(
+      updateCard(
         input: UpdateCardInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateCardResponse>>;
 
-      update_payment_method(
+      updatePaymentMethod(
         input: UpdatePaymentMethodInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdatePaymentMethodResponse>>;
 
-      manage_payment_sources(
+      managePaymentSources(
         input: ManagePaymentSourcesInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ManagePaymentSourcesResponse>>;
 
-      collect_now(
+      collectNow(
         input: CollectNowInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CollectNowResponse>>;
 
-      accept_quote(
+      acceptQuote(
         input: AcceptQuoteInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AcceptQuoteResponse>>;
 
-      extend_subscription(
+      extendSubscription(
         input: ExtendSubscriptionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ExtendSubscriptionResponse>>;
 
-      checkout_gift(
+      checkoutGift(
         input: CheckoutGiftInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CheckoutGiftResponse>>;
 
-      checkout_gift_for_items(
+      checkoutGiftForItems(
         input?: CheckoutGiftForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CheckoutGiftForItemsResponse>>;
 
-      claim_gift(
+      claimGift(
         input: ClaimGiftInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ClaimGiftResponse>>;
 
-      retrieve_agreement_pdf(
+      retrieveAgreementPdf(
         input: RetrieveAgreementPdfInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RetrieveAgreementPdfResponse>>;
 
@@ -123,7 +123,7 @@ declare module 'chargebee' {
         input?: ListInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
 
-      pre_cancel(
+      preCancel(
         input: PreCancelInputParam,
       ): ChargebeeRequest<ChargebeeResponse<PreCancelResponse>>;
 
@@ -131,7 +131,7 @@ declare module 'chargebee' {
         input: EventsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<EventsResponse>>;
 
-      view_voucher(
+      viewVoucher(
         input: ViewVoucherInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ViewVoucherResponse>>;
     }
@@ -355,6 +355,8 @@ declare module 'chargebee' {
       coupon_ids?: string[];
       reactivate?: boolean;
       force_term_reset?: boolean;
+      change_option?: ChangeOption;
+      changes_scheduled_at?: number;
       redirect_url?: string;
       cancel_url?: string;
       pass_thru_content?: string;

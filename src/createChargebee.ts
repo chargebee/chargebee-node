@@ -90,8 +90,7 @@ export const CreateChargebee = () => {
         }
       }
       this.export.wait_for_export_completion = this._waitForExport.bind(this);
-      this.time_machine.wait_for_time_travel_completion =
-        this._timeMachineWait.bind(this);
+      this.timeMachine.wait_for_time_travel_completion = this._timeMachineWait.bind(this);
     },
   };
   return Chargebee;

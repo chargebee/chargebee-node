@@ -42,7 +42,7 @@ declare module 'chargebee' {
   }
   export namespace VirtualBankAccount {
     export class VirtualBankAccountResource {
-      create_using_permanent_token(
+      createUsingPermanentToken(
         input: CreateUsingPermanentTokenInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateUsingPermanentTokenResponse>>;
 
@@ -62,7 +62,7 @@ declare module 'chargebee' {
         virtual_bank_account_id: string,
       ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
 
-      delete_local(
+      deleteLocal(
         virtual_bank_account_id: string,
       ): ChargebeeRequest<ChargebeeResponse<DeleteLocalResponse>>;
     }

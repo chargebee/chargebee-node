@@ -17,22 +17,22 @@ declare module 'chargebee' {
   }
   export namespace InAppSubscription {
     export class InAppSubscriptionResource {
-      process_receipt(
+      processReceipt(
         in_app_subscription_app_id: string,
         input: ProcessReceiptInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ProcessReceiptResponse>>;
 
-      import_receipt(
+      importReceipt(
         in_app_subscription_app_id: string,
         input: ImportReceiptInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ImportReceiptResponse>>;
 
-      import_subscription(
+      importSubscription(
         in_app_subscription_app_id: string,
         input: ImportSubscriptionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ImportSubscriptionResponse>>;
 
-      retrieve_store_subs(
+      retrieveStoreSubs(
         in_app_subscription_app_id: string,
         input: RetrieveStoreSubsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RetrieveStoreSubsResponse>>;

@@ -11,7 +11,7 @@ declare module 'chargebee' {
 
     effective_from: number;
 
-    status: 'scheduled' | 'succeeded' | 'failed';
+    status: 'scheduled' | 'succeeded' | 'failed' | 'draft';
 
     created_at: number;
 
@@ -36,10 +36,12 @@ declare module 'chargebee' {
     discounts_to_remove?: string[];
 
     deleted: boolean;
+
+    status_transition_reason?: Ramp.StatusTransitionReason;
   }
   export namespace Ramp {
     export class RampResource {
-      create_for_subscription(
+      createForSubscription(
         subscription_id: string,
         input: CreateForSubscriptionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateForSubscriptionResponse>>;
@@ -174,6 +176,11 @@ declare module 'chargebee' {
       price_in_decimal?: string;
 
       index: number;
+    }
+    export interface StatusTransitionReason {
+      code?: string;
+
+      message?: string;
     }
     // REQUEST PARAMS
     //---------------

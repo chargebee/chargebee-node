@@ -58,47 +58,47 @@ declare module 'chargebee' {
   }
   export namespace PaymentSource {
     export class PaymentSourceResource {
-      create_using_temp_token(
+      createUsingTempToken(
         input: CreateUsingTempTokenInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateUsingTempTokenResponse>>;
 
-      create_using_permanent_token(
+      createUsingPermanentToken(
         input: CreateUsingPermanentTokenInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateUsingPermanentTokenResponse>>;
 
-      create_using_token(
+      createUsingToken(
         input: CreateUsingTokenInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateUsingTokenResponse>>;
 
-      create_using_payment_intent(
+      createUsingPaymentIntent(
         input: CreateUsingPaymentIntentInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateUsingPaymentIntentResponse>>;
 
-      create_voucher_payment_source(
+      createVoucherPaymentSource(
         input: CreateVoucherPaymentSourceInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<CreateVoucherPaymentSourceResponse>
       >;
 
-      create_card(
+      createCard(
         input: CreateCardInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateCardResponse>>;
 
-      create_bank_account(
+      createBankAccount(
         input: CreateBankAccountInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateBankAccountResponse>>;
 
-      update_card(
+      updateCard(
         cust_payment_source_id: string,
         input?: UpdateCardInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateCardResponse>>;
 
-      update_bank_account(
+      updateBankAccount(
         cust_payment_source_id: string,
         input?: UpdateBankAccountInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateBankAccountResponse>>;
 
-      verify_bank_account(
+      verifyBankAccount(
         cust_payment_source_id: string,
         input: VerifyBankAccountInputParam,
       ): ChargebeeRequest<ChargebeeResponse<VerifyBankAccountResponse>>;
@@ -111,12 +111,12 @@ declare module 'chargebee' {
         input?: ListInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
 
-      switch_gateway_account(
+      switchGatewayAccount(
         cust_payment_source_id: string,
         input: SwitchGatewayAccountInputParam,
       ): ChargebeeRequest<ChargebeeResponse<SwitchGatewayAccountResponse>>;
 
-      export_payment_source(
+      exportPaymentSource(
         cust_payment_source_id: string,
         input: ExportPaymentSourceInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ExportPaymentSourceResponse>>;
@@ -125,7 +125,7 @@ declare module 'chargebee' {
         cust_payment_source_id: string,
       ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
 
-      delete_local(
+      deleteLocal(
         cust_payment_source_id: string,
       ): ChargebeeRequest<ChargebeeResponse<DeleteLocalResponse>>;
     }

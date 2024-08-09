@@ -169,62 +169,62 @@ declare module 'chargebee' {
         input?: UpdateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateResponse>>;
 
-      update_payment_method(
+      updatePaymentMethod(
         customer_id: string,
         input: UpdatePaymentMethodInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdatePaymentMethodResponse>>;
 
-      update_billing_info(
+      updateBillingInfo(
         customer_id: string,
         input?: UpdateBillingInfoInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateBillingInfoResponse>>;
 
-      contacts_for_customer(
+      contactsForCustomer(
         customer_id: string,
         input?: ContactsForCustomerInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ContactsForCustomerResponse>>;
 
-      assign_payment_role(
+      assignPaymentRole(
         customer_id: string,
         input: AssignPaymentRoleInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AssignPaymentRoleResponse>>;
 
-      add_contact(
+      addContact(
         customer_id: string,
         input: AddContactInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AddContactResponse>>;
 
-      update_contact(
+      updateContact(
         customer_id: string,
         input: UpdateContactInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateContactResponse>>;
 
-      delete_contact(
+      deleteContact(
         customer_id: string,
         input: DeleteContactInputParam,
       ): ChargebeeRequest<ChargebeeResponse<DeleteContactResponse>>;
 
-      add_promotional_credits(
+      addPromotionalCredits(
         customer_id: string,
         input: AddPromotionalCreditsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AddPromotionalCreditsResponse>>;
 
-      deduct_promotional_credits(
+      deductPromotionalCredits(
         customer_id: string,
         input: DeductPromotionalCreditsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<DeductPromotionalCreditsResponse>>;
 
-      set_promotional_credits(
+      setPromotionalCredits(
         customer_id: string,
         input: SetPromotionalCreditsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<SetPromotionalCreditsResponse>>;
 
-      record_excess_payment(
+      recordExcessPayment(
         customer_id: string,
         input: RecordExcessPaymentInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RecordExcessPaymentResponse>>;
 
-      collect_payment(
+      collectPayment(
         customer_id: string,
         input: CollectPaymentInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CollectPaymentResponse>>;
@@ -238,7 +238,7 @@ declare module 'chargebee' {
         input: MoveInputParam,
       ): ChargebeeRequest<ChargebeeResponse<MoveResponse>>;
 
-      change_billing_date(
+      changeBillingDate(
         customer_id: string,
         input?: ChangeBillingDateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ChangeBillingDateResponse>>;
@@ -247,7 +247,7 @@ declare module 'chargebee' {
         input: MergeInputParam,
       ): ChargebeeRequest<ChargebeeResponse<MergeResponse>>;
 
-      clear_personal_data(
+      clearPersonalData(
         customer_id: string,
       ): ChargebeeRequest<ChargebeeResponse<ClearPersonalDataResponse>>;
 
@@ -256,7 +256,7 @@ declare module 'chargebee' {
         input?: RelationshipsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RelationshipsResponse>>;
 
-      delete_relationship(
+      deleteRelationship(
         customer_id: string,
       ): ChargebeeRequest<ChargebeeResponse<DeleteRelationshipResponse>>;
 
@@ -265,7 +265,7 @@ declare module 'chargebee' {
         input: HierarchyInputParam,
       ): ChargebeeRequest<ChargebeeResponse<HierarchyResponse>>;
 
-      update_hierarchy_settings(
+      updateHierarchySettings(
         customer_id: string,
         input?: UpdateHierarchySettingsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateHierarchySettingsResponse>>;

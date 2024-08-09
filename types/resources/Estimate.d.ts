@@ -21,97 +21,97 @@ declare module 'chargebee' {
   }
   export namespace Estimate {
     export class EstimateResource {
-      create_subscription(
+      createSubscription(
         input: CreateSubscriptionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateSubscriptionResponse>>;
 
-      create_sub_item_estimate(
+      createSubItemEstimate(
         input: CreateSubItemEstimateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateSubItemEstimateResponse>>;
 
-      create_sub_for_customer_estimate(
+      createSubForCustomerEstimate(
         customer_id: string,
         input: CreateSubForCustomerEstimateInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<CreateSubForCustomerEstimateResponse>
       >;
 
-      create_sub_item_for_customer_estimate(
+      createSubItemForCustomerEstimate(
         customer_id: string,
         input: CreateSubItemForCustomerEstimateInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<CreateSubItemForCustomerEstimateResponse>
       >;
 
-      update_subscription(
+      updateSubscription(
         input: UpdateSubscriptionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateSubscriptionResponse>>;
 
-      update_subscription_for_items(
+      updateSubscriptionForItems(
         input: UpdateSubscriptionForItemsInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<UpdateSubscriptionForItemsResponse>
       >;
 
-      renewal_estimate(
+      renewalEstimate(
         subscription_id: string,
         input?: RenewalEstimateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RenewalEstimateResponse>>;
 
-      advance_invoice_estimate(
+      advanceInvoiceEstimate(
         subscription_id: string,
         input?: AdvanceInvoiceEstimateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<AdvanceInvoiceEstimateResponse>>;
 
-      regenerate_invoice_estimate(
+      regenerateInvoiceEstimate(
         subscription_id: string,
         input?: RegenerateInvoiceEstimateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<RegenerateInvoiceEstimateResponse>>;
 
-      upcoming_invoices_estimate(
+      upcomingInvoicesEstimate(
         customer_id: string,
       ): ChargebeeRequest<ChargebeeResponse<UpcomingInvoicesEstimateResponse>>;
 
-      change_term_end(
+      changeTermEnd(
         subscription_id: string,
         input: ChangeTermEndInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ChangeTermEndResponse>>;
 
-      cancel_subscription(
+      cancelSubscription(
         subscription_id: string,
         input?: CancelSubscriptionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CancelSubscriptionResponse>>;
 
-      cancel_subscription_for_items(
+      cancelSubscriptionForItems(
         subscription_id: string,
         input?: CancelSubscriptionForItemsInputParam,
       ): ChargebeeRequest<
         ChargebeeResponse<CancelSubscriptionForItemsResponse>
       >;
 
-      pause_subscription(
+      pauseSubscription(
         subscription_id: string,
         input?: PauseSubscriptionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<PauseSubscriptionResponse>>;
 
-      resume_subscription(
+      resumeSubscription(
         subscription_id: string,
         input?: ResumeSubscriptionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<ResumeSubscriptionResponse>>;
 
-      gift_subscription(
+      giftSubscription(
         input: GiftSubscriptionInputParam,
       ): ChargebeeRequest<ChargebeeResponse<GiftSubscriptionResponse>>;
 
-      gift_subscription_for_items(
+      giftSubscriptionForItems(
         input: GiftSubscriptionForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<GiftSubscriptionForItemsResponse>>;
 
-      create_invoice(
+      createInvoice(
         input?: CreateInvoiceInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateInvoiceResponse>>;
 
-      create_invoice_for_items(
+      createInvoiceForItems(
         input: CreateInvoiceForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateInvoiceForItemsResponse>>;
     }
@@ -308,6 +308,7 @@ declare module 'chargebee' {
       include_delayed_charges?: boolean;
       use_existing_balances?: boolean;
       invoice_immediately?: boolean;
+      invoice_usages?: boolean;
       subscription?: SubscriptionUpdateSubscriptionForItemsInputParam;
       billing_address?: BillingAddressUpdateSubscriptionForItemsInputParam;
       shipping_address?: ShippingAddressUpdateSubscriptionForItemsInputParam;

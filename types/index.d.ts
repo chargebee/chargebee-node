@@ -41,6 +41,7 @@
 ///<reference path='./resources/ItemEntitlement.d.ts' />
 ///<reference path='./resources/ItemFamily.d.ts' />
 ///<reference path='./resources/ItemPrice.d.ts' />
+///<reference path='./resources/Metadata.d.ts' />
 ///<reference path='./resources/Order.d.ts' />
 ///<reference path='./resources/PaymentIntent.d.ts' />
 ///<reference path='./resources/PaymentReferenceNumber.d.ts' />
@@ -86,52 +87,52 @@ declare module 'chargebee' {
   export default class {
     constructor(props: Config);
     address: Address.AddressResource;
-    attached_item: AttachedItem.AttachedItemResource;
-    business_entity: BusinessEntity.BusinessEntityResource;
+    attachedItem: AttachedItem.AttachedItemResource;
+    businessEntity: BusinessEntity.BusinessEntityResource;
     card: Card.CardResource;
     comment: Comment.CommentResource;
     coupon: Coupon.CouponResource;
-    coupon_code: CouponCode.CouponCodeResource;
-    coupon_set: CouponSet.CouponSetResource;
-    credit_note: CreditNote.CreditNoteResource;
+    couponCode: CouponCode.CouponCodeResource;
+    couponSet: CouponSet.CouponSetResource;
+    creditNote: CreditNote.CreditNoteResource;
     currency: Currency.CurrencyResource;
     customer: Customer.CustomerResource;
-    differential_price: DifferentialPrice.DifferentialPriceResource;
+    differentialPrice: DifferentialPrice.DifferentialPriceResource;
     entitlement: Entitlement.EntitlementResource;
-    entitlement_override: EntitlementOverride.EntitlementOverrideResource;
+    entitlementOverride: EntitlementOverride.EntitlementOverrideResource;
     estimate: Estimate.EstimateResource;
     event: Event.EventResource;
     export: Export.ExportResource;
     feature: Feature.FeatureResource;
     gift: Gift.GiftResource;
-    hosted_page: HostedPage.HostedPageResource;
-    in_app_subscription: InAppSubscription.InAppSubscriptionResource;
+    hostedPage: HostedPage.HostedPageResource;
+    inAppSubscription: InAppSubscription.InAppSubscriptionResource;
     installment: Installment.InstallmentResource;
-    installment_config: InstallmentConfig.InstallmentConfigResource;
+    installmentConfig: InstallmentConfig.InstallmentConfigResource;
     invoice: Invoice.InvoiceResource;
     item: Item.ItemResource;
-    item_entitlement: ItemEntitlement.ItemEntitlementResource;
-    item_family: ItemFamily.ItemFamilyResource;
-    item_price: ItemPrice.ItemPriceResource;
+    itemEntitlement: ItemEntitlement.ItemEntitlementResource;
+    itemFamily: ItemFamily.ItemFamilyResource;
+    itemPrice: ItemPrice.ItemPriceResource;
     order: Order.OrderResource;
-    payment_intent: PaymentIntent.PaymentIntentResource;
-    payment_source: PaymentSource.PaymentSourceResource;
-    payment_voucher: PaymentVoucher.PaymentVoucherResource;
-    portal_session: PortalSession.PortalSessionResource;
-    price_variant: PriceVariant.PriceVariantResource;
-    pricing_page_session: PricingPageSession.PricingPageSessionResource;
-    promotional_credit: PromotionalCredit.PromotionalCreditResource;
+    paymentIntent: PaymentIntent.PaymentIntentResource;
+    paymentSource: PaymentSource.PaymentSourceResource;
+    paymentVoucher: PaymentVoucher.PaymentVoucherResource;
+    portalSession: PortalSession.PortalSessionResource;
+    priceVariant: PriceVariant.PriceVariantResource;
+    pricingPageSession: PricingPageSession.PricingPageSessionResource;
+    promotionalCredit: PromotionalCredit.PromotionalCreditResource;
     purchase: Purchase.PurchaseResource;
     quote: Quote.QuoteResource;
     ramp: Ramp.RampResource;
-    resource_migration: ResourceMigration.ResourceMigrationResource;
-    site_migration_detail: SiteMigrationDetail.SiteMigrationDetailResource;
+    resourceMigration: ResourceMigration.ResourceMigrationResource;
+    siteMigrationDetail: SiteMigrationDetail.SiteMigrationDetailResource;
     subscription: Subscription.SubscriptionResource;
-    subscription_entitlement: SubscriptionEntitlement.SubscriptionEntitlementResource;
-    time_machine: TimeMachine.TimeMachineResource;
+    subscriptionEntitlement: SubscriptionEntitlement.SubscriptionEntitlementResource;
+    timeMachine: TimeMachine.TimeMachineResource;
     transaction: Transaction.TransactionResource;
-    unbilled_charge: UnbilledCharge.UnbilledChargeResource;
+    unbilledCharge: UnbilledCharge.UnbilledChargeResource;
     usage: Usage.UsageResource;
-    virtual_bank_account: VirtualBankAccount.VirtualBankAccountResource;
+    virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
   }
 }

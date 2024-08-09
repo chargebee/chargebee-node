@@ -161,6 +161,7 @@ declare module 'chargebee' {
     | 'subscription_reactivated'
     | 'subscription_reactivated_with_backdating'
     | 'subscription_renewed'
+    | 'subscription_items_renewed'
     | 'subscription_scheduled_cancellation_removed'
     | 'subscription_changes_scheduled'
     | 'subscription_scheduled_changes_removed'
@@ -293,6 +294,8 @@ declare module 'chargebee' {
     | 'ramp_created'
     | 'ramp_deleted'
     | 'ramp_applied'
+    | 'subscription_ramp_drafted'
+    | 'subscription_ramp_updated'
     | 'price_variant_created'
     | 'price_variant_updated'
     | 'price_variant_deleted'
@@ -485,7 +488,6 @@ declare module 'chargebee' {
     | 'js_api'
     | 'migration'
     | 'external_service';
-  type Status = 'success' | 'failure';
   type TaxExemptReason =
     | 'tax_not_configured'
     | 'region_non_taxable'

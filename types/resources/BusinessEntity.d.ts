@@ -19,11 +19,11 @@ declare module 'chargebee' {
   }
   export namespace BusinessEntity {
     export class BusinessEntityResource {
-      create_transfers(
+      createTransfers(
         input: CreateTransfersInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateTransfersResponse>>;
 
-      get_transfers(
+      getTransfers(
         input?: GetTransfersInputParam,
       ): ChargebeeRequest<ChargebeeResponse<GetTransfersResponse>>;
     }

@@ -97,22 +97,22 @@ declare module 'chargebee' {
         customer_id: string,
       ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
 
-      update_card_for_customer(
+      updateCardForCustomer(
         customer_id: string,
         input: UpdateCardForCustomerInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateCardForCustomerResponse>>;
 
-      switch_gateway_for_customer(
+      switchGatewayForCustomer(
         customer_id: string,
         input: SwitchGatewayForCustomerInputParam,
       ): ChargebeeRequest<ChargebeeResponse<SwitchGatewayForCustomerResponse>>;
 
-      copy_card_for_customer(
+      copyCardForCustomer(
         customer_id: string,
         input: CopyCardForCustomerInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CopyCardForCustomerResponse>>;
 
-      delete_card_for_customer(
+      deleteCardForCustomer(
         customer_id: string,
       ): ChargebeeRequest<ChargebeeResponse<DeleteCardForCustomerResponse>>;
     }

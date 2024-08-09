@@ -31,7 +31,7 @@ declare module 'chargebee' {
         input: CreateInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
 
-      create_for_items(
+      createForItems(
         input: CreateForItemsInputParam,
       ): ChargebeeRequest<ChargebeeResponse<CreateForItemsResponse>>;
 
@@ -51,7 +51,7 @@ declare module 'chargebee' {
         gift_id: string,
       ): ChargebeeRequest<ChargebeeResponse<CancelResponse>>;
 
-      update_gift(
+      updateGift(
         gift_id: string,
         input: UpdateGiftInputParam,
       ): ChargebeeRequest<ChargebeeResponse<UpdateGiftResponse>>;
