@@ -1,7 +1,7 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
 
-declare module 'chargebee' {
+declare module 'Chargebee' {
   export interface CreditNoteEstimate {
     reference_invoice_id: string;
 

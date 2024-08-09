@@ -1,4 +1,4 @@
-declare module 'chargebee' {
+declare module 'Chargebee' {
   export class RequestConfig {
     site?: string;
     apiKey?: string;

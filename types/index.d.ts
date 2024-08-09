@@ -83,7 +83,7 @@ export type Config = {
   protocol?: string;
   hostSuffix?: string;
 };
-declare module 'chargebee' {
+declare module 'Chargebee' {
   export default class {
     constructor(props: Config);
     address: Address.AddressResource;
