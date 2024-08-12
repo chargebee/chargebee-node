@@ -1,6 +1,5 @@
 node_modules
 test*
-*lock.json
 *js
 cjs
 esm
