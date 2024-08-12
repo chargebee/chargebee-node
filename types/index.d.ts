@@ -76,7 +76,6 @@ export type Config = {
   site: string;
   apiPath?: string;
   timeout?: number;
-  clientVersion?: string;
   port?: number;
   timemachineWaitInMillis?: number;
   exportWaitInMillis?: number;
@@ -85,7 +84,7 @@ export type Config = {
 };
 declare module 'Chargebee' {
   export default class {
-    constructor(props: Config);
+    constructor(config: Config);
     address: Address.AddressResource;
     attachedItem: AttachedItem.AttachedItemResource;
     businessEntity: BusinessEntity.BusinessEntityResource;
