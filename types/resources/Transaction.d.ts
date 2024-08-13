@@ -105,51 +105,47 @@ declare module 'Chargebee' {
     export class TransactionResource {
       createAuthorization(
         input: CreateAuthorizationInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateAuthorizationResponse>>;
+      ): Promise<ChargebeeResponse<CreateAuthorizationResponse>>;
 
       voidTransaction(
         transaction_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<VoidTransactionResponse>>;
+      ): Promise<ChargebeeResponse<VoidTransactionResponse>>;
 
       recordRefund(
         transaction_id: string,
         input: RecordRefundInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RecordRefundResponse>>;
+      ): Promise<ChargebeeResponse<RecordRefundResponse>>;
 
       refund(
         transaction_id: string,
         input?: RefundInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RefundResponse>>;
+      ): Promise<ChargebeeResponse<RefundResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       transactionsForCustomer(
         customer_id: string,
         input?: TransactionsForCustomerInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<TransactionsForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<TransactionsForCustomerResponse>>;
 
       transactionsForSubscription(
         subscription_id: string,
         input?: TransactionsForSubscriptionInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<TransactionsForSubscriptionResponse>
-      >;
+      ): Promise<ChargebeeResponse<TransactionsForSubscriptionResponse>>;
 
       paymentsForInvoice(
         invoice_id: string,
         input?: PaymentsForInvoiceInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<PaymentsForInvoiceResponse>>;
+      ): Promise<ChargebeeResponse<PaymentsForInvoiceResponse>>;
 
       retrieve(
         transaction_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       deleteOfflineTransaction(
         transaction_id: string,
         input?: DeleteOfflineTransactionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteOfflineTransactionResponse>>;
+      ): Promise<ChargebeeResponse<DeleteOfflineTransactionResponse>>;
     }
     export interface CreateAuthorizationResponse {
       transaction: Transaction;

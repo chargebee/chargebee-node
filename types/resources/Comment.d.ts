@@ -21,19 +21,15 @@ declare module 'Chargebee' {
     export class CommentResource {
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       retrieve(
         comment_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
-      delete(
-        comment_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+      delete(comment_id: string): Promise<ChargebeeResponse<DeleteResponse>>;
     }
     export interface CreateResponse {
       comment: Comment;

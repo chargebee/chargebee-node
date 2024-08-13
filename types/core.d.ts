@@ -6,12 +6,6 @@ declare module 'Chargebee' {
     timemachineWaitInMillis?: number;
     exportWaitInMillis?: number;
   }
-  export class ChargebeeRequest<T> {
-    setIdempotencyKey(idempotencyKey: string): this;
-    request(config?: RequestConfig): Promise<T>;
-    headers(headers: { [key: string]: string }): this;
-    param(params: { [key: string]: string }): this;
-  }
   export type ChargebeeResponse<T> = T & {
     headers: { [key: string]: string };
     isIdempotencyReplayed?: boolean | string;

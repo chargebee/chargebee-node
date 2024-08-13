@@ -17,29 +17,29 @@ declare module 'Chargebee' {
   }
   export namespace Currency {
     export class CurrencyResource {
-      list(): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(): Promise<ChargebeeResponse<ListResponse>>;
 
       retrieve(
         site_currency_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       update(
         site_currency_id: string,
         input: UpdateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateResponse>>;
+      ): Promise<ChargebeeResponse<UpdateResponse>>;
 
       addSchedule(
         site_currency_id: string,
         input: AddScheduleInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AddScheduleResponse>>;
+      ): Promise<ChargebeeResponse<AddScheduleResponse>>;
 
       removeSchedule(
         site_currency_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RemoveScheduleResponse>>;
+      ): Promise<ChargebeeResponse<RemoveScheduleResponse>>;
     }
     export interface ListResponse {
       currency: Currency;

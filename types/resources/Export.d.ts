@@ -17,77 +17,71 @@ declare module 'Chargebee' {
   }
   export namespace Export {
     export class ExportResource {
-      retrieve(
-        export_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      retrieve(export_id: string): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       revenueRecognition(
         input: RevenueRecognitionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RevenueRecognitionResponse>>;
+      ): Promise<ChargebeeResponse<RevenueRecognitionResponse>>;
 
       deferredRevenue(
         input: DeferredRevenueInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<DeferredRevenueResponse>>;
+      ): Promise<ChargebeeResponse<DeferredRevenueResponse>>;
 
-      plans(
-        input?: PlansInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<PlansResponse>>;
+      plans(input?: PlansInputParam): Promise<ChargebeeResponse<PlansResponse>>;
 
       addons(
         input?: AddonsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AddonsResponse>>;
+      ): Promise<ChargebeeResponse<AddonsResponse>>;
 
       coupons(
         input?: CouponsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CouponsResponse>>;
+      ): Promise<ChargebeeResponse<CouponsResponse>>;
 
       customers(
         input?: CustomersInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CustomersResponse>>;
+      ): Promise<ChargebeeResponse<CustomersResponse>>;
 
       subscriptions(
         input?: SubscriptionsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<SubscriptionsResponse>>;
+      ): Promise<ChargebeeResponse<SubscriptionsResponse>>;
 
       invoices(
         input?: InvoicesInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<InvoicesResponse>>;
+      ): Promise<ChargebeeResponse<InvoicesResponse>>;
 
       creditNotes(
         input?: CreditNotesInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreditNotesResponse>>;
+      ): Promise<ChargebeeResponse<CreditNotesResponse>>;
 
       transactions(
         input?: TransactionsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<TransactionsResponse>>;
+      ): Promise<ChargebeeResponse<TransactionsResponse>>;
 
       orders(
         input?: OrdersInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<OrdersResponse>>;
+      ): Promise<ChargebeeResponse<OrdersResponse>>;
 
       itemFamilies(
         input?: ItemFamiliesInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ItemFamiliesResponse>>;
+      ): Promise<ChargebeeResponse<ItemFamiliesResponse>>;
 
-      items(
-        input?: ItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ItemsResponse>>;
+      items(input?: ItemsInputParam): Promise<ChargebeeResponse<ItemsResponse>>;
 
       itemPrices(
         input?: ItemPricesInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ItemPricesResponse>>;
+      ): Promise<ChargebeeResponse<ItemPricesResponse>>;
 
       attachedItems(
         input?: AttachedItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AttachedItemsResponse>>;
+      ): Promise<ChargebeeResponse<AttachedItemsResponse>>;
 
       differentialPrices(
         input?: DifferentialPricesInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<DifferentialPricesResponse>>;
+      ): Promise<ChargebeeResponse<DifferentialPricesResponse>>;
 
       priceVariants(
         input?: PriceVariantsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<PriceVariantsResponse>>;
+      ): Promise<ChargebeeResponse<PriceVariantsResponse>>;
     }
     export interface RetrieveResponse {
       export: Export;

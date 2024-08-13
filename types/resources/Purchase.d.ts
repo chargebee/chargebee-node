@@ -19,11 +19,11 @@ declare module 'Chargebee' {
     export class PurchaseResource {
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       estimate(
         input: EstimateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<EstimateResponse>>;
+      ): Promise<ChargebeeResponse<EstimateResponse>>;
     }
     export interface CreateResponse {
       purchase: Purchase;

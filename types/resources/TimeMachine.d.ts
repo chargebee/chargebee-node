@@ -21,17 +21,17 @@ declare module 'Chargebee' {
     export class TimeMachineResource {
       retrieve(
         time_machine_name: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       startAfresh(
         time_machine_name: string,
         input?: StartAfreshInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<StartAfreshResponse>>;
+      ): Promise<ChargebeeResponse<StartAfreshResponse>>;
 
       travelForward(
         time_machine_name: string,
         input?: TravelForwardInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<TravelForwardResponse>>;
+      ): Promise<ChargebeeResponse<TravelForwardResponse>>;
     }
     export interface RetrieveResponse {
       time_machine: TimeMachine;

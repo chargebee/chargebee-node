@@ -19,13 +19,11 @@ declare module 'Chargebee' {
   }
   export namespace Entitlement {
     export class EntitlementResource {
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
     }
     export interface ListResponse {
       list: { entitlement: Entitlement }[];

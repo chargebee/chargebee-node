@@ -23,24 +23,22 @@ declare module 'Chargebee' {
     export class ItemFamilyResource {
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       retrieve(
         item_family_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       update(
         item_family_id: string,
         input?: UpdateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateResponse>>;
+      ): Promise<ChargebeeResponse<UpdateResponse>>;
 
       delete(
         item_family_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
     }
     export interface CreateResponse {
       item_family: ItemFamily;

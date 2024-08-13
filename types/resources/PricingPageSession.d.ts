@@ -15,13 +15,11 @@ declare module 'Chargebee' {
     export class PricingPageSessionResource {
       createForNewSubscription(
         input: CreateForNewSubscriptionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateForNewSubscriptionResponse>>;
+      ): Promise<ChargebeeResponse<CreateForNewSubscriptionResponse>>;
 
       createForExistingSubscription(
         input: CreateForExistingSubscriptionInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<CreateForExistingSubscriptionResponse>
-      >;
+      ): Promise<ChargebeeResponse<CreateForExistingSubscriptionResponse>>;
     }
     export interface CreateForNewSubscriptionResponse {
       pricing_page_session: PricingPageSession;

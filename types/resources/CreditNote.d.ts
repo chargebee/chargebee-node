@@ -111,66 +111,64 @@ declare module 'Chargebee' {
     export class CreditNoteResource {
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       retrieve(
         credit_note_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       pdf(
         credit_note_id: string,
         input?: PdfInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<PdfResponse>>;
+      ): Promise<ChargebeeResponse<PdfResponse>>;
 
       downloadEinvoice(
         credit_note_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<DownloadEinvoiceResponse>>;
+      ): Promise<ChargebeeResponse<DownloadEinvoiceResponse>>;
 
       refund(
         credit_note_id: string,
         input?: RefundInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RefundResponse>>;
+      ): Promise<ChargebeeResponse<RefundResponse>>;
 
       recordRefund(
         credit_note_id: string,
         input: RecordRefundInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RecordRefundResponse>>;
+      ): Promise<ChargebeeResponse<RecordRefundResponse>>;
 
       voidCreditNote(
         credit_note_id: string,
         input?: VoidCreditNoteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<VoidCreditNoteResponse>>;
+      ): Promise<ChargebeeResponse<VoidCreditNoteResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       creditNotesForCustomer(
         customer_id: string,
         input?: CreditNotesForCustomerInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreditNotesForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<CreditNotesForCustomerResponse>>;
 
       delete(
         credit_note_id: string,
         input?: DeleteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
       removeTaxWithheldRefund(
         credit_note_id: string,
         input: RemoveTaxWithheldRefundInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RemoveTaxWithheldRefundResponse>>;
+      ): Promise<ChargebeeResponse<RemoveTaxWithheldRefundResponse>>;
 
       resendEinvoice(
         credit_note_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<ResendEinvoiceResponse>>;
+      ): Promise<ChargebeeResponse<ResendEinvoiceResponse>>;
 
       sendEinvoice(
         credit_note_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<SendEinvoiceResponse>>;
+      ): Promise<ChargebeeResponse<SendEinvoiceResponse>>;
 
       importCreditNote(
         input: ImportCreditNoteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ImportCreditNoteResponse>>;
+      ): Promise<ChargebeeResponse<ImportCreditNoteResponse>>;
     }
     export interface CreateResponse {
       credit_note: CreditNote;

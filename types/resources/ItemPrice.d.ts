@@ -92,34 +92,30 @@ declare module 'Chargebee' {
     export class ItemPriceResource {
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       retrieve(
         item_price_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       update(
         item_price_id: string,
         input: UpdateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateResponse>>;
+      ): Promise<ChargebeeResponse<UpdateResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
-      delete(
-        item_price_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+      delete(item_price_id: string): Promise<ChargebeeResponse<DeleteResponse>>;
 
       findApplicableItems(
         item_price_id: string,
         input?: FindApplicableItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<FindApplicableItemsResponse>>;
+      ): Promise<ChargebeeResponse<FindApplicableItemsResponse>>;
 
       findApplicableItemPrices(
         item_price_id: string,
         input?: FindApplicableItemPricesInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<FindApplicableItemPricesResponse>>;
+      ): Promise<ChargebeeResponse<FindApplicableItemPricesResponse>>;
     }
     export interface CreateResponse {
       item_price: ItemPrice;

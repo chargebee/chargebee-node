@@ -28,14 +28,14 @@ declare module 'Chargebee' {
       addEntitlementOverrideForSubscription(
         subscription_id: string,
         input: AddEntitlementOverrideForSubscriptionInputParam,
-      ): ChargebeeRequest<
+      ): Promise<
         ChargebeeResponse<AddEntitlementOverrideForSubscriptionResponse>
       >;
 
       listEntitlementOverrideForSubscription(
         subscription_id: string,
         input?: ListEntitlementOverrideForSubscriptionInputParam,
-      ): ChargebeeRequest<
+      ): Promise<
         ChargebeeResponse<ListEntitlementOverrideForSubscriptionResponse>
       >;
     }

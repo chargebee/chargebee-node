@@ -145,179 +145,173 @@ declare module 'Chargebee' {
     export class InvoiceResource {
       create(
         input?: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       createForChargeItemsAndCharges(
         input: CreateForChargeItemsAndChargesInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<CreateForChargeItemsAndChargesResponse>
-      >;
+      ): Promise<ChargebeeResponse<CreateForChargeItemsAndChargesResponse>>;
 
       charge(
         input: ChargeInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ChargeResponse>>;
+      ): Promise<ChargebeeResponse<ChargeResponse>>;
 
       chargeAddon(
         input: ChargeAddonInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ChargeAddonResponse>>;
+      ): Promise<ChargebeeResponse<ChargeAddonResponse>>;
 
       createForChargeItem(
         input: CreateForChargeItemInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateForChargeItemResponse>>;
+      ): Promise<ChargebeeResponse<CreateForChargeItemResponse>>;
 
       stopDunning(
         invoice_id: string,
         input?: StopDunningInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<StopDunningResponse>>;
+      ): Promise<ChargebeeResponse<StopDunningResponse>>;
 
       importInvoice(
         input: ImportInvoiceInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ImportInvoiceResponse>>;
+      ): Promise<ChargebeeResponse<ImportInvoiceResponse>>;
 
       applyPayments(
         invoice_id: string,
         input?: ApplyPaymentsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ApplyPaymentsResponse>>;
+      ): Promise<ChargebeeResponse<ApplyPaymentsResponse>>;
 
       syncUsages(
         invoice_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<SyncUsagesResponse>>;
+      ): Promise<ChargebeeResponse<SyncUsagesResponse>>;
 
       deleteLineItems(
         invoice_id: string,
         input?: DeleteLineItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteLineItemsResponse>>;
+      ): Promise<ChargebeeResponse<DeleteLineItemsResponse>>;
 
       applyCredits(
         invoice_id: string,
         input?: ApplyCreditsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ApplyCreditsResponse>>;
+      ): Promise<ChargebeeResponse<ApplyCreditsResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       invoicesForCustomer(
         customer_id: string,
         input?: InvoicesForCustomerInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<InvoicesForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<InvoicesForCustomerResponse>>;
 
       invoicesForSubscription(
         subscription_id: string,
         input?: InvoicesForSubscriptionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<InvoicesForSubscriptionResponse>>;
+      ): Promise<ChargebeeResponse<InvoicesForSubscriptionResponse>>;
 
       retrieve(
         invoice_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       pdf(
         invoice_id: string,
         input?: PdfInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<PdfResponse>>;
+      ): Promise<ChargebeeResponse<PdfResponse>>;
 
       downloadEinvoice(
         invoice_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<DownloadEinvoiceResponse>>;
+      ): Promise<ChargebeeResponse<DownloadEinvoiceResponse>>;
 
       listPaymentReferenceNumbers(
         input?: ListPaymentReferenceNumbersInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<ListPaymentReferenceNumbersResponse>
-      >;
+      ): Promise<ChargebeeResponse<ListPaymentReferenceNumbersResponse>>;
 
       addCharge(
         invoice_id: string,
         input: AddChargeInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AddChargeResponse>>;
+      ): Promise<ChargebeeResponse<AddChargeResponse>>;
 
       addAddonCharge(
         invoice_id: string,
         input: AddAddonChargeInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AddAddonChargeResponse>>;
+      ): Promise<ChargebeeResponse<AddAddonChargeResponse>>;
 
       addChargeItem(
         invoice_id: string,
         input: AddChargeItemInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AddChargeItemResponse>>;
+      ): Promise<ChargebeeResponse<AddChargeItemResponse>>;
 
       close(
         invoice_id: string,
         input?: CloseInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CloseResponse>>;
+      ): Promise<ChargebeeResponse<CloseResponse>>;
 
       collectPayment(
         invoice_id: string,
         input?: CollectPaymentInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CollectPaymentResponse>>;
+      ): Promise<ChargebeeResponse<CollectPaymentResponse>>;
 
       recordPayment(
         invoice_id: string,
         input: RecordPaymentInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RecordPaymentResponse>>;
+      ): Promise<ChargebeeResponse<RecordPaymentResponse>>;
 
       recordTaxWithheld(
         invoice_id: string,
         input: RecordTaxWithheldInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RecordTaxWithheldResponse>>;
+      ): Promise<ChargebeeResponse<RecordTaxWithheldResponse>>;
 
       removeTaxWithheld(
         invoice_id: string,
         input: RemoveTaxWithheldInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RemoveTaxWithheldResponse>>;
+      ): Promise<ChargebeeResponse<RemoveTaxWithheldResponse>>;
 
       refund(
         invoice_id: string,
         input?: RefundInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RefundResponse>>;
+      ): Promise<ChargebeeResponse<RefundResponse>>;
 
       recordRefund(
         invoice_id: string,
         input: RecordRefundInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RecordRefundResponse>>;
+      ): Promise<ChargebeeResponse<RecordRefundResponse>>;
 
       removePayment(
         invoice_id: string,
         input: RemovePaymentInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RemovePaymentResponse>>;
+      ): Promise<ChargebeeResponse<RemovePaymentResponse>>;
 
       removeCreditNote(
         invoice_id: string,
         input: RemoveCreditNoteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RemoveCreditNoteResponse>>;
+      ): Promise<ChargebeeResponse<RemoveCreditNoteResponse>>;
 
       voidInvoice(
         invoice_id: string,
         input?: VoidInvoiceInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<VoidInvoiceResponse>>;
+      ): Promise<ChargebeeResponse<VoidInvoiceResponse>>;
 
       writeOff(
         invoice_id: string,
         input?: WriteOffInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<WriteOffResponse>>;
+      ): Promise<ChargebeeResponse<WriteOffResponse>>;
 
       delete(
         invoice_id: string,
         input?: DeleteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
       updateDetails(
         invoice_id: string,
         input?: UpdateDetailsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateDetailsResponse>>;
+      ): Promise<ChargebeeResponse<UpdateDetailsResponse>>;
 
       installments(
         invoice_id: string,
         input: InstallmentsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<InstallmentsResponse>>;
+      ): Promise<ChargebeeResponse<InstallmentsResponse>>;
 
       resendEinvoice(
         invoice_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<ResendEinvoiceResponse>>;
+      ): Promise<ChargebeeResponse<ResendEinvoiceResponse>>;
 
       sendEinvoice(
         invoice_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<SendEinvoiceResponse>>;
+      ): Promise<ChargebeeResponse<SendEinvoiceResponse>>;
     }
     export interface CreateResponse {
       invoice: Invoice;

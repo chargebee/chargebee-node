@@ -27,15 +27,15 @@ declare module 'Chargebee' {
     export class InstallmentConfigResource {
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       retrieve(
         installment_config_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       delete(
         installment_config_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
     }
     export interface CreateResponse {
       installment_config: InstallmentConfig;

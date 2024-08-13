@@ -23,97 +23,89 @@ declare module 'Chargebee' {
     export class EstimateResource {
       createSubscription(
         input: CreateSubscriptionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateSubscriptionResponse>>;
+      ): Promise<ChargebeeResponse<CreateSubscriptionResponse>>;
 
       createSubItemEstimate(
         input: CreateSubItemEstimateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateSubItemEstimateResponse>>;
+      ): Promise<ChargebeeResponse<CreateSubItemEstimateResponse>>;
 
       createSubForCustomerEstimate(
         customer_id: string,
         input: CreateSubForCustomerEstimateInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<CreateSubForCustomerEstimateResponse>
-      >;
+      ): Promise<ChargebeeResponse<CreateSubForCustomerEstimateResponse>>;
 
       createSubItemForCustomerEstimate(
         customer_id: string,
         input: CreateSubItemForCustomerEstimateInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<CreateSubItemForCustomerEstimateResponse>
-      >;
+      ): Promise<ChargebeeResponse<CreateSubItemForCustomerEstimateResponse>>;
 
       updateSubscription(
         input: UpdateSubscriptionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateSubscriptionResponse>>;
+      ): Promise<ChargebeeResponse<UpdateSubscriptionResponse>>;
 
       updateSubscriptionForItems(
         input: UpdateSubscriptionForItemsInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<UpdateSubscriptionForItemsResponse>
-      >;
+      ): Promise<ChargebeeResponse<UpdateSubscriptionForItemsResponse>>;
 
       renewalEstimate(
         subscription_id: string,
         input?: RenewalEstimateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RenewalEstimateResponse>>;
+      ): Promise<ChargebeeResponse<RenewalEstimateResponse>>;
 
       advanceInvoiceEstimate(
         subscription_id: string,
         input?: AdvanceInvoiceEstimateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AdvanceInvoiceEstimateResponse>>;
+      ): Promise<ChargebeeResponse<AdvanceInvoiceEstimateResponse>>;
 
       regenerateInvoiceEstimate(
         subscription_id: string,
         input?: RegenerateInvoiceEstimateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RegenerateInvoiceEstimateResponse>>;
+      ): Promise<ChargebeeResponse<RegenerateInvoiceEstimateResponse>>;
 
       upcomingInvoicesEstimate(
         customer_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<UpcomingInvoicesEstimateResponse>>;
+      ): Promise<ChargebeeResponse<UpcomingInvoicesEstimateResponse>>;
 
       changeTermEnd(
         subscription_id: string,
         input: ChangeTermEndInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ChangeTermEndResponse>>;
+      ): Promise<ChargebeeResponse<ChangeTermEndResponse>>;
 
       cancelSubscription(
         subscription_id: string,
         input?: CancelSubscriptionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CancelSubscriptionResponse>>;
+      ): Promise<ChargebeeResponse<CancelSubscriptionResponse>>;
 
       cancelSubscriptionForItems(
         subscription_id: string,
         input?: CancelSubscriptionForItemsInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<CancelSubscriptionForItemsResponse>
-      >;
+      ): Promise<ChargebeeResponse<CancelSubscriptionForItemsResponse>>;
 
       pauseSubscription(
         subscription_id: string,
         input?: PauseSubscriptionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<PauseSubscriptionResponse>>;
+      ): Promise<ChargebeeResponse<PauseSubscriptionResponse>>;
 
       resumeSubscription(
         subscription_id: string,
         input?: ResumeSubscriptionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ResumeSubscriptionResponse>>;
+      ): Promise<ChargebeeResponse<ResumeSubscriptionResponse>>;
 
       giftSubscription(
         input: GiftSubscriptionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<GiftSubscriptionResponse>>;
+      ): Promise<ChargebeeResponse<GiftSubscriptionResponse>>;
 
       giftSubscriptionForItems(
         input: GiftSubscriptionForItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<GiftSubscriptionForItemsResponse>>;
+      ): Promise<ChargebeeResponse<GiftSubscriptionForItemsResponse>>;
 
       createInvoice(
         input?: CreateInvoiceInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateInvoiceResponse>>;
+      ): Promise<ChargebeeResponse<CreateInvoiceResponse>>;
 
       createInvoiceForItems(
         input: CreateInvoiceForItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateInvoiceForItemsResponse>>;
+      ): Promise<ChargebeeResponse<CreateInvoiceForItemsResponse>>;
     }
     export interface CreateSubscriptionResponse {
       estimate: Estimate;

@@ -154,121 +154,115 @@ declare module 'Chargebee' {
     export class CustomerResource {
       create(
         input?: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       retrieve(
         customer_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       update(
         customer_id: string,
         input?: UpdateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateResponse>>;
+      ): Promise<ChargebeeResponse<UpdateResponse>>;
 
       updatePaymentMethod(
         customer_id: string,
         input: UpdatePaymentMethodInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdatePaymentMethodResponse>>;
+      ): Promise<ChargebeeResponse<UpdatePaymentMethodResponse>>;
 
       updateBillingInfo(
         customer_id: string,
         input?: UpdateBillingInfoInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateBillingInfoResponse>>;
+      ): Promise<ChargebeeResponse<UpdateBillingInfoResponse>>;
 
       contactsForCustomer(
         customer_id: string,
         input?: ContactsForCustomerInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ContactsForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<ContactsForCustomerResponse>>;
 
       assignPaymentRole(
         customer_id: string,
         input: AssignPaymentRoleInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AssignPaymentRoleResponse>>;
+      ): Promise<ChargebeeResponse<AssignPaymentRoleResponse>>;
 
       addContact(
         customer_id: string,
         input: AddContactInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AddContactResponse>>;
+      ): Promise<ChargebeeResponse<AddContactResponse>>;
 
       updateContact(
         customer_id: string,
         input: UpdateContactInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateContactResponse>>;
+      ): Promise<ChargebeeResponse<UpdateContactResponse>>;
 
       deleteContact(
         customer_id: string,
         input: DeleteContactInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteContactResponse>>;
+      ): Promise<ChargebeeResponse<DeleteContactResponse>>;
 
       addPromotionalCredits(
         customer_id: string,
         input: AddPromotionalCreditsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AddPromotionalCreditsResponse>>;
+      ): Promise<ChargebeeResponse<AddPromotionalCreditsResponse>>;
 
       deductPromotionalCredits(
         customer_id: string,
         input: DeductPromotionalCreditsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<DeductPromotionalCreditsResponse>>;
+      ): Promise<ChargebeeResponse<DeductPromotionalCreditsResponse>>;
 
       setPromotionalCredits(
         customer_id: string,
         input: SetPromotionalCreditsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<SetPromotionalCreditsResponse>>;
+      ): Promise<ChargebeeResponse<SetPromotionalCreditsResponse>>;
 
       recordExcessPayment(
         customer_id: string,
         input: RecordExcessPaymentInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RecordExcessPaymentResponse>>;
+      ): Promise<ChargebeeResponse<RecordExcessPaymentResponse>>;
 
       collectPayment(
         customer_id: string,
         input: CollectPaymentInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CollectPaymentResponse>>;
+      ): Promise<ChargebeeResponse<CollectPaymentResponse>>;
 
       delete(
         customer_id: string,
         input?: DeleteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
-      move(
-        input: MoveInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<MoveResponse>>;
+      move(input: MoveInputParam): Promise<ChargebeeResponse<MoveResponse>>;
 
       changeBillingDate(
         customer_id: string,
         input?: ChangeBillingDateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ChangeBillingDateResponse>>;
+      ): Promise<ChargebeeResponse<ChangeBillingDateResponse>>;
 
-      merge(
-        input: MergeInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<MergeResponse>>;
+      merge(input: MergeInputParam): Promise<ChargebeeResponse<MergeResponse>>;
 
       clearPersonalData(
         customer_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<ClearPersonalDataResponse>>;
+      ): Promise<ChargebeeResponse<ClearPersonalDataResponse>>;
 
       relationships(
         customer_id: string,
         input?: RelationshipsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RelationshipsResponse>>;
+      ): Promise<ChargebeeResponse<RelationshipsResponse>>;
 
       deleteRelationship(
         customer_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteRelationshipResponse>>;
+      ): Promise<ChargebeeResponse<DeleteRelationshipResponse>>;
 
       hierarchy(
         customer_id: string,
         input: HierarchyInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<HierarchyResponse>>;
+      ): Promise<ChargebeeResponse<HierarchyResponse>>;
 
       updateHierarchySettings(
         customer_id: string,
         input?: UpdateHierarchySettingsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateHierarchySettingsResponse>>;
+      ): Promise<ChargebeeResponse<UpdateHierarchySettingsResponse>>;
     }
     export interface CreateResponse {
       customer: Customer;

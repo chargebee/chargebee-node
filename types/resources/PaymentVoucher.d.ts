@@ -47,25 +47,21 @@ declare module 'Chargebee' {
     export class PaymentVoucherResource {
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       retrieve(
         payment_voucher_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       payment_vouchersForInvoice(
         invoice_id: string,
         input?: PaymentVouchersForInvoiceInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<Payment_vouchersForInvoiceResponse>
-      >;
+      ): Promise<ChargebeeResponse<Payment_vouchersForInvoiceResponse>>;
 
       payment_vouchersForCustomer(
         customer_id: string,
         input?: PaymentVouchersForCustomerInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<Payment_vouchersForCustomerResponse>
-      >;
+      ): Promise<ChargebeeResponse<Payment_vouchersForCustomerResponse>>;
     }
     export interface CreateResponse {
       payment_voucher: PaymentVoucher;

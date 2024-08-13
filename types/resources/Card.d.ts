@@ -95,26 +95,26 @@ declare module 'Chargebee' {
     export class CardResource {
       retrieve(
         customer_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       updateCardForCustomer(
         customer_id: string,
         input: UpdateCardForCustomerInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateCardForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<UpdateCardForCustomerResponse>>;
 
       switchGatewayForCustomer(
         customer_id: string,
         input: SwitchGatewayForCustomerInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<SwitchGatewayForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<SwitchGatewayForCustomerResponse>>;
 
       copyCardForCustomer(
         customer_id: string,
         input: CopyCardForCustomerInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CopyCardForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<CopyCardForCustomerResponse>>;
 
       deleteCardForCustomer(
         customer_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteCardForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<DeleteCardForCustomerResponse>>;
     }
     export interface RetrieveResponse {
       card: Card;

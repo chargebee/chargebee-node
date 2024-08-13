@@ -26,8 +26,9 @@ export const CreateChargebee = () => {
   } as any as { new (): ChargebeeType };
   Chargebee.prototype = {
     _createApiFunc(apiCall: ResourceType, env: EnvType) {
-      return function () {
-        return new RequestWrapper(arguments, apiCall, env);
+      return async function () {
+        const rw = new RequestWrapper(arguments, apiCall, env);
+        return rw.getRequest();
       };
     },
     _waitForExport(exportId: string) {

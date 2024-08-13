@@ -84,115 +84,97 @@ declare module 'Chargebee' {
   }
   export namespace Quote {
     export class QuoteResource {
-      retrieve(
-        quote_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      retrieve(quote_id: string): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       createSubForCustomerQuote(
         customer_id: string,
         input: CreateSubForCustomerQuoteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateSubForCustomerQuoteResponse>>;
+      ): Promise<ChargebeeResponse<CreateSubForCustomerQuoteResponse>>;
 
       editCreateSubForCustomerQuote(
         quote_id: string,
         input: EditCreateSubForCustomerQuoteInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<EditCreateSubForCustomerQuoteResponse>
-      >;
+      ): Promise<ChargebeeResponse<EditCreateSubForCustomerQuoteResponse>>;
 
       updateSubscriptionQuote(
         input: UpdateSubscriptionQuoteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateSubscriptionQuoteResponse>>;
+      ): Promise<ChargebeeResponse<UpdateSubscriptionQuoteResponse>>;
 
       editUpdateSubscriptionQuote(
         quote_id: string,
         input?: EditUpdateSubscriptionQuoteInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<EditUpdateSubscriptionQuoteResponse>
-      >;
+      ): Promise<ChargebeeResponse<EditUpdateSubscriptionQuoteResponse>>;
 
       createForOnetimeCharges(
         input: CreateForOnetimeChargesInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateForOnetimeChargesResponse>>;
+      ): Promise<ChargebeeResponse<CreateForOnetimeChargesResponse>>;
 
       editOneTimeQuote(
         quote_id: string,
         input?: EditOneTimeQuoteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<EditOneTimeQuoteResponse>>;
+      ): Promise<ChargebeeResponse<EditOneTimeQuoteResponse>>;
 
       createSubItemsForCustomerQuote(
         customer_id: string,
         input: CreateSubItemsForCustomerQuoteInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<CreateSubItemsForCustomerQuoteResponse>
-      >;
+      ): Promise<ChargebeeResponse<CreateSubItemsForCustomerQuoteResponse>>;
 
       editCreateSubCustomerQuoteForItems(
         quote_id: string,
         input: EditCreateSubCustomerQuoteForItemsInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<EditCreateSubCustomerQuoteForItemsResponse>
-      >;
+      ): Promise<ChargebeeResponse<EditCreateSubCustomerQuoteForItemsResponse>>;
 
       updateSubscriptionQuoteForItems(
         input: UpdateSubscriptionQuoteForItemsInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<UpdateSubscriptionQuoteForItemsResponse>
-      >;
+      ): Promise<ChargebeeResponse<UpdateSubscriptionQuoteForItemsResponse>>;
 
       editUpdateSubscriptionQuoteForItems(
         quote_id: string,
         input: EditUpdateSubscriptionQuoteForItemsInputParam,
-      ): ChargebeeRequest<
+      ): Promise<
         ChargebeeResponse<EditUpdateSubscriptionQuoteForItemsResponse>
       >;
 
       createForChargeItemsAndCharges(
         input: CreateForChargeItemsAndChargesInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<CreateForChargeItemsAndChargesResponse>
-      >;
+      ): Promise<ChargebeeResponse<CreateForChargeItemsAndChargesResponse>>;
 
       editForChargeItemsAndCharges(
         quote_id: string,
         input: EditForChargeItemsAndChargesInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<EditForChargeItemsAndChargesResponse>
-      >;
+      ): Promise<ChargebeeResponse<EditForChargeItemsAndChargesResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       quoteLineGroupsForQuote(
         quote_id: string,
         input?: QuoteLineGroupsForQuoteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<QuoteLineGroupsForQuoteResponse>>;
+      ): Promise<ChargebeeResponse<QuoteLineGroupsForQuoteResponse>>;
 
       convert(
         quote_id: string,
         input?: ConvertInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ConvertResponse>>;
+      ): Promise<ChargebeeResponse<ConvertResponse>>;
 
       updateStatus(
         quote_id: string,
         input: UpdateStatusInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateStatusResponse>>;
+      ): Promise<ChargebeeResponse<UpdateStatusResponse>>;
 
       extendExpiryDate(
         quote_id: string,
         input: ExtendExpiryDateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ExtendExpiryDateResponse>>;
+      ): Promise<ChargebeeResponse<ExtendExpiryDateResponse>>;
 
       delete(
         quote_id: string,
         input?: DeleteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
       pdf(
         quote_id: string,
         input?: PdfInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<PdfResponse>>;
+      ): Promise<ChargebeeResponse<PdfResponse>>;
     }
     export interface RetrieveResponse {
       quote: Quote;

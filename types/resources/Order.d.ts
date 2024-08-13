@@ -145,59 +145,51 @@ declare module 'Chargebee' {
     export class OrderResource {
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       update(
         order_id: string,
         input?: UpdateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateResponse>>;
+      ): Promise<ChargebeeResponse<UpdateResponse>>;
 
       importOrder(
         input: ImportOrderInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ImportOrderResponse>>;
+      ): Promise<ChargebeeResponse<ImportOrderResponse>>;
 
       assignOrderNumber(
         order_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<AssignOrderNumberResponse>>;
+      ): Promise<ChargebeeResponse<AssignOrderNumberResponse>>;
 
       cancel(
         order_id: string,
         input: CancelInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CancelResponse>>;
+      ): Promise<ChargebeeResponse<CancelResponse>>;
 
       createRefundableCreditNote(
         order_id: string,
         input: CreateRefundableCreditNoteInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<CreateRefundableCreditNoteResponse>
-      >;
+      ): Promise<ChargebeeResponse<CreateRefundableCreditNoteResponse>>;
 
       reopen(
         order_id: string,
         input?: ReopenInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ReopenResponse>>;
+      ): Promise<ChargebeeResponse<ReopenResponse>>;
 
-      retrieve(
-        order_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      retrieve(order_id: string): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      delete(
-        order_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+      delete(order_id: string): Promise<ChargebeeResponse<DeleteResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       ordersForInvoice(
         invoice_id: string,
         input?: OrdersForInvoiceInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<OrdersForInvoiceResponse>>;
+      ): Promise<ChargebeeResponse<OrdersForInvoiceResponse>>;
 
       resend(
         order_id: string,
         input?: ResendInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ResendResponse>>;
+      ): Promise<ChargebeeResponse<ResendResponse>>;
     }
     export interface CreateResponse {
       order: Order;

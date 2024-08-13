@@ -62,27 +62,25 @@ declare module 'Chargebee' {
     export class UnbilledChargeResource {
       createUnbilledCharge(
         input: CreateUnbilledChargeInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateUnbilledChargeResponse>>;
+      ): Promise<ChargebeeResponse<CreateUnbilledChargeResponse>>;
 
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       invoiceUnbilledCharges(
         input?: InvoiceUnbilledChargesInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<InvoiceUnbilledChargesResponse>>;
+      ): Promise<ChargebeeResponse<InvoiceUnbilledChargesResponse>>;
 
       delete(
         unbilled_charge_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       invoiceNowEstimate(
         input?: InvoiceNowEstimateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<InvoiceNowEstimateResponse>>;
+      ): Promise<ChargebeeResponse<InvoiceNowEstimateResponse>>;
     }
     export interface CreateUnbilledChargeResponse {
       unbilled_charges: UnbilledCharge[];

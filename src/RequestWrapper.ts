@@ -42,50 +42,15 @@ export class RequestWrapper {
     }
     return idParam;
   }
-
-  public headers(headers: RequestHeaders): this {
-    Object.assign(this.httpHeaders, headers);
-    return this;
-  }
-
-  public setIdempotencyKey(idempotencyKey: string): this {
-    this.headers({ [IDEMPOTENCY_HEADER]: idempotencyKey });
-    return this;
-  }
-
-  public param(custom_param: CustomParam): this {
-    if (this.apiCall.hasIdInUrl) {
-      this.args[1] = { ...this.args[1], ...custom_param };
-    } else {
-      this.args[0] = { ...this.args[0], ...custom_param };
-    }
-    return this;
-  }
-
-  public request(
-    callBack?: (error: unknown, result: any | null) => void,
-    envOptions?: Record<string, string>,
-  ): Promise<void | Callback> {
+  public request(): Promise<void | Callback> {
     let env: any = {};
-    let jsonConstructor = {}.constructor;
     extend(true, env, this.envArg);
-    if (typeof envOptions !== 'undefined') {
-      extend(true, env, envOptions);
-    } else if (
-      typeof callBack !== 'undefined' &&
-      callBack.constructor === jsonConstructor &&
-      !isFunction(callBack)
-    ) {
-      extend(true, env, callBack);
-      callBack = undefined;
-    }
     const urlIdParam: string = this.apiCall.hasIdInUrl ? this.args[0] : null;
     let params: JSONValue = this.apiCall.hasIdInUrl
       ? this.args[1]
       : this.args[0];
-    if (typeof callBack !== 'undefined' && !isFunction(callBack)) {
-      throw new Error('The Callback Parameter passed is incorrect.');
-    }
+    let headers = this.apiCall.hasIdInUrl ? this.args[2] : this.args[1];
+    Object.assign(this.httpHeaders, headers);
     const promise: Promise<any> = new Promise(async (resolve, reject) => {
       function callBackWrapper(err: unknown, response: any) {
         if (err) {
@@ -134,6 +99,9 @@ export class RequestWrapper {
         });
       handleResponse(callBackWrapper, resp);
     });
-    return callbackifyPromise(promise, callBack);
+    return callbackifyPromise(promise);
   }
+  public getRequest = () => {
+    return this.request();
+  };
 }

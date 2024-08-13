@@ -34,14 +34,14 @@ declare module 'Chargebee' {
       subscriptionEntitlementsForSubscription(
         subscription_id: string,
         input?: SubscriptionEntitlementsForSubscriptionInputParam,
-      ): ChargebeeRequest<
+      ): Promise<
         ChargebeeResponse<SubscriptionEntitlementsForSubscriptionResponse>
       >;
 
       setSubscriptionEntitlementAvailability(
         subscription_id: string,
         input: SetSubscriptionEntitlementAvailabilityInputParam,
-      ): ChargebeeRequest<
+      ): Promise<
         ChargebeeResponse<SetSubscriptionEntitlementAvailabilityResponse>
       >;
     }

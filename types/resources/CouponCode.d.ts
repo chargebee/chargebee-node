@@ -17,19 +17,17 @@ declare module 'Chargebee' {
     export class CouponCodeResource {
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       retrieve(
         coupon_code_code: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       archive(
         coupon_code_code: string,
-      ): ChargebeeRequest<ChargebeeResponse<ArchiveResponse>>;
+      ): Promise<ChargebeeResponse<ArchiveResponse>>;
     }
     export interface CreateResponse {
       coupon_code: CouponCode;

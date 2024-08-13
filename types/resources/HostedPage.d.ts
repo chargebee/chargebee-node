@@ -49,91 +49,89 @@ declare module 'Chargebee' {
     export class HostedPageResource {
       checkoutNew(
         input: CheckoutNewInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CheckoutNewResponse>>;
+      ): Promise<ChargebeeResponse<CheckoutNewResponse>>;
 
       checkoutOneTime(
         input?: CheckoutOneTimeInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CheckoutOneTimeResponse>>;
+      ): Promise<ChargebeeResponse<CheckoutOneTimeResponse>>;
 
       checkoutOneTimeForItems(
         input: CheckoutOneTimeForItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CheckoutOneTimeForItemsResponse>>;
+      ): Promise<ChargebeeResponse<CheckoutOneTimeForItemsResponse>>;
 
       checkoutNewForItems(
         input: CheckoutNewForItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CheckoutNewForItemsResponse>>;
+      ): Promise<ChargebeeResponse<CheckoutNewForItemsResponse>>;
 
       checkoutExisting(
         input: CheckoutExistingInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CheckoutExistingResponse>>;
+      ): Promise<ChargebeeResponse<CheckoutExistingResponse>>;
 
       checkoutExistingForItems(
         input: CheckoutExistingForItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CheckoutExistingForItemsResponse>>;
+      ): Promise<ChargebeeResponse<CheckoutExistingForItemsResponse>>;
 
       updateCard(
         input: UpdateCardInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateCardResponse>>;
+      ): Promise<ChargebeeResponse<UpdateCardResponse>>;
 
       updatePaymentMethod(
         input: UpdatePaymentMethodInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdatePaymentMethodResponse>>;
+      ): Promise<ChargebeeResponse<UpdatePaymentMethodResponse>>;
 
       managePaymentSources(
         input: ManagePaymentSourcesInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ManagePaymentSourcesResponse>>;
+      ): Promise<ChargebeeResponse<ManagePaymentSourcesResponse>>;
 
       collectNow(
         input: CollectNowInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CollectNowResponse>>;
+      ): Promise<ChargebeeResponse<CollectNowResponse>>;
 
       acceptQuote(
         input: AcceptQuoteInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AcceptQuoteResponse>>;
+      ): Promise<ChargebeeResponse<AcceptQuoteResponse>>;
 
       extendSubscription(
         input: ExtendSubscriptionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ExtendSubscriptionResponse>>;
+      ): Promise<ChargebeeResponse<ExtendSubscriptionResponse>>;
 
       checkoutGift(
         input: CheckoutGiftInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CheckoutGiftResponse>>;
+      ): Promise<ChargebeeResponse<CheckoutGiftResponse>>;
 
       checkoutGiftForItems(
         input?: CheckoutGiftForItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CheckoutGiftForItemsResponse>>;
+      ): Promise<ChargebeeResponse<CheckoutGiftForItemsResponse>>;
 
       claimGift(
         input: ClaimGiftInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ClaimGiftResponse>>;
+      ): Promise<ChargebeeResponse<ClaimGiftResponse>>;
 
       retrieveAgreementPdf(
         input: RetrieveAgreementPdfInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveAgreementPdfResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveAgreementPdfResponse>>;
 
       acknowledge(
         hosted_page_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<AcknowledgeResponse>>;
+      ): Promise<ChargebeeResponse<AcknowledgeResponse>>;
 
       retrieve(
         hosted_page_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       preCancel(
         input: PreCancelInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<PreCancelResponse>>;
+      ): Promise<ChargebeeResponse<PreCancelResponse>>;
 
       events(
         input: EventsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<EventsResponse>>;
+      ): Promise<ChargebeeResponse<EventsResponse>>;
 
       viewVoucher(
         input: ViewVoucherInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ViewVoucherResponse>>;
+      ): Promise<ChargebeeResponse<ViewVoucherResponse>>;
     }
     export interface CheckoutNewResponse {
       hosted_page: HostedPage;

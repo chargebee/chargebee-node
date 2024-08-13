@@ -177,190 +177,176 @@ declare module 'Chargebee' {
     export class SubscriptionResource {
       create(
         input: CreateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateResponse>>;
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
       createForCustomer(
         customer_id: string,
         input: CreateForCustomerInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<CreateForCustomerResponse>>;
 
       createWithItems(
         customer_id: string,
         input: CreateWithItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CreateWithItemsResponse>>;
+      ): Promise<ChargebeeResponse<CreateWithItemsResponse>>;
 
-      list(
-        input?: ListInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListResponse>>;
+      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
 
       subscriptionsForCustomer(
         customer_id: string,
         input?: SubscriptionsForCustomerInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<SubscriptionsForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<SubscriptionsForCustomerResponse>>;
 
       contractTermsForSubscription(
         subscription_id: string,
         input?: ContractTermsForSubscriptionInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<ContractTermsForSubscriptionResponse>
-      >;
+      ): Promise<ChargebeeResponse<ContractTermsForSubscriptionResponse>>;
 
       listDiscounts(
         subscription_id: string,
         input?: ListDiscountsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ListDiscountsResponse>>;
+      ): Promise<ChargebeeResponse<ListDiscountsResponse>>;
 
       retrieve(
         subscription_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RetrieveResponse>>;
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       retrieveWithScheduledChanges(
         subscription_id: string,
-      ): ChargebeeRequest<
-        ChargebeeResponse<RetrieveWithScheduledChangesResponse>
-      >;
+      ): Promise<ChargebeeResponse<RetrieveWithScheduledChangesResponse>>;
 
       removeScheduledChanges(
         subscription_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RemoveScheduledChangesResponse>>;
+      ): Promise<ChargebeeResponse<RemoveScheduledChangesResponse>>;
 
       removeScheduledCancellation(
         subscription_id: string,
         input?: RemoveScheduledCancellationInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<RemoveScheduledCancellationResponse>
-      >;
+      ): Promise<ChargebeeResponse<RemoveScheduledCancellationResponse>>;
 
       removeCoupons(
         subscription_id: string,
         input?: RemoveCouponsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RemoveCouponsResponse>>;
+      ): Promise<ChargebeeResponse<RemoveCouponsResponse>>;
 
       update(
         subscription_id: string,
         input?: UpdateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateResponse>>;
+      ): Promise<ChargebeeResponse<UpdateResponse>>;
 
       updateForItems(
         subscription_id: string,
         input: UpdateForItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<UpdateForItemsResponse>>;
+      ): Promise<ChargebeeResponse<UpdateForItemsResponse>>;
 
       changeTermEnd(
         subscription_id: string,
         input: ChangeTermEndInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ChangeTermEndResponse>>;
+      ): Promise<ChargebeeResponse<ChangeTermEndResponse>>;
 
       reactivate(
         subscription_id: string,
         input?: ReactivateInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ReactivateResponse>>;
+      ): Promise<ChargebeeResponse<ReactivateResponse>>;
 
       addChargeAtTermEnd(
         subscription_id: string,
         input: AddChargeAtTermEndInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<AddChargeAtTermEndResponse>>;
+      ): Promise<ChargebeeResponse<AddChargeAtTermEndResponse>>;
 
       chargeAddonAtTermEnd(
         subscription_id: string,
         input: ChargeAddonAtTermEndInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ChargeAddonAtTermEndResponse>>;
+      ): Promise<ChargebeeResponse<ChargeAddonAtTermEndResponse>>;
 
       chargeFutureRenewals(
         subscription_id: string,
         input?: ChargeFutureRenewalsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ChargeFutureRenewalsResponse>>;
+      ): Promise<ChargebeeResponse<ChargeFutureRenewalsResponse>>;
 
       editAdvanceInvoiceSchedule(
         subscription_id: string,
         input?: EditAdvanceInvoiceScheduleInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<EditAdvanceInvoiceScheduleResponse>
-      >;
+      ): Promise<ChargebeeResponse<EditAdvanceInvoiceScheduleResponse>>;
 
       retrieveAdvanceInvoiceSchedule(
         subscription_id: string,
-      ): ChargebeeRequest<
-        ChargebeeResponse<RetrieveAdvanceInvoiceScheduleResponse>
-      >;
+      ): Promise<ChargebeeResponse<RetrieveAdvanceInvoiceScheduleResponse>>;
 
       removeAdvanceInvoiceSchedule(
         subscription_id: string,
         input?: RemoveAdvanceInvoiceScheduleInputParam,
-      ): ChargebeeRequest<
-        ChargebeeResponse<RemoveAdvanceInvoiceScheduleResponse>
-      >;
+      ): Promise<ChargebeeResponse<RemoveAdvanceInvoiceScheduleResponse>>;
 
       regenerateInvoice(
         subscription_id: string,
         input?: RegenerateInvoiceInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<RegenerateInvoiceResponse>>;
+      ): Promise<ChargebeeResponse<RegenerateInvoiceResponse>>;
 
       importSubscription(
         input: ImportSubscriptionInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ImportSubscriptionResponse>>;
+      ): Promise<ChargebeeResponse<ImportSubscriptionResponse>>;
 
       importForCustomer(
         customer_id: string,
         input: ImportForCustomerInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ImportForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<ImportForCustomerResponse>>;
 
       importContractTerm(
         subscription_id: string,
         input?: ImportContractTermInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ImportContractTermResponse>>;
+      ): Promise<ChargebeeResponse<ImportContractTermResponse>>;
 
       importUnbilledCharges(
         subscription_id: string,
         input: ImportUnbilledChargesInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ImportUnbilledChargesResponse>>;
+      ): Promise<ChargebeeResponse<ImportUnbilledChargesResponse>>;
 
       importForItems(
         customer_id: string,
         input: ImportForItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ImportForItemsResponse>>;
+      ): Promise<ChargebeeResponse<ImportForItemsResponse>>;
 
       overrideBillingProfile(
         subscription_id: string,
         input?: OverrideBillingProfileInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<OverrideBillingProfileResponse>>;
+      ): Promise<ChargebeeResponse<OverrideBillingProfileResponse>>;
 
       delete(
         subscription_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<DeleteResponse>>;
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
       pause(
         subscription_id: string,
         input?: PauseInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<PauseResponse>>;
+      ): Promise<ChargebeeResponse<PauseResponse>>;
 
       cancel(
         subscription_id: string,
         input?: CancelInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CancelResponse>>;
+      ): Promise<ChargebeeResponse<CancelResponse>>;
 
       cancelForItems(
         subscription_id: string,
         input?: CancelForItemsInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<CancelForItemsResponse>>;
+      ): Promise<ChargebeeResponse<CancelForItemsResponse>>;
 
       resume(
         subscription_id: string,
         input?: ResumeInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<ResumeResponse>>;
+      ): Promise<ChargebeeResponse<ResumeResponse>>;
 
       removeScheduledPause(
         subscription_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RemoveScheduledPauseResponse>>;
+      ): Promise<ChargebeeResponse<RemoveScheduledPauseResponse>>;
 
       removeScheduledResumption(
         subscription_id: string,
-      ): ChargebeeRequest<ChargebeeResponse<RemoveScheduledResumptionResponse>>;
+      ): Promise<ChargebeeResponse<RemoveScheduledResumptionResponse>>;
 
       move(
         subscription_id: string,
         input: MoveInputParam,
-      ): ChargebeeRequest<ChargebeeResponse<MoveResponse>>;
+      ): Promise<ChargebeeResponse<MoveResponse>>;
     }
     export interface CreateResponse {
       subscription: Subscription;
