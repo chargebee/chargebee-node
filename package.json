@@ -39,6 +39,7 @@
     "@types/node": "20.0.0"
   },
   "exports": {
+    "types": "./types/index.d.ts",
     "default": {
       "import": "./esm/chargebee.esm.js",
       "require": "./cjs/chargebee.cjs.js"
