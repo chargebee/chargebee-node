@@ -1,4 +1,6 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
+
 declare module 'chargebee' {
   export interface Quote {
     
@@ -76,7 +78,7 @@ declare module 'chargebee' {
     
     contract_term_termination_fee?:number;
     
-    business_entity_id:string;
+    business_entity_id?:string;
   }
   export namespace Quote {
     export class QuoteResource {  

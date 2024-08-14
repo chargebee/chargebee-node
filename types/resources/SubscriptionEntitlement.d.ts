@@ -79,6 +79,7 @@ declare module 'chargebee' {
       */
     
     components?:SubscriptionEntitlement.Component;
+    feature_type?:string;
   }
   export namespace SubscriptionEntitlement {
     export class SubscriptionEntitlementResource {  

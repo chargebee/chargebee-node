@@ -1,3 +1,15 @@
+### v2.40.0 (2024-08-14)
+* * *
+
+#### New Attributes:
+* feature_type has been added in SubscriptionEntitlement.
+* business_entity_id has been made optional in Quote.
+* business_entity_id has been made optional in CreditNote.
+
+#### New Input parameters: 
+* invoice_usages has been added in Subscription#UpdateForItemsRequest.
+* invoice_usages has been added in Estimate#UpdateSubscriptionForItemsRequest.
+
 ### v2.39.0 (2024-07-31)
 * * *
 

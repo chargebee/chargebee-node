@@ -1,4 +1,6 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
+
 declare module 'chargebee' {
   export interface CreditNote {
     
@@ -240,7 +242,7 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
 
       */
     
-    business_entity_id:string;
+    business_entity_id?:string;
     
     /**
       * @description An e-invoice or electronic invoice is a structured representation of an invoice that is interoperable between computerized invoicing systems. Depending on the country, e-invoicing can be necessary to meet financial/taxation authority regulations.

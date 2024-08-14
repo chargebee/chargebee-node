@@ -2752,6 +2752,7 @@ Updates the specified subscription by setting the parameters passed. Any paramet
         */
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      invoice_usages?:boolean;
     }
     export interface ChangeTermEndResponse {  
        subscription:Subscription;
