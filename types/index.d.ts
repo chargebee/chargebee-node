@@ -72,14 +72,41 @@
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
 
 export type Config = {
+  /**
+   * @apiKey api key for the site.
+   */
   apiKey: string;
+  /**
+   * @site api site name.
+   */
   site: string;
-  apiPath?: string;
+  /**
+   * @apiPath this value indicates the api version, default value is /api/v2.
+   */
+  apiPath?: '/api/v2' | '/api/v1';
+  /**
+   * @timeout client side request timeout in milliseconds, default value is 80000ms.
+   */
   timeout?: number;
+  /**
+   * @port url port
+   */
   port?: number;
+  /**
+   * @timemachineWaitInMillis time interval at which two subsequent retrieve timemachine call in milliseconds, default value is 3000ms.
+   */
   timemachineWaitInMillis?: number;
+  /**
+   * @exportWaitInMillis time interval at which two subsequent retrieve export call in milliseconds, default value is 3000ms.
+   */
   exportWaitInMillis?: number;
-  protocol?: string;
+  /**
+   * @protocol http protocol, default value is https
+   */
+  protocol?: 'https' | 'http';
+  /**
+   * @hostSuffix url host suffix, default value is .chargebee.com
+   */
   hostSuffix?: string;
 };
 declare module 'Chargebee' {
