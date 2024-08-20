@@ -85,7 +85,7 @@ export class RequestWrapper {
         'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
         'Content-Length': data.length,
         'User-Agent': 'Chargebee-NodeJs-Client ' + env.clientVersion,
-        'Lang-Version': typeof process === "undefined" ? "" : process.version,
+        'Lang-Version': typeof process === 'undefined' ? '' : process.version,
       });
       const resp: HttpClientResponseInterface =
         await this.envArg.httpClient.makeApiRequest({

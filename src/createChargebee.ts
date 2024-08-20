@@ -9,7 +9,7 @@ import {
   ChargebeeType,
   Config,
   EndpointTuple,
-  HttpClientInterface
+  HttpClientInterface,
 } from './types.js';
 
 export const CreateChargebee = (httpClient: HttpClientInterface) => {
