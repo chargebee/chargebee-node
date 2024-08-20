@@ -18,6 +18,7 @@ import {
 } from './types.js';
 import { HttpClientResponseInterface } from './net/ClientInterface.js';
 import { handleResponse } from './coreCommon.js';
+import { Buffer } from 'node:buffer';
 const IDEMPOTENCY_HEADER: string = 'chargebee-idempotency-key';
 
 export class RequestWrapper {
@@ -84,7 +85,7 @@ export class RequestWrapper {
         'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
         'Content-Length': data.length,
         'User-Agent': 'Chargebee-NodeJs-Client ' + env.clientVersion,
-        'Lang-Version': process.version,
+        'Lang-Version': typeof process === "undefined" ? "" : process.version,
       });
       const resp: HttpClientResponseInterface =
         await this.envArg.httpClient.makeApiRequest({

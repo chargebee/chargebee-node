@@ -9,18 +9,15 @@ import {
   ChargebeeType,
   Config,
   EndpointTuple,
+  HttpClientInterface
 } from './types.js';
-import { NodeHttpClient } from './net/NodeClient.js';
-import { FetchHttpClient } from './net/FetchClient.js';
 
-export const CreateChargebee = () => {
+export const CreateChargebee = (httpClient: HttpClientInterface) => {
   const Chargebee = function (this: ChargebeeType, conf: Config) {
     this._env = { ...Environment };
     extend(true, this._env, conf);
     // @ts-ignore
-    this._env.httpClient = globalThis.fetch
-      ? new FetchHttpClient()
-      : new NodeHttpClient();
+    this._env.httpClient = httpClient;
     this._buildResources();
     this._endpoints = Endpoints;
   } as any as { new (): ChargebeeType };

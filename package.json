@@ -39,6 +39,15 @@
     "@types/node": "20.0.0"
   },
   "exports": {
+    "types": "./types/index.d.ts",
+    "worker": {
+      "import": "./esm/chargebee.esm.worker.js",
+      "require": "./cjs/chargebee.cjs.worker.js"
+    },
+    "workerd": {
+      "import": "./esm/chargebee.esm.worker.js",
+      "require": "./cjs/chargebee.cjs.worker.js"
+    },
     "default": {
       "import": "./esm/chargebee.esm.js",
       "require": "./cjs/chargebee.cjs.js"
