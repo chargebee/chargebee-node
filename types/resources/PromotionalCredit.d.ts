@@ -29,18 +29,29 @@ declare module 'Chargebee' {
   }
   export namespace PromotionalCredit {
     export class PromotionalCreditResource {
-      add(input: AddInputParam): Promise<ChargebeeResponse<AddResponse>>;
+      add(
+        input: AddInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<AddResponse>>;
 
       deduct(
         input: DeductInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeductResponse>>;
 
-      set(input: SetInputParam): Promise<ChargebeeResponse<SetResponse>>;
+      set(
+        input: SetInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<SetResponse>>;
 
-      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
 
       retrieve(
         account_credit_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
     }
     export interface AddResponse {

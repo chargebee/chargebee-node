@@ -21,28 +21,39 @@ declare module 'Chargebee' {
     export class CouponSetResource {
       create(
         input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateResponse>>;
 
       addCouponCodes(
         coupon_set_id: string,
         input?: AddCouponCodesInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<AddCouponCodesResponse>>;
 
-      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
 
       retrieve(
         coupon_set_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       update(
         coupon_set_id: string,
         input?: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateResponse>>;
 
-      delete(coupon_set_id: string): Promise<ChargebeeResponse<DeleteResponse>>;
+      delete(
+        coupon_set_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
       deleteUnusedCouponCodes(
         coupon_set_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteUnusedCouponCodesResponse>>;
     }
     export interface CreateResponse {

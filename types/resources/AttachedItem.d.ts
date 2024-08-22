@@ -36,26 +36,31 @@ declare module 'Chargebee' {
       create(
         item_id: string,
         input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateResponse>>;
 
       update(
         attached_item_id: string,
         input: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateResponse>>;
 
       retrieve(
         attached_item_id: string,
         input: RetrieveInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       delete(
         attached_item_id: string,
         input: DeleteInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteResponse>>;
 
       list(
         item_id: string,
         input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListResponse>>;
     }
     export interface CreateResponse {

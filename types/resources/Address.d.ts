@@ -39,10 +39,12 @@ declare module 'Chargebee' {
     export class AddressResource {
       retrieve(
         input: RetrieveInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       update(
         input: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateResponse>>;
     }
     export interface RetrieveResponse {

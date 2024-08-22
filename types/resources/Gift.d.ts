@@ -29,23 +29,38 @@ declare module 'Chargebee' {
     export class GiftResource {
       create(
         input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateResponse>>;
 
       createForItems(
         input: CreateForItemsInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateForItemsResponse>>;
 
-      retrieve(gift_id: string): Promise<ChargebeeResponse<RetrieveResponse>>;
+      retrieve(
+        gift_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
 
-      claim(gift_id: string): Promise<ChargebeeResponse<ClaimResponse>>;
+      claim(
+        gift_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ClaimResponse>>;
 
-      cancel(gift_id: string): Promise<ChargebeeResponse<CancelResponse>>;
+      cancel(
+        gift_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CancelResponse>>;
 
       updateGift(
         gift_id: string,
         input: UpdateGiftInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateGiftResponse>>;
     }
     export interface CreateResponse {

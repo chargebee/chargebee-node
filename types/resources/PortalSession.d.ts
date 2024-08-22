@@ -38,19 +38,23 @@ declare module 'Chargebee' {
     export class PortalSessionResource {
       create(
         input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateResponse>>;
 
       retrieve(
         portal_session_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       logout(
         portal_session_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<LogoutResponse>>;
 
       activate(
         portal_session_id: string,
         input: ActivateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ActivateResponse>>;
     }
     export interface CreateResponse {

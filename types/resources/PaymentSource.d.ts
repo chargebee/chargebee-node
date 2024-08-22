@@ -60,69 +60,87 @@ declare module 'Chargebee' {
     export class PaymentSourceResource {
       createUsingTempToken(
         input: CreateUsingTempTokenInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateUsingTempTokenResponse>>;
 
       createUsingPermanentToken(
         input: CreateUsingPermanentTokenInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateUsingPermanentTokenResponse>>;
 
       createUsingToken(
         input: CreateUsingTokenInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateUsingTokenResponse>>;
 
       createUsingPaymentIntent(
         input: CreateUsingPaymentIntentInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateUsingPaymentIntentResponse>>;
 
       createVoucherPaymentSource(
         input: CreateVoucherPaymentSourceInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateVoucherPaymentSourceResponse>>;
 
       createCard(
         input: CreateCardInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateCardResponse>>;
 
       createBankAccount(
         input: CreateBankAccountInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateBankAccountResponse>>;
 
       updateCard(
         cust_payment_source_id: string,
         input?: UpdateCardInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateCardResponse>>;
 
       updateBankAccount(
         cust_payment_source_id: string,
         input?: UpdateBankAccountInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateBankAccountResponse>>;
 
       verifyBankAccount(
         cust_payment_source_id: string,
         input: VerifyBankAccountInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<VerifyBankAccountResponse>>;
 
       retrieve(
         cust_payment_source_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
 
       switchGatewayAccount(
         cust_payment_source_id: string,
         input: SwitchGatewayAccountInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<SwitchGatewayAccountResponse>>;
 
       exportPaymentSource(
         cust_payment_source_id: string,
         input: ExportPaymentSourceInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ExportPaymentSourceResponse>>;
 
       delete(
         cust_payment_source_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteResponse>>;
 
       deleteLocal(
         cust_payment_source_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteLocalResponse>>;
     }
     export interface CreateUsingTempTokenResponse {

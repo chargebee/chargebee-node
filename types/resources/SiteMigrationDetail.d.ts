@@ -23,7 +23,10 @@ declare module 'Chargebee' {
   }
   export namespace SiteMigrationDetail {
     export class SiteMigrationDetailResource {
-      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
     }
     export interface ListResponse {
       list: { site_migration_detail: SiteMigrationDetail }[];

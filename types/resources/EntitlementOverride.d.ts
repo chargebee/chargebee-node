@@ -28,6 +28,7 @@ declare module 'Chargebee' {
       addEntitlementOverrideForSubscription(
         subscription_id: string,
         input: AddEntitlementOverrideForSubscriptionInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<
         ChargebeeResponse<AddEntitlementOverrideForSubscriptionResponse>
       >;
@@ -35,6 +36,7 @@ declare module 'Chargebee' {
       listEntitlementOverrideForSubscription(
         subscription_id: string,
         input?: ListEntitlementOverrideForSubscriptionInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<
         ChargebeeResponse<ListEntitlementOverrideForSubscriptionResponse>
       >;

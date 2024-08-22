@@ -21,6 +21,7 @@ declare module 'Chargebee' {
     export class ResourceMigrationResource {
       retrieveLatest(
         input: RetrieveLatestInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveLatestResponse>>;
     }
     export interface RetrieveLatestResponse {

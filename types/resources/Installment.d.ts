@@ -23,9 +23,13 @@ declare module 'Chargebee' {
     export class InstallmentResource {
       retrieve(
         installment_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      list(input: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
     }
     export interface RetrieveResponse {
       installment: Installment;

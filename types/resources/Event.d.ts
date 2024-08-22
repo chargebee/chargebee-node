@@ -32,9 +32,15 @@ declare module 'Chargebee' {
   }
   export namespace Event {
     export class EventResource {
-      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
 
-      retrieve(event_id: string): Promise<ChargebeeResponse<RetrieveResponse>>;
+      retrieve(
+        event_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
     }
     export interface ListResponse {
       list: { event: Event }[];

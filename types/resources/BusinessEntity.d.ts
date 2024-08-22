@@ -21,10 +21,12 @@ declare module 'Chargebee' {
     export class BusinessEntityResource {
       createTransfers(
         input: CreateTransfersInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateTransfersResponse>>;
 
       getTransfers(
         input?: GetTransfersInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<GetTransfersResponse>>;
     }
     export interface CreateTransfersResponse {

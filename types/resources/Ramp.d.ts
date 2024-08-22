@@ -44,13 +44,23 @@ declare module 'Chargebee' {
       createForSubscription(
         subscription_id: string,
         input: CreateForSubscriptionInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateForSubscriptionResponse>>;
 
-      retrieve(ramp_id: string): Promise<ChargebeeResponse<RetrieveResponse>>;
+      retrieve(
+        ramp_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      delete(ramp_id: string): Promise<ChargebeeResponse<DeleteResponse>>;
+      delete(
+        ramp_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
-      list(input: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
     }
     export interface CreateForSubscriptionResponse {
       ramp: Ramp;

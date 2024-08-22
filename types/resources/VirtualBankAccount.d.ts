@@ -44,24 +44,32 @@ declare module 'Chargebee' {
     export class VirtualBankAccountResource {
       createUsingPermanentToken(
         input: CreateUsingPermanentTokenInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateUsingPermanentTokenResponse>>;
 
       create(
         input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateResponse>>;
 
       retrieve(
         virtual_bank_account_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
 
       delete(
         virtual_bank_account_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteResponse>>;
 
       deleteLocal(
         virtual_bank_account_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteLocalResponse>>;
     }
     export interface CreateUsingPermanentTokenResponse {

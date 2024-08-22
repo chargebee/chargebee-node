@@ -145,50 +145,68 @@ declare module 'Chargebee' {
     export class OrderResource {
       create(
         input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateResponse>>;
 
       update(
         order_id: string,
         input?: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateResponse>>;
 
       importOrder(
         input: ImportOrderInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ImportOrderResponse>>;
 
       assignOrderNumber(
         order_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<AssignOrderNumberResponse>>;
 
       cancel(
         order_id: string,
         input: CancelInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CancelResponse>>;
 
       createRefundableCreditNote(
         order_id: string,
         input: CreateRefundableCreditNoteInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateRefundableCreditNoteResponse>>;
 
       reopen(
         order_id: string,
         input?: ReopenInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ReopenResponse>>;
 
-      retrieve(order_id: string): Promise<ChargebeeResponse<RetrieveResponse>>;
+      retrieve(
+        order_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      delete(order_id: string): Promise<ChargebeeResponse<DeleteResponse>>;
+      delete(
+        order_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
-      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
 
       ordersForInvoice(
         invoice_id: string,
         input?: OrdersForInvoiceInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<OrdersForInvoiceResponse>>;
 
       resend(
         order_id: string,
         input?: ResendInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ResendResponse>>;
     }
     export interface CreateResponse {

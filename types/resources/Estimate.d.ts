@@ -23,88 +23,107 @@ declare module 'Chargebee' {
     export class EstimateResource {
       createSubscription(
         input: CreateSubscriptionInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateSubscriptionResponse>>;
 
       createSubItemEstimate(
         input: CreateSubItemEstimateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateSubItemEstimateResponse>>;
 
       createSubForCustomerEstimate(
         customer_id: string,
         input: CreateSubForCustomerEstimateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateSubForCustomerEstimateResponse>>;
 
       createSubItemForCustomerEstimate(
         customer_id: string,
         input: CreateSubItemForCustomerEstimateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateSubItemForCustomerEstimateResponse>>;
 
       updateSubscription(
         input: UpdateSubscriptionInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateSubscriptionResponse>>;
 
       updateSubscriptionForItems(
         input: UpdateSubscriptionForItemsInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateSubscriptionForItemsResponse>>;
 
       renewalEstimate(
         subscription_id: string,
         input?: RenewalEstimateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RenewalEstimateResponse>>;
 
       advanceInvoiceEstimate(
         subscription_id: string,
         input?: AdvanceInvoiceEstimateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<AdvanceInvoiceEstimateResponse>>;
 
       regenerateInvoiceEstimate(
         subscription_id: string,
         input?: RegenerateInvoiceEstimateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RegenerateInvoiceEstimateResponse>>;
 
       upcomingInvoicesEstimate(
         customer_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpcomingInvoicesEstimateResponse>>;
 
       changeTermEnd(
         subscription_id: string,
         input: ChangeTermEndInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ChangeTermEndResponse>>;
 
       cancelSubscription(
         subscription_id: string,
         input?: CancelSubscriptionInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CancelSubscriptionResponse>>;
 
       cancelSubscriptionForItems(
         subscription_id: string,
         input?: CancelSubscriptionForItemsInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CancelSubscriptionForItemsResponse>>;
 
       pauseSubscription(
         subscription_id: string,
         input?: PauseSubscriptionInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<PauseSubscriptionResponse>>;
 
       resumeSubscription(
         subscription_id: string,
         input?: ResumeSubscriptionInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ResumeSubscriptionResponse>>;
 
       giftSubscription(
         input: GiftSubscriptionInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<GiftSubscriptionResponse>>;
 
       giftSubscriptionForItems(
         input: GiftSubscriptionForItemsInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<GiftSubscriptionForItemsResponse>>;
 
       createInvoice(
         input?: CreateInvoiceInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateInvoiceResponse>>;
 
       createInvoiceForItems(
         input: CreateInvoiceForItemsInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateInvoiceForItemsResponse>>;
     }
     export interface CreateSubscriptionResponse {

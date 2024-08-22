@@ -20,21 +20,25 @@ declare module 'Chargebee' {
       processReceipt(
         in_app_subscription_app_id: string,
         input: ProcessReceiptInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ProcessReceiptResponse>>;
 
       importReceipt(
         in_app_subscription_app_id: string,
         input: ImportReceiptInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ImportReceiptResponse>>;
 
       importSubscription(
         in_app_subscription_app_id: string,
         input: ImportSubscriptionInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ImportSubscriptionResponse>>;
 
       retrieveStoreSubs(
         in_app_subscription_app_id: string,
         input: RetrieveStoreSubsInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveStoreSubsResponse>>;
     }
     export interface ProcessReceiptResponse {

@@ -34,6 +34,7 @@ declare module 'Chargebee' {
       subscriptionEntitlementsForSubscription(
         subscription_id: string,
         input?: SubscriptionEntitlementsForSubscriptionInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<
         ChargebeeResponse<SubscriptionEntitlementsForSubscriptionResponse>
       >;
@@ -41,6 +42,7 @@ declare module 'Chargebee' {
       setSubscriptionEntitlementAvailability(
         subscription_id: string,
         input: SetSubscriptionEntitlementAvailabilityInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<
         ChargebeeResponse<SetSubscriptionEntitlementAvailabilityResponse>
       >;

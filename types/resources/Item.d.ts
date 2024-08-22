@@ -57,18 +57,29 @@ declare module 'Chargebee' {
     export class ItemResource {
       create(
         input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateResponse>>;
 
-      retrieve(item_id: string): Promise<ChargebeeResponse<RetrieveResponse>>;
+      retrieve(
+        item_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       update(
         item_id: string,
         input?: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateResponse>>;
 
-      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
 
-      delete(item_id: string): Promise<ChargebeeResponse<DeleteResponse>>;
+      delete(
+        item_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
     }
     export interface CreateResponse {
       item: Item;

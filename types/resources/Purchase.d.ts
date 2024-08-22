@@ -19,10 +19,12 @@ declare module 'Chargebee' {
     export class PurchaseResource {
       create(
         input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateResponse>>;
 
       estimate(
         input: EstimateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<EstimateResponse>>;
     }
     export interface CreateResponse {

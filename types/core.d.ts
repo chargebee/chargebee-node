@@ -10,6 +10,15 @@ declare module 'Chargebee' {
     headers: { [key: string]: string };
     isIdempotencyReplayed?: boolean | string;
   };
+  export type ChargebeeRequestHeader = {
+    [key: string]: string | undefined;
+    'chargebee-idempotency-key'?: string;
+    'chargebee-event-email'?: string;
+    'chargebee-request-origin-ip'?: string;
+    'chargebee-request-origin-user'?: string;
+    'chargebee-request-origin-user-encoded'?: string;
+    'chargebee-request-origin-device': string;
+  };
   type AccountHolderType = 'individual' | 'company';
   type AccountReceivablesHandling =
     | 'no_action'

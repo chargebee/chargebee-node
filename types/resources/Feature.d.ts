@@ -25,31 +25,45 @@ declare module 'Chargebee' {
   }
   export namespace Feature {
     export class FeatureResource {
-      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
 
       create(
         input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateResponse>>;
 
       update(
         feature_id: string,
         input?: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateResponse>>;
 
       retrieve(
         feature_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      delete(feature_id: string): Promise<ChargebeeResponse<DeleteResponse>>;
+      delete(
+        feature_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
       activate(
         feature_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ActivateResponse>>;
 
-      archive(feature_id: string): Promise<ChargebeeResponse<ArchiveResponse>>;
+      archive(
+        feature_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ArchiveResponse>>;
 
       reactivate(
         feature_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ReactivateResponse>>;
     }
     export interface ListResponse {

@@ -77,32 +77,49 @@ declare module 'Chargebee' {
     export class CouponResource {
       create(
         input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateResponse>>;
 
       createForItems(
         input: CreateForItemsInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateForItemsResponse>>;
 
       updateForItems(
         coupon_id: string,
         input: UpdateForItemsInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateForItemsResponse>>;
 
-      list(input?: ListInputParam): Promise<ChargebeeResponse<ListResponse>>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
 
-      retrieve(coupon_id: string): Promise<ChargebeeResponse<RetrieveResponse>>;
+      retrieve(
+        coupon_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       update(
         coupon_id: string,
         input?: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateResponse>>;
 
-      delete(coupon_id: string): Promise<ChargebeeResponse<DeleteResponse>>;
+      delete(
+        coupon_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
-      copy(input: CopyInputParam): Promise<ChargebeeResponse<CopyResponse>>;
+      copy(
+        input: CopyInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CopyResponse>>;
 
       unarchive(
         coupon_id: string,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UnarchiveResponse>>;
     }
     export interface CreateResponse {

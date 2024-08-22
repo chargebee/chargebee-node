@@ -22,21 +22,25 @@ declare module 'Chargebee' {
       itemEntitlementsForItem(
         item_id: string,
         input?: ItemEntitlementsForItemInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ItemEntitlementsForItemResponse>>;
 
       itemEntitlementsForFeature(
         feature_id: string,
         input?: ItemEntitlementsForFeatureInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ItemEntitlementsForFeatureResponse>>;
 
       addItemEntitlements(
         feature_id: string,
         input: AddItemEntitlementsInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<AddItemEntitlementsResponse>>;
 
       upsertOrRemoveItemEntitlementsForItem(
         item_id: string,
         input: UpsertOrRemoveItemEntitlementsForItemInputParam,
+        headers?: ChargebeeRequestHeader,
       ): Promise<
         ChargebeeResponse<UpsertOrRemoveItemEntitlementsForItemResponse>
       >;
