@@ -48,6 +48,14 @@
       "import": "./esm/chargebee.esm.worker.js",
       "require": "./cjs/chargebee.cjs.worker.js"
     },
+    "deno": {
+      "import": "./esm/chargebee.esm.worker.js",
+      "require": "./cjs/chargebee.cjs.worker.js"
+    },
+    "bun": {
+      "import": "./esm/chargebee.esm.worker.js",
+      "require": "./cjs/chargebee.cjs.worker.js"
+    },
     "default": {
       "import": "./esm/chargebee.esm.js",
       "require": "./cjs/chargebee.cjs.js"
