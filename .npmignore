@@ -1,0 +1,12 @@
+# start by ignoring all the files.
+*
+
+# And gradually add the files that need to be included.
+!/CHANGELOG.md
+!/SECURITY.md
+!/LICENSE
+!/README.md
+!/package.json
+!/cjs/**/*
+!/esm/**/*
+!/types/**/*
