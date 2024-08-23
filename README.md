@@ -79,9 +79,11 @@ async function getAllCustomers() {
         is: "John"
       }
     });
+
     const customers = listCustomersReponse.list.map(
       (object) => object.customer
     );
+    
     allCustomers.push(...customers);
     offset = listCustomersReponse.next_offset;
   } while (offset);
