@@ -1,7 +1,7 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
 
-declare module 'Chargebee' {
+declare module 'chargebee' {
   export interface ResourceMigration {
     from_site: string;
 

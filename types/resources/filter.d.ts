@@ -1,4 +1,4 @@
-declare module 'Chargebee' {
+declare module 'chargebee' {
   export namespace filter {
     export interface String {
       is?: string;

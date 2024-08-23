@@ -1,4 +1,4 @@
-declare module 'Chargebee' {
+declare module 'chargebee' {
   export class RequestConfig {
     site?: string;
     apiKey?: string;
@@ -17,7 +17,7 @@ declare module 'Chargebee' {
     'chargebee-request-origin-ip'?: string;
     'chargebee-request-origin-user'?: string;
     'chargebee-request-origin-user-encoded'?: string;
-    'chargebee-request-origin-device': string;
+    'chargebee-request-origin-device'?: string;
   };
   type AccountHolderType = 'individual' | 'company';
   type AccountReceivablesHandling =

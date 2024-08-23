@@ -109,8 +109,8 @@ export type Config = {
    */
   hostSuffix?: string;
 };
-declare module 'Chargebee' {
-  export default class {
+declare module 'chargebee' {
+  export default class Chargebee {
     constructor(config: Config);
     address: Address.AddressResource;
     attachedItem: AttachedItem.AttachedItemResource;

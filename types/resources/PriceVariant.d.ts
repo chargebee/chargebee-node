@@ -1,7 +1,7 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
 ///<reference path='./filter.d.ts'/>
-declare module 'Chargebee' {
+declare module 'chargebee' {
   export interface PriceVariant {
     id: string;
 
