@@ -1013,6 +1013,7 @@ declare module 'chargebee' {
       addons?: AddonsCreateInputParam[];
       event_based_addons?: EventBasedAddonsCreateInputParam[];
       coupons?: CouponsCreateInputParam[];
+      [key: string]: any;
     }
     export interface CreateForCustomerInputParam {
       id?: string;
@@ -1056,6 +1057,7 @@ declare module 'chargebee' {
       addons?: AddonsCreateForCustomerInputParam[];
       event_based_addons?: EventBasedAddonsCreateForCustomerInputParam[];
       coupons?: CouponsCreateForCustomerInputParam[];
+      [key: string]: any;
     }
     export interface CreateWithItemsInputParam {
       id?: string;
@@ -1103,6 +1105,7 @@ declare module 'chargebee' {
       discounts?: DiscountsCreateWithItemsInputParam[];
       item_tiers?: ItemTiersCreateWithItemsInputParam[];
       coupons?: CouponsCreateWithItemsInputParam[];
+      [key: string]: any;
     }
     export interface ListInputParam {
       limit?: number;
@@ -1130,6 +1133,7 @@ declare module 'chargebee' {
       channel?: filter.Enum;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
+      [key: string]: any;
     }
     export interface SubscriptionsForCustomerInputParam {
       limit?: number;
@@ -1201,6 +1205,7 @@ declare module 'chargebee' {
       addons?: AddonsUpdateInputParam[];
       coupons?: CouponsUpdateInputParam[];
       event_based_addons?: EventBasedAddonsUpdateInputParam[];
+      [key: string]: any;
     }
     export interface UpdateForItemsInputParam {
       mandatory_items_to_remove?: string[];
@@ -1259,6 +1264,7 @@ declare module 'chargebee' {
       discounts?: DiscountsUpdateForItemsInputParam[];
       item_tiers?: ItemTiersUpdateForItemsInputParam[];
       coupons?: CouponsUpdateForItemsInputParam[];
+      [key: string]: any;
     }
     export interface ChangeTermEndInputParam {
       term_ends_at: number;
@@ -1372,6 +1378,7 @@ declare module 'chargebee' {
       event_based_addons?: EventBasedAddonsImportSubscriptionInputParam[];
       charged_event_based_addons?: ChargedEventBasedAddonsImportSubscriptionInputParam[];
       coupons?: CouponsImportSubscriptionInputParam[];
+      [key: string]: any;
     }
     export interface ImportForCustomerInputParam {
       id?: string;
@@ -1415,6 +1422,7 @@ declare module 'chargebee' {
       event_based_addons?: EventBasedAddonsImportForCustomerInputParam[];
       charged_event_based_addons?: ChargedEventBasedAddonsImportForCustomerInputParam[];
       coupons?: CouponsImportForCustomerInputParam[];
+      [key: string]: any;
     }
     export interface ImportContractTermInputParam {
       contract_term_billing_cycle_on_renewal?: number;
@@ -1471,6 +1479,7 @@ declare module 'chargebee' {
       charged_items?: ChargedItemsImportForItemsInputParam[];
       item_tiers?: ItemTiersImportForItemsInputParam[];
       coupons?: CouponsImportForItemsInputParam[];
+      [key: string]: any;
     }
     export interface OverrideBillingProfileInputParam {
       payment_source_id?: string;

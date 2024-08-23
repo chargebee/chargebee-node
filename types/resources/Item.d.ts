@@ -129,6 +129,7 @@ declare module 'chargebee' {
       metered?: boolean;
       usage_calculation?: 'sum_of_usages' | 'last_usage' | 'max_usage';
       metadata?: any;
+      [key: string]: any;
     }
     export interface UpdateInputParam {
       name?: string;
@@ -151,6 +152,7 @@ declare module 'chargebee' {
       metadata?: any;
       included_in_mrr?: boolean;
       status?: 'active' | 'archived';
+      [key: string]: any;
     }
     export interface ListInputParam {
       limit?: number;

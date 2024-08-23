@@ -611,6 +611,7 @@ declare module 'chargebee' {
       billing_address?: BillingAddressCreateInputParam;
       entity_identifiers?: EntityIdentifiersCreateInputParam[];
       tax_providers_fields?: TaxProvidersFieldsCreateInputParam[];
+      [key: string]: any;
     }
     export interface ListInputParam {
       limit?: number;
@@ -633,6 +634,7 @@ declare module 'chargebee' {
       business_entity_id?: filter.String;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
+      [key: string]: any;
     }
     export interface UpdateInputParam {
       first_name?: string;
@@ -659,6 +661,7 @@ declare module 'chargebee' {
       fraud_flag?: 'safe' | 'fraudulent';
       consolidated_invoicing?: boolean;
       tax_providers_fields?: TaxProvidersFieldsUpdateInputParam[];
+      [key: string]: any;
     }
     export interface UpdatePaymentMethodInputParam {
       payment_method?: PaymentMethodUpdatePaymentMethodInputParam;

@@ -247,6 +247,7 @@ declare module 'chargebee' {
       accounting_detail?: AccountingDetailCreateInputParam;
       tiers?: TiersCreateInputParam[];
       tax_providers_fields?: TaxProvidersFieldsCreateInputParam[];
+      [key: string]: any;
     }
     export interface UpdateInputParam {
       name?: string;
@@ -281,6 +282,7 @@ declare module 'chargebee' {
       accounting_detail?: AccountingDetailUpdateInputParam;
       tiers?: TiersUpdateInputParam[];
       tax_providers_fields?: TaxProvidersFieldsUpdateInputParam[];
+      [key: string]: any;
     }
     export interface ListInputParam {
       limit?: number;

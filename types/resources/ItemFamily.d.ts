@@ -76,6 +76,7 @@ declare module 'chargebee' {
       id: string;
       name: string;
       description?: string;
+      [key: string]: any;
     }
     export interface ListInputParam {
       limit?: number;
@@ -83,10 +84,12 @@ declare module 'chargebee' {
       id?: filter.String;
       name?: filter.String;
       updated_at?: filter.Timestamp;
+      [key: string]: any;
     }
     export interface UpdateInputParam {
       name?: string;
       description?: string;
+      [key: string]: any;
     }
   }
 }
