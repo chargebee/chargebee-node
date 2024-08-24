@@ -17,10 +17,7 @@
     "chargebee"
   ],
   "homepage": "http://github.com/chargebee/chargebee-node",
-  "main": "lib/chargebee.js",
-  "directories": {
-    "lib": "./lib"
-  },
+  "main": "./cjs/chargebee.cjs.js",
   "author": "<api@chargeee.com> (https://www.chargebee.com)",
   "engines": {
     "node": ">=18.*"
