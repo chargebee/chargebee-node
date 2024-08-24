@@ -4,25 +4,17 @@
 declare module 'chargebee' {
   export interface InstallmentConfig {
     id: string;
-
     description?: string;
-
     number_of_installments: number;
-
     period_unit: 'day' | 'week' | 'month';
-
     period?: number;
-
     preferred_day?: number;
-
     created_at: number;
-
     resource_version?: number;
-
     updated_at?: number;
-
     installments?: InstallmentConfig.Installment[];
   }
+
   export namespace InstallmentConfig {
     export class InstallmentConfigResource {
       create(
@@ -40,6 +32,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteResponse>>;
     }
+
     export interface CreateResponse {
       installment_config: InstallmentConfig;
     }
@@ -54,7 +47,6 @@ declare module 'chargebee' {
 
     export interface Installment {
       period?: number;
-
       amount_percentage?: number;
     }
     // REQUEST PARAMS
@@ -70,7 +62,6 @@ declare module 'chargebee' {
     }
     export interface InstallmentsCreateInputParam {
       period?: number;
-
       amount_percentage?: number;
     }
   }

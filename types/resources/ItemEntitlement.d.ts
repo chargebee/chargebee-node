@@ -4,19 +4,14 @@
 declare module 'chargebee' {
   export interface ItemEntitlement {
     id: string;
-
     item_id?: string;
-
     item_type?: 'plan' | 'addon' | 'charge' | 'subscription' | 'item';
-
     feature_id?: string;
-
     feature_name?: string;
-
     value?: string;
-
     name?: string;
   }
+
   export namespace ItemEntitlement {
     export class ItemEntitlementResource {
       itemEntitlementsForItem(
@@ -45,15 +40,14 @@ declare module 'chargebee' {
         ChargebeeResponse<UpsertOrRemoveItemEntitlementsForItemResponse>
       >;
     }
+
     export interface ItemEntitlementsForItemResponse {
       list: { item_entitlement: ItemEntitlement }[];
-
       next_offset?: string;
     }
 
     export interface ItemEntitlementsForFeatureResponse {
       list: { item_entitlement: ItemEntitlement }[];
-
       next_offset?: string;
     }
 
@@ -70,24 +64,21 @@ declare module 'chargebee' {
 
     export interface ItemEntitlementsForItemInputParam {
       limit?: number;
-      offset?: string;
-      /**
+      offset?: string /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
-      include_drafts?: boolean;
-      /**
+      include_drafts?: boolean /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       embed?: string;
     }
     export interface ItemEntitlementsForFeatureInputParam {
       limit?: number;
-      offset?: string;
-      /**
+      offset?: string /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       include_drafts?: boolean;
     }
@@ -101,14 +92,11 @@ declare module 'chargebee' {
     }
     export interface ItemEntitlementsAddItemEntitlementsInputParam {
       item_id: string;
-
       item_type?: 'plan' | 'addon' | 'charge' | 'subscription' | 'item';
-
       value?: string;
     }
     export interface ItemEntitlementsUpsertOrRemoveItemEntitlementsForItemInputParam {
       feature_id: string;
-
       value?: string;
     }
   }

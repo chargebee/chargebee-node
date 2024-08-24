@@ -4,29 +4,17 @@
 declare module 'chargebee' {
   export interface UnbilledCharge {
     id?: string;
-
     customer_id?: string;
-
     subscription_id?: string;
-
     date_from?: number;
-
     date_to?: number;
-
     unit_amount?: number;
-
     pricing_model?: PricingModel;
-
     quantity?: number;
-
     amount?: number;
-
     currency_code: string;
-
     discount_amount?: number;
-
     description?: string;
-
     entity_type:
       | 'adhoc'
       | 'plan_item_price'
@@ -35,29 +23,19 @@ declare module 'chargebee' {
       | 'plan_setup'
       | 'plan'
       | 'addon';
-
     entity_id?: string;
-
     is_voided: boolean;
-
     voided_at?: number;
-
     unit_amount_in_decimal?: string;
-
     quantity_in_decimal?: string;
-
     amount_in_decimal?: string;
-
     updated_at: number;
-
     tiers?: UnbilledCharge.Tier[];
-
     is_advance_charge?: boolean;
-
     business_entity_id?: string;
-
     deleted: boolean;
   }
+
   export namespace UnbilledCharge {
     export class UnbilledChargeResource {
       createUnbilledCharge(
@@ -90,6 +68,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<InvoiceNowEstimateResponse>>;
     }
+
     export interface CreateUnbilledChargeResponse {
       unbilled_charges: UnbilledCharge[];
     }
@@ -108,7 +87,6 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { unbilled_charge: UnbilledCharge }[];
-
       next_offset?: string;
     }
 
@@ -118,19 +96,12 @@ declare module 'chargebee' {
 
     export interface Tier {
       starting_unit: number;
-
       ending_unit?: number;
-
       quantity_used: number;
-
       unit_amount: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       quantity_used_in_decimal?: string;
-
       unit_amount_in_decimal?: string;
     }
     // REQUEST PARAMS
@@ -169,115 +140,69 @@ declare module 'chargebee' {
     }
     export interface ChargesCreateUnbilledChargeInputParam {
       amount?: number;
-
       amount_in_decimal?: string;
-
       description?: string;
-
       taxable?: boolean;
-
       tax_profile_id?: string;
-
       avalara_tax_code?: string;
-
       hsn_code?: string;
-
       taxjar_product_code?: string;
-
       avalara_sale_type?: AvalaraSaleType;
-
       avalara_transaction_type?: number;
-
       avalara_service_type?: number;
-
       date_from?: number;
-
       date_to?: number;
     }
     export interface AddonsCreateUnbilledChargeInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
-
       date_from?: number;
-
       date_to?: number;
     }
     export interface TaxProvidersFieldsCreateUnbilledChargeInputParam {
       provider_name?: string;
-
       field_id?: string;
-
       field_value?: string;
     }
     export interface ChargesCreateInputParam {
       amount?: number;
-
       amount_in_decimal?: string;
-
       description?: string;
-
       taxable?: boolean;
-
       tax_profile_id?: string;
-
       avalara_tax_code?: string;
-
       hsn_code?: string;
-
       taxjar_product_code?: string;
-
       avalara_sale_type?: AvalaraSaleType;
-
       avalara_transaction_type?: number;
-
       avalara_service_type?: number;
-
       date_from?: number;
-
       date_to?: number;
     }
     export interface ItemTiersCreateInputParam {
       item_price_id?: string;
-
       starting_unit?: number;
-
       ending_unit?: number;
-
       price?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
     }
     export interface ItemPricesCreateInputParam {
       item_price_id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       date_from?: number;
-
       date_to?: number;
     }
     export interface TaxProvidersFieldsCreateInputParam {
       provider_name?: string;
-
       field_id?: string;
-
       field_value?: string;
     }
   }

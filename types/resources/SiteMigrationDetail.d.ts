@@ -4,13 +4,9 @@
 declare module 'chargebee' {
   export interface SiteMigrationDetail {
     entity_id: string;
-
     other_site_name: string;
-
     entity_id_at_other_site: string;
-
     migrated_at: number;
-
     entity_type:
       | 'customer'
       | 'subscription'
@@ -18,9 +14,9 @@ declare module 'chargebee' {
       | 'credit_note'
       | 'transaction'
       | 'order';
-
     status: 'moved_in' | 'moved_out' | 'moving_out';
   }
+
   export namespace SiteMigrationDetail {
     export class SiteMigrationDetailResource {
       list(
@@ -28,9 +24,9 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListResponse>>;
     }
+
     export interface ListResponse {
       list: { site_migration_detail: SiteMigrationDetail }[];
-
       next_offset?: string;
     }
 

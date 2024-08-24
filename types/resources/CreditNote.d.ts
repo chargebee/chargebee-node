@@ -4,15 +4,10 @@
 declare module 'chargebee' {
   export interface CreditNote {
     id: string;
-
     customer_id: string;
-
     subscription_id?: string;
-
     reference_invoice_id?: string;
-
     type: 'adjustment' | 'refundable';
-
     reason_code?:
       | 'write_off'
       | 'subscription_change'
@@ -26,87 +21,48 @@ declare module 'chargebee' {
       | 'waiver'
       | 'other'
       | 'fraudulent';
-
     status: 'adjusted' | 'refunded' | 'refund_due' | 'voided';
-
     vat_number?: string;
-
     date?: number;
-
     price_type: PriceType;
-
     currency_code: string;
-
     total?: number;
-
     amount_allocated?: number;
-
     amount_refunded?: number;
-
     amount_available?: number;
-
     refunded_at?: number;
-
     voided_at?: number;
-
     generated_at?: number;
-
     resource_version?: number;
-
     updated_at?: number;
-
     channel?: Channel;
-
     einvoice?: CreditNote.Einvoice;
-
     sub_total: number;
-
     sub_total_in_local_currency?: number;
-
     total_in_local_currency?: number;
-
     local_currency_code?: string;
-
     round_off_amount?: number;
-
     fractional_correction?: number;
-
     line_items?: CreditNote.LineItem[];
-
     discounts?: CreditNote.Discount[];
-
     line_item_discounts?: CreditNote.LineItemDiscount[];
-
     line_item_tiers?: CreditNote.LineItemTier[];
-
     taxes?: CreditNote.Tax[];
-
     line_item_taxes?: CreditNote.LineItemTax[];
-
     linked_refunds?: CreditNote.LinkedRefund[];
-
     allocations?: CreditNote.Allocation[];
-
     deleted: boolean;
-
     tax_category?: string;
-
     local_currency_exchange_rate?: number;
-
     create_reason_code?: string;
-
     vat_number_prefix?: string;
-
     business_entity_id?: string;
-
     shipping_address?: CreditNote.ShippingAddress;
-
     billing_address?: CreditNote.BillingAddress;
-
     site_details_at_creation?: CreditNote.SiteDetailsAtCreation;
-
     tax_origin?: CreditNote.TaxOrigin;
   }
+
   export namespace CreditNote {
     export class CreditNoteResource {
       create(
@@ -186,9 +142,9 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ImportCreditNoteResponse>>;
     }
+
     export interface CreateResponse {
       credit_note: CreditNote;
-
       invoice?: Invoice;
     }
 
@@ -206,13 +162,11 @@ declare module 'chargebee' {
 
     export interface RefundResponse {
       credit_note: CreditNote;
-
       transaction: Transaction;
     }
 
     export interface RecordRefundResponse {
       credit_note: CreditNote;
-
       transaction?: Transaction;
     }
 
@@ -222,13 +176,11 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { credit_note: CreditNote }[];
-
       next_offset?: string;
     }
 
     export interface CreditNotesForCustomerResponse {
       list: { credit_note: CreditNote }[];
-
       next_offset?: string;
     }
 
@@ -254,9 +206,7 @@ declare module 'chargebee' {
 
     export interface Einvoice {
       id: string;
-
       reference_number?: string;
-
       status:
         | 'scheduled'
         | 'skipped'
@@ -264,55 +214,34 @@ declare module 'chargebee' {
         | 'success'
         | 'failed'
         | 'registered';
-
       message?: string;
     }
     export interface LineItem {
       id?: string;
-
       subscription_id?: string;
-
       date_from: number;
-
       date_to: number;
-
       unit_amount: number;
-
       quantity?: number;
-
       amount?: number;
-
       pricing_model?:
         | 'flat_fee'
         | 'per_unit'
         | 'tiered'
         | 'volume'
         | 'stairstep';
-
       is_taxed: boolean;
-
       tax_amount?: number;
-
       tax_rate?: number;
-
       unit_amount_in_decimal?: string;
-
       quantity_in_decimal?: string;
-
       amount_in_decimal?: string;
-
       discount_amount?: number;
-
       item_level_discount_amount?: number;
-
       usage_percentage?: string;
-
       reference_line_item_id?: string;
-
       description: string;
-
       entity_description?: string;
-
       entity_type:
         | 'adhoc'
         | 'plan_item_price'
@@ -321,7 +250,6 @@ declare module 'chargebee' {
         | 'plan_setup'
         | 'plan'
         | 'addon';
-
       tax_exempt_reason?:
         | 'tax_not_configured'
         | 'region_non_taxable'
@@ -333,16 +261,12 @@ declare module 'chargebee' {
         | 'high_value_physical_goods'
         | 'zero_value_item'
         | 'tax_not_configured_external_provider';
-
       entity_id?: string;
-
       customer_id?: string;
     }
     export interface Discount {
       amount: number;
-
       description?: string;
-
       entity_type:
         | 'item_level_coupon'
         | 'document_level_coupon'
@@ -350,14 +274,11 @@ declare module 'chargebee' {
         | 'prorated_credits'
         | 'item_level_discount'
         | 'document_level_discount';
-
       entity_id?: string;
-
       coupon_set_code?: string;
     }
     export interface LineItemDiscount {
       line_item_id: string;
-
       discount_type:
         | 'item_level_coupon'
         | 'document_level_coupon'
@@ -365,60 +286,37 @@ declare module 'chargebee' {
         | 'prorated_credits'
         | 'item_level_discount'
         | 'document_level_discount';
-
       coupon_id?: string;
-
       entity_id?: string;
-
       discount_amount: number;
     }
     export interface LineItemTier {
       line_item_id?: string;
-
       starting_unit: number;
-
       ending_unit?: number;
-
       quantity_used: number;
-
       unit_amount: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       quantity_used_in_decimal?: string;
-
       unit_amount_in_decimal?: string;
     }
     export interface Tax {
       name: string;
-
       amount: number;
-
       description?: string;
     }
     export interface LineItemTax {
       line_item_id?: string;
-
       tax_name: string;
-
       tax_rate: number;
-
       date_to?: number;
-
       date_from?: number;
-
       prorated_taxable_amount?: number;
-
       is_partial_tax_applied?: boolean;
-
       is_non_compliance_tax?: boolean;
-
       taxable_amount: number;
-
       tax_amount: number;
-
       tax_juris_type?:
         | 'country'
         | 'federal'
@@ -428,22 +326,15 @@ declare module 'chargebee' {
         | 'special'
         | 'unincorporated'
         | 'other';
-
       tax_juris_name?: string;
-
       tax_juris_code?: string;
-
       tax_amount_in_local_currency?: number;
-
       local_currency_code?: string;
     }
     export interface LinkedRefund {
       txn_id: string;
-
       applied_amount: number;
-
       applied_at: number;
-
       txn_status?:
         | 'in_progress'
         | 'success'
@@ -451,22 +342,15 @@ declare module 'chargebee' {
         | 'failure'
         | 'timeout'
         | 'needs_attention';
-
       txn_date?: number;
-
       txn_amount?: number;
-
       refund_reason_code?: string;
     }
     export interface Allocation {
       invoice_id: string;
-
       allocated_amount: number;
-
       allocated_at: number;
-
       invoice_date?: number;
-
       invoice_status:
         | 'paid'
         | 'posted'
@@ -477,72 +361,43 @@ declare module 'chargebee' {
     }
     export interface ShippingAddress {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       country?: string;
-
       zip?: string;
-
       validation_status?: ValidationStatus;
-
       index: number;
     }
     export interface BillingAddress {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       country?: string;
-
       zip?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface SiteDetailsAtCreation {
       timezone?: string;
-
       organization_address?: object;
     }
     export interface TaxOrigin {
       country?: string;
-
       registration_number?: string;
     }
     // REQUEST PARAMS
@@ -644,40 +499,26 @@ declare module 'chargebee' {
     }
     export interface LineItemsCreateInputParam {
       reference_line_item_id?: string;
-
       unit_amount?: number;
-
       unit_amount_in_decimal?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       amount?: number;
-
       date_from?: number;
-
       date_to?: number;
-
       description?: string;
-
       entity_type?:
         | 'adhoc'
         | 'plan_item_price'
         | 'addon_item_price'
         | 'charge_item_price';
-
       entity_id?: string;
     }
     export interface TransactionRecordRefundInputParam {
       amount?: number;
-
       payment_method: PaymentMethod;
-
       reference_number?: string;
-
       custom_payment_method_id?: string;
-
       date: number;
     }
 
@@ -691,9 +532,7 @@ declare module 'chargebee' {
 
     export interface AllocationsImportCreditNoteInputParam {
       invoice_id: string;
-
       allocated_amount: number;
-
       allocated_at: number;
     }
     export interface DiscountsImportCreditNoteInputParam {
@@ -703,31 +542,21 @@ declare module 'chargebee' {
         | 'promotional_credits'
         | 'item_level_discount'
         | 'document_level_discount';
-
       entity_id?: string;
-
       description?: string;
-
       amount: number;
     }
     export interface LinkedRefundsImportCreditNoteInputParam {
       amount: number;
-
       payment_method: PaymentMethod;
-
       date: number;
-
       reference_number?: string;
     }
     export interface TaxesImportCreditNoteInputParam {
       name: string;
-
       rate: number;
-
       amount?: number;
-
       description?: string;
-
       juris_type?:
         | 'country'
         | 'federal'
@@ -737,109 +566,62 @@ declare module 'chargebee' {
         | 'special'
         | 'unincorporated'
         | 'other';
-
       juris_name?: string;
-
       juris_code?: string;
     }
     export interface LineItemTiersImportCreditNoteInputParam {
       line_item_id: string;
-
       starting_unit?: number;
-
       ending_unit?: number;
-
       quantity_used?: number;
-
       unit_amount?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       quantity_used_in_decimal?: string;
-
       unit_amount_in_decimal?: string;
     }
     export interface LineItemsImportCreditNoteInputParam {
       reference_line_item_id?: string;
-
       id?: string;
-
       date_from?: number;
-
       date_to?: number;
-
       subscription_id?: string;
-
       description: string;
-
       unit_amount?: number;
-
       quantity?: number;
-
       amount?: number;
-
       unit_amount_in_decimal?: string;
-
       quantity_in_decimal?: string;
-
       amount_in_decimal?: string;
-
       entity_type?:
         | 'adhoc'
         | 'plan_item_price'
         | 'addon_item_price'
         | 'charge_item_price';
-
       entity_id?: string;
-
       item_level_discount1_entity_id?: string;
-
       item_level_discount1_amount?: number;
-
       item_level_discount2_entity_id?: string;
-
       item_level_discount2_amount?: number;
-
       tax1_name?: string;
-
       tax1_amount?: number;
-
       tax2_name?: string;
-
       tax2_amount?: number;
-
       tax3_name?: string;
-
       tax3_amount?: number;
-
       tax4_name?: string;
-
       tax4_amount?: number;
-
       tax5_name?: string;
-
       tax5_amount?: number;
-
       tax6_name?: string;
-
       tax6_amount?: number;
-
       tax7_name?: string;
-
       tax7_amount?: number;
-
       tax8_name?: string;
-
       tax8_amount?: number;
-
       tax9_name?: string;
-
       tax9_amount?: number;
-
       tax10_name?: string;
-
       tax10_amount?: number;
     }
   }

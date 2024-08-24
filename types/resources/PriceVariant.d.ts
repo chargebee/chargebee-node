@@ -4,27 +4,18 @@
 declare module 'chargebee' {
   export interface PriceVariant {
     id: string;
-
     name: string;
-
     external_name?: string;
-
     variant_group?: string;
-
     description?: string;
-
     status?: 'active' | 'archived' | 'deleted';
-
     created_at: number;
-
     resource_version?: number;
-
     updated_at?: number;
-
     archived_at?: number;
-
     attributes?: PriceVariant.Attribute[];
   }
+
   export namespace PriceVariant {
     export class PriceVariantResource {
       create(
@@ -53,6 +44,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListResponse>>;
     }
+
     export interface CreateResponse {
       price_variant: PriceVariant;
     }
@@ -71,13 +63,11 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { price_variant: PriceVariant }[];
-
       next_offset?: string;
     }
 
     export interface Attribute {
       name: string;
-
       value: string;
     }
     // REQUEST PARAMS
@@ -112,12 +102,10 @@ declare module 'chargebee' {
     }
     export interface AttributesCreateInputParam {
       name: string;
-
       value: string;
     }
     export interface AttributesUpdateInputParam {
       name: string;
-
       value: string;
     }
   }

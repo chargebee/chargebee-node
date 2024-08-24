@@ -15,6 +15,7 @@
 ///<reference path='./resources/CreditNoteEstimate.d.ts' />
 ///<reference path='./resources/Currency.d.ts' />
 ///<reference path='./resources/Customer.d.ts' />
+///<reference path='./resources/CustomerEntitlement.d.ts' />
 ///<reference path='./resources/DifferentialPrice.d.ts' />
 ///<reference path='./resources/Discount.d.ts' />
 ///<reference path='./resources/Download.d.ts' />
@@ -123,6 +124,7 @@ declare module 'chargebee' {
     creditNote: CreditNote.CreditNoteResource;
     currency: Currency.CurrencyResource;
     customer: Customer.CustomerResource;
+    customerEntitlement: CustomerEntitlement.CustomerEntitlementResource;
     differentialPrice: DifferentialPrice.DifferentialPriceResource;
     entitlement: Entitlement.EntitlementResource;
     entitlementOverride: EntitlementOverride.EntitlementOverrideResource;

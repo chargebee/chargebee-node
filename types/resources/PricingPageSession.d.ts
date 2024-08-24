@@ -4,13 +4,11 @@
 declare module 'chargebee' {
   export interface PricingPageSession {
     id?: string;
-
     url?: string;
-
     created_at?: number;
-
     expires_at?: number;
   }
+
   export namespace PricingPageSession {
     export class PricingPageSessionResource {
       createForNewSubscription(
@@ -23,6 +21,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateForExistingSubscriptionResponse>>;
     }
+
     export interface CreateForNewSubscriptionResponse {
       pricing_page_session: PricingPageSession;
     }
@@ -50,31 +49,18 @@ declare module 'chargebee' {
     }
     export interface BillingAddressCreateForNewSubscriptionInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface PricingPageCreateForNewSubscriptionInputParam {
@@ -82,46 +68,27 @@ declare module 'chargebee' {
     }
     export interface CustomerCreateForNewSubscriptionInputParam {
       id?: string;
-
       email?: string;
-
       first_name?: string;
-
       last_name?: string;
-
       company?: string;
-
       phone?: string;
-
       locale?: string;
     }
     export interface ShippingAddressCreateForNewSubscriptionInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface SubscriptionCreateForNewSubscriptionInputParam {

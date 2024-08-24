@@ -4,27 +4,18 @@
 declare module 'chargebee' {
   export interface Gift {
     id: string;
-
     status: 'scheduled' | 'unclaimed' | 'claimed' | 'cancelled' | 'expired';
-
     scheduled_at?: number;
-
     auto_claim: boolean;
-
     no_expiry: boolean;
-
     claim_expiry_date?: number;
-
     resource_version?: number;
-
     updated_at?: number;
-
     gifter: Gift.Gifter;
-
     gift_receiver: Gift.GiftReceiver;
-
     gift_timelines?: Gift.GiftTimeline[];
   }
+
   export namespace Gift {
     export class GiftResource {
       create(
@@ -63,75 +54,59 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateGiftResponse>>;
     }
+
     export interface CreateResponse {
       gift: Gift;
-
       subscription: Subscription;
-
       invoice?: Invoice;
     }
 
     export interface CreateForItemsResponse {
       gift: Gift;
-
       subscription: Subscription;
-
       invoice?: Invoice;
     }
 
     export interface RetrieveResponse {
       gift: Gift;
-
       subscription: Subscription;
     }
 
     export interface ListResponse {
       list: { gift: Gift; subscription: Subscription }[];
-
       next_offset?: string;
     }
 
     export interface ClaimResponse {
       gift: Gift;
-
       subscription: Subscription;
     }
 
     export interface CancelResponse {
       gift: Gift;
-
       subscription: Subscription;
     }
 
     export interface UpdateGiftResponse {
       gift: Gift;
-
       subscription: Subscription;
     }
 
     export interface Gifter {
       customer_id: string;
-
       invoice_id?: string;
-
       signature?: string;
-
       note?: string;
     }
     export interface GiftReceiver {
       customer_id: string;
-
       subscription_id: string;
-
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
     }
     export interface GiftTimeline {
       status: 'scheduled' | 'unclaimed' | 'claimed' | 'cancelled' | 'expired';
-
       occurred_at?: number;
     }
     // REQUEST PARAMS
@@ -175,58 +150,36 @@ declare module 'chargebee' {
     }
     export interface GiftReceiverCreateInputParam {
       customer_id: string;
-
       first_name: string;
-
       last_name: string;
-
       email: string;
     }
     export interface GifterCreateInputParam {
       customer_id: string;
-
       signature: string;
-
       note?: string;
-
       payment_src_id?: string;
     }
     export interface ShippingAddressCreateInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface PaymentIntentCreateInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -248,86 +201,56 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_information?: any;
     }
     export interface SubscriptionCreateInputParam {
       plan_id: string;
-
       plan_quantity?: number;
-
       plan_quantity_in_decimal?: string;
     }
 
     export interface AddonsCreateInputParam {
       id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
     }
     export interface GiftReceiverCreateForItemsInputParam {
       customer_id: string;
-
       first_name: string;
-
       last_name: string;
-
       email: string;
     }
     export interface GifterCreateForItemsInputParam {
       customer_id: string;
-
       signature: string;
-
       note?: string;
-
       payment_src_id?: string;
     }
     export interface ShippingAddressCreateForItemsInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface PaymentIntentCreateForItemsInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -349,23 +272,17 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_information?: any;
     }
 
     export interface SubscriptionItemsCreateForItemsInputParam {
       item_price_id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
     }
     export interface GifterGiftListInputParam {
@@ -373,7 +290,6 @@ declare module 'chargebee' {
     }
     export interface GiftReceiverGiftListInputParam {
       email?: filter.String;
-
       customer_id?: filter.String;
     }
   }

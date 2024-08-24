@@ -4,17 +4,13 @@
 declare module 'chargebee' {
   export interface Currency {
     id?: string;
-
     enabled: boolean;
-
     forex_type?: 'manual' | 'auto';
-
     currency_code?: string;
-
     is_base_currency?: boolean;
-
     manual_exchange_rate?: string;
   }
+
   export namespace Currency {
     export class CurrencyResource {
       list(
@@ -48,6 +44,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RemoveScheduleResponse>>;
     }
+
     export interface ListResponse {
       currency: Currency;
     }
@@ -66,13 +63,11 @@ declare module 'chargebee' {
 
     export interface AddScheduleResponse {
       scheduled_at: number;
-
       currency: Currency;
     }
 
     export interface RemoveScheduleResponse {
       scheduled_at: number;
-
       currency: Currency;
     }
 

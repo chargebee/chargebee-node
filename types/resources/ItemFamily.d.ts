@@ -3,22 +3,16 @@
 ///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface ItemFamily {
-    [key: string]: any;
-
+    [key: string]: unknown;
     id: string;
-
     name: string;
-
     description?: string;
-
     status?: 'active' | 'deleted';
-
     resource_version?: number;
-
     updated_at?: number;
-
     channel?: Channel;
   }
+
   export namespace ItemFamily {
     export class ItemFamilyResource {
       create(
@@ -47,6 +41,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteResponse>>;
     }
+
     export interface CreateResponse {
       item_family: ItemFamily;
     }
@@ -57,7 +52,6 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { item_family: ItemFamily }[];
-
       next_offset?: string;
     }
 
@@ -76,7 +70,7 @@ declare module 'chargebee' {
       id: string;
       name: string;
       description?: string;
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface ListInputParam {
       limit?: number;
@@ -84,12 +78,12 @@ declare module 'chargebee' {
       id?: filter.String;
       name?: filter.String;
       updated_at?: filter.Timestamp;
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface UpdateInputParam {
       name?: string;
       description?: string;
-      [key: string]: any;
+      [key: string]: unknown;
     }
   }
 }

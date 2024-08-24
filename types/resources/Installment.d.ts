@@ -4,21 +4,15 @@
 declare module 'chargebee' {
   export interface Installment {
     id: string;
-
     invoice_id: string;
-
     date: number;
-
     amount: number;
-
     status: 'posted' | 'payment_due' | 'paid';
-
     created_at: number;
-
     resource_version?: number;
-
     updated_at?: number;
   }
+
   export namespace Installment {
     export class InstallmentResource {
       retrieve(
@@ -31,13 +25,13 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListResponse>>;
     }
+
     export interface RetrieveResponse {
       installment: Installment;
     }
 
     export interface ListResponse {
       list: { installment: Installment }[];
-
       next_offset?: string;
     }
 

@@ -4,19 +4,14 @@
 declare module 'chargebee' {
   export interface Comment {
     id: string;
-
     entity_type: EntityType;
-
     added_by?: string;
-
     notes: string;
-
     created_at: number;
-
     type: 'user' | 'system';
-
     entity_id: string;
   }
+
   export namespace Comment {
     export class CommentResource {
       create(
@@ -39,6 +34,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteResponse>>;
     }
+
     export interface CreateResponse {
       comment: Comment;
     }
@@ -49,7 +45,6 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { comment: Comment }[];
-
       next_offset?: string;
     }
 

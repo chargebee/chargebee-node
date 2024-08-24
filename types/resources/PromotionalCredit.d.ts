@@ -4,29 +4,19 @@
 declare module 'chargebee' {
   export interface PromotionalCredit {
     id: string;
-
     customer_id: string;
-
     type: 'increment' | 'decrement';
-
     amount_in_decimal?: string;
-
     amount: number;
-
     currency_code: string;
-
     description: string;
-
     credit_type: CreditType;
-
     reference?: string;
-
     closing_balance: number;
-
     done_by?: string;
-
     created_at: number;
   }
+
   export namespace PromotionalCredit {
     export class PromotionalCreditResource {
       add(
@@ -54,27 +44,24 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
     }
+
     export interface AddResponse {
       customer: Customer;
-
       promotional_credit: PromotionalCredit;
     }
 
     export interface DeductResponse {
       customer: Customer;
-
       promotional_credit: PromotionalCredit;
     }
 
     export interface SetResponse {
       customer: Customer;
-
       promotional_credit: PromotionalCredit;
     }
 
     export interface ListResponse {
       list: { promotional_credit: PromotionalCredit }[];
-
       next_offset?: string;
     }
 

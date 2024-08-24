@@ -3,56 +3,33 @@
 ///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface Item {
-    [key: string]: any;
-
+    [key: string]: unknown;
     id: string;
-
     name: string;
-
     external_name?: string;
-
     description?: string;
-
     status?: 'active' | 'archived' | 'deleted';
-
     resource_version?: number;
-
     updated_at?: number;
-
     item_family_id?: string;
-
     type: 'plan' | 'addon' | 'charge';
-
     is_shippable?: boolean;
-
     is_giftable: boolean;
-
     redirect_url?: string;
-
     enabled_for_checkout: boolean;
-
     enabled_in_portal: boolean;
-
     included_in_mrr?: boolean;
-
     item_applicability: 'all' | 'restricted';
-
     gift_claim_redirect_url?: string;
-
     unit?: string;
-
     metered: boolean;
-
     usage_calculation?: 'sum_of_usages' | 'last_usage' | 'max_usage';
-
     archived_at?: number;
-
     channel?: Channel;
-
     applicable_items?: Item.ApplicableItem[];
-
     metadata?: any;
   }
+
   export namespace Item {
     export class ItemResource {
       create(
@@ -81,6 +58,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteResponse>>;
     }
+
     export interface CreateResponse {
       item: Item;
     }
@@ -95,7 +73,6 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { item: Item }[];
-
       next_offset?: string;
     }
 
@@ -129,7 +106,7 @@ declare module 'chargebee' {
       metered?: boolean;
       usage_calculation?: 'sum_of_usages' | 'last_usage' | 'max_usage';
       metadata?: any;
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface UpdateInputParam {
       name?: string;
@@ -140,10 +117,9 @@ declare module 'chargebee' {
       enabled_in_portal?: boolean;
       redirect_url?: string;
       enabled_for_checkout?: boolean;
-      item_applicability?: 'all' | 'restricted';
-      /**
+      item_applicability?: 'all' | 'restricted' /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       clear_applicable_items?: boolean;
       applicable_items?: string[];
@@ -152,7 +128,7 @@ declare module 'chargebee' {
       metadata?: any;
       included_in_mrr?: boolean;
       status?: 'active' | 'archived';
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface ListInputParam {
       limit?: number;

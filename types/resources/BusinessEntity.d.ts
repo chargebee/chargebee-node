@@ -4,19 +4,14 @@
 declare module 'chargebee' {
   export interface BusinessEntity {
     id: string;
-
     name: string;
-
     status: 'active' | 'inactive';
-
     deleted: boolean;
-
     created_at: number;
-
     resource_version?: number;
-
     updated_at?: number;
   }
+
   export namespace BusinessEntity {
     export class BusinessEntityResource {
       createTransfers(
@@ -29,13 +24,13 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<GetTransfersResponse>>;
     }
+
     export interface CreateTransfersResponse {
       business_entity_transfer: BusinessEntityTransfer;
     }
 
     export interface GetTransfersResponse {
       list: { business_entity_transfer: BusinessEntityTransfer }[];
-
       next_offset?: string;
     }
 
@@ -44,15 +39,13 @@ declare module 'chargebee' {
 
     export interface CreateTransfersInputParam {
       active_resource_ids: string[];
-      destination_business_entity_ids: string[];
-      /**
+      destination_business_entity_ids: string[] /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
-      source_business_entity_ids?: string[];
-      /**
+      source_business_entity_ids?: string[] /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       resource_types: string[];
       reason_codes: string[];

@@ -4,15 +4,12 @@
 declare module 'chargebee' {
   export interface CouponCode {
     code: string;
-
     status: 'not_redeemed' | 'redeemed' | 'archived';
-
     coupon_id: string;
-
     coupon_set_id: string;
-
     coupon_set_name: string;
   }
+
   export namespace CouponCode {
     export class CouponCodeResource {
       create(
@@ -35,6 +32,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ArchiveResponse>>;
     }
+
     export interface CreateResponse {
       coupon_code: CouponCode;
     }
@@ -45,7 +43,6 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { coupon_code: CouponCode }[];
-
       next_offset?: string;
     }
 

@@ -4,17 +4,13 @@
 declare module 'chargebee' {
   export interface InAppSubscription {
     app_id: string;
-
     subscription_id: string;
-
     customer_id?: string;
-
     plan_id?: string;
-
     store_status?: 'in_trial' | 'active' | 'cancelled' | 'paused';
-
     invoice_id?: string;
   }
+
   export namespace InAppSubscription {
     export class InAppSubscriptionResource {
       processReceipt(
@@ -41,6 +37,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveStoreSubsResponse>>;
     }
+
     export interface ProcessReceiptResponse {
       in_app_subscription: InAppSubscription;
     }
@@ -79,32 +76,22 @@ declare module 'chargebee' {
     }
     export interface CustomerProcessReceiptInputParam {
       id?: string;
-
       email?: string;
-
       first_name?: string;
-
       last_name?: string;
     }
     export interface ProductProcessReceiptInputParam {
       id: string;
-
       currency_code: string;
-
       price: number;
-
       name?: string;
-
       price_in_decimal?: string;
-
       period?: string;
-
       period_unit?: string;
     }
 
     export interface CustomerImportReceiptInputParam {
       id?: string;
-
       email?: string;
     }
     export interface ProductImportReceiptInputParam {
@@ -113,24 +100,16 @@ declare module 'chargebee' {
 
     export interface CustomerImportSubscriptionInputParam {
       id?: string;
-
       email?: string;
     }
     export interface SubscriptionImportSubscriptionInputParam {
       id: string;
-
       started_at: number;
-
       term_start: number;
-
       term_end: number;
-
       product_id: string;
-
       currency_code: string;
-
       transaction_id: string;
-
       is_trial?: boolean;
     }
   }

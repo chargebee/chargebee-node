@@ -4,31 +4,20 @@
 declare module 'chargebee' {
   export interface DifferentialPrice {
     id: string;
-
     item_price_id: string;
-
     parent_item_id: string;
-
     price?: number;
-
     price_in_decimal?: string;
-
     status?: 'active' | 'deleted';
-
     resource_version?: number;
-
     updated_at?: number;
-
     created_at: number;
-
     modified_at: number;
-
     tiers?: DifferentialPrice.Tier[];
-
     currency_code: string;
-
     parent_periods?: DifferentialPrice.ParentPeriod[];
   }
+
   export namespace DifferentialPrice {
     export class DifferentialPriceResource {
       create(
@@ -60,6 +49,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListResponse>>;
     }
+
     export interface CreateResponse {
       differential_price: DifferentialPrice;
     }
@@ -78,26 +68,19 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { differential_price: DifferentialPrice }[];
-
       next_offset?: string;
     }
 
     export interface Tier {
       starting_unit: number;
-
       ending_unit?: number;
-
       price: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
     }
     export interface ParentPeriod {
       period_unit: 'day' | 'week' | 'month' | 'year';
-
       period?: any[];
     }
     // REQUEST PARAMS
@@ -133,38 +116,26 @@ declare module 'chargebee' {
     }
     export interface TiersCreateInputParam {
       starting_unit?: number;
-
       ending_unit?: number;
-
       price?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
     }
     export interface ParentPeriodsCreateInputParam {
       period_unit: 'day' | 'week' | 'month' | 'year';
-
       period?: any;
     }
     export interface TiersUpdateInputParam {
       starting_unit?: number;
-
       ending_unit?: number;
-
       price?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
     }
     export interface ParentPeriodsUpdateInputParam {
       period_unit: 'day' | 'week' | 'month' | 'year';
-
       period?: any;
     }
   }

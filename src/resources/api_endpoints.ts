@@ -65,6 +65,7 @@ interface Endpoints {
   impactedItemPrice: EndpointTuple[];
   metadata: EndpointTuple[];
   subscriptionEntitlement: EndpointTuple[];
+  customerEntitlement: EndpointTuple[];
   itemEntitlement: EndpointTuple[];
   entitlement: EndpointTuple[];
   inAppSubscription: EndpointTuple[];
@@ -538,6 +539,7 @@ export const Endpoints: Endpoints = {
     ],
     ['voidTransaction', 'POST', '/transactions', '/void', true],
     ['recordRefund', 'POST', '/transactions', '/record_refund', true],
+    ['reconcile', 'POST', '/transactions', '/reconcile', true],
     ['refund', 'POST', '/transactions', '/refund', true],
     ['list', 'GET', '/transactions', null, false],
     ['transactionsForCustomer', 'GET', '/customers', '/transactions', true],
@@ -1028,6 +1030,15 @@ export const Endpoints: Endpoints = {
       true,
     ],
   ],
+  customerEntitlement: [
+    [
+      'entitlementsForCustomer',
+      'GET',
+      '/customers',
+      '/customer_entitlements',
+      true,
+    ],
+  ],
   itemEntitlement: [
     ['itemEntitlementsForItem', 'GET', '/items', '/item_entitlements', true],
     [
@@ -1120,6 +1131,7 @@ export const Endpoints: Endpoints = {
   ],
   ramp: [
     ['createForSubscription', 'POST', '/subscriptions', '/create_ramp', true],
+    ['update', 'POST', '/ramps', '/update', true],
     ['retrieve', 'GET', '/ramps', null, true],
     ['delete', 'POST', '/ramps', '/delete', true],
     ['list', 'GET', '/ramps', null, false],

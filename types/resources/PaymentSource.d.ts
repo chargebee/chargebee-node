@@ -4,58 +4,36 @@
 declare module 'chargebee' {
   export interface PaymentSource {
     id: string;
-
     resource_version?: number;
-
     updated_at?: number;
-
     created_at: number;
-
     customer_id: string;
-
     type: Type;
-
     reference_id: string;
-
     status:
       | 'valid'
       | 'expiring'
       | 'expired'
       | 'invalid'
       | 'pending_verification';
-
     gateway: Gateway;
-
     gateway_account_id?: string;
-
     ip_address?: string;
-
     issuing_country?: string;
-
     card?: PaymentSource.Card;
-
     bank_account?: PaymentSource.BankAccount;
-
     boleto?: PaymentSource.CustVoucherSource;
-
     billing_address?: PaymentSource.BillingAddress;
-
     amazon_payment?: PaymentSource.AmazonPayment;
-
     upi?: PaymentSource.Upi;
-
     paypal?: PaymentSource.Paypal;
-
     venmo?: PaymentSource.Venmo;
-
     klarna_pay_now?: PaymentSource.KlarnaPayNow;
-
     mandates?: PaymentSource.Mandate[];
-
     deleted: boolean;
-
     business_entity_id?: string;
   }
+
   export namespace PaymentSource {
     export class PaymentSourceResource {
       createUsingTempToken(
@@ -143,57 +121,49 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteLocalResponse>>;
     }
+
     export interface CreateUsingTempTokenResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
     export interface CreateUsingPermanentTokenResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
     export interface CreateUsingTokenResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
     export interface CreateUsingPaymentIntentResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
     export interface CreateVoucherPaymentSourceResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
     export interface CreateCardResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
     export interface CreateBankAccountResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
     export interface UpdateCardResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
     export interface UpdateBankAccountResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
@@ -207,13 +177,11 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { payment_source: PaymentSource }[];
-
       next_offset?: string;
     }
 
     export interface SwitchGatewayAccountResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
@@ -223,25 +191,19 @@ declare module 'chargebee' {
 
     export interface DeleteResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
     export interface DeleteLocalResponse {
       customer: Customer;
-
       payment_source: PaymentSource;
     }
 
     export interface Card {
       first_name?: string;
-
       last_name?: string;
-
       iin: string;
-
       last4: string;
-
       brand:
         | 'visa'
         | 'mastercard'
@@ -263,98 +225,60 @@ declare module 'chargebee' {
         | 'rupay'
         | 'maestro'
         | 'not_applicable';
-
       funding_type:
         | 'credit'
         | 'debit'
         | 'prepaid'
         | 'not_known'
         | 'not_applicable';
-
       expiry_month: number;
-
       expiry_year: number;
-
       billing_addr1?: string;
-
       billing_addr2?: string;
-
       billing_city?: string;
-
       billing_state_code?: string;
-
       billing_state?: string;
-
       billing_country?: string;
-
       billing_zip?: string;
-
       masked_number?: string;
     }
     export interface BankAccount {
       last4: string;
-
       name_on_account?: string;
-
       first_name?: string;
-
       last_name?: string;
-
       direct_debit_scheme?: DirectDebitScheme;
-
       bank_name?: string;
-
       mandate_id?: string;
-
       account_type?: AccountType;
-
       echeck_type?: EcheckType;
-
       account_holder_type?: AccountHolderType;
-
       email?: string;
     }
     export interface CustVoucherSource {
       last4: string;
-
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
     }
     export interface BillingAddress {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       country?: string;
-
       zip?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface AmazonPayment {
       email?: string;
-
       agreement_id?: string;
     }
     export interface Upi {
@@ -362,7 +286,6 @@ declare module 'chargebee' {
     }
     export interface Paypal {
       email?: string;
-
       agreement_id?: string;
     }
     export interface Venmo {
@@ -373,9 +296,7 @@ declare module 'chargebee' {
     }
     export interface Mandate {
       id: string;
-
       subscription_id: string;
-
       created_at: number;
     }
     // REQUEST PARAMS
@@ -463,36 +384,22 @@ declare module 'chargebee' {
     }
     export interface BillingAddressCreateUsingPermanentTokenInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
     }
     export interface CardCreateUsingPermanentTokenInputParam {
       last4?: string;
-
       iin?: string;
-
       expiry_month?: number;
-
       expiry_year?: number;
-
       brand?:
         | 'visa'
         | 'mastercard'
@@ -513,17 +420,13 @@ declare module 'chargebee' {
         | 'carnet'
         | 'rupay'
         | 'maestro';
-
       funding_type?: 'credit' | 'debit' | 'prepaid' | 'not_known';
     }
 
     export interface PaymentIntentCreateUsingPaymentIntentInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -545,127 +448,77 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_info?: any;
-
       additional_information?: any;
     }
 
     export interface VoucherPaymentSourceCreateVoucherPaymentSourceInputParam {
       voucher_type: VoucherType;
-
       gateway_account_id?: string;
-
       tax_id?: string;
-
       billing_address?: any;
     }
 
     export interface CardCreateCardInputParam {
       gateway_account_id?: string;
-
       first_name?: string;
-
       last_name?: string;
-
       number: string;
-
       expiry_month: number;
-
       expiry_year: number;
-
       cvv?: string;
-
       billing_addr1?: string;
-
       billing_addr2?: string;
-
       billing_city?: string;
-
       billing_state_code?: string;
-
       billing_state?: string;
-
       billing_zip?: string;
-
       billing_country?: string;
-
       additional_information?: any;
     }
 
     export interface BankAccountCreateBankAccountInputParam {
       gateway_account_id?: string;
-
       iban?: string;
-
       first_name?: string;
-
       last_name?: string;
-
       company?: string;
-
       email?: string;
-
       phone?: string;
-
       bank_name?: string;
-
       account_number?: string;
-
       routing_number?: string;
-
       bank_code?: string;
-
       account_type?: AccountType;
-
       account_holder_type?: AccountHolderType;
-
       echeck_type?: EcheckType;
-
       swedish_identity_number?: string;
-
       billing_address?: any;
     }
 
     export interface CardUpdateCardInputParam {
       first_name?: string;
-
       last_name?: string;
-
       expiry_month?: number;
-
       expiry_year?: number;
-
       billing_addr1?: string;
-
       billing_addr2?: string;
-
       billing_city?: string;
-
       billing_zip?: string;
-
       billing_state_code?: string;
-
       billing_state?: string;
-
       billing_country?: string;
-
       additional_information?: any;
     }
 
     export interface BankAccountUpdateBankAccountInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
     }
   }

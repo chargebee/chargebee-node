@@ -4,23 +4,14 @@
 declare module 'chargebee' {
   export interface Card {
     payment_source_id: string;
-
     status: 'valid' | 'expiring' | 'expired';
-
     gateway: Gateway;
-
     gateway_account_id?: string;
-
     ref_tx_id?: string;
-
     first_name?: string;
-
     last_name?: string;
-
     iin: string;
-
     last4: string;
-
     card_type?:
       | 'visa'
       | 'mastercard'
@@ -42,42 +33,26 @@ declare module 'chargebee' {
       | 'maestro'
       | 'other'
       | 'not_applicable';
-
     funding_type:
       | 'credit'
       | 'debit'
       | 'prepaid'
       | 'not_known'
       | 'not_applicable';
-
     expiry_month: number;
-
     expiry_year: number;
-
     issuing_country?: string;
-
     billing_addr1?: string;
-
     billing_addr2?: string;
-
     billing_city?: string;
-
     billing_state_code?: string;
-
     billing_state?: string;
-
     billing_country?: string;
-
     billing_zip?: string;
-
     created_at: number;
-
     resource_version?: number;
-
     updated_at?: number;
-
     ip_address?: string;
-
     powered_by?:
       | 'ideal'
       | 'sofort'
@@ -86,11 +61,10 @@ declare module 'chargebee' {
       | 'card'
       | 'latam_local_card'
       | 'not_applicable';
-
     customer_id: string;
-
     masked_number?: string;
   }
+
   export namespace Card {
     export class CardResource {
       retrieve(
@@ -121,19 +95,18 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteCardForCustomerResponse>>;
     }
+
     export interface RetrieveResponse {
       card: Card;
     }
 
     export interface UpdateCardForCustomerResponse {
       customer: Customer;
-
       card: Card;
     }
 
     export interface SwitchGatewayForCustomerResponse {
       customer: Customer;
-
       card: Card;
     }
 
@@ -168,10 +141,9 @@ declare module 'chargebee' {
       billing_state_code?: string;
       billing_state?: string;
       billing_zip?: string;
-      billing_country?: string;
-      /**
+      billing_country?: string /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       ip_address?: string;
       customer?: CustomerUpdateCardForCustomerInputParam;
@@ -191,7 +163,6 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       vat_number?: string;
     }
   }

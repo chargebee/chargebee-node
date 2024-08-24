@@ -4,29 +4,19 @@
 declare module 'chargebee' {
   export interface Usage {
     id?: string;
-
     usage_date: number;
-
     subscription_id: string;
-
     item_price_id: string;
-
     invoice_id?: string;
-
     line_item_id?: string;
-
     quantity: string;
-
     source?: Source;
-
     note?: string;
-
     resource_version?: number;
-
     updated_at?: number;
-
     created_at: number;
   }
+
   export namespace Usage {
     export class UsageResource {
       create(
@@ -57,6 +47,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<PdfResponse>>;
     }
+
     export interface CreateResponse {
       usage: Usage;
     }
@@ -71,7 +62,6 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { usage: Usage }[];
-
       next_offset?: string;
     }
 
@@ -86,10 +76,9 @@ declare module 'chargebee' {
       id?: string;
       item_price_id: string;
       quantity: string;
-      usage_date: number;
-      /**
+      usage_date: number /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       dedupe_option?: DedupeOption;
       note?: string;

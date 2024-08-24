@@ -4,31 +4,20 @@
 declare module 'chargebee' {
   export interface SubscriptionEntitlement {
     subscription_id: string;
-
     feature_id?: string;
-
     feature_name?: string;
-
     feature_unit?: string;
-
     feature_type?: string;
-
     value?: string;
-
     name?: string;
-
     is_overridden: boolean;
-
     is_enabled: boolean;
-
     effective_from?: number;
-
     schedule_status?: 'activated' | 'scheduled' | 'failed';
-
     expires_at?: number;
-
     components?: SubscriptionEntitlement.Component;
   }
+
   export namespace SubscriptionEntitlement {
     export class SubscriptionEntitlementResource {
       subscriptionEntitlementsForSubscription(
@@ -47,9 +36,9 @@ declare module 'chargebee' {
         ChargebeeResponse<SetSubscriptionEntitlementAvailabilityResponse>
       >;
     }
+
     export interface SubscriptionEntitlementsForSubscriptionResponse {
       list: { subscription_entitlement: SubscriptionEntitlement }[];
-
       next_offset?: string;
     }
 
@@ -65,20 +54,17 @@ declare module 'chargebee' {
 
     export interface SubscriptionEntitlementsForSubscriptionInputParam {
       limit?: number;
-      offset?: string;
-      /**
+      offset?: string /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
-      include_drafts?: boolean;
-      /**
+      include_drafts?: boolean /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
-      embed?: string;
-      /**
+      embed?: string /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       include_scheduled_overrides?: boolean;
     }

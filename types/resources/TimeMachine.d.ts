@@ -4,19 +4,14 @@
 declare module 'chargebee' {
   export interface TimeMachine {
     name: string;
-
     time_travel_status: 'not_enabled' | 'in_progress' | 'succeeded' | 'failed';
-
     genesis_time: number;
-
     destination_time: number;
-
     failure_code?: string;
-
     failure_reason?: string;
-
     error_json?: string;
   }
+
   export namespace TimeMachine {
     export class TimeMachineResource {
       retrieve(
@@ -36,6 +31,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<TravelForwardResponse>>;
     }
+
     export interface RetrieveResponse {
       time_machine: TimeMachine;
     }

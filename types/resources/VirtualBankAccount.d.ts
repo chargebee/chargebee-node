@@ -4,11 +4,8 @@
 declare module 'chargebee' {
   export interface VirtualBankAccount {
     id: string;
-
     customer_id: string;
-
     email: string;
-
     scheme?:
       | 'ach_credit'
       | 'sepa_credit'
@@ -17,29 +14,19 @@ declare module 'chargebee' {
       | 'eu_automated_bank_transfer'
       | 'jp_automated_bank_transfer'
       | 'mx_automated_bank_transfer';
-
     bank_name?: string;
-
     account_number: string;
-
     routing_number?: string;
-
     swift_code: string;
-
     gateway: Gateway;
-
     gateway_account_id: string;
-
     resource_version?: number;
-
     updated_at?: number;
-
     created_at: number;
-
     reference_id: string;
-
     deleted: boolean;
   }
+
   export namespace VirtualBankAccount {
     export class VirtualBankAccountResource {
       createUsingPermanentToken(
@@ -72,15 +59,14 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteLocalResponse>>;
     }
+
     export interface CreateUsingPermanentTokenResponse {
       virtual_bank_account: VirtualBankAccount;
-
       customer?: Customer;
     }
 
     export interface CreateResponse {
       virtual_bank_account: VirtualBankAccount;
-
       customer?: Customer;
     }
 
@@ -90,7 +76,6 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { virtual_bank_account: VirtualBankAccount }[];
-
       next_offset?: string;
     }
 

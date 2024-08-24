@@ -4,33 +4,21 @@
 declare module 'chargebee' {
   export interface AttachedItem {
     id: string;
-
     parent_item_id: string;
-
     item_id: string;
-
     type: 'recommended' | 'mandatory' | 'optional';
-
     status?: 'active' | 'archived' | 'deleted';
-
     quantity?: number;
-
     quantity_in_decimal?: string;
-
     billing_cycles?: number;
-
     charge_on_event: ChargeOnEvent;
-
     charge_once: boolean;
-
     created_at: number;
-
     resource_version?: number;
-
     updated_at?: number;
-
     channel?: Channel;
   }
+
   export namespace AttachedItem {
     export class AttachedItemResource {
       create(
@@ -63,6 +51,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListResponse>>;
     }
+
     export interface CreateResponse {
       attached_item: AttachedItem;
     }
@@ -81,7 +70,6 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { attached_item: AttachedItem }[];
-
       next_offset?: string;
     }
 

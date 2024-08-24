@@ -4,19 +4,14 @@
 declare module 'chargebee' {
   export interface CouponSet {
     id: string;
-
     coupon_id: string;
-
     name: string;
-
     total_count?: number;
-
     redeemed_count?: number;
-
     archived_count?: number;
-
     meta_data?: any;
   }
+
   export namespace CouponSet {
     export class CouponSetResource {
       create(
@@ -56,6 +51,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteUnusedCouponCodesResponse>>;
     }
+
     export interface CreateResponse {
       coupon_set: CouponSet;
     }
@@ -66,7 +62,6 @@ declare module 'chargebee' {
 
     export interface ListResponse {
       list: { coupon_set: CouponSet }[];
-
       next_offset?: string;
     }
 

@@ -4,21 +4,15 @@
 declare module 'chargebee' {
   export interface Estimate {
     created_at: number;
-
     subscription_estimate?: SubscriptionEstimate;
-
     subscription_estimates?: SubscriptionEstimate[];
-
     invoice_estimate?: InvoiceEstimate;
-
     invoice_estimates?: InvoiceEstimate[];
-
     next_invoice_estimate?: InvoiceEstimate;
-
     credit_note_estimates?: CreditNoteEstimate[];
-
     unbilled_charge_estimates?: UnbilledCharge[];
   }
+
   export namespace Estimate {
     export class EstimateResource {
       createSubscription(
@@ -126,6 +120,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateInvoiceForItemsResponse>>;
     }
+
     export interface CreateSubscriptionResponse {
       estimate: Estimate;
     }
@@ -410,10 +405,9 @@ declare module 'chargebee' {
     export interface CreateInvoiceInputParam {
       currency_code?: string;
       invoice_note?: string;
-      remove_general_note?: boolean;
-      /**
+      remove_general_note?: boolean /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       coupon?: string;
       coupon_ids?: string[];
@@ -431,10 +425,9 @@ declare module 'chargebee' {
     export interface CreateInvoiceForItemsInputParam {
       currency_code?: string;
       invoice_note?: string;
-      remove_general_note?: boolean;
-      /**
+      remove_general_note?: boolean /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       coupon?: string;
       coupon_ids?: string[];
@@ -453,814 +446,496 @@ declare module 'chargebee' {
     }
     export interface BillingAddressCreateSubscriptionInputParam {
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface CustomerCreateSubscriptionInputParam {
       vat_number?: string;
-
       vat_number_prefix?: string;
-
       registered_for_gst?: boolean;
-
       taxability?: Taxability;
-
       entity_code?: EntityCode;
-
       exempt_number?: string;
-
       exemption_details?: any;
-
       customer_type?: CustomerType;
     }
     export interface ShippingAddressCreateSubscriptionInputParam {
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface ContractTermCreateSubscriptionInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
-
       cancellation_cutoff_period?: number;
     }
     export interface SubscriptionCreateSubscriptionInputParam {
       id?: string;
-
       plan_id: string;
-
       plan_quantity?: number;
-
       plan_quantity_in_decimal?: string;
-
       plan_unit_price?: number;
-
       plan_unit_price_in_decimal?: string;
-
       setup_fee?: number;
-
       trial_end?: number;
-
       start_date?: number;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon?: string;
-
       offline_payment_method?: OfflinePaymentMethod;
-
       free_period?: number;
-
       free_period_unit?: FreePeriodUnit;
-
       contract_term_billing_cycle_on_renewal?: number;
-
       trial_end_action?: TrialEndAction;
     }
 
     export interface EventBasedAddonsCreateSubscriptionInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
-
       service_period_in_days?: number;
-
       on_event?: OnEvent;
-
       charge_once?: boolean;
-
       charge_on?: ChargeOn;
     }
     export interface AddonsCreateSubscriptionInputParam {
       id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
-
       trial_end?: number;
     }
     export interface TaxProvidersFieldsCreateSubscriptionInputParam {
       provider_name?: string;
-
       field_id?: string;
-
       field_value?: string;
     }
     export interface BillingAddressCreateSubItemEstimateInputParam {
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface CustomerCreateSubItemEstimateInputParam {
       vat_number?: string;
-
       vat_number_prefix?: string;
-
       registered_for_gst?: boolean;
-
       taxability?: Taxability;
-
       entity_code?: EntityCode;
-
       exempt_number?: string;
-
       exemption_details?: any;
-
       customer_type?: CustomerType;
     }
     export interface ShippingAddressCreateSubItemEstimateInputParam {
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface ContractTermCreateSubItemEstimateInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       contract_start?: number;
-
       cancellation_cutoff_period?: number;
     }
     export interface SubscriptionCreateSubItemEstimateInputParam {
       id?: string;
-
       trial_end?: number;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       setup_fee?: number;
-
       start_date?: number;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon?: string;
-
       free_period?: number;
-
       free_period_unit?: FreePeriodUnit;
-
       contract_term_billing_cycle_on_renewal?: number;
-
       trial_end_action?: TrialEndAction;
     }
 
     export interface SubscriptionItemsCreateSubItemEstimateInputParam {
       item_price_id: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
-
       trial_end?: number;
-
       service_period_days?: number;
-
       charge_on_event?: ChargeOnEvent;
-
       charge_once?: boolean;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       item_type?: ItemType;
-
       charge_on_option?: ChargeOnOption;
     }
     export interface DiscountsCreateSubItemEstimateInputParam {
       apply_on: ApplyOn;
-
       duration_type: DurationType;
-
       percentage?: number;
-
       amount?: number;
-
       period?: number;
-
       period_unit?: PeriodUnit;
-
       included_in_mrr?: boolean;
-
       item_price_id?: string;
     }
     export interface ItemTiersCreateSubItemEstimateInputParam {
       item_price_id?: string;
-
       starting_unit?: number;
-
       ending_unit?: number;
-
       price?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
     }
     export interface TaxProvidersFieldsCreateSubItemEstimateInputParam {
       provider_name?: string;
-
       field_id?: string;
-
       field_value?: string;
     }
     export interface ShippingAddressCreateSubForCustomerEstimateInputParam {
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface ContractTermCreateSubForCustomerEstimateInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
-
       cancellation_cutoff_period?: number;
     }
     export interface SubscriptionCreateSubForCustomerEstimateInputParam {
       id?: string;
-
       plan_id: string;
-
       plan_quantity?: number;
-
       plan_quantity_in_decimal?: string;
-
       plan_unit_price?: number;
-
       plan_unit_price_in_decimal?: string;
-
       setup_fee?: number;
-
       trial_end?: number;
-
       start_date?: number;
-
       offline_payment_method?: OfflinePaymentMethod;
-
       free_period?: number;
-
       free_period_unit?: FreePeriodUnit;
-
       contract_term_billing_cycle_on_renewal?: number;
-
       trial_end_action?: TrialEndAction;
     }
 
     export interface EventBasedAddonsCreateSubForCustomerEstimateInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
-
       service_period_in_days?: number;
-
       on_event?: OnEvent;
-
       charge_once?: boolean;
-
       charge_on?: ChargeOn;
     }
     export interface AddonsCreateSubForCustomerEstimateInputParam {
       id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
-
       trial_end?: number;
     }
     export interface BillingAddressCreateSubItemForCustomerEstimateInputParam {
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface ShippingAddressCreateSubItemForCustomerEstimateInputParam {
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface ContractTermCreateSubItemForCustomerEstimateInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       contract_start?: number;
-
       cancellation_cutoff_period?: number;
     }
     export interface SubscriptionCreateSubItemForCustomerEstimateInputParam {
       id?: string;
-
       trial_end?: number;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       setup_fee?: number;
-
       start_date?: number;
-
       free_period?: number;
-
       free_period_unit?: FreePeriodUnit;
-
       contract_term_billing_cycle_on_renewal?: number;
-
       trial_end_action?: TrialEndAction;
     }
 
     export interface SubscriptionItemsCreateSubItemForCustomerEstimateInputParam {
       item_price_id: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
-
       trial_end?: number;
-
       service_period_days?: number;
-
       charge_on_event?: ChargeOnEvent;
-
       charge_once?: boolean;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       item_type?: ItemType;
-
       charge_on_option?: ChargeOnOption;
     }
     export interface DiscountsCreateSubItemForCustomerEstimateInputParam {
       apply_on: ApplyOn;
-
       duration_type: DurationType;
-
       percentage?: number;
-
       amount?: number;
-
       period?: number;
-
       period_unit?: PeriodUnit;
-
       included_in_mrr?: boolean;
-
       item_price_id?: string;
     }
     export interface ItemTiersCreateSubItemForCustomerEstimateInputParam {
       item_price_id?: string;
-
       starting_unit?: number;
-
       ending_unit?: number;
-
       price?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
     }
     export interface BillingAddressUpdateSubscriptionInputParam {
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface CustomerUpdateSubscriptionInputParam {
       vat_number?: string;
-
       vat_number_prefix?: string;
-
       registered_for_gst?: boolean;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       taxability?: Taxability;
     }
     export interface ShippingAddressUpdateSubscriptionInputParam {
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface SubscriptionUpdateSubscriptionInputParam {
       id: string;
-
       plan_id?: string;
-
       plan_quantity?: number;
-
       plan_unit_price?: number;
-
       setup_fee?: number;
-
       plan_quantity_in_decimal?: string;
-
       plan_unit_price_in_decimal?: string;
-
       start_date?: number;
-
       trial_end?: number;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon?: string;
-
       auto_collection?: AutoCollection;
-
       offline_payment_method?: OfflinePaymentMethod;
-
       free_period?: number;
-
       free_period_unit?: FreePeriodUnit;
-
       trial_end_action?: TrialEndAction;
     }
 
     export interface EventBasedAddonsUpdateSubscriptionInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       service_period_in_days?: number;
-
       charge_on?: ChargeOn;
-
       on_event?: OnEvent;
-
       charge_once?: boolean;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
     }
     export interface AddonsUpdateSubscriptionInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       billing_cycles?: number;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
-
       trial_end?: number;
-
       proration_type?: ProrationType;
     }
     export interface BillingAddressUpdateSubscriptionForItemsInputParam {
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface CustomerUpdateSubscriptionForItemsInputParam {
       vat_number?: string;
-
       vat_number_prefix?: string;
-
       registered_for_gst?: boolean;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       taxability?: Taxability;
     }
     export interface ShippingAddressUpdateSubscriptionForItemsInputParam {
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface SubscriptionUpdateSubscriptionForItemsInputParam {
       id: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       setup_fee?: number;
-
       start_date?: number;
-
       trial_end?: number;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon?: string;
-
       auto_collection?: AutoCollection;
-
       offline_payment_method?: OfflinePaymentMethod;
-
       free_period?: number;
-
       free_period_unit?: FreePeriodUnit;
-
       trial_end_action?: TrialEndAction;
     }
 
     export interface SubscriptionItemsUpdateSubscriptionForItemsInputParam {
       item_price_id: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
-
       trial_end?: number;
-
       service_period_days?: number;
-
       charge_on_event?: ChargeOnEvent;
-
       charge_once?: boolean;
-
       charge_on_option?: ChargeOnOption;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       item_type?: ItemType;
-
       proration_type?: ProrationType;
     }
     export interface DiscountsUpdateSubscriptionForItemsInputParam {
       apply_on: ApplyOn;
-
       duration_type: DurationType;
-
       percentage?: number;
-
       amount?: number;
-
       period?: number;
-
       period_unit?: PeriodUnit;
-
       included_in_mrr?: boolean;
-
       item_price_id?: string;
-
       operation_type: OperationType;
-
       id?: string;
     }
     export interface ItemTiersUpdateSubscriptionForItemsInputParam {
       item_price_id?: string;
-
       starting_unit?: number;
-
       ending_unit?: number;
-
       price?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
     }
     export interface FixedIntervalScheduleAdvanceInvoiceEstimateInputParam {
       number_of_occurrences?: number;
-
       days_before_renewal?: number;
-
       end_schedule_on?: EndScheduleOn;
-
       end_date?: number;
     }
 
     export interface SpecificDatesScheduleAdvanceInvoiceEstimateInputParam {
       terms_to_charge?: number;
-
       date?: number;
     }
     export interface EventBasedAddonsCancelSubscriptionInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       service_period_in_days?: number;
     }
     export interface SubscriptionItemsCancelSubscriptionForItemsInputParam {
       item_price_id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       service_period_days?: number;
     }
     export interface SubscriptionPauseSubscriptionInputParam {
       pause_date?: number;
-
       resume_date?: number;
-
       skip_billing_cycles?: number;
     }
 
@@ -1270,67 +945,42 @@ declare module 'chargebee' {
 
     export interface GiftGiftSubscriptionInputParam {
       scheduled_at?: number;
-
       auto_claim?: boolean;
-
       no_expiry?: boolean;
-
       claim_expiry_date?: number;
     }
     export interface GiftReceiverGiftSubscriptionInputParam {
       customer_id: string;
-
       first_name: string;
-
       last_name: string;
-
       email: string;
     }
     export interface GifterGiftSubscriptionInputParam {
       customer_id: string;
-
       signature: string;
-
       note?: string;
-
       payment_src_id?: string;
     }
     export interface ShippingAddressGiftSubscriptionInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface PaymentIntentGiftSubscriptionInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -1352,95 +1002,62 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_information?: any;
     }
     export interface SubscriptionGiftSubscriptionInputParam {
       plan_id: string;
-
       plan_quantity?: number;
-
       plan_quantity_in_decimal?: string;
     }
 
     export interface AddonsGiftSubscriptionInputParam {
       id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
     }
     export interface GiftGiftSubscriptionForItemsInputParam {
       scheduled_at?: number;
-
       auto_claim?: boolean;
-
       no_expiry?: boolean;
-
       claim_expiry_date?: number;
     }
     export interface GiftReceiverGiftSubscriptionForItemsInputParam {
       customer_id: string;
-
       first_name: string;
-
       last_name: string;
-
       email: string;
     }
     export interface GifterGiftSubscriptionForItemsInputParam {
       customer_id: string;
-
       signature: string;
-
       note?: string;
-
       payment_src_id?: string;
     }
     export interface ShippingAddressGiftSubscriptionForItemsInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface PaymentIntentGiftSubscriptionForItemsInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -1462,229 +1079,142 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_information?: any;
     }
 
     export interface SubscriptionItemsGiftSubscriptionForItemsInputParam {
       item_price_id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
     }
     export interface InvoiceCreateInvoiceInputParam {
       customer_id?: string;
-
       subscription_id?: string;
-
       po_number?: string;
     }
     export interface ShippingAddressCreateInvoiceInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
 
     export interface ChargesCreateInvoiceInputParam {
       amount?: number;
-
       amount_in_decimal?: string;
-
       description?: string;
-
       taxable?: boolean;
-
       tax_profile_id?: string;
-
       avalara_tax_code?: string;
-
       hsn_code?: string;
-
       taxjar_product_code?: string;
-
       avalara_sale_type?: AvalaraSaleType;
-
       avalara_transaction_type?: number;
-
       avalara_service_type?: number;
-
       date_from?: number;
-
       date_to?: number;
     }
     export interface AddonsCreateInvoiceInputParam {
       id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       date_from?: number;
-
       date_to?: number;
     }
     export interface TaxProvidersFieldsCreateInvoiceInputParam {
       provider_name?: string;
-
       field_id?: string;
-
       field_value?: string;
     }
     export interface NotesToRemoveCreateInvoiceInputParam {
       entity_type?: EntityType;
-
       entity_id?: string;
     }
     export interface InvoiceCreateInvoiceForItemsInputParam {
       customer_id?: string;
-
       subscription_id?: string;
-
       po_number?: string;
     }
     export interface ShippingAddressCreateInvoiceForItemsInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
 
     export interface ChargesCreateInvoiceForItemsInputParam {
       amount?: number;
-
       amount_in_decimal?: string;
-
       description?: string;
-
       taxable?: boolean;
-
       tax_profile_id?: string;
-
       avalara_tax_code?: string;
-
       hsn_code?: string;
-
       taxjar_product_code?: string;
-
       avalara_sale_type?: AvalaraSaleType;
-
       avalara_transaction_type?: number;
-
       avalara_service_type?: number;
-
       date_from?: number;
-
       date_to?: number;
     }
     export interface DiscountsCreateInvoiceForItemsInputParam {
       percentage?: number;
-
       amount?: number;
-
       apply_on: ApplyOn;
-
       item_price_id?: string;
     }
     export interface ItemTiersCreateInvoiceForItemsInputParam {
       item_price_id?: string;
-
       starting_unit?: number;
-
       ending_unit?: number;
-
       price?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
     }
     export interface ItemPricesCreateInvoiceForItemsInputParam {
       item_price_id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       date_from?: number;
-
       date_to?: number;
     }
     export interface TaxProvidersFieldsCreateInvoiceForItemsInputParam {
       provider_name?: string;
-
       field_id?: string;
-
       field_value?: string;
     }
     export interface NotesToRemoveCreateInvoiceForItemsInputParam {
       entity_type?: EntityType;
-
       entity_id?: string;
     }
   }

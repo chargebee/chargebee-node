@@ -4,17 +4,13 @@
 declare module 'chargebee' {
   export interface Export {
     id: string;
-
     operation_type: string;
-
     mime_type: 'pdf' | 'zip';
-
     status: 'in_process' | 'completed' | 'failed';
-
     created_at: number;
-
     download?: Export.Download;
   }
+
   export namespace Export {
     export class ExportResource {
       retrieve(
@@ -107,6 +103,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<PriceVariantsResponse>>;
     }
+
     export interface RetrieveResponse {
       export: Export;
     }
@@ -181,9 +178,7 @@ declare module 'chargebee' {
 
     export interface Download {
       download_url: string;
-
       valid_till: number;
-
       mime_type?: string;
     }
     // REQUEST PARAMS
@@ -289,556 +284,323 @@ declare module 'chargebee' {
     }
     export interface InvoiceRevenueRecognitionInputParam {
       id?: filter.String;
-
       recurring?: filter.Boolean;
-
       status?: filter.Enum;
-
       price_type?: filter.Enum;
-
       date?: filter.Timestamp;
-
       paid_at?: filter.Timestamp;
-
       total?: filter.Number;
-
       amount_paid?: filter.Number;
-
       amount_adjusted?: filter.Number;
-
       credits_applied?: filter.Number;
-
       amount_due?: filter.Number;
-
       dunning_status?: filter.Enum;
-
       updated_at?: filter.Timestamp;
-
       channel?: filter.Enum;
     }
     export interface CustomerRevenueRecognitionInputParam {
       id?: filter.String;
-
       first_name?: filter.String;
-
       last_name?: filter.String;
-
       email?: filter.String;
-
       company?: filter.String;
-
       phone?: filter.String;
-
       auto_collection?: filter.Enum;
-
       taxability?: filter.Enum;
-
       created_at?: filter.Timestamp;
-
       updated_at?: filter.Timestamp;
-
       offline_payment_method?: filter.Enum;
-
       auto_close_invoices?: filter.Boolean;
-
       channel?: filter.Enum;
     }
     export interface RelationshipRevenueRecognitionInputParam {
       parent_id?: filter.String;
-
       payment_owner_id?: filter.String;
-
       invoice_owner_id?: filter.String;
     }
     export interface SubscriptionRevenueRecognitionInputParam {
       id?: filter.String;
-
       customer_id?: filter.String;
-
       status?: filter.Enum;
-
       cancel_reason?: filter.Enum;
-
       remaining_billing_cycles?: filter.Number;
-
       created_at?: filter.Timestamp;
-
       activated_at?: filter.Timestamp;
-
       next_billing_at?: filter.Timestamp;
-
       cancelled_at?: filter.Timestamp;
-
       has_scheduled_changes?: filter.Boolean;
-
       updated_at?: filter.Timestamp;
-
       offline_payment_method?: filter.Enum;
-
       auto_close_invoices?: filter.Boolean;
-
       channel?: filter.Enum;
-
       plan_id?: filter.String;
     }
 
     export interface InvoiceDeferredRevenueInputParam {
       id?: filter.String;
-
       recurring?: filter.Boolean;
-
       status?: filter.Enum;
-
       price_type?: filter.Enum;
-
       date?: filter.Timestamp;
-
       paid_at?: filter.Timestamp;
-
       total?: filter.Number;
-
       amount_paid?: filter.Number;
-
       amount_adjusted?: filter.Number;
-
       credits_applied?: filter.Number;
-
       amount_due?: filter.Number;
-
       dunning_status?: filter.Enum;
-
       updated_at?: filter.Timestamp;
-
       channel?: filter.Enum;
     }
     export interface CustomerDeferredRevenueInputParam {
       id?: filter.String;
-
       first_name?: filter.String;
-
       last_name?: filter.String;
-
       email?: filter.String;
-
       company?: filter.String;
-
       phone?: filter.String;
-
       auto_collection?: filter.Enum;
-
       taxability?: filter.Enum;
-
       created_at?: filter.Timestamp;
-
       updated_at?: filter.Timestamp;
-
       offline_payment_method?: filter.Enum;
-
       auto_close_invoices?: filter.Boolean;
-
       channel?: filter.Enum;
     }
     export interface RelationshipDeferredRevenueInputParam {
       parent_id?: filter.String;
-
       payment_owner_id?: filter.String;
-
       invoice_owner_id?: filter.String;
     }
     export interface SubscriptionDeferredRevenueInputParam {
       id?: filter.String;
-
       customer_id?: filter.String;
-
       status?: filter.Enum;
-
       cancel_reason?: filter.Enum;
-
       remaining_billing_cycles?: filter.Number;
-
       created_at?: filter.Timestamp;
-
       activated_at?: filter.Timestamp;
-
       next_billing_at?: filter.Timestamp;
-
       cancelled_at?: filter.Timestamp;
-
       has_scheduled_changes?: filter.Boolean;
-
       updated_at?: filter.Timestamp;
-
       offline_payment_method?: filter.Enum;
-
       auto_close_invoices?: filter.Boolean;
-
       channel?: filter.Enum;
-
       plan_id?: filter.String;
     }
 
     export interface PlanPlansInputParam {
       id?: filter.String;
-
       name?: filter.String;
-
       price?: filter.Number;
-
       period?: filter.Number;
-
       period_unit?: filter.Enum;
-
       trial_period?: filter.Number;
-
       trial_period_unit?: filter.Enum;
-
       addon_applicability?: filter.Enum;
-
       giftable?: filter.Boolean;
-
       status?: filter.Enum;
-
       updated_at?: filter.Timestamp;
-
       channel?: filter.Enum;
     }
 
     export interface AddonAddonsInputParam {
       id?: filter.String;
-
       name?: filter.String;
-
       charge_type?: filter.Enum;
-
       price?: filter.Number;
-
       period?: filter.Number;
-
       period_unit?: filter.Enum;
-
       status?: filter.Enum;
-
       updated_at?: filter.Timestamp;
-
       channel?: filter.Enum;
     }
 
     export interface CouponCouponsInputParam {
       id?: filter.String;
-
       name?: filter.String;
-
       discount_type?: filter.Enum;
-
       duration_type?: filter.Enum;
-
       status?: filter.Enum;
-
       apply_on?: filter.Enum;
-
       created_at?: filter.Timestamp;
-
       updated_at?: filter.Timestamp;
     }
 
     export interface CustomerCustomersInputParam {
       id?: filter.String;
-
       first_name?: filter.String;
-
       last_name?: filter.String;
-
       email?: filter.String;
-
       company?: filter.String;
-
       phone?: filter.String;
-
       auto_collection?: filter.Enum;
-
       taxability?: filter.Enum;
-
       created_at?: filter.Timestamp;
-
       updated_at?: filter.Timestamp;
-
       offline_payment_method?: filter.Enum;
-
       auto_close_invoices?: filter.Boolean;
-
       channel?: filter.Enum;
     }
     export interface RelationshipCustomersInputParam {
       parent_id?: filter.String;
-
       payment_owner_id?: filter.String;
-
       invoice_owner_id?: filter.String;
     }
 
     export interface SubscriptionSubscriptionsInputParam {
       id?: filter.String;
-
       customer_id?: filter.String;
-
       status?: filter.Enum;
-
       cancel_reason?: filter.Enum;
-
       remaining_billing_cycles?: filter.Number;
-
       created_at?: filter.Timestamp;
-
       activated_at?: filter.Timestamp;
-
       next_billing_at?: filter.Timestamp;
-
       cancelled_at?: filter.Timestamp;
-
       has_scheduled_changes?: filter.Boolean;
-
       updated_at?: filter.Timestamp;
-
       offline_payment_method?: filter.Enum;
-
       auto_close_invoices?: filter.Boolean;
-
       channel?: filter.Enum;
-
       plan_id?: filter.String;
     }
 
     export interface InvoiceInvoicesInputParam {
       id?: filter.String;
-
       subscription_id?: filter.String;
-
       customer_id?: filter.String;
-
       recurring?: filter.Boolean;
-
       status?: filter.Enum;
-
       price_type?: filter.Enum;
-
       date?: filter.Timestamp;
-
       paid_at?: filter.Timestamp;
-
       total?: filter.Number;
-
       amount_paid?: filter.Number;
-
       amount_adjusted?: filter.Number;
-
       credits_applied?: filter.Number;
-
       amount_due?: filter.Number;
-
       dunning_status?: filter.Enum;
-
       updated_at?: filter.Timestamp;
-
       channel?: filter.Enum;
     }
 
     export interface CreditNoteCreditNotesInputParam {
       id?: filter.String;
-
       customer_id?: filter.String;
-
       subscription_id?: filter.String;
-
       reference_invoice_id?: filter.String;
-
       type?: filter.Enum;
-
       reason_code?: filter.Enum;
-
       create_reason_code?: filter.String;
-
       status?: filter.Enum;
-
       date?: filter.Timestamp;
-
       total?: filter.Number;
-
       price_type?: filter.Enum;
-
       amount_allocated?: filter.Number;
-
       amount_refunded?: filter.Number;
-
       amount_available?: filter.Number;
-
       voided_at?: filter.Timestamp;
-
       updated_at?: filter.Timestamp;
-
       channel?: filter.Enum;
     }
 
     export interface TransactionTransactionsInputParam {
       id?: filter.String;
-
       customer_id?: filter.String;
-
       subscription_id?: filter.String;
-
       payment_source_id?: filter.String;
-
       payment_method?: filter.Enum;
-
       gateway?: filter.Enum;
-
       gateway_account_id?: filter.String;
-
       id_at_gateway?: filter.String;
-
       reference_number?: filter.String;
-
       type?: filter.Enum;
-
       date?: filter.Timestamp;
-
       amount?: filter.Number;
-
       amount_capturable?: filter.Number;
-
       status?: filter.Enum;
-
       updated_at?: filter.Timestamp;
     }
 
     export interface OrderOrdersInputParam {
       id?: filter.String;
-
       subscription_id?: filter.String;
-
       customer_id?: filter.String;
-
       status?: filter.Enum;
-
       price_type?: filter.Enum;
-
       order_date?: filter.Timestamp;
-
       shipping_date?: filter.Timestamp;
-
       shipped_at?: filter.Timestamp;
-
       delivered_at?: filter.Timestamp;
-
       cancelled_at?: filter.Timestamp;
-
       amount_paid?: filter.Number;
-
       refundable_credits?: filter.Number;
-
       refundable_credits_issued?: filter.Number;
-
       updated_at?: filter.Timestamp;
-
       resent_status?: filter.Enum;
-
       is_resent?: filter.Boolean;
-
       original_order_id?: filter.String;
     }
 
     export interface ItemFamilyItemFamiliesInputParam {
       id?: filter.String;
-
       name?: filter.String;
-
       updated_at?: filter.Timestamp;
     }
 
     export interface ItemItemsInputParam {
       id?: filter.String;
-
       item_family_id?: filter.String;
-
       type?: filter.Enum;
-
       name?: filter.String;
-
       item_applicability?: filter.Enum;
-
       status?: filter.Enum;
-
       is_giftable?: filter.Boolean;
-
       updated_at?: filter.Timestamp;
-
       enabled_for_checkout?: filter.Boolean;
-
       enabled_in_portal?: filter.Boolean;
-
       metered?: filter.Boolean;
-
       usage_calculation?: filter.Enum;
-
       channel?: filter.Enum;
     }
 
     export interface ItemPriceItemPricesInputParam {
       id?: filter.String;
-
       name?: filter.String;
-
       pricing_model?: filter.Enum;
-
       item_id?: filter.String;
-
       price_variant_id?: filter.String;
-
       trial_period?: filter.Number;
-
       trial_period_unit?: filter.Enum;
-
       status?: filter.Enum;
-
       updated_at?: filter.Timestamp;
-
       period_unit?: filter.Enum;
-
       period?: filter.Number;
-
       channel?: filter.Enum;
     }
 
     export interface AttachedItemAttachedItemsInputParam {
       id?: filter.String;
-
       item_id?: filter.String;
-
       type?: filter.Enum;
-
       charge_on_event?: filter.Enum;
-
       updated_at?: filter.Timestamp;
-
       parent_item_id?: filter.String;
     }
 
     export interface DifferentialPriceDifferentialPricesInputParam {
       item_price_id?: filter.String;
-
       id?: filter.String;
-
       parent_item_id?: filter.String;
     }
 
     export interface PriceVariantPriceVariantsInputParam {
       id?: filter.String;
-
       name?: filter.String;
-
       status?: filter.Enum;
-
       updated_at?: filter.Timestamp;
-
       created_at?: filter.Timestamp;
     }
   }

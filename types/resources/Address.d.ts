@@ -4,37 +4,23 @@
 declare module 'chargebee' {
   export interface Address {
     label: string;
-
     first_name?: string;
-
     last_name?: string;
-
     email?: string;
-
     company?: string;
-
     phone?: string;
-
     addr?: string;
-
     extended_addr?: string;
-
     extended_addr2?: string;
-
     city?: string;
-
     state_code?: string;
-
     state?: string;
-
     country?: string;
-
     zip?: string;
-
     validation_status?: ValidationStatus;
-
     subscription_id: string;
   }
+
   export namespace Address {
     export class AddressResource {
       retrieve(
@@ -47,6 +33,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateResponse>>;
     }
+
     export interface RetrieveResponse {
       address: Address;
     }

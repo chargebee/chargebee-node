@@ -4,25 +4,17 @@
 declare module 'chargebee' {
   export interface Feature {
     id: string;
-
     name: string;
-
     description?: string;
-
     status?: 'active' | 'archived' | 'draft';
-
     type?: 'switch' | 'custom' | 'quantity' | 'range';
-
     unit?: string;
-
     resource_version?: number;
-
     updated_at?: number;
-
     created_at: number;
-
     levels?: Feature.Level[];
   }
+
   export namespace Feature {
     export class FeatureResource {
       list(
@@ -66,9 +58,9 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ReactivateResponse>>;
     }
+
     export interface ListResponse {
       list: { feature: Feature }[];
-
       next_offset?: string;
     }
 
@@ -102,11 +94,8 @@ declare module 'chargebee' {
 
     export interface Level {
       name?: string;
-
       value: string;
-
       level: number;
-
       is_unlimited: boolean;
     }
     // REQUEST PARAMS
@@ -119,7 +108,7 @@ declare module 'chargebee' {
       id?: filter.String;
       status?: filter.Enum;
       type?: filter.Enum;
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface CreateInputParam {
       id?: string;
@@ -128,31 +117,25 @@ declare module 'chargebee' {
       type?: 'switch' | 'custom' | 'quantity' | 'range';
       unit?: string;
       levels?: LevelsCreateInputParam[];
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface UpdateInputParam {
       name?: string;
       description?: string;
       unit?: string;
       levels?: LevelsUpdateInputParam[];
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface LevelsCreateInputParam {
       name?: string;
-
       value?: string;
-
       is_unlimited?: boolean;
-
       level?: number;
     }
     export interface LevelsUpdateInputParam {
       name?: string;
-
       value?: string;
-
       is_unlimited?: boolean;
-
       level?: number;
     }
   }

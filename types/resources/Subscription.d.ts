@@ -3,44 +3,25 @@
 ///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface Subscription {
-    [key: string]: any;
-
+    [key: string]: unknown;
     id: string;
-
     currency_code: string;
-
     plan_id: string;
-
     plan_quantity: number;
-
     plan_unit_price?: number;
-
     setup_fee?: number;
-
     billing_period?: number;
-
     billing_period_unit?: 'day' | 'week' | 'month' | 'year';
-
     start_date?: number;
-
     trial_end?: number;
-
     remaining_billing_cycles?: number;
-
     po_number?: string;
-
     auto_collection?: AutoCollection;
-
     plan_quantity_in_decimal?: string;
-
     plan_unit_price_in_decimal?: string;
-
     customer_id: string;
-
     plan_amount?: number;
-
     plan_free_quantity?: number;
-
     status:
       | 'future'
       | 'in_trial'
@@ -49,35 +30,20 @@ declare module 'chargebee' {
       | 'paused'
       | 'cancelled'
       | 'transferred';
-
     trial_start?: number;
-
     trial_end_action?: TrialEndAction;
-
     current_term_start?: number;
-
     current_term_end?: number;
-
     next_billing_at?: number;
-
     created_at?: number;
-
     started_at?: number;
-
     activated_at?: number;
-
     gift_id?: string;
-
     contract_term_billing_cycle_on_renewal?: number;
-
     override_relationship?: boolean;
-
     pause_date?: number;
-
     resume_date?: number;
-
     cancelled_at?: number;
-
     cancel_reason?:
       | 'not_paid'
       | 'no_card'
@@ -86,93 +52,52 @@ declare module 'chargebee' {
       | 'tax_calculation_failed'
       | 'currency_incompatible_with_gateway'
       | 'non_compliant_customer';
-
     affiliate_token?: string;
-
     created_from_ip?: string;
-
     resource_version?: number;
-
     updated_at?: number;
-
     has_scheduled_advance_invoices: boolean;
-
     has_scheduled_changes: boolean;
-
     payment_source_id?: string;
-
     plan_free_quantity_in_decimal?: string;
-
     plan_amount_in_decimal?: string;
-
     cancel_schedule_created_at?: number;
-
     offline_payment_method?: OfflinePaymentMethod;
-
     channel?: Channel;
-
     net_term_days?: number;
-
     active_id?: string;
-
     subscription_items?: Subscription.SubscriptionItem[];
-
     item_tiers?: Subscription.ItemTier[];
-
     charged_items?: Subscription.ChargedItem[];
-
     due_invoices_count?: number;
-
     due_since?: number;
-
     total_dues?: number;
-
     mrr?: number;
-
+    arr?: number;
     exchange_rate?: number;
-
     base_currency_code?: string;
-
     addons?: Subscription.Addon[];
-
     event_based_addons?: Subscription.EventBasedAddon[];
-
     charged_event_based_addons?: Subscription.ChargedEventBasedAddon[];
-
     coupon?: string;
-
     coupons?: Subscription.Coupon[];
-
     shipping_address?: Subscription.ShippingAddress;
-
     referral_info?: Subscription.ReferralInfo;
-
     invoice_notes?: string;
-
     meta_data?: any;
-
     metadata?: any;
-
     deleted: boolean;
-
     changes_scheduled_at?: number;
-
     contract_term?: Subscription.ContractTerm;
-
     cancel_reason_code?: string;
-
     free_period?: number;
-
     free_period_unit?: FreePeriodUnit;
-
     create_pending_invoices?: boolean;
-
     auto_close_invoices?: boolean;
-
     discounts?: Subscription.Discount[];
-
     business_entity_id?: string;
   }
+
   export namespace Subscription {
     export class SubscriptionResource {
       create(
@@ -387,159 +312,114 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<MoveResponse>>;
     }
+
     export interface CreateResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
     }
 
     export interface CreateForCustomerResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
     }
 
     export interface CreateWithItemsResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
     }
 
     export interface ListResponse {
       list: { subscription: Subscription; customer: Customer; card?: Card }[];
-
       next_offset?: string;
     }
 
     export interface SubscriptionsForCustomerResponse {
       list: { subscription: Subscription }[];
-
       next_offset?: string;
     }
 
     export interface ContractTermsForSubscriptionResponse {
       list: { contract_term: ContractTerm }[];
-
       next_offset?: string;
     }
 
     export interface ListDiscountsResponse {
       list: { discount: Discount }[];
-
       next_offset?: string;
     }
 
     export interface RetrieveResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
     }
 
     export interface RetrieveWithScheduledChangesResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
     }
 
     export interface RemoveScheduledChangesResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       credit_notes?: CreditNote[];
     }
 
     export interface RemoveScheduledCancellationResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
     }
 
     export interface RemoveCouponsResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
     }
 
     export interface UpdateResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
-
       credit_notes?: CreditNote[];
     }
 
     export interface UpdateForItemsResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
-
       credit_notes?: CreditNote[];
     }
 
     export interface ChangeTermEndResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
-
       credit_notes?: CreditNote[];
     }
 
     export interface ReactivateResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
     }
 
@@ -553,13 +433,9 @@ declare module 'chargebee' {
 
     export interface ChargeFutureRenewalsResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       advance_invoice_schedules?: AdvanceInvoiceSchedule[];
     }
 
@@ -573,33 +449,25 @@ declare module 'chargebee' {
 
     export interface RemoveAdvanceInvoiceScheduleResponse {
       subscription: Subscription;
-
       advance_invoice_schedules?: AdvanceInvoiceSchedule[];
     }
 
     export interface RegenerateInvoiceResponse {
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
     }
 
     export interface ImportSubscriptionResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
     }
 
     export interface ImportForCustomerResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
     }
 
@@ -613,95 +481,66 @@ declare module 'chargebee' {
 
     export interface ImportForItemsResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
     }
 
     export interface OverrideBillingProfileResponse {
       subscription: Subscription;
-
       payment_source?: PaymentSource;
     }
 
     export interface DeleteResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
     }
 
     export interface PauseResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
-
       credit_notes?: CreditNote[];
     }
 
     export interface CancelResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
-
       credit_notes?: CreditNote[];
     }
 
     export interface CancelForItemsResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
-
       credit_notes?: CreditNote[];
     }
 
     export interface ResumeResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
-
       invoice?: Invoice;
-
       unbilled_charges?: UnbilledCharge[];
     }
 
     export interface RemoveScheduledPauseResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
     }
 
     export interface RemoveScheduledResumptionResponse {
       subscription: Subscription;
-
       customer: Customer;
-
       card?: Card;
     }
 
@@ -711,249 +550,147 @@ declare module 'chargebee' {
 
     export interface SubscriptionItem {
       item_price_id: string;
-
       item_type: 'plan' | 'addon' | 'charge';
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       metered_quantity?: string;
-
       last_calculated_at?: number;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       amount?: number;
-
       amount_in_decimal?: string;
-
       billing_period?: number;
-
       billing_period_unit?: 'day' | 'week' | 'month' | 'year';
-
       free_quantity?: number;
-
       free_quantity_in_decimal?: string;
-
       trial_end?: number;
-
       billing_cycles?: number;
-
       service_period_days?: number;
-
       charge_on_event?:
         | 'subscription_creation'
         | 'subscription_trial_start'
         | 'plan_activation'
         | 'subscription_activation'
         | 'contract_termination';
-
       charge_once?: boolean;
-
       charge_on_option?: 'immediately' | 'on_event';
-
       proration_type?: 'full_term' | 'partial_term' | 'none';
     }
     export interface ItemTier {
       item_price_id: string;
-
       starting_unit: number;
-
       ending_unit?: number;
-
       price: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
-
       index: number;
     }
     export interface ChargedItem {
       item_price_id: string;
-
       last_charged_at: number;
     }
     export interface Addon {
       id: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       amount?: number;
-
       trial_end?: number;
-
       remaining_billing_cycles?: number;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
-
       amount_in_decimal?: string;
-
       proration_type?: 'full_term' | 'partial_term' | 'none';
     }
     export interface EventBasedAddon {
       id: string;
-
       quantity: number;
-
       unit_price: number;
-
       service_period_in_days?: number;
-
       on_event:
         | 'subscription_creation'
         | 'subscription_trial_start'
         | 'plan_activation'
         | 'subscription_activation'
         | 'contract_termination';
-
       charge_once: boolean;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
     }
     export interface ChargedEventBasedAddon {
       id: string;
-
       last_charged_at: number;
     }
     export interface Coupon {
       coupon_id: string;
-
       apply_till?: number;
-
       applied_count: number;
-
       coupon_code?: string;
     }
     export interface ShippingAddress {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       country?: string;
-
       zip?: string;
-
       validation_status?: ValidationStatus;
-
       index: number;
     }
     export interface ReferralInfo {
       referral_code?: string;
-
       coupon_code?: string;
-
       referrer_id?: string;
-
       external_reference_id?: string;
-
       reward_status?: 'pending' | 'paid' | 'invalid';
-
       referral_system?: ReferralSystem;
-
       account_id: string;
-
       campaign_id: string;
-
       external_campaign_id?: string;
-
       friend_offer_type?: FriendOfferType;
-
       referrer_reward_type?: ReferrerRewardType;
-
       notify_referral_system?: NotifyReferralSystem;
-
       destination_url?: string;
-
       post_purchase_widget_enabled: boolean;
     }
     export interface ContractTerm {
       id: string;
-
       status: 'active' | 'completed' | 'cancelled' | 'terminated';
-
       contract_start: number;
-
       contract_end: number;
-
       billing_cycle: number;
-
       action_at_term_end: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
-
       total_contract_value: number;
-
       total_contract_value_before_tax: number;
-
       cancellation_cutoff_period?: number;
-
       created_at: number;
-
       subscription_id: string;
-
       remaining_billing_cycles?: number;
     }
     export interface Discount {
       id: string;
-
       invoice_name?: string;
-
       type: 'fixed_amount' | 'percentage';
-
       percentage?: number;
-
       amount?: number;
-
       currency_code?: string;
-
       duration_type: 'one_time' | 'forever' | 'limited_period';
-
       period?: number;
-
       period_unit?: 'day' | 'week' | 'month' | 'year';
-
       included_in_mrr: boolean;
-
       apply_on: 'invoice_amount' | 'specific_item_price';
-
       item_price_id?: string;
-
       created_at: number;
-
       apply_till?: number;
-
       applied_count?: number;
-
       coupon_id: string;
-
       index: number;
     }
     // REQUEST PARAMS
@@ -970,10 +707,9 @@ declare module 'chargebee' {
       trial_end?: number;
       billing_cycles?: number;
       mandatory_addons_to_remove?: string[];
-      start_date?: number;
-      /**
+      start_date?: number /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       coupon?: string;
       auto_collection?: AutoCollection;
@@ -983,10 +719,9 @@ declare module 'chargebee' {
       po_number?: string;
       coupon_ids?: string[];
       token_id?: string;
-      affiliate_token?: string;
-      /**
+      affiliate_token?: string /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       created_from_ip?: string;
       invoice_notes?: string;
@@ -1013,7 +748,7 @@ declare module 'chargebee' {
       addons?: AddonsCreateInputParam[];
       event_based_addons?: EventBasedAddonsCreateInputParam[];
       coupons?: CouponsCreateInputParam[];
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface CreateForCustomerInputParam {
       id?: string;
@@ -1026,10 +761,9 @@ declare module 'chargebee' {
       trial_end?: number;
       billing_cycles?: number;
       mandatory_addons_to_remove?: string[];
-      start_date?: number;
-      /**
+      start_date?: number /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       coupon?: string;
       auto_collection?: AutoCollection;
@@ -1057,24 +791,22 @@ declare module 'chargebee' {
       addons?: AddonsCreateForCustomerInputParam[];
       event_based_addons?: EventBasedAddonsCreateForCustomerInputParam[];
       coupons?: CouponsCreateForCustomerInputParam[];
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface CreateWithItemsInputParam {
       id?: string;
       business_entity_id?: string;
       trial_end?: number;
-      billing_cycles?: number;
-      /**
+      billing_cycles?: number /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       setup_fee?: number;
       mandatory_items_to_remove?: string[];
       net_term_days?: number;
-      start_date?: number;
-      /**
+      start_date?: number /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       coupon?: string;
       auto_collection?: AutoCollection;
@@ -1105,7 +837,7 @@ declare module 'chargebee' {
       discounts?: DiscountsCreateWithItemsInputParam[];
       item_tiers?: ItemTiersCreateWithItemsInputParam[];
       coupons?: CouponsCreateWithItemsInputParam[];
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface ListInputParam {
       limit?: number;
@@ -1133,7 +865,7 @@ declare module 'chargebee' {
       channel?: filter.Enum;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface SubscriptionsForCustomerInputParam {
       limit?: number;
@@ -1165,10 +897,9 @@ declare module 'chargebee' {
       invoice_date?: number;
       start_date?: number;
       trial_end?: number;
-      billing_cycles?: number;
-      /**
+      billing_cycles?: number /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       coupon?: string;
       terms_to_charge?: number;
@@ -1205,24 +936,22 @@ declare module 'chargebee' {
       addons?: AddonsUpdateInputParam[];
       coupons?: CouponsUpdateInputParam[];
       event_based_addons?: EventBasedAddonsUpdateInputParam[];
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface UpdateForItemsInputParam {
       mandatory_items_to_remove?: string[];
-      replace_items_list?: boolean;
-      /**
+      replace_items_list?: boolean /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       setup_fee?: number;
       net_term_days?: number;
       invoice_date?: number;
       start_date?: number;
       trial_end?: number;
-      billing_cycles?: number;
-      /**
+      billing_cycles?: number /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       coupon?: string;
       terms_to_charge?: number;
@@ -1264,7 +993,7 @@ declare module 'chargebee' {
       discounts?: DiscountsUpdateForItemsInputParam[];
       item_tiers?: ItemTiersUpdateForItemsInputParam[];
       coupons?: CouponsUpdateForItemsInputParam[];
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface ChangeTermEndInputParam {
       term_ends_at: number;
@@ -1273,10 +1002,9 @@ declare module 'chargebee' {
     }
     export interface ReactivateInputParam {
       trial_end?: number;
-      billing_cycles?: number;
-      /**
+      billing_cycles?: number /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       trial_period_days?: number;
       reactivate_from?: number;
@@ -1378,7 +1106,7 @@ declare module 'chargebee' {
       event_based_addons?: EventBasedAddonsImportSubscriptionInputParam[];
       charged_event_based_addons?: ChargedEventBasedAddonsImportSubscriptionInputParam[];
       coupons?: CouponsImportSubscriptionInputParam[];
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface ImportForCustomerInputParam {
       id?: string;
@@ -1422,7 +1150,7 @@ declare module 'chargebee' {
       event_based_addons?: EventBasedAddonsImportForCustomerInputParam[];
       charged_event_based_addons?: ChargedEventBasedAddonsImportForCustomerInputParam[];
       coupons?: CouponsImportForCustomerInputParam[];
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface ImportContractTermInputParam {
       contract_term_billing_cycle_on_renewal?: number;
@@ -1436,10 +1164,9 @@ declare module 'chargebee' {
     export interface ImportForItemsInputParam {
       id?: string;
       trial_end?: number;
-      billing_cycles?: number;
-      /**
+      billing_cycles?: number /**
        * @deprecated Please refer API docs to use other attributes
-       */
+       */;
 
       setup_fee?: number;
       net_term_days?: number;
@@ -1479,7 +1206,7 @@ declare module 'chargebee' {
       charged_items?: ChargedItemsImportForItemsInputParam[];
       item_tiers?: ItemTiersImportForItemsInputParam[];
       coupons?: CouponsImportForItemsInputParam[];
-      [key: string]: any;
+      [key: string]: unknown;
     }
     export interface OverrideBillingProfileInputParam {
       payment_source_id?: string;
@@ -1533,31 +1260,18 @@ declare module 'chargebee' {
     }
     export interface BillingAddressCreateInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface StatementDescriptorCreateInputParam {
@@ -1565,152 +1279,87 @@ declare module 'chargebee' {
     }
     export interface CustomerCreateInputParam {
       id?: string;
-
       email?: string;
-
       first_name?: string;
-
       last_name?: string;
-
       company?: string;
-
       phone?: string;
-
       locale?: string;
-
       taxability?: Taxability;
-
       entity_code?: EntityCode;
-
       exempt_number?: string;
-
       net_term_days?: number;
-
       taxjar_exemption_category?: TaxjarExemptionCategory;
-
       auto_collection?: AutoCollection;
-
       offline_payment_method?: OfflinePaymentMethod;
-
       allow_direct_debit?: boolean;
-
       consolidated_invoicing?: boolean;
-
       vat_number?: string;
-
       vat_number_prefix?: string;
-
       entity_identifier_scheme?: string;
-
       entity_identifier_standard?: string;
-
       is_einvoice_enabled?: boolean;
-
       einvoicing_method?: EinvoicingMethod;
-
       registered_for_gst?: boolean;
-
       business_customer_without_vat_number?: boolean;
-
       exemption_details?: any;
-
       customer_type?: CustomerType;
     }
     export interface ShippingAddressCreateInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface PaymentMethodCreateInputParam {
       type?: Type;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gateway?: Gateway;
-
       gateway_account_id?: string;
-
       reference_id?: string;
-
       tmp_token?: string;
-
       issuing_country?: string;
-
       additional_information?: any;
     }
     export interface BankAccountCreateInputParam {
       gateway_account_id?: string;
-
       iban?: string;
-
       first_name?: string;
-
       last_name?: string;
-
       company?: string;
-
       email?: string;
-
       phone?: string;
-
       bank_name?: string;
-
       account_number?: string;
-
       routing_number?: string;
-
       bank_code?: string;
-
       account_type?: AccountType;
-
       account_holder_type?: AccountHolderType;
-
       echeck_type?: EcheckType;
-
       issuing_country?: string;
-
       swedish_identity_number?: string;
-
       billing_address?: any;
     }
     export interface ContractTermCreateInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
-
       cancellation_cutoff_period?: number;
     }
     export interface PaymentIntentCreateInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -1732,128 +1381,82 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_information?: any;
     }
     export interface CardCreateInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gateway?: Gateway;
-
       gateway_account_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       tmp_token?: string;
-
       first_name?: string;
-
       last_name?: string;
-
       number?: string;
-
       expiry_month?: number;
-
       expiry_year?: number;
-
       cvv?: string;
-
       billing_addr1?: string;
-
       billing_addr2?: string;
-
       billing_city?: string;
-
       billing_state_code?: string;
-
       billing_state?: string;
-
       billing_zip?: string;
-
       billing_country?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       ip_address?: string;
-
       additional_information?: any;
     }
 
     export interface EventBasedAddonsCreateInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
-
       service_period_in_days?: number;
-
       on_event?: OnEvent;
-
       charge_once?: boolean;
-
       charge_on?: ChargeOn;
     }
     export interface CouponsCreateInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       apply_till?: number;
     }
     export interface AddonsCreateInputParam {
       id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
-
       trial_end?: number;
     }
     export interface EntityIdentifiersCreateInputParam {
       id?: string;
-
       scheme?: string;
-
       value?: string;
-
       standard?: string;
     }
     export interface TaxProvidersFieldsCreateInputParam {
       provider_name?: string;
-
       field_id?: string;
-
       field_value?: string;
     }
     export interface StatementDescriptorCreateForCustomerInputParam {
@@ -1861,45 +1464,28 @@ declare module 'chargebee' {
     }
     export interface ShippingAddressCreateForCustomerInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface ContractTermCreateForCustomerInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
-
       cancellation_cutoff_period?: number;
     }
     export interface PaymentIntentCreateForCustomerInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -1921,63 +1507,42 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_information?: any;
     }
 
     export interface EventBasedAddonsCreateForCustomerInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
-
       service_period_in_days?: number;
-
       on_event?: OnEvent;
-
       charge_once?: boolean;
-
       charge_on?: ChargeOn;
     }
     export interface CouponsCreateForCustomerInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       apply_till?: number;
     }
     export interface AddonsCreateForCustomerInputParam {
       id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
-
       trial_end?: number;
     }
     export interface StatementDescriptorCreateWithItemsInputParam {
@@ -1985,51 +1550,32 @@ declare module 'chargebee' {
     }
     export interface ShippingAddressCreateWithItemsInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface ContractTermCreateWithItemsInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       contract_start?: number;
-
       cancellation_cutoff_period?: number;
     }
     export interface PaymentIntentCreateWithItemsInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -2051,136 +1597,84 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_information?: any;
     }
 
     export interface SubscriptionItemsCreateWithItemsInputParam {
       item_price_id: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
-
       trial_end?: number;
-
       service_period_days?: number;
-
       charge_on_event?: ChargeOnEvent;
-
       charge_once?: boolean;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       item_type?: ItemType;
-
       charge_on_option?: ChargeOnOption;
     }
     export interface DiscountsCreateWithItemsInputParam {
       apply_on: ApplyOn;
-
       duration_type: DurationType;
-
       percentage?: number;
-
       amount?: number;
-
       period?: number;
-
       period_unit?: PeriodUnit;
-
       included_in_mrr?: boolean;
-
       item_price_id?: string;
     }
     export interface CouponsCreateWithItemsInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       apply_till?: number;
     }
     export interface ItemTiersCreateWithItemsInputParam {
       item_price_id?: string;
-
       starting_unit?: number;
-
       ending_unit?: number;
-
       price?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
     }
     export interface BillingAddressUpdateInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface CustomerUpdateInputParam {
       vat_number?: string;
-
       vat_number_prefix?: string;
-
       entity_identifier_scheme?: string;
-
       is_einvoice_enabled?: boolean;
-
       einvoicing_method?: EinvoicingMethod;
-
       entity_identifier_standard?: string;
-
       business_customer_without_vat_number?: boolean;
-
       registered_for_gst?: boolean;
     }
     export interface StatementDescriptorUpdateInputParam {
@@ -2188,64 +1682,40 @@ declare module 'chargebee' {
     }
     export interface ShippingAddressUpdateInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface PaymentMethodUpdateInputParam {
       type?: Type;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gateway?: Gateway;
-
       gateway_account_id?: string;
-
       reference_id?: string;
-
       tmp_token?: string;
-
       issuing_country?: string;
-
       additional_information?: any;
     }
     export interface ContractTermUpdateInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
-
       cancellation_cutoff_period?: number;
     }
     export interface PaymentIntentUpdateInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -2267,160 +1737,98 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_information?: any;
     }
     export interface CardUpdateInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gateway?: Gateway;
-
       gateway_account_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       tmp_token?: string;
-
       first_name?: string;
-
       last_name?: string;
-
       number?: string;
-
       expiry_month?: number;
-
       expiry_year?: number;
-
       cvv?: string;
-
       billing_addr1?: string;
-
       billing_addr2?: string;
-
       billing_city?: string;
-
       billing_state_code?: string;
-
       billing_state?: string;
-
       billing_zip?: string;
-
       billing_country?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       ip_address?: string;
-
       additional_information?: any;
     }
 
     export interface EventBasedAddonsUpdateInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       service_period_in_days?: number;
-
       charge_on?: ChargeOn;
-
       on_event?: OnEvent;
-
       charge_once?: boolean;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
     }
     export interface CouponsUpdateInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       apply_till?: number;
     }
     export interface AddonsUpdateInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       billing_cycles?: number;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
-
       trial_end?: number;
-
       proration_type?: ProrationType;
     }
     export interface BillingAddressUpdateForItemsInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface CustomerUpdateForItemsInputParam {
       vat_number?: string;
-
       vat_number_prefix?: string;
-
       entity_identifier_scheme?: string;
-
       is_einvoice_enabled?: boolean;
-
       einvoicing_method?: EinvoicingMethod;
-
       entity_identifier_standard?: string;
-
       business_customer_without_vat_number?: boolean;
-
       registered_for_gst?: boolean;
     }
     export interface StatementDescriptorUpdateForItemsInputParam {
@@ -2428,70 +1836,44 @@ declare module 'chargebee' {
     }
     export interface ShippingAddressUpdateForItemsInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface PaymentMethodUpdateForItemsInputParam {
       type?: Type;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gateway?: Gateway;
-
       gateway_account_id?: string;
-
       reference_id?: string;
-
       tmp_token?: string;
-
       issuing_country?: string;
-
       additional_information?: any;
     }
     export interface ContractTermUpdateForItemsInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
-
       cancellation_cutoff_period?: number;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       contract_start?: number;
     }
     export interface PaymentIntentUpdateForItemsInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -2513,145 +1895,90 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_information?: any;
     }
     export interface CardUpdateForItemsInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gateway?: Gateway;
-
       gateway_account_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       tmp_token?: string;
-
       first_name?: string;
-
       last_name?: string;
-
       number?: string;
-
       expiry_month?: number;
-
       expiry_year?: number;
-
       cvv?: string;
-
       billing_addr1?: string;
-
       billing_addr2?: string;
-
       billing_city?: string;
-
       billing_state_code?: string;
-
       billing_state?: string;
-
       billing_zip?: string;
-
       billing_country?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       ip_address?: string;
-
       additional_information?: any;
     }
 
     export interface SubscriptionItemsUpdateForItemsInputParam {
       item_price_id: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
-
       trial_end?: number;
-
       service_period_days?: number;
-
       charge_on_event?: ChargeOnEvent;
-
       charge_once?: boolean;
-
       charge_on_option?: ChargeOnOption;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       item_type?: ItemType;
-
       proration_type?: ProrationType;
     }
     export interface DiscountsUpdateForItemsInputParam {
       apply_on: ApplyOn;
-
       duration_type: DurationType;
-
       percentage?: number;
-
       amount?: number;
-
       period?: number;
-
       period_unit?: PeriodUnit;
-
       included_in_mrr?: boolean;
-
       item_price_id?: string;
-
       operation_type: OperationType;
-
       id?: string;
     }
     export interface CouponsUpdateForItemsInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       apply_till?: number;
     }
     export interface ItemTiersUpdateForItemsInputParam {
       item_price_id?: string;
-
       starting_unit?: number;
-
       ending_unit?: number;
-
       price?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
     }
     export interface StatementDescriptorReactivateInputParam {
@@ -2659,11 +1986,8 @@ declare module 'chargebee' {
     }
     export interface PaymentIntentReactivateInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -2685,53 +2009,39 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_information?: any;
     }
     export interface ContractTermReactivateInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
-
       cancellation_cutoff_period?: number;
     }
 
     export interface FixedIntervalScheduleChargeFutureRenewalsInputParam {
       number_of_occurrences?: number;
-
       days_before_renewal?: number;
-
       end_schedule_on?: EndScheduleOn;
-
       end_date?: number;
     }
 
     export interface SpecificDatesScheduleChargeFutureRenewalsInputParam {
       terms_to_charge?: number;
-
       date?: number;
     }
     export interface FixedIntervalScheduleEditAdvanceInvoiceScheduleInputParam {
       number_of_occurrences?: number;
-
       days_before_renewal?: number;
-
       end_schedule_on?: EndScheduleOn;
-
       end_date?: number;
     }
 
     export interface SpecificDatesScheduleEditAdvanceInvoiceScheduleInputParam {
       id?: string;
-
       terms_to_charge?: number;
-
       date?: number;
     }
     export interface SpecificDatesScheduleRemoveAdvanceInvoiceScheduleInputParam {
@@ -2739,593 +2049,363 @@ declare module 'chargebee' {
     }
     export interface BillingAddressImportSubscriptionInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface TransactionImportSubscriptionInputParam {
       amount?: number;
-
       payment_method?: PaymentMethod;
-
       reference_number?: string;
-
       date?: number;
     }
     export interface CustomerImportSubscriptionInputParam {
       id?: string;
-
       email?: string;
-
       first_name?: string;
-
       last_name?: string;
-
       company?: string;
-
       phone?: string;
-
       locale?: string;
-
       taxability?: Taxability;
-
       entity_code?: EntityCode;
-
       exempt_number?: string;
-
       net_term_days?: number;
-
       taxjar_exemption_category?: TaxjarExemptionCategory;
-
       customer_type?: CustomerType;
-
       auto_collection?: AutoCollection;
-
       allow_direct_debit?: boolean;
-
       vat_number?: string;
-
       vat_number_prefix?: string;
     }
     export interface ShippingAddressImportSubscriptionInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface PaymentMethodImportSubscriptionInputParam {
       type?: Type;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gateway?: Gateway;
-
       gateway_account_id?: string;
-
       reference_id?: string;
-
       issuing_country?: string;
-
       additional_information?: any;
     }
     export interface ContractTermImportSubscriptionInputParam {
       id?: string;
-
       created_at?: number;
-
       contract_start?: number;
-
       billing_cycle?: number;
-
       total_amount_raised?: number;
-
       total_amount_raised_before_tax?: number;
-
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
-
       cancellation_cutoff_period?: number;
     }
     export interface CardImportSubscriptionInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gateway?: Gateway;
-
       gateway_account_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       tmp_token?: string;
-
       first_name?: string;
-
       last_name?: string;
-
       number?: string;
-
       expiry_month?: number;
-
       expiry_year?: number;
-
       cvv?: string;
-
       billing_addr1?: string;
-
       billing_addr2?: string;
-
       billing_city?: string;
-
       billing_state_code?: string;
-
       billing_state?: string;
-
       billing_zip?: string;
-
       billing_country?: string;
-
       additional_information?: any;
     }
 
     export interface ChargedEventBasedAddonsImportSubscriptionInputParam {
       id?: string;
-
       last_charged_at?: number;
     }
     export interface EventBasedAddonsImportSubscriptionInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
-
       service_period_in_days?: number;
-
       on_event?: OnEvent;
-
       charge_once?: boolean;
     }
     export interface CouponsImportSubscriptionInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       apply_till?: number;
     }
     export interface AddonsImportSubscriptionInputParam {
       id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
     }
     export interface TransactionImportForCustomerInputParam {
       amount?: number;
-
       payment_method?: PaymentMethod;
-
       reference_number?: string;
-
       date?: number;
     }
     export interface ShippingAddressImportForCustomerInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface ContractTermImportForCustomerInputParam {
       id?: string;
-
       created_at?: number;
-
       contract_start?: number;
-
       billing_cycle?: number;
-
       total_amount_raised?: number;
-
       total_amount_raised_before_tax?: number;
-
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
-
       cancellation_cutoff_period?: number;
     }
 
     export interface ChargedEventBasedAddonsImportForCustomerInputParam {
       id?: string;
-
       last_charged_at?: number;
     }
     export interface EventBasedAddonsImportForCustomerInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       quantity_in_decimal?: string;
-
       unit_price_in_decimal?: string;
-
       service_period_in_days?: number;
-
       on_event?: OnEvent;
-
       charge_once?: boolean;
     }
     export interface CouponsImportForCustomerInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       apply_till?: number;
     }
     export interface AddonsImportForCustomerInputParam {
       id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
     }
     export interface ContractTermImportContractTermInputParam {
       id?: string;
-
       created_at?: number;
-
       contract_start?: number;
-
       contract_end?: number;
-
       status?: 'active' | 'completed' | 'cancelled' | 'terminated';
-
       total_amount_raised?: number;
-
       total_amount_raised_before_tax?: number;
-
       total_contract_value?: number;
-
       total_contract_value_before_tax?: number;
-
       billing_cycle?: number;
-
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
-
       cancellation_cutoff_period?: number;
     }
 
     export interface TiersImportUnbilledChargesInputParam {
       unbilled_charge_id: string;
-
       starting_unit?: number;
-
       ending_unit?: number;
-
       quantity_used?: number;
-
       unit_amount?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       quantity_used_in_decimal?: string;
-
       unit_amount_in_decimal?: string;
     }
     export interface DiscountsImportUnbilledChargesInputParam {
       unbilled_charge_id?: string;
-
       entity_type?:
         | 'item_level_coupon'
         | 'document_level_coupon'
         | 'item_level_discount'
         | 'document_level_discount';
-
       entity_id?: string;
-
       description?: string;
-
       amount: number;
     }
     export interface UnbilledChargesImportUnbilledChargesInputParam {
       id?: string;
-
       date_from: number;
-
       date_to: number;
-
       entity_type:
         | 'adhoc'
         | 'plan_item_price'
         | 'addon_item_price'
         | 'charge_item_price';
-
       entity_id?: string;
-
       description?: string;
-
       unit_amount?: number;
-
       quantity?: number;
-
       amount?: number;
-
       unit_amount_in_decimal?: string;
-
       quantity_in_decimal?: string;
-
       amount_in_decimal?: string;
-
       discount_amount?: number;
-
       use_for_proration?: boolean;
-
       is_advance_charge?: boolean;
     }
     export interface TransactionImportForItemsInputParam {
       amount?: number;
-
       payment_method?: PaymentMethod;
-
       reference_number?: string;
-
       date?: number;
     }
     export interface ShippingAddressImportForItemsInputParam {
       first_name?: string;
-
       last_name?: string;
-
       email?: string;
-
       company?: string;
-
       phone?: string;
-
       line1?: string;
-
       line2?: string;
-
       line3?: string;
-
       city?: string;
-
       state_code?: string;
-
       state?: string;
-
       zip?: string;
-
       country?: string;
-
       validation_status?: ValidationStatus;
     }
     export interface ContractTermImportForItemsInputParam {
       id?: string;
-
       created_at?: number;
-
       contract_start?: number;
-
       billing_cycle?: number;
-
       total_amount_raised?: number;
-
       total_amount_raised_before_tax?: number;
-
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
-
       cancellation_cutoff_period?: number;
     }
 
     export interface SubscriptionItemsImportForItemsInputParam {
       item_price_id: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       billing_cycles?: number;
-
       trial_end?: number;
-
       service_period_days?: number;
-
       charge_on_event?: ChargeOnEvent;
-
       charge_once?: boolean;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       item_type?: ItemType;
     }
     export interface DiscountsImportForItemsInputParam {
       apply_on: ApplyOn;
-
       duration_type: DurationType;
-
       percentage?: number;
-
       amount?: number;
-
       period?: number;
-
       period_unit?: PeriodUnit;
-
       included_in_mrr?: boolean;
-
       item_price_id?: string;
     }
     export interface CouponsImportForItemsInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       coupon_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       apply_till?: number;
     }
     export interface ItemTiersImportForItemsInputParam {
       item_price_id?: string;
-
       starting_unit?: number;
-
       ending_unit?: number;
-
       price?: number;
-
       starting_unit_in_decimal?: string;
-
       ending_unit_in_decimal?: string;
-
       price_in_decimal?: string;
     }
     export interface ChargedItemsImportForItemsInputParam {
       item_price_id?: string;
-
       last_charged_at?: number;
     }
     export interface EventBasedAddonsCancelInputParam {
       id?: string;
-
       quantity?: number;
-
       unit_price?: number;
-
       service_period_in_days?: number;
     }
     export interface SubscriptionItemsCancelForItemsInputParam {
       item_price_id?: string;
-
       quantity?: number;
-
       quantity_in_decimal?: string;
-
       unit_price?: number;
-
       unit_price_in_decimal?: string;
-
       service_period_days?: number;
     }
     export interface PaymentIntentResumeInputParam {
       id?: string;
-
       gateway_account_id?: string;
-
       gw_token?: string;
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -3347,15 +2427,11 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       reference_id?: string;
-
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-
       gw_payment_method_id?: string;
-
       additional_information?: any;
     }
   }

@@ -4,19 +4,12 @@
 declare module 'chargebee' {
   export interface PaymentIntent {
     id: string;
-
     status: 'inited' | 'in_progress' | 'authorized' | 'consumed' | 'expired';
-
     currency_code?: string;
-
     amount: number;
-
     gateway_account_id: string;
-
     expires_at: number;
-
     reference_id?: string;
-
     payment_method_type?:
       | 'card'
       | 'ideal'
@@ -38,27 +31,18 @@ declare module 'chargebee' {
       | 'sepa_instant_transfer'
       | 'klarna_pay_now'
       | 'online_banking_poland';
-
     success_url?: string;
-
     failure_url?: string;
-
     created_at: number;
-
     modified_at: number;
-
     resource_version?: number;
-
     updated_at?: number;
-
     customer_id: string;
-
     gateway?: string;
-
     active_payment_attempt?: PaymentIntent.PaymentAttempt;
-
     business_entity_id?: string;
   }
+
   export namespace PaymentIntent {
     export class PaymentIntentResource {
       create(
@@ -77,6 +61,7 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
     }
+
     export interface CreateResponse {
       payment_intent: PaymentIntent;
     }
@@ -91,7 +76,6 @@ declare module 'chargebee' {
 
     export interface PaymentAttempt {
       id?: string;
-
       status:
         | 'inited'
         | 'requires_identification'
@@ -100,7 +84,6 @@ declare module 'chargebee' {
         | 'authorized'
         | 'refused'
         | 'pending_authorization';
-
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -122,17 +105,11 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland';
-
       id_at_gateway?: string;
-
       error_code?: string;
-
       error_text?: string;
-
       created_at: number;
-
       modified_at: number;
-
       error_detail?: GatewayErrorDetail;
     }
     // REQUEST PARAMS
