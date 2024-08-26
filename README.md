@@ -2,6 +2,8 @@
 
 This is the [Node.js](http://nodejs.org/) library for integrating with Chargebee. Sign up for a Chargebee account [here](https://www.chargebee.com).
 
+Please refer to the [migration guide](https://github.com/chargebee/chargebee-node/wiki/Migration-guide-for-v3) if you are migrating from the older versions of [chargebee-typescript](https://www.npmjs.com/package/chargebee-typescript) or [chargebee](https://www.npmjs.com/package/chargebee/v/2.40.0).
+
 ## Requirements
 
 Node.js 18 or higher.
