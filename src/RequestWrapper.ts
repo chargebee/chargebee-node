@@ -1,6 +1,5 @@
 import {
   extend,
-  isFunction,
   callbackifyPromise,
   getApiURL,
   encodeListParams,
@@ -10,7 +9,6 @@ import {
 } from './util.js';
 import {
   Callback,
-  CustomParam,
   EnvType,
   ResourceType,
   JSONValue,
@@ -19,7 +17,6 @@ import {
 import { HttpClientResponseInterface } from './net/ClientInterface.js';
 import { handleResponse } from './coreCommon.js';
 import { Buffer } from 'node:buffer';
-const IDEMPOTENCY_HEADER: string = 'chargebee-idempotency-key';
 
 export class RequestWrapper {
   private readonly args: IArguments;
@@ -78,12 +75,16 @@ export class RequestWrapper {
         params = {};
       }
       let data: string = encodeParams(params);
+      if (data.length) {
+        extend(true, this.httpHeaders, {
+          'Content-Length': data.length,
+        });
+      }
       extend(true, this.httpHeaders, {
         Authorization:
           'Basic ' + Buffer.from(env.apiKey + ':').toString('base64'),
         Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-        'Content-Length': data.length,
         'User-Agent': 'Chargebee-NodeJs-Client ' + env.clientVersion,
         'Lang-Version': typeof process === 'undefined' ? '' : process.version,
       });
