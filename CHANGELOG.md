@@ -1,3 +1,9 @@
+### v3.0.0-beta.2 (2024-08-29)
+* * *
+
+#### Bug Fixes: 
+* content-length bug fixes for fetch.
+
 ### v3.0.0-beta.1 (2024-08-26)
 * * *
 

@@ -9,7 +9,7 @@ export const Environment = {
   hostSuffix: '.chargebee.com',
   apiPath: '/api/v2',
   timeout: DEFAULT_TIME_OUT,
-  clientVersion: 'v3.0.0-beta.1',
+  clientVersion: 'v3.0.0-beta.2',
   port: DEFAULT_PORT,
   timemachineWaitInMillis: DEFAULT_TIME_MACHINE_WAIT,
   exportWaitInMillis: DEFAULT_EXPORT_WAIT,
