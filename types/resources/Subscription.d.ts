@@ -442,6 +442,7 @@ Applicable only when [Metered Billing](https://www.chargebee.com/docs/metered_bi
       */
     
     discounts?:Subscription.Discount[];
+    arr?:number;
   }
   export namespace Subscription {
     export class SubscriptionResource {  

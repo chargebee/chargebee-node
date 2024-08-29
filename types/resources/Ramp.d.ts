@@ -179,6 +179,8 @@ By default, the ramps are returned [sorted](ramps#list_ramps_sort_by) in descend
         */
       
       list(input:ListInputParam):ChargebeeRequest<ListResponse>;
+
+      update(ramp_id:string, input:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
     }
     export interface CreateForSubscriptionResponse {  
        ramp:Ramp;
@@ -285,7 +287,9 @@ Replaces the existing item_tiers for specific &#x60;item_price&#x60;s within the
     export interface RetrieveResponse {  
        ramp:Ramp;
     }
-    
+    export interface UpdateResponse {  
+      ramp:Ramp;
+    }
     export interface DeleteResponse {  
        ramp:Ramp;
     }
@@ -310,6 +314,28 @@ By default, the ramps are returned [sorted](ramps#list_ramps_sort_by) in descend
         */
        
        next_offset?:string;
+    }
+    export interface UpdateInputParam {
+         
+      items_to_add:{billing_cycles?:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+       
+      items_to_update:{billing_cycles?:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+       
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+       
+      coupons_to_add?:{apply_till?:number,coupon_id?:string}[];
+       
+      discounts_to_add:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+       
+      effective_from:number;
+       
+      description?:string;
+       
+      coupons_to_remove?:string[];
+       
+      discounts_to_remove?:string[];
+       
+      items_to_remove?:string[];
     }
     export interface ListInputParam {
       [key : string]: any;  

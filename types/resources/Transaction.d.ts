@@ -371,6 +371,8 @@ declare module 'chargebee' {
         */
       
       delete_offline_transaction(transaction_id:string, input?:DeleteOfflineTransactionInputParam):ChargebeeRequest<DeleteOfflineTransactionResponse>;
+      
+      reconcile(transaction_id:string, input?:ReconcileInputParam):ChargebeeRequest<ReconcileResponse>;
     }
     export interface CreateAuthorizationResponse {  
        transaction:Transaction;
@@ -639,6 +641,17 @@ declare module 'chargebee' {
         */
        
        next_offset?:string;
+    }
+    export interface ReconcileResponse {  
+      transaction:Transaction;
+    }
+    export interface ReconcileInputParam {
+         
+      id_at_gateway?:string;
+       
+      customer_id?:string;
+       
+      status?:'success' | 'failure';
     }
     export interface PaymentsForInvoiceInputParam {
       [key : string]: any;  
