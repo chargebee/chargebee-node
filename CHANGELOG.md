@@ -1,3 +1,9 @@
+### v2.41.1 (2024-09-02)
+* * *
+
+#### Bug Fixes: 
+* Specified return type of configure method.
+
 ### v2.41.0 (2024-08-29)
 * * *
 
