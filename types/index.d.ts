@@ -75,7 +75,7 @@
 
 declare module 'chargebee' {
   export default class {
-    static configure({ site, api_key }: { site: string; api_key: string });
+    static configure({ site, api_key }: { site: string; api_key: string }): void;
     static address: Address.AddressResource;
     static attached_item: AttachedItem.AttachedItemResource;
     static business_entity: BusinessEntity.BusinessEntityResource;
