@@ -33,9 +33,6 @@
 ///<reference path='./resources/ImpactedItemPrice.d.ts' />
 ///<reference path='./resources/ImpactedSubscription.d.ts' />
 ///<reference path='./resources/InAppSubscription.d.ts' />
-///<reference path='./resources/Installment.d.ts' />
-///<reference path='./resources/InstallmentConfig.d.ts' />
-///<reference path='./resources/InstallmentDetail.d.ts' />
 ///<reference path='./resources/Invoice.d.ts' />
 ///<reference path='./resources/InvoiceEstimate.d.ts' />
 ///<reference path='./resources/Item.d.ts' />
@@ -47,6 +44,8 @@
 ///<reference path='./resources/Order.d.ts' />
 ///<reference path='./resources/PaymentIntent.d.ts' />
 ///<reference path='./resources/PaymentReferenceNumber.d.ts' />
+///<reference path='./resources/PaymentSchedule.d.ts' />
+///<reference path='./resources/PaymentScheduleScheme.d.ts' />
 ///<reference path='./resources/PaymentSource.d.ts' />
 ///<reference path='./resources/PaymentVoucher.d.ts' />
 ///<reference path='./resources/PortalSession.d.ts' />
@@ -98,8 +97,6 @@ declare module 'chargebee' {
     static gift: Gift.GiftResource;
     static hosted_page: HostedPage.HostedPageResource;
     static in_app_subscription: InAppSubscription.InAppSubscriptionResource;
-    static installment: Installment.InstallmentResource;
-    static installment_config: InstallmentConfig.InstallmentConfigResource;
     static invoice: Invoice.InvoiceResource;
     static item: Item.ItemResource;
     static item_entitlement: ItemEntitlement.ItemEntitlementResource;
@@ -108,6 +105,7 @@ declare module 'chargebee' {
     static non_subscription: NonSubscription.NonSubscriptionResource;
     static order: Order.OrderResource;
     static payment_intent: PaymentIntent.PaymentIntentResource;
+    static payment_schedule_scheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;
     static payment_source: PaymentSource.PaymentSourceResource;
     static payment_voucher: PaymentVoucher.PaymentVoucherResource;
     static portal_session: PortalSession.PortalSessionResource;

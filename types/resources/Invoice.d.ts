@@ -747,13 +747,6 @@ All associated [usages](/docs/api/usages?prod_cat_ver&#x3D;2) are permanently de
       update_details(invoice_id:string, input?:UpdateDetailsInputParam):ChargebeeRequest<UpdateDetailsResponse>;
        
       /**
-        * @description Creates installments for an invoice, enabling the invoice to be paid in multiple, scheduled payments. **Note: The invoice must be in payment_due.**
-
-        */
-      
-      installments(invoice_id:string, input:InstallmentsInputParam):ChargebeeRequest<InstallmentsResponse>;
-       
-      /**
         * @description Resend failed einvoice of an invoice to the customer using this API.
 
         */
@@ -781,6 +774,8 @@ This endpoint schedules e-invoices manually. This operation is not allowed when 
         */
       
       send_einvoice(invoice_id:string):ChargebeeRequest<SendEinvoiceResponse>;
+      apply_payment_schedule_scheme(invoice_id:string, input:ApplyPaymentScheduleSchemeInputParam):ChargebeeRequest<ApplyPaymentScheduleSchemeResponse>;
+      payment_schedules(invoice_id:string):ChargebeeRequest<PaymentSchedulesResponse>;
     }
     export interface CreateResponse {  
        invoice:Invoice;
@@ -2170,22 +2165,9 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
        
       statement_descriptor?:{additional_info?:string,descriptor?:string};
     }
-    export interface InstallmentsResponse {  
-       invoice:Invoice;
-    }
-    export interface InstallmentsInputParam {
-       
-      /**
-        * @description The identifier of the installment_config used to create the installments.
-
-        */
-       
-      config_id:string;
-       
-      /**
-        * @description The part of the invoice.amount_due to be distributed across the installments. If unspecified, the full invoice.amount_due is considered by default.
-
-        */
+    export interface ApplyPaymentScheduleSchemeInputParam {
+         
+      scheme_id:string;
        
       amount?:number;
     }
@@ -2196,7 +2178,12 @@ Ireland** . The first two characters of the VAT number in such a case is &#x60;X
     export interface SendEinvoiceResponse {  
        invoice:Invoice;
     }
-    
+    export interface ApplyPaymentScheduleSchemeResponse {  
+      invoice:Invoice;
+   }
+   export interface PaymentSchedulesResponse {  
+    payment_schedules:PaymentSchedule[];
+   }
     export interface LineItem {  
          /**
           * @description Uniquely identifies a line_item

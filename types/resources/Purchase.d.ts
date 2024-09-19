@@ -1,4 +1,5 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface Purchase {
     
@@ -145,13 +146,6 @@ Discounts, both [manual discounts](discounts) and &lt;coupons&gt;, can be applie
       invoice_info?:{notes?:string,po_number?:string};
        
       /**
-        * @description Parameters for installment_info
-
-        */
-       
-      installment_info?:{amount?:number,config_id?:string};
-       
-      /**
         * @description Parameters for purchase_items
 
         */
@@ -251,6 +245,7 @@ Discounts, both [manual discounts](discounts) and &lt;coupons&gt;, can be applie
        
       contract_terms:{action_at_term_end?:'cancel' | 'renew_once' | 'renew' | 'evergreen',cancellation_cutoff_period?:number,index:number}[];
       statement_descriptor?:{descriptor?:string};
+      payment_schedule?:{amount?:number,scheme_id?:string};
     }
     export interface EstimateResponse {  
        estimate:Estimate;
