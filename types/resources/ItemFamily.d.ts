@@ -70,7 +70,7 @@ declare module 'chargebee' {
       id: string;
       name: string;
       description?: string;
-      [key: string]: unknown;
+      [key: `cf_${string}`]: unknown;
     }
     export interface ListInputParam {
       limit?: number;
@@ -78,12 +78,12 @@ declare module 'chargebee' {
       id?: filter.String;
       name?: filter.String;
       updated_at?: filter.Timestamp;
-      [key: string]: unknown;
+      [key: `cf_${string}`]: unknown;
     }
     export interface UpdateInputParam {
       name?: string;
       description?: string;
-      [key: string]: unknown;
+      [key: `cf_${string}`]: unknown;
     }
   }
 }

@@ -108,7 +108,7 @@ declare module 'chargebee' {
       id?: filter.String;
       status?: filter.Enum;
       type?: filter.Enum;
-      [key: string]: unknown;
+      [key: `cf_${string}`]: unknown;
     }
     export interface CreateInputParam {
       id?: string;
@@ -117,14 +117,14 @@ declare module 'chargebee' {
       type?: 'switch' | 'custom' | 'quantity' | 'range';
       unit?: string;
       levels?: LevelsCreateInputParam[];
-      [key: string]: unknown;
+      [key: `cf_${string}`]: unknown;
     }
     export interface UpdateInputParam {
       name?: string;
       description?: string;
       unit?: string;
       levels?: LevelsUpdateInputParam[];
-      [key: string]: unknown;
+      [key: `cf_${string}`]: unknown;
     }
     export interface LevelsCreateInputParam {
       name?: string;

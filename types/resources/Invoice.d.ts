@@ -272,11 +272,16 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateDetailsResponse>>;
 
-      installments(
+      applyPaymentScheduleScheme(
         invoice_id: string,
-        input: InstallmentsInputParam,
+        input: ApplyPaymentScheduleSchemeInputParam,
         headers?: ChargebeeRequestHeader,
-      ): Promise<ChargebeeResponse<InstallmentsResponse>>;
+      ): Promise<ChargebeeResponse<ApplyPaymentScheduleSchemeResponse>>;
+
+      paymentSchedules(
+        invoice_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<PaymentSchedulesResponse>>;
 
       resendEinvoice(
         invoice_id: string,
@@ -440,8 +445,12 @@ declare module 'chargebee' {
       invoice: Invoice;
     }
 
-    export interface InstallmentsResponse {
+    export interface ApplyPaymentScheduleSchemeResponse {
       invoice: Invoice;
+    }
+
+    export interface PaymentSchedulesResponse {
+      payment_schedules: PaymentSchedule[];
     }
 
     export interface ResendEinvoiceResponse {
@@ -1062,8 +1071,8 @@ declare module 'chargebee' {
       shipping_address?: ShippingAddressUpdateDetailsInputParam;
       statement_descriptor?: StatementDescriptorUpdateDetailsInputParam;
     }
-    export interface InstallmentsInputParam {
-      config_id: string;
+    export interface ApplyPaymentScheduleSchemeInputParam {
+      scheme_id: string;
       amount?: number;
     }
     export interface StatementDescriptorCreateInputParam {
