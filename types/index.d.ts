@@ -33,9 +33,6 @@
 ///<reference path='./resources/ImpactedItemPrice.d.ts' />
 ///<reference path='./resources/ImpactedSubscription.d.ts' />
 ///<reference path='./resources/InAppSubscription.d.ts' />
-///<reference path='./resources/Installment.d.ts' />
-///<reference path='./resources/InstallmentConfig.d.ts' />
-///<reference path='./resources/InstallmentDetail.d.ts' />
 ///<reference path='./resources/Invoice.d.ts' />
 ///<reference path='./resources/InvoiceEstimate.d.ts' />
 ///<reference path='./resources/Item.d.ts' />
@@ -43,9 +40,12 @@
 ///<reference path='./resources/ItemFamily.d.ts' />
 ///<reference path='./resources/ItemPrice.d.ts' />
 ///<reference path='./resources/Metadata.d.ts' />
+///<reference path='./resources/NonSubscription.d.ts' />
 ///<reference path='./resources/Order.d.ts' />
 ///<reference path='./resources/PaymentIntent.d.ts' />
 ///<reference path='./resources/PaymentReferenceNumber.d.ts' />
+///<reference path='./resources/PaymentSchedule.d.ts' />
+///<reference path='./resources/PaymentScheduleScheme.d.ts' />
 ///<reference path='./resources/PaymentSource.d.ts' />
 ///<reference path='./resources/PaymentVoucher.d.ts' />
 ///<reference path='./resources/PortalSession.d.ts' />
@@ -135,15 +135,15 @@ declare module 'chargebee' {
     gift: Gift.GiftResource;
     hostedPage: HostedPage.HostedPageResource;
     inAppSubscription: InAppSubscription.InAppSubscriptionResource;
-    installment: Installment.InstallmentResource;
-    installmentConfig: InstallmentConfig.InstallmentConfigResource;
     invoice: Invoice.InvoiceResource;
     item: Item.ItemResource;
     itemEntitlement: ItemEntitlement.ItemEntitlementResource;
     itemFamily: ItemFamily.ItemFamilyResource;
     itemPrice: ItemPrice.ItemPriceResource;
+    nonSubscription: NonSubscription.NonSubscriptionResource;
     order: Order.OrderResource;
     paymentIntent: PaymentIntent.PaymentIntentResource;
+    paymentScheduleScheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;
     paymentSource: PaymentSource.PaymentSourceResource;
     paymentVoucher: PaymentVoucher.PaymentVoucherResource;
     portalSession: PortalSession.PortalSessionResource;

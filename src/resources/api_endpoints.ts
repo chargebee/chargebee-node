@@ -23,6 +23,7 @@ interface Endpoints {
   promotionalCredit: EndpointTuple[];
   invoice: EndpointTuple[];
   paymentReferenceNumber: EndpointTuple[];
+  paymentSchedule: EndpointTuple[];
   taxWithheld: EndpointTuple[];
   creditNote: EndpointTuple[];
   unbilledCharge: EndpointTuple[];
@@ -69,15 +70,14 @@ interface Endpoints {
   itemEntitlement: EndpointTuple[];
   entitlement: EndpointTuple[];
   inAppSubscription: EndpointTuple[];
+  nonSubscription: EndpointTuple[];
   entitlementOverride: EndpointTuple[];
   businessEntity: EndpointTuple[];
   purchase: EndpointTuple[];
   paymentVoucher: EndpointTuple[];
   currency: EndpointTuple[];
   ramp: EndpointTuple[];
-  installmentConfig: EndpointTuple[];
-  installment: EndpointTuple[];
-  installmentDetail: EndpointTuple[];
+  paymentScheduleScheme: EndpointTuple[];
   pricingPageSession: EndpointTuple[];
 }
 export const Endpoints: Endpoints = {
@@ -452,11 +452,19 @@ export const Endpoints: Endpoints = {
     ['writeOff', 'POST', '/invoices', '/write_off', true],
     ['delete', 'POST', '/invoices', '/delete', true],
     ['updateDetails', 'POST', '/invoices', '/update_details', true],
-    ['installments', 'POST', '/invoices', '/installments', true],
+    [
+      'applyPaymentScheduleScheme',
+      'POST',
+      '/invoices',
+      '/apply_payment_schedule_scheme',
+      true,
+    ],
+    ['paymentSchedules', 'GET', '/invoices', '/payment_schedules', true],
     ['resendEinvoice', 'POST', '/invoices', '/resend_einvoice', true],
     ['sendEinvoice', 'POST', '/invoices', '/send_einvoice', true],
   ],
   paymentReferenceNumber: [],
+  paymentSchedule: [],
   taxWithheld: [],
   creditNote: [
     ['create', 'POST', '/credit_notes', null, false],
@@ -1079,6 +1087,15 @@ export const Endpoints: Endpoints = {
     ],
     ['retrieveStoreSubs', 'POST', '/in_app_subscriptions', '/retrieve', true],
   ],
+  nonSubscription: [
+    [
+      'processReceipt',
+      'POST',
+      '/non_subscriptions',
+      '/one_time_purchase',
+      true,
+    ],
+  ],
   entitlementOverride: [
     [
       'addEntitlementOverrideForSubscription',
@@ -1136,16 +1153,11 @@ export const Endpoints: Endpoints = {
     ['delete', 'POST', '/ramps', '/delete', true],
     ['list', 'GET', '/ramps', null, false],
   ],
-  installmentConfig: [
-    ['create', 'POST', '/installment_configs', null, false],
-    ['retrieve', 'GET', '/installment_configs', null, true],
-    ['delete', 'POST', '/installment_configs', '/delete', true],
+  paymentScheduleScheme: [
+    ['create', 'POST', '/payment_schedule_schemes', null, false],
+    ['retrieve', 'GET', '/payment_schedule_schemes', null, true],
+    ['delete', 'POST', '/payment_schedule_schemes', '/delete', true],
   ],
-  installment: [
-    ['retrieve', 'GET', '/installments', null, true],
-    ['list', 'GET', '/installments', null, false],
-  ],
-  installmentDetail: [],
   pricingPageSession: [
     [
       'createForNewSubscription',

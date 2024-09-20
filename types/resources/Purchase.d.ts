@@ -39,8 +39,8 @@ declare module 'chargebee' {
       customer_id: string;
       payment_source_id?: string;
       invoice_info?: InvoiceInfoCreateInputParam;
+      payment_schedule?: PaymentScheduleCreateInputParam;
       statement_descriptor?: StatementDescriptorCreateInputParam;
-      installment_info?: InstallmentInfoCreateInputParam;
       purchase_items?: PurchaseItemsCreateInputParam[];
       item_tiers?: ItemTiersCreateInputParam[];
       shipping_addresses?: ShippingAddressesCreateInputParam[];
@@ -63,13 +63,13 @@ declare module 'chargebee' {
     export interface StatementDescriptorCreateInputParam {
       descriptor?: string;
     }
+    export interface PaymentScheduleCreateInputParam {
+      scheme_id?: string;
+      amount?: number;
+    }
     export interface InvoiceInfoCreateInputParam {
       po_number?: string;
       notes?: string;
-    }
-    export interface InstallmentInfoCreateInputParam {
-      config_id?: string;
-      amount?: number;
     }
 
     export interface SubscriptionInfoCreateInputParam {

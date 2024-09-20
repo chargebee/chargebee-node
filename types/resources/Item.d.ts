@@ -27,6 +27,8 @@ declare module 'chargebee' {
     archived_at?: number;
     channel?: Channel;
     applicable_items?: Item.ApplicableItem[];
+    bundle_items?: Item.BundleItem[];
+    bundle_configuration?: Item.BundleConfiguration;
     metadata?: any;
   }
 
@@ -83,6 +85,15 @@ declare module 'chargebee' {
     export interface ApplicableItem {
       id?: string;
     }
+    export interface BundleItem {
+      item_id: string;
+      item_type?: 'plan' | 'addon' | 'charge';
+      quantity?: number;
+      price_allocation?: number;
+    }
+    export interface BundleConfiguration {
+      type?: 'fixed';
+    }
     // REQUEST PARAMS
     //---------------
 
@@ -106,7 +117,9 @@ declare module 'chargebee' {
       metered?: boolean;
       usage_calculation?: 'sum_of_usages' | 'last_usage' | 'max_usage';
       metadata?: any;
-      [key: string]: unknown;
+      bundle_configuration?: BundleConfigurationCreateInputParam;
+      bundle_items_to_add?: BundleItemsToAddCreateInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface UpdateInputParam {
       name?: string;
@@ -128,11 +141,16 @@ declare module 'chargebee' {
       metadata?: any;
       included_in_mrr?: boolean;
       status?: 'active' | 'archived';
-      [key: string]: unknown;
+      bundle_configuration?: BundleConfigurationUpdateInputParam;
+      bundle_items_to_add?: BundleItemsToAddUpdateInputParam[];
+      bundle_items_to_update?: BundleItemsToUpdateUpdateInputParam[];
+      bundle_items_to_remove?: BundleItemsToRemoveUpdateInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface ListInputParam {
       limit?: number;
       offset?: string;
+      bundle_configuration?: BundleConfigurationItemListInputParam;
       id?: filter.String;
       item_family_id?: filter.String;
       type?: filter.Enum;
@@ -148,6 +166,39 @@ declare module 'chargebee' {
       channel?: filter.Enum;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
+    }
+    export interface BundleConfigurationCreateInputParam {
+      type?: 'fixed';
+    }
+
+    export interface BundleItemsToAddCreateInputParam {
+      item_id?: string;
+      item_type?: ItemType;
+      quantity?: number;
+      price_allocation?: number;
+    }
+    export interface BundleConfigurationUpdateInputParam {
+      type?: 'fixed';
+    }
+
+    export interface BundleItemsToAddUpdateInputParam {
+      item_id?: string;
+      item_type?: ItemType;
+      quantity?: number;
+      price_allocation?: number;
+    }
+    export interface BundleItemsToUpdateUpdateInputParam {
+      item_id?: string;
+      item_type?: ItemType;
+      quantity?: number;
+      price_allocation?: number;
+    }
+    export interface BundleItemsToRemoveUpdateInputParam {
+      item_id?: string;
+      item_type?: ItemType;
+    }
+    export interface BundleConfigurationItemListInputParam {
+      type?: filter.Enum;
     }
   }
 }
