@@ -202,7 +202,7 @@ declare module 'chargebee' {
       item_constraints?: ItemConstraintsCreateForItemsInputParam[];
       item_constraint_criteria?: ItemConstraintCriteriaCreateForItemsInputParam[];
       coupon_constraints?: CouponConstraintsCreateForItemsInputParam[];
-      [key: string]: unknown;
+      [key: `cf_${string}`]: unknown;
     }
     export interface UpdateForItemsInputParam {
       name?: string;
@@ -228,7 +228,7 @@ declare module 'chargebee' {
       item_constraints?: ItemConstraintsUpdateForItemsInputParam[];
       item_constraint_criteria?: ItemConstraintCriteriaUpdateForItemsInputParam[];
       coupon_constraints?: CouponConstraintsUpdateForItemsInputParam[];
-      [key: string]: unknown;
+      [key: `cf_${string}`]: unknown;
     }
     export interface ListInputParam {
       limit?: number;
@@ -244,7 +244,7 @@ declare module 'chargebee' {
       currency_code?: filter.String;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
-      [key: string]: unknown;
+      [key: `cf_${string}`]: unknown;
     }
     export interface UpdateInputParam {
       name?: string;

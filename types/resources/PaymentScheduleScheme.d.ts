@@ -2,50 +2,49 @@
 ///<reference path='./../index.d.ts'/>
 
 declare module 'chargebee' {
-  export interface InstallmentConfig {
+  export interface PaymentScheduleScheme {
     id: string;
     description?: string;
-    number_of_installments: number;
+    number_of_schedules: number;
     period_unit: 'day' | 'week' | 'month';
     period?: number;
-    preferred_day?: number;
     created_at: number;
     resource_version?: number;
     updated_at?: number;
-    installments?: InstallmentConfig.Installment[];
+    preferred_schedules?: PaymentScheduleScheme.PreferredSchedule[];
   }
 
-  export namespace InstallmentConfig {
-    export class InstallmentConfigResource {
+  export namespace PaymentScheduleScheme {
+    export class PaymentScheduleSchemeResource {
       create(
         input: CreateInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateResponse>>;
 
       retrieve(
-        installment_config_id: string,
+        payment_schedule_scheme_id: string,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
       delete(
-        installment_config_id: string,
+        payment_schedule_scheme_id: string,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteResponse>>;
     }
 
     export interface CreateResponse {
-      installment_config: InstallmentConfig;
+      payment_schedule_scheme: PaymentScheduleScheme;
     }
 
     export interface RetrieveResponse {
-      installment_config: InstallmentConfig;
+      payment_schedule_scheme: PaymentScheduleScheme;
     }
 
     export interface DeleteResponse {
-      installment_config: InstallmentConfig;
+      payment_schedule_scheme: PaymentScheduleScheme;
     }
 
-    export interface Installment {
+    export interface PreferredSchedule {
       period?: number;
       amount_percentage?: number;
     }
@@ -53,16 +52,10 @@ declare module 'chargebee' {
     //---------------
 
     export interface CreateInputParam {
-      number_of_installments: number;
+      number_of_schedules: number;
       period_unit: 'day' | 'week' | 'month';
       period?: number;
-      preferred_day?: number;
       description?: string;
-      installments?: InstallmentsCreateInputParam[];
-    }
-    export interface InstallmentsCreateInputParam {
-      period?: number;
-      amount_percentage?: number;
     }
   }
 }
