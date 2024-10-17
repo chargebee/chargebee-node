@@ -1,3 +1,26 @@
+### v2.43.0 (2024-10-17)
+* * *
+
+#### New Resource:
+* PaymentScheduleEstimate has been added. 
+
+### New Attributes: 
+* payment_schedule_estimates has been added to Estimate. 
+* usage_accumulation_reset_frequency has been added to ItemPrice.
+* name has been added to PaymentScheduleScheme.
+* usage_accumulation_reset_frequency has been added to QuotedSubscription#SubscriptionItem.
+* usage_accumulation_reset_frequency has been added to Subscription#SubscriptionItem.
+
+### New Endpoints: 
+* Estimate#PaymentSchedule has been added. 
+
+### New Input Params: 
+* usage_accumulation_reset_frequency has been added to ItemPrice#CreateParams. 
+* usage_accumulation_reset_frequency has been added to ItemPrice#UpdateParams. 
+* discounts has been added to PricingPageSession#CreateForNewSubscriptionParams.
+* discounts has been added to PricingPageSession#CreateForExistingSubscriptionParams.
+* invoice_immediately has been added to Quote#ConvertParams.
+
 ### v2.42.0 (2024-09-19)
 * * *
 

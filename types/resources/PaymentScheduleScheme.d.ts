@@ -6,6 +6,8 @@ declare module 'chargebee' {
 
     id:string;
 
+    name?:string;
+
     description?:string;
 
     number_of_schedules:number;

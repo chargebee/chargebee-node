@@ -70,7 +70,7 @@ declare module 'chargebee' {
 
       */
     
-    card_type?:'discover' | 'other' | 'argencard' | 'jcb' | 'mastercard' | 'elo' | 'cencosud' | 'cmr_falabella' | 'american_express' | 'cabal' | 'nativa' | 'bancontact' | 'tarjeta_naranja' | 'carnet' | 'visa' | 'diners_club' | 'rupay' | 'not_applicable' | 'hipercard' | 'maestro';
+    card_type?:'visa' | 'mastercard' | 'american_express' | 'discover' | 'jcb' | 'diners_club' | 'bancontact' | 'cmr_falabella' | 'tarjeta_naranja' | 'nativa' | 'cencosud' | 'cabal' | 'argencard' | 'elo' | 'hipercard' | 'carnet' | 'rupay' | 'maestro' | 'dankort' | 'cartes_bancaires' | 'other' | 'not_applicable';
     
     /**
       * @description Card Funding type \* credit - A credit card. \* prepaid - A prepaid card. \* debit - A debit card. \* not_applicable - Used for ACH. Not applicable for cards \* not_known - An unknown card.

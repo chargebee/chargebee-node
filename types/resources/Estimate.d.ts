@@ -3,21 +3,25 @@
 declare module 'chargebee' {
   export interface Estimate {
     
+
     created_at:number;
-    
+
     subscription_estimate?:SubscriptionEstimate;
-    
+
     subscription_estimates?:SubscriptionEstimate[];
-    
+
     invoice_estimate?:InvoiceEstimate;
-    
+
     invoice_estimates?:InvoiceEstimate[];
-    
+
+    payment_schedule_estimates?:PaymentScheduleEstimate[];
+
     next_invoice_estimate?:InvoiceEstimate;
-    
+
     credit_note_estimates?:CreditNoteEstimate[];
-    
+
     unbilled_charge_estimates?:UnbilledCharge[];
+
   }
   export namespace Estimate {
     export class EstimateResource {  
@@ -58,6 +62,8 @@ declare module 'chargebee' {
       create_invoice(input?:CreateInvoiceInputParam):ChargebeeRequest<CreateInvoiceResponse>;
        
       create_invoice_for_items(input:CreateInvoiceForItemsInputParam):ChargebeeRequest<CreateInvoiceForItemsResponse>;
+       
+      payment_schedules(input:PaymentSchedulesInputParam):ChargebeeRequest<PaymentSchedulesResponse>;
     }
     export interface CreateSubscriptionResponse {  
        estimate:Estimate;
@@ -564,6 +570,19 @@ declare module 'chargebee' {
       auto_collection?:AutoCollection;
        
       invoice_date?:number;
+    }
+    export interface PaymentSchedulesResponse {  
+       estimate:Estimate;
+    }
+    export interface PaymentSchedulesInputParam {
+       
+      scheme_id:string;
+       
+      amount?:number;
+       
+      invoice_id?:string;
+       
+      payment_schedule_start_date?:number;
     }
     
   }

@@ -1664,7 +1664,7 @@ Creates a new subscription for an existing customer in Chargebee. Any available 
 
         */
        
-      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string,usage_accumulation_reset_frequency?:UsageAccumulationResetFrequency}[];
        
       /**
         * @description Parameters for discounts
@@ -2738,7 +2738,7 @@ Updates the specified subscription by setting the parameters passed. Any paramet
 
         */
        
-      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,proration_type?:ProrationType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,proration_type?:ProrationType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string,usage_accumulation_reset_frequency?:UsageAccumulationResetFrequency}[];
        
       /**
         * @description Parameters for discounts
@@ -3847,6 +3847,8 @@ If [addon billing cycles](https://www.chargebee.com/docs/2.0/addons-billingcycle
       billing_period?:number;
        
       billing_period_unit?:'day' | 'week' | 'month' | 'year';
+      
+      usage_accumulation_reset_frequency?:'never' | 'subscription_billing_frequency';
     }
     export interface ItemTier {  
          /**

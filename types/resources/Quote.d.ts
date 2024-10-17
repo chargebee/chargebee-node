@@ -1,84 +1,85 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
-
 declare module 'chargebee' {
   export interface Quote {
     
+
     id:string;
-    
+
     name?:string;
-    
+
     po_number?:string;
-    
+
     customer_id:string;
-    
+
     subscription_id?:string;
-    
+
     invoice_id?:string;
-    
+
     status:'open' | 'accepted' | 'declined' | 'invoiced' | 'closed';
-    
+
     operation_type:'create_subscription_for_customer' | 'change_subscription' | 'onetime_invoice';
-    
+
     vat_number?:string;
-    
+
     price_type:PriceType;
-    
+
     valid_till:number;
-    
+
     date:number;
-    
+
     total_payable?:number;
-    
+
     charge_on_acceptance?:number;
-    
+
     sub_total:number;
-    
+
     total?:number;
-    
+
     credits_applied?:number;
-    
+
     amount_paid?:number;
-    
+
     amount_due?:number;
-    
+
     version?:number;
-    
+
     resource_version?:number;
-    
+
     updated_at?:number;
-    
+
     vat_number_prefix?:string;
-    
+
     line_items?:Quote.LineItem[];
-    
+
     discounts?:Quote.Discount[];
-    
+
     line_item_discounts?:Quote.LineItemDiscount[];
-    
+
     taxes?:Quote.Tax[];
-    
+
     line_item_taxes?:Quote.LineItemTax[];
-    
+
     line_item_tiers?:Quote.LineItemTier[];
-    
+
     tax_category?:string;
-    
+
     currency_code:string;
-    
+
     notes?:any[];
-    
+
     shipping_address?:Quote.ShippingAddress;
-    
+
     billing_address?:Quote.BillingAddress;
-    
+
     contract_term_start?:number;
-    
+
     contract_term_end?:number;
-    
+
     contract_term_termination_fee?:number;
-    
+
     business_entity_id?:string;
+
   }
   export namespace Quote {
     export class QuoteResource {  
@@ -706,6 +707,8 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       subscription?:{auto_close_invoices?:boolean,auto_collection?:AutoCollection,id?:string,po_number?:string};
        
       invoice_date?:number;
+       
+      invoice_immediately?:boolean;
        
       create_pending_invoices?:boolean;
        
