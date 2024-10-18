@@ -744,6 +744,7 @@ export const Endpoints: Endpoints = {
       '/create_invoice_for_items',
       false,
     ],
+    ['paymentSchedules', 'POST', '/estimates', '/payment_schedules', false],
   ],
   quote: [
     ['retrieve', 'GET', '/quotes', null, true],

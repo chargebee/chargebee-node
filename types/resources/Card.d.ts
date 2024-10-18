@@ -31,6 +31,8 @@ declare module 'chargebee' {
       | 'carnet'
       | 'rupay'
       | 'maestro'
+      | 'dankort'
+      | 'cartes_bancaires'
       | 'other'
       | 'not_applicable';
     funding_type:

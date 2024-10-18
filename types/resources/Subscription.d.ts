@@ -575,6 +575,9 @@ declare module 'chargebee' {
       charge_once?: boolean;
       charge_on_option?: 'immediately' | 'on_event';
       proration_type?: 'full_term' | 'partial_term' | 'none';
+      usage_accumulation_reset_frequency?:
+        | 'never'
+        | 'subscription_billing_frequency';
     }
     export interface ItemTier {
       item_price_id: string;
@@ -1621,6 +1624,7 @@ declare module 'chargebee' {
        */
       item_type?: ItemType;
       charge_on_option?: ChargeOnOption;
+      usage_accumulation_reset_frequency?: UsageAccumulationResetFrequency;
     }
     export interface DiscountsCreateWithItemsInputParam {
       apply_on: ApplyOn;
@@ -1949,6 +1953,7 @@ declare module 'chargebee' {
        */
       item_type?: ItemType;
       proration_type?: ProrationType;
+      usage_accumulation_reset_frequency?: UsageAccumulationResetFrequency;
     }
     export interface DiscountsUpdateForItemsInputParam {
       apply_on: ApplyOn;

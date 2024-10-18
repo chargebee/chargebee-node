@@ -86,6 +86,9 @@ declare module 'chargebee' {
       charge_once?: boolean;
       charge_on_option?: 'immediately' | 'on_event';
       proration_type?: 'full_term' | 'partial_term' | 'none';
+      usage_accumulation_reset_frequency?:
+        | 'never'
+        | 'subscription_billing_frequency';
     }
     export interface ItemTier {
       item_price_id: string;

@@ -1,3 +1,31 @@
+### v3.0.0-beta.4 (2024-10-18)
+
+#### New Resource:
+* PaymentScheduleEstimate has been added. 
+
+### New Attributes: 
+* payment_schedule_estimates has been added to Estimate. 
+* usage_accumulation_reset_frequency has been added to ItemPrice.
+* name has been added to PaymentScheduleScheme.
+* usage_accumulation_reset_frequency has been added to QuotedSubscription#SubscriptionItem.
+* usage_accumulation_reset_frequency has been added to Subscription#SubscriptionItem.
+
+### New Endpoints: 
+* Estimate#PaymentSchedule has been added. 
+
+### New Input Params: 
+* usage_accumulation_reset_frequency has been added to ItemPrice#CreateParams. 
+* usage_accumulation_reset_frequency has been added to ItemPrice#UpdateParams. 
+* discounts has been added to PricingPageSession#CreateForNewSubscriptionParams.
+* discounts has been added to PricingPageSession#CreateForExistingSubscriptionParams.
+* invoice_immediately has been added to Quote#ConvertParams.
+
+### Bug Fixes:
+* metadata field not working bug fixed. 
+
+### Dependency 
+* moved @types/node to devDependencies.
+
 ### v3.0.0-beta.3 (2024-09-20)
 * * *
 

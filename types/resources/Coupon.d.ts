@@ -7,7 +7,7 @@ declare module 'chargebee' {
     id: string;
     name: string;
     invoice_name?: string;
-    discount_type: 'fixed_amount' | 'percentage';
+    discount_type: 'fixed_amount' | 'percentage' | 'offer_quantity';
     discount_percentage?: number;
     discount_amount?: number;
     discount_quantity?: number;
@@ -152,7 +152,7 @@ declare module 'chargebee' {
       id: string;
       name: string;
       invoice_name?: string;
-      discount_type?: 'fixed_amount' | 'percentage';
+      discount_type?: 'fixed_amount' | 'percentage' | 'offer_quantity';
       discount_amount?: number;
       currency_code?: string;
       discount_percentage?: number /**
@@ -180,7 +180,7 @@ declare module 'chargebee' {
       id: string;
       name: string;
       invoice_name?: string;
-      discount_type?: 'fixed_amount' | 'percentage';
+      discount_type?: 'fixed_amount' | 'percentage' | 'offer_quantity';
       discount_amount?: number;
       currency_code?: string;
       discount_percentage?: number /**
@@ -207,7 +207,7 @@ declare module 'chargebee' {
     export interface UpdateForItemsInputParam {
       name?: string;
       invoice_name?: string;
-      discount_type?: 'fixed_amount' | 'percentage';
+      discount_type?: 'fixed_amount' | 'percentage' | 'offer_quantity';
       discount_amount?: number;
       currency_code?: string;
       discount_percentage?: number /**
@@ -249,7 +249,7 @@ declare module 'chargebee' {
     export interface UpdateInputParam {
       name?: string;
       invoice_name?: string;
-      discount_type?: 'fixed_amount' | 'percentage';
+      discount_type?: 'fixed_amount' | 'percentage' | 'offer_quantity';
       discount_amount?: number;
       currency_code?: string;
       discount_percentage?: number /**
