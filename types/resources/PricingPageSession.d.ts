@@ -41,11 +41,13 @@ declare module 'chargebee' {
       customer?: CustomerCreateForNewSubscriptionInputParam;
       billing_address?: BillingAddressCreateForNewSubscriptionInputParam;
       shipping_address?: ShippingAddressCreateForNewSubscriptionInputParam;
+      discounts?: DiscountsCreateForNewSubscriptionInputParam[];
     }
     export interface CreateForExistingSubscriptionInputParam {
       redirect_url?: string;
       pricing_page?: PricingPageCreateForExistingSubscriptionInputParam;
       subscription?: SubscriptionCreateForExistingSubscriptionInputParam;
+      discounts?: DiscountsCreateForExistingSubscriptionInputParam[];
     }
     export interface BillingAddressCreateForNewSubscriptionInputParam {
       first_name?: string;
@@ -95,11 +97,34 @@ declare module 'chargebee' {
       id?: string;
     }
 
+    export interface DiscountsCreateForNewSubscriptionInputParam {
+      apply_on: ApplyOn;
+      duration_type: DurationType;
+      percentage?: number;
+      amount?: number;
+      period?: number;
+      period_unit?: PeriodUnit;
+      included_in_mrr?: boolean;
+      item_price_id?: string;
+      label?: string;
+    }
     export interface PricingPageCreateForExistingSubscriptionInputParam {
       id: string;
     }
     export interface SubscriptionCreateForExistingSubscriptionInputParam {
       id: string;
+    }
+
+    export interface DiscountsCreateForExistingSubscriptionInputParam {
+      apply_on: ApplyOn;
+      duration_type: DurationType;
+      percentage?: number;
+      amount?: number;
+      period?: number;
+      period_unit?: PeriodUnit;
+      included_in_mrr?: boolean;
+      item_price_id?: string;
+      label?: string;
     }
   }
 }

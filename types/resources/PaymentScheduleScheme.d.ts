@@ -4,6 +4,7 @@
 declare module 'chargebee' {
   export interface PaymentScheduleScheme {
     id: string;
+    name?: string;
     description?: string;
     number_of_schedules: number;
     period_unit: 'day' | 'week' | 'month';

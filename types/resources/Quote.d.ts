@@ -656,6 +656,7 @@ declare module 'chargebee' {
     }
     export interface ConvertInputParam {
       invoice_date?: number;
+      invoice_immediately?: boolean;
       create_pending_invoices?: boolean;
       first_invoice_pending?: boolean;
       subscription?: SubscriptionConvertInputParam;

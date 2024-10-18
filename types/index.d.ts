@@ -45,6 +45,7 @@
 ///<reference path='./resources/PaymentIntent.d.ts' />
 ///<reference path='./resources/PaymentReferenceNumber.d.ts' />
 ///<reference path='./resources/PaymentSchedule.d.ts' />
+///<reference path='./resources/PaymentScheduleEstimate.d.ts' />
 ///<reference path='./resources/PaymentScheduleScheme.d.ts' />
 ///<reference path='./resources/PaymentSource.d.ts' />
 ///<reference path='./resources/PaymentVoucher.d.ts' />

@@ -224,6 +224,8 @@ declare module 'chargebee' {
         | 'carnet'
         | 'rupay'
         | 'maestro'
+        | 'dankort'
+        | 'cartes_bancaires'
         | 'not_applicable';
       funding_type:
         | 'credit'
@@ -419,7 +421,9 @@ declare module 'chargebee' {
         | 'hipercard'
         | 'carnet'
         | 'rupay'
-        | 'maestro';
+        | 'maestro'
+        | 'dankort'
+        | 'cartes_bancaires';
       funding_type?: 'credit' | 'debit' | 'prepaid' | 'not_known';
     }
 

@@ -34,6 +34,7 @@ declare module 'chargebee' {
     resource_version?: number;
     updated_at?: number;
     created_at: number;
+    usage_accumulation_reset_frequency?: UsageAccumulationResetFrequency;
     archived_at?: number;
     invoice_notes?: string;
     tiers?: ItemPrice.Tier[];
@@ -170,6 +171,7 @@ declare module 'chargebee' {
       metadata?: any;
       show_description_in_invoices?: boolean;
       show_description_in_quotes?: boolean;
+      usage_accumulation_reset_frequency?: UsageAccumulationResetFrequency;
       pricing_model?: PricingModel;
       price?: number;
       price_in_decimal?: string;
@@ -197,6 +199,7 @@ declare module 'chargebee' {
       price_variant_id?: string;
       status?: 'active' | 'archived';
       external_name?: string;
+      usage_accumulation_reset_frequency?: UsageAccumulationResetFrequency;
       currency_code?: string;
       invoice_notes?: string;
       is_taxable?: boolean;

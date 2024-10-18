@@ -294,9 +294,9 @@ declare module 'chargebee' {
     | 'voucher_create_failed'
     | 'item_price_entitlements_updated'
     | 'item_price_entitlements_removed'
-    | 'ramp_created'
-    | 'ramp_deleted'
-    | 'ramp_applied'
+    | 'subscription_ramp_created'
+    | 'subscription_ramp_deleted'
+    | 'subscription_ramp_applied'
     | 'subscription_ramp_drafted'
     | 'subscription_ramp_updated'
     | 'price_variant_created'
@@ -551,6 +551,9 @@ declare module 'chargebee' {
   type UnbilledChargesHandling = 'no_action' | 'invoice';
   type UnbilledChargesOption = 'invoice' | 'delete';
   type UnpaidInvoicesHandling = 'no_action' | 'schedule_payment_collection';
+  type UsageAccumulationResetFrequency =
+    | 'never'
+    | 'subscription_billing_frequency';
   type ValidationStatus =
     | 'not_validated'
     | 'valid'

@@ -8,6 +8,7 @@ declare module 'chargebee' {
     subscription_estimates?: SubscriptionEstimate[];
     invoice_estimate?: InvoiceEstimate;
     invoice_estimates?: InvoiceEstimate[];
+    payment_schedule_estimates?: PaymentScheduleEstimate[];
     next_invoice_estimate?: InvoiceEstimate;
     credit_note_estimates?: CreditNoteEstimate[];
     unbilled_charge_estimates?: UnbilledCharge[];
@@ -119,6 +120,11 @@ declare module 'chargebee' {
         input: CreateInvoiceForItemsInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CreateInvoiceForItemsResponse>>;
+
+      paymentSchedules(
+        input: PaymentSchedulesInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<PaymentSchedulesResponse>>;
     }
 
     export interface CreateSubscriptionResponse {
@@ -194,6 +200,10 @@ declare module 'chargebee' {
     }
 
     export interface CreateInvoiceForItemsResponse {
+      estimate: Estimate;
+    }
+
+    export interface PaymentSchedulesResponse {
       estimate: Estimate;
     }
 
@@ -443,6 +453,12 @@ declare module 'chargebee' {
       notes_to_remove?: NotesToRemoveCreateInvoiceForItemsInputParam[];
       discounts?: DiscountsCreateInvoiceForItemsInputParam[];
       tax_providers_fields?: TaxProvidersFieldsCreateInvoiceForItemsInputParam[];
+    }
+    export interface PaymentSchedulesInputParam {
+      scheme_id: string;
+      amount?: number;
+      invoice_id?: string;
+      payment_schedule_start_date?: number;
     }
     export interface BillingAddressCreateSubscriptionInputParam {
       line1?: string;
