@@ -38,7 +38,7 @@ declare module 'chargebee' {
       | 'order_resent';
     payment_status?: 'not_paid' | 'paid';
     order_type?: 'manual' | 'system_generated';
-    price_type: PriceType;
+    price_type: PriceTypeEnum;
     reference_id?: string;
     fulfillment_status?: string;
     order_date?: number;
@@ -257,7 +257,7 @@ declare module 'chargebee' {
       state?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
       index: number;
     }
     export interface BillingAddress {
@@ -274,7 +274,7 @@ declare module 'chargebee' {
       state?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface LineItemTax {
       line_item_id?: string;
@@ -508,7 +508,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
 
     export interface OrderLineItemsUpdateInputParam {
@@ -538,7 +538,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ShippingAddressImportOrderInputParam {
       first_name?: string;
@@ -554,7 +554,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
 
     export interface CreditNoteCancelInputParam {

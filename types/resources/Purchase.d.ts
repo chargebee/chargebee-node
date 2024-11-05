@@ -123,7 +123,7 @@ declare module 'chargebee' {
       state_code?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface BillingAddressEstimateInputParam {
       line1?: string;
@@ -133,17 +133,17 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CustomerEstimateInputParam {
       vat_number?: string;
       vat_number_prefix?: string;
       registered_for_gst?: boolean;
-      taxability?: Taxability;
-      entity_code?: EntityCode;
+      taxability?: TaxabilityEnum;
+      entity_code?: EntityCodeEnum;
       exempt_number?: string;
       exemption_details?: any;
-      customer_type?: CustomerType;
+      customer_type?: CustomerTypeEnum;
     }
 
     export interface SubscriptionInfoEstimateInputParam {
@@ -196,7 +196,7 @@ declare module 'chargebee' {
       state_code?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
   }
 }

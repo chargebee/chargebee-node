@@ -63,7 +63,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface PricingPageCreateForNewSubscriptionInputParam {
       id: string;
@@ -91,19 +91,19 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface SubscriptionCreateForNewSubscriptionInputParam {
       id?: string;
     }
 
     export interface DiscountsCreateForNewSubscriptionInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
       label?: string;
@@ -116,12 +116,12 @@ declare module 'chargebee' {
     }
 
     export interface DiscountsCreateForExistingSubscriptionInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
       label?: string;

@@ -10,7 +10,7 @@ declare module 'chargebee' {
     amount: number;
     currency_code: string;
     description: string;
-    credit_type: CreditType;
+    credit_type: CreditTypeEnum;
     reference?: string;
     closing_balance: number;
     done_by?: string;
@@ -78,7 +78,7 @@ declare module 'chargebee' {
       amount_in_decimal?: string;
       currency_code?: string;
       description: string;
-      credit_type?: CreditType;
+      credit_type?: CreditTypeEnum;
       reference?: string;
     }
     export interface DeductInputParam {
@@ -87,7 +87,7 @@ declare module 'chargebee' {
       amount_in_decimal?: string;
       currency_code?: string;
       description: string;
-      credit_type?: CreditType;
+      credit_type?: CreditTypeEnum;
       reference?: string;
     }
     export interface SetInputParam {
@@ -96,7 +96,7 @@ declare module 'chargebee' {
       amount_in_decimal?: string;
       currency_code?: string;
       description: string;
-      credit_type?: CreditType;
+      credit_type?: CreditTypeEnum;
       reference?: string;
     }
     export interface ListInputParam {

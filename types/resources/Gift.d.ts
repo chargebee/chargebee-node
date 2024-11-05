@@ -174,7 +174,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface PaymentIntentCreateInputParam {
       id?: string;
@@ -245,7 +245,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface PaymentIntentCreateForItemsInputParam {
       id?: string;

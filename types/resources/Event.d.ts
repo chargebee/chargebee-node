@@ -5,7 +5,7 @@ declare module 'chargebee' {
   export interface Event {
     id: string;
     occurred_at: number;
-    source: Source;
+    source: SourceEnum;
     user?: string;
     webhook_status:
       | 'not_configured'
@@ -17,8 +17,8 @@ declare module 'chargebee' {
       | 'not_applicable';
     webhook_failure_reason?: string;
     webhooks?: Event.Webhook[];
-    event_type?: EventType;
-    api_version?: ApiVersion;
+    event_type?: EventTypeEnum;
+    api_version?: ApiVersionEnum;
     origin_user?: string;
   }
 

@@ -14,7 +14,7 @@ declare module 'chargebee' {
     trial_end?: number;
     remaining_billing_cycles?: number;
     po_number?: string;
-    auto_collection?: AutoCollection;
+    auto_collection?: AutoCollectionEnum;
     plan_quantity_in_decimal?: string;
     plan_unit_price_in_decimal?: string;
     changes_scheduled_at?: number;

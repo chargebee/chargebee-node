@@ -214,7 +214,7 @@ declare module 'chargebee' {
       billing_cycles?: number;
       mandatory_addons_to_remove?: string[];
       terms_to_charge?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       invoice_immediately?: boolean;
       invoice_date?: number;
@@ -232,7 +232,7 @@ declare module 'chargebee' {
       billing_cycles?: number;
       mandatory_items_to_remove?: string[];
       terms_to_charge?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       invoice_immediately?: boolean;
       invoice_date?: number;
@@ -268,7 +268,7 @@ declare module 'chargebee' {
       billing_cycles?: number;
       mandatory_items_to_remove?: string[];
       terms_to_charge?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       invoice_date?: number;
       coupon_ids?: string[];
       subscription?: SubscriptionCreateSubItemForCustomerEstimateInputParam;
@@ -281,14 +281,14 @@ declare module 'chargebee' {
     }
     export interface UpdateSubscriptionInputParam {
       changes_scheduled_at?: number;
-      change_option?: ChangeOption;
+      change_option?: ChangeOptionEnum;
       replace_addon_list?: boolean;
       mandatory_addons_to_remove?: string[];
       invoice_date?: number;
       billing_cycles?: number;
       terms_to_charge?: number;
       reactivate_from?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       replace_coupon_list?: boolean;
       prorate?: boolean;
@@ -307,14 +307,14 @@ declare module 'chargebee' {
     }
     export interface UpdateSubscriptionForItemsInputParam {
       changes_scheduled_at?: number;
-      change_option?: ChangeOption;
+      change_option?: ChangeOptionEnum;
       mandatory_items_to_remove?: string[];
       replace_items_list?: boolean;
       invoice_date?: number;
       billing_cycles?: number;
       terms_to_charge?: number;
       reactivate_from?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       replace_coupon_list?: boolean;
       prorate?: boolean;
@@ -342,7 +342,7 @@ declare module 'chargebee' {
     export interface AdvanceInvoiceEstimateInputParam {
       terms_to_charge?: number;
       invoice_immediately?: boolean;
-      schedule_type?: ScheduleType;
+      schedule_type?: ScheduleTypeEnum;
       fixed_interval_schedule?: FixedIntervalScheduleAdvanceInvoiceEstimateInputParam;
       specific_dates_schedule?: SpecificDatesScheduleAdvanceInvoiceEstimateInputParam[];
     }
@@ -358,39 +358,39 @@ declare module 'chargebee' {
       invoice_immediately?: boolean;
     }
     export interface CancelSubscriptionInputParam {
-      cancel_option?: CancelOption;
+      cancel_option?: CancelOptionEnum;
       end_of_term?: boolean;
       cancel_at?: number;
-      credit_option_for_current_term_charges?: CreditOptionForCurrentTermCharges;
-      unbilled_charges_option?: UnbilledChargesOption;
-      account_receivables_handling?: AccountReceivablesHandling;
-      refundable_credits_handling?: RefundableCreditsHandling;
-      contract_term_cancel_option?: ContractTermCancelOption;
+      credit_option_for_current_term_charges?: CreditOptionForCurrentTermChargesEnum;
+      unbilled_charges_option?: UnbilledChargesOptionEnum;
+      account_receivables_handling?: AccountReceivablesHandlingEnum;
+      refundable_credits_handling?: RefundableCreditsHandlingEnum;
+      contract_term_cancel_option?: ContractTermCancelOptionEnum;
       invoice_date?: number;
       cancel_reason_code?: string;
       event_based_addons?: EventBasedAddonsCancelSubscriptionInputParam[];
     }
     export interface CancelSubscriptionForItemsInputParam {
-      cancel_option?: CancelOption;
+      cancel_option?: CancelOptionEnum;
       end_of_term?: boolean;
       cancel_at?: number;
-      credit_option_for_current_term_charges?: CreditOptionForCurrentTermCharges;
-      unbilled_charges_option?: UnbilledChargesOption;
-      account_receivables_handling?: AccountReceivablesHandling;
-      refundable_credits_handling?: RefundableCreditsHandling;
-      contract_term_cancel_option?: ContractTermCancelOption;
+      credit_option_for_current_term_charges?: CreditOptionForCurrentTermChargesEnum;
+      unbilled_charges_option?: UnbilledChargesOptionEnum;
+      account_receivables_handling?: AccountReceivablesHandlingEnum;
+      refundable_credits_handling?: RefundableCreditsHandlingEnum;
+      contract_term_cancel_option?: ContractTermCancelOptionEnum;
       invoice_date?: number;
       cancel_reason_code?: string;
       subscription_items?: SubscriptionItemsCancelSubscriptionForItemsInputParam[];
     }
     export interface PauseSubscriptionInputParam {
-      pause_option?: PauseOption;
-      unbilled_charges_handling?: UnbilledChargesHandling;
+      pause_option?: PauseOptionEnum;
+      unbilled_charges_handling?: UnbilledChargesHandlingEnum;
       subscription?: SubscriptionPauseSubscriptionInputParam;
     }
     export interface ResumeSubscriptionInputParam {
-      resume_option?: ResumeOption;
-      charges_handling?: ChargesHandling;
+      resume_option?: ResumeOptionEnum;
+      charges_handling?: ChargesHandlingEnum;
       subscription?: SubscriptionResumeSubscriptionInputParam;
     }
     export interface GiftSubscriptionInputParam {
@@ -423,7 +423,7 @@ declare module 'chargebee' {
       coupon_ids?: string[];
       authorization_transaction_id?: string;
       payment_source_id?: string;
-      auto_collection?: AutoCollection;
+      auto_collection?: AutoCollectionEnum;
       invoice_date?: number;
       invoice?: InvoiceCreateInvoiceInputParam;
       shipping_address?: ShippingAddressCreateInvoiceInputParam;
@@ -443,7 +443,7 @@ declare module 'chargebee' {
       coupon_ids?: string[];
       authorization_transaction_id?: string;
       payment_source_id?: string;
-      auto_collection?: AutoCollection;
+      auto_collection?: AutoCollectionEnum;
       invoice_date?: number;
       invoice?: InvoiceCreateInvoiceForItemsInputParam;
       shipping_address?: ShippingAddressCreateInvoiceForItemsInputParam;
@@ -468,17 +468,17 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CustomerCreateSubscriptionInputParam {
       vat_number?: string;
       vat_number_prefix?: string;
       registered_for_gst?: boolean;
-      taxability?: Taxability;
-      entity_code?: EntityCode;
+      taxability?: TaxabilityEnum;
+      entity_code?: EntityCodeEnum;
       exempt_number?: string;
       exemption_details?: any;
-      customer_type?: CustomerType;
+      customer_type?: CustomerTypeEnum;
     }
     export interface ShippingAddressCreateSubscriptionInputParam {
       line1?: string;
@@ -488,7 +488,7 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermCreateSubscriptionInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
@@ -508,11 +508,11 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       coupon?: string;
-      offline_payment_method?: OfflinePaymentMethod;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       free_period?: number;
-      free_period_unit?: FreePeriodUnit;
+      free_period_unit?: FreePeriodUnitEnum;
       contract_term_billing_cycle_on_renewal?: number;
-      trial_end_action?: TrialEndAction;
+      trial_end_action?: TrialEndActionEnum;
     }
 
     export interface EventBasedAddonsCreateSubscriptionInputParam {
@@ -522,9 +522,9 @@ declare module 'chargebee' {
       quantity_in_decimal?: string;
       unit_price_in_decimal?: string;
       service_period_in_days?: number;
-      on_event?: OnEvent;
+      on_event?: OnEventEnum;
       charge_once?: boolean;
-      charge_on?: ChargeOn;
+      charge_on?: ChargeOnEnum;
     }
     export interface AddonsCreateSubscriptionInputParam {
       id?: string;
@@ -548,17 +548,17 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CustomerCreateSubItemEstimateInputParam {
       vat_number?: string;
       vat_number_prefix?: string;
       registered_for_gst?: boolean;
-      taxability?: Taxability;
-      entity_code?: EntityCode;
+      taxability?: TaxabilityEnum;
+      entity_code?: EntityCodeEnum;
       exempt_number?: string;
       exemption_details?: any;
-      customer_type?: CustomerType;
+      customer_type?: CustomerTypeEnum;
     }
     export interface ShippingAddressCreateSubItemEstimateInputParam {
       line1?: string;
@@ -568,7 +568,7 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermCreateSubItemEstimateInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
@@ -591,9 +591,9 @@ declare module 'chargebee' {
        */
       coupon?: string;
       free_period?: number;
-      free_period_unit?: FreePeriodUnit;
+      free_period_unit?: FreePeriodUnitEnum;
       contract_term_billing_cycle_on_renewal?: number;
-      trial_end_action?: TrialEndAction;
+      trial_end_action?: TrialEndActionEnum;
     }
 
     export interface SubscriptionItemsCreateSubItemEstimateInputParam {
@@ -605,21 +605,21 @@ declare module 'chargebee' {
       billing_cycles?: number;
       trial_end?: number;
       service_period_days?: number;
-      charge_on_event?: ChargeOnEvent;
+      charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      item_type?: ItemType;
-      charge_on_option?: ChargeOnOption;
+      item_type?: ItemTypeEnum;
+      charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsCreateSubItemEstimateInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
     }
@@ -645,7 +645,7 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermCreateSubForCustomerEstimateInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
@@ -661,11 +661,11 @@ declare module 'chargebee' {
       setup_fee?: number;
       trial_end?: number;
       start_date?: number;
-      offline_payment_method?: OfflinePaymentMethod;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       free_period?: number;
-      free_period_unit?: FreePeriodUnit;
+      free_period_unit?: FreePeriodUnitEnum;
       contract_term_billing_cycle_on_renewal?: number;
-      trial_end_action?: TrialEndAction;
+      trial_end_action?: TrialEndActionEnum;
     }
 
     export interface EventBasedAddonsCreateSubForCustomerEstimateInputParam {
@@ -675,9 +675,9 @@ declare module 'chargebee' {
       quantity_in_decimal?: string;
       unit_price_in_decimal?: string;
       service_period_in_days?: number;
-      on_event?: OnEvent;
+      on_event?: OnEventEnum;
       charge_once?: boolean;
-      charge_on?: ChargeOn;
+      charge_on?: ChargeOnEnum;
     }
     export interface AddonsCreateSubForCustomerEstimateInputParam {
       id?: string;
@@ -696,7 +696,7 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ShippingAddressCreateSubItemForCustomerEstimateInputParam {
       line1?: string;
@@ -706,7 +706,7 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermCreateSubItemForCustomerEstimateInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
@@ -725,9 +725,9 @@ declare module 'chargebee' {
       setup_fee?: number;
       start_date?: number;
       free_period?: number;
-      free_period_unit?: FreePeriodUnit;
+      free_period_unit?: FreePeriodUnitEnum;
       contract_term_billing_cycle_on_renewal?: number;
-      trial_end_action?: TrialEndAction;
+      trial_end_action?: TrialEndActionEnum;
     }
 
     export interface SubscriptionItemsCreateSubItemForCustomerEstimateInputParam {
@@ -739,21 +739,21 @@ declare module 'chargebee' {
       billing_cycles?: number;
       trial_end?: number;
       service_period_days?: number;
-      charge_on_event?: ChargeOnEvent;
+      charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      item_type?: ItemType;
-      charge_on_option?: ChargeOnOption;
+      item_type?: ItemTypeEnum;
+      charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsCreateSubItemForCustomerEstimateInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
     }
@@ -774,7 +774,7 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CustomerUpdateSubscriptionInputParam {
       vat_number?: string;
@@ -783,7 +783,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      taxability?: Taxability;
+      taxability?: TaxabilityEnum;
     }
     export interface ShippingAddressUpdateSubscriptionInputParam {
       line1?: string;
@@ -793,7 +793,7 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface SubscriptionUpdateSubscriptionInputParam {
       id: string;
@@ -809,11 +809,11 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       coupon?: string;
-      auto_collection?: AutoCollection;
-      offline_payment_method?: OfflinePaymentMethod;
+      auto_collection?: AutoCollectionEnum;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       free_period?: number;
-      free_period_unit?: FreePeriodUnit;
-      trial_end_action?: TrialEndAction;
+      free_period_unit?: FreePeriodUnitEnum;
+      trial_end_action?: TrialEndActionEnum;
     }
 
     export interface EventBasedAddonsUpdateSubscriptionInputParam {
@@ -821,8 +821,8 @@ declare module 'chargebee' {
       quantity?: number;
       unit_price?: number;
       service_period_in_days?: number;
-      charge_on?: ChargeOn;
-      on_event?: OnEvent;
+      charge_on?: ChargeOnEnum;
+      on_event?: OnEventEnum;
       charge_once?: boolean;
       quantity_in_decimal?: string;
       unit_price_in_decimal?: string;
@@ -835,7 +835,7 @@ declare module 'chargebee' {
       quantity_in_decimal?: string;
       unit_price_in_decimal?: string;
       trial_end?: number;
-      proration_type?: ProrationType;
+      proration_type?: ProrationTypeEnum;
     }
     export interface BillingAddressUpdateSubscriptionForItemsInputParam {
       line1?: string;
@@ -845,7 +845,7 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CustomerUpdateSubscriptionForItemsInputParam {
       vat_number?: string;
@@ -854,7 +854,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      taxability?: Taxability;
+      taxability?: TaxabilityEnum;
     }
     export interface ShippingAddressUpdateSubscriptionForItemsInputParam {
       line1?: string;
@@ -864,7 +864,7 @@ declare module 'chargebee' {
       state_code?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface SubscriptionUpdateSubscriptionForItemsInputParam {
       id: string;
@@ -878,11 +878,11 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       coupon?: string;
-      auto_collection?: AutoCollection;
-      offline_payment_method?: OfflinePaymentMethod;
+      auto_collection?: AutoCollectionEnum;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       free_period?: number;
-      free_period_unit?: FreePeriodUnit;
-      trial_end_action?: TrialEndAction;
+      free_period_unit?: FreePeriodUnitEnum;
+      trial_end_action?: TrialEndActionEnum;
     }
 
     export interface SubscriptionItemsUpdateSubscriptionForItemsInputParam {
@@ -894,25 +894,25 @@ declare module 'chargebee' {
       billing_cycles?: number;
       trial_end?: number;
       service_period_days?: number;
-      charge_on_event?: ChargeOnEvent;
+      charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
-      charge_on_option?: ChargeOnOption;
+      charge_on_option?: ChargeOnOptionEnum;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      item_type?: ItemType;
-      proration_type?: ProrationType;
+      item_type?: ItemTypeEnum;
+      proration_type?: ProrationTypeEnum;
     }
     export interface DiscountsUpdateSubscriptionForItemsInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
-      operation_type: OperationType;
+      operation_type: OperationTypeEnum;
       id?: string;
     }
     export interface ItemTiersUpdateSubscriptionForItemsInputParam {
@@ -927,7 +927,7 @@ declare module 'chargebee' {
     export interface FixedIntervalScheduleAdvanceInvoiceEstimateInputParam {
       number_of_occurrences?: number;
       days_before_renewal?: number;
-      end_schedule_on?: EndScheduleOn;
+      end_schedule_on?: EndScheduleOnEnum;
       end_date?: number;
     }
 
@@ -991,7 +991,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface PaymentIntentGiftSubscriptionInputParam {
       id?: string;
@@ -1068,7 +1068,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface PaymentIntentGiftSubscriptionForItemsInputParam {
       id?: string;
@@ -1127,7 +1127,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
 
     export interface ChargesCreateInvoiceInputParam {
@@ -1139,7 +1139,7 @@ declare module 'chargebee' {
       avalara_tax_code?: string;
       hsn_code?: string;
       taxjar_product_code?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       date_from?: number;
@@ -1160,7 +1160,7 @@ declare module 'chargebee' {
       field_value?: string;
     }
     export interface NotesToRemoveCreateInvoiceInputParam {
-      entity_type?: EntityType;
+      entity_type?: EntityTypeEnum;
       entity_id?: string;
     }
     export interface InvoiceCreateInvoiceForItemsInputParam {
@@ -1182,7 +1182,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
 
     export interface ChargesCreateInvoiceForItemsInputParam {
@@ -1194,7 +1194,7 @@ declare module 'chargebee' {
       avalara_tax_code?: string;
       hsn_code?: string;
       taxjar_product_code?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       date_from?: number;
@@ -1203,7 +1203,7 @@ declare module 'chargebee' {
     export interface DiscountsCreateInvoiceForItemsInputParam {
       percentage?: number;
       amount?: number;
-      apply_on: ApplyOn;
+      apply_on: ApplyOnEnum;
       item_price_id?: string;
     }
     export interface ItemTiersCreateInvoiceForItemsInputParam {
@@ -1230,7 +1230,7 @@ declare module 'chargebee' {
       field_value?: string;
     }
     export interface NotesToRemoveCreateInvoiceForItemsInputParam {
-      entity_type?: EntityType;
+      entity_type?: EntityTypeEnum;
       entity_id?: string;
     }
   }

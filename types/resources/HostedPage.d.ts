@@ -243,7 +243,7 @@ declare module 'chargebee' {
       billing_cycles?: number;
       mandatory_addons_to_remove?: string[];
       terms_to_charge?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       redirect_url?: string;
       cancel_url?: string;
@@ -283,7 +283,7 @@ declare module 'chargebee' {
     }
     export interface CheckoutOneTimeForItemsInputParam {
       business_entity_id?: string;
-      layout?: Layout;
+      layout?: LayoutEnum;
       invoice_note?: string /**
        * @deprecated Please refer API docs to use other attributes
        */;
@@ -306,12 +306,12 @@ declare module 'chargebee' {
       entity_identifiers?: EntityIdentifiersCheckoutOneTimeForItemsInputParam[];
     }
     export interface CheckoutNewForItemsInputParam {
-      layout?: Layout;
+      layout?: LayoutEnum;
       business_entity_id?: string;
       billing_cycles?: number;
       mandatory_items_to_remove?: string[];
       terms_to_charge?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       redirect_url?: string;
       cancel_url?: string;
@@ -335,7 +335,7 @@ declare module 'chargebee' {
       billing_cycles?: number;
       terms_to_charge?: number;
       reactivate_from?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       reactivate?: boolean;
       force_term_reset?: boolean;
@@ -353,18 +353,18 @@ declare module 'chargebee' {
       event_based_addons?: EventBasedAddonsCheckoutExistingInputParam[];
     }
     export interface CheckoutExistingForItemsInputParam {
-      layout?: Layout;
+      layout?: LayoutEnum;
       mandatory_items_to_remove?: string[];
       replace_items_list?: boolean;
       invoice_date?: number;
       billing_cycles?: number;
       terms_to_charge?: number;
       reactivate_from?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       reactivate?: boolean;
       force_term_reset?: boolean;
-      change_option?: ChangeOption;
+      change_option?: ChangeOptionEnum;
       changes_scheduled_at?: number;
       redirect_url?: string;
       cancel_url?: string;
@@ -410,7 +410,7 @@ declare module 'chargebee' {
     }
     export interface AcceptQuoteInputParam {
       redirect_url?: string;
-      layout?: Layout;
+      layout?: LayoutEnum;
       quote?: QuoteAcceptQuoteInputParam;
     }
     export interface ExtendSubscriptionInputParam {
@@ -455,7 +455,7 @@ declare module 'chargebee' {
       subscription?: SubscriptionPreCancelInputParam;
     }
     export interface EventsInputParam {
-      event_name: EventName;
+      event_name: EventNameEnum;
       occurred_at?: number;
       event_data: any;
     }
@@ -477,7 +477,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CustomerCheckoutNewInputParam {
       id?: string;
@@ -487,7 +487,7 @@ declare module 'chargebee' {
       company?: string;
       phone?: string;
       locale?: string;
-      taxability?: Taxability;
+      taxability?: TaxabilityEnum;
       vat_number?: string;
       vat_number_prefix?: string;
       consolidated_invoicing?: boolean;
@@ -506,7 +506,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermCheckoutNewInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
@@ -526,8 +526,8 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       coupon?: string;
-      auto_collection?: AutoCollection;
-      offline_payment_method?: OfflinePaymentMethod;
+      auto_collection?: AutoCollectionEnum;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       invoice_notes?: string;
       affiliate_token?: string;
       contract_term_billing_cycle_on_renewal?: number;
@@ -536,7 +536,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
     }
 
@@ -547,9 +547,9 @@ declare module 'chargebee' {
       quantity_in_decimal?: string;
       unit_price_in_decimal?: string;
       service_period_in_days?: number;
-      on_event?: OnEvent;
+      on_event?: OnEventEnum;
       charge_once?: boolean;
-      charge_on?: ChargeOn;
+      charge_on?: ChargeOnEnum;
     }
     export interface AddonsCheckoutNewInputParam {
       id?: string;
@@ -573,7 +573,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface InvoiceCheckoutOneTimeInputParam {
       po_number?: string;
@@ -586,7 +586,7 @@ declare module 'chargebee' {
       company?: string;
       phone?: string;
       locale?: string;
-      taxability?: Taxability;
+      taxability?: TaxabilityEnum;
       vat_number?: string;
       vat_number_prefix?: string;
       consolidated_invoicing?: boolean;
@@ -605,13 +605,13 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CardCheckoutOneTimeInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
     }
 
@@ -624,7 +624,7 @@ declare module 'chargebee' {
       avalara_tax_code?: string;
       hsn_code?: string;
       taxjar_product_code?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       date_from?: number;
@@ -653,7 +653,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface InvoiceCheckoutOneTimeForItemsInputParam {
       po_number?: string;
@@ -666,10 +666,10 @@ declare module 'chargebee' {
       company?: string;
       phone?: string;
       locale?: string;
-      taxability?: Taxability;
+      taxability?: TaxabilityEnum;
       vat_number?: string;
       vat_number_prefix?: string;
-      einvoicing_method?: EinvoicingMethod;
+      einvoicing_method?: EinvoicingMethodEnum;
       is_einvoice_enabled?: boolean;
       entity_identifier_scheme?: string;
       entity_identifier_standard?: string;
@@ -689,13 +689,13 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CardCheckoutOneTimeForItemsInputParam {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
     }
 
@@ -708,7 +708,7 @@ declare module 'chargebee' {
       avalara_tax_code?: string;
       hsn_code?: string;
       taxjar_product_code?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       date_from?: number;
@@ -717,14 +717,14 @@ declare module 'chargebee' {
     export interface DiscountsCheckoutOneTimeForItemsInputParam {
       percentage?: number;
       amount?: number;
-      apply_on: ApplyOn;
+      apply_on: ApplyOnEnum;
       item_price_id?: string;
     }
     export interface EntityIdentifiersCheckoutOneTimeForItemsInputParam {
       id?: string;
       scheme?: string;
       value?: string;
-      operation?: Operation;
+      operation?: OperationEnum;
       standard?: string;
     }
     export interface ItemTiersCheckoutOneTimeForItemsInputParam {
@@ -759,7 +759,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CustomerCheckoutNewForItemsInputParam {
       id?: string;
@@ -769,13 +769,13 @@ declare module 'chargebee' {
       company?: string;
       phone?: string;
       locale?: string;
-      taxability?: Taxability;
+      taxability?: TaxabilityEnum;
       vat_number?: string;
       vat_number_prefix?: string;
       is_einvoice_enabled?: boolean;
       entity_identifier_scheme?: string;
       entity_identifier_standard?: string;
-      einvoicing_method?: EinvoicingMethod;
+      einvoicing_method?: EinvoicingMethodEnum;
     }
     export interface ShippingAddressCheckoutNewForItemsInputParam {
       first_name?: string;
@@ -791,7 +791,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermCheckoutNewForItemsInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
@@ -806,7 +806,7 @@ declare module 'chargebee' {
       setup_fee?: number;
       start_date?: number;
       coupon?: string;
-      auto_collection?: AutoCollection;
+      auto_collection?: AutoCollectionEnum;
       invoice_notes?: string;
       contract_term_billing_cycle_on_renewal?: number;
     }
@@ -814,7 +814,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
     }
 
@@ -827,21 +827,21 @@ declare module 'chargebee' {
       billing_cycles?: number;
       trial_end?: number;
       service_period_days?: number;
-      charge_on_event?: ChargeOnEvent;
+      charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      item_type?: ItemType;
-      charge_on_option?: ChargeOnOption;
+      item_type?: ItemTypeEnum;
+      charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsCheckoutNewForItemsInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
     }
@@ -849,7 +849,7 @@ declare module 'chargebee' {
       id?: string;
       scheme?: string;
       value?: string;
-      operation?: Operation;
+      operation?: OperationEnum;
       standard?: string;
     }
     export interface ItemTiersCheckoutNewForItemsInputParam {
@@ -883,8 +883,8 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       coupon?: string;
-      auto_collection?: AutoCollection;
-      offline_payment_method?: OfflinePaymentMethod;
+      auto_collection?: AutoCollectionEnum;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       invoice_notes?: string;
       contract_term_billing_cycle_on_renewal?: number;
     }
@@ -892,7 +892,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
     }
 
@@ -901,8 +901,8 @@ declare module 'chargebee' {
       quantity?: number;
       unit_price?: number;
       service_period_in_days?: number;
-      charge_on?: ChargeOn;
-      on_event?: OnEvent;
+      charge_on?: ChargeOnEnum;
+      on_event?: OnEventEnum;
       charge_once?: boolean;
       quantity_in_decimal?: string;
       unit_price_in_decimal?: string;
@@ -938,8 +938,8 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       coupon?: string;
-      auto_collection?: AutoCollection;
-      offline_payment_method?: OfflinePaymentMethod;
+      auto_collection?: AutoCollectionEnum;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       invoice_notes?: string;
       contract_term_billing_cycle_on_renewal?: number;
     }
@@ -947,7 +947,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
     }
 
@@ -960,31 +960,31 @@ declare module 'chargebee' {
       billing_cycles?: number;
       trial_end?: number;
       service_period_days?: number;
-      charge_on_event?: ChargeOnEvent;
+      charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
-      charge_on_option?: ChargeOnOption;
+      charge_on_option?: ChargeOnOptionEnum;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      item_type?: ItemType;
+      item_type?: ItemTypeEnum;
     }
     export interface DiscountsCheckoutExistingForItemsInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
-      operation_type: OperationType;
+      operation_type: OperationTypeEnum;
       id?: string;
     }
     export interface EntityIdentifiersCheckoutExistingForItemsInputParam {
       id?: string;
       scheme?: string;
       value?: string;
-      operation?: Operation;
+      operation?: OperationEnum;
       standard?: string;
     }
     export interface ItemTiersCheckoutExistingForItemsInputParam {
@@ -1011,7 +1011,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
     }
 
@@ -1030,7 +1030,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
     }
 
@@ -1041,7 +1041,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
     }
 
@@ -1052,7 +1052,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
     }
 

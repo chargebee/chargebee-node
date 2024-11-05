@@ -9,7 +9,7 @@ declare module 'chargebee' {
     date_from?: number;
     date_to?: number;
     unit_amount?: number;
-    pricing_model?: PricingModel;
+    pricing_model?: PricingModelEnum;
     quantity?: number;
     amount?: number;
     currency_code: string;
@@ -147,7 +147,7 @@ declare module 'chargebee' {
       avalara_tax_code?: string;
       hsn_code?: string;
       taxjar_product_code?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       date_from?: number;
@@ -176,7 +176,7 @@ declare module 'chargebee' {
       avalara_tax_code?: string;
       hsn_code?: string;
       taxjar_product_code?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       date_from?: number;

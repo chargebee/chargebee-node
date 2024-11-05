@@ -206,12 +206,12 @@ declare module 'chargebee' {
       service_period_days?: number;
     }
     export interface DiscountsToAddCreateForSubscriptionInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
     }
@@ -247,12 +247,12 @@ declare module 'chargebee' {
       service_period_days?: number;
     }
     export interface DiscountsToAddUpdateInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
     }

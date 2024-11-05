@@ -5,7 +5,7 @@ declare module 'chargebee' {
   export interface Card {
     payment_source_id: string;
     status: 'valid' | 'expiring' | 'expired';
-    gateway: Gateway;
+    gateway: GatewayEnum;
     gateway_account_id?: string;
     ref_tx_id?: string;
     first_name?: string;
@@ -128,7 +128,7 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
 
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
       tmp_token?: string;
       first_name?: string;
@@ -155,7 +155,7 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
 
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id: string;
     }
     export interface CopyCardForCustomerInputParam {

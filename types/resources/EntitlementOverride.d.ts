@@ -47,7 +47,7 @@ declare module 'chargebee' {
     //---------------
 
     export interface AddEntitlementOverrideForSubscriptionInputParam {
-      action?: Action;
+      action?: ActionEnum;
       entitlement_overrides?: EntitlementOverridesAddEntitlementOverrideForSubscriptionInputParam[];
     }
     export interface ListEntitlementOverrideForSubscriptionInputParam {

@@ -5,7 +5,7 @@ declare module 'chargebee' {
   export interface PaymentVoucher {
     id: string;
     id_at_gateway?: string;
-    payment_voucher_type: PaymentVoucherType;
+    payment_voucher_type: PaymentVoucherTypeEnum;
     expires_at?: number;
     status?: 'active' | 'consumed' | 'expired' | 'failure';
     subscription_id?: string;
@@ -13,7 +13,7 @@ declare module 'chargebee' {
     amount?: number;
     gateway_account_id?: string;
     payment_source_id?: string;
-    gateway: Gateway;
+    gateway: GatewayEnum;
     payload?: string;
     error_code?: string;
     error_text?: string;
@@ -37,17 +37,17 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-      payment_vouchersForInvoice(
+      paymentVouchersForInvoice(
         invoice_id: string,
         input?: PaymentVouchersForInvoiceInputParam,
         headers?: ChargebeeRequestHeader,
-      ): Promise<ChargebeeResponse<Payment_vouchersForInvoiceResponse>>;
+      ): Promise<ChargebeeResponse<PaymentVouchersForInvoiceResponse>>;
 
-      payment_vouchersForCustomer(
+      paymentVouchersForCustomer(
         customer_id: string,
         input?: PaymentVouchersForCustomerInputParam,
         headers?: ChargebeeRequestHeader,
-      ): Promise<ChargebeeResponse<Payment_vouchersForCustomerResponse>>;
+      ): Promise<ChargebeeResponse<PaymentVouchersForCustomerResponse>>;
     }
 
     export interface CreateResponse {
@@ -58,12 +58,12 @@ declare module 'chargebee' {
       payment_voucher: PaymentVoucher;
     }
 
-    export interface Payment_vouchersForInvoiceResponse {
+    export interface PaymentVouchersForInvoiceResponse {
       list: { payment_voucher: PaymentVoucher }[];
       next_offset?: string;
     }
 
-    export interface Payment_vouchersForCustomerResponse {
+    export interface PaymentVouchersForCustomerResponse {
       list: { payment_voucher: PaymentVoucher }[];
       next_offset?: string;
     }
@@ -97,7 +97,7 @@ declare module 'chargebee' {
       'sort_by[desc]'?: string;
     }
     export interface VoucherPaymentSourceCreateInputParam {
-      voucher_type: VoucherType;
+      voucher_type: VoucherTypeEnum;
     }
 
     export interface InvoiceAllocationsCreateInputParam {

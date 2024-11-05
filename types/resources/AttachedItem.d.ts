@@ -11,12 +11,12 @@ declare module 'chargebee' {
     quantity?: number;
     quantity_in_decimal?: string;
     billing_cycles?: number;
-    charge_on_event: ChargeOnEvent;
+    charge_on_event: ChargeOnEventEnum;
     charge_once: boolean;
     created_at: number;
     resource_version?: number;
     updated_at?: number;
-    channel?: Channel;
+    channel?: ChannelEnum;
   }
 
   export namespace AttachedItem {
@@ -82,7 +82,7 @@ declare module 'chargebee' {
       billing_cycles?: number;
       quantity?: number;
       quantity_in_decimal?: string;
-      charge_on_event?: ChargeOnEvent;
+      charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
     }
     export interface UpdateInputParam {
@@ -91,7 +91,7 @@ declare module 'chargebee' {
       billing_cycles?: number;
       quantity?: number;
       quantity_in_decimal?: string;
-      charge_on_event?: ChargeOnEvent;
+      charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
     }
     export interface RetrieveInputParam {

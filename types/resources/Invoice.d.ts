@@ -16,7 +16,7 @@ declare module 'chargebee' {
       | 'voided'
       | 'pending';
     vat_number?: string;
-    price_type: PriceType;
+    price_type: PriceTypeEnum;
     date?: number;
     due_date?: number;
     net_term_days?: number;
@@ -71,7 +71,7 @@ declare module 'chargebee' {
     deleted: boolean;
     tax_category?: string;
     vat_number_prefix?: string;
-    channel?: Channel;
+    channel?: ChannelEnum;
     business_entity_id?: string;
     site_details_at_creation?: Invoice.SiteDetailsAtCreation;
     tax_origin?: Invoice.TaxOrigin;
@@ -715,7 +715,7 @@ declare module 'chargebee' {
       state?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
       index: number;
     }
     export interface StatementDescriptor {
@@ -736,7 +736,7 @@ declare module 'chargebee' {
       state?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface Einvoice {
       id: string;
@@ -776,11 +776,11 @@ declare module 'chargebee' {
       coupon_ids?: string[];
       authorization_transaction_id?: string;
       payment_source_id?: string;
-      auto_collection?: AutoCollection;
+      auto_collection?: AutoCollectionEnum;
       token_id?: string;
       replace_primary_payment_source?: boolean;
       retain_payment_source?: boolean;
-      payment_initiator?: PaymentInitiator;
+      payment_initiator?: PaymentInitiatorEnum;
       shipping_address?: ShippingAddressCreateInputParam;
       statement_descriptor?: StatementDescriptorCreateInputParam;
       card?: CardCreateInputParam;
@@ -806,12 +806,12 @@ declare module 'chargebee' {
       coupon_ids?: string[];
       authorization_transaction_id?: string;
       payment_source_id?: string;
-      auto_collection?: AutoCollection;
+      auto_collection?: AutoCollectionEnum;
       invoice_date?: number;
       token_id?: string;
       replace_primary_payment_source?: boolean;
       retain_payment_source?: boolean;
-      payment_initiator?: PaymentInitiator;
+      payment_initiator?: PaymentInitiatorEnum;
       shipping_address?: ShippingAddressCreateForChargeItemsAndChargesInputParam;
       statement_descriptor?: StatementDescriptorCreateForChargeItemsAndChargesInputParam;
       card?: CardCreateForChargeItemsAndChargesInputParam;
@@ -839,13 +839,13 @@ declare module 'chargebee' {
        */;
 
       coupon?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       po_number?: string;
       invoice_date?: number;
       payment_source_id?: string;
-      payment_initiator?: PaymentInitiator;
+      payment_initiator?: PaymentInitiatorEnum;
       tax_providers_fields?: TaxProvidersFieldsChargeInputParam[];
     }
     export interface ChargeAddonInputParam {
@@ -866,7 +866,7 @@ declare module 'chargebee' {
       po_number?: string;
       invoice_date?: number;
       payment_source_id?: string;
-      payment_initiator?: PaymentInitiator;
+      payment_initiator?: PaymentInitiatorEnum;
     }
     export interface CreateForChargeItemInputParam {
       customer_id?: string;
@@ -874,7 +874,7 @@ declare module 'chargebee' {
       po_number?: string;
       coupon?: string;
       payment_source_id?: string;
-      payment_initiator?: PaymentInitiator;
+      payment_initiator?: PaymentInitiatorEnum;
       invoice_date?: number;
       item_price?: ItemPriceCreateForChargeItemInputParam;
       item_tiers?: ItemTiersCreateForChargeItemInputParam[];
@@ -888,8 +888,8 @@ declare module 'chargebee' {
       customer_id?: string;
       subscription_id?: string;
       po_number?: string;
-      price_type?: PriceType;
-      tax_override_reason?: TaxOverrideReason;
+      price_type?: PriceTypeEnum;
+      tax_override_reason?: TaxOverrideReasonEnum;
       vat_number?: string;
       vat_number_prefix?: string;
       date: number;
@@ -973,7 +973,7 @@ declare module 'chargebee' {
       offset?: string;
     }
     export interface PdfInputParam {
-      disposition_type?: DispositionType;
+      disposition_type?: DispositionTypeEnum;
     }
     export interface ListPaymentReferenceNumbersInputParam {
       limit?: number;
@@ -984,7 +984,7 @@ declare module 'chargebee' {
     export interface AddChargeInputParam {
       amount: number;
       description: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       avalara_tax_code?: string;
@@ -1022,7 +1022,7 @@ declare module 'chargebee' {
       authorization_transaction_id?: string;
       payment_source_id?: string;
       comment?: string;
-      payment_initiator?: PaymentInitiator;
+      payment_initiator?: PaymentInitiatorEnum;
     }
     export interface RecordPaymentInputParam {
       comment?: string;
@@ -1092,14 +1092,14 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface PaymentMethodCreateInputParam {
-      type?: Type;
+      type?: TypeEnum;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
       reference_id?: string;
       tmp_token?: string;
@@ -1118,9 +1118,9 @@ declare module 'chargebee' {
       account_number?: string;
       routing_number?: string;
       bank_code?: string;
-      account_type?: AccountType;
-      account_holder_type?: AccountHolderType;
-      echeck_type?: EcheckType;
+      account_type?: AccountTypeEnum;
+      account_holder_type?: AccountHolderTypeEnum;
+      echeck_type?: EcheckTypeEnum;
       issuing_country?: string;
       swedish_identity_number?: string;
       billing_address?: any;
@@ -1161,7 +1161,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1196,7 +1196,7 @@ declare module 'chargebee' {
       avalara_tax_code?: string;
       hsn_code?: string;
       taxjar_product_code?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       date_from?: number;
@@ -1217,7 +1217,7 @@ declare module 'chargebee' {
       field_value?: string;
     }
     export interface NotesToRemoveCreateInputParam {
-      entity_type?: EntityType;
+      entity_type?: EntityTypeEnum;
       entity_id?: string;
     }
     export interface StatementDescriptorCreateForChargeItemsAndChargesInputParam {
@@ -1237,14 +1237,14 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface PaymentMethodCreateForChargeItemsAndChargesInputParam {
-      type?: Type;
+      type?: TypeEnum;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
       reference_id?: string;
       tmp_token?: string;
@@ -1263,9 +1263,9 @@ declare module 'chargebee' {
       account_number?: string;
       routing_number?: string;
       bank_code?: string;
-      account_type?: AccountType;
-      account_holder_type?: AccountHolderType;
-      echeck_type?: EcheckType;
+      account_type?: AccountTypeEnum;
+      account_holder_type?: AccountHolderTypeEnum;
+      echeck_type?: EcheckTypeEnum;
       issuing_country?: string;
       swedish_identity_number?: string;
       billing_address?: any;
@@ -1306,7 +1306,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1341,7 +1341,7 @@ declare module 'chargebee' {
       avalara_tax_code?: string;
       hsn_code?: string;
       taxjar_product_code?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       date_from?: number;
@@ -1350,7 +1350,7 @@ declare module 'chargebee' {
     export interface DiscountsCreateForChargeItemsAndChargesInputParam {
       percentage?: number;
       amount?: number;
-      apply_on: ApplyOn;
+      apply_on: ApplyOnEnum;
       item_price_id?: string;
     }
     export interface ItemTiersCreateForChargeItemsAndChargesInputParam {
@@ -1377,7 +1377,7 @@ declare module 'chargebee' {
       field_value?: string;
     }
     export interface NotesToRemoveCreateForChargeItemsAndChargesInputParam {
-      entity_type?: EntityType;
+      entity_type?: EntityTypeEnum;
       entity_id?: string;
     }
     export interface TaxProvidersFieldsChargeInputParam {
@@ -1417,7 +1417,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ShippingAddressImportInvoiceInputParam {
       first_name?: string;
@@ -1433,7 +1433,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CreditNoteImportInvoiceInputParam {
       id?: string;
@@ -1466,7 +1466,7 @@ declare module 'chargebee' {
     }
     export interface PaymentsImportInvoiceInputParam {
       amount: number;
-      payment_method: PaymentMethod;
+      payment_method: PaymentMethodEnum;
       date?: number;
       reference_number?: string;
     }
@@ -1588,12 +1588,12 @@ declare module 'chargebee' {
       price_in_decimal?: string;
     }
     export interface NotesToRemoveCloseInputParam {
-      entity_type?: EntityType;
+      entity_type?: EntityTypeEnum;
       entity_id?: string;
     }
     export interface TransactionRecordPaymentInputParam {
       amount?: number;
-      payment_method: PaymentMethod;
+      payment_method: PaymentMethodEnum;
       reference_number?: string;
       custom_payment_method_id?: string;
       id_at_gateway?: string;
@@ -1627,7 +1627,7 @@ declare module 'chargebee' {
 
     export interface TransactionRecordRefundInputParam {
       amount?: number;
-      payment_method: PaymentMethod;
+      payment_method: PaymentMethodEnum;
       reference_number?: string;
       custom_payment_method_id?: string;
       date: number;
@@ -1666,7 +1666,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface StatementDescriptorUpdateDetailsInputParam {
       descriptor?: string;
@@ -1685,7 +1685,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
   }
 }

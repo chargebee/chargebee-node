@@ -17,7 +17,7 @@ declare module 'chargebee' {
     state?: string;
     country?: string;
     zip?: string;
-    validation_status?: ValidationStatus;
+    validation_status?: ValidationStatusEnum;
     subscription_id: string;
   }
 
@@ -65,7 +65,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
   }
 }

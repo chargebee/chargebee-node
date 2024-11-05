@@ -11,7 +11,7 @@ declare module 'chargebee' {
 
   export namespace AdvanceInvoiceSchedule {
     export interface FixedIntervalSchedule {
-      end_schedule_on?: EndScheduleOn;
+      end_schedule_on?: EndScheduleOnEnum;
       number_of_occurrences?: number;
       days_before_renewal?: number;
       end_date?: number;

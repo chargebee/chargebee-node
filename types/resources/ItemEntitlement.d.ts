@@ -83,11 +83,11 @@ declare module 'chargebee' {
       include_drafts?: boolean;
     }
     export interface AddItemEntitlementsInputParam {
-      action: Action;
+      action: ActionEnum;
       item_entitlements?: ItemEntitlementsAddItemEntitlementsInputParam[];
     }
     export interface UpsertOrRemoveItemEntitlementsForItemInputParam {
-      action: Action;
+      action: ActionEnum;
       item_entitlements?: ItemEntitlementsUpsertOrRemoveItemEntitlementsForItemInputParam[];
     }
     export interface ItemEntitlementsAddItemEntitlementsInputParam {

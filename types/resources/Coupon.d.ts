@@ -31,7 +31,7 @@ declare module 'chargebee' {
     updated_at?: number;
     included_in_mrr?: boolean;
     period?: number;
-    period_unit?: PeriodUnit;
+    period_unit?: PeriodUnitEnum;
     plan_ids?: string[];
     addon_ids?: string[];
     item_constraints?: Coupon.ItemConstraint[];
@@ -169,7 +169,7 @@ declare module 'chargebee' {
       meta_data?: any;
       included_in_mrr?: boolean;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       plan_constraint?: 'none' | 'all' | 'specific';
       addon_constraint?: 'none' | 'all' | 'specific';
       plan_ids?: string[];
@@ -197,7 +197,7 @@ declare module 'chargebee' {
       meta_data?: any;
       included_in_mrr?: boolean;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       status?: 'active' | 'archived';
       item_constraints?: ItemConstraintsCreateForItemsInputParam[];
       item_constraint_criteria?: ItemConstraintCriteriaCreateForItemsInputParam[];
@@ -224,7 +224,7 @@ declare module 'chargebee' {
       meta_data?: any;
       included_in_mrr?: boolean;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       item_constraints?: ItemConstraintsUpdateForItemsInputParam[];
       item_constraint_criteria?: ItemConstraintCriteriaUpdateForItemsInputParam[];
       coupon_constraints?: CouponConstraintsUpdateForItemsInputParam[];
@@ -266,7 +266,7 @@ declare module 'chargebee' {
       meta_data?: any;
       included_in_mrr?: boolean;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       plan_constraint?: 'none' | 'all' | 'specific';
       addon_constraint?: 'none' | 'all' | 'specific';
       plan_ids?: string[];

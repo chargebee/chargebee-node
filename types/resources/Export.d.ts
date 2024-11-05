@@ -185,7 +185,7 @@ declare module 'chargebee' {
     //---------------
 
     export interface RevenueRecognitionInputParam {
-      report_by: ReportBy;
+      report_by: ReportByEnum;
       currency_code?: string;
       report_from_month: number;
       report_from_year: number;
@@ -203,7 +203,7 @@ declare module 'chargebee' {
       relationship?: RelationshipRevenueRecognitionInputParam;
     }
     export interface DeferredRevenueInputParam {
-      report_by: ReportBy;
+      report_by: ReportByEnum;
       currency_code?: string;
       report_from_month: number;
       report_from_year: number;
@@ -233,13 +233,13 @@ declare module 'chargebee' {
       coupon?: CouponCouponsInputParam;
     }
     export interface CustomersInputParam {
-      export_type?: ExportType;
+      export_type?: ExportTypeEnum;
       business_entity_id?: filter.String;
       customer?: CustomerCustomersInputParam;
       relationship?: RelationshipCustomersInputParam;
     }
     export interface SubscriptionsInputParam {
-      export_type?: ExportType;
+      export_type?: ExportTypeEnum;
       item_id?: filter.String;
       item_price_id?: filter.String;
       cancel_reason_code?: filter.String;

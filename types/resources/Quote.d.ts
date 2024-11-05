@@ -15,7 +15,7 @@ declare module 'chargebee' {
       | 'change_subscription'
       | 'onetime_invoice';
     vat_number?: string;
-    price_type: PriceType;
+    price_type: PriceTypeEnum;
     valid_till: number;
     date: number;
     total_payable?: number;
@@ -403,7 +403,7 @@ declare module 'chargebee' {
       state?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
       index: number;
     }
     export interface BillingAddress {
@@ -420,7 +420,7 @@ declare module 'chargebee' {
       state?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     // REQUEST PARAMS
     //---------------
@@ -432,7 +432,7 @@ declare module 'chargebee' {
       billing_cycles?: number;
       mandatory_addons_to_remove?: string[];
       terms_to_charge?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       subscription?: SubscriptionCreateSubForCustomerQuoteInputParam;
       shipping_address?: ShippingAddressCreateSubForCustomerQuoteInputParam;
@@ -446,7 +446,7 @@ declare module 'chargebee' {
       billing_cycles?: number;
       mandatory_addons_to_remove?: string[];
       terms_to_charge?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       subscription?: SubscriptionEditCreateSubForCustomerQuoteInputParam;
       shipping_address?: ShippingAddressEditCreateSubForCustomerQuoteInputParam;
@@ -463,10 +463,10 @@ declare module 'chargebee' {
       billing_cycles?: number;
       terms_to_charge?: number;
       reactivate_from?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       replace_coupon_list?: boolean;
-      change_option?: ChangeOption;
+      change_option?: ChangeOptionEnum;
       changes_scheduled_at?: number;
       force_term_reset?: boolean;
       reactivate?: boolean;
@@ -486,10 +486,10 @@ declare module 'chargebee' {
       billing_cycles?: number;
       terms_to_charge?: number;
       reactivate_from?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       replace_coupon_list?: boolean;
-      change_option?: ChangeOption;
+      change_option?: ChangeOptionEnum;
       changes_scheduled_at?: number;
       force_term_reset?: boolean;
       reactivate?: boolean;
@@ -534,7 +534,7 @@ declare module 'chargebee' {
       billing_cycles?: number;
       mandatory_items_to_remove?: string[];
       terms_to_charge?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       subscription?: SubscriptionCreateSubItemsForCustomerQuoteInputParam;
       shipping_address?: ShippingAddressCreateSubItemsForCustomerQuoteInputParam;
@@ -549,7 +549,7 @@ declare module 'chargebee' {
       billing_cycles?: number;
       mandatory_items_to_remove?: string[];
       terms_to_charge?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       subscription?: SubscriptionEditCreateSubCustomerQuoteForItemsInputParam;
       shipping_address?: ShippingAddressEditCreateSubCustomerQuoteForItemsInputParam;
@@ -567,10 +567,10 @@ declare module 'chargebee' {
       billing_cycles?: number;
       terms_to_charge?: number;
       reactivate_from?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       replace_coupon_list?: boolean;
-      change_option?: ChangeOption;
+      change_option?: ChangeOptionEnum;
       changes_scheduled_at?: number;
       force_term_reset?: boolean;
       reactivate?: boolean;
@@ -591,10 +591,10 @@ declare module 'chargebee' {
       billing_cycles?: number;
       terms_to_charge?: number;
       reactivate_from?: number;
-      billing_alignment_mode?: BillingAlignmentMode;
+      billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
       replace_coupon_list?: boolean;
-      change_option?: ChangeOption;
+      change_option?: ChangeOptionEnum;
       changes_scheduled_at?: number;
       force_term_reset?: boolean;
       reactivate?: boolean;
@@ -673,7 +673,7 @@ declare module 'chargebee' {
     }
     export interface PdfInputParam {
       consolidated_view?: boolean;
-      disposition_type?: DispositionType;
+      disposition_type?: DispositionTypeEnum;
     }
     export interface ShippingAddressCreateSubForCustomerQuoteInputParam {
       first_name?: string;
@@ -689,7 +689,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermCreateSubForCustomerQuoteInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
@@ -706,7 +706,7 @@ declare module 'chargebee' {
       setup_fee?: number;
       trial_end?: number;
       start_date?: number;
-      offline_payment_method?: OfflinePaymentMethod;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       contract_term_billing_cycle_on_renewal?: number;
     }
 
@@ -717,9 +717,9 @@ declare module 'chargebee' {
       quantity_in_decimal?: string;
       unit_price_in_decimal?: string;
       service_period_in_days?: number;
-      on_event?: OnEvent;
+      on_event?: OnEventEnum;
       charge_once?: boolean;
-      charge_on?: ChargeOn;
+      charge_on?: ChargeOnEnum;
     }
     export interface AddonsCreateSubForCustomerQuoteInputParam {
       id?: string;
@@ -744,7 +744,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermEditCreateSubForCustomerQuoteInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
@@ -761,7 +761,7 @@ declare module 'chargebee' {
       setup_fee?: number;
       trial_end?: number;
       start_date?: number;
-      offline_payment_method?: OfflinePaymentMethod;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       contract_term_billing_cycle_on_renewal?: number;
     }
 
@@ -772,9 +772,9 @@ declare module 'chargebee' {
       quantity_in_decimal?: string;
       unit_price_in_decimal?: string;
       service_period_in_days?: number;
-      on_event?: OnEvent;
+      on_event?: OnEventEnum;
       charge_once?: boolean;
-      charge_on?: ChargeOn;
+      charge_on?: ChargeOnEnum;
     }
     export interface AddonsEditCreateSubForCustomerQuoteInputParam {
       id?: string;
@@ -799,7 +799,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CustomerUpdateSubscriptionQuoteInputParam {
       vat_number?: string;
@@ -820,7 +820,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermUpdateSubscriptionQuoteInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
@@ -840,8 +840,8 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       coupon?: string;
-      auto_collection?: AutoCollection;
-      offline_payment_method?: OfflinePaymentMethod;
+      auto_collection?: AutoCollectionEnum;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       contract_term_billing_cycle_on_renewal?: number;
     }
 
@@ -850,8 +850,8 @@ declare module 'chargebee' {
       quantity?: number;
       unit_price?: number;
       service_period_in_days?: number;
-      charge_on?: ChargeOn;
-      on_event?: OnEvent;
+      charge_on?: ChargeOnEnum;
+      on_event?: OnEventEnum;
       charge_once?: boolean;
       quantity_in_decimal?: string;
       unit_price_in_decimal?: string;
@@ -879,7 +879,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CustomerEditUpdateSubscriptionQuoteInputParam {
       vat_number?: string;
@@ -900,7 +900,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermEditUpdateSubscriptionQuoteInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
@@ -919,8 +919,8 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       coupon?: string;
-      auto_collection?: AutoCollection;
-      offline_payment_method?: OfflinePaymentMethod;
+      auto_collection?: AutoCollectionEnum;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       contract_term_billing_cycle_on_renewal?: number;
     }
 
@@ -929,8 +929,8 @@ declare module 'chargebee' {
       quantity?: number;
       unit_price?: number;
       service_period_in_days?: number;
-      charge_on?: ChargeOn;
-      on_event?: OnEvent;
+      charge_on?: ChargeOnEnum;
+      on_event?: OnEventEnum;
       charge_once?: boolean;
       quantity_in_decimal?: string;
       unit_price_in_decimal?: string;
@@ -958,14 +958,14 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
 
     export interface ChargesCreateForOnetimeChargesInputParam {
       amount?: number;
       amount_in_decimal?: string;
       description?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       service_period?: number;
@@ -997,14 +997,14 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
 
     export interface ChargesEditOneTimeQuoteInputParam {
       amount?: number;
       amount_in_decimal?: string;
       description?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       service_period?: number;
@@ -1036,7 +1036,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermCreateSubItemsForCustomerQuoteInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
@@ -1063,21 +1063,21 @@ declare module 'chargebee' {
       billing_cycles?: number;
       trial_end?: number;
       service_period_days?: number;
-      charge_on_event?: ChargeOnEvent;
+      charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      item_type?: ItemType;
-      charge_on_option?: ChargeOnOption;
+      item_type?: ItemTypeEnum;
+      charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsCreateSubItemsForCustomerQuoteInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
     }
@@ -1104,7 +1104,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermEditCreateSubCustomerQuoteForItemsInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
@@ -1131,21 +1131,21 @@ declare module 'chargebee' {
       billing_cycles?: number;
       trial_end?: number;
       service_period_days?: number;
-      charge_on_event?: ChargeOnEvent;
+      charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      item_type?: ItemType;
-      charge_on_option?: ChargeOnOption;
+      item_type?: ItemTypeEnum;
+      charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsEditCreateSubCustomerQuoteForItemsInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
     }
@@ -1172,7 +1172,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CustomerUpdateSubscriptionQuoteForItemsInputParam {
       vat_number?: string;
@@ -1193,7 +1193,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermUpdateSubscriptionQuoteForItemsInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
@@ -1211,8 +1211,8 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       coupon?: string;
-      auto_collection?: AutoCollection;
-      offline_payment_method?: OfflinePaymentMethod;
+      auto_collection?: AutoCollectionEnum;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       contract_term_billing_cycle_on_renewal?: number;
     }
 
@@ -1225,24 +1225,24 @@ declare module 'chargebee' {
       billing_cycles?: number;
       trial_end?: number;
       service_period_days?: number;
-      charge_on_event?: ChargeOnEvent;
+      charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
-      charge_on_option?: ChargeOnOption;
+      charge_on_option?: ChargeOnOptionEnum;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      item_type?: ItemType;
+      item_type?: ItemTypeEnum;
     }
     export interface DiscountsUpdateSubscriptionQuoteForItemsInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
-      operation_type: OperationType;
+      operation_type: OperationTypeEnum;
       id?: string;
     }
     export interface ItemTiersUpdateSubscriptionQuoteForItemsInputParam {
@@ -1268,7 +1268,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface CustomerEditUpdateSubscriptionQuoteForItemsInputParam {
       vat_number?: string;
@@ -1289,7 +1289,7 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ContractTermEditUpdateSubscriptionQuoteForItemsInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
@@ -1306,8 +1306,8 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       coupon?: string;
-      auto_collection?: AutoCollection;
-      offline_payment_method?: OfflinePaymentMethod;
+      auto_collection?: AutoCollectionEnum;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       contract_term_billing_cycle_on_renewal?: number;
     }
 
@@ -1320,24 +1320,24 @@ declare module 'chargebee' {
       billing_cycles?: number;
       trial_end?: number;
       service_period_days?: number;
-      charge_on_event?: ChargeOnEvent;
+      charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
-      charge_on_option?: ChargeOnOption;
+      charge_on_option?: ChargeOnOptionEnum;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      item_type?: ItemType;
+      item_type?: ItemTypeEnum;
     }
     export interface DiscountsEditUpdateSubscriptionQuoteForItemsInputParam {
-      apply_on: ApplyOn;
-      duration_type: DurationType;
+      apply_on: ApplyOnEnum;
+      duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
       period?: number;
-      period_unit?: PeriodUnit;
+      period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
-      operation_type: OperationType;
+      operation_type: OperationTypeEnum;
       id?: string;
     }
     export interface ItemTiersEditUpdateSubscriptionQuoteForItemsInputParam {
@@ -1363,14 +1363,14 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
 
     export interface ChargesCreateForChargeItemsAndChargesInputParam {
       amount?: number;
       amount_in_decimal?: string;
       description?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       service_period?: number;
@@ -1378,7 +1378,7 @@ declare module 'chargebee' {
     export interface DiscountsCreateForChargeItemsAndChargesInputParam {
       percentage?: number;
       amount?: number;
-      apply_on: ApplyOn;
+      apply_on: ApplyOnEnum;
       item_price_id?: string;
     }
     export interface ItemTiersCreateForChargeItemsAndChargesInputParam {
@@ -1417,14 +1417,14 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
 
     export interface ChargesEditForChargeItemsAndChargesInputParam {
       amount?: number;
       amount_in_decimal?: string;
       description?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       service_period?: number;
@@ -1432,7 +1432,7 @@ declare module 'chargebee' {
     export interface DiscountsEditForChargeItemsAndChargesInputParam {
       percentage?: number;
       amount?: number;
-      apply_on: ApplyOn;
+      apply_on: ApplyOnEnum;
       item_price_id?: string;
     }
     export interface ItemTiersEditForChargeItemsAndChargesInputParam {
@@ -1459,7 +1459,7 @@ declare module 'chargebee' {
     }
     export interface SubscriptionConvertInputParam {
       id?: string;
-      auto_collection?: AutoCollection;
+      auto_collection?: AutoCollectionEnum;
       po_number?: string;
       auto_close_invoices?: boolean;
     }

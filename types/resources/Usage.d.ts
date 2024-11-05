@@ -10,7 +10,7 @@ declare module 'chargebee' {
     invoice_id?: string;
     line_item_id?: string;
     quantity: string;
-    source?: Source;
+    source?: SourceEnum;
     note?: string;
     resource_version?: number;
     updated_at?: number;
@@ -80,7 +80,7 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */;
 
-      dedupe_option?: DedupeOption;
+      dedupe_option?: DedupeOptionEnum;
       note?: string;
     }
     export interface RetrieveInputParam {
@@ -103,7 +103,7 @@ declare module 'chargebee' {
       'sort_by[desc]'?: string;
     }
     export interface PdfInputParam {
-      disposition_type?: DispositionType;
+      disposition_type?: DispositionTypeEnum;
       invoice?: InvoicePdfInputParam;
     }
     export interface InvoicePdfInputParam {
