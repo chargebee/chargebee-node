@@ -142,8 +142,9 @@ An attribute `api_version` is added to the [Event](https://apidocs.chargebee.com
 
 ## Feedback
 
-If you find any bugs or have any feedback, open an issue in this repository or email it to dx@chargebee.com
+If you find any bugs or have any questions / feedback, open an issue in this repository or reach out to us on dx@chargebee.com
 
-## License
 
-See the [LICENSE](./LICENSE) file.
+## v2
+
+Chargebee Node SDK v2 is deprecated. If you using v2, follow [this guide](https://github.com/chargebee/chargebee-node/wiki/Migration-guide-for-v3) to migrate to v3.
