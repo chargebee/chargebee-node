@@ -53,7 +53,7 @@ declare module 'chargebee' {
       embed?: string;
     }
     export interface CreateInputParam {
-      action: Action;
+      action: ActionEnum;
       entitlements?: EntitlementsCreateInputParam[];
     }
     export interface EntitlementsCreateInputParam {

@@ -25,7 +25,7 @@ declare module 'chargebee' {
     metered: boolean;
     usage_calculation?: 'sum_of_usages' | 'last_usage' | 'max_usage';
     archived_at?: number;
-    channel?: Channel;
+    channel?: ChannelEnum;
     applicable_items?: Item.ApplicableItem[];
     bundle_items?: Item.BundleItem[];
     bundle_configuration?: Item.BundleConfiguration;
@@ -173,7 +173,7 @@ declare module 'chargebee' {
 
     export interface BundleItemsToAddCreateInputParam {
       item_id?: string;
-      item_type?: ItemType;
+      item_type?: ItemTypeEnum;
       quantity?: number;
       price_allocation?: number;
     }
@@ -183,19 +183,19 @@ declare module 'chargebee' {
 
     export interface BundleItemsToAddUpdateInputParam {
       item_id?: string;
-      item_type?: ItemType;
+      item_type?: ItemTypeEnum;
       quantity?: number;
       price_allocation?: number;
     }
     export interface BundleItemsToUpdateUpdateInputParam {
       item_id?: string;
-      item_type?: ItemType;
+      item_type?: ItemTypeEnum;
       quantity?: number;
       price_allocation?: number;
     }
     export interface BundleItemsToRemoveUpdateInputParam {
       item_id?: string;
-      item_type?: ItemType;
+      item_type?: ItemTypeEnum;
     }
     export interface BundleConfigurationItemListInputParam {
       type?: filter.Enum;

@@ -1,3 +1,12 @@
+### v3.0.0-beta.5 (2024-11-05)
+
+#### Naming Convention Fix:
+* New suffix Enum has been added to global type.
+* payment_vouchersForInvoice has been renamed to paymentVouchersForInvoice.
+* payment_vouchersForCustomer has been renamed to paymentVouchersForCustomer.
+* Payment_vouchersForInvoiceResponse has been renamed to PaymentVouchersForInvoiceResponse.
+* Payment_vouchersForCustomerResponse has been renmed to PaymentVouchersForCustomerResponse. 
+
 ### v3.0.0-beta.4 (2024-10-18)
 
 #### New Resource:

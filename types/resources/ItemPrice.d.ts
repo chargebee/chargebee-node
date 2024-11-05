@@ -13,7 +13,7 @@ declare module 'chargebee' {
     external_name?: string;
     price_variant_id?: string;
     proration_type?: 'site_default' | 'partial_term' | 'full_term';
-    pricing_model: PricingModel;
+    pricing_model: PricingModelEnum;
     price?: number;
     price_in_decimal?: string;
     period?: number;
@@ -30,11 +30,11 @@ declare module 'chargebee' {
     billing_cycles?: number;
     free_quantity: number;
     free_quantity_in_decimal?: string;
-    channel?: Channel;
+    channel?: ChannelEnum;
     resource_version?: number;
     updated_at?: number;
     created_at: number;
-    usage_accumulation_reset_frequency?: UsageAccumulationResetFrequency;
+    usage_accumulation_reset_frequency?: UsageAccumulationResetFrequencyEnum;
     archived_at?: number;
     invoice_notes?: string;
     tiers?: ItemPrice.Tier[];
@@ -43,7 +43,7 @@ declare module 'chargebee' {
     tax_providers_fields?: ItemPrice.TaxProvidersField[];
     accounting_detail?: ItemPrice.AccountingDetail;
     metadata?: any;
-    item_type?: ItemType;
+    item_type?: ItemTypeEnum;
     archivable?: boolean;
     parent_item_id?: string;
     show_description_in_invoices?: boolean;
@@ -132,7 +132,7 @@ declare module 'chargebee' {
     }
     export interface TaxDetail {
       tax_profile_id?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       avalara_tax_code?: string;
@@ -171,8 +171,8 @@ declare module 'chargebee' {
       metadata?: any;
       show_description_in_invoices?: boolean;
       show_description_in_quotes?: boolean;
-      usage_accumulation_reset_frequency?: UsageAccumulationResetFrequency;
-      pricing_model?: PricingModel;
+      usage_accumulation_reset_frequency?: UsageAccumulationResetFrequencyEnum;
+      pricing_model?: PricingModelEnum;
       price?: number;
       price_in_decimal?: string;
       period_unit?: 'day' | 'week' | 'month' | 'year';
@@ -199,14 +199,14 @@ declare module 'chargebee' {
       price_variant_id?: string;
       status?: 'active' | 'archived';
       external_name?: string;
-      usage_accumulation_reset_frequency?: UsageAccumulationResetFrequency;
+      usage_accumulation_reset_frequency?: UsageAccumulationResetFrequencyEnum;
       currency_code?: string;
       invoice_notes?: string;
       is_taxable?: boolean;
       free_quantity?: number;
       free_quantity_in_decimal?: string;
       metadata?: any;
-      pricing_model?: PricingModel;
+      pricing_model?: PricingModelEnum;
       price?: number;
       price_in_decimal?: string;
       period_unit?: 'day' | 'week' | 'month' | 'year';
@@ -266,7 +266,7 @@ declare module 'chargebee' {
       tax_profile_id?: string;
       avalara_tax_code?: string;
       hsn_code?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       taxjar_product_code?: string;
@@ -297,7 +297,7 @@ declare module 'chargebee' {
       tax_profile_id?: string;
       avalara_tax_code?: string;
       hsn_code?: string;
-      avalara_sale_type?: AvalaraSaleType;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
       avalara_transaction_type?: number;
       avalara_service_type?: number;
       taxjar_product_code?: string;

@@ -223,7 +223,7 @@ export function encodeParams(
           }
         }
       }
-    } else if (key === 'meta_data' || key === "metadata") {
+    } else if (key === 'meta_data' || key === 'metadata') {
       let attrVal = '';
       if (value !== null) {
         attrVal = encodeURIComponent(

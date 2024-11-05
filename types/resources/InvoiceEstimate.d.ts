@@ -4,7 +4,7 @@
 declare module 'chargebee' {
   export interface InvoiceEstimate {
     recurring: boolean;
-    price_type: PriceType;
+    price_type: PriceTypeEnum;
     currency_code: string;
     sub_total: number;
     total?: number;

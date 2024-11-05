@@ -13,7 +13,7 @@ declare module 'chargebee' {
       | 'paused'
       | 'cancelled'
       | 'transferred';
-    trial_end_action?: TrialEndAction;
+    trial_end_action?: TrialEndActionEnum;
     next_billing_at?: number;
     pause_date?: number;
     resume_date?: number;
@@ -36,7 +36,7 @@ declare module 'chargebee' {
       state?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
       index: number;
     }
     export interface ContractTerm {

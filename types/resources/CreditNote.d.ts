@@ -24,7 +24,7 @@ declare module 'chargebee' {
     status: 'adjusted' | 'refunded' | 'refund_due' | 'voided';
     vat_number?: string;
     date?: number;
-    price_type: PriceType;
+    price_type: PriceTypeEnum;
     currency_code: string;
     total?: number;
     amount_allocated?: number;
@@ -35,7 +35,7 @@ declare module 'chargebee' {
     generated_at?: number;
     resource_version?: number;
     updated_at?: number;
-    channel?: Channel;
+    channel?: ChannelEnum;
     einvoice?: CreditNote.Einvoice;
     sub_total: number;
     sub_total_in_local_currency?: number;
@@ -373,7 +373,7 @@ declare module 'chargebee' {
       state?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
       index: number;
     }
     export interface BillingAddress {
@@ -390,7 +390,7 @@ declare module 'chargebee' {
       state?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface SiteDetailsAtCreation {
       timezone?: string;
@@ -423,7 +423,7 @@ declare module 'chargebee' {
       line_items?: LineItemsCreateInputParam[];
     }
     export interface PdfInputParam {
-      disposition_type?: DispositionType;
+      disposition_type?: DispositionTypeEnum;
     }
     export interface RefundInputParam {
       refund_amount?: number;
@@ -516,7 +516,7 @@ declare module 'chargebee' {
     }
     export interface TransactionRecordRefundInputParam {
       amount?: number;
-      payment_method: PaymentMethod;
+      payment_method: PaymentMethodEnum;
       reference_number?: string;
       custom_payment_method_id?: string;
       date: number;
@@ -548,7 +548,7 @@ declare module 'chargebee' {
     }
     export interface LinkedRefundsImportCreditNoteInputParam {
       amount: number;
-      payment_method: PaymentMethod;
+      payment_method: PaymentMethodEnum;
       date: number;
       reference_number?: string;
     }

@@ -19,49 +19,53 @@ declare module 'chargebee' {
     'chargebee-request-origin-user-encoded'?: string;
     'chargebee-request-origin-device'?: string;
   };
-  type AccountHolderType = 'individual' | 'company';
-  type AccountReceivablesHandling =
+  type AccountHolderTypeEnum = 'individual' | 'company';
+  type AccountReceivablesHandlingEnum =
     | 'no_action'
     | 'schedule_payment_collection'
     | 'write_off';
-  type AccountType = 'checking' | 'savings' | 'business_checking' | 'current';
-  type Action = 'upsert' | 'remove';
-  type ApiVersion = 'v1' | 'v2';
-  type ApplyOn = 'invoice_amount' | 'specific_item_price';
-  type AutoCollection = 'on' | 'off';
-  type AvalaraSaleType = 'wholesale' | 'retail' | 'consumed' | 'vendor_use';
-  type BillingAlignmentMode = 'immediate' | 'delayed';
-  type BillingDateMode = 'using_defaults' | 'manually_set';
-  type BillingDayOfWeekMode = 'using_defaults' | 'manually_set';
-  type CancelOption =
+  type AccountTypeEnum =
+    | 'checking'
+    | 'savings'
+    | 'business_checking'
+    | 'current';
+  type ActionEnum = 'upsert' | 'remove';
+  type ApiVersionEnum = 'v1' | 'v2';
+  type ApplyOnEnum = 'invoice_amount' | 'specific_item_price';
+  type AutoCollectionEnum = 'on' | 'off';
+  type AvalaraSaleTypeEnum = 'wholesale' | 'retail' | 'consumed' | 'vendor_use';
+  type BillingAlignmentModeEnum = 'immediate' | 'delayed';
+  type BillingDateModeEnum = 'using_defaults' | 'manually_set';
+  type BillingDayOfWeekModeEnum = 'using_defaults' | 'manually_set';
+  type CancelOptionEnum =
     | 'immediately'
     | 'end_of_term'
     | 'specific_date'
     | 'end_of_billing_term';
-  type ChangeOption = 'immediately' | 'end_of_term' | 'specific_date';
-  type Channel = 'web' | 'app_store' | 'play_store';
-  type ChargeModel = 'full_charge' | 'prorate';
-  type ChargeOnEvent =
+  type ChangeOptionEnum = 'immediately' | 'end_of_term' | 'specific_date';
+  type ChannelEnum = 'web' | 'app_store' | 'play_store';
+  type ChargeModelEnum = 'full_charge' | 'prorate';
+  type ChargeOnEventEnum =
     | 'subscription_creation'
     | 'subscription_trial_start'
     | 'plan_activation'
     | 'subscription_activation'
     | 'contract_termination'
     | 'on_demand';
-  type ChargeOnOption = 'immediately' | 'on_event';
-  type ChargesHandling = 'invoice_immediately' | 'add_to_unbilled_charges';
-  type ContractTermCancelOption =
+  type ChargeOnOptionEnum = 'immediately' | 'on_event';
+  type ChargesHandlingEnum = 'invoice_immediately' | 'add_to_unbilled_charges';
+  type ContractTermCancelOptionEnum =
     | 'terminate_immediately'
     | 'end_of_contract_term';
-  type CreditOptionForCurrentTermCharges = 'none' | 'prorate' | 'full';
-  type CreditType = 'loyalty_credits' | 'referral_rewards' | 'general';
-  type CustomerType =
+  type CreditOptionForCurrentTermChargesEnum = 'none' | 'prorate' | 'full';
+  type CreditTypeEnum = 'loyalty_credits' | 'referral_rewards' | 'general';
+  type CustomerTypeEnum =
     | 'residential'
     | 'business'
     | 'senior_citizen'
     | 'industrial';
-  type DedupeOption = 'skip' | 'update_existing';
-  type DirectDebitScheme =
+  type DedupeOptionEnum = 'skip' | 'update_existing';
+  type DirectDebitSchemeEnum =
     | 'ach'
     | 'bacs'
     | 'sepa_core'
@@ -70,16 +74,16 @@ declare module 'chargebee' {
     | 'becs_nz'
     | 'pad'
     | 'not_applicable';
-  type DispositionType = 'attachment' | 'inline';
-  type DunningType = 'auto_collect' | 'offline' | 'direct_debit';
-  type DurationType = 'one_time' | 'forever' | 'limited_period';
-  type EcheckType = 'web' | 'ppd' | 'ccd';
-  type EinvoicingMethod = 'automatic' | 'manual' | 'site_default';
-  type EndScheduleOn =
+  type DispositionTypeEnum = 'attachment' | 'inline';
+  type DunningTypeEnum = 'auto_collect' | 'offline' | 'direct_debit';
+  type DurationTypeEnum = 'one_time' | 'forever' | 'limited_period';
+  type EcheckTypeEnum = 'web' | 'ppd' | 'ccd';
+  type EinvoicingMethodEnum = 'automatic' | 'manual' | 'site_default';
+  type EndScheduleOnEnum =
     | 'after_number_of_intervals'
     | 'specific_date'
     | 'subscription_end';
-  type EntityCode =
+  type EntityCodeEnum =
     | 'a'
     | 'b'
     | 'c'
@@ -99,7 +103,7 @@ declare module 'chargebee' {
     | 'r'
     | 'med1'
     | 'med2';
-  type EntityType =
+  type EntityTypeEnum =
     | 'customer'
     | 'subscription'
     | 'coupon'
@@ -129,8 +133,8 @@ declare module 'chargebee' {
     | 'item_entitlement'
     | 'business_entity'
     | 'price_variant';
-  type EventName = 'cancellation_page_loaded';
-  type EventType =
+  type EventNameEnum = 'cancellation_page_loaded';
+  type EventTypeEnum =
     | 'coupon_created'
     | 'coupon_updated'
     | 'coupon_deleted'
@@ -312,10 +316,10 @@ declare module 'chargebee' {
     | 'addon_created'
     | 'addon_updated'
     | 'addon_deleted';
-  type ExportType = 'data' | 'import_friendly_data';
-  type FreePeriodUnit = 'day' | 'week' | 'month' | 'year';
-  type FriendOfferType = 'none' | 'coupon' | 'coupon_code';
-  type Gateway =
+  type ExportTypeEnum = 'data' | 'import_friendly_data';
+  type FreePeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
+  type FriendOfferTypeEnum = 'none' | 'coupon' | 'coupon_code';
+  type GatewayEnum =
     | 'chargebee'
     | 'chargebee_payments'
     | 'stripe'
@@ -368,15 +372,18 @@ declare module 'chargebee' {
     | 'nuvei'
     | 'gocardless'
     | 'not_applicable';
-  type HierarchyOperationType =
+  type HierarchyOperationTypeEnum =
     | 'complete_hierarchy'
     | 'subordinates'
     | 'path_to_root';
-  type InvoiceDunningHandling = 'continue' | 'stop';
-  type ItemType = 'plan' | 'addon' | 'charge';
-  type Layout = 'in_app' | 'full_page';
-  type NotifyReferralSystem = 'none' | 'first_paid_conversion' | 'all_invoices';
-  type OfflinePaymentMethod =
+  type InvoiceDunningHandlingEnum = 'continue' | 'stop';
+  type ItemTypeEnum = 'plan' | 'addon' | 'charge';
+  type LayoutEnum = 'in_app' | 'full_page';
+  type NotifyReferralSystemEnum =
+    | 'none'
+    | 'first_paid_conversion'
+    | 'all_invoices';
+  type OfflinePaymentMethodEnum =
     | 'no_preference'
     | 'cash'
     | 'check'
@@ -390,21 +397,21 @@ declare module 'chargebee' {
     | 'jp_automated_bank_transfer'
     | 'mx_automated_bank_transfer'
     | 'custom';
-  type OnEvent =
+  type OnEventEnum =
     | 'subscription_creation'
     | 'subscription_trial_start'
     | 'plan_activation'
     | 'subscription_activation'
     | 'contract_termination';
-  type Operation = 'create' | 'update' | 'delete';
-  type OperationType = 'add' | 'remove';
-  type PauseOption =
+  type OperationEnum = 'create' | 'update' | 'delete';
+  type OperationTypeEnum = 'add' | 'remove';
+  type PauseOptionEnum =
     | 'immediately'
     | 'end_of_term'
     | 'specific_date'
     | 'billing_cycles';
-  type PaymentInitiator = 'customer' | 'merchant';
-  type PaymentMethod =
+  type PaymentInitiatorEnum = 'customer' | 'merchant';
+  type PaymentMethodEnum =
     | 'cash'
     | 'check'
     | 'bank_transfer'
@@ -437,7 +444,7 @@ declare module 'chargebee' {
     | 'automated_bank_transfer'
     | 'klarna_pay_now'
     | 'online_banking_poland';
-  type PaymentMethodType =
+  type PaymentMethodTypeEnum =
     | 'card'
     | 'paypal_express_checkout'
     | 'amazon_payments'
@@ -462,28 +469,31 @@ declare module 'chargebee' {
     | 'automated_bank_transfer'
     | 'klarna_pay_now'
     | 'online_banking_poland';
-  type PaymentVoucherType = 'boleto';
-  type PeriodUnit = 'day' | 'week' | 'month' | 'year';
-  type PriceType = 'tax_exclusive' | 'tax_inclusive';
-  type PricingModel =
+  type PaymentVoucherTypeEnum = 'boleto';
+  type PeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
+  type PriceTypeEnum = 'tax_exclusive' | 'tax_inclusive';
+  type PricingModelEnum =
     | 'flat_fee'
     | 'per_unit'
     | 'tiered'
     | 'volume'
     | 'stairstep';
-  type ProrationType = 'full_term' | 'partial_term' | 'none';
-  type ReferralSystem = 'referral_candy' | 'referral_saasquatch' | 'friendbuy';
-  type ReferrerRewardType =
+  type ProrationTypeEnum = 'full_term' | 'partial_term' | 'none';
+  type ReferralSystemEnum =
+    | 'referral_candy'
+    | 'referral_saasquatch'
+    | 'friendbuy';
+  type ReferrerRewardTypeEnum =
     | 'none'
     | 'referral_direct_reward'
     | 'custom_promotional_credit'
     | 'custom_revenue_percent_based';
-  type RefundableCreditsHandling = 'no_action' | 'schedule_refund';
-  type ReportBy = 'customer' | 'invoice' | 'product' | 'subscription';
-  type ResumeOption = 'immediately' | 'specific_date';
-  type Role = 'primary' | 'backup' | 'none';
-  type ScheduleType = 'immediate' | 'specific_dates' | 'fixed_intervals';
-  type Source =
+  type RefundableCreditsHandlingEnum = 'no_action' | 'schedule_refund';
+  type ReportByEnum = 'customer' | 'invoice' | 'product' | 'subscription';
+  type ResumeOptionEnum = 'immediately' | 'specific_date';
+  type RoleEnum = 'primary' | 'backup' | 'none';
+  type ScheduleTypeEnum = 'immediate' | 'specific_dates' | 'fixed_intervals';
+  type SourceEnum =
     | 'admin_console'
     | 'api'
     | 'bulk_operation'
@@ -495,7 +505,7 @@ declare module 'chargebee' {
     | 'js_api'
     | 'migration'
     | 'external_service';
-  type TaxExemptReason =
+  type TaxExemptReasonEnum =
     | 'tax_not_configured'
     | 'region_non_taxable'
     | 'export'
@@ -506,7 +516,7 @@ declare module 'chargebee' {
     | 'high_value_physical_goods'
     | 'zero_value_item'
     | 'tax_not_configured_external_provider';
-  type TaxJurisType =
+  type TaxJurisTypeEnum =
     | 'country'
     | 'federal'
     | 'state'
@@ -515,15 +525,15 @@ declare module 'chargebee' {
     | 'special'
     | 'unincorporated'
     | 'other';
-  type TaxOverrideReason = 'id_exempt' | 'customer_exempt' | 'export';
-  type Taxability = 'taxable' | 'exempt';
-  type TaxjarExemptionCategory = 'wholesale' | 'government' | 'other';
-  type TrialEndAction =
+  type TaxOverrideReasonEnum = 'id_exempt' | 'customer_exempt' | 'export';
+  type TaxabilityEnum = 'taxable' | 'exempt';
+  type TaxjarExemptionCategoryEnum = 'wholesale' | 'government' | 'other';
+  type TrialEndActionEnum =
     | 'site_default'
     | 'plan_default'
     | 'activate_subscription'
     | 'cancel_subscription';
-  type Type =
+  type TypeEnum =
     | 'card'
     | 'paypal_express_checkout'
     | 'amazon_payments'
@@ -548,17 +558,17 @@ declare module 'chargebee' {
     | 'automated_bank_transfer'
     | 'klarna_pay_now'
     | 'online_banking_poland';
-  type UnbilledChargesHandling = 'no_action' | 'invoice';
-  type UnbilledChargesOption = 'invoice' | 'delete';
-  type UnpaidInvoicesHandling = 'no_action' | 'schedule_payment_collection';
-  type UsageAccumulationResetFrequency =
+  type UnbilledChargesHandlingEnum = 'no_action' | 'invoice';
+  type UnbilledChargesOptionEnum = 'invoice' | 'delete';
+  type UnpaidInvoicesHandlingEnum = 'no_action' | 'schedule_payment_collection';
+  type UsageAccumulationResetFrequencyEnum =
     | 'never'
     | 'subscription_billing_frequency';
-  type ValidationStatus =
+  type ValidationStatusEnum =
     | 'not_validated'
     | 'valid'
     | 'partially_valid'
     | 'invalid';
-  type VoucherType = 'boleto';
-  type ChargeOn = 'immediately' | 'on_event';
+  type VoucherTypeEnum = 'boleto';
+  type ChargeOnEnum = 'immediately' | 'on_event';
 }

@@ -8,7 +8,7 @@ declare module 'chargebee' {
     updated_at?: number;
     created_at: number;
     customer_id: string;
-    type: Type;
+    type: TypeEnum;
     reference_id: string;
     status:
       | 'valid'
@@ -16,7 +16,7 @@ declare module 'chargebee' {
       | 'expired'
       | 'invalid'
       | 'pending_verification';
-    gateway: Gateway;
+    gateway: GatewayEnum;
     gateway_account_id?: string;
     ip_address?: string;
     issuing_country?: string;
@@ -249,12 +249,12 @@ declare module 'chargebee' {
       name_on_account?: string;
       first_name?: string;
       last_name?: string;
-      direct_debit_scheme?: DirectDebitScheme;
+      direct_debit_scheme?: DirectDebitSchemeEnum;
       bank_name?: string;
       mandate_id?: string;
-      account_type?: AccountType;
-      echeck_type?: EcheckType;
-      account_holder_type?: AccountHolderType;
+      account_type?: AccountTypeEnum;
+      echeck_type?: EcheckTypeEnum;
+      account_holder_type?: AccountHolderTypeEnum;
       email?: string;
     }
     export interface CustVoucherSource {
@@ -277,7 +277,7 @@ declare module 'chargebee' {
       state?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface AmazonPayment {
       email?: string;
@@ -307,7 +307,7 @@ declare module 'chargebee' {
     export interface CreateUsingTempTokenInputParam {
       customer_id: string;
       gateway_account_id?: string;
-      type: Type;
+      type: TypeEnum;
       tmp_token: string;
       issuing_country?: string;
       replace_primary_payment_source?: boolean;
@@ -315,7 +315,7 @@ declare module 'chargebee' {
     }
     export interface CreateUsingPermanentTokenInputParam {
       customer_id: string;
-      type: Type;
+      type: TypeEnum;
       gateway_account_id?: string;
       reference_id?: string;
       issuing_country?: string;
@@ -462,7 +462,7 @@ declare module 'chargebee' {
     }
 
     export interface VoucherPaymentSourceCreateVoucherPaymentSourceInputParam {
-      voucher_type: VoucherType;
+      voucher_type: VoucherTypeEnum;
       gateway_account_id?: string;
       tax_id?: string;
       billing_address?: any;
@@ -498,9 +498,9 @@ declare module 'chargebee' {
       account_number?: string;
       routing_number?: string;
       bank_code?: string;
-      account_type?: AccountType;
-      account_holder_type?: AccountHolderType;
-      echeck_type?: EcheckType;
+      account_type?: AccountTypeEnum;
+      account_holder_type?: AccountHolderTypeEnum;
+      echeck_type?: EcheckTypeEnum;
       swedish_identity_number?: string;
       billing_address?: any;
     }

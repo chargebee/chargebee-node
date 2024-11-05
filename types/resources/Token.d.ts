@@ -4,9 +4,9 @@
 declare module 'chargebee' {
   export interface Token {
     id: string;
-    gateway: Gateway;
+    gateway: GatewayEnum;
     gateway_account_id: string;
-    payment_method_type: PaymentMethodType;
+    payment_method_type: PaymentMethodTypeEnum;
     status: 'new' | 'expired' | 'consumed';
     id_at_vault: string;
     vault: 'spreedly' | 'gateway';

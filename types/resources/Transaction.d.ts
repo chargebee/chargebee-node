@@ -8,9 +8,9 @@ declare module 'chargebee' {
     subscription_id?: string;
     gateway_account_id?: string;
     payment_source_id?: string;
-    payment_method: PaymentMethod;
+    payment_method: PaymentMethodEnum;
     reference_number?: string;
-    gateway: Gateway;
+    gateway: GatewayEnum;
     type: 'authorization' | 'payment' | 'refund' | 'payment_reversal';
     date?: number;
     settled_at?: number;
@@ -257,7 +257,7 @@ declare module 'chargebee' {
     }
     export interface RecordRefundInputParam {
       amount?: number;
-      payment_method: PaymentMethod;
+      payment_method: PaymentMethodEnum;
       date: number;
       reference_number?: string;
       custom_payment_method_id?: string;

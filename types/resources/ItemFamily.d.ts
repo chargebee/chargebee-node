@@ -10,7 +10,7 @@ declare module 'chargebee' {
     status?: 'active' | 'deleted';
     resource_version?: number;
     updated_at?: number;
-    channel?: Channel;
+    channel?: ChannelEnum;
   }
 
   export namespace ItemFamily {

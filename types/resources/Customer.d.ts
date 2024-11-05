@@ -11,8 +11,8 @@ declare module 'chargebee' {
     phone?: string;
     company?: string;
     vat_number?: string;
-    auto_collection: AutoCollection;
-    offline_payment_method?: OfflinePaymentMethod;
+    auto_collection: AutoCollectionEnum;
+    offline_payment_method?: OfflinePaymentMethodEnum;
     net_term_days: number;
     vat_number_validated_time?: number;
     vat_number_status?: 'valid' | 'invalid' | 'not_validated' | 'undetermined';
@@ -21,15 +21,15 @@ declare module 'chargebee' {
     created_at: number;
     created_from_ip?: string;
     exemption_details?: any;
-    taxability?: Taxability;
-    entity_code?: EntityCode;
+    taxability?: TaxabilityEnum;
+    entity_code?: EntityCodeEnum;
     exempt_number?: string;
     resource_version?: number;
     updated_at?: number;
     locale?: string;
     billing_date?: number;
     billing_month?: number;
-    billing_date_mode?: BillingDateMode;
+    billing_date_mode?: BillingDateModeEnum;
     billing_day_of_week?:
       | 'sunday'
       | 'monday'
@@ -38,10 +38,10 @@ declare module 'chargebee' {
       | 'thursday'
       | 'friday'
       | 'saturday';
-    billing_day_of_week_mode?: BillingDayOfWeekMode;
+    billing_day_of_week_mode?: BillingDayOfWeekModeEnum;
     pii_cleared?: 'active' | 'scheduled_for_clear' | 'cleared';
     auto_close_invoices?: boolean;
-    channel?: Channel;
+    channel?: ChannelEnum;
     active_id?: string;
     card_status?:
       | 'no_card'
@@ -68,12 +68,12 @@ declare module 'chargebee' {
     entity_identifiers?: Customer.EntityIdentifier[];
     tax_providers_fields?: Customer.TaxProvidersField[];
     is_einvoice_enabled?: boolean;
-    einvoicing_method?: EinvoicingMethod;
+    einvoicing_method?: EinvoicingMethodEnum;
     meta_data?: any;
     deleted: boolean;
     registered_for_gst?: boolean;
     consolidated_invoicing?: boolean;
-    customer_type?: CustomerType;
+    customer_type?: CustomerTypeEnum;
     business_customer_without_vat_number?: boolean;
     client_profile_id?: string;
     relationship?: Customer.Relationship;
@@ -359,7 +359,7 @@ declare module 'chargebee' {
       state?: string;
       country?: string;
       zip?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ReferralUrl {
       external_customer_id?: string;
@@ -383,8 +383,8 @@ declare module 'chargebee' {
       send_billing_email: boolean;
     }
     export interface PaymentMethod {
-      type: Type;
-      gateway: Gateway;
+      type: TypeEnum;
+      gateway: GatewayEnum;
       gateway_account_id?: string;
       status:
         | 'valid'
@@ -443,7 +443,7 @@ declare module 'chargebee' {
       preferred_currency_code?: string;
       phone?: string;
       company?: string;
-      auto_collection?: AutoCollection;
+      auto_collection?: AutoCollectionEnum;
       net_term_days?: number;
       allow_direct_debit?: boolean;
       vat_number?: string;
@@ -452,18 +452,18 @@ declare module 'chargebee' {
       entity_identifier_standard?: string;
       registered_for_gst?: boolean;
       is_einvoice_enabled?: boolean;
-      einvoicing_method?: EinvoicingMethod;
-      taxability?: Taxability;
+      einvoicing_method?: EinvoicingMethodEnum;
+      taxability?: TaxabilityEnum;
       exemption_details?: any;
-      customer_type?: CustomerType;
+      customer_type?: CustomerTypeEnum;
       client_profile_id?: string;
-      taxjar_exemption_category?: TaxjarExemptionCategory;
+      taxjar_exemption_category?: TaxjarExemptionCategoryEnum;
       business_customer_without_vat_number?: boolean;
       locale?: string;
-      entity_code?: EntityCode;
+      entity_code?: EntityCodeEnum;
       exempt_number?: string;
       meta_data?: any;
-      offline_payment_method?: OfflinePaymentMethod;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       auto_close_invoices?: boolean;
       consolidated_invoicing?: boolean;
       token_id?: string;
@@ -512,18 +512,18 @@ declare module 'chargebee' {
       preferred_currency_code?: string;
       phone?: string;
       company?: string;
-      auto_collection?: AutoCollection;
+      auto_collection?: AutoCollectionEnum;
       allow_direct_debit?: boolean;
       net_term_days?: number;
-      taxability?: Taxability;
+      taxability?: TaxabilityEnum;
       exemption_details?: any;
-      customer_type?: CustomerType;
+      customer_type?: CustomerTypeEnum;
       client_profile_id?: string;
-      taxjar_exemption_category?: TaxjarExemptionCategory;
+      taxjar_exemption_category?: TaxjarExemptionCategoryEnum;
       locale?: string;
-      entity_code?: EntityCode;
+      entity_code?: EntityCodeEnum;
       exempt_number?: string;
-      offline_payment_method?: OfflinePaymentMethod;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       invoice_notes?: string;
       auto_close_invoices?: boolean;
       meta_data?: any;
@@ -543,7 +543,7 @@ declare module 'chargebee' {
       registered_for_gst?: boolean;
       business_customer_without_vat_number?: boolean;
       is_einvoice_enabled?: boolean;
-      einvoicing_method?: EinvoicingMethod;
+      einvoicing_method?: EinvoicingMethodEnum;
       billing_address?: BillingAddressUpdateBillingInfoInputParam;
       entity_identifiers?: EntityIdentifiersUpdateBillingInfoInputParam[];
       tax_providers_fields?: TaxProvidersFieldsUpdateBillingInfoInputParam[];
@@ -554,7 +554,7 @@ declare module 'chargebee' {
     }
     export interface AssignPaymentRoleInputParam {
       payment_source_id: string;
-      role: Role;
+      role: RoleEnum;
     }
     export interface AddContactInputParam {
       contact?: ContactAddContactInputParam;
@@ -569,21 +569,21 @@ declare module 'chargebee' {
       amount: number;
       currency_code?: string;
       description: string;
-      credit_type?: CreditType;
+      credit_type?: CreditTypeEnum;
       reference?: string;
     }
     export interface DeductPromotionalCreditsInputParam {
       amount: number;
       currency_code?: string;
       description: string;
-      credit_type?: CreditType;
+      credit_type?: CreditTypeEnum;
       reference?: string;
     }
     export interface SetPromotionalCreditsInputParam {
       amount: number;
       currency_code?: string;
       description: string;
-      credit_type?: CreditType;
+      credit_type?: CreditTypeEnum;
       reference?: string;
     }
     export interface RecordExcessPaymentInputParam {
@@ -596,7 +596,7 @@ declare module 'chargebee' {
       token_id?: string;
       replace_primary_payment_source?: boolean;
       retain_payment_source?: boolean;
-      payment_initiator?: PaymentInitiator;
+      payment_initiator?: PaymentInitiatorEnum;
       payment_method?: PaymentMethodCollectPaymentInputParam;
       card?: CardCollectPaymentInputParam;
       payment_intent?: PaymentIntentCollectPaymentInputParam;
@@ -613,7 +613,7 @@ declare module 'chargebee' {
     export interface ChangeBillingDateInputParam {
       billing_date?: number;
       billing_month?: number;
-      billing_date_mode?: BillingDateMode;
+      billing_date_mode?: BillingDateModeEnum;
       billing_day_of_week?:
         | 'sunday'
         | 'monday'
@@ -622,7 +622,7 @@ declare module 'chargebee' {
         | 'thursday'
         | 'friday'
         | 'saturday';
-      billing_day_of_week_mode?: BillingDayOfWeekMode;
+      billing_day_of_week_mode?: BillingDayOfWeekModeEnum;
     }
     export interface MergeInputParam {
       from_customer_id: string;
@@ -662,14 +662,14 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
     export interface PaymentMethodCreateInputParam {
-      type?: Type;
+      type?: TypeEnum;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
       reference_id?: string;
       tmp_token?: string;
@@ -688,9 +688,9 @@ declare module 'chargebee' {
       account_number?: string;
       routing_number?: string;
       bank_code?: string;
-      account_type?: AccountType;
-      account_holder_type?: AccountHolderType;
-      echeck_type?: EcheckType;
+      account_type?: AccountTypeEnum;
+      account_holder_type?: AccountHolderTypeEnum;
+      echeck_type?: EcheckTypeEnum;
       issuing_country?: string;
       swedish_identity_number?: string;
       billing_address?: any;
@@ -731,7 +731,7 @@ declare module 'chargebee' {
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -780,11 +780,11 @@ declare module 'chargebee' {
       field_value?: string;
     }
     export interface PaymentMethodUpdatePaymentMethodInputParam {
-      type: Type;
+      type: TypeEnum;
       /**
        * @deprecated Please refer API docs to use other attributes
        */
-      gateway?: Gateway;
+      gateway?: GatewayEnum;
       gateway_account_id?: string;
       reference_id?: string;
       tmp_token?: string;
@@ -806,14 +806,14 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
-      validation_status?: ValidationStatus;
+      validation_status?: ValidationStatusEnum;
     }
 
     export interface EntityIdentifiersUpdateBillingInfoInputParam {
       id?: string;
       scheme?: string;
       value?: string;
-      operation?: Operation;
+      operation?: OperationEnum;
       standard?: string;
     }
     export interface TaxProvidersFieldsUpdateBillingInfoInputParam {
@@ -853,13 +853,13 @@ declare module 'chargebee' {
       amount: number;
       currency_code?: string;
       date: number;
-      payment_method: PaymentMethod;
+      payment_method: PaymentMethodEnum;
       reference_number?: string;
       custom_payment_method_id?: string;
     }
 
     export interface PaymentMethodCollectPaymentInputParam {
-      type?: Type;
+      type?: TypeEnum;
       gateway_account_id?: string;
       reference_id?: string;
       tmp_token?: string;

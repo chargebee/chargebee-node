@@ -9,11 +9,11 @@ declare module 'chargebee' {
     percentage?: number;
     amount?: number;
     currency_code?: string;
-    duration_type: DurationType;
+    duration_type: DurationTypeEnum;
     period?: number;
-    period_unit?: PeriodUnit;
+    period_unit?: PeriodUnitEnum;
     included_in_mrr: boolean;
-    apply_on: ApplyOn;
+    apply_on: ApplyOnEnum;
     item_price_id?: string;
     created_at: number;
     apply_till?: number;

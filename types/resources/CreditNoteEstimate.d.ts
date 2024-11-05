@@ -5,7 +5,7 @@ declare module 'chargebee' {
   export interface CreditNoteEstimate {
     reference_invoice_id: string;
     type: 'adjustment' | 'refundable';
-    price_type: PriceType;
+    price_type: PriceTypeEnum;
     currency_code: string;
     sub_total: number;
     total: number;

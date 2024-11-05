@@ -4,7 +4,7 @@
 declare module 'chargebee' {
   export interface Comment {
     id: string;
-    entity_type: EntityType;
+    entity_type: EntityTypeEnum;
     added_by?: string;
     notes: string;
     created_at: number;
@@ -56,7 +56,7 @@ declare module 'chargebee' {
     //---------------
 
     export interface CreateInputParam {
-      entity_type: EntityType;
+      entity_type: EntityTypeEnum;
       entity_id: string;
       notes: string;
       added_by?: string;
