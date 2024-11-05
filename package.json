@@ -1,39 +1,70 @@
 {
-   "name":"chargebee",
-   "version":"2.43.0",
-   "description":"A library for integrating with ChargeBee.",
-   "keywords":[
-      "payments",
-      "billing",
-      "subscription",
-      "chargebee"
-   ],
-   "homepage":"http://github.com/chargebee/chargebee-node",
-   "author":"Ajit <ajit@chargebee.com> (https://www.chargebee.com)",
-   "main":"lib/chargebee.js",
-   "types": "types/index.d.ts",
-   "dependencies":{
-     "q" : ">=1.0.1",
-     "safer-buffer": "2.1.2"
-   },
-   "directories":{
-      "lib":"./lib"
-   },
-   "repository":{
-      "type":"git",
-      "url":"http://github.com/chargebee/chargebee-node.git"
-   },
-   "engines":{
-      "node":">=0.6.0"
-   },
-   "bugs":{
-      "url":"http://support.chargebee.com",
-      "email":"support@chargebee.com"
-   },
-   "licenses":[
-      {
-         "type":"MIT",
-         "url":"http://github.com/chargebee/chargebee-node/blob/master/LICENSE"
-      }
-   ]
+  "name": "chargebee",
+  "version": "3.0.0-beta.5",
+  "description": "A library for integrating with Chargebee.",
+  "scripts": {
+    "prepack": "npm install && npm run build",
+    "build": "npm run build-esm && npm run build-cjs",
+    "build-esm": "rm -rf esm && mkdir -p esm && tsc -p tsconfig.esm.json && echo '{\"type\":\"module\"}' > esm/package.json",
+    "build-cjs": "rm -rf cjs && mkdir -p cjs && tsc -p tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > cjs/package.json",
+    "prettier": "prettier --write \"src/**/*.ts\" \"types/**/*.d.ts\""
+  },
+  "types": "./types/index.d.ts",
+  "keywords": [
+    "paymetns",
+    "billings",
+    "subscription",
+    "chargebee"
+  ],
+  "homepage": "http://github.com/chargebee/chargebee-node",
+  "main": "./cjs/chargebee.cjs.js",
+  "author": "<api@chargeee.com> (https://www.chargebee.com)",
+  "engines": {
+    "node": ">=18.*"
+  },
+  "bugs": {
+    "url": "http://support.chargebee.com",
+    "email": "support@chargebee.com"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/chargebee/chargebee-node/blob/master/LICENSE"
+    }
+  ],
+  "dependencies": {
+  },
+  "exports": {
+    "types": "./types/index.d.ts",
+    "worker": {
+      "import": "./esm/chargebee.esm.worker.js",
+      "require": "./cjs/chargebee.cjs.worker.js"
+    },
+    "workerd": {
+      "import": "./esm/chargebee.esm.worker.js",
+      "require": "./cjs/chargebee.cjs.worker.js"
+    },
+    "deno": {
+      "import": "./esm/chargebee.esm.worker.js",
+      "require": "./cjs/chargebee.cjs.worker.js"
+    },
+    "bun": {
+      "import": "./esm/chargebee.esm.worker.js",
+      "require": "./cjs/chargebee.cjs.worker.js"
+    },
+    "default": {
+      "import": "./esm/chargebee.esm.js",
+      "require": "./cjs/chargebee.cjs.js"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "20.0.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  },
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "parser": "typescript"
+  }
 }

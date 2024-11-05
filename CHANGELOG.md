@@ -1,5 +1,13 @@
-### v2.43.0 (2024-10-17)
-* * *
+### v3.0.0-beta.5 (2024-11-05)
+
+#### Naming Convention Fix:
+* New suffix Enum has been added to global type.
+* payment_vouchersForInvoice has been renamed to paymentVouchersForInvoice.
+* payment_vouchersForCustomer has been renamed to paymentVouchersForCustomer.
+* Payment_vouchersForInvoiceResponse has been renamed to PaymentVouchersForInvoiceResponse.
+* Payment_vouchersForCustomerResponse has been renmed to PaymentVouchersForCustomerResponse. 
+
+### v3.0.0-beta.4 (2024-10-18)
 
 #### New Resource:
 * PaymentScheduleEstimate has been added. 
@@ -21,7 +29,13 @@
 * discounts has been added to PricingPageSession#CreateForExistingSubscriptionParams.
 * invoice_immediately has been added to Quote#ConvertParams.
 
-### v2.42.0 (2024-09-19)
+### Bug Fixes:
+* metadata field not working bug fixed. 
+
+### Dependency 
+* moved @types/node to devDependencies.
+
+### v3.0.0-beta.3 (2024-09-20)
 * * *
 
 #### New Resource:
@@ -66,30 +80,28 @@
 * installment_config_created has been removed from EventTypeEnum.
 * installment_config_deleted has been removed from EventTypeEnum.
 
-### v2.41.1 (2024-09-02)
+
+#### Bug Fixes: 
+* HttpClient wrong configuration fixed. 
+* Missed Resource Non-Subscription has been added. 
+
+#### Enhancements: 
+* Better type support for custom fields. 
+
+### v3.0.0-beta.2 (2024-08-29)
 * * *
 
 #### Bug Fixes: 
-* Specified return type of configure method.
+* content-length bug fixes for fetch.
 
-### v2.41.0 (2024-08-29)
+### v3.0.0-beta.1 (2024-08-26)
 * * *
 
-#### New Resource:
-* CustomerEntitlement has been added. 
-
-#### New Endpoints:
-* Ramp#UpdateRequest has been added to Ramp resource.
-* Transaction#ReconcileRequest has been added to Transaction resource. 
-
-### New Attributes: 
-* arr has been added to Subscription. 
-
-### New Enum Values: 
-* customer_entitlements_updated has been added to EntityTypeEnum.
-* subscription_moved_in has been added in EventType enum.
-* subscription_moved_out has been added in EventType enum.
-* subscription_movement_failed has been added in EventType enum.
+* Names of the resources, operations etc. have been changed from snake_case to camelCase. For example, configuration option api_key is now apiKey.
+* Minimum Node.js version is 18
+* Class based models are replaced with TypeScript types.
+* Response will contain headers instead of responseHeaders.
+* Response will contain isIdempotencyReplayed field instead of isIdempotencyReplayed() method.
 
 ### v2.40.0 (2024-08-14)
 * * *

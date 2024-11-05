@@ -1,767 +1,607 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
+
 declare module 'chargebee' {
   export interface Export {
-    
-    /**
-      * @description A unique identifier to identify the export
-
-      */
-    
-    id:string;
-    
-    /**
-      * @description Describes the type of export
-
-      */
-    
-    operation_type:string;
-    
-    /**
-      * @description Describes the mime type of download file \* pdf - PDF \* zip - ZIP
-
-      */
-    
-    mime_type:'zip' | 'pdf';
-    
-    /**
-      * @description Current status of the export operation \* completed - Completed \* failed - Failed \* in_process - In Process
-
-      */
-    
-    status:'in_process' | 'completed' | 'failed';
-    
-    /**
-      * @description Export created time
-
-      */
-    
-    created_at:number;
-    
-    /**
-      * @description Returns the download_url for the export. The download URL is valid upto a specific date.
-
-      */
-    
-    download?:Export.Download;
+    id: string;
+    operation_type: string;
+    mime_type: 'pdf' | 'zip';
+    status: 'in_process' | 'completed' | 'failed';
+    created_at: number;
+    download?: Export.Download;
   }
+
   export namespace Export {
-    export class ExportResource {  
-      /**
-        * @description This API gets the status of the export job initiated by the Exports API. If the export job is completed, the downloads resource will also be obtained in the API response. The returned URL in the downloads resource is secure and can be downloaded. The URL expires after 4 hours. Please note that this is a public URL, and can be downloaded by anyone with whom it&#x27;s shared.
+    export class ExportResource {
+      retrieve(
+        export_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-**Note:** In case the export is in Failed or In-process state, then the downloads resource will not be available.
+      revenueRecognition(
+        input: RevenueRecognitionInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RevenueRecognitionResponse>>;
 
-        */
-      
-      retrieve(export_id:string):ChargebeeRequest<RetrieveResponse>;
-       
-      /**
-        * @description This API triggers export for the revenue recognition report.
+      deferredRevenue(
+        input: DeferredRevenueInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeferredRevenueResponse>>;
 
-**Note:** This API call is asynchronous. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. In case you are using any of the client libraries, use the **wait for export completion** function provided as an instance method in the library. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **waitForExportCompletion()** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **waitForExportCompletion()** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **WaitForExportCompletion** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which wait until the export status changes.
+      plans(
+        input?: PlansInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<PlansResponse>>;
 
-        */
-      
-      revenue_recognition(input:RevenueRecognitionInputParam):ChargebeeRequest<RevenueRecognitionResponse>;
-       
-      /**
-        * @description This API triggers export for the Deferred Revenue Report.
+      addons(
+        input?: AddonsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<AddonsResponse>>;
 
-**Note:** This API call is asynchronous. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. In case you are using any of the client libraries, use the **wait for export completion** function provided as an instance method in the library. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **waitForExportCompletion()** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **waitForExportCompletion()** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **WaitForExportCompletion** on the returned **Export** resource which will wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which wait until the export status changes. You need to check if this operation has completed by checking if the export status is **completed** . You can do this by retrieving the export in a loop with a minimum delay of 10 secs between two retrieve requests. Use the method **wait_for_export_completion** on the returned **export** resource which wait until the export status changes.
+      coupons(
+        input?: CouponsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CouponsResponse>>;
 
-        */
-      
-      deferred_revenue(input:DeferredRevenueInputParam):ChargebeeRequest<DeferredRevenueResponse>;
-       
-      /**
-        * @description This API triggers export of coupon data. The exported zip file contains CSV files with coupon-related data.
+      customers(
+        input?: CustomersInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CustomersResponse>>;
 
-        */
-      
-      coupons(input?:CouponsInputParam):ChargebeeRequest<CouponsResponse>;
-       
-      /**
-        * @description This API triggers export of customer data. The exported zip file contains CSV files with customer-related data.
+      subscriptions(
+        input?: SubscriptionsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<SubscriptionsResponse>>;
 
-        */
-      
-      customers(input?:CustomersInputParam):ChargebeeRequest<CustomersResponse>;
-       
-      /**
-        * @description This API triggers export of subscription data. The exported zip file contains CSV files with subscription-related data.
+      invoices(
+        input?: InvoicesInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<InvoicesResponse>>;
 
-        */
-      
-      subscriptions(input?:SubscriptionsInputParam):ChargebeeRequest<SubscriptionsResponse>;
-       
-      /**
-        * @description This API triggers export of invoice data. The exported zip file contains CSV files with invoice-related data.
+      creditNotes(
+        input?: CreditNotesInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CreditNotesResponse>>;
 
-        */
-      
-      invoices(input?:InvoicesInputParam):ChargebeeRequest<InvoicesResponse>;
-       
-      /**
-        * @description This API triggers export of credit note data. The exported zip file contains CSV files with credit note-related data.
+      transactions(
+        input?: TransactionsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<TransactionsResponse>>;
 
-        */
-      
-      credit_notes(input?:CreditNotesInputParam):ChargebeeRequest<CreditNotesResponse>;
-       
-      /**
-        * @description This API triggers export of transaction data. The exported zip file contains CSV files with transaction-related data.
+      orders(
+        input?: OrdersInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<OrdersResponse>>;
 
-        */
-      
-      transactions(input?:TransactionsInputParam):ChargebeeRequest<TransactionsResponse>;
-       
-      /**
-        * @description This API triggers export of order data. The exported zip file contains CSV files with order-related data.
+      itemFamilies(
+        input?: ItemFamiliesInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ItemFamiliesResponse>>;
 
-        */
-      
-      orders(input?:OrdersInputParam):ChargebeeRequest<OrdersResponse>;
-       
-      /**
-        * @description This API triggers export of item family data. The exported zip file contains CSV files with item family-related data.
+      items(
+        input?: ItemsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ItemsResponse>>;
 
-        */
-      
-      item_families(input?:ItemFamiliesInputParam):ChargebeeRequest<ItemFamiliesResponse>;
-       
-      /**
-        * @description This API triggers export of item data. The exported zip file contains CSV files with item-related data.
+      itemPrices(
+        input?: ItemPricesInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ItemPricesResponse>>;
 
-        */
-      
-      items(input?:ItemsInputParam):ChargebeeRequest<ItemsResponse>;
-       
-      /**
-        * @description This API triggers export of item price data. The exported zip file contains CSV files with item price-related data.
+      attachedItems(
+        input?: AttachedItemsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<AttachedItemsResponse>>;
 
-        */
-      
-      item_prices(input?:ItemPricesInputParam):ChargebeeRequest<ItemPricesResponse>;
-       
-      /**
-        * @description This API triggers export of attached item data. The exported zip file contains CSV files with attached item-related data.
+      differentialPrices(
+        input?: DifferentialPricesInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DifferentialPricesResponse>>;
 
-        */
-      
-      attached_items(input?:AttachedItemsInputParam):ChargebeeRequest<AttachedItemsResponse>;
-       
-      /**
-        * @description This API triggers export of differential price data. The exported zip file contains CSV files with differential price-related data.
-
-        */
-      
-      differential_prices(input?:DifferentialPricesInputParam):ChargebeeRequest<DifferentialPricesResponse>;
-       
-      price_variants(input?:PriceVariantsInputParam):ChargebeeRequest<PriceVariantsResponse>;
+      priceVariants(
+        input?: PriceVariantsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<PriceVariantsResponse>>;
     }
-    export interface RetrieveResponse {  
-       export:Export;
+
+    export interface RetrieveResponse {
+      export: Export;
     }
-    
-    export interface RevenueRecognitionResponse {  
-       export:Export;
+
+    export interface RevenueRecognitionResponse {
+      export: Export;
     }
+
+    export interface DeferredRevenueResponse {
+      export: Export;
+    }
+
+    export interface PlansResponse {
+      export: Export;
+    }
+
+    export interface AddonsResponse {
+      export: Export;
+    }
+
+    export interface CouponsResponse {
+      export: Export;
+    }
+
+    export interface CustomersResponse {
+      export: Export;
+    }
+
+    export interface SubscriptionsResponse {
+      export: Export;
+    }
+
+    export interface InvoicesResponse {
+      export: Export;
+    }
+
+    export interface CreditNotesResponse {
+      export: Export;
+    }
+
+    export interface TransactionsResponse {
+      export: Export;
+    }
+
+    export interface OrdersResponse {
+      export: Export;
+    }
+
+    export interface ItemFamiliesResponse {
+      export: Export;
+    }
+
+    export interface ItemsResponse {
+      export: Export;
+    }
+
+    export interface ItemPricesResponse {
+      export: Export;
+    }
+
+    export interface AttachedItemsResponse {
+      export: Export;
+    }
+
+    export interface DifferentialPricesResponse {
+      export: Export;
+    }
+
+    export interface PriceVariantsResponse {
+      export: Export;
+    }
+
+    export interface Download {
+      download_url: string;
+      valid_till: number;
+      mime_type?: string;
+    }
+    // REQUEST PARAMS
+    //---------------
+
     export interface RevenueRecognitionInputParam {
-       
-      /**
-        * @description Determines the scope of the report. Returns the report based on the value specified. \* subscription - Subscription \* invoice - Invoice \* product - Product (Includes Plan, Addon and Adhoc) \* customer - Customer
-
-        */
-       
-      report_by:ReportBy;
-       
-      /**
-        * @description Value must be in [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) format. Generates the report based on the value specified. If no currency_code value is specified, then consolidated report based on base currency is returned.
-
-        */
-       
-      currency_code?:string;
-       
-      /**
-        * @description Obtains report data from the specified month, combined with the value specified for report_from_year. Values must be between 1 and 12, where 1 is January and 12 is December.
-
-        */
-       
-      report_from_month:number;
-       
-      /**
-        * @description Obtains report data from the specified year, combined with the value specified for report_from_month.
-
-        */
-       
-      report_from_year:number;
-       
-      /**
-        * @description Obtains report data from the specified month, combined with the value specified for report_to_year. Values must be between 1 and 12, where 1 is January and 12 is December.
-
-        */
-       
-      report_to_month:number;
-       
-      /**
-        * @description Obtains report data until the specified year, combined with the value specified for report_to_month.
-
-        */
-       
-      report_to_year:number;
-       
-      /**
-        * @description Returns amount with discount in the report. If value specified is false, it returns amount without discount.
-
-        */
-       
-      include_discounts?:boolean;
-       
-      /**
-        * @description optional, string filter  
-Payment owner of an invoice.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *payment_owner\[is\] &#x3D; &quot;payment_customer&quot;*
-
-        */
-       
-      payment_owner?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description optional, string filter  
-The plan item code.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *item_id\[is\] &#x3D; &quot;silver&quot;*
-
-        */
-       
-      item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description optional, string filter  
-The plan item price code.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *item_price_id\[is\] &#x3D; &quot;silver-USD-monthly&quot;*
-
-        */
-       
-      item_price_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description optional, string filter  
-Reason code for canceling the subscription. Must be one from a list of reason codes set in the Chargebee app in **Settings \&gt; Configure Chargebee \&gt; Reason Codes \&gt; Subscriptions \&gt; Subscription Cancellation** . Must be passed if set as mandatory in the app. The codes are case-sensitive.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *cancel_reason_code\[is\] &#x3D; &quot;Not Paid&quot;*
-
-        */
-       
-      cancel_reason_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description optional, string filter  
-The unique ID of the [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe) of this subscription. This is always the same as the [business entity](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_customer_id) of the customer.   
-**Supported operators :** is, is_not, starts_with  
-
-**Example →** *business_entity_id\[is_not\] &#x3D; &quot;business_entity_id&quot;*
-
-        */
-       
-      business_entity_id?:{is?:string,is_not?:string,starts_with?:string};
-       
-      /**
-        * @description Parameters for invoice
-
-        */
-       
-      invoice?:{amount_adjusted?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_due?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_paid?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},credits_applied?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},date?:{after?:string,before?:string,between?:string,on?:string},dunning_status?:{in?:string,is?:'in_progress' | 'stopped' | 'success' | 'exhausted',is_not?:'in_progress' | 'stopped' | 'success' | 'exhausted',is_present?:'true' | 'false',not_in?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},paid_at?:{after?:string,before?:string,between?:string,on?:string},price_type?:{in?:string,is?:'tax_exclusive' | 'tax_inclusive',is_not?:'tax_exclusive' | 'tax_inclusive',not_in?:string},recurring?:{is?:'true' | 'false'},status?:{in?:string,is?:'pending' | 'paid' | 'voided' | 'not_paid' | 'posted' | 'payment_due',is_not?:'pending' | 'paid' | 'voided' | 'not_paid' | 'posted' | 'payment_due',not_in?:string},total?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-       
-      /**
-        * @description Parameters for subscription
-
-        */
-       
-      subscription?:{activated_at?:{after?:string,before?:string,between?:string,is_present?:'true' | 'false',on?:string},auto_close_invoices?:{is?:'true' | 'false'},cancel_reason?:{in?:string,is?:'tax_calculation_failed' | 'fraud_review_failed' | 'currency_incompatible_with_gateway' | 'non_compliant_eu_customer' | 'non_compliant_customer' | 'not_paid' | 'no_card',is_not?:'tax_calculation_failed' | 'fraud_review_failed' | 'currency_incompatible_with_gateway' | 'non_compliant_eu_customer' | 'non_compliant_customer' | 'not_paid' | 'no_card',is_present?:'true' | 'false',not_in?:string},cancelled_at?:{after?:string,before?:string,between?:string,on?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},created_at?:{after?:string,before?:string,between?:string,on?:string},customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},has_scheduled_changes?:{is?:'true' | 'false'},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},next_billing_at?:{after?:string,before?:string,between?:string,on?:string},offline_payment_method?:{in?:string,is?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',is_not?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',not_in?:string},remaining_billing_cycles?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,is_present?:'true' | 'false',lt?:string,lte?:string},status?:{in?:string,is?:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing',is_not?:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-       
-      /**
-        * @description Parameters for customer
-
-        */
-       
-      customer?:{auto_close_invoices?:{is?:'true' | 'false'},auto_collection?:{in?:string,is?:'off' | 'on',is_not?:'off' | 'on',not_in?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},company?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},created_at?:{after?:string,before?:string,between?:string,on?:string},email?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},first_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},last_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},offline_payment_method?:{in?:string,is?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',is_not?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',not_in?:string},phone?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},taxability?:{in?:string,is?:'taxable' | 'exempt',is_not?:'taxable' | 'exempt',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-       
-      /**
-        * @description Parameters for relationship
-
-        */
-       
-      relationship?:{invoice_owner_id?:{is?:string,is_not?:string,starts_with?:string},parent_id?:{is?:string,is_not?:string,starts_with?:string},payment_owner_id?:{is?:string,is_not?:string,starts_with?:string}};
-    }
-    export interface DeferredRevenueResponse {  
-       export:Export;
+      report_by: ReportByEnum;
+      currency_code?: string;
+      report_from_month: number;
+      report_from_year: number;
+      report_to_month: number;
+      report_to_year: number;
+      include_discounts?: boolean;
+      payment_owner?: filter.String;
+      item_id?: filter.String;
+      item_price_id?: filter.String;
+      cancel_reason_code?: filter.String;
+      business_entity_id?: filter.String;
+      invoice?: InvoiceRevenueRecognitionInputParam;
+      subscription?: SubscriptionRevenueRecognitionInputParam;
+      customer?: CustomerRevenueRecognitionInputParam;
+      relationship?: RelationshipRevenueRecognitionInputParam;
     }
     export interface DeferredRevenueInputParam {
-       
-      /**
-        * @description Determines the scope of the report. Returns the report based on the value specified. \* subscription - Subscription \* invoice - Invoice \* product - Product (Includes Plan, Addon and Adhoc) \* customer - Customer
-
-        */
-       
-      report_by:ReportBy;
-       
-      /**
-        * @description Value must be in ISO 4217 format. Generates the report based on the value specified. If no currency_code value is specified, then consolidated report based on base currency is returned.
-
-        */
-       
-      currency_code?:string;
-       
-      /**
-        * @description Obtains report data from the specified month, combined with the value specified for report_from_year.Values must be between 1 and 12, where 1 is January and 12 is December.
-
-        */
-       
-      report_from_month:number;
-       
-      /**
-        * @description Obtains report data from the specified year, combined with the value specified for report_from_month.
-
-        */
-       
-      report_from_year:number;
-       
-      /**
-        * @description Obtains report data from the specified month, combined with the value specified for report_to_year.Values must be between 1 and 12, where 1 is January and 12 is December.
-
-        */
-       
-      report_to_month:number;
-       
-      /**
-        * @description Obtains report data until the specified year, combined with the value specified for report_to_month.
-
-        */
-       
-      report_to_year:number;
-       
-      /**
-        * @description Returns amount with discount in the report. If value specified is false, it returns amount without discount.
-
-        */
-       
-      include_discounts?:boolean;
-       
-      /**
-        * @description optional, string filter  
-Payment owner of an invoice.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *payment_owner\[is\] &#x3D; &quot;payment_customer&quot;*
-
-        */
-       
-      payment_owner?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description optional, string filter  
-The plan item code.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *item_id\[is\] &#x3D; &quot;silver&quot;*
-
-        */
-       
-      item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description optional, string filter  
-The plan item price code.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *item_price_id\[is\] &#x3D; &quot;silver-USD-monthly&quot;*
-
-        */
-       
-      item_price_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description optional, string filter  
-Reason code for canceling the subscription. Must be one from a list of reason codes set in the Chargebee app in **Settings \&gt; Configure Chargebee \&gt; Reason Codes \&gt; Subscriptions \&gt; Subscription Cancellation** . Must be passed if set as mandatory in the app. The codes are case-sensitive.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *cancel_reason_code\[is\] &#x3D; &quot;Not Paid&quot;*
-
-        */
-       
-      cancel_reason_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description optional, string filter  
-The unique ID of the [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe) of this subscription. This is always the same as the [business entity](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_customer_id) of the customer.   
-**Supported operators :** is, is_not, starts_with  
-
-**Example →** *business_entity_id\[is_not\] &#x3D; &quot;business_entity_id&quot;*
-
-        */
-       
-      business_entity_id?:{is?:string,is_not?:string,starts_with?:string};
-       
-      /**
-        * @description Parameters for invoice
-
-        */
-       
-      invoice?:{amount_adjusted?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_due?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_paid?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},credits_applied?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},date?:{after?:string,before?:string,between?:string,on?:string},dunning_status?:{in?:string,is?:'in_progress' | 'stopped' | 'success' | 'exhausted',is_not?:'in_progress' | 'stopped' | 'success' | 'exhausted',is_present?:'true' | 'false',not_in?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},paid_at?:{after?:string,before?:string,between?:string,on?:string},price_type?:{in?:string,is?:'tax_exclusive' | 'tax_inclusive',is_not?:'tax_exclusive' | 'tax_inclusive',not_in?:string},recurring?:{is?:'true' | 'false'},status?:{in?:string,is?:'pending' | 'paid' | 'voided' | 'not_paid' | 'posted' | 'payment_due',is_not?:'pending' | 'paid' | 'voided' | 'not_paid' | 'posted' | 'payment_due',not_in?:string},total?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-       
-      /**
-        * @description Parameters for subscription
-
-        */
-       
-      subscription?:{activated_at?:{after?:string,before?:string,between?:string,is_present?:'true' | 'false',on?:string},auto_close_invoices?:{is?:'true' | 'false'},cancel_reason?:{in?:string,is?:'tax_calculation_failed' | 'fraud_review_failed' | 'currency_incompatible_with_gateway' | 'non_compliant_eu_customer' | 'non_compliant_customer' | 'not_paid' | 'no_card',is_not?:'tax_calculation_failed' | 'fraud_review_failed' | 'currency_incompatible_with_gateway' | 'non_compliant_eu_customer' | 'non_compliant_customer' | 'not_paid' | 'no_card',is_present?:'true' | 'false',not_in?:string},cancelled_at?:{after?:string,before?:string,between?:string,on?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},created_at?:{after?:string,before?:string,between?:string,on?:string},customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},has_scheduled_changes?:{is?:'true' | 'false'},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},next_billing_at?:{after?:string,before?:string,between?:string,on?:string},offline_payment_method?:{in?:string,is?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',is_not?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',not_in?:string},remaining_billing_cycles?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,is_present?:'true' | 'false',lt?:string,lte?:string},status?:{in?:string,is?:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing',is_not?:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-       
-      /**
-        * @description Parameters for customer
-
-        */
-       
-      customer?:{auto_close_invoices?:{is?:'true' | 'false'},auto_collection?:{in?:string,is?:'off' | 'on',is_not?:'off' | 'on',not_in?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},company?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},created_at?:{after?:string,before?:string,between?:string,on?:string},email?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},first_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},last_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},offline_payment_method?:{in?:string,is?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',is_not?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',not_in?:string},phone?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},taxability?:{in?:string,is?:'taxable' | 'exempt',is_not?:'taxable' | 'exempt',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-       
-      /**
-        * @description Parameters for relationship
-
-        */
-       
-      relationship?:{invoice_owner_id?:{is?:string,is_not?:string,starts_with?:string},parent_id?:{is?:string,is_not?:string,starts_with?:string},payment_owner_id?:{is?:string,is_not?:string,starts_with?:string}};
+      report_by: ReportByEnum;
+      currency_code?: string;
+      report_from_month: number;
+      report_from_year: number;
+      report_to_month: number;
+      report_to_year: number;
+      include_discounts?: boolean;
+      payment_owner?: filter.String;
+      item_id?: filter.String;
+      item_price_id?: filter.String;
+      cancel_reason_code?: filter.String;
+      business_entity_id?: filter.String;
+      invoice?: InvoiceDeferredRevenueInputParam;
+      subscription?: SubscriptionDeferredRevenueInputParam;
+      customer?: CustomerDeferredRevenueInputParam;
+      relationship?: RelationshipDeferredRevenueInputParam;
     }
-    export interface CouponsResponse {  
-       export:Export;
+    export interface PlansInputParam {
+      currency_code?: filter.String;
+      plan?: PlanPlansInputParam;
+    }
+    export interface AddonsInputParam {
+      currency_code?: filter.String;
+      addon?: AddonAddonsInputParam;
     }
     export interface CouponsInputParam {
-       
-      /**
-        * @description optional, string filter  
-The currency code ([ISO 4217 format](https://www.chargebee.com/docs/supported-currencies.html)) of the coupon. Applicable for *fixed_amount* coupons alone.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *currency_code\[is\] &#x3D; &quot;USD&quot;*
-
-        */
-       
-      currency_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description Parameters for coupon
-
-        */
-       
-      coupon?:{apply_on?:{in?:string,is?:'invoice_amount' | 'each_specified_item',is_not?:'invoice_amount' | 'each_specified_item',not_in?:string},created_at?:{after?:string,before?:string,between?:string,on?:string},discount_type?:{in?:string,is?:'fixed_amount' | 'percentage',is_not?:'fixed_amount' | 'percentage',not_in?:string},duration_type?:{in?:string,is?:'limited_period' | 'one_time' | 'forever',is_not?:'limited_period' | 'one_time' | 'forever',not_in?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},name?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},status?:{in?:string,is?:'archived' | 'expired' | 'deleted' | 'active',is_not?:'archived' | 'expired' | 'deleted' | 'active',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-    }
-    export interface CustomersResponse {  
-       export:Export;
+      currency_code?: filter.String;
+      coupon?: CouponCouponsInputParam;
     }
     export interface CustomersInputParam {
-       
-      /**
-        * @description Determines the format of the data. Returns the export type based on the selected value. \* data - Download your current data in CSV. \* import_friendly_data - Download import friendly data in CSV. This CSV can be used to perform [bulk operations](https://www.chargebee.com/docs/bulk-operations.html).
-
-        */
-       
-      export_type?:ExportType;
-       
-      /**
-        * @description optional, string filter  
-The unique ID of the [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe) of this subscription. This is always the same as the [business entity](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_customer_id) of the customer.   
-**Supported operators :** is, is_not, starts_with  
-
-**Example →** *business_entity_id\[is\] &#x3D; &quot;business_entity_id&quot;*
-
-        */
-       
-      business_entity_id?:{is?:string,is_not?:string,starts_with?:string};
-       
-      /**
-        * @description Parameters for customer
-
-        */
-       
-      customer?:{auto_close_invoices?:{is?:'true' | 'false'},auto_collection?:{in?:string,is?:'off' | 'on',is_not?:'off' | 'on',not_in?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},company?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},created_at?:{after?:string,before?:string,between?:string,on?:string},email?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},first_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},last_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},offline_payment_method?:{in?:string,is?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',is_not?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',not_in?:string},phone?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},taxability?:{in?:string,is?:'taxable' | 'exempt',is_not?:'taxable' | 'exempt',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-       
-      /**
-        * @description Parameters for relationship
-
-        */
-       
-      relationship?:{invoice_owner_id?:{is?:string,is_not?:string,starts_with?:string},parent_id?:{is?:string,is_not?:string,starts_with?:string},payment_owner_id?:{is?:string,is_not?:string,starts_with?:string}};
-    }
-    export interface SubscriptionsResponse {  
-       export:Export;
+      export_type?: ExportTypeEnum;
+      business_entity_id?: filter.String;
+      customer?: CustomerCustomersInputParam;
+      relationship?: RelationshipCustomersInputParam;
     }
     export interface SubscriptionsInputParam {
-       
-      /**
-        * @description Determines the format of the data. Returns the export type based on the selected value. \* data - Download your current data in CSV. \* import_friendly_data - Download import friendly data in CSV. This CSV can be used to perform [bulk operations](https://www.chargebee.com/docs/bulk-operations.html).
-
-        */
-       
-      export_type?:ExportType;
-       
-      /**
-        * @description optional, string filter  
-The plan item code.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *item_id\[is\] &#x3D; &quot;silver&quot;*
-
-        */
-       
-      item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description optional, string filter  
-The plan item price code.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *item_price_id\[is\] &#x3D; &quot;silver-USD-monthly&quot;*
-
-        */
-       
-      item_price_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description optional, string filter  
-Reason code for canceling the subscription. Must be one from a list of reason codes set in the Chargebee app in **Settings \&gt; Configure Chargebee \&gt; Reason Codes \&gt; Subscriptions \&gt; Subscription Cancellation** . Must be passed if set as mandatory in the app. The codes are case-sensitive.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *cancel_reason_code\[is\] &#x3D; &quot;Not Paid&quot;*
-
-        */
-       
-      cancel_reason_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description Parameters for subscription
-
-        */
-       
-      subscription?:{activated_at?:{after?:string,before?:string,between?:string,is_present?:'true' | 'false',on?:string},auto_close_invoices?:{is?:'true' | 'false'},cancel_reason?:{in?:string,is?:'tax_calculation_failed' | 'fraud_review_failed' | 'currency_incompatible_with_gateway' | 'non_compliant_eu_customer' | 'non_compliant_customer' | 'not_paid' | 'no_card',is_not?:'tax_calculation_failed' | 'fraud_review_failed' | 'currency_incompatible_with_gateway' | 'non_compliant_eu_customer' | 'non_compliant_customer' | 'not_paid' | 'no_card',is_present?:'true' | 'false',not_in?:string},cancelled_at?:{after?:string,before?:string,between?:string,on?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},created_at?:{after?:string,before?:string,between?:string,on?:string},customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},has_scheduled_changes?:{is?:'true' | 'false'},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},next_billing_at?:{after?:string,before?:string,between?:string,on?:string},offline_payment_method?:{in?:string,is?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',is_not?:'eu_automated_bank_transfer' | 'bank_transfer' | 'mx_automated_bank_transfer' | 'custom' | 'ach_credit' | 'boleto' | 'check' | 'uk_automated_bank_transfer' | 'no_preference' | 'us_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'sepa_credit' | 'cash',not_in?:string},remaining_billing_cycles?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,is_present?:'true' | 'false',lt?:string,lte?:string},status?:{in?:string,is?:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing',is_not?:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-    }
-    export interface InvoicesResponse {  
-       export:Export;
+      export_type?: ExportTypeEnum;
+      item_id?: filter.String;
+      item_price_id?: filter.String;
+      cancel_reason_code?: filter.String;
+      subscription?: SubscriptionSubscriptionsInputParam;
     }
     export interface InvoicesInputParam {
-       
-      /**
-        * @description optional, string filter  
-Payment owner of an invoice.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *payment_owner\[is\] &#x3D; &quot;payment_customer&quot;*
-
-        */
-       
-      payment_owner?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description Parameters for invoice
-
-        */
-       
-      invoice?:{amount_adjusted?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_due?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_paid?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},credits_applied?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},date?:{after?:string,before?:string,between?:string,on?:string},dunning_status?:{in?:string,is?:'in_progress' | 'stopped' | 'success' | 'exhausted',is_not?:'in_progress' | 'stopped' | 'success' | 'exhausted',is_present?:'true' | 'false',not_in?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},paid_at?:{after?:string,before?:string,between?:string,on?:string},price_type?:{in?:string,is?:'tax_exclusive' | 'tax_inclusive',is_not?:'tax_exclusive' | 'tax_inclusive',not_in?:string},recurring?:{is?:'true' | 'false'},status?:{in?:string,is?:'pending' | 'paid' | 'voided' | 'not_paid' | 'posted' | 'payment_due',is_not?:'pending' | 'paid' | 'voided' | 'not_paid' | 'posted' | 'payment_due',not_in?:string},subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},total?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-    }
-    export interface CreditNotesResponse {  
-       export:Export;
+      payment_owner?: filter.String;
+      invoice?: InvoiceInvoicesInputParam;
     }
     export interface CreditNotesInputParam {
-       
-      /**
-        * @description Parameters for credit_note
-
-        */
-       
-      credit_note?:{amount_allocated?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_available?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_refunded?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},create_reason_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},date?:{after?:string,before?:string,between?:string,on?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},price_type?:{in?:string,is?:'tax_exclusive' | 'tax_inclusive',is_not?:'tax_exclusive' | 'tax_inclusive',not_in?:string},reason_code?:{in?:string,is?:'other' | 'product_unsatisfactory' | 'subscription_pause' | 'order_cancellation' | 'service_unsatisfactory' | 'subscription_cancellation' | 'chargeback' | 'order_change' | 'write_off' | 'waiver' | 'subscription_change' | 'fraudulent',is_not?:'other' | 'product_unsatisfactory' | 'subscription_pause' | 'order_cancellation' | 'service_unsatisfactory' | 'subscription_cancellation' | 'chargeback' | 'order_change' | 'write_off' | 'waiver' | 'subscription_change' | 'fraudulent',not_in?:string},reference_invoice_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},status?:{in?:string,is?:'refund_due' | 'adjusted' | 'refunded' | 'voided',is_not?:'refund_due' | 'adjusted' | 'refunded' | 'voided',not_in?:string},subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},total?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},type?:{in?:string,is?:'adjustment' | 'refundable',is_not?:'adjustment' | 'refundable',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string},voided_at?:{after?:string,before?:string,between?:string,on?:string}};
-    }
-    export interface TransactionsResponse {  
-       export:Export;
+      credit_note?: CreditNoteCreditNotesInputParam;
     }
     export interface TransactionsInputParam {
-       
-      /**
-        * @description Parameters for transaction
-
-        */
-       
-      transaction?:{amount?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},amount_capturable?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},customer_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},date?:{after?:string,before?:string,between?:string,on?:string},gateway?:{in?:string,is?:'bluepay' | 'beanstream' | 'elavon' | 'orbital' | 'hdfc' | 'nmi' | 'moneris' | 'metrics_global' | 'ebanx' | 'pin' | 'stripe' | 'quickbooks' | 'razorpay' | 'eway_rapid' | 'balanced_payments' | 'ecentric' | 'wepay' | 'chargebee_payments' | 'bank_of_america' | 'braintree' | 'first_data_global' | 'paypal_express_checkout' | 'ingenico_direct' | 'moneris_us' | 'exact' | 'migs' | 'checkout_com' | 'not_applicable' | 'paypal_pro' | 'ogone' | 'eway' | 'dlocal' | 'gocardless' | 'global_payments' | 'paymill' | 'adyen' | 'paypal' | 'chargebee' | 'authorize_net' | 'tco' | 'bluesnap' | 'windcave' | 'paypal_payflow_pro' | 'amazon_payments' | 'mollie' | 'cybersource' | 'wirecard' | 'sage_pay' | 'vantiv' | 'worldpay' | 'pay_com',is_not?:'bluepay' | 'beanstream' | 'elavon' | 'orbital' | 'hdfc' | 'nmi' | 'moneris' | 'metrics_global' | 'ebanx' | 'pin' | 'stripe' | 'quickbooks' | 'razorpay' | 'eway_rapid' | 'balanced_payments' | 'ecentric' | 'wepay' | 'chargebee_payments' | 'bank_of_america' | 'braintree' | 'first_data_global' | 'paypal_express_checkout' | 'ingenico_direct' | 'moneris_us' | 'exact' | 'migs' | 'checkout_com' | 'not_applicable' | 'paypal_pro' | 'ogone' | 'eway' | 'dlocal' | 'gocardless' | 'global_payments' | 'paymill' | 'adyen' | 'paypal' | 'chargebee' | 'authorize_net' | 'tco' | 'bluesnap' | 'windcave' | 'paypal_payflow_pro' | 'amazon_payments' | 'mollie' | 'cybersource' | 'wirecard' | 'sage_pay' | 'vantiv' | 'worldpay' | 'pay_com',not_in?:string},gateway_account_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},id_at_gateway?:{is?:string,is_not?:string,starts_with?:string},payment_method?:{in?:string,is?:'other' | 'netbanking_emandates' | 'klarna_pay_now' | 'ach_credit' | 'dotpay' | 'boleto' | 'direct_debit' | 'automated_bank_transfer' | 'chargeback' | 'wechat_pay' | 'pay_to' | 'cash' | 'giropay' | 'bank_transfer' | 'alipay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'custom' | 'unionpay' | 'check' | 'faster_payments' | 'sofort' | 'amazon_payments' | 'upi' | 'venmo' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'sepa_credit' | 'card',is_not?:'other' | 'netbanking_emandates' | 'ach_credit' | 'dotpay' | 'boleto' | 'direct_debit' | 'automated_bank_transfer' | 'chargeback' | 'wechat_pay' | 'pay_to' | 'cash' | 'giropay' | 'bank_transfer' | 'alipay' | 'ideal' | 'sepa_instant_transfer' | 'google_pay' | 'custom' | 'unionpay' | 'check' | 'faster_payments' | 'sofort' | 'amazon_payments' | 'upi' | 'venmo' | 'apple_pay' | 'bancontact' | 'paypal_express_checkout' | 'sepa_credit' | 'card',not_in?:string},payment_source_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},reference_number?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string},status?:{in?:string,is?:'in_progress' | 'success' | 'failure' | 'voided' | 'timeout' | 'needs_attention',is_not?:'in_progress' | 'success' | 'failure' | 'voided' | 'timeout' | 'needs_attention',not_in?:string},subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},type?:{in?:string,is?:'authorization' | 'payment_reversal' | 'payment' | 'refund',is_not?:'authorization' | 'payment_reversal' | 'payment' | 'refund',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-    }
-    export interface OrdersResponse {  
-       export:Export;
+      transaction?: TransactionTransactionsInputParam;
     }
     export interface OrdersInputParam {
-       
-      /**
-        * @description optional, in cents filter  
-Total amount charged for the order.  
-**Supported operators :** is, is_not, lt, lte, gt, gte, between  
-
-**Example →** *total\[is\] &#x3D; &quot;1394532759&quot;*
-
-        */
-       
-      total?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string};
-       
-      /**
-        * @description Parameters for order
-
-        */
-       
-      order?:{amount_paid?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},cancelled_at?:{after?:string,before?:string,between?:string,on?:string},customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},delivered_at?:{after?:string,before?:string,between?:string,on?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},is_resent?:{is?:'true' | 'false'},order_date?:{after?:string,before?:string,between?:string,on?:string},original_order_id?:{is?:string,is_not?:string,starts_with?:string},price_type?:{in?:string,is?:'tax_exclusive' | 'tax_inclusive',is_not?:'tax_exclusive' | 'tax_inclusive',not_in?:string},refundable_credits?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},refundable_credits_issued?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},resent_status?:{in?:string,is?:'fully_resent' | 'partially_resent',is_not?:'fully_resent' | 'partially_resent',not_in?:string},shipped_at?:{after?:string,before?:string,between?:string,on?:string},shipping_date?:{after?:string,before?:string,between?:string,on?:string},status?:{in?:string,is?:'new' | 'partially_delivered' | 'queued' | 'delivered' | 'on_hold' | 'shipped' | 'processing' | 'cancelled' | 'voided' | 'complete' | 'awaiting_shipment' | 'returned',is_not?:'new' | 'partially_delivered' | 'queued' | 'delivered' | 'on_hold' | 'shipped' | 'processing' | 'cancelled' | 'voided' | 'complete' | 'awaiting_shipment' | 'returned',not_in?:string},subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-    }
-    export interface ItemFamiliesResponse {  
-       export:Export;
+      total?: filter.Number;
+      order?: OrderOrdersInputParam;
     }
     export interface ItemFamiliesInputParam {
-       
-      /**
-        * @description Parameters for item_family
-
-        */
-       
-      item_family?:{id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},name?:{is?:string,is_not?:string,starts_with?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-    }
-    export interface ItemsResponse {  
-       export:Export;
+      item_family?: ItemFamilyItemFamiliesInputParam;
     }
     export interface ItemsInputParam {
-       
-      /**
-        * @description Parameters for item
-
-        */
-       
-      item?:{channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},enabled_for_checkout?:{is?:'true' | 'false'},enabled_in_portal?:{is?:'true' | 'false'},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},is_giftable?:{is?:'true' | 'false'},item_applicability?:{in?:string,is?:'all' | 'restricted',is_not?:'all' | 'restricted',not_in?:string},item_family_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},metered?:{is?:'true' | 'false'},name?:{is?:string,is_not?:string,starts_with?:string},status?:{in?:string,is?:'archived' | 'deleted' | 'active',is_not?:'archived' | 'deleted' | 'active',not_in?:string},type?:{in?:string,is?:'charge' | 'addon' | 'plan',is_not?:'charge' | 'addon' | 'plan',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string},usage_calculation?:{in?:string,is?:'max_usage' | 'sum_of_usages' | 'last_usage',is_not?:'max_usage' | 'sum_of_usages' | 'last_usage',not_in?:string}};
-    }
-    export interface ItemPricesResponse {  
-       export:Export;
+      item?: ItemItemsInputParam;
     }
     export interface ItemPricesInputParam {
-       
-      /**
-        * @description optional, string filter  
-Filter item prices based on &#x60;item_family_id&#x60;.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *item_family_id\[is\] &#x3D; &quot;Acme&quot;*
-
-        */
-       
-      item_family_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description optional, enumerated string filter  
-Filter item prices based on &#x60;item_type&#x60;. Possible values are : plan, addon, charge.  
-**Supported operators :** is, is_not, in, not_in  
-
-**Example →** *item_type\[is_not\] &#x3D; &quot;plan&quot;*
-
-        */
-       
-      item_type?:{in?:string,is?:'charge' | 'addon' | 'plan',is_not?:'charge' | 'addon' | 'plan',not_in?:string};
-       
-      /**
-        * @description optional, string filter  
-Filter item prices based on their &#x60;currency_code&#x60;.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *currency_code\[is\] &#x3D; &quot;USD&quot;*
-
-        */
-       
-      currency_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description Parameters for item_price
-
-        */
-       
-      item_price?:{channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},name?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},period?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},period_unit?:{in?:string,is?:'week' | 'month' | 'year' | 'day',is_not?:'week' | 'month' | 'year' | 'day',not_in?:string},pricing_model?:{in?:string,is?:'volume' | 'per_unit' | 'tiered' | 'flat_fee' | 'stairstep',is_not?:'volume' | 'per_unit' | 'tiered' | 'flat_fee' | 'stairstep',not_in?:string},status?:{in?:string,is?:'archived' | 'deleted' | 'active',is_not?:'archived' | 'deleted' | 'active',not_in?:string},trial_period?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},trial_period_unit?:{in?:string,is?:'month' | 'day',is_not?:'month' | 'day',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-    }
-    export interface AttachedItemsResponse {  
-       export:Export;
+      item_family_id?: filter.String;
+      item_type?: filter.Enum;
+      currency_code?: filter.String;
+      item_price?: ItemPriceItemPricesInputParam;
     }
     export interface AttachedItemsInputParam {
-       
-      /**
-        * @description optional, enumerated string filter  
-To filter based on the type of of the attached item. Possible values are : &#x60;addon&#x60;, &#x60;charge&#x60;. Possible values are : plan, addon, charge.  
-**Supported operators :** is, is_not, in, not_in  
-
-**Example →** *item_type\[is_not\] &#x3D; &quot;plan&quot;*
-
-        */
-       
-      item_type?:{in?:string,is?:'charge' | 'addon' | 'plan',is_not?:'charge' | 'addon' | 'plan',not_in?:string};
-       
-      /**
-        * @description Parameters for attached_item
-
-        */
-       
-      attached_item?:{charge_on_event?:{in?:string,is?:'subscription_creation' | 'subscription_activation' | 'subscription_trial_start' | 'contract_termination' | 'plan_activation' | 'on_demand',is_not?:'subscription_creation' | 'subscription_activation' | 'subscription_trial_start' | 'contract_termination' | 'plan_activation' | 'on_demand',not_in?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},parent_item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},type?:{in?:string,is?:'optional' | 'mandatory' | 'recommended',is_not?:'optional' | 'mandatory' | 'recommended',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
-    }
-    export interface DifferentialPricesResponse {  
-       export:Export;
+      item_type?: filter.Enum;
+      attached_item?: AttachedItemAttachedItemsInputParam;
     }
     export interface DifferentialPricesInputParam {
-       
-      /**
-        * @description optional, string filter  
-Item Id of Addon / Charge item price for which differential pricing is applied to.  
-**Supported operators :** is, is_not, starts_with, in, not_in  
-
-**Example →** *item_id\[is\] &#x3D; &quot;day-pass&quot;*
-
-        */
-       
-      item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description Parameters for differential_price
-
-        */
-       
-      differential_price?:{id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},item_price_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},parent_item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string}};
-    }
-    export interface PriceVariantsResponse {  
-       export:Export;
+      differential_price?: DifferentialPriceDifferentialPricesInputParam;
+      item_id?: filter.String;
     }
     export interface PriceVariantsInputParam {
-       
-      price_variant?:{created_at?:{after?:string,before?:string,between?:string,on?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},name?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},status?:{in?:string,is?:'active' | 'archived',is_not?:'active' | 'archived',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
+      price_variant?: PriceVariantPriceVariantsInputParam;
     }
-    export interface Download {  
-         /**
-          * @description The URL at which the file is available for download.
+    export interface InvoiceRevenueRecognitionInputParam {
+      id?: filter.String;
+      recurring?: filter.Boolean;
+      status?: filter.Enum;
+      price_type?: filter.Enum;
+      date?: filter.Timestamp;
+      paid_at?: filter.Timestamp;
+      total?: filter.Number;
+      amount_paid?: filter.Number;
+      amount_adjusted?: filter.Number;
+      credits_applied?: filter.Number;
+      amount_due?: filter.Number;
+      dunning_status?: filter.Enum;
+      updated_at?: filter.Timestamp;
+      channel?: filter.Enum;
+    }
+    export interface CustomerRevenueRecognitionInputParam {
+      id?: filter.String;
+      first_name?: filter.String;
+      last_name?: filter.String;
+      email?: filter.String;
+      company?: filter.String;
+      phone?: filter.String;
+      auto_collection?: filter.Enum;
+      taxability?: filter.Enum;
+      created_at?: filter.Timestamp;
+      updated_at?: filter.Timestamp;
+      offline_payment_method?: filter.Enum;
+      auto_close_invoices?: filter.Boolean;
+      channel?: filter.Enum;
+    }
+    export interface RelationshipRevenueRecognitionInputParam {
+      parent_id?: filter.String;
+      payment_owner_id?: filter.String;
+      invoice_owner_id?: filter.String;
+    }
+    export interface SubscriptionRevenueRecognitionInputParam {
+      id?: filter.String;
+      customer_id?: filter.String;
+      status?: filter.Enum;
+      cancel_reason?: filter.Enum;
+      remaining_billing_cycles?: filter.Number;
+      created_at?: filter.Timestamp;
+      activated_at?: filter.Timestamp;
+      next_billing_at?: filter.Timestamp;
+      cancelled_at?: filter.Timestamp;
+      has_scheduled_changes?: filter.Boolean;
+      updated_at?: filter.Timestamp;
+      offline_payment_method?: filter.Enum;
+      auto_close_invoices?: filter.Boolean;
+      channel?: filter.Enum;
+      plan_id?: filter.String;
+    }
 
-          */
-       
-      download_url:string;
-       
-         /**
-          * @description The time until which the &#x60;download_url&#x60; is valid.
+    export interface InvoiceDeferredRevenueInputParam {
+      id?: filter.String;
+      recurring?: filter.Boolean;
+      status?: filter.Enum;
+      price_type?: filter.Enum;
+      date?: filter.Timestamp;
+      paid_at?: filter.Timestamp;
+      total?: filter.Number;
+      amount_paid?: filter.Number;
+      amount_adjusted?: filter.Number;
+      credits_applied?: filter.Number;
+      amount_due?: filter.Number;
+      dunning_status?: filter.Enum;
+      updated_at?: filter.Timestamp;
+      channel?: filter.Enum;
+    }
+    export interface CustomerDeferredRevenueInputParam {
+      id?: filter.String;
+      first_name?: filter.String;
+      last_name?: filter.String;
+      email?: filter.String;
+      company?: filter.String;
+      phone?: filter.String;
+      auto_collection?: filter.Enum;
+      taxability?: filter.Enum;
+      created_at?: filter.Timestamp;
+      updated_at?: filter.Timestamp;
+      offline_payment_method?: filter.Enum;
+      auto_close_invoices?: filter.Boolean;
+      channel?: filter.Enum;
+    }
+    export interface RelationshipDeferredRevenueInputParam {
+      parent_id?: filter.String;
+      payment_owner_id?: filter.String;
+      invoice_owner_id?: filter.String;
+    }
+    export interface SubscriptionDeferredRevenueInputParam {
+      id?: filter.String;
+      customer_id?: filter.String;
+      status?: filter.Enum;
+      cancel_reason?: filter.Enum;
+      remaining_billing_cycles?: filter.Number;
+      created_at?: filter.Timestamp;
+      activated_at?: filter.Timestamp;
+      next_billing_at?: filter.Timestamp;
+      cancelled_at?: filter.Timestamp;
+      has_scheduled_changes?: filter.Boolean;
+      updated_at?: filter.Timestamp;
+      offline_payment_method?: filter.Enum;
+      auto_close_invoices?: filter.Boolean;
+      channel?: filter.Enum;
+      plan_id?: filter.String;
+    }
 
-          */
-       
-      valid_till:number;
-       
-         /**
-          * @description The [media type](https://en.wikipedia.org/wiki/Media_type) of the file.
+    export interface PlanPlansInputParam {
+      id?: filter.String;
+      name?: filter.String;
+      price?: filter.Number;
+      period?: filter.Number;
+      period_unit?: filter.Enum;
+      trial_period?: filter.Number;
+      trial_period_unit?: filter.Enum;
+      addon_applicability?: filter.Enum;
+      giftable?: filter.Boolean;
+      status?: filter.Enum;
+      updated_at?: filter.Timestamp;
+      channel?: filter.Enum;
+    }
 
-          */
-       
-      mime_type?:string;
+    export interface AddonAddonsInputParam {
+      id?: filter.String;
+      name?: filter.String;
+      charge_type?: filter.Enum;
+      price?: filter.Number;
+      period?: filter.Number;
+      period_unit?: filter.Enum;
+      status?: filter.Enum;
+      updated_at?: filter.Timestamp;
+      channel?: filter.Enum;
+    }
+
+    export interface CouponCouponsInputParam {
+      id?: filter.String;
+      name?: filter.String;
+      discount_type?: filter.Enum;
+      duration_type?: filter.Enum;
+      status?: filter.Enum;
+      apply_on?: filter.Enum;
+      created_at?: filter.Timestamp;
+      updated_at?: filter.Timestamp;
+    }
+
+    export interface CustomerCustomersInputParam {
+      id?: filter.String;
+      first_name?: filter.String;
+      last_name?: filter.String;
+      email?: filter.String;
+      company?: filter.String;
+      phone?: filter.String;
+      auto_collection?: filter.Enum;
+      taxability?: filter.Enum;
+      created_at?: filter.Timestamp;
+      updated_at?: filter.Timestamp;
+      offline_payment_method?: filter.Enum;
+      auto_close_invoices?: filter.Boolean;
+      channel?: filter.Enum;
+    }
+    export interface RelationshipCustomersInputParam {
+      parent_id?: filter.String;
+      payment_owner_id?: filter.String;
+      invoice_owner_id?: filter.String;
+    }
+
+    export interface SubscriptionSubscriptionsInputParam {
+      id?: filter.String;
+      customer_id?: filter.String;
+      status?: filter.Enum;
+      cancel_reason?: filter.Enum;
+      remaining_billing_cycles?: filter.Number;
+      created_at?: filter.Timestamp;
+      activated_at?: filter.Timestamp;
+      next_billing_at?: filter.Timestamp;
+      cancelled_at?: filter.Timestamp;
+      has_scheduled_changes?: filter.Boolean;
+      updated_at?: filter.Timestamp;
+      offline_payment_method?: filter.Enum;
+      auto_close_invoices?: filter.Boolean;
+      channel?: filter.Enum;
+      plan_id?: filter.String;
+    }
+
+    export interface InvoiceInvoicesInputParam {
+      id?: filter.String;
+      subscription_id?: filter.String;
+      customer_id?: filter.String;
+      recurring?: filter.Boolean;
+      status?: filter.Enum;
+      price_type?: filter.Enum;
+      date?: filter.Timestamp;
+      paid_at?: filter.Timestamp;
+      total?: filter.Number;
+      amount_paid?: filter.Number;
+      amount_adjusted?: filter.Number;
+      credits_applied?: filter.Number;
+      amount_due?: filter.Number;
+      dunning_status?: filter.Enum;
+      updated_at?: filter.Timestamp;
+      channel?: filter.Enum;
+    }
+
+    export interface CreditNoteCreditNotesInputParam {
+      id?: filter.String;
+      customer_id?: filter.String;
+      subscription_id?: filter.String;
+      reference_invoice_id?: filter.String;
+      type?: filter.Enum;
+      reason_code?: filter.Enum;
+      create_reason_code?: filter.String;
+      status?: filter.Enum;
+      date?: filter.Timestamp;
+      total?: filter.Number;
+      price_type?: filter.Enum;
+      amount_allocated?: filter.Number;
+      amount_refunded?: filter.Number;
+      amount_available?: filter.Number;
+      voided_at?: filter.Timestamp;
+      updated_at?: filter.Timestamp;
+      channel?: filter.Enum;
+    }
+
+    export interface TransactionTransactionsInputParam {
+      id?: filter.String;
+      customer_id?: filter.String;
+      subscription_id?: filter.String;
+      payment_source_id?: filter.String;
+      payment_method?: filter.Enum;
+      gateway?: filter.Enum;
+      gateway_account_id?: filter.String;
+      id_at_gateway?: filter.String;
+      reference_number?: filter.String;
+      type?: filter.Enum;
+      date?: filter.Timestamp;
+      amount?: filter.Number;
+      amount_capturable?: filter.Number;
+      status?: filter.Enum;
+      updated_at?: filter.Timestamp;
+    }
+
+    export interface OrderOrdersInputParam {
+      id?: filter.String;
+      subscription_id?: filter.String;
+      customer_id?: filter.String;
+      status?: filter.Enum;
+      price_type?: filter.Enum;
+      order_date?: filter.Timestamp;
+      shipping_date?: filter.Timestamp;
+      shipped_at?: filter.Timestamp;
+      delivered_at?: filter.Timestamp;
+      cancelled_at?: filter.Timestamp;
+      amount_paid?: filter.Number;
+      refundable_credits?: filter.Number;
+      refundable_credits_issued?: filter.Number;
+      updated_at?: filter.Timestamp;
+      resent_status?: filter.Enum;
+      is_resent?: filter.Boolean;
+      original_order_id?: filter.String;
+    }
+
+    export interface ItemFamilyItemFamiliesInputParam {
+      id?: filter.String;
+      name?: filter.String;
+      updated_at?: filter.Timestamp;
+    }
+
+    export interface ItemItemsInputParam {
+      id?: filter.String;
+      item_family_id?: filter.String;
+      type?: filter.Enum;
+      name?: filter.String;
+      item_applicability?: filter.Enum;
+      status?: filter.Enum;
+      is_giftable?: filter.Boolean;
+      updated_at?: filter.Timestamp;
+      enabled_for_checkout?: filter.Boolean;
+      enabled_in_portal?: filter.Boolean;
+      metered?: filter.Boolean;
+      usage_calculation?: filter.Enum;
+      channel?: filter.Enum;
+    }
+
+    export interface ItemPriceItemPricesInputParam {
+      id?: filter.String;
+      name?: filter.String;
+      pricing_model?: filter.Enum;
+      item_id?: filter.String;
+      price_variant_id?: filter.String;
+      trial_period?: filter.Number;
+      trial_period_unit?: filter.Enum;
+      status?: filter.Enum;
+      updated_at?: filter.Timestamp;
+      period_unit?: filter.Enum;
+      period?: filter.Number;
+      channel?: filter.Enum;
+    }
+
+    export interface AttachedItemAttachedItemsInputParam {
+      id?: filter.String;
+      item_id?: filter.String;
+      type?: filter.Enum;
+      charge_on_event?: filter.Enum;
+      updated_at?: filter.Timestamp;
+      parent_item_id?: filter.String;
+    }
+
+    export interface DifferentialPriceDifferentialPricesInputParam {
+      item_price_id?: filter.String;
+      id?: filter.String;
+      parent_item_id?: filter.String;
+    }
+
+    export interface PriceVariantPriceVariantsInputParam {
+      id?: filter.String;
+      name?: filter.String;
+      status?: filter.Enum;
+      updated_at?: filter.Timestamp;
+      created_at?: filter.Timestamp;
     }
   }
 }

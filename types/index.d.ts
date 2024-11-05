@@ -73,58 +73,95 @@
 ///<reference path='./resources/Usage.d.ts' />
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
 
+export type Config = {
+  /**
+   * @apiKey api key for the site.
+   */
+  apiKey: string;
+  /**
+   * @site api site name.
+   */
+  site: string;
+  /**
+   * @apiPath this value indicates the api version, default value is /api/v2.
+   */
+  apiPath?: '/api/v2' | '/api/v1';
+  /**
+   * @timeout client side request timeout in milliseconds, default value is 80000ms.
+   */
+  timeout?: number;
+  /**
+   * @port url port
+   */
+  port?: number;
+  /**
+   * @timemachineWaitInMillis time interval at which two subsequent retrieve timemachine call in milliseconds, default value is 3000ms.
+   */
+  timemachineWaitInMillis?: number;
+  /**
+   * @exportWaitInMillis time interval at which two subsequent retrieve export call in milliseconds, default value is 3000ms.
+   */
+  exportWaitInMillis?: number;
+  /**
+   * @protocol http protocol, default value is https
+   */
+  protocol?: 'https' | 'http';
+  /**
+   * @hostSuffix url host suffix, default value is .chargebee.com
+   */
+  hostSuffix?: string;
+};
 declare module 'chargebee' {
-  export default class {
-    static configure({ site, api_key }: { site: string; api_key: string }): void;
-    static address: Address.AddressResource;
-    static attached_item: AttachedItem.AttachedItemResource;
-    static business_entity: BusinessEntity.BusinessEntityResource;
-    static card: Card.CardResource;
-    static comment: Comment.CommentResource;
-    static coupon: Coupon.CouponResource;
-    static coupon_code: CouponCode.CouponCodeResource;
-    static coupon_set: CouponSet.CouponSetResource;
-    static credit_note: CreditNote.CreditNoteResource;
-    static currency: Currency.CurrencyResource;
-    static customer: Customer.CustomerResource;
-    static customer_entitlement: CustomerEntitlement.CustomerEntitlementResource;
-    static differential_price: DifferentialPrice.DifferentialPriceResource;
-    static entitlement: Entitlement.EntitlementResource;
-    static entitlement_override: EntitlementOverride.EntitlementOverrideResource;
-    static estimate: Estimate.EstimateResource;
-    static event: Event.EventResource;
-    static export: Export.ExportResource;
-    static feature: Feature.FeatureResource;
-    static gift: Gift.GiftResource;
-    static hosted_page: HostedPage.HostedPageResource;
-    static in_app_subscription: InAppSubscription.InAppSubscriptionResource;
-    static invoice: Invoice.InvoiceResource;
-    static item: Item.ItemResource;
-    static item_entitlement: ItemEntitlement.ItemEntitlementResource;
-    static item_family: ItemFamily.ItemFamilyResource;
-    static item_price: ItemPrice.ItemPriceResource;
-    static non_subscription: NonSubscription.NonSubscriptionResource;
-    static order: Order.OrderResource;
-    static payment_intent: PaymentIntent.PaymentIntentResource;
-    static payment_schedule_scheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;
-    static payment_source: PaymentSource.PaymentSourceResource;
-    static payment_voucher: PaymentVoucher.PaymentVoucherResource;
-    static portal_session: PortalSession.PortalSessionResource;
-    static price_variant: PriceVariant.PriceVariantResource;
-    static pricing_page_session: PricingPageSession.PricingPageSessionResource;
-    static promotional_credit: PromotionalCredit.PromotionalCreditResource;
-    static purchase: Purchase.PurchaseResource;
-    static quote: Quote.QuoteResource;
-    static ramp: Ramp.RampResource;
-    static resource_migration: ResourceMigration.ResourceMigrationResource;
-    static site_migration_detail: SiteMigrationDetail.SiteMigrationDetailResource;
-    static subscription: Subscription.SubscriptionResource;
-    static subscription_entitlement: SubscriptionEntitlement.SubscriptionEntitlementResource;
-    static time_machine: TimeMachine.TimeMachineResource;
-    static transaction: Transaction.TransactionResource;
-    static unbilled_charge: UnbilledCharge.UnbilledChargeResource;
-    static usage: Usage.UsageResource;
-    static virtual_bank_account: VirtualBankAccount.VirtualBankAccountResource;
-    
+  export default class Chargebee {
+    constructor(config: Config);
+    address: Address.AddressResource;
+    attachedItem: AttachedItem.AttachedItemResource;
+    businessEntity: BusinessEntity.BusinessEntityResource;
+    card: Card.CardResource;
+    comment: Comment.CommentResource;
+    coupon: Coupon.CouponResource;
+    couponCode: CouponCode.CouponCodeResource;
+    couponSet: CouponSet.CouponSetResource;
+    creditNote: CreditNote.CreditNoteResource;
+    currency: Currency.CurrencyResource;
+    customer: Customer.CustomerResource;
+    customerEntitlement: CustomerEntitlement.CustomerEntitlementResource;
+    differentialPrice: DifferentialPrice.DifferentialPriceResource;
+    entitlement: Entitlement.EntitlementResource;
+    entitlementOverride: EntitlementOverride.EntitlementOverrideResource;
+    estimate: Estimate.EstimateResource;
+    event: Event.EventResource;
+    export: Export.ExportResource;
+    feature: Feature.FeatureResource;
+    gift: Gift.GiftResource;
+    hostedPage: HostedPage.HostedPageResource;
+    inAppSubscription: InAppSubscription.InAppSubscriptionResource;
+    invoice: Invoice.InvoiceResource;
+    item: Item.ItemResource;
+    itemEntitlement: ItemEntitlement.ItemEntitlementResource;
+    itemFamily: ItemFamily.ItemFamilyResource;
+    itemPrice: ItemPrice.ItemPriceResource;
+    nonSubscription: NonSubscription.NonSubscriptionResource;
+    order: Order.OrderResource;
+    paymentIntent: PaymentIntent.PaymentIntentResource;
+    paymentScheduleScheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;
+    paymentSource: PaymentSource.PaymentSourceResource;
+    paymentVoucher: PaymentVoucher.PaymentVoucherResource;
+    portalSession: PortalSession.PortalSessionResource;
+    priceVariant: PriceVariant.PriceVariantResource;
+    pricingPageSession: PricingPageSession.PricingPageSessionResource;
+    promotionalCredit: PromotionalCredit.PromotionalCreditResource;
+    purchase: Purchase.PurchaseResource;
+    quote: Quote.QuoteResource;
+    ramp: Ramp.RampResource;
+    resourceMigration: ResourceMigration.ResourceMigrationResource;
+    siteMigrationDetail: SiteMigrationDetail.SiteMigrationDetailResource;
+    subscription: Subscription.SubscriptionResource;
+    subscriptionEntitlement: SubscriptionEntitlement.SubscriptionEntitlementResource;
+    timeMachine: TimeMachine.TimeMachineResource;
+    transaction: Transaction.TransactionResource;
+    unbilledCharge: UnbilledCharge.UnbilledChargeResource;
+    usage: Usage.UsageResource;
+    virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
   }
 }
