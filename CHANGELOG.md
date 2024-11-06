@@ -1,3 +1,6 @@
+## v3.0.0 (2024-11-06)
+* Releasing major version `v3.0.0` :tada:
+
 ### v3.0.0-beta.5 (2024-11-05)
 
 #### Naming Convention Fix:
