@@ -1,4 +1,4 @@
-# Chargebee Node.js / TypeScript client library (Beta)
+# Chargebee Node.js / TypeScript client library
 
 This is the [Node.js](http://nodejs.org/) library for integrating with Chargebee. Sign up for a Chargebee account [here](https://www.chargebee.com).
 
@@ -10,19 +10,19 @@ Node.js 18 or higher.
 
 ## Installation
 
-Install the beta version of the library with npm:
+Install the library with npm:
 
 ```sh
-npm install chargebee@beta
+npm install chargebee
 ```
 With pnpm:
 ```sh
-pnpm add chargebee@beta
+pnpm add chargebee
 ```
 
 With yarn:
 ```sh
-yarn add chargebee@beta
+yarn add chargebee
 ```
 
 ## Usage
