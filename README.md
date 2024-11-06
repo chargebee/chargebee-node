@@ -1,3 +1,6 @@
+> [!WARNING]  
+> This branch contains the code for Chargebee Node.js SDK v2 which is deprecated. v2 will continue to receive updates till September 30, 2025. If you are using v2, we request you to upgrade to v3 by following [this migration guide](https://github.com/chargebee/chargebee-node/wiki/Migration-guide-for-v3) before September 30, 2025.
+
 # Chargebee Node.js Client Library
 
 [![npm](https://img.shields.io/npm/v/chargebee.svg?maxAge=3)](https://www.npmjs.com/package/chargebee)
