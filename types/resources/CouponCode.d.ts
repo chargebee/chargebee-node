@@ -1,66 +1,70 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
+///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface CouponCode {
-    
-    /**
-      * @description Unique coupon code that can be redeemed only once.
-
-      */
-    
-    code:string;
-    
-    /**
-      * @description Status of the coupon code. \* not_redeemed - Can be applied to a subscription. \* redeemed - Cannot be applied to a subscription as the coupon code has been already used. \* archived - Cannot be applied to a subscription as it has been made inactive.
-
-      */
-    
-    status:'archived' | 'redeemed' | 'not_redeemed';
-    
-    /**
-      * @description Id of the main coupon resource.
-
-      */
-    
-    coupon_id:string;
-    
-    /**
-      * @description Uniquely identifies a coupon_set
-
-      */
-    
-    coupon_set_id:string;
-    
-    /**
-      * @description Coupon set name to which this coupon code would be grouped under. If the coupon set with the passed name is not present, a new coupon set will be created.
-
-      */
-    
-    coupon_set_name:string;
+    code: string;
+    status: 'not_redeemed' | 'redeemed' | 'archived';
+    coupon_id: string;
+    coupon_set_id: string;
+    coupon_set_name: string;
   }
+
   export namespace CouponCode {
-    export class CouponCodeResource {  
-      /**
-        * @description Retrieves a specific coupon code details.
+    export class CouponCodeResource {
+      create(
+        input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
-        */
-      
-      retrieve(coupon_code_code:string):ChargebeeRequest<RetrieveResponse>;
-       
-      /**
-        * @description Archives a coupon code thereby making it inactive. The archived coupon code cannot be applied to any subscription.
+      retrieve(
+        coupon_code_code: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-        */
-      
-      archive(coupon_code_code:string):ChargebeeRequest<ArchiveResponse>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
+
+      archive(
+        coupon_code_code: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ArchiveResponse>>;
     }
-    export interface RetrieveResponse {  
-       coupon_code:CouponCode;
+
+    export interface CreateResponse {
+      coupon_code: CouponCode;
     }
-    
-    export interface ArchiveResponse {  
-       coupon_code:CouponCode;
+
+    export interface RetrieveResponse {
+      coupon_code: CouponCode;
     }
-    
-    
+
+    export interface ListResponse {
+      list: { coupon_code: CouponCode }[];
+      next_offset?: string;
+    }
+
+    export interface ArchiveResponse {
+      coupon_code: CouponCode;
+    }
+
+    // REQUEST PARAMS
+    //---------------
+
+    export interface CreateInputParam {
+      coupon_id: string;
+      coupon_set_name: string;
+      code: string;
+    }
+    export interface ListInputParam {
+      limit?: number;
+      offset?: string;
+      code?: filter.String;
+      coupon_id?: filter.String;
+      coupon_set_name?: filter.String;
+      status?: filter.Enum;
+    }
   }
 }

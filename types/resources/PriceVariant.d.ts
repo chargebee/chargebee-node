@@ -1,300 +1,112 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
+///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface PriceVariant {
-    
-    /**
-      * @description The unique and immutable identifier of the price variant.
-
-      */
-    
-    id:string;
-    
-    /**
-      * @description A unique name of the price variant.
-
-      */
-    
-    name:string;
-    
-    /**
-      * @description A unique display name for the price variant.
-
-      */
-    
-    external_name?:string;
-    
-    /**
-      * @description Description of the price variant.
-
-      */
-    variant_group?:string;
-    description?:string;
-    
-    /**
-      * @description Status of a price variant. \* active - Active price variant. This price variant can be attached to [item prices](https://apidocs.chargebee.com/docs/api/item_prices?lang&#x3D;curl). \* deleted - Deleted price variant. The &#x60;id&#x60; and &#x60;name&#x60; of the deleted price variant can be reused. \* archived - Archived price variant. This price variant is no longer &#x60;active&#x60; and cannot be attached to new [item prices](https://apidocs.chargebee.com/docs/api/item_prices?lang&#x3D;curl). Existing item prices that already have this price variant attached will continue to remain as is.
-
-      */
-    
-    status?:'active' | 'archived' | 'deleted';
-    
-    /**
-      * @description Timestamp indicating when this price variant is created.
-
-      */
-    
-    created_at:number;
-    
-    /**
-      * @description The version number of this resource. For every change made to the resource, &#x60;resource_version&#x60; is updated with a new timestamp in milliseconds.
-
-      */
-    
-    resource_version?:number;
-    
-    /**
-      * @description Timestamp indicating when this price variant was last updated.
-
-      */
-    
-    updated_at?:number;
-    
-    /**
-      * @description Timestamp indicating when this price variant was archived.
-
-      */
-    
-    archived_at?:number;
-    
-    /**
-      * @description The list of price variant attribute values.
-
-Attributes can be used to store additional information about the price variant. For example, for a price variant called &#x27;Germany&#x27;, the attributes can be &#x27;Country&#x27;:&#x27;Germany&#x27;, &#x27;City&#x27;:&#x27;Berlin&#x27; and so on.
-
-      */
-    
-    attributes?:PriceVariant.Attribute[];
+    id: string;
+    name: string;
+    external_name?: string;
+    variant_group?: string;
+    description?: string;
+    status?: 'active' | 'archived' | 'deleted';
+    created_at: number;
+    resource_version?: number;
+    updated_at?: number;
+    archived_at?: number;
+    attributes?: PriceVariant.Attribute[];
   }
+
   export namespace PriceVariant {
-    export class PriceVariantResource {  
-      /**
-        * @description This endpoint allows the creation of a new price variant that can be attached to [item prices](https://apidocs.chargebee.com/docs/api/item_prices?lang&#x3D;curl).
+    export class PriceVariantResource {
+      create(
+        input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CreateResponse>>;
 
-        */
-      
-      create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
-       
-      /**
-        * @description This endpoint retrieves the details of a specific price variant using its unique identifier.
+      retrieve(
+        price_variant_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
-        */
-      
-      retrieve(price_variant_id:string):ChargebeeRequest<RetrieveResponse>;
-       
-      /**
-        * @description This endpoint modifies the details of an existing price variant.
+      update(
+        price_variant_id: string,
+        input: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdateResponse>>;
 
-        */
-      
-      update(price_variant_id:string, input:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
-       
-      /**
-        * @description Deletes the price variant. This is not allowed if price variant is attached to any [item price](https://apidocs.chargebee.com/docs/api/item_prices?lang&#x3D;curl). Once deleted, the &#x60;id&#x60; and &#x60;name&#x60; of the price variant can be reused.
+      delete(
+        price_variant_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
 
-        */
-      
-      delete(price_variant_id:string):ChargebeeRequest<DeleteResponse>;
-       
-      /**
-        * @description This endpoint is used to retrieve a list of price variants.
-
-        */
-      
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
     }
-    export interface CreateResponse {  
-       price_variant:PriceVariant;
+
+    export interface CreateResponse {
+      price_variant: PriceVariant;
     }
+
+    export interface RetrieveResponse {
+      price_variant: PriceVariant;
+    }
+
+    export interface UpdateResponse {
+      price_variant: PriceVariant;
+    }
+
+    export interface DeleteResponse {
+      price_variant: PriceVariant;
+    }
+
+    export interface ListResponse {
+      list: { price_variant: PriceVariant }[];
+      next_offset?: string;
+    }
+
+    export interface Attribute {
+      name: string;
+      value: string;
+    }
+    // REQUEST PARAMS
+    //---------------
+
     export interface CreateInputParam {
-       
-      /**
-        * @description The unique and immutable identifier of the price variant.
-
-        */
-       
-      id:string;
-       
-      /**
-        * @description A unique name of the price variant.
-
-        */
-       
-      name:string;
-       
-      /**
-        * @description A unique display name for the price variant.
-
-        */
-       
-      external_name?:string;
-       
-      /**
-        * @description Description of the price variant.
-
-        */
-       
-      description?:string;
-       
-      /**
-        * @description The list of price variant attribute values.
-
-Attributes can be used to store additional information about the price variant. For example, for a price variant called &#x27;Germany&#x27;, the attributes can be &#x27;Country&#x27;:&#x27;Germany&#x27;, &#x27;City&#x27;:&#x27;Berlin&#x27; and so on.
-
-        */
-       
-      attributes:{name:string,value:string}[];
-
-      variant_group?:string;
-    }
-    export interface RetrieveResponse {  
-       price_variant:PriceVariant;
-    }
-    
-    export interface UpdateResponse {  
-       price_variant:PriceVariant;
+      id: string;
+      name: string;
+      external_name?: string;
+      description?: string;
+      variant_group?: string;
+      attributes?: AttributesCreateInputParam[];
     }
     export interface UpdateInputParam {
-       
-      /**
-        * @description A unique name of the price variant.
-
-        */
-       
-      name?:string;
-       
-      /**
-        * @description A unique display name for the price variant.
-
-        */
-       
-      external_name?:string;
-       
-      /**
-        * @description Description of the price variant.
-
-        */
-       
-      description?:string;
-
-      variant_group?:string;
-       
-      /**
-        * @description Status of a price variant. \* active - Active price variant. This price variant can be attached to [item prices](https://apidocs.chargebee.com/docs/api/item_prices?lang&#x3D;curl). \* deleted - Deleted price variant. The &#x60;id&#x60; and &#x60;name&#x60; of the deleted price variant can be reused. \* archived - Archived price variant. This price variant is no longer &#x60;active&#x60; and cannot be attached to new [item prices](https://apidocs.chargebee.com/docs/api/item_prices?lang&#x3D;curl). Existing item prices that already have this price variant attached will continue to remain as is.
-
-        */
-       
-      status?:'active' | 'archived';
-       
-      /**
-        * @description The list of price variant attribute values.
-
-Attributes can be used to store additional information about the price variant. For example, for a price variant called &#x27;Germany&#x27;, the attributes can be &#x27;Country&#x27;:&#x27;Germany&#x27;, &#x27;City&#x27;:&#x27;Berlin&#x27; and so on.
-
-        */
-       
-      attributes:{name:string,value:string}[];
-    }
-    export interface DeleteResponse {  
-       price_variant:PriceVariant;
-    }
-    
-    export interface ListResponse {  
-      /**
-        * @description This endpoint is used to retrieve a list of price variants.
-
-        */
-       
-       list:{price_variant:PriceVariant}[];
-       
-      /**
-        * @description This endpoint is used to retrieve a list of price variants.
-
-        */
-       
-       next_offset?:string;
+      name?: string;
+      external_name?: string;
+      description?: string;
+      variant_group?: string;
+      status?: 'active' | 'archived';
+      attributes?: AttributesUpdateInputParam[];
     }
     export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description This endpoint is used to retrieve a list of price variants.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description This endpoint is used to retrieve a list of price variants.
-
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description This endpoint is used to retrieve a list of price variants.
-
-        */
-        
-      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description This endpoint is used to retrieve a list of price variants.
-
-        */
-        
-      name?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description This endpoint is used to retrieve a list of price variants.
-
-        */
-        
-      status?:{in?:string,is?:'active' | 'archived',is_not?:'active' | 'archived',not_in?:string};
-       
-      /**
-        * @description This endpoint is used to retrieve a list of price variants.
-
-        */
-        
-      updated_at?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description This endpoint is used to retrieve a list of price variants.
-
-        */
-        
-      created_at?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description This endpoint is used to retrieve a list of price variants.
-
-        */
-        
-      sort_by?:{asc?:'name' | 'id' | 'status' | 'created_at' | 'updated_at',desc?:'name' | 'id' | 'status' | 'created_at' | 'updated_at'};
+      limit?: number;
+      offset?: string;
+      id?: filter.String;
+      name?: filter.String;
+      status?: filter.Enum;
+      updated_at?: filter.Timestamp;
+      created_at?: filter.Timestamp;
+      'sort_by[asc]'?: string;
+      'sort_by[desc]'?: string;
     }
-    export interface Attribute {  
-         /**
-          * @description Attribute name
-
-          */
-       
-      name:string;
-       
-         /**
-          * @description Attribute value
-
-          */
-       
-      value:string;
+    export interface AttributesCreateInputParam {
+      name: string;
+      value: string;
+    }
+    export interface AttributesUpdateInputParam {
+      name: string;
+      value: string;
     }
   }
 }

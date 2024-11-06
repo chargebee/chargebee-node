@@ -1,3 +1,9 @@
+node_modules
+test*
+*js
+cjs
+esm
+.idea
 lib-cov
 *.seed
 *.log

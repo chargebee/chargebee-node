@@ -1,905 +1,962 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
+///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface Customer {
-    [key : string] : any;
-    /**
-      * @description Identifier of the customer.
-
-      */
-    
-    id:string;
-    
-    /**
-      * @description First name of the customer
-
-      */
-    
-    first_name?:string;
-    
-    /**
-      * @description Last name of the customer
-
-      */
-    
-    last_name?:string;
-    
-    /**
-      * @description Email of the customer. Configured email notifications will be sent to this email.
-
-      */
-    
-    email?:string;
-    
-    phone?:string;
-    
-    company?:string;
-    
-    vat_number?:string;
-    
-    auto_collection:AutoCollection;
-    
-    offline_payment_method?:OfflinePaymentMethod;
-    
-    net_term_days:number;
-    
-    vat_number_validated_time?:number;
-    
-    vat_number_status?:'valid' | 'invalid' | 'not_validated' | 'undetermined';
-    
-    allow_direct_debit:boolean;
-    
-    is_location_valid?:boolean;
-    
-    created_at:number;
-    
-    created_from_ip?:string;
-    
-    exemption_details?:any[];
-    
-    taxability?:Taxability;
-    
-    entity_code?:EntityCode;
-    
-    exempt_number?:string;
-    
-    resource_version?:number;
-    
-    updated_at?:number;
-    
-    locale?:string;
-    
-    billing_date?:number;
-    
-    billing_month?:number;
-    
-    billing_date_mode?:BillingDateMode;
-    
-    billing_day_of_week?:'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
-    
-    billing_day_of_week_mode?:BillingDayOfWeekMode;
-    
-    pii_cleared?:'active' | 'scheduled_for_clear' | 'cleared';
-    
-    auto_close_invoices?:boolean;
-    
-    channel?:Channel;
-    
-    active_id?:string;
-    
-    card_status?:'no_card' | 'valid' | 'expiring' | 'expired' | 'pending_verification' | 'invalid';
-    
-    fraud_flag?:'safe' | 'suspicious' | 'fraudulent';
-    
-    primary_payment_source_id?:string;
-    
-    backup_payment_source_id?:string;
-    
-    billing_address?:Customer.BillingAddress;
-    
-    referral_urls?:Customer.ReferralUrl[];
-    
-    contacts?:Customer.Contact[];
-    
-    payment_method?:Customer.PaymentMethod;
-    
-    invoice_notes?:string;
-    
-    business_entity_id?:string;
-    
-    preferred_currency_code?:string;
-    
-    promotional_credits:number;
-    
-    unbilled_charges:number;
-    
-    refundable_credits:number;
-    
-    excess_payments:number;
-    
-    balances?:Customer.Balance[];
-    
-    entity_identifiers?:Customer.EntityIdentifier[];
-    
-    tax_providers_fields?:Customer.TaxProvidersField[];
-    
-    is_einvoice_enabled?:boolean;
-    
-    einvoicing_method?:EinvoicingMethod;
-    
-    meta_data?:object;
-    
-    deleted:boolean;
-    
-    registered_for_gst?:boolean;
-    
-    consolidated_invoicing?:boolean;
-    
-    customer_type?:CustomerType;
-    
-    business_customer_without_vat_number?:boolean;
-    
-    client_profile_id?:string;
-    
-    relationship?:Customer.Relationship;
-    
-    use_default_hierarchy_settings?:boolean;
-    
-    parent_account_access?:Customer.ParentAccountAccess;
-    
-    child_account_access?:Customer.ChildAccountAccess;
-    
-    vat_number_prefix?:string;
-    
-    entity_identifier_scheme?:string;
-    
-    entity_identifier_standard?:string;
+    [key: string]: unknown;
+    id: string;
+    first_name?: string;
+    last_name?: string;
+    email?: string;
+    phone?: string;
+    company?: string;
+    vat_number?: string;
+    auto_collection: AutoCollectionEnum;
+    offline_payment_method?: OfflinePaymentMethodEnum;
+    net_term_days: number;
+    vat_number_validated_time?: number;
+    vat_number_status?: 'valid' | 'invalid' | 'not_validated' | 'undetermined';
+    allow_direct_debit: boolean;
+    is_location_valid?: boolean;
+    created_at: number;
+    created_from_ip?: string;
+    exemption_details?: any;
+    taxability?: TaxabilityEnum;
+    entity_code?: EntityCodeEnum;
+    exempt_number?: string;
+    resource_version?: number;
+    updated_at?: number;
+    locale?: string;
+    billing_date?: number;
+    billing_month?: number;
+    billing_date_mode?: BillingDateModeEnum;
+    billing_day_of_week?:
+      | 'sunday'
+      | 'monday'
+      | 'tuesday'
+      | 'wednesday'
+      | 'thursday'
+      | 'friday'
+      | 'saturday';
+    billing_day_of_week_mode?: BillingDayOfWeekModeEnum;
+    pii_cleared?: 'active' | 'scheduled_for_clear' | 'cleared';
+    auto_close_invoices?: boolean;
+    channel?: ChannelEnum;
+    active_id?: string;
+    card_status?:
+      | 'no_card'
+      | 'valid'
+      | 'expiring'
+      | 'expired'
+      | 'pending_verification'
+      | 'invalid';
+    fraud_flag?: 'safe' | 'suspicious' | 'fraudulent';
+    primary_payment_source_id?: string;
+    backup_payment_source_id?: string;
+    billing_address?: Customer.BillingAddress;
+    referral_urls?: Customer.ReferralUrl[];
+    contacts?: Customer.Contact[];
+    payment_method?: Customer.PaymentMethod;
+    invoice_notes?: string;
+    business_entity_id?: string;
+    preferred_currency_code?: string;
+    promotional_credits: number;
+    unbilled_charges: number;
+    refundable_credits: number;
+    excess_payments: number;
+    balances?: Customer.Balance[];
+    entity_identifiers?: Customer.EntityIdentifier[];
+    tax_providers_fields?: Customer.TaxProvidersField[];
+    is_einvoice_enabled?: boolean;
+    einvoicing_method?: EinvoicingMethodEnum;
+    meta_data?: any;
+    deleted: boolean;
+    registered_for_gst?: boolean;
+    consolidated_invoicing?: boolean;
+    customer_type?: CustomerTypeEnum;
+    business_customer_without_vat_number?: boolean;
+    client_profile_id?: string;
+    relationship?: Customer.Relationship;
+    use_default_hierarchy_settings?: boolean;
+    parent_account_access?: Customer.ParentAccountAccess;
+    child_account_access?: Customer.ChildAccountAccess;
+    vat_number_prefix?: string;
+    entity_identifier_scheme?: string;
+    entity_identifier_standard?: string;
   }
+
   export namespace Customer {
-    export class CustomerResource {  
-      create(input?:CreateInputParam):ChargebeeRequest<CreateResponse>;
-       
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
-       
-      retrieve(customer_id:string):ChargebeeRequest<RetrieveResponse>;
-       
-      update(customer_id:string, input?:UpdateInputParam):ChargebeeRequest<UpdateResponse>;
-       
-      update_payment_method(customer_id:string, input:UpdatePaymentMethodInputParam):ChargebeeRequest<UpdatePaymentMethodResponse>;
-       
-      update_billing_info(customer_id:string, input?:UpdateBillingInfoInputParam):ChargebeeRequest<UpdateBillingInfoResponse>;
-       
-      contacts_for_customer(customer_id:string, input?:ContactsForCustomerInputParam):ChargebeeRequest<ContactsForCustomerResponse>;
-       
-      assign_payment_role(customer_id:string, input:AssignPaymentRoleInputParam):ChargebeeRequest<AssignPaymentRoleResponse>;
-       
-      add_contact(customer_id:string, input:AddContactInputParam):ChargebeeRequest<AddContactResponse>;
-       
-      update_contact(customer_id:string, input:UpdateContactInputParam):ChargebeeRequest<UpdateContactResponse>;
-       
-      delete_contact(customer_id:string, input:DeleteContactInputParam):ChargebeeRequest<DeleteContactResponse>;
-       
-      add_promotional_credits(customer_id:string, input:AddPromotionalCreditsInputParam):ChargebeeRequest<AddPromotionalCreditsResponse>;
-       
-      deduct_promotional_credits(customer_id:string, input:DeductPromotionalCreditsInputParam):ChargebeeRequest<DeductPromotionalCreditsResponse>;
-       
-      set_promotional_credits(customer_id:string, input:SetPromotionalCreditsInputParam):ChargebeeRequest<SetPromotionalCreditsResponse>;
-       
-      record_excess_payment(customer_id:string, input:RecordExcessPaymentInputParam):ChargebeeRequest<RecordExcessPaymentResponse>;
-       
-      collect_payment(customer_id:string, input:CollectPaymentInputParam):ChargebeeRequest<CollectPaymentResponse>;
-       
-      delete(customer_id:string, input?:DeleteInputParam):ChargebeeRequest<DeleteResponse>;
-       
-      move(input:MoveInputParam):ChargebeeRequest<MoveResponse>;
-       
-      change_billing_date(customer_id:string, input?:ChangeBillingDateInputParam):ChargebeeRequest<ChangeBillingDateResponse>;
-       
-      merge(input:MergeInputParam):ChargebeeRequest<MergeResponse>;
-       
-      clear_personal_data(customer_id:string):ChargebeeRequest<ClearPersonalDataResponse>;
-       
-      relationships(customer_id:string, input?:RelationshipsInputParam):ChargebeeRequest<RelationshipsResponse>;
-       
-      delete_relationship(customer_id:string):ChargebeeRequest<DeleteRelationshipResponse>;
-       
-      hierarchy(customer_id:string, input:HierarchyInputParam):ChargebeeRequest<HierarchyResponse>;
-       
-      update_hierarchy_settings(customer_id:string, input?:UpdateHierarchySettingsInputParam):ChargebeeRequest<UpdateHierarchySettingsResponse>;
+    export class CustomerResource {
+      create(
+        input?: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CreateResponse>>;
+
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
+
+      retrieve(
+        customer_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
+
+      update(
+        customer_id: string,
+        input?: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdateResponse>>;
+
+      updatePaymentMethod(
+        customer_id: string,
+        input: UpdatePaymentMethodInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdatePaymentMethodResponse>>;
+
+      updateBillingInfo(
+        customer_id: string,
+        input?: UpdateBillingInfoInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdateBillingInfoResponse>>;
+
+      contactsForCustomer(
+        customer_id: string,
+        input?: ContactsForCustomerInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ContactsForCustomerResponse>>;
+
+      assignPaymentRole(
+        customer_id: string,
+        input: AssignPaymentRoleInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<AssignPaymentRoleResponse>>;
+
+      addContact(
+        customer_id: string,
+        input: AddContactInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<AddContactResponse>>;
+
+      updateContact(
+        customer_id: string,
+        input: UpdateContactInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdateContactResponse>>;
+
+      deleteContact(
+        customer_id: string,
+        input: DeleteContactInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeleteContactResponse>>;
+
+      addPromotionalCredits(
+        customer_id: string,
+        input: AddPromotionalCreditsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<AddPromotionalCreditsResponse>>;
+
+      deductPromotionalCredits(
+        customer_id: string,
+        input: DeductPromotionalCreditsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeductPromotionalCreditsResponse>>;
+
+      setPromotionalCredits(
+        customer_id: string,
+        input: SetPromotionalCreditsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<SetPromotionalCreditsResponse>>;
+
+      recordExcessPayment(
+        customer_id: string,
+        input: RecordExcessPaymentInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RecordExcessPaymentResponse>>;
+
+      collectPayment(
+        customer_id: string,
+        input: CollectPaymentInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CollectPaymentResponse>>;
+
+      delete(
+        customer_id: string,
+        input?: DeleteInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
+
+      move(
+        input: MoveInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<MoveResponse>>;
+
+      changeBillingDate(
+        customer_id: string,
+        input?: ChangeBillingDateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ChangeBillingDateResponse>>;
+
+      merge(
+        input: MergeInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<MergeResponse>>;
+
+      clearPersonalData(
+        customer_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ClearPersonalDataResponse>>;
+
+      relationships(
+        customer_id: string,
+        input?: RelationshipsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RelationshipsResponse>>;
+
+      deleteRelationship(
+        customer_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeleteRelationshipResponse>>;
+
+      hierarchy(
+        customer_id: string,
+        input: HierarchyInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<HierarchyResponse>>;
+
+      updateHierarchySettings(
+        customer_id: string,
+        input?: UpdateHierarchySettingsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdateHierarchySettingsResponse>>;
     }
-    export interface CreateResponse {  
-       customer:Customer;
-       
-       card?:Card;
+
+    export interface CreateResponse {
+      customer: Customer;
+      card?: Card;
     }
+
+    export interface ListResponse {
+      list: { customer: Customer; card?: Card }[];
+      next_offset?: string;
+    }
+
+    export interface RetrieveResponse {
+      customer: Customer;
+      card?: Card;
+    }
+
+    export interface UpdateResponse {
+      customer: Customer;
+      card?: Card;
+    }
+
+    export interface UpdatePaymentMethodResponse {
+      customer: Customer;
+      card?: Card;
+    }
+
+    export interface UpdateBillingInfoResponse {
+      customer: Customer;
+      card?: Card;
+    }
+
+    export interface ContactsForCustomerResponse {
+      list: { contact: Contact }[];
+      next_offset?: string;
+    }
+
+    export interface AssignPaymentRoleResponse {
+      customer: Customer;
+      payment_source: PaymentSource;
+    }
+
+    export interface AddContactResponse {
+      customer: Customer;
+      card?: Card;
+    }
+
+    export interface UpdateContactResponse {
+      customer: Customer;
+      card?: Card;
+    }
+
+    export interface DeleteContactResponse {
+      customer: Customer;
+      card?: Card;
+    }
+
+    export interface AddPromotionalCreditsResponse {
+      customer: Customer;
+    }
+
+    export interface DeductPromotionalCreditsResponse {
+      customer: Customer;
+    }
+
+    export interface SetPromotionalCreditsResponse {
+      customer: Customer;
+    }
+
+    export interface RecordExcessPaymentResponse {
+      customer: Customer;
+      transaction: Transaction;
+    }
+
+    export interface CollectPaymentResponse {
+      customer: Customer;
+      transaction: Transaction;
+    }
+
+    export interface DeleteResponse {
+      customer: Customer;
+      card?: Card;
+    }
+
+    export interface MoveResponse {
+      resource_migration: ResourceMigration;
+    }
+
+    export interface ChangeBillingDateResponse {
+      customer: Customer;
+    }
+
+    export interface MergeResponse {
+      customer: Customer;
+    }
+
+    export interface ClearPersonalDataResponse {
+      customer: Customer;
+    }
+
+    export interface RelationshipsResponse {
+      customer: Customer;
+    }
+
+    export interface DeleteRelationshipResponse {
+      customer: Customer;
+    }
+
+    export interface HierarchyResponse {
+      hierarchies: Hierarchy[];
+    }
+
+    export interface UpdateHierarchySettingsResponse {
+      customer: Customer;
+    }
+
+    export interface BillingAddress {
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      company?: string;
+      phone?: string;
+      line1?: string;
+      line2?: string;
+      line3?: string;
+      city?: string;
+      state_code?: string;
+      state?: string;
+      country?: string;
+      zip?: string;
+      validation_status?: ValidationStatusEnum;
+    }
+    export interface ReferralUrl {
+      external_customer_id?: string;
+      referral_sharing_url: string;
+      created_at: number;
+      updated_at: number;
+      referral_campaign_id: string;
+      referral_account_id: string;
+      referral_external_campaign_id?: string;
+      referral_system: 'referral_candy' | 'referral_saasquatch' | 'friendbuy';
+    }
+    export interface Contact {
+      id: string;
+      first_name?: string;
+      last_name?: string;
+      email: string;
+      phone?: string;
+      label?: string;
+      enabled: boolean;
+      send_account_email: boolean;
+      send_billing_email: boolean;
+    }
+    export interface PaymentMethod {
+      type: TypeEnum;
+      gateway: GatewayEnum;
+      gateway_account_id?: string;
+      status:
+        | 'valid'
+        | 'expiring'
+        | 'expired'
+        | 'invalid'
+        | 'pending_verification';
+      reference_id: string;
+    }
+    export interface Balance {
+      promotional_credits: number;
+      excess_payments: number;
+      refundable_credits: number;
+      unbilled_charges: number;
+      currency_code: string;
+      balance_currency_code: string;
+    }
+    export interface EntityIdentifier {
+      id: string;
+      value?: string;
+      scheme: string;
+      standard?: string;
+    }
+    export interface TaxProvidersField {
+      provider_name: string;
+      field_id: string;
+      field_value: string;
+    }
+    export interface Relationship {
+      parent_id?: string;
+      payment_owner_id: string;
+      invoice_owner_id: string;
+    }
+    export interface ParentAccountAccess {
+      portal_edit_child_subscriptions?: 'yes' | 'view_only' | 'no';
+      portal_download_child_invoices?: 'yes' | 'view_only' | 'no';
+      send_subscription_emails: boolean;
+      send_invoice_emails: boolean;
+      send_payment_emails: boolean;
+    }
+    export interface ChildAccountAccess {
+      portal_edit_subscriptions?: 'yes' | 'view_only';
+      portal_download_invoices?: 'yes' | 'view_only' | 'no';
+      send_subscription_emails: boolean;
+      send_invoice_emails: boolean;
+      send_payment_emails: boolean;
+    }
+    // REQUEST PARAMS
+    //---------------
+
     export interface CreateInputParam {
-      [key : string] : any;  
-      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,tmp_token?:string};
-       
-      bank_account?:{account_holder_type?:AccountHolderType,account_number?:string,account_type?:AccountType,bank_code?:string,bank_name?:string,billing_address?:object,company?:string,echeck_type?:EcheckType,email?:string,first_name?:string,gateway_account_id?:string,iban?:string,issuing_country?:string,last_name?:string,phone?:string,routing_number?:string,swedish_identity_number?:string};
-       
-      payment_method?:{additional_information?:object,gateway?:Gateway,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type?:Type};
-       
-      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_payment_method_id?:string,gw_token?:string,id?:string,payment_method_type?:'card' | 'ideal' | 'sofort' | 'bancontact' | 'google_pay' | 'dotpay' | 'giropay' | 'apple_pay' | 'upi' | 'netbanking_emandates' | 'paypal_express_checkout' | 'direct_debit' | 'boleto' | 'venmo' | 'amazon_payments' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'klarna_pay_now' | 'online_banking_poland',reference_id?:string};
-       
-      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
-       
-      entity_identifiers?:{id?:string,scheme?:string,standard?:string,value?:string}[];
-       
-      tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
-       
-      id?:string;
-       
-      first_name?:string;
-       
-      last_name?:string;
-       
-      email?:string;
-       
-      preferred_currency_code?:string;
-       
-      phone?:string;
-       
-      company?:string;
-       
-      auto_collection?:AutoCollection;
-       
-      net_term_days?:number;
-       
-      allow_direct_debit?:boolean;
-       
-      vat_number?:string;
-       
-      vat_number_prefix?:string;
-       
-      entity_identifier_scheme?:string;
-       
-      entity_identifier_standard?:string;
-       
-      registered_for_gst?:boolean;
-       
-      is_einvoice_enabled?:boolean;
-       
-      einvoicing_method?:EinvoicingMethod;
-       
-      taxability?:Taxability;
-       
-      exemption_details?:any[];
-       
-      customer_type?:CustomerType;
-       
-      client_profile_id?:string;
-       
-      taxjar_exemption_category?:TaxjarExemptionCategory;
-       
-      business_customer_without_vat_number?:boolean;
-       
-      locale?:string;
-       
-      entity_code?:EntityCode;
-       
-      exempt_number?:string;
-       
-      meta_data?:object;
-       
-      offline_payment_method?:OfflinePaymentMethod;
-       
-      auto_close_invoices?:boolean;
-       
-      consolidated_invoicing?:boolean;
-       
-      token_id?:string;
-       
-      business_entity_id?:string;
-       
-      created_from_ip?:string;
-       
-      invoice_notes?:string;
-    }
-    export interface ListResponse {  
-       list:{customer:Customer,card?:Card}[];
-       
-       next_offset?:string;
+      id?: string;
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      preferred_currency_code?: string;
+      phone?: string;
+      company?: string;
+      auto_collection?: AutoCollectionEnum;
+      net_term_days?: number;
+      allow_direct_debit?: boolean;
+      vat_number?: string;
+      vat_number_prefix?: string;
+      entity_identifier_scheme?: string;
+      entity_identifier_standard?: string;
+      registered_for_gst?: boolean;
+      is_einvoice_enabled?: boolean;
+      einvoicing_method?: EinvoicingMethodEnum;
+      taxability?: TaxabilityEnum;
+      exemption_details?: any;
+      customer_type?: CustomerTypeEnum;
+      client_profile_id?: string;
+      taxjar_exemption_category?: TaxjarExemptionCategoryEnum;
+      business_customer_without_vat_number?: boolean;
+      locale?: string;
+      entity_code?: EntityCodeEnum;
+      exempt_number?: string;
+      meta_data?: any;
+      offline_payment_method?: OfflinePaymentMethodEnum;
+      auto_close_invoices?: boolean;
+      consolidated_invoicing?: boolean;
+      token_id?: string;
+      business_entity_id?: string /**
+       * @deprecated Please refer API docs to use other attributes
+       */;
+
+      created_from_ip?: string;
+      invoice_notes?: string;
+      card?: CardCreateInputParam;
+      bank_account?: BankAccountCreateInputParam;
+      payment_method?: PaymentMethodCreateInputParam;
+      payment_intent?: PaymentIntentCreateInputParam;
+      billing_address?: BillingAddressCreateInputParam;
+      entity_identifiers?: EntityIdentifiersCreateInputParam[];
+      tax_providers_fields?: TaxProvidersFieldsCreateInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description Parameters for relationship
-
-        */
-        
-      relationship?:{invoice_owner_id?:{is?:string,is_not?:string,starts_with?:string},parent_id?:{is?:string,is_not?:string,starts_with?:string},payment_owner_id?:{is?:string,is_not?:string,starts_with?:string}};
-       
-      /**
-        * @description Indicates whether to include deleted objects in the list. The deleted objects have the attribute \&#x60;deleted\&#x60; as \&#x60;true\&#x60;.
-
-        */
-        
-      include_deleted?:boolean;
-       
-      include_deprecated?:boolean;
-       
-      /**
-        * @description Identifier of the customer.
-
-        */
-        
-      id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description First name of the customer
-
-        */
-        
-      first_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
-       
-      /**
-        * @description Last name of the customer
-
-        */
-        
-      last_name?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
-       
-      /**
-        * @description Email of the customer. Configured email notifications will be sent to this email.
-
-        */
-        
-      email?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
-       
-      /**
-        * @description Company name of the customer.
-
-        */
-        
-      company?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
-       
-      /**
-        * @description Phone number of the customer
-
-        */
-        
-      phone?:{is?:string,is_not?:string,is_present?:'true' | 'false',starts_with?:string};
-       
-      /**
-        * @description Whether payments needs to be collected automatically for this customer
-
-        */
-        
-      auto_collection?:{in?:string,is?:'on' | 'off',is_not?:'on' | 'off',not_in?:string};
-       
-      /**
-        * @description Specifies if the customer is liable for tax
-
-        */
-        
-      taxability?:{in?:string,is?:'taxable' | 'exempt',is_not?:'taxable' | 'exempt',not_in?:string};
-       
-      /**
-        * @description Timestamp indicating when this customer resource is created.
-
-        */
-        
-      created_at?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description To filter based on &#x60;updated_at&#x60;. This attribute will be present only if the resource has been updated after 2016-09-28. It is advisable when using this filter, to pass the &#x60;sort_by&#x60; input parameter as &#x60;updated_at&#x60; for a faster response.
-
-        */
-        
-      updated_at?:{after?:string,before?:string,between?:string,on?:string};
-       
-      /**
-        * @description The preferred offline payment method for the customer.
-
-        */
-        
-      offline_payment_method?:{in?:string,is?:'no_preference' | 'cash' | 'check' | 'bank_transfer' | 'ach_credit' | 'sepa_credit' | 'boleto' | 'us_automated_bank_transfer' | 'eu_automated_bank_transfer' | 'uk_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'mx_automated_bank_transfer' | 'custom',is_not?:'no_preference' | 'cash' | 'check' | 'bank_transfer' | 'ach_credit' | 'sepa_credit' | 'boleto' | 'us_automated_bank_transfer' | 'eu_automated_bank_transfer' | 'uk_automated_bank_transfer' | 'jp_automated_bank_transfer' | 'mx_automated_bank_transfer' | 'custom',not_in?:string};
-       
-      /**
-        * @description Override for this customer, the [site-level setting](https://www.chargebee.com/docs/2.0/metered_billing.html#configuring-metered-billing) for auto-closing invoices. Only applicable when auto-closing invoices has been enabled for the site. This attribute is also available at the [subscription level](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_auto_close_invoices) which takes precedence.
-
-        */
-        
-      auto_close_invoices?:{is?:'true' | 'false'};
-       
-      /**
-        * @description The subscription channel this object originated from and is maintained in.
-
-        */
-        
-      channel?:{in?:string,is?:'web' | 'app_store' | 'play_store',is_not?:'web' | 'app_store' | 'play_store',not_in?:string};
-       
-      /**
-        * @description The unique ID of the [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe) of this subscription. This is always the same as the [business entity](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_customer_id) of the customer.  
-The ID of the business entity created for the site. For Product Catalog 1.0, all the site data is tied to this business entity.  
-**Note**
-
-[Multiple Business Entities](/docs/api?prod_cat_ver&#x3D;2#mbe) is a feature available only on Product Catalog 2.0.
-
-        */
-        
-      business_entity_id?:{is?:string};
-       
-      sort_by?:{asc?:'created_at' | 'updated_at',desc?:'created_at' | 'updated_at'};
-    }
-    export interface RetrieveResponse {  
-       customer:Customer;
-       
-       card?:Card;
-    }
-    
-    export interface UpdateResponse {  
-       customer:Customer;
-       
-       card?:Card;
+      limit?: number;
+      offset?: string;
+      relationship?: RelationshipCustomerListInputParam;
+      include_deleted?: boolean;
+      id?: filter.String;
+      first_name?: filter.String;
+      last_name?: filter.String;
+      email?: filter.String;
+      company?: filter.String;
+      phone?: filter.String;
+      auto_collection?: filter.Enum;
+      taxability?: filter.Enum;
+      created_at?: filter.Timestamp;
+      updated_at?: filter.Timestamp;
+      offline_payment_method?: filter.Enum;
+      auto_close_invoices?: filter.Boolean;
+      channel?: filter.Enum;
+      business_entity_id?: filter.String;
+      'sort_by[asc]'?: string;
+      'sort_by[desc]'?: string;
+      [key: `cf_${string}`]: unknown;
     }
     export interface UpdateInputParam {
-      [key : string] : any;  
-      tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
-       
-      first_name?:string;
-       
-      last_name?:string;
-       
-      email?:string;
-       
-      preferred_currency_code?:string;
-       
-      phone?:string;
-       
-      company?:string;
-       
-      auto_collection?:AutoCollection;
-       
-      allow_direct_debit?:boolean;
-       
-      net_term_days?:number;
-       
-      taxability?:Taxability;
-       
-      exemption_details?:any[];
-       
-      customer_type?:CustomerType;
-       
-      client_profile_id?:string;
-       
-      taxjar_exemption_category?:TaxjarExemptionCategory;
-       
-      locale?:string;
-       
-      entity_code?:EntityCode;
-       
-      exempt_number?:string;
-       
-      offline_payment_method?:OfflinePaymentMethod;
-       
-      invoice_notes?:string;
-       
-      auto_close_invoices?:boolean;
-       
-      meta_data?:object;
-       
-      fraud_flag?:'safe' | 'fraudulent';
-       
-      consolidated_invoicing?:boolean;
-    }
-    export interface UpdatePaymentMethodResponse {  
-       customer:Customer;
-       
-       card?:Card;
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      preferred_currency_code?: string;
+      phone?: string;
+      company?: string;
+      auto_collection?: AutoCollectionEnum;
+      allow_direct_debit?: boolean;
+      net_term_days?: number;
+      taxability?: TaxabilityEnum;
+      exemption_details?: any;
+      customer_type?: CustomerTypeEnum;
+      client_profile_id?: string;
+      taxjar_exemption_category?: TaxjarExemptionCategoryEnum;
+      locale?: string;
+      entity_code?: EntityCodeEnum;
+      exempt_number?: string;
+      offline_payment_method?: OfflinePaymentMethodEnum;
+      invoice_notes?: string;
+      auto_close_invoices?: boolean;
+      meta_data?: any;
+      fraud_flag?: 'safe' | 'fraudulent';
+      consolidated_invoicing?: boolean;
+      tax_providers_fields?: TaxProvidersFieldsUpdateInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface UpdatePaymentMethodInputParam {
-       
-      payment_method:{additional_information?:object,gateway?:Gateway,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type:Type};
-    }
-    export interface UpdateBillingInfoResponse {  
-       customer:Customer;
-       
-       card?:Card;
+      payment_method?: PaymentMethodUpdatePaymentMethodInputParam;
     }
     export interface UpdateBillingInfoInputParam {
-       
-      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
-       
-      entity_identifiers?:{id?:string,operation?:Operation,scheme?:string,standard?:string,value?:string}[];
-       
-      tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
-       
-      vat_number?:string;
-       
-      vat_number_prefix?:string;
-       
-      entity_identifier_scheme?:string;
-       
-      entity_identifier_standard?:string;
-       
-      registered_for_gst?:boolean;
-       
-      business_customer_without_vat_number?:boolean;
-       
-      is_einvoice_enabled?:boolean;
-       
-      einvoicing_method?:EinvoicingMethod;
-    }
-    export interface ContactsForCustomerResponse {  
-       list:{contact:Contact}[];
-       
-       next_offset?:string;
+      vat_number?: string;
+      vat_number_prefix?: string;
+      entity_identifier_scheme?: string;
+      entity_identifier_standard?: string;
+      registered_for_gst?: boolean;
+      business_customer_without_vat_number?: boolean;
+      is_einvoice_enabled?: boolean;
+      einvoicing_method?: EinvoicingMethodEnum;
+      billing_address?: BillingAddressUpdateBillingInfoInputParam;
+      entity_identifiers?: EntityIdentifiersUpdateBillingInfoInputParam[];
+      tax_providers_fields?: TaxProvidersFieldsUpdateBillingInfoInputParam[];
     }
     export interface ContactsForCustomerInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-    }
-    export interface AssignPaymentRoleResponse {  
-       customer:Customer;
-       
-       payment_source:PaymentSource;
+      limit?: number;
+      offset?: string;
     }
     export interface AssignPaymentRoleInputParam {
-       
-      payment_source_id:string;
-       
-      role:Role;
-    }
-    export interface AddContactResponse {  
-       customer:Customer;
-       
-       card?:Card;
+      payment_source_id: string;
+      role: RoleEnum;
     }
     export interface AddContactInputParam {
-       
-      contact:{email:string,enabled?:boolean,first_name?:string,id?:string,label?:string,last_name?:string,phone?:string,send_account_email?:boolean,send_billing_email?:boolean};
-    }
-    export interface UpdateContactResponse {  
-       customer:Customer;
-       
-       card?:Card;
+      contact?: ContactAddContactInputParam;
     }
     export interface UpdateContactInputParam {
-       
-      contact:{email?:string,enabled?:boolean,first_name?:string,id:string,label?:string,last_name?:string,phone?:string,send_account_email?:boolean,send_billing_email?:boolean};
-    }
-    export interface DeleteContactResponse {  
-       customer:Customer;
-       
-       card?:Card;
+      contact?: ContactUpdateContactInputParam;
     }
     export interface DeleteContactInputParam {
-       
-      contact:{id:string};
-    }
-    export interface AddPromotionalCreditsResponse {  
-       customer:Customer;
+      contact?: ContactDeleteContactInputParam;
     }
     export interface AddPromotionalCreditsInputParam {
-       
-      amount:number;
-       
-      currency_code?:string;
-       
-      description:string;
-       
-      credit_type?:CreditType;
-       
-      reference?:string;
-    }
-    export interface DeductPromotionalCreditsResponse {  
-       customer:Customer;
+      amount: number;
+      currency_code?: string;
+      description: string;
+      credit_type?: CreditTypeEnum;
+      reference?: string;
     }
     export interface DeductPromotionalCreditsInputParam {
-       
-      amount:number;
-       
-      currency_code?:string;
-       
-      description:string;
-       
-      credit_type?:CreditType;
-       
-      reference?:string;
-    }
-    export interface SetPromotionalCreditsResponse {  
-       customer:Customer;
+      amount: number;
+      currency_code?: string;
+      description: string;
+      credit_type?: CreditTypeEnum;
+      reference?: string;
     }
     export interface SetPromotionalCreditsInputParam {
-       
-      amount:number;
-       
-      currency_code?:string;
-       
-      description:string;
-       
-      credit_type?:CreditType;
-       
-      reference?:string;
-    }
-    export interface RecordExcessPaymentResponse {  
-       customer:Customer;
-       
-       transaction:Transaction;
+      amount: number;
+      currency_code?: string;
+      description: string;
+      credit_type?: CreditTypeEnum;
+      reference?: string;
     }
     export interface RecordExcessPaymentInputParam {
-       
-      transaction:{amount:number,currency_code?:string,custom_payment_method_id?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
-       
-      comment?:string;
-    }
-    export interface CollectPaymentResponse {  
-       customer:Customer;
-       
-       transaction:Transaction;
+      comment?: string;
+      transaction?: TransactionRecordExcessPaymentInputParam;
     }
     export interface CollectPaymentInputParam {
-       
-      payment_method?:{additional_information?:object,gateway_account_id?:string,reference_id?:string,tmp_token?:string,type?:Type};
-       
-      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway_account_id?:string,last_name?:string,number?:string};
-       
-      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_payment_method_id?:string,gw_token?:string,id?:string,payment_method_type?:'card' | 'ideal' | 'sofort' | 'bancontact' | 'google_pay' | 'dotpay' | 'giropay' | 'apple_pay' | 'upi' | 'netbanking_emandates' | 'paypal_express_checkout' | 'direct_debit' | 'boleto' | 'venmo' | 'amazon_payments' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'klarna_pay_now' | 'online_banking_poland',reference_id?:string};
-       
-      invoice_allocations:{allocation_amount?:number,invoice_id:string}[];
-       
-      amount?:number;
-       
-      payment_source_id?:string;
-       
-      token_id?:string;
-       
-      replace_primary_payment_source?:boolean;
-       
-      retain_payment_source?:boolean;
-       
-      payment_initiator?:PaymentInitiator;
-    }
-    export interface DeleteResponse {  
-       customer:Customer;
-       
-       card?:Card;
+      amount?: number;
+      payment_source_id?: string;
+      token_id?: string;
+      replace_primary_payment_source?: boolean;
+      retain_payment_source?: boolean;
+      payment_initiator?: PaymentInitiatorEnum;
+      payment_method?: PaymentMethodCollectPaymentInputParam;
+      card?: CardCollectPaymentInputParam;
+      payment_intent?: PaymentIntentCollectPaymentInputParam;
+      invoice_allocations?: InvoiceAllocationsCollectPaymentInputParam[];
     }
     export interface DeleteInputParam {
-       
-      delete_payment_method?:boolean;
-    }
-    export interface MoveResponse {  
-       resource_migration:ResourceMigration;
+      delete_payment_method?: boolean;
     }
     export interface MoveInputParam {
-       
-      tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
-       
-      id_at_from_site:string;
-       
-      from_site:string;
-    }
-    export interface ChangeBillingDateResponse {  
-       customer:Customer;
+      id_at_from_site: string;
+      from_site: string;
+      tax_providers_fields?: TaxProvidersFieldsMoveInputParam[];
     }
     export interface ChangeBillingDateInputParam {
-       
-      billing_date?:number;
-       
-      billing_month?:number;
-       
-      billing_date_mode?:BillingDateMode;
-       
-      billing_day_of_week?:'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
-       
-      billing_day_of_week_mode?:BillingDayOfWeekMode;
-    }
-    export interface MergeResponse {  
-       customer:Customer;
+      billing_date?: number;
+      billing_month?: number;
+      billing_date_mode?: BillingDateModeEnum;
+      billing_day_of_week?:
+        | 'sunday'
+        | 'monday'
+        | 'tuesday'
+        | 'wednesday'
+        | 'thursday'
+        | 'friday'
+        | 'saturday';
+      billing_day_of_week_mode?: BillingDayOfWeekModeEnum;
     }
     export interface MergeInputParam {
-       
-      tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
-       
-      from_customer_id:string;
-       
-      to_customer_id:string;
-    }
-    export interface ClearPersonalDataResponse {  
-       customer:Customer;
-    }
-    
-    export interface RelationshipsResponse {  
-       customer:Customer;
+      from_customer_id: string;
+      to_customer_id: string;
+      tax_providers_fields?: TaxProvidersFieldsMergeInputParam[];
     }
     export interface RelationshipsInputParam {
-       
-      parent_account_access?:{portal_download_child_invoices?:'yes' | 'view_only' | 'no',portal_edit_child_subscriptions?:'yes' | 'view_only' | 'no',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
-       
-      child_account_access?:{portal_download_invoices?:'yes' | 'view_only' | 'no',portal_edit_subscriptions?:'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
-       
-      parent_id?:string;
-       
-      payment_owner_id?:string;
-       
-      invoice_owner_id?:string;
-       
-      use_default_hierarchy_settings?:boolean;
-    }
-    export interface DeleteRelationshipResponse {  
-       customer:Customer;
-    }
-    
-    export interface HierarchyResponse {  
-       hierarchies:Hierarchy[];
+      parent_id?: string;
+      payment_owner_id?: string;
+      invoice_owner_id?: string;
+      use_default_hierarchy_settings?: boolean;
+      parent_account_access?: ParentAccountAccessRelationshipsInputParam;
+      child_account_access?: ChildAccountAccessRelationshipsInputParam;
     }
     export interface HierarchyInputParam {
-       
-      hierarchy_operation_type:'complete_hierarchy' | 'subordinates' | 'path_to_root';
-    }
-    export interface UpdateHierarchySettingsResponse {  
-       customer:Customer;
+      hierarchy_operation_type:
+        | 'complete_hierarchy'
+        | 'subordinates'
+        | 'path_to_root';
     }
     export interface UpdateHierarchySettingsInputParam {
-       
-      parent_account_access?:{portal_download_child_invoices?:'yes' | 'view_only' | 'no',portal_edit_child_subscriptions?:'yes' | 'view_only' | 'no',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
-       
-      child_account_access?:{portal_download_invoices?:'yes' | 'view_only' | 'no',portal_edit_subscriptions?:'yes' | 'view_only',send_invoice_emails?:boolean,send_payment_emails?:boolean,send_subscription_emails?:boolean};
-       
-      use_default_hierarchy_settings?:boolean;
+      use_default_hierarchy_settings?: boolean;
+      parent_account_access?: ParentAccountAccessUpdateHierarchySettingsInputParam;
+      child_account_access?: ChildAccountAccessUpdateHierarchySettingsInputParam;
     }
-    export interface BillingAddress {  
-      first_name?:string;
-       
-      last_name?:string;
-       
-      email?:string;
-       
-      company?:string;
-       
-      phone?:string;
-       
-      line1?:string;
-       
-      line2?:string;
-       
-      line3?:string;
-       
-      city?:string;
-       
-      state_code?:string;
-       
-      state?:string;
-       
-      country?:string;
-       
-      zip?:string;
-       
-      validation_status?:ValidationStatus;
+    export interface BillingAddressCreateInputParam {
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      company?: string;
+      phone?: string;
+      line1?: string;
+      line2?: string;
+      line3?: string;
+      city?: string;
+      state_code?: string;
+      state?: string;
+      zip?: string;
+      country?: string;
+      validation_status?: ValidationStatusEnum;
     }
-    export interface ReferralUrl {  
-      external_customer_id?:string;
-       
-      referral_sharing_url:string;
-       
-      created_at:number;
-       
-      updated_at:number;
-       
-      referral_campaign_id:string;
-       
-      referral_account_id:string;
-       
-      referral_external_campaign_id?:string;
-       
-      referral_system:'referral_candy' | 'referral_saasquatch' | 'friendbuy';
+    export interface PaymentMethodCreateInputParam {
+      type?: TypeEnum;
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+      gateway?: GatewayEnum;
+      gateway_account_id?: string;
+      reference_id?: string;
+      tmp_token?: string;
+      issuing_country?: string;
+      additional_information?: any;
     }
-    export interface Contact {  
-      id:string;
-       
-      first_name?:string;
-       
-      last_name?:string;
-       
-      email:string;
-       
-      phone?:string;
-       
-      label?:string;
-       
-      enabled:boolean;
-       
-      send_account_email:boolean;
-       
-      send_billing_email:boolean;
+    export interface BankAccountCreateInputParam {
+      gateway_account_id?: string;
+      iban?: string;
+      first_name?: string;
+      last_name?: string;
+      company?: string;
+      email?: string;
+      phone?: string;
+      bank_name?: string;
+      account_number?: string;
+      routing_number?: string;
+      bank_code?: string;
+      account_type?: AccountTypeEnum;
+      account_holder_type?: AccountHolderTypeEnum;
+      echeck_type?: EcheckTypeEnum;
+      issuing_country?: string;
+      swedish_identity_number?: string;
+      billing_address?: any;
     }
-    export interface PaymentMethod {  
-      type:Type;
-       
-      gateway:Gateway;
-       
-      gateway_account_id?:string;
-       
-      status:'valid' | 'expiring' | 'expired' | 'invalid' | 'pending_verification';
-       
-      reference_id:string;
+    export interface PaymentIntentCreateInputParam {
+      id?: string;
+      gateway_account_id?: string;
+      gw_token?: string;
+      payment_method_type?:
+        | 'card'
+        | 'ideal'
+        | 'sofort'
+        | 'bancontact'
+        | 'google_pay'
+        | 'dotpay'
+        | 'giropay'
+        | 'apple_pay'
+        | 'upi'
+        | 'netbanking_emandates'
+        | 'paypal_express_checkout'
+        | 'direct_debit'
+        | 'boleto'
+        | 'venmo'
+        | 'amazon_payments'
+        | 'pay_to'
+        | 'faster_payments'
+        | 'sepa_instant_transfer'
+        | 'klarna_pay_now'
+        | 'online_banking_poland';
+      reference_id?: string;
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+      gw_payment_method_id?: string;
+      additional_information?: any;
     }
-    export interface Balance {  
-      promotional_credits:number;
-       
-      excess_payments:number;
-       
-      refundable_credits:number;
-       
-      unbilled_charges:number;
-       
-      currency_code:string;
-       
-      balance_currency_code:string;
+    export interface CardCreateInputParam {
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+      gateway?: GatewayEnum;
+      gateway_account_id?: string;
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+      tmp_token?: string;
+      first_name?: string;
+      last_name?: string;
+      number?: string;
+      expiry_month?: number;
+      expiry_year?: number;
+      cvv?: string;
+      billing_addr1?: string;
+      billing_addr2?: string;
+      billing_city?: string;
+      billing_state_code?: string;
+      billing_state?: string;
+      billing_zip?: string;
+      billing_country?: string;
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+      ip_address?: string;
+      additional_information?: any;
     }
-    export interface EntityIdentifier {  
-      id:string;
-       
-      value?:string;
-       
-      scheme:string;
-       
-      standard?:string;
+
+    export interface EntityIdentifiersCreateInputParam {
+      id?: string;
+      scheme?: string;
+      value?: string;
+      standard?: string;
     }
-    export interface TaxProvidersField {  
-      provider_name:string;
-       
-      field_id:string;
-       
-      field_value:string;
+    export interface TaxProvidersFieldsCreateInputParam {
+      provider_name?: string;
+      field_id?: string;
+      field_value?: string;
     }
-    export interface Relationship {  
-      parent_id?:string;
-       
-      payment_owner_id:string;
-       
-      invoice_owner_id:string;
+    export interface RelationshipCustomerListInputParam {
+      parent_id?: filter.String;
+      payment_owner_id?: filter.String;
+      invoice_owner_id?: filter.String;
     }
-    export interface ParentAccountAccess {  
-      portal_edit_child_subscriptions?:'yes' | 'view_only' | 'no';
-       
-      portal_download_child_invoices?:'yes' | 'view_only' | 'no';
-       
-      send_subscription_emails:boolean;
-       
-      send_invoice_emails:boolean;
-       
-      send_payment_emails:boolean;
+
+    export interface TaxProvidersFieldsUpdateInputParam {
+      provider_name?: string;
+      field_id?: string;
+      field_value?: string;
     }
-    export interface ChildAccountAccess {  
-      portal_edit_subscriptions?:'yes' | 'view_only';
-       
-      portal_download_invoices?:'yes' | 'view_only' | 'no';
-       
-      send_subscription_emails:boolean;
-       
-      send_invoice_emails:boolean;
-       
-      send_payment_emails:boolean;
+    export interface PaymentMethodUpdatePaymentMethodInputParam {
+      type: TypeEnum;
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+      gateway?: GatewayEnum;
+      gateway_account_id?: string;
+      reference_id?: string;
+      tmp_token?: string;
+      issuing_country?: string;
+      additional_information?: any;
+    }
+
+    export interface BillingAddressUpdateBillingInfoInputParam {
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      company?: string;
+      phone?: string;
+      line1?: string;
+      line2?: string;
+      line3?: string;
+      city?: string;
+      state_code?: string;
+      state?: string;
+      zip?: string;
+      country?: string;
+      validation_status?: ValidationStatusEnum;
+    }
+
+    export interface EntityIdentifiersUpdateBillingInfoInputParam {
+      id?: string;
+      scheme?: string;
+      value?: string;
+      operation?: OperationEnum;
+      standard?: string;
+    }
+    export interface TaxProvidersFieldsUpdateBillingInfoInputParam {
+      provider_name?: string;
+      field_id?: string;
+      field_value?: string;
+    }
+    export interface ContactAddContactInputParam {
+      id?: string;
+      first_name?: string;
+      last_name?: string;
+      email: string;
+      phone?: string;
+      label?: string;
+      enabled?: boolean;
+      send_billing_email?: boolean;
+      send_account_email?: boolean;
+    }
+
+    export interface ContactUpdateContactInputParam {
+      id: string;
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      phone?: string;
+      label?: string;
+      enabled?: boolean;
+      send_billing_email?: boolean;
+      send_account_email?: boolean;
+    }
+
+    export interface ContactDeleteContactInputParam {
+      id: string;
+    }
+
+    export interface TransactionRecordExcessPaymentInputParam {
+      amount: number;
+      currency_code?: string;
+      date: number;
+      payment_method: PaymentMethodEnum;
+      reference_number?: string;
+      custom_payment_method_id?: string;
+    }
+
+    export interface PaymentMethodCollectPaymentInputParam {
+      type?: TypeEnum;
+      gateway_account_id?: string;
+      reference_id?: string;
+      tmp_token?: string;
+      additional_information?: any;
+    }
+    export interface PaymentIntentCollectPaymentInputParam {
+      id?: string;
+      gateway_account_id?: string;
+      gw_token?: string;
+      payment_method_type?:
+        | 'card'
+        | 'ideal'
+        | 'sofort'
+        | 'bancontact'
+        | 'google_pay'
+        | 'dotpay'
+        | 'giropay'
+        | 'apple_pay'
+        | 'upi'
+        | 'netbanking_emandates'
+        | 'paypal_express_checkout'
+        | 'direct_debit'
+        | 'boleto'
+        | 'venmo'
+        | 'amazon_payments'
+        | 'pay_to'
+        | 'faster_payments'
+        | 'sepa_instant_transfer'
+        | 'klarna_pay_now'
+        | 'online_banking_poland';
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+      gw_payment_method_id?: string;
+      reference_id?: string;
+      additional_information?: any;
+    }
+    export interface CardCollectPaymentInputParam {
+      gateway_account_id?: string;
+      first_name?: string;
+      last_name?: string;
+      number?: string;
+      expiry_month?: number;
+      expiry_year?: number;
+      cvv?: string;
+      billing_addr1?: string;
+      billing_addr2?: string;
+      billing_city?: string;
+      billing_state_code?: string;
+      billing_state?: string;
+      billing_zip?: string;
+      billing_country?: string;
+      additional_information?: any;
+    }
+
+    export interface InvoiceAllocationsCollectPaymentInputParam {
+      invoice_id: string;
+      allocation_amount?: number;
+    }
+    export interface TaxProvidersFieldsMoveInputParam {
+      provider_name?: string;
+      field_id?: string;
+      field_value?: string;
+    }
+    export interface TaxProvidersFieldsMergeInputParam {
+      provider_name?: string;
+      field_id?: string;
+      field_value?: string;
+    }
+    export interface ParentAccountAccessRelationshipsInputParam {
+      portal_edit_child_subscriptions?: 'yes' | 'view_only' | 'no';
+      portal_download_child_invoices?: 'yes' | 'view_only' | 'no';
+      send_subscription_emails?: boolean;
+      send_payment_emails?: boolean;
+      send_invoice_emails?: boolean;
+    }
+    export interface ChildAccountAccessRelationshipsInputParam {
+      portal_edit_subscriptions?: 'yes' | 'view_only';
+      portal_download_invoices?: 'yes' | 'view_only' | 'no';
+      send_subscription_emails?: boolean;
+      send_payment_emails?: boolean;
+      send_invoice_emails?: boolean;
+    }
+
+    export interface ParentAccountAccessUpdateHierarchySettingsInputParam {
+      portal_edit_child_subscriptions?: 'yes' | 'view_only' | 'no';
+      portal_download_child_invoices?: 'yes' | 'view_only' | 'no';
+      send_subscription_emails?: boolean;
+      send_payment_emails?: boolean;
+      send_invoice_emails?: boolean;
+    }
+    export interface ChildAccountAccessUpdateHierarchySettingsInputParam {
+      portal_edit_subscriptions?: 'yes' | 'view_only';
+      portal_download_invoices?: 'yes' | 'view_only' | 'no';
+      send_subscription_emails?: boolean;
+      send_payment_emails?: boolean;
+      send_invoice_emails?: boolean;
     }
   }
 }
