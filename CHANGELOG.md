@@ -1,3 +1,6 @@
+## v3.0.1 (2024-11-06)
+* Updated README. 
+
 ## v3.0.0 (2024-11-06)
 * Releasing major version `v3.0.0` :tada:
 
