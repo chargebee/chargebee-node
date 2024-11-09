@@ -1,3 +1,9 @@
+## v3.0.2 (2024-11-09)
+
+### Bug fixes: 
+* Fix minor typo in .npmignore that caused the types folder to be missed. Resolves #55.
+
+
 ## v3.0.1 (2024-11-06)
 * Updated README. 
 
