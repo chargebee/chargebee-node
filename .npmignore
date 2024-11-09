@@ -9,4 +9,4 @@
 !/package.json
 !/cjs/**/*
 !/esm/**/*
-!/types/**/*%  
+!/types/**/*
