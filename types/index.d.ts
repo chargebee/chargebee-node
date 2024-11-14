@@ -41,6 +41,8 @@
 ///<reference path='./resources/ItemPrice.d.ts' />
 ///<reference path='./resources/Metadata.d.ts' />
 ///<reference path='./resources/NonSubscription.d.ts' />
+///<reference path='./resources/OmnichannelSubscription.d.ts' />
+///<reference path='./resources/OmnichannelTransaction.d.ts' />
 ///<reference path='./resources/Order.d.ts' />
 ///<reference path='./resources/PaymentIntent.d.ts' />
 ///<reference path='./resources/PaymentReferenceNumber.d.ts' />
@@ -59,6 +61,7 @@
 ///<reference path='./resources/QuotedCharge.d.ts' />
 ///<reference path='./resources/QuotedSubscription.d.ts' />
 ///<reference path='./resources/Ramp.d.ts' />
+///<reference path='./resources/RecordedPurchase.d.ts' />
 ///<reference path='./resources/ResourceMigration.d.ts' />
 ///<reference path='./resources/SiteMigrationDetail.d.ts' />
 ///<reference path='./resources/Subscription.d.ts' />
@@ -104,6 +107,7 @@ declare module 'chargebee' {
     static item_family: ItemFamily.ItemFamilyResource;
     static item_price: ItemPrice.ItemPriceResource;
     static non_subscription: NonSubscription.NonSubscriptionResource;
+    static omnichannel_subscription: OmnichannelSubscription.OmnichannelSubscriptionResource;
     static order: Order.OrderResource;
     static payment_intent: PaymentIntent.PaymentIntentResource;
     static payment_schedule_scheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;
@@ -116,6 +120,7 @@ declare module 'chargebee' {
     static purchase: Purchase.PurchaseResource;
     static quote: Quote.QuoteResource;
     static ramp: Ramp.RampResource;
+    static recorded_purchase: RecordedPurchase.RecordedPurchaseResource;
     static resource_migration: ResourceMigration.ResourceMigrationResource;
     static site_migration_detail: SiteMigrationDetail.SiteMigrationDetailResource;
     static subscription: Subscription.SubscriptionResource;

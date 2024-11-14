@@ -74,6 +74,8 @@ Attributes can be used to store additional information about the price variant. 
       */
     
     attributes?:PriceVariant.Attribute[];
+
+    business_entity_id?:string;
   }
   export namespace PriceVariant {
     export class PriceVariantResource {  
@@ -155,6 +157,8 @@ Attributes can be used to store additional information about the price variant. 
       attributes:{name:string,value:string}[];
 
       variant_group?:string;
+
+      business_entity_id?:string;
     }
     export interface RetrieveResponse {  
        price_variant:PriceVariant;
@@ -280,6 +284,8 @@ Attributes can be used to store additional information about the price variant. 
         */
         
       sort_by?:{asc?:'name' | 'id' | 'status' | 'created_at' | 'updated_at',desc?:'name' | 'id' | 'status' | 'created_at' | 'updated_at'};
+      
+      business_entity_id?:{is?:string,is_present?:'true' | 'false'};
     }
     export interface Attribute {  
          /**

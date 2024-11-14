@@ -906,7 +906,7 @@ This endpoint schedules e-invoices manually. This operation is not allowed when 
 
         */
        
-      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway_account_id?:string,last_name?:string,number?:string};
+      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa',tmp_token?:string};
        
       /**
         * @description Parameters for bank_account
@@ -1088,7 +1088,7 @@ The invoice is [linked](/docs/api?prod_cat_ver&#x3D;2#mbe-linked-be) to the same
 
         */
        
-      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway_account_id?:string,last_name?:string,number?:string};
+      card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa',tmp_token?:string};
        
       /**
         * @description Parameters for bank_account

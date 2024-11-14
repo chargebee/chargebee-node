@@ -630,6 +630,10 @@ Total amount charged for the order.
         */
        
       item_family?:{id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},name?:{is?:string,is_not?:string,starts_with?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
+      
+      business_entity_id?:{is?:string,is_present?:'true' | 'false'};
+       
+      include_site_level_resources?:{is?:'true' | 'false'};
     }
     export interface ItemsResponse {  
        export:Export;
@@ -642,6 +646,10 @@ Total amount charged for the order.
         */
        
       item?:{channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},enabled_for_checkout?:{is?:'true' | 'false'},enabled_in_portal?:{is?:'true' | 'false'},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},is_giftable?:{is?:'true' | 'false'},item_applicability?:{in?:string,is?:'all' | 'restricted',is_not?:'all' | 'restricted',not_in?:string},item_family_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},metered?:{is?:'true' | 'false'},name?:{is?:string,is_not?:string,starts_with?:string},status?:{in?:string,is?:'archived' | 'deleted' | 'active',is_not?:'archived' | 'deleted' | 'active',not_in?:string},type?:{in?:string,is?:'charge' | 'addon' | 'plan',is_not?:'charge' | 'addon' | 'plan',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string},usage_calculation?:{in?:string,is?:'max_usage' | 'sum_of_usages' | 'last_usage',is_not?:'max_usage' | 'sum_of_usages' | 'last_usage',not_in?:string}};
+    
+      business_entity_id?:{is?:string,is_present?:'true' | 'false'};
+       
+      include_site_level_resources?:{is?:'true' | 'false'};
     }
     export interface ItemPricesResponse {  
        export:Export;
@@ -687,6 +695,10 @@ Filter item prices based on their &#x60;currency_code&#x60;.
         */
        
       item_price?:{channel?:{in?:string,is?:'app_store' | 'web' | 'play_store',is_not?:'app_store' | 'web' | 'play_store',not_in?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},item_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},name?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},period?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},period_unit?:{in?:string,is?:'week' | 'month' | 'year' | 'day',is_not?:'week' | 'month' | 'year' | 'day',not_in?:string},pricing_model?:{in?:string,is?:'volume' | 'per_unit' | 'tiered' | 'flat_fee' | 'stairstep',is_not?:'volume' | 'per_unit' | 'tiered' | 'flat_fee' | 'stairstep',not_in?:string},status?:{in?:string,is?:'archived' | 'deleted' | 'active',is_not?:'archived' | 'deleted' | 'active',not_in?:string},trial_period?:{between?:string,gt?:string,gte?:string,is?:string,is_not?:string,lt?:string,lte?:string},trial_period_unit?:{in?:string,is?:'month' | 'day',is_not?:'month' | 'day',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
+    
+      business_entity_id?:{is?:string,is_present?:'true' | 'false'};
+       
+      include_site_level_resources?:{is?:'true' | 'false'};
     }
     export interface AttachedItemsResponse {  
        export:Export;
@@ -740,6 +752,10 @@ Item Id of Addon / Charge item price for which differential pricing is applied t
     export interface PriceVariantsInputParam {
        
       price_variant?:{created_at?:{after?:string,before?:string,between?:string,on?:string},id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},name?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string},status?:{in?:string,is?:'active' | 'archived',is_not?:'active' | 'archived',not_in?:string},updated_at?:{after?:string,before?:string,between?:string,on?:string}};
+    
+      business_entity_id?:{is?:string,is_present?:'true' | 'false'};
+       
+      include_site_level_resources?:{is?:'true' | 'false'};
     }
     export interface Download {  
          /**

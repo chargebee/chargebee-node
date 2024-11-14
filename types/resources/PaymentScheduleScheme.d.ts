@@ -38,13 +38,15 @@ declare module 'chargebee' {
     }
     export interface CreateInputParam {
        
+      flexible_schedules?:{amount_percentage?:number,period?:number}[];
+       
       number_of_schedules:number;
        
       period_unit:'day' | 'week' | 'month';
        
       period?:number;
        
-      description?:string;
+      name:string;
     }
     export interface RetrieveResponse {  
        payment_schedule_scheme:PaymentScheduleScheme;

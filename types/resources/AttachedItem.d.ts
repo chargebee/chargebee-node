@@ -100,6 +100,8 @@ The value set explicitly for &#x60;billing_cycles&#x60; while [applying the addo
       */
     
     channel?:Channel;
+
+    business_entity_id?:string;
   }
   export namespace AttachedItem {
     export class AttachedItemResource {  
@@ -193,6 +195,8 @@ The value set explicitly for &#x60;billing_cycles&#x60; while [applying the addo
         */
        
       charge_once?:boolean;
+
+      business_entity_id?:string;
     }
     export interface UpdateResponse {  
        attached_item:AttachedItem;

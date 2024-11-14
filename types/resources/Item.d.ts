@@ -56,6 +56,8 @@ declare module 'chargebee' {
 
     metadata?:object;
 
+    business_entity_id?:string;
+
   }
   export namespace Item {
     export class ItemResource {  
@@ -115,6 +117,8 @@ declare module 'chargebee' {
       usage_calculation?:'sum_of_usages' | 'last_usage' | 'max_usage';
        
       metadata?:object;
+       
+      business_entity_id?:string;
     }
     export interface RetrieveResponse {  
        item:Item;
@@ -291,6 +295,19 @@ declare module 'chargebee' {
         */
         
       channel?:{in?:string,is?:'web' | 'app_store' | 'play_store',is_not?:'web' | 'app_store' | 'play_store',not_in?:string};
+       
+      /**
+        * @description The unique ID of the [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe) of this subscription. This is always the same as the [business entity](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_customer_id) of the customer.  
+The ID of the business entity created for the site. For Product Catalog 1.0, all the site data is tied to this business entity.  
+**Note**
+
+[Multiple Business Entities](/docs/api?prod_cat_ver&#x3D;2#mbe) is a feature available only on Product Catalog 2.0.
+
+        */
+        
+      business_entity_id?:{is?:string,is_present?:'true' | 'false'};
+       
+      include_site_level_resources?:{is?:'true' | 'false'};
        
       sort_by?:{asc?:'name' | 'id' | 'updated_at',desc?:'name' | 'id' | 'updated_at'};
     }

@@ -86,6 +86,8 @@ declare module 'chargebee' {
 
     show_description_in_quotes?:boolean;
 
+    business_entity_id?:string;
+
   }
   export namespace ItemPrice {
     export class ItemPriceResource {  
@@ -147,6 +149,8 @@ declare module 'chargebee' {
       show_description_in_quotes?:boolean;
        
       usage_accumulation_reset_frequency?:UsageAccumulationResetFrequency;
+       
+      business_entity_id?:string;
        
       pricing_model?:PricingModel;
        
@@ -343,6 +347,19 @@ declare module 'chargebee' {
         */
         
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
+       
+      /**
+        * @description The unique ID of the [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe) of this subscription. This is always the same as the [business entity](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_customer_id) of the customer.  
+The ID of the business entity created for the site. For Product Catalog 1.0, all the site data is tied to this business entity.  
+**Note**
+
+[Multiple Business Entities](/docs/api?prod_cat_ver&#x3D;2#mbe) is a feature available only on Product Catalog 2.0.
+
+        */
+        
+      business_entity_id?:{is?:string,is_present?:'true' | 'false'};
+       
+      include_site_level_resources?:{is?:'true' | 'false'};
        
       /**
         * @description Filter item prices based on their &#x60;period_unit&#x60;.

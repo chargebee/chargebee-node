@@ -92,6 +92,8 @@ declare module 'chargebee' {
       */
     
     parent_periods?:DifferentialPrice.ParentPeriod[];
+
+    business_entity_id?:string;
   }
   export namespace DifferentialPrice {
     export class DifferentialPriceResource {  
@@ -169,6 +171,8 @@ declare module 'chargebee' {
         */
        
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      
+      business_entity_id?:string;
     }
     export interface RetrieveResponse {  
        differential_price:DifferentialPrice;

@@ -1,4 +1,6 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
+
 declare module 'chargebee' {
   export interface Card {
     
@@ -411,6 +413,8 @@ If you have enabled [EU VAT](https://www.chargebee.com/docs/eu-vat.html) in 2021
         */
        
       billing_country?:string;
+
+      preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa';
     }
     export interface SwitchGatewayForCustomerResponse {  
        customer:Customer;
