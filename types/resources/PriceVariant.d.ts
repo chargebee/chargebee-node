@@ -14,6 +14,7 @@ declare module 'chargebee' {
     updated_at?: number;
     archived_at?: number;
     attributes?: PriceVariant.Attribute[];
+    business_entity_id?: string;
   }
 
   export namespace PriceVariant {
@@ -79,6 +80,7 @@ declare module 'chargebee' {
       external_name?: string;
       description?: string;
       variant_group?: string;
+      business_entity_id?: string;
       attributes?: AttributesCreateInputParam[];
     }
     export interface UpdateInputParam {
@@ -97,6 +99,8 @@ declare module 'chargebee' {
       status?: filter.Enum;
       updated_at?: filter.Timestamp;
       created_at?: filter.Timestamp;
+      business_entity_id?: filter.String;
+      include_site_level_resources?: filter.Boolean;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
     }

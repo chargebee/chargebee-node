@@ -1407,6 +1407,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -1764,6 +1765,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -1922,6 +1924,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -2146,6 +2149,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;

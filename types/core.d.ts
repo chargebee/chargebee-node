@@ -132,7 +132,10 @@ declare module 'chargebee' {
     | 'subscription_entitlement'
     | 'item_entitlement'
     | 'business_entity'
-    | 'price_variant';
+    | 'price_variant'
+    | 'omnichannel_subscription'
+    | 'omnichannel_subscription_item'
+    | 'omnichannel_transaction';
   type EventNameEnum = 'cancellation_page_loaded';
   type EventTypeEnum =
     | 'coupon_created'
@@ -310,6 +313,17 @@ declare module 'chargebee' {
     | 'subscription_moved_in'
     | 'subscription_moved_out'
     | 'subscription_movement_failed'
+    | 'omnichannel_subscription_created'
+    | 'omnichannel_subscription_item_renewed'
+    | 'omnichannel_subscription_item_downgrade_scheduled'
+    | 'omnichannel_subscription_item_scheduled_downgrade_removed'
+    | 'omnichannel_subscription_item_downgraded'
+    | 'omnichannel_subscription_item_expired'
+    | 'omnichannel_subscription_item_cancellation_scheduled'
+    | 'omnichannel_subscription_item_scheduled_cancellation_removed'
+    | 'omnichannel_subscription_item_resubscribed'
+    | 'omnichannel_subscription_item_upgraded'
+    | 'omnichannel_subscription_item_cancelled'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'

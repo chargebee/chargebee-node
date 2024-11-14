@@ -14,9 +14,10 @@ declare module 'chargebee' {
     currency_code?: string;
     duration_type: 'one_time' | 'forever' | 'limited_period';
     duration_month?: number;
+    valid_from?: number;
     valid_till?: number;
     max_redemptions?: number;
-    status?: 'active' | 'expired' | 'archived' | 'deleted';
+    status?: 'active' | 'expired' | 'archived' | 'deleted' | 'future';
     apply_discount_on:
       | 'plans'
       | 'plans_and_addons'
@@ -142,7 +143,11 @@ declare module 'chargebee' {
     }
     export interface CouponConstraint {
       entity_type: 'customer';
-      type: 'max_redemptions' | 'unique_by';
+      type:
+        | 'max_redemptions'
+        | 'unique_by'
+        | 'existing_customer'
+        | 'new_customer';
       value?: string;
     }
     // REQUEST PARAMS
@@ -191,6 +196,7 @@ declare module 'chargebee' {
       apply_on: 'invoice_amount' | 'each_specified_item';
       duration_type?: 'one_time' | 'forever' | 'limited_period';
       duration_month?: number;
+      valid_from?: number;
       valid_till?: number;
       max_redemptions?: number;
       invoice_notes?: string;
@@ -218,6 +224,7 @@ declare module 'chargebee' {
       apply_on?: 'invoice_amount' | 'each_specified_item';
       duration_type?: 'one_time' | 'forever' | 'limited_period';
       duration_month?: number;
+      valid_from?: number;
       valid_till?: number;
       max_redemptions?: number;
       invoice_notes?: string;
@@ -286,7 +293,11 @@ declare module 'chargebee' {
     }
     export interface CouponConstraintsCreateForItemsInputParam {
       entity_type: 'customer';
-      type: 'max_redemptions' | 'unique_by';
+      type:
+        | 'max_redemptions'
+        | 'unique_by'
+        | 'existing_customer'
+        | 'new_customer';
       value?: string;
     }
     export interface ItemConstraintsCreateForItemsInputParam {
@@ -302,7 +313,11 @@ declare module 'chargebee' {
     }
     export interface CouponConstraintsUpdateForItemsInputParam {
       entity_type: 'customer';
-      type: 'max_redemptions' | 'unique_by';
+      type:
+        | 'max_redemptions'
+        | 'unique_by'
+        | 'existing_customer'
+        | 'new_customer';
       value?: string;
     }
     export interface ItemConstraintsUpdateForItemsInputParam {

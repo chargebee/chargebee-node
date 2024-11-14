@@ -79,6 +79,9 @@ interface Endpoints {
   ramp: EndpointTuple[];
   paymentScheduleScheme: EndpointTuple[];
   pricingPageSession: EndpointTuple[];
+  omnichannelSubscription: EndpointTuple[];
+  omnichannelTransaction: EndpointTuple[];
+  recordedPurchase: EndpointTuple[];
 }
 export const Endpoints: Endpoints = {
   subscription: [
@@ -1174,5 +1177,21 @@ export const Endpoints: Endpoints = {
       '/create_for_existing_subscription',
       false,
     ],
+  ],
+  omnichannelSubscription: [
+    ['retrieve', 'GET', '/omnichannel_subscriptions', null, true],
+    ['list', 'GET', '/omnichannel_subscriptions', null, false],
+    [
+      'omnichannel_transactionsForOmnichannelSubscription',
+      'GET',
+      '/omnichannel_subscriptions',
+      '/omnichannel_transactions',
+      true,
+    ],
+  ],
+  omnichannelTransaction: [],
+  recordedPurchase: [
+    ['create', 'POST', '/recorded_purchases', null, false],
+    ['retrieve', 'GET', '/recorded_purchases', null, true],
   ],
 };

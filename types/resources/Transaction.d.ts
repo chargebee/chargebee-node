@@ -24,7 +24,8 @@ declare module 'chargebee' {
       | 'voided'
       | 'failure'
       | 'timeout'
-      | 'needs_attention';
+      | 'needs_attention'
+      | 'late_failure';
     fraud_flag?: 'safe' | 'suspicious' | 'fraudulent';
     initiator_type?: 'customer' | 'merchant';
     three_d_secure?: boolean;
@@ -205,7 +206,7 @@ declare module 'chargebee' {
       cn_date?: number;
       cn_total?: number;
       cn_status: 'adjusted' | 'refunded' | 'refund_due' | 'voided';
-      cn_reference_invoice_id: string;
+      cn_reference_invoice_id?: string;
     }
     export interface LinkedRefund {
       txn_id: string;
@@ -215,7 +216,8 @@ declare module 'chargebee' {
         | 'voided'
         | 'failure'
         | 'timeout'
-        | 'needs_attention';
+        | 'needs_attention'
+        | 'late_failure';
       txn_date: number;
       txn_amount: number;
     }
@@ -227,7 +229,8 @@ declare module 'chargebee' {
         | 'voided'
         | 'failure'
         | 'timeout'
-        | 'needs_attention';
+        | 'needs_attention'
+        | 'late_failure';
       amount?: number;
       date?: number;
     }

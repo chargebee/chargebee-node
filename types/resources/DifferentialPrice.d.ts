@@ -16,6 +16,7 @@ declare module 'chargebee' {
     tiers?: DifferentialPrice.Tier[];
     currency_code: string;
     parent_periods?: DifferentialPrice.ParentPeriod[];
+    business_entity_id?: string;
   }
 
   export namespace DifferentialPrice {
@@ -90,6 +91,7 @@ declare module 'chargebee' {
       parent_item_id: string;
       price?: number;
       price_in_decimal?: string;
+      business_entity_id?: string;
       parent_periods?: ParentPeriodsCreateInputParam[];
       tiers?: TiersCreateInputParam[];
     }

@@ -17,6 +17,7 @@ declare module 'chargebee' {
     resource_version?: number;
     updated_at?: number;
     channel?: ChannelEnum;
+    business_entity_id?: string;
   }
 
   export namespace AttachedItem {
@@ -84,6 +85,7 @@ declare module 'chargebee' {
       quantity_in_decimal?: string;
       charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
+      business_entity_id?: string;
     }
     export interface UpdateInputParam {
       parent_item_id: string;

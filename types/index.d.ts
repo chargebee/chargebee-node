@@ -41,6 +41,8 @@
 ///<reference path='./resources/ItemPrice.d.ts' />
 ///<reference path='./resources/Metadata.d.ts' />
 ///<reference path='./resources/NonSubscription.d.ts' />
+///<reference path='./resources/OmnichannelSubscription.d.ts' />
+///<reference path='./resources/OmnichannelTransaction.d.ts' />
 ///<reference path='./resources/Order.d.ts' />
 ///<reference path='./resources/PaymentIntent.d.ts' />
 ///<reference path='./resources/PaymentReferenceNumber.d.ts' />
@@ -59,6 +61,7 @@
 ///<reference path='./resources/QuotedCharge.d.ts' />
 ///<reference path='./resources/QuotedSubscription.d.ts' />
 ///<reference path='./resources/Ramp.d.ts' />
+///<reference path='./resources/RecordedPurchase.d.ts' />
 ///<reference path='./resources/ResourceMigration.d.ts' />
 ///<reference path='./resources/SiteMigrationDetail.d.ts' />
 ///<reference path='./resources/Subscription.d.ts' />
@@ -142,6 +145,7 @@ declare module 'chargebee' {
     itemFamily: ItemFamily.ItemFamilyResource;
     itemPrice: ItemPrice.ItemPriceResource;
     nonSubscription: NonSubscription.NonSubscriptionResource;
+    omnichannelSubscription: OmnichannelSubscription.OmnichannelSubscriptionResource;
     order: Order.OrderResource;
     paymentIntent: PaymentIntent.PaymentIntentResource;
     paymentScheduleScheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;
@@ -154,6 +158,7 @@ declare module 'chargebee' {
     purchase: Purchase.PurchaseResource;
     quote: Quote.QuoteResource;
     ramp: Ramp.RampResource;
+    recordedPurchase: RecordedPurchase.RecordedPurchaseResource;
     resourceMigration: ResourceMigration.ResourceMigrationResource;
     siteMigrationDetail: SiteMigrationDetail.SiteMigrationDetailResource;
     subscription: Subscription.SubscriptionResource;

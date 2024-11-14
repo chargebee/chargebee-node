@@ -260,15 +260,21 @@ declare module 'chargebee' {
       order?: OrderOrdersInputParam;
     }
     export interface ItemFamiliesInputParam {
+      business_entity_id?: filter.String;
+      include_site_level_resources?: filter.Boolean;
       item_family?: ItemFamilyItemFamiliesInputParam;
     }
     export interface ItemsInputParam {
+      business_entity_id?: filter.String;
+      include_site_level_resources?: filter.Boolean;
       item?: ItemItemsInputParam;
     }
     export interface ItemPricesInputParam {
       item_family_id?: filter.String;
       item_type?: filter.Enum;
       currency_code?: filter.String;
+      business_entity_id?: filter.String;
+      include_site_level_resources?: filter.Boolean;
       item_price?: ItemPriceItemPricesInputParam;
     }
     export interface AttachedItemsInputParam {
@@ -280,6 +286,8 @@ declare module 'chargebee' {
       item_id?: filter.String;
     }
     export interface PriceVariantsInputParam {
+      business_entity_id?: filter.String;
+      include_site_level_resources?: filter.Boolean;
       price_variant?: PriceVariantPriceVariantsInputParam;
     }
     export interface InvoiceRevenueRecognitionInputParam {

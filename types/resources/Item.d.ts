@@ -30,6 +30,7 @@ declare module 'chargebee' {
     bundle_items?: Item.BundleItem[];
     bundle_configuration?: Item.BundleConfiguration;
     metadata?: any;
+    business_entity_id?: string;
   }
 
   export namespace Item {
@@ -117,6 +118,7 @@ declare module 'chargebee' {
       metered?: boolean;
       usage_calculation?: 'sum_of_usages' | 'last_usage' | 'max_usage';
       metadata?: any;
+      business_entity_id?: string;
       bundle_configuration?: BundleConfigurationCreateInputParam;
       bundle_items_to_add?: BundleItemsToAddCreateInputParam[];
       [key: `cf_${string}`]: unknown;
@@ -164,6 +166,8 @@ declare module 'chargebee' {
       metered?: filter.Boolean;
       usage_calculation?: filter.Enum;
       channel?: filter.Enum;
+      business_entity_id?: filter.String;
+      include_site_level_resources?: filter.Boolean;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
     }

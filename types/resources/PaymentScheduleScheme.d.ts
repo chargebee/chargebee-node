@@ -56,7 +56,12 @@ declare module 'chargebee' {
       number_of_schedules: number;
       period_unit: 'day' | 'week' | 'month';
       period?: number;
-      description?: string;
+      name: string;
+      flexible_schedules?: FlexibleSchedulesCreateInputParam[];
+    }
+    export interface FlexibleSchedulesCreateInputParam {
+      period?: number;
+      amount_percentage?: number;
     }
   }
 }

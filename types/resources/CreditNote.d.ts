@@ -341,7 +341,8 @@ declare module 'chargebee' {
         | 'voided'
         | 'failure'
         | 'timeout'
-        | 'needs_attention';
+        | 'needs_attention'
+        | 'late_failure';
       txn_date?: number;
       txn_amount?: number;
       refund_reason_code?: string;

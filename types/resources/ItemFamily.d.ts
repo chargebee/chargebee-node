@@ -11,6 +11,7 @@ declare module 'chargebee' {
     resource_version?: number;
     updated_at?: number;
     channel?: ChannelEnum;
+    business_entity_id?: string;
   }
 
   export namespace ItemFamily {
@@ -70,6 +71,7 @@ declare module 'chargebee' {
       id: string;
       name: string;
       description?: string;
+      business_entity_id?: string;
       [key: `cf_${string}`]: unknown;
     }
     export interface ListInputParam {
@@ -78,6 +80,8 @@ declare module 'chargebee' {
       id?: filter.String;
       name?: filter.String;
       updated_at?: filter.Timestamp;
+      business_entity_id?: filter.String;
+      include_site_level_resources?: filter.Boolean;
       [key: `cf_${string}`]: unknown;
     }
     export interface UpdateInputParam {

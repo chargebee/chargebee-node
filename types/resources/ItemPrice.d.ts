@@ -48,6 +48,7 @@ declare module 'chargebee' {
     parent_item_id?: string;
     show_description_in_invoices?: boolean;
     show_description_in_quotes?: boolean;
+    business_entity_id?: string;
   }
 
   export namespace ItemPrice {
@@ -172,6 +173,7 @@ declare module 'chargebee' {
       show_description_in_invoices?: boolean;
       show_description_in_quotes?: boolean;
       usage_accumulation_reset_frequency?: UsageAccumulationResetFrequencyEnum;
+      business_entity_id?: string;
       pricing_model?: PricingModelEnum;
       price?: number;
       price_in_decimal?: string;
@@ -243,6 +245,8 @@ declare module 'chargebee' {
       trial_period_unit?: filter.Enum;
       status?: filter.Enum;
       updated_at?: filter.Timestamp;
+      business_entity_id?: filter.String;
+      include_site_level_resources?: filter.Boolean;
       period_unit?: filter.Enum;
       period?: filter.Number;
       channel?: filter.Enum;

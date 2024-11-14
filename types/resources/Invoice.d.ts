@@ -586,7 +586,8 @@ declare module 'chargebee' {
         | 'voided'
         | 'failure'
         | 'timeout'
-        | 'needs_attention';
+        | 'needs_attention'
+        | 'late_failure';
       txn_date?: number;
       txn_amount?: number;
     }
@@ -601,7 +602,8 @@ declare module 'chargebee' {
         | 'voided'
         | 'failure'
         | 'timeout'
-        | 'needs_attention';
+        | 'needs_attention'
+        | 'late_failure';
       txn_amount?: number;
     }
     export interface AppliedCredit {
@@ -1173,6 +1175,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -1318,6 +1321,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -1597,7 +1601,7 @@ declare module 'chargebee' {
       reference_number?: string;
       custom_payment_method_id?: string;
       id_at_gateway?: string;
-      status?: 'success' | 'failure';
+      status?: 'success' | 'failure' | 'late_failure';
       date?: number;
       error_code?: string;
       error_text?: string;
