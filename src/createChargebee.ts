@@ -80,6 +80,7 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
             urlSuffix: metaArr[3],
             hasIdInUrl: metaArr[4],
             isListReq: metaArr[0] === 'list',
+            subDomain: metaArr[5],
           };
           this[res][apiCall.methodName] = this._createApiFunc(
             apiCall,

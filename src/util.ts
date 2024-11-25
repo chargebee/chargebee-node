@@ -185,7 +185,10 @@ export function encodeListParams(paramObj: Object) {
   }
   return encodeParams(paramObj);
 }
-export function getHost(env: EnvType): string {
+export function getHost(env: EnvType, subDomain?: string | null): string {
+  if (subDomain != null) {
+    return env.site + '.' + subDomain + env.hostSuffix;
+  }
   return env.site + env.hostSuffix;
 }
 export function encodeParams(

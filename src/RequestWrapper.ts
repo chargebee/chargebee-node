@@ -91,7 +91,7 @@ export class RequestWrapper {
         });
         const resp: HttpClientResponseInterface =
           await this.envArg.httpClient.makeApiRequest({
-            host: getHost(env),
+            host: getHost(env, this.apiCall.subDomain),
             port: env.port,
             path,
             method: this.apiCall.httpMethod,
