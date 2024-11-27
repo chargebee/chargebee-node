@@ -22,5 +22,7 @@ declare module 'chargebee' {
 
     created_at:number;
 
+    resource_version?:number;
+
   }
 }

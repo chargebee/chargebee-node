@@ -138,8 +138,6 @@ declare module 'chargebee' {
 
     meta_data?:object;
 
-    metadata?:object;
-
     deleted:boolean;
 
     changes_scheduled_at?:number;
@@ -159,6 +157,10 @@ declare module 'chargebee' {
     discounts?:Subscription.Discount[];
 
     business_entity_id?:string;
+   /**
+    * @deprecated metadata is deprecated please use meta_data instead
+    */
+    metadata?:object;
 
   }
   export namespace Subscription {

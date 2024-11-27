@@ -16,7 +16,9 @@ declare module 'chargebee' {
 
     created_at:number;
 
-    omnichannel_subscription_items:OmnichannelSubscription.OmnichannelSubscriptionItem[];
+    resource_version?:number;
+
+    omnichannel_subscription_items:OmnichannelSubscriptionItem[];
 
   }
   export namespace OmnichannelSubscription {
@@ -51,6 +53,13 @@ declare module 'chargebee' {
         */
         
       offset?:string;
+       
+      /**
+        * @description Chargebee Customer External Identifier
+
+        */
+        
+      customer_id?:{is?:string,is_not?:string,starts_with?:string};
     }
     export interface OmnichannelTransactionsForOmnichannelSubscriptionResponse {  
        list:{omnichannel_transaction:OmnichannelTransaction}[];
@@ -73,24 +82,6 @@ declare module 'chargebee' {
         
       offset?:string;
     }
-    export interface OmnichannelSubscriptionItem {  
-      id:string;
-       
-      id_at_source:string;
-       
-      status:'active' | 'expired' | 'cancelled';
-       
-      current_term_start?:number;
-       
-      current_term_end?:number;
-       
-      expired_at?:number;
-       
-      expiration_reason?:'billing_error' | 'product_not_available' | 'other';
-       
-      cancelled_at?:number;
-       
-      cancellation_reason?:'customer_cancelled' | 'customer_did_not_consent_to_price_increase';
-    }
+    
   }
 }

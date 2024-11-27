@@ -18,6 +18,8 @@ declare module 'chargebee' {
 
     created_at:number;
 
+    resource_version?:number;
+
     linked_omnichannel_subscriptions?:RecordedPurchase.LinkedOmnichannelSubscription[];
 
     error_detail?:RecordedPurchase.ErrorDetail;
