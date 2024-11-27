@@ -12,5 +12,6 @@ declare module 'chargebee' {
     type: 'purchase' | 'renewal';
     transacted_at: number;
     created_at: number;
+    resource_version?: number;
   }
 }

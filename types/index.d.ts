@@ -42,6 +42,7 @@
 ///<reference path='./resources/Metadata.d.ts' />
 ///<reference path='./resources/NonSubscription.d.ts' />
 ///<reference path='./resources/OmnichannelSubscription.d.ts' />
+///<reference path='./resources/OmnichannelSubscriptionItem.d.ts' />
 ///<reference path='./resources/OmnichannelTransaction.d.ts' />
 ///<reference path='./resources/Order.d.ts' />
 ///<reference path='./resources/PaymentIntent.d.ts' />

@@ -337,6 +337,7 @@ declare module 'chargebee' {
       reactivate_from?: number;
       billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
+      replace_coupon_list?: boolean;
       reactivate?: boolean;
       force_term_reset?: boolean;
       redirect_url?: string;
@@ -362,6 +363,7 @@ declare module 'chargebee' {
       reactivate_from?: number;
       billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
+      replace_coupon_list?: boolean;
       reactivate?: boolean;
       force_term_reset?: boolean;
       change_option?: ChangeOptionEnum;
@@ -808,6 +810,7 @@ declare module 'chargebee' {
       coupon?: string;
       auto_collection?: AutoCollectionEnum;
       invoice_notes?: string;
+      po_number?: string;
       contract_term_billing_cycle_on_renewal?: number;
     }
     export interface CardCheckoutNewForItemsInputParam {

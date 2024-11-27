@@ -81,6 +81,7 @@ interface Endpoints {
   pricingPageSession: EndpointTuple[];
   omnichannelSubscription: EndpointTuple[];
   omnichannelTransaction: EndpointTuple[];
+  omnichannelSubscriptionItem: EndpointTuple[];
   recordedPurchase: EndpointTuple[];
 }
 export const Endpoints: Endpoints = {
@@ -1190,6 +1191,7 @@ export const Endpoints: Endpoints = {
     ],
   ],
   omnichannelTransaction: [],
+  omnichannelSubscriptionItem: [],
   recordedPurchase: [
     ['create', 'POST', '/recorded_purchases', null, false],
     ['retrieve', 'GET', '/recorded_purchases', null, true],

@@ -85,7 +85,6 @@ declare module 'chargebee' {
     referral_info?: Subscription.ReferralInfo;
     invoice_notes?: string;
     meta_data?: any;
-    metadata?: any;
     deleted: boolean;
     changes_scheduled_at?: number;
     contract_term?: Subscription.ContractTerm;

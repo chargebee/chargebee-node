@@ -10,6 +10,7 @@ declare module 'chargebee' {
     status: 'in_process' | 'completed' | 'failed';
     omnichannel_transaction_id?: string;
     created_at: number;
+    resource_version?: number;
     linked_omnichannel_subscriptions?: RecordedPurchase.LinkedOmnichannelSubscription[];
     error_detail?: RecordedPurchase.ErrorDetail;
   }
