@@ -57,49 +57,53 @@ export class RequestWrapper {
           resolve(response);
         }
       }
-      let path: string = getApiURL(
-        env,
-        this.apiCall.urlPrefix,
-        this.apiCall.urlSuffix,
-        urlIdParam,
-      );
-      if (typeof params === 'undefined' || params === null) {
-        params = {};
-      }
-      if (this.apiCall.httpMethod === 'GET') {
-        params = serialize(params);
-        let queryParam = this.apiCall.isListReq
-          ? encodeListParams(params)
-          : encodeParams(params);
-        path += '?' + queryParam;
-        params = {};
-      }
-      let data: string = encodeParams(params);
-      if (data.length) {
+      try {
+        let path: string = getApiURL(
+          env,
+          this.apiCall.urlPrefix,
+          this.apiCall.urlSuffix,
+          urlIdParam,
+        );
+        if (typeof params === 'undefined' || params === null) {
+          params = {};
+        }
+        if (this.apiCall.httpMethod === 'GET') {
+          params = serialize(params);
+          let queryParam = this.apiCall.isListReq
+            ? encodeListParams(params)
+            : encodeParams(params);
+          path += '?' + queryParam;
+          params = {};
+        }
+        let data: string = encodeParams(params);
+        if (data.length) {
+          extend(true, this.httpHeaders, {
+            'Content-Length': data.length,
+          });
+        }
         extend(true, this.httpHeaders, {
-          'Content-Length': data.length,
+          Authorization:
+            'Basic ' + Buffer.from(env.apiKey + ':').toString('base64'),
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+          'User-Agent': 'Chargebee-NodeJs-Client ' + env.clientVersion,
+          'Lang-Version': typeof process === 'undefined' ? '' : process.version,
         });
+        const resp: HttpClientResponseInterface =
+          await this.envArg.httpClient.makeApiRequest({
+            host: getHost(env),
+            port: env.port,
+            path,
+            method: this.apiCall.httpMethod,
+            protocol: env.protocol,
+            headers: this.httpHeaders,
+            data: data,
+            timeout: env.timeout,
+          });
+        handleResponse(callBackWrapper, resp);
+      } catch (err) {
+        callBackWrapper(err, null);
       }
-      extend(true, this.httpHeaders, {
-        Authorization:
-          'Basic ' + Buffer.from(env.apiKey + ':').toString('base64'),
-        Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-        'User-Agent': 'Chargebee-NodeJs-Client ' + env.clientVersion,
-        'Lang-Version': typeof process === 'undefined' ? '' : process.version,
-      });
-      const resp: HttpClientResponseInterface =
-        await this.envArg.httpClient.makeApiRequest({
-          host: getHost(env),
-          port: env.port,
-          path,
-          method: this.apiCall.httpMethod,
-          protocol: env.protocol,
-          headers: this.httpHeaders,
-          data: data,
-          timeout: env.timeout,
-        });
-      handleResponse(callBackWrapper, resp);
     });
     return callbackifyPromise(promise);
   }

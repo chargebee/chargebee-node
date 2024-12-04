@@ -19,6 +19,7 @@ declare module 'chargebee' {
     webhooks?: Event.Webhook[];
     event_type?: EventTypeEnum;
     api_version?: ApiVersionEnum;
+    content: any;
     origin_user?: string;
   }
 
