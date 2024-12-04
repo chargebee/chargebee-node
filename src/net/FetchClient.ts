@@ -19,10 +19,14 @@ export class FetchHttpClient extends HttpClient implements HttpClientInterface {
       headers: headers,
       body: props.data ? props.data : undefined,
     };
-    const response: Response = globalThis.AbortController
-      ? await this.fetchWithAbortTimeout(url, fetchOptions, props.timeout)
-      : await this.fetchWithTimeout(url, fetchOptions, props.timeout);
-    return new FetchHttpClientResponse(response);
+    try {
+      const response: Response = globalThis.AbortController
+        ? await this.fetchWithAbortTimeout(url, fetchOptions, props.timeout)
+        : await this.fetchWithTimeout(url, fetchOptions, props.timeout);
+      return new FetchHttpClientResponse(response);
+    } catch (err) {
+      return Promise.reject(err);
+    }
   }
   _createHeaders(httpHeaders: RequestHeaders): Headers {
     const headers = new Headers();
@@ -60,23 +64,22 @@ export class FetchHttpClient extends HttpClient implements HttpClientInterface {
       timeoutId = null;
       abort.abort(HttpClient.timeOutError());
     }, timeout);
-
-    const fetchPromise = fetch(url, {
-      ...fetchOptions,
-      signal: abort.signal,
-    });
-    fetchPromise.finally(() => {
+    try {
+      return await fetch(url, {
+        ...fetchOptions,
+        signal: abort.signal,
+      });
+    } catch (err) {
+      if ((err as DOMException).name === 'AbortError') {
+        return Promise.reject(HttpClient.timeOutError());
+      } else {
+        return Promise.reject(err);
+      }
+    } finally {
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
-    });
-    return fetchPromise.catch((err) => {
-      if ((err as DOMException).name === 'AbortError') {
-        throw HttpClient.timeOutError();
-      } else {
-        throw err;
-      }
-    });
+    }
   }
 }
 

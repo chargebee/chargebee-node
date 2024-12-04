@@ -1,3 +1,10 @@
+### v3.2.1 (2024-12-04)
+* * *
+
+#### Bug Fixes
+* unable to access content of HostedPage & Event (#57).
+* uncaught promise in case of fetch failure (#58). 
+
 ### v3.2.0 (2024-11-27)
 * * *
 #### New Resource: 
