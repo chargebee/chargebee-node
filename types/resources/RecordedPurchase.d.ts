@@ -7,7 +7,7 @@ declare module 'chargebee' {
     customer_id: string;
     app_id: string;
     source: 'apple_app_store';
-    status: 'in_process' | 'completed' | 'failed';
+    status: 'in_process' | 'completed' | 'failed' | 'ignored';
     omnichannel_transaction_id?: string;
     created_at: number;
     resource_version?: number;

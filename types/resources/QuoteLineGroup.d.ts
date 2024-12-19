@@ -84,6 +84,7 @@ declare module 'chargebee' {
         | 'prorated_credits'
         | 'item_level_discount'
         | 'document_level_discount';
+      discount_type?: 'fixed_amount' | 'percentage';
       entity_id?: string;
       coupon_set_code?: string;
     }

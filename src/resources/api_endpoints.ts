@@ -60,6 +60,7 @@ interface Endpoints {
   itemPrice: EndpointTuple[];
   attachedItem: EndpointTuple[];
   differentialPrice: EndpointTuple[];
+  configuration: EndpointTuple[];
   feature: EndpointTuple[];
   impactedSubscription: EndpointTuple[];
   impactedItem: EndpointTuple[];
@@ -1013,6 +1014,7 @@ export const Endpoints: Endpoints = {
     ['delete', 'POST', '/differential_prices', '/delete', true],
     ['list', 'GET', '/differential_prices', null, false],
   ],
+  configuration: [['list', 'GET', '/configurations', null, false]],
   feature: [
     ['list', 'GET', '/features', null, false],
     ['create', 'POST', '/features', null, false],

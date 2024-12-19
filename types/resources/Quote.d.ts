@@ -44,6 +44,7 @@ declare module 'chargebee' {
     contract_term_end?: number;
     contract_term_termination_fee?: number;
     business_entity_id?: string;
+    deleted: boolean;
   }
 
   export namespace Quote {
@@ -332,6 +333,7 @@ declare module 'chargebee' {
         | 'prorated_credits'
         | 'item_level_discount'
         | 'document_level_discount';
+      discount_type?: 'fixed_amount' | 'percentage';
       entity_id?: string;
       coupon_set_code?: string;
     }

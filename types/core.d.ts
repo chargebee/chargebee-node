@@ -324,6 +324,11 @@ declare module 'chargebee' {
     | 'omnichannel_subscription_item_resubscribed'
     | 'omnichannel_subscription_item_upgraded'
     | 'omnichannel_subscription_item_cancelled'
+    | 'omnichannel_subscription_imported'
+    | 'omnichannel_subscription_item_grace_period_started'
+    | 'omnichannel_subscription_item_grace_period_expired'
+    | 'omnichannel_subscription_item_dunning_started'
+    | 'omnichannel_subscription_item_dunning_expired'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'
@@ -492,6 +497,7 @@ declare module 'chargebee' {
     | 'tiered'
     | 'volume'
     | 'stairstep';
+  type ProductCatalogVersionEnum = 'v1' | 'v2';
   type ProrationTypeEnum = 'full_term' | 'partial_term' | 'none';
   type ReferralSystemEnum =
     | 'referral_candy'

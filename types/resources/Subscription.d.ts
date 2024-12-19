@@ -83,6 +83,7 @@ declare module 'chargebee' {
     coupons?: Subscription.Coupon[];
     shipping_address?: Subscription.ShippingAddress;
     referral_info?: Subscription.ReferralInfo;
+    billing_override?: Subscription.BillingOverride;
     invoice_notes?: string;
     meta_data?: any;
     deleted: boolean;
@@ -557,6 +558,9 @@ declare module 'chargebee' {
       unit_price?: number;
       unit_price_in_decimal?: string;
       amount?: number;
+      current_term_start?: number;
+      current_term_end?: number;
+      next_billing_at?: number;
       amount_in_decimal?: string;
       billing_period?: number;
       billing_period_unit?: 'day' | 'week' | 'month' | 'year';
@@ -661,6 +665,10 @@ declare module 'chargebee' {
       notify_referral_system?: NotifyReferralSystemEnum;
       destination_url?: string;
       post_purchase_widget_enabled: boolean;
+    }
+    export interface BillingOverride {
+      max_excess_payment_usage?: number;
+      max_refundable_credits_usage?: number;
     }
     export interface ContractTerm {
       id: string;
@@ -835,6 +843,7 @@ declare module 'chargebee' {
       statement_descriptor?: StatementDescriptorCreateWithItemsInputParam;
       payment_intent?: PaymentIntentCreateWithItemsInputParam;
       contract_term?: ContractTermCreateWithItemsInputParam;
+      billing_override?: BillingOverrideCreateWithItemsInputParam;
       subscription_items?: SubscriptionItemsCreateWithItemsInputParam[];
       discounts?: DiscountsCreateWithItemsInputParam[];
       item_tiers?: ItemTiersCreateWithItemsInputParam[];
@@ -991,6 +1000,7 @@ declare module 'chargebee' {
       statement_descriptor?: StatementDescriptorUpdateForItemsInputParam;
       customer?: CustomerUpdateForItemsInputParam;
       contract_term?: ContractTermUpdateForItemsInputParam;
+      billing_override?: BillingOverrideUpdateForItemsInputParam;
       subscription_items?: SubscriptionItemsUpdateForItemsInputParam[];
       discounts?: DiscountsUpdateForItemsInputParam[];
       item_tiers?: ItemTiersUpdateForItemsInputParam[];
@@ -1548,6 +1558,10 @@ declare module 'chargebee' {
       billing_cycles?: number;
       trial_end?: number;
     }
+    export interface BillingOverrideCreateWithItemsInputParam {
+      max_excess_payment_usage?: number;
+      max_refundable_credits_usage?: number;
+    }
     export interface StatementDescriptorCreateWithItemsInputParam {
       descriptor?: string;
     }
@@ -1809,6 +1823,10 @@ declare module 'chargebee' {
       unit_price_in_decimal?: string;
       trial_end?: number;
       proration_type?: ProrationTypeEnum;
+    }
+    export interface BillingOverrideUpdateForItemsInputParam {
+      max_excess_payment_usage?: number;
+      max_refundable_credits_usage?: number;
     }
     export interface BillingAddressUpdateForItemsInputParam {
       first_name?: string;

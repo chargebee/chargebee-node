@@ -16,5 +16,6 @@ declare module 'chargebee' {
     recommendation_message?: string;
     processor_error_code?: string;
     processor_error_message?: string;
+    error_cause_id?: string;
   }
 }
