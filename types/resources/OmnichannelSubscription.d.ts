@@ -20,6 +20,8 @@ declare module 'chargebee' {
 
     omnichannel_subscription_items:OmnichannelSubscriptionItem[];
 
+    initial_purchase_transaction?:OmnichannelSubscription.OmnichannelTransaction;
+
   }
   export namespace OmnichannelSubscription {
     export class OmnichannelSubscriptionResource {  
@@ -82,6 +84,26 @@ declare module 'chargebee' {
         
       offset?:string;
     }
-    
+    export interface OmnichannelTransaction {  
+      id:string;
+       
+      id_at_source:string;
+       
+      app_id:string;
+       
+      price_currency:string;
+       
+      price_units:number;
+       
+      price_nanos:number;
+       
+      type:'purchase' | 'renewal';
+       
+      transacted_at:number;
+       
+      created_at:number;
+       
+      resource_version?:number;
+    }
   }
 }

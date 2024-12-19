@@ -1,38 +1,41 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface CreditNoteEstimate {
     
+
     reference_invoice_id:string;
-    
+
     type:'adjustment' | 'refundable';
-    
+
     price_type:PriceType;
-    
+
     currency_code:string;
-    
+
     sub_total:number;
-    
+
     total:number;
-    
+
     amount_allocated:number;
-    
+
     amount_available:number;
-    
+
     line_items?:CreditNoteEstimate.LineItem[];
-    
+
     discounts?:CreditNoteEstimate.Discount[];
-    
+
     taxes?:CreditNoteEstimate.Tax[];
-    
+
     line_item_taxes?:CreditNoteEstimate.LineItemTax[];
-    
+
     line_item_discounts?:CreditNoteEstimate.LineItemDiscount[];
-    
+
     line_item_tiers?:CreditNoteEstimate.LineItemTier[];
-    
+
     round_off_amount?:number;
-    
+
     customer_id?:string;
+
   }
   export namespace CreditNoteEstimate {
     
@@ -92,6 +95,8 @@ declare module 'chargebee' {
       description?:string;
        
       entity_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
+       
+      discount_type?:'fixed_amount' | 'percentage';
        
       entity_id?:string;
        

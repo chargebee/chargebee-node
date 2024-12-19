@@ -133,7 +133,7 @@ declare module 'chargebee' {
 
         */
         
-      webhook_status?:{in?:string,is?:'not_configured' | 're_scheduled' | 'scheduled' | 'failed' | 'not_applicable' | 'succeeded' | 'skipped',is_not?:'not_configured' | 're_scheduled' | 'scheduled' | 'failed' | 'not_applicable' | 'succeeded' | 'skipped',not_in?:string};
+      webhook_status?:{in?:string,is?:'not_configured' | 're_scheduled' | 'scheduled' | 'failed' | 'not_applicable' | 'succeeded' | 'skipped' | 'disabled',is_not?:'not_configured' | 're_scheduled' | 'scheduled' | 'failed' | 'not_applicable' | 'succeeded' | 'skipped',not_in?:string};
        
       /**
         * @description Retrieves list of events.
@@ -186,7 +186,7 @@ declare module 'chargebee' {
 
           */
        
-      webhook_status:'not_configured' | 're_scheduled' | 'scheduled' | 'failed' | 'not_applicable' | 'succeeded' | 'skipped';
+      webhook_status:'not_configured' | 're_scheduled' | 'scheduled' | 'failed' | 'not_applicable' | 'succeeded' | 'skipped' | 'disabled';
     }
   }
 }

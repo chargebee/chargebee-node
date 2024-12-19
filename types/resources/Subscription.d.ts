@@ -134,6 +134,8 @@ declare module 'chargebee' {
 
     referral_info?:Subscription.ReferralInfo;
 
+    billing_override?:Subscription.BillingOverride;
+
     invoice_notes?:string;
 
     meta_data?:object;
@@ -449,6 +451,8 @@ declare module 'chargebee' {
       payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_payment_method_id?:string,gw_token?:string,id?:string,payment_method_type?:'card' | 'ideal' | 'sofort' | 'bancontact' | 'google_pay' | 'dotpay' | 'giropay' | 'apple_pay' | 'upi' | 'netbanking_emandates' | 'paypal_express_checkout' | 'direct_debit' | 'boleto' | 'venmo' | 'amazon_payments' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'klarna_pay_now' | 'online_banking_poland',reference_id?:string};
        
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel',cancellation_cutoff_period?:number,contract_start?:number};
+       
+      billing_override?:{max_excess_payment_usage?:number,max_refundable_credits_usage?:number};
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string,usage_accumulation_reset_frequency?:UsageAccumulationResetFrequency}[];
        
@@ -943,6 +947,8 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       customer?:{business_customer_without_vat_number?:boolean,einvoicing_method?:EinvoicingMethod,entity_identifier_scheme?:string,entity_identifier_standard?:string,is_einvoice_enabled?:boolean,registered_for_gst?:boolean,vat_number?:string,vat_number_prefix?:string};
        
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',cancellation_cutoff_period?:number,contract_start?:number};
+       
+      billing_override?:{max_excess_payment_usage?:number,max_refundable_credits_usage?:number};
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,proration_type?:ProrationType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string,usage_accumulation_reset_frequency?:UsageAccumulationResetFrequency}[];
        
@@ -1644,6 +1650,12 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        
       amount?:number;
        
+      current_term_start?:number;
+       
+      current_term_end?:number;
+       
+      next_billing_at?:number;
+       
       amount_in_decimal?:string;
        
       billing_period?:number;
@@ -1803,6 +1815,11 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       destination_url?:string;
        
       post_purchase_widget_enabled:boolean;
+    }
+    export interface BillingOverride {  
+      max_excess_payment_usage?:number;
+       
+      max_refundable_credits_usage?:number;
     }
     export interface ContractTerm {  
       id:string;

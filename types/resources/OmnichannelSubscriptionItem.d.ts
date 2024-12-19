@@ -8,7 +8,7 @@ declare module 'chargebee' {
 
     item_id_at_source:string;
 
-    status:'active' | 'expired' | 'cancelled';
+    status:'active' | 'expired' | 'cancelled' | 'in_dunning' | 'in_grace_period';
 
     current_term_start?:number;
 
@@ -21,6 +21,8 @@ declare module 'chargebee' {
     cancelled_at?:number;
 
     cancellation_reason?:'customer_cancelled' | 'customer_did_not_consent_to_price_increase';
+
+    grace_period_expires_at?:number;
 
     resource_version?:number;
 

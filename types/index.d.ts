@@ -6,6 +6,7 @@
 ///<reference path='./resources/BusinessEntityTransfer.d.ts' />
 ///<reference path='./resources/Card.d.ts' />
 ///<reference path='./resources/Comment.d.ts' />
+///<reference path='./resources/Configuration.d.ts' />
 ///<reference path='./resources/Contact.d.ts' />
 ///<reference path='./resources/ContractTerm.d.ts' />
 ///<reference path='./resources/Coupon.d.ts' />
@@ -85,6 +86,7 @@ declare module 'chargebee' {
     static business_entity: BusinessEntity.BusinessEntityResource;
     static card: Card.CardResource;
     static comment: Comment.CommentResource;
+    static configuration: Configuration.ConfigurationResource;
     static coupon: Coupon.CouponResource;
     static coupon_code: CouponCode.CouponCodeResource;
     static coupon_set: CouponSet.CouponSetResource;

@@ -80,6 +80,8 @@ declare module 'chargebee' {
 
     business_entity_id?:string;
 
+    deleted:boolean;
+
   }
   export namespace Quote {
     export class QuoteResource {  
@@ -813,6 +815,8 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       description?:string;
        
       entity_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
+       
+      discount_type?:'fixed_amount' | 'percentage';
        
       entity_id?:string;
        

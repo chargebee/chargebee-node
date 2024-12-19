@@ -114,6 +114,12 @@ declare module 'chargebee' {
        
       amount?:number;
        
+      current_term_start?:number;
+       
+      current_term_end?:number;
+       
+      next_billing_at?:number;
+       
       amount_in_decimal?:string;
        
       billing_period?:number;
