@@ -75,17 +75,22 @@ export class RequestWrapper {
           path += '?' + queryParam;
           params = {};
         }
-        let data: string = encodeParams(params);
+        let data: string = this.apiCall.isJsonRequest
+          ? JSON.stringify(params)
+          : encodeParams(params);
         if (data.length) {
           extend(true, this.httpHeaders, {
             'Content-Length': data.length,
           });
         }
+        const contentType = this.apiCall.isJsonRequest
+          ? 'application/json;charset=UTF-8'
+          : 'application/x-www-form-urlencoded; charset=utf-8';
         extend(true, this.httpHeaders, {
           Authorization:
             'Basic ' + Buffer.from(env.apiKey + ':').toString('base64'),
           Accept: 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+          'Content-Type': contentType,
           'User-Agent': 'Chargebee-NodeJs-Client ' + env.clientVersion,
           'Lang-Version': typeof process === 'undefined' ? '' : process.version,
         });
