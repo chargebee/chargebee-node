@@ -44,6 +44,7 @@ export const handleResponse = async (
         res.isIdempotencyReplayed = headers[IDEMPOTENCY_REPLAYED_HEADER];
       }
       res.headers = headers;
+      res.httpStatusCode = status;
       return callback(null, res);
     }
   } catch (error) {
