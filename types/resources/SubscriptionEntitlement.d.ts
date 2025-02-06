@@ -7,7 +7,7 @@ declare module 'chargebee' {
     feature_id?: string;
     feature_name?: string;
     feature_unit?: string;
-    feature_type?: string;
+    feature_type?: 'QUANTITY' | 'SWITCH' | 'RANGE' | 'CUSTOM';
     value?: string;
     name?: string;
     is_overridden: boolean;
