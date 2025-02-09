@@ -62,6 +62,7 @@ export type ResourceType = {
   isListReq: boolean;
   subDomain?: string | null;
   isJsonRequest?: boolean | null;
+  jsonKeys?: JSONValue;
 };
 type RequestWrapperType = {
   args: IArguments;
@@ -110,5 +111,6 @@ export type EndpointTuple = [
   subpath: string | null,
   requiresCustomer: boolean,
   subDomain: string | null,
-  isJsonRequest: boolean | null
+  isJsonRequest: boolean | null,
+  jsonKeys: JSONValue,
 ];

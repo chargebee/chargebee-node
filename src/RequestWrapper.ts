@@ -74,13 +74,18 @@ export class RequestWrapper {
         path += '?' + queryParam;
         params = {};
       }
-      let data: string = this.apiCall.isJsonRequest?JSON.stringify(params):encodeParams(params);
+      const jsonKeys = this.apiCall.jsonKeys;
+      let data: string = this.apiCall.isJsonRequest
+        ? JSON.stringify(params)
+        : encodeParams(params, undefined, undefined, undefined, jsonKeys);
       if (data.length) {
         extend(true, this.httpHeaders, {
           'Content-Length': data.length,
         });
       }
-      const contentType = this.apiCall.isJsonRequest ? 'application/json;charset=UTF-8' :'application/x-www-form-urlencoded; charset=utf-8';
+      const contentType = this.apiCall.isJsonRequest
+        ? 'application/json;charset=UTF-8'
+        : 'application/x-www-form-urlencoded; charset=utf-8';
       extend(true, this.httpHeaders, {
         Authorization:
           'Basic ' + Buffer.from(env.apiKey + ':').toString('base64'),
