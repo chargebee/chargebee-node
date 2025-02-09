@@ -75,9 +75,10 @@ export class RequestWrapper {
           path += '?' + queryParam;
           params = {};
         }
+        const jsonKeys = this.apiCall.jsonKeys;
         let data: string = this.apiCall.isJsonRequest
           ? JSON.stringify(params)
-          : encodeParams(params);
+          : encodeParams(params, undefined, undefined, undefined, jsonKeys);
         if (data.length) {
           extend(true, this.httpHeaders, {
             'Content-Length': data.length,
