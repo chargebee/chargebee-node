@@ -317,7 +317,7 @@ declare module 'chargebee' {
     }
     export interface LinkedCreditNote {
       amount?: number;
-      type: 'adjustment' | 'refundable';
+      type: 'adjustment' | 'refundable' | 'store';
       id: string;
       status: 'adjusted' | 'refunded' | 'refund_due' | 'voided';
       amount_adjusted?: number;

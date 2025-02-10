@@ -54,6 +54,7 @@ declare module 'chargebee' {
     line_item_discounts?: Invoice.LineItemDiscount[];
     taxes?: Invoice.Tax[];
     line_item_taxes?: Invoice.LineItemTax[];
+    line_item_credits?: Invoice.LineItemCredit[];
     line_item_tiers?: Invoice.LineItemTier[];
     linked_payments?: Invoice.LinkedPayment[];
     dunning_attempts?: Invoice.DunningAttempt[];
@@ -566,6 +567,11 @@ declare module 'chargebee' {
       tax_amount_in_local_currency?: number;
       local_currency_code?: string;
     }
+    export interface LineItemCredit {
+      cn_id: string;
+      applied_amount: number;
+      line_item_id?: string;
+    }
     export interface LineItemTier {
       line_item_id?: string;
       starting_unit: number;
@@ -627,6 +633,7 @@ declare module 'chargebee' {
       cn_create_reason_code?: string;
       cn_date?: number;
       cn_status: 'adjusted' | 'refunded' | 'refund_due' | 'voided';
+      tax_application?: 'pre_tax' | 'post_tax';
     }
     export interface AdjustmentCreditNote {
       cn_id: string;

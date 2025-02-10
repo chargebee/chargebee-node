@@ -15,6 +15,7 @@ declare module 'chargebee' {
     archived_at?: number;
     attributes?: PriceVariant.Attribute[];
     business_entity_id?: string;
+    deleted: boolean;
   }
 
   export namespace PriceVariant {

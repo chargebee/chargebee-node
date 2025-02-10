@@ -18,6 +18,7 @@ declare module 'chargebee' {
     updated_at?: number;
     channel?: ChannelEnum;
     business_entity_id?: string;
+    deleted: boolean;
   }
 
   export namespace AttachedItem {

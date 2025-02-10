@@ -65,6 +65,7 @@
 ///<reference path='./resources/Ramp.d.ts' />
 ///<reference path='./resources/RecordedPurchase.d.ts' />
 ///<reference path='./resources/ResourceMigration.d.ts' />
+///<reference path='./resources/Rule.d.ts' />
 ///<reference path='./resources/SiteMigrationDetail.d.ts' />
 ///<reference path='./resources/Subscription.d.ts' />
 ///<reference path='./resources/SubscriptionEntitlement.d.ts' />
@@ -76,6 +77,7 @@
 ///<reference path='./resources/Transaction.d.ts' />
 ///<reference path='./resources/UnbilledCharge.d.ts' />
 ///<reference path='./resources/Usage.d.ts' />
+///<reference path='./resources/UsageEvent.d.ts' />
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
 
 export type Config = {
@@ -163,6 +165,7 @@ declare module 'chargebee' {
     ramp: Ramp.RampResource;
     recordedPurchase: RecordedPurchase.RecordedPurchaseResource;
     resourceMigration: ResourceMigration.ResourceMigrationResource;
+    rule: Rule.RuleResource;
     siteMigrationDetail: SiteMigrationDetail.SiteMigrationDetailResource;
     subscription: Subscription.SubscriptionResource;
     subscriptionEntitlement: SubscriptionEntitlement.SubscriptionEntitlementResource;
@@ -170,6 +173,7 @@ declare module 'chargebee' {
     transaction: Transaction.TransactionResource;
     unbilledCharge: UnbilledCharge.UnbilledChargeResource;
     usage: Usage.UsageResource;
+    usageEvent: UsageEvent.UsageEventResource;
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
   }
 }

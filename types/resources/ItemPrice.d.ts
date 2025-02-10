@@ -48,6 +48,7 @@ declare module 'chargebee' {
     parent_item_id?: string;
     show_description_in_invoices?: boolean;
     show_description_in_quotes?: boolean;
+    deleted: boolean;
     business_entity_id?: string;
   }
 

@@ -1174,6 +1174,7 @@ declare module 'chargebee' {
       tiers?: TiersImportUnbilledChargesInputParam[];
     }
     export interface ImportForItemsInputParam {
+      exhausted_coupon_ids?: string[];
       id?: string;
       trial_end?: number;
       billing_cycles?: number /**

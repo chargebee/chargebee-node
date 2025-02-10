@@ -41,6 +41,7 @@ declare module 'chargebee' {
     invoice_notes?: string;
     meta_data?: any;
     coupon_constraints?: Coupon.CouponConstraint[];
+    deleted: boolean;
   }
 
   export namespace Coupon {
@@ -160,10 +161,7 @@ declare module 'chargebee' {
       discount_type?: 'fixed_amount' | 'percentage' | 'offer_quantity';
       discount_amount?: number;
       currency_code?: string;
-      discount_percentage?: number /**
-       * @deprecated Please refer API docs to use other attributes
-       */;
-
+      discount_percentage?: number;
       discount_quantity?: number;
       apply_on: 'invoice_amount' | 'each_specified_item';
       duration_type?: 'one_time' | 'forever' | 'limited_period';
@@ -188,10 +186,7 @@ declare module 'chargebee' {
       discount_type?: 'fixed_amount' | 'percentage' | 'offer_quantity';
       discount_amount?: number;
       currency_code?: string;
-      discount_percentage?: number /**
-       * @deprecated Please refer API docs to use other attributes
-       */;
-
+      discount_percentage?: number;
       discount_quantity?: number;
       apply_on: 'invoice_amount' | 'each_specified_item';
       duration_type?: 'one_time' | 'forever' | 'limited_period';
@@ -216,10 +211,7 @@ declare module 'chargebee' {
       discount_type?: 'fixed_amount' | 'percentage' | 'offer_quantity';
       discount_amount?: number;
       currency_code?: string;
-      discount_percentage?: number /**
-       * @deprecated Please refer API docs to use other attributes
-       */;
-
+      discount_percentage?: number;
       discount_quantity?: number;
       apply_on?: 'invoice_amount' | 'each_specified_item';
       duration_type?: 'one_time' | 'forever' | 'limited_period';
@@ -259,10 +251,7 @@ declare module 'chargebee' {
       discount_type?: 'fixed_amount' | 'percentage' | 'offer_quantity';
       discount_amount?: number;
       currency_code?: string;
-      discount_percentage?: number /**
-       * @deprecated Please refer API docs to use other attributes
-       */;
-
+      discount_percentage?: number;
       discount_quantity?: number;
       apply_on?: 'invoice_amount' | 'each_specified_item';
       duration_type?: 'one_time' | 'forever' | 'limited_period';

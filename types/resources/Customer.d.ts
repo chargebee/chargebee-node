@@ -608,7 +608,6 @@ declare module 'chargebee' {
     export interface MoveInputParam {
       id_at_from_site: string;
       from_site: string;
-      tax_providers_fields?: TaxProvidersFieldsMoveInputParam[];
     }
     export interface ChangeBillingDateInputParam {
       billing_date?: number;
@@ -627,7 +626,6 @@ declare module 'chargebee' {
     export interface MergeInputParam {
       from_customer_id: string;
       to_customer_id: string;
-      tax_providers_fields?: TaxProvidersFieldsMergeInputParam[];
     }
     export interface RelationshipsInputParam {
       parent_id?: string;
@@ -920,16 +918,6 @@ declare module 'chargebee' {
     export interface InvoiceAllocationsCollectPaymentInputParam {
       invoice_id: string;
       allocation_amount?: number;
-    }
-    export interface TaxProvidersFieldsMoveInputParam {
-      provider_name?: string;
-      field_id?: string;
-      field_value?: string;
-    }
-    export interface TaxProvidersFieldsMergeInputParam {
-      provider_name?: string;
-      field_id?: string;
-      field_value?: string;
     }
     export interface ParentAccountAccessRelationshipsInputParam {
       portal_edit_child_subscriptions?: 'yes' | 'view_only' | 'no';
