@@ -17,6 +17,7 @@ declare module 'chargebee' {
     currency_code: string;
     parent_periods?: DifferentialPrice.ParentPeriod[];
     business_entity_id?: string;
+    deleted: boolean;
   }
 
   export namespace DifferentialPrice {

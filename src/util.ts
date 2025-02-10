@@ -185,7 +185,10 @@ export function encodeListParams(paramObj: Object) {
   }
   return encodeParams(paramObj);
 }
-export function getHost(env: EnvType): string {
+export function getHost(env: EnvType, subDomain?: string | null): string {
+  if (subDomain != null) {
+    return env.site + '.' + subDomain + env.hostSuffix;
+  }
   return env.site + env.hostSuffix;
 }
 export function encodeParams(
@@ -193,6 +196,8 @@ export function encodeParams(
   serialized?: String[],
   scope?: string,
   index?: number,
+  jsonKeys?: any,
+  level = 0,
 ): string {
   let key: string, value: string;
   if (typeof serialized === 'undefined' || serialized === null) {
@@ -200,30 +205,14 @@ export function encodeParams(
   }
   for (key in paramObj) {
     value = (paramObj as any)[key];
+    const originalKey = key;
     if (scope) {
-      key = '' + scope + '[' + key + ']';
+      key = `${scope}[${key}]`;
     }
     if (typeof index !== 'undefined' && index !== null) {
-      key = key + '[' + index + ']';
+      key = `${key}[${index}]`;
     }
-
-    if (isArray(value)) {
-      for (let arrIdx = 0; arrIdx < value.length; arrIdx++) {
-        if (typeof value[arrIdx] === 'object' || isArray(value[arrIdx])) {
-          encodeParams(value[arrIdx], serialized, key, arrIdx);
-        } else {
-          if (typeof value[arrIdx] !== 'undefined') {
-            serialized.push(
-              encodeURIComponent(key + '[' + arrIdx + ']') +
-                '=' +
-                encodeURIComponent(
-                  trim(value[arrIdx]) !== '' ? value[arrIdx] : '',
-                ),
-            );
-          }
-        }
-      }
-    } else if (key === 'meta_data' || key === 'metadata') {
+    if (jsonKeys && jsonKeys[originalKey] === level) {
       let attrVal = '';
       if (value !== null) {
         attrVal = encodeURIComponent(
@@ -233,8 +222,34 @@ export function encodeParams(
         );
       }
       serialized.push(encodeURIComponent(key) + '=' + attrVal);
+    } else if (
+      isArray(value) &&
+      !(jsonKeys && jsonKeys[originalKey] === level)
+    ) {
+      for (let arrIdx = 0; arrIdx < value.length; arrIdx++) {
+        if (typeof value[arrIdx] === 'object' || isArray(value[arrIdx])) {
+          encodeParams(
+            value[arrIdx],
+            serialized,
+            key,
+            arrIdx,
+            jsonKeys,
+            level + 1,
+          );
+        } else {
+          if (typeof value[arrIdx] !== 'undefined') {
+            serialized.push(
+              encodeURIComponent(`${key}[${arrIdx}]`) +
+                '=' +
+                encodeURIComponent(
+                  trim(value[arrIdx]) !== '' ? value[arrIdx] : '',
+                ),
+            );
+          }
+        }
+      }
     } else if (typeof value === 'object' && !isArray(value)) {
-      encodeParams(value, serialized, key);
+      encodeParams(value, serialized, key, undefined, jsonKeys, level + 1);
     } else {
       if (typeof value !== 'undefined') {
         serialized.push(

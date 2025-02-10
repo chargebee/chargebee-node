@@ -60,6 +60,9 @@ export type ResourceType = {
   urlSuffix?: string | null;
   hasIdInUrl: boolean;
   isListReq: boolean;
+  subDomain?: string | null;
+  isJsonRequest?: boolean | null;
+  jsonKeys?: JSONValue;
 };
 type RequestWrapperType = {
   args: IArguments;
@@ -107,4 +110,7 @@ export type EndpointTuple = [
   path: string,
   subpath: string | null,
   requiresCustomer: boolean,
+  subDomain: string | null,
+  isJsonRequest: boolean | null,
+  jsonKeys: JSONValue,
 ];

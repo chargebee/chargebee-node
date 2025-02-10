@@ -9,6 +9,7 @@ declare module 'chargebee' {
   export type ChargebeeResponse<T> = T & {
     headers: { [key: string]: string };
     isIdempotencyReplayed?: boolean | string;
+    httpStatusCode: number | null;
   };
   export type ChargebeeRequestHeader = {
     [key: string]: string | undefined;
@@ -135,7 +136,8 @@ declare module 'chargebee' {
     | 'price_variant'
     | 'omnichannel_subscription'
     | 'omnichannel_subscription_item'
-    | 'omnichannel_transaction';
+    | 'omnichannel_transaction'
+    | 'recorded_purchase';
   type EventNameEnum = 'cancellation_page_loaded';
   type EventTypeEnum =
     | 'coupon_created'
@@ -329,6 +331,10 @@ declare module 'chargebee' {
     | 'omnichannel_subscription_item_grace_period_expired'
     | 'omnichannel_subscription_item_dunning_started'
     | 'omnichannel_subscription_item_dunning_expired'
+    | 'rule_created'
+    | 'rule_updated'
+    | 'rule_deleted'
+    | 'record_purchase_failed'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'

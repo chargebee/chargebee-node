@@ -3,6 +3,7 @@
 ///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface Feature {
+    [key: string]: unknown;
     id: string;
     name: string;
     description?: string;

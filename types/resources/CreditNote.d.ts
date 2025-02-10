@@ -7,7 +7,7 @@ declare module 'chargebee' {
     customer_id: string;
     subscription_id?: string;
     reference_invoice_id?: string;
-    type: 'adjustment' | 'refundable';
+    type: 'adjustment' | 'refundable' | 'store';
     reason_code?:
       | 'write_off'
       | 'subscription_change'
@@ -360,6 +360,7 @@ declare module 'chargebee' {
         | 'not_paid'
         | 'voided'
         | 'pending';
+      tax_application?: 'pre_tax' | 'post_tax';
     }
     export interface ShippingAddress {
       first_name?: string;
@@ -409,7 +410,7 @@ declare module 'chargebee' {
       reference_invoice_id?: string;
       customer_id?: string;
       total?: number;
-      type: 'adjustment' | 'refundable';
+      type: 'adjustment' | 'refundable' | 'store';
       reason_code?:
         | 'product_unsatisfactory'
         | 'service_unsatisfactory'
@@ -480,7 +481,7 @@ declare module 'chargebee' {
       customer_id?: string;
       subscription_id?: string;
       reference_invoice_id: string;
-      type: 'adjustment' | 'refundable';
+      type: 'adjustment' | 'refundable' | 'store';
       currency_code?: string;
       create_reason_code: string;
       date: number;

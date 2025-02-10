@@ -30,6 +30,7 @@ declare module 'chargebee' {
     bundle_items?: Item.BundleItem[];
     bundle_configuration?: Item.BundleConfiguration;
     metadata?: any;
+    deleted: boolean;
     business_entity_id?: string;
   }
 
