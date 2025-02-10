@@ -20,6 +20,8 @@ declare module 'chargebee' {
 
     business_entity_id?:string;
 
+    deleted:boolean;
+
   }
   export namespace ItemFamily {
     export class ItemFamilyResource {  

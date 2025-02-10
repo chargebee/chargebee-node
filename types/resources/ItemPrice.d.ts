@@ -86,6 +86,8 @@ declare module 'chargebee' {
 
     show_description_in_quotes?:boolean;
 
+    deleted:boolean;
+
     business_entity_id?:string;
 
   }

@@ -1409,6 +1409,8 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        
       coupons?:{apply_till?:number,coupon_id?:string}[];
        
+      exhausted_coupon_ids?:string[];
+       
       id?:string;
        
       trial_end?:number;

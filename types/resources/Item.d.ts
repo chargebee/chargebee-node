@@ -56,6 +56,8 @@ declare module 'chargebee' {
 
     metadata?:object;
 
+    deleted:boolean;
+
     business_entity_id?:string;
 
   }

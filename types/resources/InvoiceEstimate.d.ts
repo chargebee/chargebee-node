@@ -30,6 +30,8 @@ declare module 'chargebee' {
 
     line_item_tiers?:InvoiceEstimate.LineItemTier[];
 
+    line_item_credits?:InvoiceEstimate.LineItemCredit[];
+
     line_item_discounts?:InvoiceEstimate.LineItemDiscount[];
 
     round_off_amount?:number;
@@ -158,6 +160,13 @@ declare module 'chargebee' {
       quantity_used_in_decimal?:string;
        
       unit_amount_in_decimal?:string;
+    }
+    export interface LineItemCredit {  
+      cn_id:string;
+       
+      applied_amount:number;
+       
+      line_item_id?:string;
     }
     export interface LineItemDiscount {  
       line_item_id:string;

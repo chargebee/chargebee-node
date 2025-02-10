@@ -65,6 +65,7 @@
 ///<reference path='./resources/Ramp.d.ts' />
 ///<reference path='./resources/RecordedPurchase.d.ts' />
 ///<reference path='./resources/ResourceMigration.d.ts' />
+///<reference path='./resources/Rule.d.ts' />
 ///<reference path='./resources/SiteMigrationDetail.d.ts' />
 ///<reference path='./resources/Subscription.d.ts' />
 ///<reference path='./resources/SubscriptionEntitlement.d.ts' />
@@ -76,6 +77,7 @@
 ///<reference path='./resources/Transaction.d.ts' />
 ///<reference path='./resources/UnbilledCharge.d.ts' />
 ///<reference path='./resources/Usage.d.ts' />
+///<reference path='./resources/UsageEvent.d.ts' />
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
 
 declare module 'chargebee' {
@@ -125,6 +127,7 @@ declare module 'chargebee' {
     static ramp: Ramp.RampResource;
     static recorded_purchase: RecordedPurchase.RecordedPurchaseResource;
     static resource_migration: ResourceMigration.ResourceMigrationResource;
+    static rule: Rule.RuleResource;
     static site_migration_detail: SiteMigrationDetail.SiteMigrationDetailResource;
     static subscription: Subscription.SubscriptionResource;
     static subscription_entitlement: SubscriptionEntitlement.SubscriptionEntitlementResource;
@@ -132,6 +135,7 @@ declare module 'chargebee' {
     static transaction: Transaction.TransactionResource;
     static unbilled_charge: UnbilledCharge.UnbilledChargeResource;
     static usage: Usage.UsageResource;
+    static usage_event: UsageEvent.UsageEventResource;
     static virtual_bank_account: VirtualBankAccount.VirtualBankAccountResource;
     
   }

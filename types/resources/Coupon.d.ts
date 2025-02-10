@@ -70,6 +70,8 @@ declare module 'chargebee' {
 
     coupon_constraints?:Coupon.CouponConstraint[];
 
+    deleted:boolean;
+
   }
   export namespace Coupon {
     export class CouponResource {  
