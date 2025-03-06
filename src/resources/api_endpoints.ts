@@ -2744,6 +2744,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {
+        additional_information: 1,
         meta_data: 1,
       },
     ],
