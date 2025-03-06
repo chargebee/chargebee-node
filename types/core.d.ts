@@ -292,6 +292,7 @@ declare module 'chargebee' {
     | 'item_entitlements_removed'
     | 'entitlement_overrides_auto_removed'
     | 'subscription_entitlements_created'
+    | 'subscription_entitlements_updated'
     | 'business_entity_created'
     | 'business_entity_updated'
     | 'business_entity_deleted'
@@ -347,6 +348,7 @@ declare module 'chargebee' {
   type GatewayEnum =
     | 'chargebee'
     | 'chargebee_payments'
+    | 'adyen'
     | 'stripe'
     | 'wepay'
     | 'braintree'
@@ -372,7 +374,6 @@ declare module 'chargebee' {
     | 'wirecard'
     | 'amazon_payments'
     | 'paypal_express_checkout'
-    | 'adyen'
     | 'orbital'
     | 'moneris_us'
     | 'moneris'

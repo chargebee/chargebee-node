@@ -41,6 +41,7 @@ declare module 'chargebee' {
       invoice_info?: InvoiceInfoCreateInputParam;
       payment_schedule?: PaymentScheduleCreateInputParam;
       statement_descriptor?: StatementDescriptorCreateInputParam;
+      payment_intent?: PaymentIntentCreateInputParam;
       purchase_items?: PurchaseItemsCreateInputParam[];
       item_tiers?: ItemTiersCreateInputParam[];
       shipping_addresses?: ShippingAddressesCreateInputParam[];
@@ -70,6 +71,38 @@ declare module 'chargebee' {
     export interface InvoiceInfoCreateInputParam {
       po_number?: string;
       notes?: string;
+    }
+    export interface PaymentIntentCreateInputParam {
+      id?: string;
+      gateway_account_id?: string;
+      gw_token?: string;
+      payment_method_type?:
+        | 'card'
+        | 'ideal'
+        | 'sofort'
+        | 'bancontact'
+        | 'google_pay'
+        | 'dotpay'
+        | 'giropay'
+        | 'apple_pay'
+        | 'upi'
+        | 'netbanking_emandates'
+        | 'paypal_express_checkout'
+        | 'direct_debit'
+        | 'boleto'
+        | 'venmo'
+        | 'amazon_payments'
+        | 'pay_to'
+        | 'faster_payments'
+        | 'sepa_instant_transfer'
+        | 'klarna_pay_now'
+        | 'online_banking_poland';
+      reference_id?: string;
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
+      gw_payment_method_id?: string;
+      additional_information?: any;
     }
 
     export interface SubscriptionInfoCreateInputParam {

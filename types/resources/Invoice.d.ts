@@ -1552,6 +1552,7 @@ declare module 'chargebee' {
       tax9_amount?: number;
       tax10_name?: string;
       tax10_amount?: number;
+      created_at?: number;
     }
     export interface TransactionsApplyPaymentsInputParam {
       id?: string;
