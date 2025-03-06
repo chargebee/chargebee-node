@@ -1,3 +1,13 @@
+### v2.48.0 (2025-03-06)
+* * * 
+
+### New Input Params:
+* created_at has been added to Invoice#LineItemsImportInputParams.
+* PaymentIntent has been added to Purchase#CreateInputParams.
+
+### New Enums:
+* SUBSCRIPTION_ENTITLEMENTS_UPDATED has been added to EventType#Enum.
+
 ### v2.47.0 (2025-02-10)
 * * * 
 
