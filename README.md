@@ -1,8 +1,11 @@
-# Chargebee Node.js / TypeScript client library
+# Chargebee Node.js / TypeScript Client Library
 
-This is the [Node.js](http://nodejs.org/) library for integrating with Chargebee. Sign up for a Chargebee account [here](https://www.chargebee.com).
+This is the official [Node.js](http://nodejs.org/) library for integrating with Chargebee.
 
-Please refer to the [migration guide](https://github.com/chargebee/chargebee-node/wiki/Migration-guide-for-v3) if you are migrating from the older versions of [chargebee-typescript](https://www.npmjs.com/package/chargebee-typescript) or [chargebee](https://www.npmjs.com/package/chargebee/v/2.40.0).
+- 📘 For a complete reference of available APIs, check out our [API Documentation](https://apidocs.chargebee.com/docs/api/?lang=node).  
+- 🧪 To explore and test API capabilities interactively, head over to our [API Explorer](https://api-explorer.chargebee.com).
+
+If you're upgrading from an older version of [`chargebee-typescript`](https://www.npmjs.com/package/chargebee-typescript) or [`chargebee`](https://www.npmjs.com/package/chargebee/v/2.40.0), please refer to the [Migration Guide](https://github.com/chargebee/chargebee-node/wiki/Migration-guide-for-v3).
 
 ## Requirements
 
