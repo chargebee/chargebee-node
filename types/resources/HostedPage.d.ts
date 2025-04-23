@@ -738,6 +738,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface ItemPricesCheckoutOneTimeForItemsInputParam {
       item_price_id?: string;
@@ -864,6 +866,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface CustomerCheckoutExistingInputParam {
       vat_number?: string;
@@ -999,6 +1003,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface CustomerUpdateCardInputParam {
       id: string;

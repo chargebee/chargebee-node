@@ -89,6 +89,7 @@ interface Endpoints {
   recordedPurchase: EndpointTuple[];
   rule: EndpointTuple[];
   usageEvent: EndpointTuple[];
+  omnichannelSubscriptionItemScheduledChange: EndpointTuple[];
 }
 export const Endpoints: Endpoints = {
   subscription: [
@@ -2905,7 +2906,18 @@ export const Endpoints: Endpoints = {
     ],
   ],
   omnichannelTransaction: [],
-  omnichannelSubscriptionItem: [],
+  omnichannelSubscriptionItem: [
+    [
+      'listOmniSubItemScheduleChanges',
+      'GET',
+      '/omnichannel_subscription_items',
+      '/scheduled_changes',
+      true,
+      null,
+      false,
+      {},
+    ],
+  ],
   recordedPurchase: [
     ['create', 'POST', '/recorded_purchases', null, false, null, false, {}],
     ['retrieve', 'GET', '/recorded_purchases', null, true, null, false, {}],
@@ -2937,4 +2949,5 @@ export const Endpoints: Endpoints = {
       },
     ],
   ],
+  omnichannelSubscriptionItemScheduledChange: [],
 };

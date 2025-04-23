@@ -80,6 +80,8 @@ declare module 'chargebee' {
         | 'omnichannel_subscription_item'
         | 'omnichannel_transaction'
         | 'recorded_purchase'
+        | 'omnichannel_subscription_item_scheduled_change'
+        | 'sales_order'
         | 'item_family'
         | 'item'
         | 'item_price'

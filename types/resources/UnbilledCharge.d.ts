@@ -103,6 +103,8 @@ declare module 'chargebee' {
       ending_unit_in_decimal?: string;
       quantity_used_in_decimal?: string;
       unit_amount_in_decimal?: string;
+      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
+      package_size?: number;
     }
     // REQUEST PARAMS
     //---------------
@@ -190,6 +192,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface ItemPricesCreateInputParam {
       item_price_id?: string;

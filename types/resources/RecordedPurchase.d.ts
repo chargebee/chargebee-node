@@ -6,7 +6,7 @@ declare module 'chargebee' {
     id: string;
     customer_id: string;
     app_id: string;
-    source: 'apple_app_store';
+    source: 'apple_app_store' | 'google_play_store';
     status: 'in_process' | 'completed' | 'failed' | 'ignored';
     omnichannel_transaction_id?: string;
     created_at: number;
@@ -50,12 +50,18 @@ declare module 'chargebee' {
       app_id: string;
       customer?: CustomerCreateInputParam;
       apple_app_store?: AppleAppStoreCreateInputParam;
+      google_play_store?: GooglePlayStoreCreateInputParam;
     }
     export interface CustomerCreateInputParam {
       id: string;
     }
+    export interface GooglePlayStoreCreateInputParam {
+      purchase_token?: string;
+    }
     export interface AppleAppStoreCreateInputParam {
       transaction_id?: string;
+      receipt?: string;
+      product_id?: string;
     }
   }
 }

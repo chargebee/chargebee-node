@@ -131,6 +131,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
+      package_size?: number;
     }
     export interface TaxDetail {
       tax_profile_id?: string;
@@ -292,6 +294,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface TaxProvidersFieldsCreateInputParam {
       provider_name: string;
@@ -323,6 +327,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface TaxProvidersFieldsUpdateInputParam {
       provider_name: string;

@@ -447,6 +447,7 @@ declare module 'chargebee' {
       invoice_date?: number;
       invoice?: InvoiceCreateInvoiceForItemsInputParam;
       shipping_address?: ShippingAddressCreateInvoiceForItemsInputParam;
+      billing_address?: BillingAddressCreateInvoiceForItemsInputParam;
       item_prices?: ItemPricesCreateInvoiceForItemsInputParam[];
       item_tiers?: ItemTiersCreateInvoiceForItemsInputParam[];
       charges?: ChargesCreateInvoiceForItemsInputParam[];
@@ -631,6 +632,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface TaxProvidersFieldsCreateSubItemEstimateInputParam {
       provider_name?: string;
@@ -765,6 +768,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface BillingAddressUpdateSubscriptionInputParam {
       line1?: string;
@@ -923,6 +928,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface FixedIntervalScheduleAdvanceInvoiceEstimateInputParam {
       number_of_occurrences?: number;
@@ -1163,6 +1170,16 @@ declare module 'chargebee' {
       entity_type?: EntityTypeEnum;
       entity_id?: string;
     }
+    export interface BillingAddressCreateInvoiceForItemsInputParam {
+      line1?: string;
+      line2?: string;
+      line3?: string;
+      city?: string;
+      state_code?: string;
+      zip?: string;
+      country?: string;
+      validation_status?: ValidationStatusEnum;
+    }
     export interface InvoiceCreateInvoiceForItemsInputParam {
       customer_id?: string;
       subscription_id?: string;
@@ -1214,6 +1231,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface ItemPricesCreateInvoiceForItemsInputParam {
       item_price_id?: string;

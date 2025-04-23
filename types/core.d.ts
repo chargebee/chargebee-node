@@ -57,7 +57,9 @@ declare module 'chargebee' {
   type ChargesHandlingEnum = 'invoice_immediately' | 'add_to_unbilled_charges';
   type ContractTermCancelOptionEnum =
     | 'terminate_immediately'
-    | 'end_of_contract_term';
+    | 'end_of_contract_term'
+    | 'specific_date'
+    | 'end_of_subscription_billing_term';
   type CreditOptionForCurrentTermChargesEnum = 'none' | 'prorate' | 'full';
   type CreditTypeEnum = 'loyalty_credits' | 'referral_rewards' | 'general';
   type CustomerTypeEnum =
@@ -137,7 +139,9 @@ declare module 'chargebee' {
     | 'omnichannel_subscription'
     | 'omnichannel_subscription_item'
     | 'omnichannel_transaction'
-    | 'recorded_purchase';
+    | 'recorded_purchase'
+    | 'omnichannel_subscription_item_scheduled_change'
+    | 'sales_order';
   type EventNameEnum = 'cancellation_page_loaded';
   type EventTypeEnum =
     | 'coupon_created'
@@ -318,8 +322,6 @@ declare module 'chargebee' {
     | 'subscription_movement_failed'
     | 'omnichannel_subscription_created'
     | 'omnichannel_subscription_item_renewed'
-    | 'omnichannel_subscription_item_downgrade_scheduled'
-    | 'omnichannel_subscription_item_scheduled_downgrade_removed'
     | 'omnichannel_subscription_item_downgraded'
     | 'omnichannel_subscription_item_expired'
     | 'omnichannel_subscription_item_cancellation_scheduled'
@@ -336,6 +338,12 @@ declare module 'chargebee' {
     | 'rule_updated'
     | 'rule_deleted'
     | 'record_purchase_failed'
+    | 'omnichannel_subscription_item_change_scheduled'
+    | 'omnichannel_subscription_item_scheduled_change_removed'
+    | 'omnichannel_subscription_item_reactivated'
+    | 'sales_order_created'
+    | 'sales_order_updated'
+    | 'omnichannel_subscription_item_changed'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'
@@ -396,6 +404,8 @@ declare module 'chargebee' {
     | 'ebanx'
     | 'dlocal'
     | 'nuvei'
+    | 'paystack'
+    | 'jp_morgan'
     | 'gocardless'
     | 'not_applicable';
   type HierarchyOperationTypeEnum =
@@ -504,6 +514,7 @@ declare module 'chargebee' {
     | 'tiered'
     | 'volume'
     | 'stairstep';
+  type PricingTypeEnum = 'per_unit' | 'flat_fee' | 'package';
   type ProductCatalogVersionEnum = 'v1' | 'v2';
   type ProrationTypeEnum = 'full_term' | 'partial_term' | 'none';
   type ReferralSystemEnum =

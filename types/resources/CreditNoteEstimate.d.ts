@@ -44,7 +44,8 @@ declare module 'chargebee' {
       amount_in_decimal?: string;
       discount_amount?: number;
       item_level_discount_amount?: number;
-      usage_percentage?: string;
+      metered?: boolean;
+      percentage?: string;
       reference_line_item_id?: string;
       description: string;
       entity_description?: string;
@@ -137,6 +138,8 @@ declare module 'chargebee' {
       ending_unit_in_decimal?: string;
       quantity_used_in_decimal?: string;
       unit_amount_in_decimal?: string;
+      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
+      package_size?: number;
     }
     // REQUEST PARAMS
     //---------------
