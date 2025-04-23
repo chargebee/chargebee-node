@@ -161,6 +161,10 @@ declare module 'chargebee' {
        
       price_in_decimal?:string;
        
+      pricing_type?:'per_unit' | 'flat_fee' | 'package';
+       
+      package_size?:number;
+       
       index:number;
     }
     export interface QuotedContractTerm {  

@@ -10,9 +10,9 @@ declare module 'chargebee' {
 
     app_id:string;
 
-    source:'apple_app_store';
+    source:'apple_app_store' | 'google_play_store';
 
-    status:'in_process' | 'completed' | 'failed';
+    status:'in_process' | 'completed' | 'failed' | 'ignored';
 
     omnichannel_transaction_id?:string;
 
@@ -40,7 +40,9 @@ declare module 'chargebee' {
        
       customer:{id:string};
        
-      apple_app_store?:{transaction_id?:string};
+      apple_app_store?:{product_id?:string,receipt?:string,transaction_id?:string};
+       
+      google_play_store?:{purchase_token?:string};
        
       app_id:string;
     }

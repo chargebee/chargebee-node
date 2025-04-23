@@ -10,7 +10,7 @@ declare module 'chargebee' {
 
     app_id:string;
 
-    source:'apple_app_store';
+    source:'apple_app_store' | 'google_play_store';
 
     customer_id?:string;
 
@@ -91,15 +91,15 @@ declare module 'chargebee' {
        
       app_id:string;
        
-      price_currency:string;
+      price_currency?:string;
        
-      price_units:number;
+      price_units?:number;
        
-      price_nanos:number;
+      price_nanos?:number;
        
       type:'purchase' | 'renewal';
        
-      transacted_at:number;
+      transacted_at?:number;
        
       created_at:number;
        

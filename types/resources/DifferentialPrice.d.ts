@@ -54,7 +54,7 @@ declare module 'chargebee' {
        
       parent_periods:{period?:any[],period_unit:'day' | 'week' | 'month' | 'year'}[];
        
-      tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       parent_item_id:string;
        
@@ -78,7 +78,7 @@ declare module 'chargebee' {
        
       parent_periods:{period?:any[],period_unit:'day' | 'week' | 'month' | 'year'}[];
        
-      tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       item_price_id:string;
        
@@ -154,6 +154,10 @@ declare module 'chargebee' {
       ending_unit_in_decimal?:string;
        
       price_in_decimal?:string;
+       
+      pricing_type?:'per_unit' | 'flat_fee' | 'package';
+       
+      package_size?:number;
     }
     export interface ParentPeriod {  
       period_unit:'day' | 'week' | 'month' | 'year';

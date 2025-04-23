@@ -138,6 +138,8 @@ declare module 'chargebee' {
 
     tax_origin?:Invoice.TaxOrigin;
 
+    line_item_addresses?:Invoice.LineItemAddress[];
+
   }
   export namespace Invoice {
     export class InvoiceResource {  
@@ -293,7 +295,7 @@ declare module 'chargebee' {
        
       item_prices?:{date_from?:number,date_to?:number,item_price_id?:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       charges?:{amount?:number,amount_in_decimal?:string,avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_tax_code?:string,avalara_transaction_type?:number,date_from?:number,date_to?:number,description?:string,hsn_code?:string,tax_profile_id?:string,taxable?:boolean,taxjar_product_code?:string}[];
        
@@ -418,7 +420,7 @@ declare module 'chargebee' {
        
       item_price:{date_from?:number,date_to?:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string};
        
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       customer_id?:string;
        
@@ -877,7 +879,7 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
        
       item_price:{date_from?:number,date_to?:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string};
        
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       comment?:string;
        
@@ -1092,7 +1094,9 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
        
       item_level_discount_amount?:number;
        
-      usage_percentage?:string;
+      metered?:boolean;
+       
+      percentage?:string;
        
       reference_line_item_id?:string;
        
@@ -1195,6 +1199,10 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
       quantity_used_in_decimal?:string;
        
       unit_amount_in_decimal?:string;
+       
+      pricing_type?:'per_unit' | 'flat_fee' | 'package';
+       
+      package_size?:number;
     }
     export interface LinkedPayment {  
       txn_id:string;
@@ -1372,6 +1380,37 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
       country?:string;
        
       registration_number?:string;
+    }
+    export interface LineItemAddress {  
+      line_item_id?:string;
+       
+      first_name?:string;
+       
+      last_name?:string;
+       
+      email?:string;
+       
+      company?:string;
+       
+      phone?:string;
+       
+      line1?:string;
+       
+      line2?:string;
+       
+      line3?:string;
+       
+      city?:string;
+       
+      state_code?:string;
+       
+      state?:string;
+       
+      country?:string;
+       
+      zip?:string;
+       
+      validation_status?:'not_validated' | 'valid' | 'partially_valid' | 'invalid';
     }
   }
 }

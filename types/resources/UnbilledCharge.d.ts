@@ -3,53 +3,55 @@
 declare module 'chargebee' {
   export interface UnbilledCharge {
     
+
     id?:string;
-    
+
     customer_id?:string;
-    
+
     subscription_id?:string;
-    
+
     date_from?:number;
-    
+
     date_to?:number;
-    
+
     unit_amount?:number;
-    
+
     pricing_model?:PricingModel;
-    
+
     quantity?:number;
-    
+
     amount?:number;
-    
+
     currency_code:string;
-    
+
     discount_amount?:number;
-    
+
     description?:string;
-    
-    entity_type:'plan_setup' | 'plan' | 'addon' | 'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price';
-    
+
+    entity_type:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'plan_setup' | 'plan' | 'addon';
+
     entity_id?:string;
-    
+
     is_voided:boolean;
-    
+
     voided_at?:number;
-    
+
     unit_amount_in_decimal?:string;
-    
+
     quantity_in_decimal?:string;
-    
+
     amount_in_decimal?:string;
-    
+
     updated_at:number;
-    
+
     tiers?:UnbilledCharge.Tier[];
-    
+
     is_advance_charge?:boolean;
-    
+
     business_entity_id?:string;
-    
+
     deleted:boolean;
+
   }
   export namespace UnbilledCharge {
     export class UnbilledChargeResource {  
@@ -87,7 +89,7 @@ declare module 'chargebee' {
        
       item_prices?:{date_from?:number,date_to?:number,item_price_id?:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       charges?:{amount?:number,amount_in_decimal?:string,avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_tax_code?:string,avalara_transaction_type?:number,date_from?:number,date_to?:number,description?:string,hsn_code?:string,tax_profile_id?:string,taxable?:boolean,taxjar_product_code?:string}[];
        
@@ -179,6 +181,10 @@ declare module 'chargebee' {
       quantity_used_in_decimal?:string;
        
       unit_amount_in_decimal?:string;
+       
+      pricing_type?:'per_unit' | 'flat_fee' | 'package';
+       
+      package_size?:number;
     }
   }
 }

@@ -38,6 +38,8 @@ declare module 'chargebee' {
 
     customer_id?:string;
 
+    line_item_addresses?:InvoiceEstimate.LineItemAddress[];
+
   }
   export namespace InvoiceEstimate {
     
@@ -75,7 +77,9 @@ declare module 'chargebee' {
        
       item_level_discount_amount?:number;
        
-      usage_percentage?:string;
+      metered?:boolean;
+       
+      percentage?:string;
        
       reference_line_item_id?:string;
        
@@ -160,6 +164,10 @@ declare module 'chargebee' {
       quantity_used_in_decimal?:string;
        
       unit_amount_in_decimal?:string;
+       
+      pricing_type?:'per_unit' | 'flat_fee' | 'package';
+       
+      package_size?:number;
     }
     export interface LineItemCredit {  
       cn_id:string;
@@ -178,6 +186,37 @@ declare module 'chargebee' {
       entity_id?:string;
        
       discount_amount:number;
+    }
+    export interface LineItemAddress {  
+      line_item_id?:string;
+       
+      first_name?:string;
+       
+      last_name?:string;
+       
+      email?:string;
+       
+      company?:string;
+       
+      phone?:string;
+       
+      line1?:string;
+       
+      line2?:string;
+       
+      line3?:string;
+       
+      city?:string;
+       
+      state_code?:string;
+       
+      state?:string;
+       
+      country?:string;
+       
+      zip?:string;
+       
+      validation_status?:'not_validated' | 'valid' | 'partially_valid' | 'invalid';
     }
   }
 }

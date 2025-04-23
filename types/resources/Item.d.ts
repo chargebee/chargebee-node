@@ -44,6 +44,8 @@ declare module 'chargebee' {
 
     usage_calculation?:'sum_of_usages' | 'last_usage' | 'max_usage';
 
+    is_percentage_pricing:boolean;
+
     archived_at?:number;
 
     channel?:Channel;
@@ -121,6 +123,8 @@ declare module 'chargebee' {
       metadata?:object;
        
       business_entity_id?:string;
+       
+      is_percentage_pricing?:boolean;
     }
     export interface RetrieveResponse {  
        item:Item;

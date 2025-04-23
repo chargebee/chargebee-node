@@ -266,6 +266,13 @@ declare module 'chargebee' {
        
       subscription_id?:string;
        
+      /**
+        * @description Indicates whether to include deleted objects in the list. The deleted objects have the attribute \&#x60;deleted\&#x60; as \&#x60;true\&#x60;.
+
+        */
+        
+      include_deleted?:boolean;
+       
       customer_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
        
       /**

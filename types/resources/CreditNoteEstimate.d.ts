@@ -6,7 +6,7 @@ declare module 'chargebee' {
 
     reference_invoice_id:string;
 
-    type:'adjustment' | 'refundable';
+    type:'adjustment' | 'refundable' | 'store';
 
     price_type:PriceType;
 
@@ -73,7 +73,9 @@ declare module 'chargebee' {
        
       item_level_discount_amount?:number;
        
-      usage_percentage?:string;
+      metered?:boolean;
+       
+      percentage?:string;
        
       reference_line_item_id?:string;
        
@@ -169,6 +171,10 @@ declare module 'chargebee' {
       quantity_used_in_decimal?:string;
        
       unit_amount_in_decimal?:string;
+       
+      pricing_type?:'per_unit' | 'flat_fee' | 'package';
+       
+      package_size?:number;
     }
   }
 }
