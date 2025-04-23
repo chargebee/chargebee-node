@@ -590,6 +590,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
+      package_size?: number;
       index: number;
     }
     export interface ChargedItem {
@@ -1669,6 +1671,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface BillingAddressUpdateInputParam {
       first_name?: string;
@@ -2006,6 +2010,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface StatementDescriptorReactivateInputParam {
       descriptor?: string;
@@ -2410,6 +2416,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface ChargedItemsImportForItemsInputParam {
       item_price_id?: string;

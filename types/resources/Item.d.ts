@@ -24,6 +24,7 @@ declare module 'chargebee' {
     unit?: string;
     metered: boolean;
     usage_calculation?: 'sum_of_usages' | 'last_usage' | 'max_usage';
+    is_percentage_pricing: boolean;
     archived_at?: number;
     channel?: ChannelEnum;
     applicable_items?: Item.ApplicableItem[];
@@ -120,6 +121,7 @@ declare module 'chargebee' {
       usage_calculation?: 'sum_of_usages' | 'last_usage' | 'max_usage';
       metadata?: any;
       business_entity_id?: string;
+      is_percentage_pricing?: boolean;
       bundle_configuration?: BundleConfigurationCreateInputParam;
       bundle_items_to_add?: BundleItemsToAddCreateInputParam[];
       [key: `cf_${string}`]: unknown;

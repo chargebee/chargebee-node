@@ -1,3 +1,4 @@
+///<reference path='./resources/Addon.d.ts' />
 ///<reference path='./resources/Address.d.ts' />
 ///<reference path='./resources/AdvanceInvoiceSchedule.d.ts' />
 ///<reference path='./resources/AttachedItem.d.ts' />
@@ -44,6 +45,7 @@
 ///<reference path='./resources/NonSubscription.d.ts' />
 ///<reference path='./resources/OmnichannelSubscription.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItem.d.ts' />
+///<reference path='./resources/OmnichannelSubscriptionItemScheduledChange.d.ts' />
 ///<reference path='./resources/OmnichannelTransaction.d.ts' />
 ///<reference path='./resources/Order.d.ts' />
 ///<reference path='./resources/PaymentIntent.d.ts' />
@@ -53,6 +55,7 @@
 ///<reference path='./resources/PaymentScheduleScheme.d.ts' />
 ///<reference path='./resources/PaymentSource.d.ts' />
 ///<reference path='./resources/PaymentVoucher.d.ts' />
+///<reference path='./resources/Plan.d.ts' />
 ///<reference path='./resources/PortalSession.d.ts' />
 ///<reference path='./resources/PriceVariant.d.ts' />
 ///<reference path='./resources/PricingPageSession.d.ts' />
@@ -121,6 +124,7 @@ export type Config = {
 declare module 'chargebee' {
   export default class Chargebee {
     constructor(config: Config);
+    addon: Addon.AddonResource;
     address: Address.AddressResource;
     attachedItem: AttachedItem.AttachedItemResource;
     businessEntity: BusinessEntity.BusinessEntityResource;
@@ -151,11 +155,13 @@ declare module 'chargebee' {
     itemPrice: ItemPrice.ItemPriceResource;
     nonSubscription: NonSubscription.NonSubscriptionResource;
     omnichannelSubscription: OmnichannelSubscription.OmnichannelSubscriptionResource;
+    omnichannelSubscriptionItem: OmnichannelSubscriptionItem.OmnichannelSubscriptionItemResource;
     order: Order.OrderResource;
     paymentIntent: PaymentIntent.PaymentIntentResource;
     paymentScheduleScheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;
     paymentSource: PaymentSource.PaymentSourceResource;
     paymentVoucher: PaymentVoucher.PaymentVoucherResource;
+    plan: Plan.PlanResource;
     portalSession: PortalSession.PortalSessionResource;
     priceVariant: PriceVariant.PriceVariantResource;
     pricingPageSession: PricingPageSession.PricingPageSessionResource;

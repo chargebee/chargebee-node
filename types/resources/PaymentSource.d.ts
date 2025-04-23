@@ -370,6 +370,7 @@ declare module 'chargebee' {
       limit?: number;
       offset?: string;
       subscription_id?: string;
+      include_deleted?: boolean;
       customer_id?: filter.String;
       type?: filter.Enum;
       status?: filter.Enum;

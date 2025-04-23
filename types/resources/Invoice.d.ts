@@ -76,6 +76,7 @@ declare module 'chargebee' {
     business_entity_id?: string;
     site_details_at_creation?: Invoice.SiteDetailsAtCreation;
     tax_origin?: Invoice.TaxOrigin;
+    line_item_addresses?: Invoice.LineItemAddress[];
   }
 
   export namespace Invoice {
@@ -484,7 +485,8 @@ declare module 'chargebee' {
       amount_in_decimal?: string;
       discount_amount?: number;
       item_level_discount_amount?: number;
-      usage_percentage?: string;
+      metered?: boolean;
+      percentage?: string;
       reference_line_item_id?: string;
       description: string;
       entity_description?: string;
@@ -582,6 +584,8 @@ declare module 'chargebee' {
       ending_unit_in_decimal?: string;
       quantity_used_in_decimal?: string;
       unit_amount_in_decimal?: string;
+      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
+      package_size?: number;
     }
     export interface LinkedPayment {
       txn_id: string;
@@ -767,6 +771,27 @@ declare module 'chargebee' {
     export interface TaxOrigin {
       country?: string;
       registration_number?: string;
+    }
+    export interface LineItemAddress {
+      line_item_id?: string;
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      company?: string;
+      phone?: string;
+      line1?: string;
+      line2?: string;
+      line3?: string;
+      city?: string;
+      state_code?: string;
+      state?: string;
+      country?: string;
+      zip?: string;
+      validation_status?:
+        | 'not_validated'
+        | 'valid'
+        | 'partially_valid'
+        | 'invalid';
     }
     // REQUEST PARAMS
     //---------------
@@ -1373,6 +1398,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface ItemPricesCreateForChargeItemsAndChargesInputParam {
       item_price_id?: string;
@@ -1414,6 +1441,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface BillingAddressImportInvoiceInputParam {
       first_name?: string;
@@ -1599,6 +1628,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface NotesToRemoveCloseInputParam {
       entity_type?: EntityTypeEnum;

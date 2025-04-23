@@ -3,6 +3,7 @@
 ///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface Quote {
+    [key: string]: unknown;
     id: string;
     name?: string;
     po_number?: string;
@@ -297,7 +298,8 @@ declare module 'chargebee' {
       amount_in_decimal?: string;
       discount_amount?: number;
       item_level_discount_amount?: number;
-      usage_percentage?: string;
+      metered?: boolean;
+      percentage?: string;
       reference_line_item_id?: string;
       description: string;
       entity_description?: string;
@@ -390,6 +392,8 @@ declare module 'chargebee' {
       ending_unit_in_decimal?: string;
       quantity_used_in_decimal?: string;
       unit_amount_in_decimal?: string;
+      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
+      package_size?: number;
     }
     export interface ShippingAddress {
       first_name?: string;
@@ -544,6 +548,7 @@ declare module 'chargebee' {
       subscription_items?: SubscriptionItemsCreateSubItemsForCustomerQuoteInputParam[];
       discounts?: DiscountsCreateSubItemsForCustomerQuoteInputParam[];
       item_tiers?: ItemTiersCreateSubItemsForCustomerQuoteInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface EditCreateSubCustomerQuoteForItemsInputParam {
       notes?: string;
@@ -559,6 +564,7 @@ declare module 'chargebee' {
       subscription_items?: SubscriptionItemsEditCreateSubCustomerQuoteForItemsInputParam[];
       discounts?: DiscountsEditCreateSubCustomerQuoteForItemsInputParam[];
       item_tiers?: ItemTiersEditCreateSubCustomerQuoteForItemsInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface UpdateSubscriptionQuoteForItemsInputParam {
       name?: string;
@@ -584,6 +590,7 @@ declare module 'chargebee' {
       subscription_items?: SubscriptionItemsUpdateSubscriptionQuoteForItemsInputParam[];
       discounts?: DiscountsUpdateSubscriptionQuoteForItemsInputParam[];
       item_tiers?: ItemTiersUpdateSubscriptionQuoteForItemsInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface EditUpdateSubscriptionQuoteForItemsInputParam {
       notes?: string;
@@ -608,6 +615,7 @@ declare module 'chargebee' {
       subscription_items?: SubscriptionItemsEditUpdateSubscriptionQuoteForItemsInputParam[];
       discounts?: DiscountsEditUpdateSubscriptionQuoteForItemsInputParam[];
       item_tiers?: ItemTiersEditUpdateSubscriptionQuoteForItemsInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface CreateForChargeItemsAndChargesInputParam {
       name?: string;
@@ -651,6 +659,7 @@ declare module 'chargebee' {
       updated_at?: filter.Timestamp;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
+      [key: `cf_${string}`]: unknown;
     }
     export interface QuoteLineGroupsForQuoteInputParam {
       limit?: number;
@@ -1091,6 +1100,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface ShippingAddressEditCreateSubCustomerQuoteForItemsInputParam {
       first_name?: string;
@@ -1159,6 +1170,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface BillingAddressUpdateSubscriptionQuoteForItemsInputParam {
       first_name?: string;
@@ -1255,6 +1268,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface BillingAddressEditUpdateSubscriptionQuoteForItemsInputParam {
       first_name?: string;
@@ -1350,6 +1365,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface ShippingAddressCreateForChargeItemsAndChargesInputParam {
       first_name?: string;
@@ -1391,6 +1408,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface ItemPricesCreateForChargeItemsAndChargesInputParam {
       item_price_id?: string;
@@ -1445,6 +1464,8 @@ declare module 'chargebee' {
       starting_unit_in_decimal?: string;
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
     }
     export interface ItemPricesEditForChargeItemsAndChargesInputParam {
       item_price_id?: string;
