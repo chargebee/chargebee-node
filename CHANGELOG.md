@@ -1,3 +1,10 @@
+### v3.6.1 (2025-04-25)
+* * * 
+
+### Bug fixes: 
+* Fixed an issue where the optional boolean field is_percentage_pricing at Item Model was incorrectly marked as required.
+* Fixed an issue where the optional enum field item_applicability at Item Model was incorrectly marked as required.
+
 ### v3.6.0 (2025-04-23)
 * * * 
 

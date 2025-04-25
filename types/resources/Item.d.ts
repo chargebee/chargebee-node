@@ -19,12 +19,12 @@ declare module 'chargebee' {
     enabled_for_checkout: boolean;
     enabled_in_portal: boolean;
     included_in_mrr?: boolean;
-    item_applicability: 'all' | 'restricted';
+    item_applicability?: 'all' | 'restricted';
     gift_claim_redirect_url?: string;
     unit?: string;
     metered: boolean;
     usage_calculation?: 'sum_of_usages' | 'last_usage' | 'max_usage';
-    is_percentage_pricing: boolean;
+    is_percentage_pricing?: boolean;
     archived_at?: number;
     channel?: ChannelEnum;
     applicable_items?: Item.ApplicableItem[];
