@@ -34,7 +34,7 @@ declare module 'chargebee' {
 
     included_in_mrr?:boolean;
 
-    item_applicability:'all' | 'restricted';
+    item_applicability?:'all' | 'restricted';
 
     gift_claim_redirect_url?:string;
 
@@ -44,7 +44,7 @@ declare module 'chargebee' {
 
     usage_calculation?:'sum_of_usages' | 'last_usage' | 'max_usage';
 
-    is_percentage_pricing:boolean;
+    is_percentage_pricing?:boolean;
 
     archived_at?:number;
 
