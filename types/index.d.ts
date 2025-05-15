@@ -81,6 +81,7 @@
 ///<reference path='./resources/UnbilledCharge.d.ts' />
 ///<reference path='./resources/Usage.d.ts' />
 ///<reference path='./resources/UsageEvent.d.ts' />
+///<reference path='./resources/UsageFile.d.ts' />
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
 
 declare module 'chargebee' {
@@ -142,6 +143,7 @@ declare module 'chargebee' {
     static unbilled_charge: UnbilledCharge.UnbilledChargeResource;
     static usage: Usage.UsageResource;
     static usage_event: UsageEvent.UsageEventResource;
+    static usage_file: UsageFile.UsageFileResource;
     static virtual_bank_account: VirtualBankAccount.VirtualBankAccountResource;
     
   }

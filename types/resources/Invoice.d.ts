@@ -470,6 +470,8 @@ declare module 'chargebee' {
        
       notes?:{entity_id?:string,entity_type?:'coupon' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price',note?:string}[];
        
+      line_item_addresses?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,line_item_id?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string}[];
+       
       id:string;
        
       currency_code?:string;

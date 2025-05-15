@@ -56,6 +56,8 @@ declare module 'chargebee' {
         
       offset?:string;
        
+      source?:{in?:string,is?:'apple_app_store' | 'google_play_store',is_not?:'apple_app_store' | 'google_play_store',not_in?:string};
+       
       /**
         * @description Chargebee Customer External Identifier
 

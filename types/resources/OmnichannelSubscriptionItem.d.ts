@@ -10,7 +10,7 @@ declare module 'chargebee' {
 
     item_parent_id_at_source?:string;
 
-    status:'active' | 'expired' | 'cancelled' | 'in_dunning' | 'in_grace_period';
+    status:'active' | 'expired' | 'cancelled' | 'in_dunning' | 'in_grace_period' | 'paused';
 
     auto_renew_status?:'off' | 'on';
 
@@ -24,7 +24,7 @@ declare module 'chargebee' {
 
     cancelled_at?:number;
 
-    cancellation_reason?:'customer_cancelled' | 'customer_did_not_consent_to_price_increase' | 'refunded_due_to_app_issue' | 'refunded_for_other_reason';
+    cancellation_reason?:'customer_cancelled' | 'customer_did_not_consent_to_price_increase' | 'refunded_due_to_app_issue' | 'refunded_for_other_reason' | 'merchant_revoked';
 
     grace_period_expires_at?:number;
 
