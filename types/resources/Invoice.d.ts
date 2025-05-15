@@ -956,6 +956,7 @@ declare module 'chargebee' {
       taxes?: TaxesImportInvoiceInputParam[];
       payments?: PaymentsImportInvoiceInputParam[];
       notes?: NotesImportInvoiceInputParam[];
+      line_item_addresses?: LineItemAddressesImportInvoiceInputParam[];
     }
     export interface ApplyPaymentsInputParam {
       comment?: string;
@@ -1538,6 +1539,23 @@ declare module 'chargebee' {
       ending_unit_in_decimal?: string;
       quantity_used_in_decimal?: string;
       unit_amount_in_decimal?: string;
+    }
+    export interface LineItemAddressesImportInvoiceInputParam {
+      line_item_id?: string;
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      company?: string;
+      phone?: string;
+      line1?: string;
+      line2?: string;
+      line3?: string;
+      city?: string;
+      state_code?: string;
+      state?: string;
+      zip?: string;
+      country?: string;
+      validation_status?: ValidationStatusEnum;
     }
     export interface LineItemsImportInvoiceInputParam {
       id?: string;

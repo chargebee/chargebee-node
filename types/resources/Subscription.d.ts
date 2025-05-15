@@ -1644,7 +1644,7 @@ declare module 'chargebee' {
       usage_accumulation_reset_frequency?: UsageAccumulationResetFrequencyEnum;
     }
     export interface DiscountsCreateWithItemsInputParam {
-      apply_on: ApplyOnEnum;
+      apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
@@ -1981,7 +1981,7 @@ declare module 'chargebee' {
       usage_accumulation_reset_frequency?: UsageAccumulationResetFrequencyEnum;
     }
     export interface DiscountsUpdateForItemsInputParam {
-      apply_on: ApplyOnEnum;
+      apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
@@ -2389,7 +2389,7 @@ declare module 'chargebee' {
       item_type?: ItemTypeEnum;
     }
     export interface DiscountsImportForItemsInputParam {
-      apply_on: ApplyOnEnum;
+      apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;

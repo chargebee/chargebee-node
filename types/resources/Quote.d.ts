@@ -1083,7 +1083,7 @@ declare module 'chargebee' {
       charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsCreateSubItemsForCustomerQuoteInputParam {
-      apply_on: ApplyOnEnum;
+      apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
@@ -1153,7 +1153,7 @@ declare module 'chargebee' {
       charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsEditCreateSubCustomerQuoteForItemsInputParam {
-      apply_on: ApplyOnEnum;
+      apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
@@ -1249,7 +1249,7 @@ declare module 'chargebee' {
       item_type?: ItemTypeEnum;
     }
     export interface DiscountsUpdateSubscriptionQuoteForItemsInputParam {
-      apply_on: ApplyOnEnum;
+      apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
@@ -1346,7 +1346,7 @@ declare module 'chargebee' {
       item_type?: ItemTypeEnum;
     }
     export interface DiscountsEditUpdateSubscriptionQuoteForItemsInputParam {
-      apply_on: ApplyOnEnum;
+      apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;

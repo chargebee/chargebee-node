@@ -90,6 +90,7 @@ interface Endpoints {
   rule: EndpointTuple[];
   usageEvent: EndpointTuple[];
   omnichannelSubscriptionItemScheduledChange: EndpointTuple[];
+  usageFile: EndpointTuple[];
 }
 export const Endpoints: Endpoints = {
   subscription: [
@@ -2950,4 +2951,26 @@ export const Endpoints: Endpoints = {
     ],
   ],
   omnichannelSubscriptionItemScheduledChange: [],
+  usageFile: [
+    [
+      'upload',
+      'POST',
+      '/usage_files',
+      '/upload',
+      false,
+      'file-ingest',
+      false,
+      {},
+    ],
+    [
+      'status',
+      'GET',
+      '/usage_files',
+      '/status',
+      true,
+      'file-ingest',
+      false,
+      {},
+    ],
+  ],
 };

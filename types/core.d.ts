@@ -344,6 +344,7 @@ declare module 'chargebee' {
     | 'sales_order_created'
     | 'sales_order_updated'
     | 'omnichannel_subscription_item_changed'
+    | 'omnichannel_subscription_item_paused'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'

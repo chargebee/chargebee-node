@@ -98,7 +98,7 @@ declare module 'chargebee' {
     }
 
     export interface DiscountsCreateForNewSubscriptionInputParam {
-      apply_on: ApplyOnEnum;
+      apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
@@ -116,7 +116,7 @@ declare module 'chargebee' {
     }
 
     export interface DiscountsCreateForExistingSubscriptionInputParam {
-      apply_on: ApplyOnEnum;
+      apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;

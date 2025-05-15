@@ -81,6 +81,7 @@
 ///<reference path='./resources/UnbilledCharge.d.ts' />
 ///<reference path='./resources/Usage.d.ts' />
 ///<reference path='./resources/UsageEvent.d.ts' />
+///<reference path='./resources/UsageFile.d.ts' />
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
 
 export type Config = {
@@ -180,6 +181,7 @@ declare module 'chargebee' {
     unbilledCharge: UnbilledCharge.UnbilledChargeResource;
     usage: Usage.UsageResource;
     usageEvent: UsageEvent.UsageEventResource;
+    usageFile: UsageFile.UsageFileResource;
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
   }
 }

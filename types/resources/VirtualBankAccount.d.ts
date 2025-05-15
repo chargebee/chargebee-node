@@ -17,7 +17,7 @@ declare module 'chargebee' {
     bank_name?: string;
     account_number: string;
     routing_number?: string;
-    swift_code: string;
+    swift_code?: string;
     gateway: GatewayEnum;
     gateway_account_id: string;
     resource_version?: number;

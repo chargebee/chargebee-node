@@ -842,7 +842,7 @@ declare module 'chargebee' {
       charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsCheckoutNewForItemsInputParam {
-      apply_on: ApplyOnEnum;
+      apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
@@ -977,7 +977,7 @@ declare module 'chargebee' {
       item_type?: ItemTypeEnum;
     }
     export interface DiscountsCheckoutExistingForItemsInputParam {
-      apply_on: ApplyOnEnum;
+      apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;

@@ -11,7 +11,8 @@ declare module 'chargebee' {
       | 'expired'
       | 'cancelled'
       | 'in_dunning'
-      | 'in_grace_period';
+      | 'in_grace_period'
+      | 'paused';
     auto_renew_status?: 'off' | 'on';
     current_term_start?: number;
     current_term_end?: number;
@@ -22,7 +23,8 @@ declare module 'chargebee' {
       | 'customer_cancelled'
       | 'customer_did_not_consent_to_price_increase'
       | 'refunded_due_to_app_issue'
-      | 'refunded_for_other_reason';
+      | 'refunded_for_other_reason'
+      | 'merchant_revoked';
     grace_period_expires_at?: number;
     has_scheduled_changes: boolean;
     resource_version?: number;
