@@ -3,6 +3,7 @@
     "compilerOptions": {
         "noEmit": true,
         "types": [
+            "jest",
             "node"
         ]
     },
@@ -10,6 +11,6 @@
         "experimentalResolver": true
     },
     "include": [
-        "src/**/*.ts",
+        "src/**/*.ts", "src/__tests__/RequestWrapper.test.js",
     ]
 }

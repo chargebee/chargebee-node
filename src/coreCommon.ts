@@ -1,7 +1,7 @@
-import { ChargebeeError } from './chargebeeError.js';
+import { ChargebeeError } from './chargebeeError';
 import { HttpClientResponseInterface } from './net/ClientInterface.js';
 import { Callback, ResponseHeaders } from './types.js';
-import { isNotUndefinedNEmpty } from './util.js';
+import { isNotUndefinedNEmpty } from './util';
 const IDEMPOTENCY_REPLAYED_HEADER = 'chargebee-idempotency-replayed';
 
 export function throwError(

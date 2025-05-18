@@ -7,7 +7,8 @@
     "build": "npm run build-esm && npm run build-cjs",
     "build-esm": "rm -rf esm && mkdir -p esm && tsc -p tsconfig.esm.json && echo '{\"type\":\"module\"}' > esm/package.json",
     "build-cjs": "rm -rf cjs && mkdir -p cjs && tsc -p tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > cjs/package.json",
-    "prettier": "prettier --write \"src/**/*.ts\" \"types/**/*.d.ts\""
+    "prettier": "prettier --write \"src/**/*.ts\" \"types/**/*.d.ts\"",
+    "test": "jest --config jest.config.js"
   },
   "types": "./types/index.d.ts",
   "keywords": [
@@ -32,8 +33,6 @@
       "url": "http://github.com/chargebee/chargebee-node/blob/master/LICENSE"
     }
   ],
-  "dependencies": {
-  },
   "exports": {
     "types": "./types/index.d.ts",
     "worker": {
@@ -58,13 +57,19 @@
     }
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "20.0.0",
+    "jest": "^29.7.0",
     "prettier": "^3.3.3",
+    "ts-jest": "^29.3.4",
     "typescript": "^5.5.4"
   },
   "prettier": {
     "semi": true,
     "singleQuote": true,
     "parser": "typescript"
+  },
+  "dependencies": {
+    "uuid": "^11.1.0"
   }
 }
