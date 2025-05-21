@@ -1,2976 +1,5539 @@
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 type EndpointTuple = [
-  action: string,
-  method: Method,
-  urlPrefix: string,
-  urlSuffix: string | null,
-  hasPathParameters: boolean,
-  subDomain?: string | null,
-  isJsonRequest?: boolean,
-  jsonKeys?: any,
+    action: string,
+    method: Method,
+    urlPrefix: string,
+    urlSuffix: string | null,
+    hasPathParameters: boolean,
+    subDomain?: string | null,
+    isJsonRequest?: boolean,
+    jsonKeys?: any,
+    options?: {
+      isIdempotent?: boolean;
+    }
 ];
 interface Endpoints {
-  subscription: EndpointTuple[];
-  contractTerm: EndpointTuple[];
-  discount: EndpointTuple[];
-  advanceInvoiceSchedule: EndpointTuple[];
-  customer: EndpointTuple[];
-  hierarchy: EndpointTuple[];
-  contact: EndpointTuple[];
-  businessEntityTransfer: EndpointTuple[];
-  token: EndpointTuple[];
-  paymentSource: EndpointTuple[];
-  thirdPartyPaymentMethod: EndpointTuple[];
-  virtualBankAccount: EndpointTuple[];
-  card: EndpointTuple[];
-  promotionalCredit: EndpointTuple[];
-  invoice: EndpointTuple[];
-  paymentReferenceNumber: EndpointTuple[];
-  paymentSchedule: EndpointTuple[];
-  taxWithheld: EndpointTuple[];
-  creditNote: EndpointTuple[];
-  unbilledCharge: EndpointTuple[];
-  order: EndpointTuple[];
-  gift: EndpointTuple[];
-  transaction: EndpointTuple[];
-  hostedPage: EndpointTuple[];
-  estimate: EndpointTuple[];
-  quote: EndpointTuple[];
-  quotedSubscription: EndpointTuple[];
-  quotedCharge: EndpointTuple[];
-  quoteLineGroup: EndpointTuple[];
-  plan: EndpointTuple[];
-  addon: EndpointTuple[];
-  coupon: EndpointTuple[];
-  couponSet: EndpointTuple[];
-  couponCode: EndpointTuple[];
-  address: EndpointTuple[];
-  usage: EndpointTuple[];
-  event: EndpointTuple[];
-  comment: EndpointTuple[];
-  download: EndpointTuple[];
-  portalSession: EndpointTuple[];
-  siteMigrationDetail: EndpointTuple[];
-  resourceMigration: EndpointTuple[];
-  timeMachine: EndpointTuple[];
-  export: EndpointTuple[];
-  paymentIntent: EndpointTuple[];
-  gatewayErrorDetail: EndpointTuple[];
-  itemFamily: EndpointTuple[];
-  item: EndpointTuple[];
-  priceVariant: EndpointTuple[];
-  attribute: EndpointTuple[];
-  itemPrice: EndpointTuple[];
-  attachedItem: EndpointTuple[];
-  differentialPrice: EndpointTuple[];
-  configuration: EndpointTuple[];
-  feature: EndpointTuple[];
-  impactedSubscription: EndpointTuple[];
-  impactedItem: EndpointTuple[];
-  impactedItemPrice: EndpointTuple[];
-  metadata: EndpointTuple[];
-  subscriptionEntitlement: EndpointTuple[];
-  customerEntitlement: EndpointTuple[];
-  itemEntitlement: EndpointTuple[];
-  entitlement: EndpointTuple[];
-  inAppSubscription: EndpointTuple[];
-  nonSubscription: EndpointTuple[];
-  entitlementOverride: EndpointTuple[];
-  businessEntity: EndpointTuple[];
-  purchase: EndpointTuple[];
-  paymentVoucher: EndpointTuple[];
-  currency: EndpointTuple[];
-  ramp: EndpointTuple[];
-  paymentScheduleScheme: EndpointTuple[];
-  pricingPageSession: EndpointTuple[];
-  omnichannelSubscription: EndpointTuple[];
-  omnichannelTransaction: EndpointTuple[];
-  omnichannelSubscriptionItem: EndpointTuple[];
-  recordedPurchase: EndpointTuple[];
-  rule: EndpointTuple[];
-  usageEvent: EndpointTuple[];
-  omnichannelSubscriptionItemScheduledChange: EndpointTuple[];
-  usageFile: EndpointTuple[];
+    subscription : EndpointTuple[]
+    contractTerm : EndpointTuple[]
+    discount : EndpointTuple[]
+    advanceInvoiceSchedule : EndpointTuple[]
+    customer : EndpointTuple[]
+    hierarchy : EndpointTuple[]
+    contact : EndpointTuple[]
+    businessEntityTransfer : EndpointTuple[]
+    token : EndpointTuple[]
+    paymentSource : EndpointTuple[]
+    thirdPartyPaymentMethod : EndpointTuple[]
+    virtualBankAccount : EndpointTuple[]
+    card : EndpointTuple[]
+    promotionalCredit : EndpointTuple[]
+    invoice : EndpointTuple[]
+    paymentReferenceNumber : EndpointTuple[]
+    paymentSchedule : EndpointTuple[]
+    taxWithheld : EndpointTuple[]
+    creditNote : EndpointTuple[]
+    unbilledCharge : EndpointTuple[]
+    order : EndpointTuple[]
+    gift : EndpointTuple[]
+    transaction : EndpointTuple[]
+    hostedPage : EndpointTuple[]
+    estimate : EndpointTuple[]
+    quote : EndpointTuple[]
+    quotedSubscription : EndpointTuple[]
+    quotedCharge : EndpointTuple[]
+    quoteLineGroup : EndpointTuple[]
+    plan : EndpointTuple[]
+    addon : EndpointTuple[]
+    coupon : EndpointTuple[]
+    couponSet : EndpointTuple[]
+    couponCode : EndpointTuple[]
+    address : EndpointTuple[]
+    usage : EndpointTuple[]
+    event : EndpointTuple[]
+    comment : EndpointTuple[]
+    download : EndpointTuple[]
+    portalSession : EndpointTuple[]
+    siteMigrationDetail : EndpointTuple[]
+    resourceMigration : EndpointTuple[]
+    timeMachine : EndpointTuple[]
+    export : EndpointTuple[]
+    paymentIntent : EndpointTuple[]
+    gatewayErrorDetail : EndpointTuple[]
+    itemFamily : EndpointTuple[]
+    item : EndpointTuple[]
+    priceVariant : EndpointTuple[]
+    attribute : EndpointTuple[]
+    itemPrice : EndpointTuple[]
+    attachedItem : EndpointTuple[]
+    differentialPrice : EndpointTuple[]
+    configuration : EndpointTuple[]
+    feature : EndpointTuple[]
+    impactedSubscription : EndpointTuple[]
+    impactedItem : EndpointTuple[]
+    impactedItemPrice : EndpointTuple[]
+    metadata : EndpointTuple[]
+    subscriptionEntitlement : EndpointTuple[]
+    customerEntitlement : EndpointTuple[]
+    itemEntitlement : EndpointTuple[]
+    entitlement : EndpointTuple[]
+    inAppSubscription : EndpointTuple[]
+    entitlementOverride : EndpointTuple[]
+    businessEntity : EndpointTuple[]
+    purchase : EndpointTuple[]
+    paymentVoucher : EndpointTuple[]
+    currency : EndpointTuple[]
+    ramp : EndpointTuple[]
+    paymentScheduleScheme : EndpointTuple[]
+    pricingPageSession : EndpointTuple[]
+    omnichannelSubscription : EndpointTuple[]
+    omnichannelTransaction : EndpointTuple[]
+    omnichannelSubscriptionItem : EndpointTuple[]
+    recordedPurchase : EndpointTuple[]
+    rule : EndpointTuple[]
+    usageEvent : EndpointTuple[]
+    omnichannelSubscriptionItemScheduledChange : EndpointTuple[]
+    usageFile : EndpointTuple[]
 }
-export const Endpoints: Endpoints = {
-  subscription: [
+export const Endpoints:Endpoints = {
+  "subscription": [
     [
-      'create',
-      'POST',
-      '/subscriptions',
+      "create",
+      "POST",
+      "/subscriptions",
       null,
-      false,
-      null,
-      false,
-      {
-        meta_data: 0,
-        exemption_details: 1,
-        additional_information: 1,
-        billing_address: 1,
-      },
+      false,null, false,
+    { 
+        "meta_data": 0,
+        "exemption_details": 1,
+        "additional_information": 1,
+        "billing_address": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createForCustomer',
-      'POST',
-      '/customers',
-      '/subscriptions',
-      true,
-      null,
-      false,
-      {
-        meta_data: 0,
-        additional_information: 1,
-      },
+      "createForCustomer",
+      "POST",
+      "/customers",
+      "/subscriptions",
+      true,null, false,
+    { 
+        "meta_data": 0,
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createWithItems',
-      'POST',
-      '/customers',
-      '/subscription_for_items',
-      true,
-      null,
-      false,
-      {
-        meta_data: 0,
-        additional_information: 1,
-      },
-    ],
-    ['list', 'GET', '/subscriptions', null, false, null, false, {}],
-    [
-      'subscriptionsForCustomer',
-      'GET',
-      '/customers',
-      '/subscriptions',
-      true,
-      null,
-      false,
-      {},
+      "createWithItems",
+      "POST",
+      "/customers",
+      "/subscription_for_items",
+      true,null, false,
+    { 
+        "meta_data": 0,
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'contractTermsForSubscription',
-      'GET',
-      '/subscriptions',
-      '/contract_terms',
-      true,
+      "list",
+      "GET",
+      "/subscriptions",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'listDiscounts',
-      'GET',
-      '/subscriptions',
-      '/discounts',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['retrieve', 'GET', '/subscriptions', null, true, null, false, {}],
-    [
-      'retrieveWithScheduledChanges',
-      'GET',
-      '/subscriptions',
-      '/retrieve_with_scheduled_changes',
-      true,
-      null,
-      false,
-      {},
+      "subscriptionsForCustomer",
+      "GET",
+      "/customers",
+      "/subscriptions",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'removeScheduledChanges',
-      'POST',
-      '/subscriptions',
-      '/remove_scheduled_changes',
-      true,
-      null,
-      false,
-      {},
+      "contractTermsForSubscription",
+      "GET",
+      "/subscriptions",
+      "/contract_terms",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'removeScheduledCancellation',
-      'POST',
-      '/subscriptions',
-      '/remove_scheduled_cancellation',
-      true,
-      null,
-      false,
-      {},
+      "listDiscounts",
+      "GET",
+      "/subscriptions",
+      "/discounts",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'removeCoupons',
-      'POST',
-      '/subscriptions',
-      '/remove_coupons',
-      true,
+      "retrieve",
+      "GET",
+      "/subscriptions",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'update',
-      'POST',
-      '/subscriptions',
-      null,
-      true,
-      null,
-      false,
-      {
-        meta_data: 0,
-        additional_information: 1,
-      },
+      "retrieveWithScheduledChanges",
+      "GET",
+      "/subscriptions",
+      "/retrieve_with_scheduled_changes",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'updateForItems',
-      'POST',
-      '/subscriptions',
-      '/update_for_items',
-      true,
-      null,
-      false,
-      {
-        meta_data: 0,
-        additional_information: 1,
-      },
+      "removeScheduledChanges",
+      "POST",
+      "/subscriptions",
+      "/remove_scheduled_changes",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'changeTermEnd',
-      'POST',
-      '/subscriptions',
-      '/change_term_end',
-      true,
-      null,
-      false,
-      {},
+      "removeScheduledCancellation",
+      "POST",
+      "/subscriptions",
+      "/remove_scheduled_cancellation",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'reactivate',
-      'POST',
-      '/subscriptions',
-      '/reactivate',
-      true,
-      null,
-      false,
-      {
-        additional_information: 1,
-      },
+      "removeCoupons",
+      "POST",
+      "/subscriptions",
+      "/remove_coupons",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'addChargeAtTermEnd',
-      'POST',
-      '/subscriptions',
-      '/add_charge_at_term_end',
-      true,
+      "update",
+      "POST",
+      "/subscriptions",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+        "meta_data": 0,
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'chargeAddonAtTermEnd',
-      'POST',
-      '/subscriptions',
-      '/charge_addon_at_term_end',
-      true,
-      null,
-      false,
-      {},
+      "updateForItems",
+      "POST",
+      "/subscriptions",
+      "/update_for_items",
+      true,null, false,
+    { 
+        "meta_data": 0,
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'chargeFutureRenewals',
-      'POST',
-      '/subscriptions',
-      '/charge_future_renewals',
-      true,
-      null,
-      false,
-      {},
+      "changeTermEnd",
+      "POST",
+      "/subscriptions",
+      "/change_term_end",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'editAdvanceInvoiceSchedule',
-      'POST',
-      '/subscriptions',
-      '/edit_advance_invoice_schedule',
-      true,
-      null,
-      false,
-      {},
+      "reactivate",
+      "POST",
+      "/subscriptions",
+      "/reactivate",
+      true,null, false,
+    { 
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'retrieveAdvanceInvoiceSchedule',
-      'GET',
-      '/subscriptions',
-      '/retrieve_advance_invoice_schedule',
-      true,
-      null,
-      false,
-      {},
+      "addChargeAtTermEnd",
+      "POST",
+      "/subscriptions",
+      "/add_charge_at_term_end",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'removeAdvanceInvoiceSchedule',
-      'POST',
-      '/subscriptions',
-      '/remove_advance_invoice_schedule',
-      true,
-      null,
-      false,
-      {},
+      "chargeAddonAtTermEnd",
+      "POST",
+      "/subscriptions",
+      "/charge_addon_at_term_end",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'regenerateInvoice',
-      'POST',
-      '/subscriptions',
-      '/regenerate_invoice',
-      true,
-      null,
-      false,
-      {},
+      "chargeFutureRenewals",
+      "POST",
+      "/subscriptions",
+      "/charge_future_renewals",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'importSubscription',
-      'POST',
-      '/subscriptions',
-      '/import_subscription',
-      false,
-      null,
-      false,
-      {
-        meta_data: 0,
-        additional_information: 1,
-      },
+      "editAdvanceInvoiceSchedule",
+      "POST",
+      "/subscriptions",
+      "/edit_advance_invoice_schedule",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'importForCustomer',
-      'POST',
-      '/customers',
-      '/import_subscription',
-      true,
-      null,
-      false,
-      {
-        meta_data: 0,
-      },
+      "retrieveAdvanceInvoiceSchedule",
+      "GET",
+      "/subscriptions",
+      "/retrieve_advance_invoice_schedule",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'importContractTerm',
-      'POST',
-      '/subscriptions',
-      '/import_contract_term',
-      true,
-      null,
-      false,
-      {},
+      "removeAdvanceInvoiceSchedule",
+      "POST",
+      "/subscriptions",
+      "/remove_advance_invoice_schedule",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'importUnbilledCharges',
-      'POST',
-      '/subscriptions',
-      '/import_unbilled_charges',
-      true,
-      null,
-      false,
-      {},
+      "regenerateInvoice",
+      "POST",
+      "/subscriptions",
+      "/regenerate_invoice",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'importForItems',
-      'POST',
-      '/customers',
-      '/import_for_items',
-      true,
-      null,
-      false,
-      {
-        meta_data: 0,
-      },
+      "importSubscription",
+      "POST",
+      "/subscriptions",
+      "/import_subscription",
+      false,null, false,
+    { 
+        "meta_data": 0,
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'overrideBillingProfile',
-      'POST',
-      '/subscriptions',
-      '/override_billing_profile',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['delete', 'POST', '/subscriptions', '/delete', true, null, false, {}],
-    ['pause', 'POST', '/subscriptions', '/pause', true, null, false, {}],
-    ['cancel', 'POST', '/subscriptions', '/cancel', true, null, false, {}],
-    [
-      'cancelForItems',
-      'POST',
-      '/subscriptions',
-      '/cancel_for_items',
-      true,
-      null,
-      false,
-      {},
+      "importForCustomer",
+      "POST",
+      "/customers",
+      "/import_subscription",
+      true,null, false,
+    { 
+        "meta_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'resume',
-      'POST',
-      '/subscriptions',
-      '/resume',
-      true,
-      null,
-      false,
-      {
-        additional_information: 1,
-      },
+      "importContractTerm",
+      "POST",
+      "/subscriptions",
+      "/import_contract_term",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'removeScheduledPause',
-      'POST',
-      '/subscriptions',
-      '/remove_scheduled_pause',
-      true,
-      null,
-      false,
-      {},
+      "importUnbilledCharges",
+      "POST",
+      "/subscriptions",
+      "/import_unbilled_charges",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'removeScheduledResumption',
-      'POST',
-      '/subscriptions',
-      '/remove_scheduled_resumption',
-      true,
-      null,
-      false,
-      {},
+      "importForItems",
+      "POST",
+      "/customers",
+      "/import_for_items",
+      true,null, false,
+    { 
+        "meta_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['move', 'POST', '/subscriptions', '/move', true, null, false, {}],
+    [
+      "overrideBillingProfile",
+      "POST",
+      "/subscriptions",
+      "/override_billing_profile",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/subscriptions",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "pause",
+      "POST",
+      "/subscriptions",
+      "/pause",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "cancel",
+      "POST",
+      "/subscriptions",
+      "/cancel",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "cancelForItems",
+      "POST",
+      "/subscriptions",
+      "/cancel_for_items",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "resume",
+      "POST",
+      "/subscriptions",
+      "/resume",
+      true,null, false,
+    { 
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "removeScheduledPause",
+      "POST",
+      "/subscriptions",
+      "/remove_scheduled_pause",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "removeScheduledResumption",
+      "POST",
+      "/subscriptions",
+      "/remove_scheduled_resumption",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "move",
+      "POST",
+      "/subscriptions",
+      "/move",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  contractTerm: [],
-  discount: [],
-  advanceInvoiceSchedule: [],
-  customer: [
+  "contractTerm": [],
+  "discount": [],
+  "advanceInvoiceSchedule": [],
+  "customer": [
     [
-      'create',
-      'POST',
-      '/customers',
+      "create",
+      "POST",
+      "/customers",
       null,
-      false,
-      null,
-      false,
-      {
-        exemption_details: 0,
-        meta_data: 0,
-        additional_information: 1,
-        billing_address: 1,
-      },
-    ],
-    ['list', 'GET', '/customers', null, false, null, false, {}],
-    ['retrieve', 'GET', '/customers', null, true, null, false, {}],
-    [
-      'update',
-      'POST',
-      '/customers',
-      null,
-      true,
-      null,
-      false,
-      {
-        exemption_details: 0,
-        meta_data: 0,
-      },
+      false,null, false,
+    { 
+        "exemption_details": 0,
+        "meta_data": 0,
+        "additional_information": 1,
+        "billing_address": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'updatePaymentMethod',
-      'POST',
-      '/customers',
-      '/update_payment_method',
-      true,
+      "list",
+      "GET",
+      "/customers",
       null,
-      false,
-      {
-        additional_information: 1,
-      },
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'updateBillingInfo',
-      'POST',
-      '/customers',
-      '/update_billing_info',
-      true,
+      "retrieve",
+      "GET",
+      "/customers",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'contactsForCustomer',
-      'GET',
-      '/customers',
-      '/contacts',
-      true,
+      "update",
+      "POST",
+      "/customers",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+        "exemption_details": 0,
+        "meta_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'assignPaymentRole',
-      'POST',
-      '/customers',
-      '/assign_payment_role',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['addContact', 'POST', '/customers', '/add_contact', true, null, false, {}],
-    [
-      'updateContact',
-      'POST',
-      '/customers',
-      '/update_contact',
-      true,
-      null,
-      false,
-      {},
+      "updatePaymentMethod",
+      "POST",
+      "/customers",
+      "/update_payment_method",
+      true,null, false,
+    { 
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'deleteContact',
-      'POST',
-      '/customers',
-      '/delete_contact',
-      true,
-      null,
-      false,
-      {},
+      "updateBillingInfo",
+      "POST",
+      "/customers",
+      "/update_billing_info",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'addPromotionalCredits',
-      'POST',
-      '/customers',
-      '/add_promotional_credits',
-      true,
-      null,
-      false,
-      {},
+      "contactsForCustomer",
+      "GET",
+      "/customers",
+      "/contacts",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'deductPromotionalCredits',
-      'POST',
-      '/customers',
-      '/deduct_promotional_credits',
-      true,
-      null,
-      false,
-      {},
+      "assignPaymentRole",
+      "POST",
+      "/customers",
+      "/assign_payment_role",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'setPromotionalCredits',
-      'POST',
-      '/customers',
-      '/set_promotional_credits',
-      true,
-      null,
-      false,
-      {},
+      "addContact",
+      "POST",
+      "/customers",
+      "/add_contact",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'recordExcessPayment',
-      'POST',
-      '/customers',
-      '/record_excess_payment',
-      true,
-      null,
-      false,
-      {},
+      "updateContact",
+      "POST",
+      "/customers",
+      "/update_contact",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'collectPayment',
-      'POST',
-      '/customers',
-      '/collect_payment',
-      true,
-      null,
-      false,
-      {
-        additional_information: 1,
-      },
-    ],
-    ['delete', 'POST', '/customers', '/delete', true, null, false, {}],
-    ['move', 'POST', '/customers', '/move', false, null, false, {}],
-    [
-      'changeBillingDate',
-      'POST',
-      '/customers',
-      '/change_billing_date',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['merge', 'POST', '/customers', '/merge', false, null, false, {}],
-    [
-      'clearPersonalData',
-      'POST',
-      '/customers',
-      '/clear_personal_data',
-      true,
-      null,
-      false,
-      {},
+      "deleteContact",
+      "POST",
+      "/customers",
+      "/delete_contact",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'relationships',
-      'POST',
-      '/customers',
-      '/relationships',
-      true,
-      null,
-      false,
-      {},
+      "addPromotionalCredits",
+      "POST",
+      "/customers",
+      "/add_promotional_credits",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'deleteRelationship',
-      'POST',
-      '/customers',
-      '/delete_relationship',
-      true,
-      null,
-      false,
-      {},
+      "deductPromotionalCredits",
+      "POST",
+      "/customers",
+      "/deduct_promotional_credits",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['hierarchy', 'GET', '/customers', '/hierarchy', true, null, false, {}],
     [
-      'updateHierarchySettings',
-      'POST',
-      '/customers',
-      '/update_hierarchy_settings',
-      true,
-      null,
-      false,
-      {},
+      "setPromotionalCredits",
+      "POST",
+      "/customers",
+      "/set_promotional_credits",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
+    [
+      "recordExcessPayment",
+      "POST",
+      "/customers",
+      "/record_excess_payment",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "collectPayment",
+      "POST",
+      "/customers",
+      "/collect_payment",
+      true,null, false,
+    { 
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/customers",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "move",
+      "POST",
+      "/customers",
+      "/move",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "changeBillingDate",
+      "POST",
+      "/customers",
+      "/change_billing_date",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "merge",
+      "POST",
+      "/customers",
+      "/merge",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "clearPersonalData",
+      "POST",
+      "/customers",
+      "/clear_personal_data",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "relationships",
+      "POST",
+      "/customers",
+      "/relationships",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "deleteRelationship",
+      "POST",
+      "/customers",
+      "/delete_relationship",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "hierarchy",
+      "GET",
+      "/customers",
+      "/hierarchy",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "updateHierarchySettings",
+      "POST",
+      "/customers",
+      "/update_hierarchy_settings",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  hierarchy: [],
-  contact: [],
-  businessEntityTransfer: [],
-  token: [],
-  paymentSource: [
+  "hierarchy": [],
+  "contact": [],
+  "businessEntityTransfer": [],
+  "token": [],
+  "paymentSource": [
     [
-      'createUsingTempToken',
-      'POST',
-      '/payment_sources',
-      '/create_using_temp_token',
-      false,
-      null,
-      false,
-      {
-        additional_information: 0,
-      },
+      "createUsingTempToken",
+      "POST",
+      "/payment_sources",
+      "/create_using_temp_token",
+      false,null, false,
+    { 
+        "additional_information": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createUsingPermanentToken',
-      'POST',
-      '/payment_sources',
-      '/create_using_permanent_token',
-      false,
-      null,
-      false,
-      {
-        additional_information: 0,
-      },
+      "createUsingPermanentToken",
+      "POST",
+      "/payment_sources",
+      "/create_using_permanent_token",
+      false,null, false,
+    { 
+        "additional_information": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createUsingToken',
-      'POST',
-      '/payment_sources',
-      '/create_using_token',
-      false,
-      null,
-      false,
-      {},
+      "createUsingToken",
+      "POST",
+      "/payment_sources",
+      "/create_using_token",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createUsingPaymentIntent',
-      'POST',
-      '/payment_sources',
-      '/create_using_payment_intent',
-      false,
-      null,
-      false,
-      {
-        additional_info: 1,
-        additional_information: 1,
-      },
+      "createUsingPaymentIntent",
+      "POST",
+      "/payment_sources",
+      "/create_using_payment_intent",
+      false,null, false,
+    { 
+        "additional_info": 1,
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createVoucherPaymentSource',
-      'POST',
-      '/payment_sources',
-      '/create_voucher_payment_source',
-      false,
-      null,
-      false,
-      {
-        billing_address: 1,
-      },
+      "createVoucherPaymentSource",
+      "POST",
+      "/payment_sources",
+      "/create_voucher_payment_source",
+      false,null, false,
+    { 
+        "billing_address": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createCard',
-      'POST',
-      '/payment_sources',
-      '/create_card',
-      false,
-      null,
-      false,
-      {
-        additional_information: 1,
-      },
+      "createCard",
+      "POST",
+      "/payment_sources",
+      "/create_card",
+      false,null, false,
+    { 
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createBankAccount',
-      'POST',
-      '/payment_sources',
-      '/create_bank_account',
-      false,
-      null,
-      false,
-      {
-        billing_address: 1,
-      },
+      "createBankAccount",
+      "POST",
+      "/payment_sources",
+      "/create_bank_account",
+      false,null, false,
+    { 
+        "billing_address": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'updateCard',
-      'POST',
-      '/payment_sources',
-      '/update_card',
-      true,
-      null,
-      false,
-      {
-        gateway_meta_data: 0,
-        additional_information: 1,
-      },
+      "updateCard",
+      "POST",
+      "/payment_sources",
+      "/update_card",
+      true,null, false,
+    { 
+        "gateway_meta_data": 0,
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'updateBankAccount',
-      'POST',
-      '/payment_sources',
-      '/update_bank_account',
-      true,
-      null,
-      false,
-      {},
+      "updateBankAccount",
+      "POST",
+      "/payment_sources",
+      "/update_bank_account",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'verifyBankAccount',
-      'POST',
-      '/payment_sources',
-      '/verify_bank_account',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['retrieve', 'GET', '/payment_sources', null, true, null, false, {}],
-    ['list', 'GET', '/payment_sources', null, false, null, false, {}],
-    [
-      'switchGatewayAccount',
-      'POST',
-      '/payment_sources',
-      '/switch_gateway_account',
-      true,
-      null,
-      false,
-      {},
+      "verifyBankAccount",
+      "POST",
+      "/payment_sources",
+      "/verify_bank_account",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'exportPaymentSource',
-      'POST',
-      '/payment_sources',
-      '/export_payment_source',
-      true,
+      "retrieve",
+      "GET",
+      "/payment_sources",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
-    ['delete', 'POST', '/payment_sources', '/delete', true, null, false, {}],
     [
-      'deleteLocal',
-      'POST',
-      '/payment_sources',
-      '/delete_local',
-      true,
+      "list",
+      "GET",
+      "/payment_sources",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
+    [
+      "switchGatewayAccount",
+      "POST",
+      "/payment_sources",
+      "/switch_gateway_account",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "exportPaymentSource",
+      "POST",
+      "/payment_sources",
+      "/export_payment_source",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/payment_sources",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "deleteLocal",
+      "POST",
+      "/payment_sources",
+      "/delete_local",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  thirdPartyPaymentMethod: [],
-  virtualBankAccount: [
+  "thirdPartyPaymentMethod": [],
+  "virtualBankAccount": [
     [
-      'createUsingPermanentToken',
-      'POST',
-      '/virtual_bank_accounts',
-      '/create_using_permanent_token',
-      false,
-      null,
-      false,
-      {},
-    ],
-    ['create', 'POST', '/virtual_bank_accounts', null, false, null, false, {}],
-    ['retrieve', 'GET', '/virtual_bank_accounts', null, true, null, false, {}],
-    ['list', 'GET', '/virtual_bank_accounts', null, false, null, false, {}],
-    [
-      'delete',
-      'POST',
-      '/virtual_bank_accounts',
-      '/delete',
-      true,
-      null,
-      false,
-      {},
+      "createUsingPermanentToken",
+      "POST",
+      "/virtual_bank_accounts",
+      "/create_using_permanent_token",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'deleteLocal',
-      'POST',
-      '/virtual_bank_accounts',
-      '/delete_local',
-      true,
+      "create",
+      "POST",
+      "/virtual_bank_accounts",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
+    [
+      "retrieve",
+      "GET",
+      "/virtual_bank_accounts",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/virtual_bank_accounts",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/virtual_bank_accounts",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "deleteLocal",
+      "POST",
+      "/virtual_bank_accounts",
+      "/delete_local",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  card: [
-    ['retrieve', 'GET', '/cards', null, true, null, false, {}],
+  "card": [
     [
-      'updateCardForCustomer',
-      'POST',
-      '/customers',
-      '/credit_card',
-      true,
+      "retrieve",
+      "GET",
+      "/cards",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'switchGatewayForCustomer',
-      'POST',
-      '/customers',
-      '/switch_gateway',
-      true,
-      null,
-      false,
-      {},
+      "updateCardForCustomer",
+      "POST",
+      "/customers",
+      "/credit_card",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'copyCardForCustomer',
-      'POST',
-      '/customers',
-      '/copy_card',
-      true,
-      null,
-      false,
-      {},
+      "switchGatewayForCustomer",
+      "POST",
+      "/customers",
+      "/switch_gateway",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'deleteCardForCustomer',
-      'POST',
-      '/customers',
-      '/delete_card',
-      true,
-      null,
-      false,
-      {},
+      "copyCardForCustomer",
+      "POST",
+      "/customers",
+      "/copy_card",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
+    [
+      "deleteCardForCustomer",
+      "POST",
+      "/customers",
+      "/delete_card",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  promotionalCredit: [
-    ['add', 'POST', '/promotional_credits', '/add', false, null, false, {}],
+  "promotionalCredit": [
     [
-      'deduct',
-      'POST',
-      '/promotional_credits',
-      '/deduct',
-      false,
-      null,
-      false,
-      {},
+      "add",
+      "POST",
+      "/promotional_credits",
+      "/add",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['set', 'POST', '/promotional_credits', '/set', false, null, false, {}],
-    ['list', 'GET', '/promotional_credits', null, false, null, false, {}],
-    ['retrieve', 'GET', '/promotional_credits', null, true, null, false, {}],
+    [
+      "deduct",
+      "POST",
+      "/promotional_credits",
+      "/deduct",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "set",
+      "POST",
+      "/promotional_credits",
+      "/set",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/promotional_credits",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/promotional_credits",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  invoice: [
+  "invoice": [
     [
-      'create',
-      'POST',
-      '/invoices',
+      "create",
+      "POST",
+      "/invoices",
       null,
-      false,
-      null,
-      false,
-      {
-        additional_information: 1,
-        billing_address: 1,
-      },
+      false,null, false,
+    { 
+        "additional_information": 1,
+        "billing_address": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createForChargeItemsAndCharges',
-      'POST',
-      '/invoices',
-      '/create_for_charge_items_and_charges',
-      false,
-      null,
-      false,
-      {
-        additional_information: 1,
-        billing_address: 1,
-      },
-    ],
-    ['charge', 'POST', '/invoices', '/charge', false, null, false, {}],
-    [
-      'chargeAddon',
-      'POST',
-      '/invoices',
-      '/charge_addon',
-      false,
-      null,
-      false,
-      {},
+      "createForChargeItemsAndCharges",
+      "POST",
+      "/invoices",
+      "/create_for_charge_items_and_charges",
+      false,null, false,
+    { 
+        "additional_information": 1,
+        "billing_address": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createForChargeItem',
-      'POST',
-      '/invoices',
-      '/create_for_charge_item',
-      false,
-      null,
-      false,
-      {},
+      "charge",
+      "POST",
+      "/invoices",
+      "/charge",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'stopDunning',
-      'POST',
-      '/invoices',
-      '/stop_dunning',
-      true,
-      null,
-      false,
-      {},
+      "chargeAddon",
+      "POST",
+      "/invoices",
+      "/charge_addon",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'importInvoice',
-      'POST',
-      '/invoices',
-      '/import_invoice',
-      false,
-      null,
-      false,
-      {},
+      "createForChargeItem",
+      "POST",
+      "/invoices",
+      "/create_for_charge_item",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'applyPayments',
-      'POST',
-      '/invoices',
-      '/apply_payments',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['syncUsages', 'POST', '/invoices', '/sync_usages', true, null, false, {}],
-    [
-      'deleteLineItems',
-      'POST',
-      '/invoices',
-      '/delete_line_items',
-      true,
-      null,
-      false,
-      {},
+      "stopDunning",
+      "POST",
+      "/invoices",
+      "/stop_dunning",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'applyCredits',
-      'POST',
-      '/invoices',
-      '/apply_credits',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['list', 'GET', '/invoices', null, false, null, false, {}],
-    [
-      'invoicesForCustomer',
-      'GET',
-      '/customers',
-      '/invoices',
-      true,
-      null,
-      false,
-      {},
+      "importInvoice",
+      "POST",
+      "/invoices",
+      "/import_invoice",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'invoicesForSubscription',
-      'GET',
-      '/subscriptions',
-      '/invoices',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['retrieve', 'GET', '/invoices', null, true, null, false, {}],
-    ['pdf', 'POST', '/invoices', '/pdf', true, null, false, {}],
-    [
-      'downloadEinvoice',
-      'GET',
-      '/invoices',
-      '/download_einvoice',
-      true,
-      null,
-      false,
-      {},
+      "applyPayments",
+      "POST",
+      "/invoices",
+      "/apply_payments",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'listPaymentReferenceNumbers',
-      'GET',
-      '/invoices',
-      '/payment_reference_numbers',
-      false,
-      null,
-      false,
-      {},
-    ],
-    ['addCharge', 'POST', '/invoices', '/add_charge', true, null, false, {}],
-    [
-      'addAddonCharge',
-      'POST',
-      '/invoices',
-      '/add_addon_charge',
-      true,
-      null,
-      false,
-      {},
+      "syncUsages",
+      "POST",
+      "/invoices",
+      "/sync_usages",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'addChargeItem',
-      'POST',
-      '/invoices',
-      '/add_charge_item',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['close', 'POST', '/invoices', '/close', true, null, false, {}],
-    [
-      'collectPayment',
-      'POST',
-      '/invoices',
-      '/collect_payment',
-      true,
-      null,
-      false,
-      {},
+      "deleteLineItems",
+      "POST",
+      "/invoices",
+      "/delete_line_items",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'recordPayment',
-      'POST',
-      '/invoices',
-      '/record_payment',
-      true,
-      null,
-      false,
-      {},
+      "applyCredits",
+      "POST",
+      "/invoices",
+      "/apply_credits",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'recordTaxWithheld',
-      'POST',
-      '/invoices',
-      '/record_tax_withheld',
-      true,
+      "list",
+      "GET",
+      "/invoices",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'removeTaxWithheld',
-      'POST',
-      '/invoices',
-      '/remove_tax_withheld',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['refund', 'POST', '/invoices', '/refund', true, null, false, {}],
-    [
-      'recordRefund',
-      'POST',
-      '/invoices',
-      '/record_refund',
-      true,
-      null,
-      false,
-      {},
+      "invoicesForCustomer",
+      "GET",
+      "/customers",
+      "/invoices",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'removePayment',
-      'POST',
-      '/invoices',
-      '/remove_payment',
-      true,
-      null,
-      false,
-      {},
+      "invoicesForSubscription",
+      "GET",
+      "/subscriptions",
+      "/invoices",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'removeCreditNote',
-      'POST',
-      '/invoices',
-      '/remove_credit_note',
-      true,
+      "retrieve",
+      "GET",
+      "/invoices",
       null,
-      false,
-      {},
-    ],
-    ['voidInvoice', 'POST', '/invoices', '/void', true, null, false, {}],
-    ['writeOff', 'POST', '/invoices', '/write_off', true, null, false, {}],
-    ['delete', 'POST', '/invoices', '/delete', true, null, false, {}],
-    [
-      'updateDetails',
-      'POST',
-      '/invoices',
-      '/update_details',
-      true,
-      null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'applyPaymentScheduleScheme',
-      'POST',
-      '/invoices',
-      '/apply_payment_schedule_scheme',
-      true,
-      null,
-      false,
-      {},
+      "pdf",
+      "POST",
+      "/invoices",
+      "/pdf",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'paymentSchedules',
-      'GET',
-      '/invoices',
-      '/payment_schedules',
-      true,
-      null,
-      false,
-      {},
+      "downloadEinvoice",
+      "GET",
+      "/invoices",
+      "/download_einvoice",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'resendEinvoice',
-      'POST',
-      '/invoices',
-      '/resend_einvoice',
-      true,
-      null,
-      false,
-      {},
+      "listPaymentReferenceNumbers",
+      "GET",
+      "/invoices",
+      "/payment_reference_numbers",
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'sendEinvoice',
-      'POST',
-      '/invoices',
-      '/send_einvoice',
-      true,
-      null,
-      false,
-      {},
+      "addCharge",
+      "POST",
+      "/invoices",
+      "/add_charge",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
+    [
+      "addAddonCharge",
+      "POST",
+      "/invoices",
+      "/add_addon_charge",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "addChargeItem",
+      "POST",
+      "/invoices",
+      "/add_charge_item",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "close",
+      "POST",
+      "/invoices",
+      "/close",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "collectPayment",
+      "POST",
+      "/invoices",
+      "/collect_payment",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "recordPayment",
+      "POST",
+      "/invoices",
+      "/record_payment",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "recordTaxWithheld",
+      "POST",
+      "/invoices",
+      "/record_tax_withheld",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "removeTaxWithheld",
+      "POST",
+      "/invoices",
+      "/remove_tax_withheld",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "refund",
+      "POST",
+      "/invoices",
+      "/refund",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "recordRefund",
+      "POST",
+      "/invoices",
+      "/record_refund",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "removePayment",
+      "POST",
+      "/invoices",
+      "/remove_payment",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "removeCreditNote",
+      "POST",
+      "/invoices",
+      "/remove_credit_note",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "voidInvoice",
+      "POST",
+      "/invoices",
+      "/void",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "writeOff",
+      "POST",
+      "/invoices",
+      "/write_off",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/invoices",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "updateDetails",
+      "POST",
+      "/invoices",
+      "/update_details",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "applyPaymentScheduleScheme",
+      "POST",
+      "/invoices",
+      "/apply_payment_schedule_scheme",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "paymentSchedules",
+      "GET",
+      "/invoices",
+      "/payment_schedules",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "resendEinvoice",
+      "POST",
+      "/invoices",
+      "/resend_einvoice",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "sendEinvoice",
+      "POST",
+      "/invoices",
+      "/send_einvoice",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  paymentReferenceNumber: [],
-  paymentSchedule: [],
-  taxWithheld: [],
-  creditNote: [
-    ['create', 'POST', '/credit_notes', null, false, null, false, {}],
-    ['retrieve', 'GET', '/credit_notes', null, true, null, false, {}],
-    ['pdf', 'POST', '/credit_notes', '/pdf', true, null, false, {}],
+  "paymentReferenceNumber": [],
+  "paymentSchedule": [],
+  "taxWithheld": [],
+  "creditNote": [
     [
-      'downloadEinvoice',
-      'GET',
-      '/credit_notes',
-      '/download_einvoice',
-      true,
+      "create",
+      "POST",
+      "/credit_notes",
       null,
-      false,
-      {},
-    ],
-    ['refund', 'POST', '/credit_notes', '/refund', true, null, false, {}],
-    [
-      'recordRefund',
-      'POST',
-      '/credit_notes',
-      '/record_refund',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['voidCreditNote', 'POST', '/credit_notes', '/void', true, null, false, {}],
-    ['list', 'GET', '/credit_notes', null, false, null, false, {}],
-    [
-      'creditNotesForCustomer',
-      'GET',
-      '/customers',
-      '/credit_notes',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['delete', 'POST', '/credit_notes', '/delete', true, null, false, {}],
-    [
-      'removeTaxWithheldRefund',
-      'POST',
-      '/credit_notes',
-      '/remove_tax_withheld_refund',
-      true,
-      null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'resendEinvoice',
-      'POST',
-      '/credit_notes',
-      '/resend_einvoice',
-      true,
+      "retrieve",
+      "GET",
+      "/credit_notes",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'sendEinvoice',
-      'POST',
-      '/credit_notes',
-      '/send_einvoice',
-      true,
-      null,
-      false,
-      {},
+      "pdf",
+      "POST",
+      "/credit_notes",
+      "/pdf",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'importCreditNote',
-      'POST',
-      '/credit_notes',
-      '/import_credit_note',
-      false,
-      null,
-      false,
-      {},
+      "downloadEinvoice",
+      "GET",
+      "/credit_notes",
+      "/download_einvoice",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
+    [
+      "refund",
+      "POST",
+      "/credit_notes",
+      "/refund",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "recordRefund",
+      "POST",
+      "/credit_notes",
+      "/record_refund",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "voidCreditNote",
+      "POST",
+      "/credit_notes",
+      "/void",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/credit_notes",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "creditNotesForCustomer",
+      "GET",
+      "/customers",
+      "/credit_notes",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/credit_notes",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "removeTaxWithheldRefund",
+      "POST",
+      "/credit_notes",
+      "/remove_tax_withheld_refund",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "resendEinvoice",
+      "POST",
+      "/credit_notes",
+      "/resend_einvoice",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "sendEinvoice",
+      "POST",
+      "/credit_notes",
+      "/send_einvoice",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "importCreditNote",
+      "POST",
+      "/credit_notes",
+      "/import_credit_note",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  unbilledCharge: [
+  "unbilledCharge": [
     [
-      'createUnbilledCharge',
-      'POST',
-      '/unbilled_charges',
-      '/create',
-      false,
-      null,
-      false,
-      {},
+      "createUnbilledCharge",
+      "POST",
+      "/unbilled_charges",
+      "/create",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['create', 'POST', '/unbilled_charges', null, false, null, false, {}],
     [
-      'invoiceUnbilledCharges',
-      'POST',
-      '/unbilled_charges',
-      '/invoice_unbilled_charges',
-      false,
+      "create",
+      "POST",
+      "/unbilled_charges",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['delete', 'POST', '/unbilled_charges', '/delete', true, null, false, {}],
-    ['list', 'GET', '/unbilled_charges', null, false, null, false, {}],
     [
-      'invoiceNowEstimate',
-      'POST',
-      '/unbilled_charges',
-      '/invoice_now_estimate',
-      false,
-      null,
-      false,
-      {},
+      "invoiceUnbilledCharges",
+      "POST",
+      "/unbilled_charges",
+      "/invoice_unbilled_charges",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
+    [
+      "delete",
+      "POST",
+      "/unbilled_charges",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/unbilled_charges",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "invoiceNowEstimate",
+      "POST",
+      "/unbilled_charges",
+      "/invoice_now_estimate",
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  order: [
-    ['create', 'POST', '/orders', null, false, null, false, {}],
-    ['update', 'POST', '/orders', null, true, null, false, {}],
-    ['importOrder', 'POST', '/orders', '/import_order', false, null, false, {}],
+  "order": [
     [
-      'assignOrderNumber',
-      'POST',
-      '/orders',
-      '/assign_order_number',
-      true,
+      "create",
+      "POST",
+      "/orders",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['cancel', 'POST', '/orders', '/cancel', true, null, false, {}],
     [
-      'createRefundableCreditNote',
-      'POST',
-      '/orders',
-      '/create_refundable_credit_note',
-      true,
+      "update",
+      "POST",
+      "/orders",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['reopen', 'POST', '/orders', '/reopen', true, null, false, {}],
-    ['retrieve', 'GET', '/orders', null, true, null, false, {}],
-    ['delete', 'POST', '/orders', '/delete', true, null, false, {}],
-    ['list', 'GET', '/orders', null, false, null, false, {}],
-    ['ordersForInvoice', 'GET', '/invoices', '/orders', true, null, false, {}],
-    ['resend', 'POST', '/orders', '/resend', true, null, false, {}],
+    [
+      "importOrder",
+      "POST",
+      "/orders",
+      "/import_order",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "assignOrderNumber",
+      "POST",
+      "/orders",
+      "/assign_order_number",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "cancel",
+      "POST",
+      "/orders",
+      "/cancel",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "createRefundableCreditNote",
+      "POST",
+      "/orders",
+      "/create_refundable_credit_note",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "reopen",
+      "POST",
+      "/orders",
+      "/reopen",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/orders",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/orders",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/orders",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "ordersForInvoice",
+      "GET",
+      "/invoices",
+      "/orders",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "resend",
+      "POST",
+      "/orders",
+      "/resend",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  gift: [
+  "gift": [
     [
-      'create',
-      'POST',
-      '/gifts',
+      "create",
+      "POST",
+      "/gifts",
       null,
-      false,
-      null,
-      false,
-      {
-        additional_information: 1,
-      },
+      false,null, false,
+    { 
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createForItems',
-      'POST',
-      '/gifts',
-      '/create_for_items',
-      false,
-      null,
-      false,
-      {
-        additional_information: 1,
-      },
+      "createForItems",
+      "POST",
+      "/gifts",
+      "/create_for_items",
+      false,null, false,
+    { 
+        "additional_information": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['retrieve', 'GET', '/gifts', null, true, null, false, {}],
-    ['list', 'GET', '/gifts', null, false, null, false, {}],
-    ['claim', 'POST', '/gifts', '/claim', true, null, false, {}],
-    ['cancel', 'POST', '/gifts', '/cancel', true, null, false, {}],
-    ['updateGift', 'POST', '/gifts', '/update_gift', true, null, false, {}],
+    [
+      "retrieve",
+      "GET",
+      "/gifts",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/gifts",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "claim",
+      "POST",
+      "/gifts",
+      "/claim",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "cancel",
+      "POST",
+      "/gifts",
+      "/cancel",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "updateGift",
+      "POST",
+      "/gifts",
+      "/update_gift",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  transaction: [
+  "transaction": [
     [
-      'createAuthorization',
-      'POST',
-      '/transactions',
-      '/create_authorization',
-      false,
-      null,
-      false,
-      {},
+      "createAuthorization",
+      "POST",
+      "/transactions",
+      "/create_authorization",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'voidTransaction',
-      'POST',
-      '/transactions',
-      '/void',
-      true,
-      null,
-      false,
-      {},
+      "voidTransaction",
+      "POST",
+      "/transactions",
+      "/void",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'recordRefund',
-      'POST',
-      '/transactions',
-      '/record_refund',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['reconcile', 'POST', '/transactions', '/reconcile', true, null, false, {}],
-    ['refund', 'POST', '/transactions', '/refund', true, null, false, {}],
-    ['list', 'GET', '/transactions', null, false, null, false, {}],
-    [
-      'transactionsForCustomer',
-      'GET',
-      '/customers',
-      '/transactions',
-      true,
-      null,
-      false,
-      {},
+      "recordRefund",
+      "POST",
+      "/transactions",
+      "/record_refund",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'transactionsForSubscription',
-      'GET',
-      '/subscriptions',
-      '/transactions',
-      true,
-      null,
-      false,
-      {},
+      "reconcile",
+      "POST",
+      "/transactions",
+      "/reconcile",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'paymentsForInvoice',
-      'GET',
-      '/invoices',
-      '/payments',
-      true,
-      null,
-      false,
-      {},
+      "refund",
+      "POST",
+      "/transactions",
+      "/refund",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['retrieve', 'GET', '/transactions', null, true, null, false, {}],
     [
-      'deleteOfflineTransaction',
-      'POST',
-      '/transactions',
-      '/delete_offline_transaction',
-      true,
+      "list",
+      "GET",
+      "/transactions",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
+    [
+      "transactionsForCustomer",
+      "GET",
+      "/customers",
+      "/transactions",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "transactionsForSubscription",
+      "GET",
+      "/subscriptions",
+      "/transactions",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "paymentsForInvoice",
+      "GET",
+      "/invoices",
+      "/payments",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/transactions",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "deleteOfflineTransaction",
+      "POST",
+      "/transactions",
+      "/delete_offline_transaction",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  hostedPage: [
+  "hostedPage": [
     [
-      'checkoutNew',
-      'POST',
-      '/hosted_pages',
-      '/checkout_new',
-      false,
-      null,
-      false,
-      {},
+      "checkoutNew",
+      "POST",
+      "/hosted_pages",
+      "/checkout_new",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'checkoutOneTime',
-      'POST',
-      '/hosted_pages',
-      '/checkout_one_time',
-      false,
-      null,
-      false,
-      {},
+      "checkoutOneTime",
+      "POST",
+      "/hosted_pages",
+      "/checkout_one_time",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'checkoutOneTimeForItems',
-      'POST',
-      '/hosted_pages',
-      '/checkout_one_time_for_items',
-      false,
-      null,
-      false,
-      {},
+      "checkoutOneTimeForItems",
+      "POST",
+      "/hosted_pages",
+      "/checkout_one_time_for_items",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'checkoutNewForItems',
-      'POST',
-      '/hosted_pages',
-      '/checkout_new_for_items',
-      false,
-      null,
-      false,
-      {},
+      "checkoutNewForItems",
+      "POST",
+      "/hosted_pages",
+      "/checkout_new_for_items",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'checkoutExisting',
-      'POST',
-      '/hosted_pages',
-      '/checkout_existing',
-      false,
-      null,
-      false,
-      {},
+      "checkoutExisting",
+      "POST",
+      "/hosted_pages",
+      "/checkout_existing",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'checkoutExistingForItems',
-      'POST',
-      '/hosted_pages',
-      '/checkout_existing_for_items',
-      false,
-      null,
-      false,
-      {},
+      "checkoutExistingForItems",
+      "POST",
+      "/hosted_pages",
+      "/checkout_existing_for_items",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'updateCard',
-      'POST',
-      '/hosted_pages',
-      '/update_card',
-      false,
-      null,
-      false,
-      {},
+      "updateCard",
+      "POST",
+      "/hosted_pages",
+      "/update_card",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'updatePaymentMethod',
-      'POST',
-      '/hosted_pages',
-      '/update_payment_method',
-      false,
-      null,
-      false,
-      {},
+      "updatePaymentMethod",
+      "POST",
+      "/hosted_pages",
+      "/update_payment_method",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'managePaymentSources',
-      'POST',
-      '/hosted_pages',
-      '/manage_payment_sources',
-      false,
-      null,
-      false,
-      {},
+      "managePaymentSources",
+      "POST",
+      "/hosted_pages",
+      "/manage_payment_sources",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'collectNow',
-      'POST',
-      '/hosted_pages',
-      '/collect_now',
-      false,
-      null,
-      false,
-      {},
+      "collectNow",
+      "POST",
+      "/hosted_pages",
+      "/collect_now",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'acceptQuote',
-      'POST',
-      '/hosted_pages',
-      '/accept_quote',
-      false,
-      null,
-      false,
-      {},
+      "acceptQuote",
+      "POST",
+      "/hosted_pages",
+      "/accept_quote",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'extendSubscription',
-      'POST',
-      '/hosted_pages',
-      '/extend_subscription',
-      false,
-      null,
-      false,
-      {},
+      "extendSubscription",
+      "POST",
+      "/hosted_pages",
+      "/extend_subscription",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'checkoutGift',
-      'POST',
-      '/hosted_pages',
-      '/checkout_gift',
-      false,
-      null,
-      false,
-      {},
+      "checkoutGift",
+      "POST",
+      "/hosted_pages",
+      "/checkout_gift",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'checkoutGiftForItems',
-      'POST',
-      '/hosted_pages',
-      '/checkout_gift_for_items',
-      false,
-      null,
-      false,
-      {},
+      "checkoutGiftForItems",
+      "POST",
+      "/hosted_pages",
+      "/checkout_gift_for_items",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'claimGift',
-      'POST',
-      '/hosted_pages',
-      '/claim_gift',
-      false,
-      null,
-      false,
-      {},
+      "claimGift",
+      "POST",
+      "/hosted_pages",
+      "/claim_gift",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'retrieveAgreementPdf',
-      'POST',
-      '/hosted_pages',
-      '/retrieve_agreement_pdf',
-      false,
-      null,
-      false,
-      {},
+      "retrieveAgreementPdf",
+      "POST",
+      "/hosted_pages",
+      "/retrieve_agreement_pdf",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'acknowledge',
-      'POST',
-      '/hosted_pages',
-      '/acknowledge',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['retrieve', 'GET', '/hosted_pages', null, true, null, false, {}],
-    ['list', 'GET', '/hosted_pages', null, false, null, false, {}],
-    [
-      'preCancel',
-      'POST',
-      '/hosted_pages',
-      '/pre_cancel',
-      false,
-      null,
-      false,
-      {},
+      "acknowledge",
+      "POST",
+      "/hosted_pages",
+      "/acknowledge",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'events',
-      'POST',
-      '/hosted_pages',
-      '/events',
-      false,
+      "retrieve",
+      "GET",
+      "/hosted_pages",
       null,
-      false,
-      {
-        event_data: 0,
-      },
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'viewVoucher',
-      'POST',
-      '/hosted_pages',
-      '/view_voucher',
-      false,
+      "list",
+      "GET",
+      "/hosted_pages",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
+    [
+      "preCancel",
+      "POST",
+      "/hosted_pages",
+      "/pre_cancel",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "events",
+      "POST",
+      "/hosted_pages",
+      "/events",
+      false,null, false,
+    { 
+        "event_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "viewVoucher",
+      "POST",
+      "/hosted_pages",
+      "/view_voucher",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  estimate: [
+  "estimate": [
     [
-      'createSubscription',
-      'POST',
-      '/estimates',
-      '/create_subscription',
-      false,
-      null,
-      false,
-      {
-        exemption_details: 1,
-      },
+      "createSubscription",
+      "POST",
+      "/estimates",
+      "/create_subscription",
+      false,null, false,
+    { 
+        "exemption_details": 1,
+    },
+    {
+        
+    }
     ],
     [
-      'createSubItemEstimate',
-      'POST',
-      '/estimates',
-      '/create_subscription_for_items',
-      false,
-      null,
-      false,
-      {
-        exemption_details: 1,
-      },
+      "createSubItemEstimate",
+      "POST",
+      "/estimates",
+      "/create_subscription_for_items",
+      false,null, false,
+    { 
+        "exemption_details": 1,
+    },
+    {
+        
+    }
     ],
     [
-      'createSubForCustomerEstimate',
-      'GET',
-      '/customers',
-      '/create_subscription_estimate',
-      true,
-      null,
-      false,
-      {},
+      "createSubForCustomerEstimate",
+      "GET",
+      "/customers",
+      "/create_subscription_estimate",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'createSubItemForCustomerEstimate',
-      'POST',
-      '/customers',
-      '/create_subscription_for_items_estimate',
-      true,
-      null,
-      false,
-      {},
+      "createSubItemForCustomerEstimate",
+      "POST",
+      "/customers",
+      "/create_subscription_for_items_estimate",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'updateSubscription',
-      'POST',
-      '/estimates',
-      '/update_subscription',
-      false,
-      null,
-      false,
-      {},
+      "updateSubscription",
+      "POST",
+      "/estimates",
+      "/update_subscription",
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'updateSubscriptionForItems',
-      'POST',
-      '/estimates',
-      '/update_subscription_for_items',
-      false,
-      null,
-      false,
-      {},
+      "updateSubscriptionForItems",
+      "POST",
+      "/estimates",
+      "/update_subscription_for_items",
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'renewalEstimate',
-      'GET',
-      '/subscriptions',
-      '/renewal_estimate',
-      true,
-      null,
-      false,
-      {},
+      "renewalEstimate",
+      "GET",
+      "/subscriptions",
+      "/renewal_estimate",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'advanceInvoiceEstimate',
-      'POST',
-      '/subscriptions',
-      '/advance_invoice_estimate',
-      true,
-      null,
-      false,
-      {},
+      "advanceInvoiceEstimate",
+      "POST",
+      "/subscriptions",
+      "/advance_invoice_estimate",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'regenerateInvoiceEstimate',
-      'POST',
-      '/subscriptions',
-      '/regenerate_invoice_estimate',
-      true,
-      null,
-      false,
-      {},
+      "regenerateInvoiceEstimate",
+      "POST",
+      "/subscriptions",
+      "/regenerate_invoice_estimate",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'upcomingInvoicesEstimate',
-      'GET',
-      '/customers',
-      '/upcoming_invoices_estimate',
-      true,
-      null,
-      false,
-      {},
+      "upcomingInvoicesEstimate",
+      "GET",
+      "/customers",
+      "/upcoming_invoices_estimate",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'changeTermEnd',
-      'POST',
-      '/subscriptions',
-      '/change_term_end_estimate',
-      true,
-      null,
-      false,
-      {},
+      "changeTermEnd",
+      "POST",
+      "/subscriptions",
+      "/change_term_end_estimate",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'cancelSubscription',
-      'POST',
-      '/subscriptions',
-      '/cancel_subscription_estimate',
-      true,
-      null,
-      false,
-      {},
+      "cancelSubscription",
+      "POST",
+      "/subscriptions",
+      "/cancel_subscription_estimate",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'cancelSubscriptionForItems',
-      'POST',
-      '/subscriptions',
-      '/cancel_subscription_for_items_estimate',
-      true,
-      null,
-      false,
-      {},
+      "cancelSubscriptionForItems",
+      "POST",
+      "/subscriptions",
+      "/cancel_subscription_for_items_estimate",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'pauseSubscription',
-      'POST',
-      '/subscriptions',
-      '/pause_subscription_estimate',
-      true,
-      null,
-      false,
-      {},
+      "pauseSubscription",
+      "POST",
+      "/subscriptions",
+      "/pause_subscription_estimate",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'resumeSubscription',
-      'POST',
-      '/subscriptions',
-      '/resume_subscription_estimate',
-      true,
-      null,
-      false,
-      {},
+      "resumeSubscription",
+      "POST",
+      "/subscriptions",
+      "/resume_subscription_estimate",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'giftSubscription',
-      'POST',
-      '/estimates',
-      '/gift_subscription',
-      false,
-      null,
-      false,
-      {
-        additional_information: 1,
-      },
+      "giftSubscription",
+      "POST",
+      "/estimates",
+      "/gift_subscription",
+      false,null, false,
+    { 
+        "additional_information": 1,
+    },
+    {
+        
+    }
     ],
     [
-      'giftSubscriptionForItems',
-      'POST',
-      '/estimates',
-      '/gift_subscription_for_items',
-      false,
-      null,
-      false,
-      {
-        additional_information: 1,
-      },
+      "giftSubscriptionForItems",
+      "POST",
+      "/estimates",
+      "/gift_subscription_for_items",
+      false,null, false,
+    { 
+        "additional_information": 1,
+    },
+    {
+        
+    }
     ],
     [
-      'createInvoice',
-      'POST',
-      '/estimates',
-      '/create_invoice',
-      false,
-      null,
-      false,
-      {},
+      "createInvoice",
+      "POST",
+      "/estimates",
+      "/create_invoice",
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'createInvoiceForItems',
-      'POST',
-      '/estimates',
-      '/create_invoice_for_items',
-      false,
-      null,
-      false,
-      {},
+      "createInvoiceForItems",
+      "POST",
+      "/estimates",
+      "/create_invoice_for_items",
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'paymentSchedules',
-      'POST',
-      '/estimates',
-      '/payment_schedules',
-      false,
-      null,
-      false,
-      {},
-    ],
+      "paymentSchedules",
+      "POST",
+      "/estimates",
+      "/payment_schedules",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  quote: [
-    ['retrieve', 'GET', '/quotes', null, true, null, false, {}],
+  "quote": [
     [
-      'createSubForCustomerQuote',
-      'POST',
-      '/customers',
-      '/create_subscription_quote',
-      true,
+      "retrieve",
+      "GET",
+      "/quotes",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'editCreateSubForCustomerQuote',
-      'POST',
-      '/quotes',
-      '/edit_create_subscription_quote',
-      true,
-      null,
-      false,
-      {},
+      "createSubForCustomerQuote",
+      "POST",
+      "/customers",
+      "/create_subscription_quote",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'updateSubscriptionQuote',
-      'POST',
-      '/quotes',
-      '/update_subscription_quote',
-      false,
-      null,
-      false,
-      {},
+      "editCreateSubForCustomerQuote",
+      "POST",
+      "/quotes",
+      "/edit_create_subscription_quote",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'editUpdateSubscriptionQuote',
-      'POST',
-      '/quotes',
-      '/edit_update_subscription_quote',
-      true,
-      null,
-      false,
-      {},
+      "updateSubscriptionQuote",
+      "POST",
+      "/quotes",
+      "/update_subscription_quote",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createForOnetimeCharges',
-      'POST',
-      '/quotes',
-      '/create_for_onetime_charges',
-      false,
-      null,
-      false,
-      {},
+      "editUpdateSubscriptionQuote",
+      "POST",
+      "/quotes",
+      "/edit_update_subscription_quote",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'editOneTimeQuote',
-      'POST',
-      '/quotes',
-      '/edit_one_time_quote',
-      true,
-      null,
-      false,
-      {},
+      "createForOnetimeCharges",
+      "POST",
+      "/quotes",
+      "/create_for_onetime_charges",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createSubItemsForCustomerQuote',
-      'POST',
-      '/customers',
-      '/create_subscription_quote_for_items',
-      true,
-      null,
-      false,
-      {},
+      "editOneTimeQuote",
+      "POST",
+      "/quotes",
+      "/edit_one_time_quote",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'editCreateSubCustomerQuoteForItems',
-      'POST',
-      '/quotes',
-      '/edit_create_subscription_quote_for_items',
-      true,
-      null,
-      false,
-      {},
+      "createSubItemsForCustomerQuote",
+      "POST",
+      "/customers",
+      "/create_subscription_quote_for_items",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'updateSubscriptionQuoteForItems',
-      'POST',
-      '/quotes',
-      '/update_subscription_quote_for_items',
-      false,
-      null,
-      false,
-      {},
+      "editCreateSubCustomerQuoteForItems",
+      "POST",
+      "/quotes",
+      "/edit_create_subscription_quote_for_items",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'editUpdateSubscriptionQuoteForItems',
-      'POST',
-      '/quotes',
-      '/edit_update_subscription_quote_for_items',
-      true,
-      null,
-      false,
-      {},
+      "updateSubscriptionQuoteForItems",
+      "POST",
+      "/quotes",
+      "/update_subscription_quote_for_items",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createForChargeItemsAndCharges',
-      'POST',
-      '/quotes',
-      '/create_for_charge_items_and_charges',
-      false,
-      null,
-      false,
-      {},
+      "editUpdateSubscriptionQuoteForItems",
+      "POST",
+      "/quotes",
+      "/edit_update_subscription_quote_for_items",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'editForChargeItemsAndCharges',
-      'POST',
-      '/quotes',
-      '/edit_for_charge_items_and_charges',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['list', 'GET', '/quotes', null, false, null, false, {}],
-    [
-      'quoteLineGroupsForQuote',
-      'GET',
-      '/quotes',
-      '/quote_line_groups',
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['convert', 'POST', '/quotes', '/convert', true, null, false, {}],
-    [
-      'updateStatus',
-      'POST',
-      '/quotes',
-      '/update_status',
-      true,
-      null,
-      false,
-      {},
+      "createForChargeItemsAndCharges",
+      "POST",
+      "/quotes",
+      "/create_for_charge_items_and_charges",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'extendExpiryDate',
-      'POST',
-      '/quotes',
-      '/extend_expiry_date',
-      true,
-      null,
-      false,
-      {},
+      "editForChargeItemsAndCharges",
+      "POST",
+      "/quotes",
+      "/edit_for_charge_items_and_charges",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['delete', 'POST', '/quotes', '/delete', true, null, false, {}],
-    ['pdf', 'POST', '/quotes', '/pdf', true, null, false, {}],
+    [
+      "list",
+      "GET",
+      "/quotes",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "quoteLineGroupsForQuote",
+      "GET",
+      "/quotes",
+      "/quote_line_groups",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "convert",
+      "POST",
+      "/quotes",
+      "/convert",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "updateStatus",
+      "POST",
+      "/quotes",
+      "/update_status",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "extendExpiryDate",
+      "POST",
+      "/quotes",
+      "/extend_expiry_date",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/quotes",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "pdf",
+      "POST",
+      "/quotes",
+      "/pdf",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  quotedSubscription: [],
-  quotedCharge: [],
-  quoteLineGroup: [],
-  plan: [
+  "quotedSubscription": [],
+  "quotedCharge": [],
+  "quoteLineGroup": [],
+  "plan": [
     [
-      'create',
-      'POST',
-      '/plans',
+      "create",
+      "POST",
+      "/plans",
       null,
-      false,
-      null,
-      false,
-      {
-        meta_data: 0,
-      },
+      false,null, false,
+    { 
+        "meta_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'update',
-      'POST',
-      '/plans',
+      "update",
+      "POST",
+      "/plans",
       null,
-      true,
-      null,
-      false,
-      {
-        meta_data: 0,
-      },
+      true,null, false,
+    { 
+        "meta_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['list', 'GET', '/plans', null, false, null, false, {}],
-    ['retrieve', 'GET', '/plans', null, true, null, false, {}],
-    ['delete', 'POST', '/plans', '/delete', true, null, false, {}],
-    ['copy', 'POST', '/plans', '/copy', false, null, false, {}],
-    ['unarchive', 'POST', '/plans', '/unarchive', true, null, false, {}],
+    [
+      "list",
+      "GET",
+      "/plans",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/plans",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/plans",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "copy",
+      "POST",
+      "/plans",
+      "/copy",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "unarchive",
+      "POST",
+      "/plans",
+      "/unarchive",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  addon: [
+  "addon": [
     [
-      'create',
-      'POST',
-      '/addons',
+      "create",
+      "POST",
+      "/addons",
       null,
-      false,
-      null,
-      false,
-      {
-        meta_data: 0,
-      },
+      false,null, false,
+    { 
+        "meta_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'update',
-      'POST',
-      '/addons',
+      "update",
+      "POST",
+      "/addons",
       null,
-      true,
-      null,
-      false,
-      {
-        meta_data: 0,
-      },
+      true,null, false,
+    { 
+        "meta_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['list', 'GET', '/addons', null, false, null, false, {}],
-    ['retrieve', 'GET', '/addons', null, true, null, false, {}],
-    ['delete', 'POST', '/addons', '/delete', true, null, false, {}],
-    ['copy', 'POST', '/addons', '/copy', false, null, false, {}],
-    ['unarchive', 'POST', '/addons', '/unarchive', true, null, false, {}],
+    [
+      "list",
+      "GET",
+      "/addons",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/addons",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/addons",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "copy",
+      "POST",
+      "/addons",
+      "/copy",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "unarchive",
+      "POST",
+      "/addons",
+      "/unarchive",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  coupon: [
+  "coupon": [
     [
-      'create',
-      'POST',
-      '/coupons',
+      "create",
+      "POST",
+      "/coupons",
       null,
-      false,
-      null,
-      false,
-      {
-        meta_data: 0,
-      },
+      false,null, false,
+    { 
+        "meta_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'createForItems',
-      'POST',
-      '/coupons',
-      '/create_for_items',
-      false,
-      null,
-      false,
-      {
-        meta_data: 0,
-        item_price_ids: 1,
-        item_family_ids: 1,
-        currencies: 1,
-        item_price_periods: 1,
-      },
+      "createForItems",
+      "POST",
+      "/coupons",
+      "/create_for_items",
+      false,null, false,
+    { 
+        "meta_data": 0,
+        "item_price_ids": 1,
+        "item_family_ids": 1,
+        "currencies": 1,
+        "item_price_periods": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'updateForItems',
-      'POST',
-      '/coupons',
-      '/update_for_items',
-      true,
-      null,
-      false,
-      {
-        meta_data: 0,
-        item_price_ids: 1,
-        item_family_ids: 1,
-        currencies: 1,
-        item_price_periods: 1,
-      },
+      "updateForItems",
+      "POST",
+      "/coupons",
+      "/update_for_items",
+      true,null, false,
+    { 
+        "meta_data": 0,
+        "item_price_ids": 1,
+        "item_family_ids": 1,
+        "currencies": 1,
+        "item_price_periods": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['list', 'GET', '/coupons', null, false, null, false, {}],
-    ['retrieve', 'GET', '/coupons', null, true, null, false, {}],
     [
-      'update',
-      'POST',
-      '/coupons',
+      "list",
+      "GET",
+      "/coupons",
       null,
-      true,
-      null,
-      false,
-      {
-        meta_data: 0,
-      },
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
-    ['delete', 'POST', '/coupons', '/delete', true, null, false, {}],
-    ['copy', 'POST', '/coupons', '/copy', false, null, false, {}],
-    ['unarchive', 'POST', '/coupons', '/unarchive', true, null, false, {}],
+    [
+      "retrieve",
+      "GET",
+      "/coupons",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "update",
+      "POST",
+      "/coupons",
+      null,
+      true,null, false,
+    { 
+        "meta_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/coupons",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "copy",
+      "POST",
+      "/coupons",
+      "/copy",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "unarchive",
+      "POST",
+      "/coupons",
+      "/unarchive",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  couponSet: [
+  "couponSet": [
     [
-      'create',
-      'POST',
-      '/coupon_sets',
+      "create",
+      "POST",
+      "/coupon_sets",
       null,
-      false,
-      null,
-      false,
-      {
-        meta_data: 0,
-      },
+      false,null, false,
+    { 
+        "meta_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'addCouponCodes',
-      'POST',
-      '/coupon_sets',
-      '/add_coupon_codes',
-      true,
-      null,
-      false,
-      {},
+      "addCouponCodes",
+      "POST",
+      "/coupon_sets",
+      "/add_coupon_codes",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['list', 'GET', '/coupon_sets', null, false, null, false, {}],
-    ['retrieve', 'GET', '/coupon_sets', null, true, null, false, {}],
     [
-      'update',
-      'POST',
-      '/coupon_sets',
-      '/update',
-      true,
+      "list",
+      "GET",
+      "/coupon_sets",
       null,
-      false,
-      {
-        meta_data: 0,
-      },
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
-    ['delete', 'POST', '/coupon_sets', '/delete', true, null, false, {}],
     [
-      'deleteUnusedCouponCodes',
-      'POST',
-      '/coupon_sets',
-      '/delete_unused_coupon_codes',
-      true,
+      "retrieve",
+      "GET",
+      "/coupon_sets",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
+    [
+      "update",
+      "POST",
+      "/coupon_sets",
+      "/update",
+      true,null, false,
+    { 
+        "meta_data": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/coupon_sets",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "deleteUnusedCouponCodes",
+      "POST",
+      "/coupon_sets",
+      "/delete_unused_coupon_codes",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  couponCode: [
-    ['create', 'POST', '/coupon_codes', null, false, null, false, {}],
-    ['retrieve', 'GET', '/coupon_codes', null, true, null, false, {}],
-    ['list', 'GET', '/coupon_codes', null, false, null, false, {}],
-    ['archive', 'POST', '/coupon_codes', '/archive', true, null, false, {}],
+  "couponCode": [
+    [
+      "create",
+      "POST",
+      "/coupon_codes",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/coupon_codes",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/coupon_codes",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "archive",
+      "POST",
+      "/coupon_codes",
+      "/archive",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  address: [
-    ['retrieve', 'GET', '/addresses', null, false, null, false, {}],
-    ['update', 'POST', '/addresses', null, false, null, false, {}],
+  "address": [
+    [
+      "retrieve",
+      "GET",
+      "/addresses",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "update",
+      "POST",
+      "/addresses",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  usage: [
-    ['create', 'POST', '/subscriptions', '/usages', true, null, false, {}],
-    ['retrieve', 'GET', '/subscriptions', '/usages', true, null, false, {}],
+  "usage": [
     [
-      'delete',
-      'POST',
-      '/subscriptions',
-      '/delete_usage',
-      true,
-      null,
-      false,
-      {},
+      "create",
+      "POST",
+      "/subscriptions",
+      "/usages",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['list', 'GET', '/usages', null, false, null, false, {}],
-    ['pdf', 'POST', '/usages', '/pdf', false, null, false, {}],
+    [
+      "retrieve",
+      "GET",
+      "/subscriptions",
+      "/usages",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/subscriptions",
+      "/delete_usage",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/usages",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "pdf",
+      "POST",
+      "/usages",
+      "/pdf",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  event: [
-    ['list', 'GET', '/events', null, false, null, false, {}],
-    ['retrieve', 'GET', '/events', null, true, null, false, {}],
+  "event": [
+    [
+      "list",
+      "GET",
+      "/events",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/events",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  comment: [
-    ['create', 'POST', '/comments', null, false, null, false, {}],
-    ['retrieve', 'GET', '/comments', null, true, null, false, {}],
-    ['list', 'GET', '/comments', null, false, null, false, {}],
-    ['delete', 'POST', '/comments', '/delete', true, null, false, {}],
+  "comment": [
+    [
+      "create",
+      "POST",
+      "/comments",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/comments",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/comments",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/comments",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  download: [],
-  portalSession: [
-    ['create', 'POST', '/portal_sessions', null, false, null, false, {}],
-    ['retrieve', 'GET', '/portal_sessions', null, true, null, false, {}],
-    ['logout', 'POST', '/portal_sessions', '/logout', true, null, false, {}],
+  "download": [],
+  "portalSession": [
     [
-      'activate',
-      'POST',
-      '/portal_sessions',
-      '/activate',
-      true,
+      "create",
+      "POST",
+      "/portal_sessions",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
+    [
+      "retrieve",
+      "GET",
+      "/portal_sessions",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "logout",
+      "POST",
+      "/portal_sessions",
+      "/logout",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "activate",
+      "POST",
+      "/portal_sessions",
+      "/activate",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  siteMigrationDetail: [
-    ['list', 'GET', '/site_migration_details', null, false, null, false, {}],
+  "siteMigrationDetail": [
+    [
+      "list",
+      "GET",
+      "/site_migration_details",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  resourceMigration: [
+  "resourceMigration": [
     [
-      'retrieveLatest',
-      'GET',
-      '/resource_migrations',
-      '/retrieve_latest',
-      false,
-      null,
-      false,
-      {},
-    ],
+      "retrieveLatest",
+      "GET",
+      "/resource_migrations",
+      "/retrieve_latest",
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  timeMachine: [
-    ['retrieve', 'GET', '/time_machines', null, true, null, false, {}],
+  "timeMachine": [
     [
-      'startAfresh',
-      'POST',
-      '/time_machines',
-      '/start_afresh',
-      true,
+      "retrieve",
+      "GET",
+      "/time_machines",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'travelForward',
-      'POST',
-      '/time_machines',
-      '/travel_forward',
-      true,
-      null,
-      false,
-      {},
+      "startAfresh",
+      "POST",
+      "/time_machines",
+      "/start_afresh",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
+    [
+      "travelForward",
+      "POST",
+      "/time_machines",
+      "/travel_forward",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  export: [
-    ['retrieve', 'GET', '/exports', null, true, null, false, {}],
+  "export": [
     [
-      'revenueRecognition',
-      'POST',
-      '/exports',
-      '/revenue_recognition',
-      false,
+      "retrieve",
+      "GET",
+      "/exports",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'deferredRevenue',
-      'POST',
-      '/exports',
-      '/deferred_revenue',
-      false,
-      null,
-      false,
-      {},
-    ],
-    ['plans', 'POST', '/exports', '/plans', false, null, false, {}],
-    ['addons', 'POST', '/exports', '/addons', false, null, false, {}],
-    ['coupons', 'POST', '/exports', '/coupons', false, null, false, {}],
-    ['customers', 'POST', '/exports', '/customers', false, null, false, {}],
-    [
-      'subscriptions',
-      'POST',
-      '/exports',
-      '/subscriptions',
-      false,
-      null,
-      false,
-      {},
-    ],
-    ['invoices', 'POST', '/exports', '/invoices', false, null, false, {}],
-    [
-      'creditNotes',
-      'POST',
-      '/exports',
-      '/credit_notes',
-      false,
-      null,
-      false,
-      {},
+      "revenueRecognition",
+      "POST",
+      "/exports",
+      "/revenue_recognition",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'transactions',
-      'POST',
-      '/exports',
-      '/transactions',
-      false,
-      null,
-      false,
-      {},
-    ],
-    ['orders', 'POST', '/exports', '/orders', false, null, false, {}],
-    [
-      'itemFamilies',
-      'POST',
-      '/exports',
-      '/item_families',
-      false,
-      null,
-      false,
-      {},
-    ],
-    ['items', 'POST', '/exports', '/items', false, null, false, {}],
-    ['itemPrices', 'POST', '/exports', '/item_prices', false, null, false, {}],
-    [
-      'attachedItems',
-      'POST',
-      '/exports',
-      '/attached_items',
-      false,
-      null,
-      false,
-      {},
+      "deferredRevenue",
+      "POST",
+      "/exports",
+      "/deferred_revenue",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'differentialPrices',
-      'POST',
-      '/exports',
-      '/differential_prices',
-      false,
-      null,
-      false,
-      {},
+      "plans",
+      "POST",
+      "/exports",
+      "/plans",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'priceVariants',
-      'POST',
-      '/exports',
-      '/price_variants',
-      false,
-      null,
-      false,
-      {},
+      "addons",
+      "POST",
+      "/exports",
+      "/addons",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
+    [
+      "coupons",
+      "POST",
+      "/exports",
+      "/coupons",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "customers",
+      "POST",
+      "/exports",
+      "/customers",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "subscriptions",
+      "POST",
+      "/exports",
+      "/subscriptions",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "invoices",
+      "POST",
+      "/exports",
+      "/invoices",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "creditNotes",
+      "POST",
+      "/exports",
+      "/credit_notes",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "transactions",
+      "POST",
+      "/exports",
+      "/transactions",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "orders",
+      "POST",
+      "/exports",
+      "/orders",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "itemFamilies",
+      "POST",
+      "/exports",
+      "/item_families",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "items",
+      "POST",
+      "/exports",
+      "/items",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "itemPrices",
+      "POST",
+      "/exports",
+      "/item_prices",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "attachedItems",
+      "POST",
+      "/exports",
+      "/attached_items",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "differentialPrices",
+      "POST",
+      "/exports",
+      "/differential_prices",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "priceVariants",
+      "POST",
+      "/exports",
+      "/price_variants",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  paymentIntent: [
-    ['create', 'POST', '/payment_intents', null, false, null, false, {}],
-    ['update', 'POST', '/payment_intents', null, true, null, false, {}],
-    ['retrieve', 'GET', '/payment_intents', null, true, null, false, {}],
+  "paymentIntent": [
+    [
+      "create",
+      "POST",
+      "/payment_intents",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "update",
+      "POST",
+      "/payment_intents",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/payment_intents",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  gatewayErrorDetail: [],
-  itemFamily: [
-    ['create', 'POST', '/item_families', null, false, null, false, {}],
-    ['retrieve', 'GET', '/item_families', null, true, null, false, {}],
-    ['list', 'GET', '/item_families', null, false, null, false, {}],
-    ['update', 'POST', '/item_families', null, true, null, false, {}],
-    ['delete', 'POST', '/item_families', '/delete', true, null, false, {}],
+  "gatewayErrorDetail": [],
+  "itemFamily": [
+    [
+      "create",
+      "POST",
+      "/item_families",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/item_families",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/item_families",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "update",
+      "POST",
+      "/item_families",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/item_families",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  item: [
+  "item": [
     [
-      'create',
-      'POST',
-      '/items',
+      "create",
+      "POST",
+      "/items",
       null,
-      false,
-      null,
-      false,
-      {
-        metadata: 0,
-      },
+      false,null, false,
+    { 
+        "metadata": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['retrieve', 'GET', '/items', null, true, null, false, {}],
     [
-      'update',
-      'POST',
-      '/items',
+      "retrieve",
+      "GET",
+      "/items",
       null,
-      true,
-      null,
-      false,
-      {
-        metadata: 0,
-      },
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
-    ['list', 'GET', '/items', null, false, null, false, {}],
-    ['delete', 'POST', '/items', '/delete', true, null, false, {}],
+    [
+      "update",
+      "POST",
+      "/items",
+      null,
+      true,null, false,
+    { 
+        "metadata": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/items",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/items",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  priceVariant: [
-    ['create', 'POST', '/price_variants', null, false, null, false, {}],
-    ['retrieve', 'GET', '/price_variants', null, true, null, false, {}],
-    ['update', 'POST', '/price_variants', null, true, null, false, {}],
-    ['delete', 'POST', '/price_variants', '/delete', true, null, false, {}],
-    ['list', 'GET', '/price_variants', null, false, null, false, {}],
+  "priceVariant": [
+    [
+      "create",
+      "POST",
+      "/price_variants",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/price_variants",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "update",
+      "POST",
+      "/price_variants",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/price_variants",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/price_variants",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  attribute: [],
-  itemPrice: [
+  "attribute": [],
+  "itemPrice": [
     [
-      'create',
-      'POST',
-      '/item_prices',
+      "create",
+      "POST",
+      "/item_prices",
       null,
-      false,
-      null,
-      false,
-      {
-        metadata: 0,
-      },
-    ],
-    ['retrieve', 'GET', '/item_prices', null, true, null, false, {}],
-    [
-      'update',
-      'POST',
-      '/item_prices',
-      null,
-      true,
-      null,
-      false,
-      {
-        metadata: 0,
-      },
-    ],
-    ['list', 'GET', '/item_prices', null, false, null, false, {}],
-    ['delete', 'POST', '/item_prices', '/delete', true, null, false, {}],
-    [
-      'findApplicableItems',
-      'GET',
-      '/item_prices',
-      '/applicable_items',
-      true,
-      null,
-      false,
-      {},
+      false,null, false,
+    { 
+        "metadata": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'findApplicableItemPrices',
-      'GET',
-      '/item_prices',
-      '/applicable_item_prices',
-      true,
+      "retrieve",
+      "GET",
+      "/item_prices",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
+    [
+      "update",
+      "POST",
+      "/item_prices",
+      null,
+      true,null, false,
+    { 
+        "metadata": 0,
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/item_prices",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/item_prices",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "findApplicableItems",
+      "GET",
+      "/item_prices",
+      "/applicable_items",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "findApplicableItemPrices",
+      "GET",
+      "/item_prices",
+      "/applicable_item_prices",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  attachedItem: [
-    ['create', 'POST', '/items', '/attached_items', true, null, false, {}],
-    ['update', 'POST', '/attached_items', null, true, null, false, {}],
-    ['retrieve', 'GET', '/attached_items', null, true, null, false, {}],
-    ['delete', 'POST', '/attached_items', '/delete', true, null, false, {}],
-    ['list', 'GET', '/items', '/attached_items', true, null, false, {}],
+  "attachedItem": [
+    [
+      "create",
+      "POST",
+      "/items",
+      "/attached_items",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "update",
+      "POST",
+      "/attached_items",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/attached_items",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/attached_items",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/items",
+      "/attached_items",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  differentialPrice: [
+  "differentialPrice": [
     [
-      'create',
-      'POST',
-      '/item_prices',
-      '/differential_prices',
-      true,
-      null,
-      false,
-      {
-        period: 1,
-      },
-    ],
-    ['retrieve', 'GET', '/differential_prices', null, true, null, false, {}],
-    [
-      'update',
-      'POST',
-      '/differential_prices',
-      null,
-      true,
-      null,
-      false,
-      {
-        period: 1,
-      },
+      "create",
+      "POST",
+      "/item_prices",
+      "/differential_prices",
+      true,null, false,
+    { 
+        "period": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'delete',
-      'POST',
-      '/differential_prices',
-      '/delete',
-      true,
+      "retrieve",
+      "GET",
+      "/differential_prices",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
-    ['list', 'GET', '/differential_prices', null, false, null, false, {}],
+    [
+      "update",
+      "POST",
+      "/differential_prices",
+      null,
+      true,null, false,
+    { 
+        "period": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/differential_prices",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/differential_prices",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  configuration: [
-    ['list', 'GET', '/configurations', null, false, null, false, {}],
+  "configuration": [
+    [
+      "list",
+      "GET",
+      "/configurations",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  feature: [
-    ['list', 'GET', '/features', null, false, null, false, {}],
-    ['create', 'POST', '/features', null, false, null, false, {}],
-    ['update', 'POST', '/features', null, true, null, false, {}],
-    ['retrieve', 'GET', '/features', null, true, null, false, {}],
-    ['delete', 'POST', '/features', '/delete', true, null, false, {}],
+  "feature": [
     [
-      'activate',
-      'POST',
-      '/features',
-      '/activate_command',
-      true,
+      "list",
+      "GET",
+      "/features",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
-    ['archive', 'POST', '/features', '/archive_command', true, null, false, {}],
     [
-      'reactivate',
-      'POST',
-      '/features',
-      '/reactivate_command',
-      true,
+      "create",
+      "POST",
+      "/features",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
+    [
+      "update",
+      "POST",
+      "/features",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/features",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/features",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "activate",
+      "POST",
+      "/features",
+      "/activate_command",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "archive",
+      "POST",
+      "/features",
+      "/archive_command",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "reactivate",
+      "POST",
+      "/features",
+      "/reactivate_command",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  impactedSubscription: [],
-  impactedItem: [],
-  impactedItemPrice: [],
-  metadata: [],
-  subscriptionEntitlement: [
+  "impactedSubscription": [],
+  "impactedItem": [],
+  "impactedItemPrice": [],
+  "metadata": [],
+  "subscriptionEntitlement": [
     [
-      'subscriptionEntitlementsForSubscription',
-      'GET',
-      '/subscriptions',
-      '/subscription_entitlements',
-      true,
-      null,
-      false,
-      {},
+      "subscriptionEntitlementsForSubscription",
+      "GET",
+      "/subscriptions",
+      "/subscription_entitlements",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'setSubscriptionEntitlementAvailability',
-      'POST',
-      '/subscriptions',
-      '/subscription_entitlements/set_availability',
-      true,
-      null,
-      false,
-      {},
-    ],
+      "setSubscriptionEntitlementAvailability",
+      "POST",
+      "/subscriptions",
+      "/subscription_entitlements/set_availability",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  customerEntitlement: [
+  "customerEntitlement": [
     [
-      'entitlementsForCustomer',
-      'GET',
-      '/customers',
-      '/customer_entitlements',
-      true,
-      null,
-      false,
-      {},
-    ],
+      "entitlementsForCustomer",
+      "GET",
+      "/customers",
+      "/customer_entitlements",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  itemEntitlement: [
+  "itemEntitlement": [
     [
-      'itemEntitlementsForItem',
-      'GET',
-      '/items',
-      '/item_entitlements',
-      true,
-      null,
-      false,
-      {},
+      "itemEntitlementsForItem",
+      "GET",
+      "/items",
+      "/item_entitlements",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'itemEntitlementsForFeature',
-      'GET',
-      '/features',
-      '/item_entitlements',
-      true,
-      null,
-      false,
-      {},
+      "itemEntitlementsForFeature",
+      "GET",
+      "/features",
+      "/item_entitlements",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'addItemEntitlements',
-      'POST',
-      '/features',
-      '/item_entitlements',
-      true,
-      null,
-      false,
-      {},
+      "addItemEntitlements",
+      "POST",
+      "/features",
+      "/item_entitlements",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'upsertOrRemoveItemEntitlementsForItem',
-      'POST',
-      '/items',
-      '/item_entitlements',
-      true,
-      null,
-      false,
-      {},
-    ],
+      "upsertOrRemoveItemEntitlementsForItem",
+      "POST",
+      "/items",
+      "/item_entitlements",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  entitlement: [
-    ['list', 'GET', '/entitlements', null, false, null, false, {}],
-    ['create', 'POST', '/entitlements', null, false, null, false, {}],
+  "entitlement": [
+    [
+      "list",
+      "GET",
+      "/entitlements",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "create",
+      "POST",
+      "/entitlements",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  inAppSubscription: [
+  "inAppSubscription": [
     [
-      'processReceipt',
-      'POST',
-      '/in_app_subscriptions',
-      '/process_purchase_command',
-      true,
-      null,
-      false,
-      {},
+      "processReceipt",
+      "POST",
+      "/in_app_subscriptions",
+      "/process_purchase_command",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'importReceipt',
-      'POST',
-      '/in_app_subscriptions',
-      '/import_receipt',
-      true,
-      null,
-      false,
-      {},
+      "importReceipt",
+      "POST",
+      "/in_app_subscriptions",
+      "/import_receipt",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'importSubscription',
-      'POST',
-      '/in_app_subscriptions',
-      '/import_subscription',
-      true,
-      null,
-      false,
-      {},
+      "importSubscription",
+      "POST",
+      "/in_app_subscriptions",
+      "/import_subscription",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'retrieveStoreSubs',
-      'POST',
-      '/in_app_subscriptions',
-      '/retrieve',
-      true,
-      null,
-      false,
-      {},
-    ],
+      "retrieveStoreSubs",
+      "POST",
+      "/in_app_subscriptions",
+      "/retrieve",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  nonSubscription: [
+  "entitlementOverride": [
     [
-      'processReceipt',
-      'POST',
-      '/non_subscriptions',
-      '/one_time_purchase',
-      true,
-      null,
-      false,
-      {},
+      "addEntitlementOverrideForSubscription",
+      "POST",
+      "/subscriptions",
+      "/entitlement_overrides",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
+    [
+      "listEntitlementOverrideForSubscription",
+      "GET",
+      "/subscriptions",
+      "/entitlement_overrides",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  entitlementOverride: [
+  "businessEntity": [
     [
-      'addEntitlementOverrideForSubscription',
-      'POST',
-      '/subscriptions',
-      '/entitlement_overrides',
-      true,
-      null,
-      false,
-      {},
+      "createTransfers",
+      "POST",
+      "/business_entities",
+      "/transfers",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'listEntitlementOverrideForSubscription',
-      'GET',
-      '/subscriptions',
-      '/entitlement_overrides',
-      true,
-      null,
-      false,
-      {},
-    ],
+      "getTransfers",
+      "GET",
+      "/business_entities",
+      "/transfers",
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  businessEntity: [
+  "purchase": [
     [
-      'createTransfers',
-      'POST',
-      '/business_entities',
-      '/transfers',
-      false,
+      "create",
+      "POST",
+      "/purchases",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+        "additional_information": 1,
+        "meta_data": 1,
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'getTransfers',
-      'GET',
-      '/business_entities',
-      '/transfers',
-      false,
-      null,
-      false,
-      {},
-    ],
+      "estimate",
+      "POST",
+      "/purchases",
+      "/estimate",
+      false,null, false,
+    { 
+        "exemption_details": 1,
+    },
+    {
+        
+    }
+    ]
   ],
-  purchase: [
+  "paymentVoucher": [
     [
-      'create',
-      'POST',
-      '/purchases',
+      "create",
+      "POST",
+      "/payment_vouchers",
       null,
-      false,
-      null,
-      false,
-      {
-        additional_information: 1,
-        meta_data: 1,
-      },
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'estimate',
-      'POST',
-      '/purchases',
-      '/estimate',
-      false,
+      "retrieve",
+      "GET",
+      "/payment_vouchers",
       null,
-      false,
-      {
-        exemption_details: 1,
-      },
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
+    [
+      "payment_vouchersForInvoice",
+      "GET",
+      "/invoices",
+      "/payment_vouchers",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "payment_vouchersForCustomer",
+      "GET",
+      "/customers",
+      "/payment_vouchers",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  paymentVoucher: [
-    ['create', 'POST', '/payment_vouchers', null, false, null, false, {}],
-    ['retrieve', 'GET', '/payment_vouchers', null, true, null, false, {}],
+  "currency": [
     [
-      'payment_vouchersForInvoice',
-      'GET',
-      '/invoices',
-      '/payment_vouchers',
-      true,
-      null,
-      false,
-      {},
+      "list",
+      "GET",
+      "/currencies",
+      "/list",
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'payment_vouchersForCustomer',
-      'GET',
-      '/customers',
-      '/payment_vouchers',
-      true,
+      "retrieve",
+      "GET",
+      "/currencies",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
+    [
+      "create",
+      "POST",
+      "/currencies",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "update",
+      "POST",
+      "/currencies",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "addSchedule",
+      "POST",
+      "/currencies",
+      "/add_schedule",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "removeSchedule",
+      "POST",
+      "/currencies",
+      "/remove_schedule",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  currency: [
-    ['list', 'GET', '/currencies', '/list', false, null, false, {}],
-    ['retrieve', 'GET', '/currencies', null, true, null, false, {}],
-    ['create', 'POST', '/currencies', null, false, null, false, {}],
-    ['update', 'POST', '/currencies', null, true, null, false, {}],
+  "ramp": [
     [
-      'addSchedule',
-      'POST',
-      '/currencies',
-      '/add_schedule',
-      true,
-      null,
-      false,
-      {},
+      "createForSubscription",
+      "POST",
+      "/subscriptions",
+      "/create_ramp",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'removeSchedule',
-      'POST',
-      '/currencies',
-      '/remove_schedule',
-      true,
-      null,
-      false,
-      {},
+      "update",
+      "POST",
+      "/ramps",
+      "/update",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
+    [
+      "retrieve",
+      "GET",
+      "/ramps",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/ramps",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "list",
+      "GET",
+      "/ramps",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  ramp: [
+  "paymentScheduleScheme": [
     [
-      'createForSubscription',
-      'POST',
-      '/subscriptions',
-      '/create_ramp',
-      true,
+      "create",
+      "POST",
+      "/payment_schedule_schemes",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
-    ['update', 'POST', '/ramps', '/update', true, null, false, {}],
-    ['retrieve', 'GET', '/ramps', null, true, null, false, {}],
-    ['delete', 'POST', '/ramps', '/delete', true, null, false, {}],
-    ['list', 'GET', '/ramps', null, false, null, false, {}],
+    [
+      "retrieve",
+      "GET",
+      "/payment_schedule_schemes",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "delete",
+      "POST",
+      "/payment_schedule_schemes",
+      "/delete",
+      true,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  paymentScheduleScheme: [
+  "pricingPageSession": [
     [
-      'create',
-      'POST',
-      '/payment_schedule_schemes',
-      null,
-      false,
-      null,
-      false,
-      {},
+      "createForNewSubscription",
+      "POST",
+      "/pricing_page_sessions",
+      "/create_for_new_subscription",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
     ],
     [
-      'retrieve',
-      'GET',
-      '/payment_schedule_schemes',
-      null,
-      true,
-      null,
-      false,
-      {},
-    ],
-    [
-      'delete',
-      'POST',
-      '/payment_schedule_schemes',
-      '/delete',
-      true,
-      null,
-      false,
-      {},
-    ],
+      "createForExistingSubscription",
+      "POST",
+      "/pricing_page_sessions",
+      "/create_for_existing_subscription",
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ]
   ],
-  pricingPageSession: [
+  "omnichannelSubscription": [
     [
-      'createForNewSubscription',
-      'POST',
-      '/pricing_page_sessions',
-      '/create_for_new_subscription',
-      false,
+      "retrieve",
+      "GET",
+      "/omnichannel_subscriptions",
       null,
-      false,
-      {},
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
     [
-      'createForExistingSubscription',
-      'POST',
-      '/pricing_page_sessions',
-      '/create_for_existing_subscription',
-      false,
+      "list",
+      "GET",
+      "/omnichannel_subscriptions",
       null,
-      false,
-      {},
+      false,null, false,
+    { 
+    },
+    {
+        
+    }
     ],
+    [
+      "omnichannel_transactionsForOmnichannelSubscription",
+      "GET",
+      "/omnichannel_subscriptions",
+      "/omnichannel_transactions",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  omnichannelSubscription: [
+  "omnichannelTransaction": [],
+  "omnichannelSubscriptionItem": [
     [
-      'retrieve',
-      'GET',
-      '/omnichannel_subscriptions',
-      null,
-      true,
-      null,
-      false,
-      {},
-    ],
-    ['list', 'GET', '/omnichannel_subscriptions', null, false, null, false, {}],
-    [
-      'omnichannel_transactionsForOmnichannelSubscription',
-      'GET',
-      '/omnichannel_subscriptions',
-      '/omnichannel_transactions',
-      true,
-      null,
-      false,
-      {},
-    ],
+      "listOmniSubItemScheduleChanges",
+      "GET",
+      "/omnichannel_subscription_items",
+      "/scheduled_changes",
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
   ],
-  omnichannelTransaction: [],
-  omnichannelSubscriptionItem: [
+  "recordedPurchase": [
     [
-      'listOmniSubItemScheduleChanges',
-      'GET',
-      '/omnichannel_subscription_items',
-      '/scheduled_changes',
-      true,
+      "create",
+      "POST",
+      "/recorded_purchases",
+      null,
+      false,null, false,
+    { 
+    },
+    {
+        
+        isIdempotent: true
+    }
+    ],
+    [
+      "retrieve",
+      "GET",
+      "/recorded_purchases",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
+  ],
+  "rule": [
+    [
+      "retrieve",
+      "GET",
+      "/rules",
+      null,
+      true,null, false,
+    { 
+    },
+    {
+        
+    }
+    ]
+  ],
+  "usageEvent": [
+    [
+      "create",
+      "POST",
+      "/usage_events",
       null,
       false,
-      {},
+    "ingest",true,
+    { 
+        "properties": 0,
+    },
+    {
+        
+    }
     ],
-  ],
-  recordedPurchase: [
-    ['create', 'POST', '/recorded_purchases', null, false, null, false, {}],
-    ['retrieve', 'GET', '/recorded_purchases', null, true, null, false, {}],
-  ],
-  rule: [['retrieve', 'GET', '/rules', null, true, null, false, {}]],
-  usageEvent: [
     [
-      'create',
-      'POST',
-      '/usage_events',
-      null,
+      "batchIngest",
+      "POST",
+      "/batch",
+      "/usage_events",
       false,
-      'ingest',
+    "ingest",true,
+    { 
+        "properties": 1,
+    },
+    {
+        
+    }
+    ]
+  ],
+  "omnichannelSubscriptionItemScheduledChange": [],
+  "usageFile": [
+    [
+      "upload",
+      "POST",
+      "/usage_files",
+      "/upload",
+      false,
+    "file-ingest", false,
+    { 
+    },
+    {
+        
+    }
+    ],
+    [
+      "status",
+      "GET",
+      "/usage_files",
+      "/status",
       true,
-      {
-        properties: 0,
-      },
-    ],
-    [
-      'batchIngest',
-      'POST',
-      '/batch',
-      '/usage_events',
-      false,
-      'ingest',
-      true,
-      {
-        properties: 1,
-      },
-    ],
-  ],
-  omnichannelSubscriptionItemScheduledChange: [],
-  usageFile: [
-    [
-      'upload',
-      'POST',
-      '/usage_files',
-      '/upload',
-      false,
-      'file-ingest',
-      false,
-      {},
-    ],
-    [
-      'status',
-      'GET',
-      '/usage_files',
-      '/status',
-      true,
-      'file-ingest',
-      false,
-      {},
-    ],
-  ],
+    "file-ingest", false,
+    { 
+    },
+    {
+        
+    }
+    ]
+  ]
 };

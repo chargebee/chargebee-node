@@ -262,3 +262,19 @@ export function encodeParams(
   }
   return serialized.join('&').replace(/%20/g, '+');
 }
+
+export function log(env: EnvType, { level = 'INFO', message = '', context = {}, functionName = '' }) {
+  if (!env.enableDebugLogs) {
+    return;
+  }
+  const timestamp = new Date().toISOString();
+  const service = 'chargebee-node';
+  
+  const metaString = Object.entries(context)
+    .map(([key, value]) => `${key}=${value}`)
+    .join(', ');
+
+  const logLine = `[${timestamp}] [${level.toUpperCase()}] [${service}] ${functionName} - ${message}${metaString ? ` (${metaString})` : ''}`;
+  
+  console.debug(logLine);
+}

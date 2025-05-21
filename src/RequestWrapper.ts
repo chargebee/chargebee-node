@@ -6,9 +6,9 @@ import {
   encodeParams,
   serialize,
   getHost,
+  log
 } from './util';
 import {
-  Callback,
   EnvType,
   ResourceType,
   JSONValue,
@@ -23,7 +23,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class RequestWrapper {
   private readonly args: IArguments;
   private readonly httpHeaders: RequestHeaders;
-  private apiCall: ResourceType;
+  private readonly apiCall: ResourceType;
   private readonly envArg: EnvType;
 
   constructor(args: IArguments, apiCall: ResourceType, envArg: EnvType) {
@@ -43,16 +43,26 @@ export class RequestWrapper {
     return idParam;
   }
 
-  public async request(): Promise<void | Callback> {
+  private static parseRetryAfter(retryAfter?: string): number | null {
+    if (!retryAfter) return null;
+    const seconds = parseInt(retryAfter, 10);
+    if (!isNaN(seconds)) {
+      return seconds * 1000; 
+    }
+    return null; 
+  }
+
+  public async request(): Promise<any> {
     let env: any = {};
     extend(true, env, this.envArg);
 
     const retryConfig: RetryConfig = {
-      enabled: true,
-      max_retries: 3,
-      initial_delay_ms: 200,
-      max_delay_ms: 5000,
-      retry_on: [500, 502, 503, 504, 429],
+      enabled: false,
+      enableRetryForRateLimit: false,
+      maxRetries: 3,
+      initialDelayMs: 200,
+      totalRetryTimeoutMs: 10000,
+      retryOn: [500, 502, 503, 504],
       ...env.retryConfig,
     };
 
@@ -62,9 +72,13 @@ export class RequestWrapper {
 
     Object.assign(this.httpHeaders, headers);
 
-    // Ensure `chargebee-idempotency-key` is present in headers
-    if (!this.httpHeaders['chargebee-idempotency-key'] && this.apiCall.options && this.apiCall.options.get('isIdempotent')) {
-      this.httpHeaders['chargebee-idempotency-key'] = uuidv4(); // Generate a unique UUID
+    if (
+      this.apiCall.httpMethod === 'POST' &&
+      !this.httpHeaders['chargebee-idempotency-key'] &&
+      this.apiCall.options &&
+      this.apiCall.options.isIdempotent
+    ) {
+      this.httpHeaders['chargebee-idempotency-key'] = uuidv4();
     }
 
     const makeRequest = async (attempt: number = 0): Promise<any> => {
@@ -72,7 +86,7 @@ export class RequestWrapper {
         env,
         this.apiCall.urlPrefix,
         this.apiCall.urlSuffix,
-        urlIdParam,
+        urlIdParam
       );
 
       if (typeof params === 'undefined' || params === null) {
@@ -111,22 +125,20 @@ export class RequestWrapper {
         'Lang-Version': typeof process === 'undefined' ? '' : process.version,
       });
 
-      // Add X-CB-Retry-Attempt header for retries (attempt > 0)
       if (attempt > 0) {
         requestHeaders['X-CB-Retry-Attempt'] = attempt.toString();
       }
 
-      const resp: HttpClientResponseInterface =
-        await this.envArg.httpClient.makeApiRequest({
-          host: getHost(env, this.apiCall.subDomain),
-          port: env.port,
-          path,
-          method: this.apiCall.httpMethod,
-          protocol: env.protocol,
-          headers: requestHeaders,
-          data: data,
-          timeout: env.timeout,
-        });
+      const resp: HttpClientResponseInterface = await this.envArg.httpClient.makeApiRequest({
+        host: getHost(env, this.apiCall.subDomain),
+        port: env.port,
+        path,
+        method: this.apiCall.httpMethod,
+        protocol: env.protocol,
+        headers: requestHeaders,
+        data,
+        timeout: env.timeout,
+      });
 
       return new Promise((resolve, reject) => {
         handleResponse((err, response) => {
@@ -136,40 +148,65 @@ export class RequestWrapper {
       });
     };
 
-    const withRetry = async (): Promise<any> => {
-      let attempt = 0;
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-      while (true) {
-        try {
-          return await makeRequest(attempt);
-        } catch (err: any) {
-          const statusCode =
-            err?.statusCode ||
-            err?.response?.statusCode ||
-            (typeof err?.getStatusCode === 'function' ? err.getStatusCode() : undefined);
-
-          const shouldRetry =
-            retryConfig.enabled &&
-            attempt < retryConfig.max_retries &&
-            statusCode &&
-            retryConfig.retry_on.includes(statusCode);
-
-          if (!shouldRetry) {
+    const withRetry = async (retryCount: number, startTime: number): Promise<any> => {
+      try {
+        return await makeRequest(retryCount);
+      } catch (err: any) {
+        const statusCode = err.statusCode ?? err.response?.statusCode;
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = retryConfig.totalRetryTimeoutMs - elapsedTime;
+    
+        const isRateLimitError = statusCode === 429 && retryConfig.retryOnRateLimit && retryConfig.enabled ;
+    
+        if (isRateLimitError) {
+          const retryAfterHeader = err.response?.headers?.['retry-after']?.toLowerCase();
+          const parsedDelay = RequestWrapper.parseRetryAfter(retryAfterHeader);
+          if (!parsedDelay) {
+            log(env, {
+              level: 'ERROR',
+              message: `Rate limit error occurred, but no retry-after header found. Retrying in ${retryConfig.initialDelayMs}ms.`,
+            });
+            throw err;
+          }  
+          log(env, {
+            level: 'INFO',
+            message: `Rate limit error occurred. Retrying in ${parsedDelay}ms.`,
+          });
+          await delay(parsedDelay);
+        } else {
+          const isRetryableError = statusCode && (
+            isRateLimitError || retryConfig.retryOn.includes(statusCode)
+          );
+      
+          const canRetry = retryConfig.enabled &&
+                           isRetryableError &&
+                           retryCount < retryConfig.maxRetries &&
+                           remainingTime > 0;
+          if (!canRetry) {
+            log(env,{
+              level: 'ERROR',
+              message: `Request failed after ${retryCount} retries: ${err.message}`,
+            });
             throw err;
           }
-
-          const baseDelay = retryConfig.initial_delay_ms * Math.pow(2, attempt);
-          const jitterDelay = Math.floor(
-            Math.random() * Math.min(baseDelay * 2, retryConfig.max_delay_ms),
-          );
-
-          attempt++;
-          await new Promise((resolve) => setTimeout(resolve, jitterDelay));
+          let retryDelayMs = retryConfig.initialDelayMs * Math.pow(2, retryCount) + Math.random() * 100;
+          retryDelayMs = Math.min(retryDelayMs, remainingTime);
+          log(env, {
+            level: 'INFO',
+            message: `Retrying request in ${retryDelayMs}ms due to status code ${statusCode}.`,
+          });
+          await delay(retryDelayMs);
         }
+    
+        return await withRetry(retryCount + 1, startTime);
       }
     };
+    
+    
 
-    const promise = withRetry();
+    const promise = withRetry(0,  Date.now());
     return callbackifyPromise(promise);
   }
 
