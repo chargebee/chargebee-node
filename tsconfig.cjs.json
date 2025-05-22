@@ -16,6 +16,7 @@
         "./src/*js",
         "./src/*js",
         "./src/chargebee.esm.ts",
-        "./src/chargebee.esm.worker.ts"
+        "./src/chargebee.esm.worker.ts",
+        "./src/__tests__"
     ],
 }

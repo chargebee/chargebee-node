@@ -6,6 +6,7 @@
     },
     "exclude": [
         "./src/chargebee.cjs.ts",
-        "./src/chargebee.cjs.worker.ts"
+        "./src/chargebee.cjs.worker.ts",
+        "./src/__tests__"
     ],
 }
