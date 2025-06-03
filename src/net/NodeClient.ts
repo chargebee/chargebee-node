@@ -4,7 +4,7 @@ import {
   RequestInterface,
   HttpClientResponseInterface,
   HttpClientResponse,
-} from './ClientInterface.js';
+} from './ClientInterface';
 import * as http from 'http';
 import * as https from 'https';
 

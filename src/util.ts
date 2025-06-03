@@ -4,58 +4,47 @@ export const extend = (deep: boolean, target: any, copy: any) => {
 };
 
 const _extendsFn = (...args: any[]): any => {
-  {
-    let options,
-      name,
-      src,
-      copy,
-      copyIsArray,
-      clone,
-      target = args[0] || {},
-      i = 1,
-      length = args.length,
-      deep = false;
-    if (typeof target === 'boolean') {
-      deep = target;
-      target = args[1] || {};
-      i = 2;
-    }
-    if (typeof target !== 'object' && typeof target !== 'function') {
-      target = {};
-    }
-    if (length === i) {
-      target = this;
-      --i;
-    }
-    for (; i < length; i++) {
-      if ((options = args[i]) !== null) {
-        for (name in options) {
-          src = target[name];
-          copy = options[name];
+  let options, name, src, copy, copyIsArray, clone;
+  let target = args[0] || {};
+  let i = 1;
+  const length = args.length;
+  let deep = false;
 
-          if (target === copy) {
-            continue;
+  if (typeof target === 'boolean') {
+    deep = target;
+    target = args[1] || {};
+    i = 2;
+  }
+
+  if (typeof target !== 'object' && typeof target !== 'function') {
+    target = {};
+  }
+
+  for (; i < length; i++) {
+    if ((options = args[i]) !== null && options !== undefined) {
+      for (name in options) {
+        src = target[name];
+        copy = options[name];
+
+        if (target === copy) {
+          continue;
+        }
+
+        if (deep && copy && (typeof copy === 'object' || isArray(copy))) {
+          if (isArray(copy)) {
+            clone = isArray(src) ? src : [];
+          } else {
+            clone = isObject(src) ? src : {};
           }
-          if (
-            deep &&
-            copy &&
-            (typeof copy === 'object' || (copyIsArray = isArray(copy)))
-          ) {
-            if (copyIsArray) {
-              copyIsArray = false;
-              clone = src && isArray(src) ? src : [];
-            } else {
-              clone = src && typeof src === 'object' ? src : {};
-            }
-            target[name] = extend(deep, clone, copy);
-          } else if (copy !== undefined) {
-            target[name] = copy;
-          }
+          target[name] = _extendsFn(deep, clone, copy);
+        } else if (copy !== undefined) {
+          target[name] = copy;
         }
       }
     }
-    return target;
   }
+
+  return target;
 };
 
 export const isArray = (obj: any): boolean => {
@@ -261,4 +250,45 @@ export function encodeParams(
     }
   }
   return serialized.join('&').replace(/%20/g, '+');
+}
+
+export function log(
+  env: EnvType,
+  { level = 'INFO', message = '', context = {}, functionName = '' },
+) {
+  if (!env.enableDebugLogs) {
+    return;
+  }
+  const timestamp = new Date().toISOString();
+  const service = 'chargebee-node';
+
+  const metaString = Object.entries(context)
+    .map(([key, value]) => `${key}=${value}`)
+    .join(', ');
+
+  const logLine = `[${timestamp}] [${level.toUpperCase()}] [${service}] ${functionName} - ${message}${metaString ? ` (${metaString})` : ''}`;
+
+  console.debug(logLine);
+}
+
+import { randomBytes } from 'crypto';
+
+export function generateUUIDv4(): string {
+  const bytes: Buffer = randomBytes(16);
+
+  // Set version to 4 (UUIDv4)
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+
+  // Set variant to 10xxxxxx
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+
+  const hex = bytes.toString('hex');
+
+  return [
+    hex.slice(0, 8),
+    hex.slice(8, 12),
+    hex.slice(12, 16),
+    hex.slice(16, 20),
+    hex.slice(20),
+  ].join('-');
 }

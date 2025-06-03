@@ -121,6 +121,29 @@ export type Config = {
    * @hostSuffix url host suffix, default value is .chargebee.com
    */
   hostSuffix?: string;
+
+  /**
+   * @retryConfig retry configuration for the client, default value is { enabled: false, maxRetries: 3, delayMs: 1000, retryOn: [500, 502, 503, 504]}
+   */
+  retryConfig?: RetryConfig;
+
+  /**
+   * @enableDebugLogs whether to enable debug logs, default value is false
+   */
+  enableDebugLogs?: boolean;
+};
+
+export type RetryConfig = {
+  /**
+   * @enabled whether to enable retry logic, default value is false
+   * @maxRetries maximum number of retries, default value is 3
+   * @delayMs delay in milliseconds between retries, default value is 1000ms
+   * @retryOn array of HTTP status codes to retry on, default value is [500, 502, 503, 504]
+   */
+  enabled?: boolean;
+  maxRetries?: number;
+  delayMs?: number;
+  retryOn?: Array<number>;
 };
 declare module 'chargebee' {
   export default class Chargebee {

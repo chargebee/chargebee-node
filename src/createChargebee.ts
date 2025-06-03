@@ -1,8 +1,8 @@
-import { RequestWrapper } from './RequestWrapper.js';
-import { Environment } from './environment.js';
-import { Endpoints } from './resources/api_endpoints.js';
-import { extend, sleep } from './util.js';
-import { waitForProcessToComplete } from './asyncApiSupport.js';
+import { RequestWrapper } from './RequestWrapper';
+import { Environment } from './environment';
+import { Endpoints } from './resources/api_endpoints';
+import { extend, sleep } from './util';
+import { waitForProcessToComplete } from './asyncApiSupport';
 import {
   ResourceType,
   EnvType,
@@ -10,7 +10,7 @@ import {
   Config,
   EndpointTuple,
   HttpClientInterface,
-} from './types.js';
+} from './types';
 
 export const CreateChargebee = (httpClient: HttpClientInterface) => {
   const Chargebee = function (this: ChargebeeType, conf: Config) {
@@ -83,6 +83,7 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
             subDomain: metaArr[5],
             isJsonRequest: metaArr[6],
             jsonKeys: metaArr[7],
+            options: metaArr[8],
           };
           this[res][apiCall.methodName] = this._createApiFunc(
             apiCall,

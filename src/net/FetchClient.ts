@@ -4,7 +4,7 @@ import {
   RequestInterface,
   HttpClientResponseInterface,
   HttpClientResponse,
-} from './ClientInterface.js';
+} from './ClientInterface';
 
 import { RequestHeaders, ResponseHeaders } from '../types.js';
 

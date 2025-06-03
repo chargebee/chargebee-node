@@ -1,5 +1,5 @@
 import { Callback, EnvType } from './types.js';
-import { isFunction, extend, callbackifyPromise } from './util.js';
+import { isFunction, extend, callbackifyPromise } from './util';
 type PromiseCallbackFunction = () => Promise<any>;
 type DummyRequestWrapperObject = {
   request: (

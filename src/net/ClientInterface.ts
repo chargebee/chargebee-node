@@ -1,5 +1,5 @@
 import { RequestHeaders, ResponseHeaders } from '../types.js';
-import { ChargebeeError } from '../chargebeeError.js';
+import { ChargebeeError } from '../chargebeeError';
 export interface RequestInterface {
   host: string;
   port: number;

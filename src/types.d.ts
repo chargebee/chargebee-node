@@ -31,6 +31,15 @@ export type EnvType = {
   apiKey: string;
   site: string;
   httpClient: HttpClientInterface;
+  retryConfig?: RetryConfig;
+  enableDebugLogs?: boolean;
+};
+
+export type RetryConfig = {
+  enabled?: boolean;
+  maxRetries?: number;
+  delayMs?: number;
+  retryOn?: Array<number>;
 };
 
 export type Config = {
@@ -44,6 +53,8 @@ export type Config = {
   exportWaitInMillis?: number;
   protocol?: string;
   hostSuffix?: string;
+  retryConfig?: RetryConfig;
+  enableDebugLogs?: boolean;
 };
 
 export type Callback = (error: unknown, result: any | null) => void;
@@ -63,6 +74,9 @@ export type ResourceType = {
   subDomain?: string | null;
   isJsonRequest?: boolean | null;
   jsonKeys?: JSONValue;
+  options?: {
+    isIdempotent?: boolean;
+  };
 };
 type RequestWrapperType = {
   args: IArguments;
@@ -113,4 +127,7 @@ export type EndpointTuple = [
   subDomain: string | null,
   isJsonRequest: boolean | null,
   jsonKeys: JSONValue,
+  options: {
+    isIdempotent?: boolean;
+  },
 ];
