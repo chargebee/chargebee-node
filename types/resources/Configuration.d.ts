@@ -8,6 +8,8 @@ declare module 'chargebee' {
 
     product_catalog_version?:ProductCatalogVersion;
 
+    chargebee_response_schema_type?:ChargebeeResponseSchemaType;
+
   }
   export namespace Configuration {
     export class ConfigurationResource {  

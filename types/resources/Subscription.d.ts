@@ -738,6 +738,8 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
         */
         
       offset?:string;
+       
+      sort_by?:{asc?:'created_at',desc?:'created_at'};
     }
     export interface ListDiscountsResponse {  
        list:{discount:Discount}[];

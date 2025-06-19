@@ -193,6 +193,8 @@ declare module 'chargebee' {
        
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel',cancellation_cutoff_period?:number,contract_start?:number};
        
+      billing_override?:{max_excess_payment_usage?:number,max_refundable_credits_usage?:number};
+       
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
       discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
@@ -280,6 +282,8 @@ declare module 'chargebee' {
       shipping_address?:{city?:string,country?:string,line1?:string,line2?:string,line3?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       customer?:{registered_for_gst?:boolean,taxability?:Taxability,vat_number?:string,vat_number_prefix?:string};
+       
+      billing_override?:{max_excess_payment_usage?:number,max_refundable_credits_usage?:number};
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,proration_type?:ProrationType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        

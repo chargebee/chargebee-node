@@ -64,6 +64,7 @@
 ///<reference path='./resources/Quote.d.ts' />
 ///<reference path='./resources/QuoteLineGroup.d.ts' />
 ///<reference path='./resources/QuotedCharge.d.ts' />
+///<reference path='./resources/QuotedRamp.d.ts' />
 ///<reference path='./resources/QuotedSubscription.d.ts' />
 ///<reference path='./resources/Ramp.d.ts' />
 ///<reference path='./resources/RecordedPurchase.d.ts' />

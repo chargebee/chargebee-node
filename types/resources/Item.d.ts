@@ -120,11 +120,11 @@ declare module 'chargebee' {
        
       usage_calculation?:'sum_of_usages' | 'last_usage' | 'max_usage';
        
+      is_percentage_pricing?:boolean;
+       
       metadata?:object;
        
       business_entity_id?:string;
-       
-      is_percentage_pricing?:boolean;
     }
     export interface RetrieveResponse {  
        item:Item;
@@ -174,6 +174,8 @@ declare module 'chargebee' {
       included_in_mrr?:boolean;
        
       status?:'active' | 'archived';
+       
+      is_percentage_pricing?:boolean;
     }
     export interface ListResponse {  
        list:{item:Item}[];

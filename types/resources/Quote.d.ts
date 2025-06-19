@@ -16,9 +16,9 @@ declare module 'chargebee' {
 
     invoice_id?:string;
 
-    status:'open' | 'accepted' | 'declined' | 'invoiced' | 'closed';
+    status:'open' | 'accepted' | 'declined' | 'invoiced' | 'closed' | 'pending_approval' | 'approval_rejected' | 'proposed' | 'voided' | 'expired';
 
-    operation_type:'create_subscription_for_customer' | 'change_subscription' | 'onetime_invoice';
+    operation_type:'create_subscription_for_customer' | 'change_subscription' | 'onetime_invoice' | 'renew_subscription';
 
     vat_number?:string;
 
@@ -81,6 +81,10 @@ declare module 'chargebee' {
     business_entity_id?:string;
 
     deleted:boolean;
+
+    total_contract_value?:number;
+
+    total_discount?:number;
 
   }
   export namespace Quote {
@@ -368,11 +372,15 @@ declare module 'chargebee' {
        
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel',cancellation_cutoff_period?:number};
        
-      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,end_date?:number,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,ramp_tier_id?:string,service_period_days?:number,start_date?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit,start_date?:number}[];
+       
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,ramp_tier_id?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+       
+      coupons?:{end_date?:number,id?:string,start_date?:number}[];
        
       name?:string;
        
@@ -389,6 +397,10 @@ declare module 'chargebee' {
       billing_alignment_mode?:BillingAlignmentMode;
        
       coupon_ids?:string[];
+       
+      billing_start_option?:BillingStartOption;
+       
+      net_term_days?:number;
     }
     export interface EditCreateSubCustomerQuoteForItemsResponse {  
        quote:Quote;
@@ -403,11 +415,15 @@ declare module 'chargebee' {
        
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel',cancellation_cutoff_period?:number};
        
-      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,end_date?:number,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,ramp_tier_id?:string,service_period_days?:number,start_date?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit,start_date?:number}[];
+       
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,ramp_tier_id?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+       
+      coupons?:{end_date?:number,id?:string,start_date?:number}[];
        
       notes?:string;
        
@@ -422,6 +438,10 @@ declare module 'chargebee' {
       billing_alignment_mode?:BillingAlignmentMode;
        
       coupon_ids?:string[];
+       
+      billing_start_option?:BillingStartOption;
+       
+      net_term_days?:number;
     }
     export interface UpdateSubscriptionQuoteForItemsResponse {  
        quote:Quote;
@@ -440,11 +460,13 @@ declare module 'chargebee' {
        
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',cancellation_cutoff_period?:number};
        
-      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,end_date?:number,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,ramp_tier_id?:string,service_period_days?:number,start_date?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit,start_date?:number}[];
        
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,ramp_tier_id?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+       
+      coupons?:{end_date?:number,id?:string,start_date?:number}[];
        
       name?:string;
        
@@ -475,6 +497,8 @@ declare module 'chargebee' {
       force_term_reset?:boolean;
        
       reactivate?:boolean;
+       
+      net_term_days?:number;
     }
     export interface EditUpdateSubscriptionQuoteForItemsResponse {  
        quote:Quote;
@@ -493,11 +517,13 @@ declare module 'chargebee' {
        
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',cancellation_cutoff_period?:number};
        
-      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,end_date?:number,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,ramp_tier_id?:string,service_period_days?:number,start_date?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit,start_date?:number}[];
        
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,ramp_tier_id?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
+       
+      coupons?:{end_date?:number,id?:string,start_date?:number}[];
        
       notes?:string;
        
@@ -526,6 +552,8 @@ declare module 'chargebee' {
       force_term_reset?:boolean;
        
       reactivate?:boolean;
+       
+      net_term_days?:number;
     }
     export interface CreateForChargeItemsAndChargesResponse {  
        quote:Quote;
@@ -533,6 +561,8 @@ declare module 'chargebee' {
        quoted_charge?:QuotedCharge;
     }
     export interface CreateForChargeItemsAndChargesInputParam {
+       
+      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
@@ -568,6 +598,8 @@ declare module 'chargebee' {
        quoted_charge?:QuotedCharge;
     }
     export interface EditForChargeItemsAndChargesInputParam {
+       
+      billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
@@ -648,7 +680,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
 
         */
         
-      status?:{in?:string,is?:'open' | 'accepted' | 'declined' | 'invoiced' | 'closed',is_not?:'open' | 'accepted' | 'declined' | 'invoiced' | 'closed',not_in?:string};
+      status?:{in?:string,is?:'open' | 'accepted' | 'declined' | 'invoiced' | 'closed' | 'pending_approval' | 'approval_rejected' | 'proposed' | 'voided' | 'expired',is_not?:'open' | 'accepted' | 'declined' | 'invoiced' | 'closed' | 'pending_approval' | 'approval_rejected' | 'proposed' | 'voided' | 'expired',not_in?:string};
        
       /**
         * @description Creation date of the quote. Typically this is the date on which quote is generated.
@@ -725,7 +757,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
     }
     export interface UpdateStatusInputParam {
        
-      status:'accepted' | 'declined' | 'closed';
+      status:'accepted' | 'declined' | 'proposed' | 'voided' | 'closed';
        
       comment?:string;
     }
@@ -795,7 +827,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
       metered?:boolean;
        
-      percentage?:string;
+      is_percentage_pricing?:boolean;
        
       reference_line_item_id?:string;
        

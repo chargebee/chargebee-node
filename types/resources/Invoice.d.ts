@@ -155,6 +155,10 @@ declare module 'chargebee' {
        
       stop_dunning(invoice_id:string, input?:StopDunningInputParam):ChargebeeRequest<StopDunningResponse>;
        
+      pause_dunning(invoice_id:string, input:PauseDunningInputParam):ChargebeeRequest<PauseDunningResponse>;
+       
+      resume_dunning(invoice_id:string, input?:ResumeDunningInputParam):ChargebeeRequest<ResumeDunningResponse>;
+       
       import_invoice(input:ImportInvoiceInputParam):ChargebeeRequest<ImportInvoiceResponse>;
        
       apply_payments(invoice_id:string, input?:ApplyPaymentsInputParam):ChargebeeRequest<ApplyPaymentsResponse>;
@@ -440,6 +444,22 @@ declare module 'chargebee' {
        invoice:Invoice;
     }
     export interface StopDunningInputParam {
+       
+      comment?:string;
+    }
+    export interface PauseDunningResponse {  
+       invoice:Invoice;
+    }
+    export interface PauseDunningInputParam {
+       
+      expected_payment_date:number;
+       
+      comment?:string;
+    }
+    export interface ResumeDunningResponse {  
+       invoice:Invoice;
+    }
+    export interface ResumeDunningInputParam {
        
       comment?:string;
     }
@@ -775,6 +795,8 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
     }
     export interface RetrieveInputParam {
        
+      line_item?:{customer_id?:{is?:string},subscription_id?:{is?:string}};
+       
       line_items_limit?:number;
        
       line_items_offset?:string;
@@ -1098,7 +1120,7 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
        
       metered?:boolean;
        
-      percentage?:string;
+      is_percentage_pricing?:boolean;
        
       reference_line_item_id?:string;
        
@@ -1293,11 +1315,11 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
       created_at:number;
     }
     export interface Note {  
-      entity_type:'coupon' | 'subscription' | 'customer' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'tax' | 'plan' | 'addon';
-       
       note:string;
        
       entity_id?:string;
+       
+      entity_type?:'coupon' | 'subscription' | 'customer' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'tax' | 'plan' | 'addon';
     }
     export interface ShippingAddress {  
       first_name?:string;

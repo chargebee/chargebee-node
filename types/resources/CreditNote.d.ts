@@ -163,6 +163,8 @@ declare module 'chargebee' {
     }
     export interface RetrieveInputParam {
        
+      line_item?:{customer_id?:{is?:string},subscription_id?:{is?:string}};
+       
       line_items_limit?:number;
        
       line_items_offset?:string;
@@ -506,7 +508,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
       metered?:boolean;
        
-      percentage?:string;
+      is_percentage_pricing?:boolean;
        
       reference_line_item_id?:string;
        

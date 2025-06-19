@@ -28,11 +28,15 @@ declare module 'chargebee' {
 
     grace_period_expires_at?:number;
 
+    resumes_at?:number;
+
     has_scheduled_changes:boolean;
 
     resource_version?:number;
 
     upcoming_renewal?:OmnichannelSubscriptionItem.UpcomingRenewal;
+
+    linked_item?:OmnichannelSubscriptionItem.LinkedItem;
 
   }
   export namespace OmnichannelSubscriptionItem {
@@ -66,6 +70,11 @@ declare module 'chargebee' {
       price_units?:number;
        
       price_nanos?:number;
+    }
+    export interface LinkedItem {  
+      id:string;
+       
+      linked_at?:number;
     }
   }
 }
