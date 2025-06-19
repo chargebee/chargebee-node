@@ -8,6 +8,9 @@ type EndpointTuple = [
   subDomain?: string | null,
   isJsonRequest?: boolean,
   jsonKeys?: any,
+  options?: {
+    isIdempotent?: boolean;
+  },
 ];
 interface Endpoints {
   subscription: EndpointTuple[];
@@ -38,6 +41,7 @@ interface Endpoints {
   quote: EndpointTuple[];
   quotedSubscription: EndpointTuple[];
   quotedCharge: EndpointTuple[];
+  quotedRamp: EndpointTuple[];
   quoteLineGroup: EndpointTuple[];
   plan: EndpointTuple[];
   addon: EndpointTuple[];
@@ -108,6 +112,9 @@ export const Endpoints: Endpoints = {
         additional_information: 1,
         billing_address: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createForCustomer',
@@ -120,6 +127,9 @@ export const Endpoints: Endpoints = {
       {
         meta_data: 0,
         additional_information: 1,
+      },
+      {
+        isIdempotent: true,
       },
     ],
     [
@@ -134,8 +144,11 @@ export const Endpoints: Endpoints = {
         meta_data: 0,
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/subscriptions', null, false, null, false, {}],
+    ['list', 'GET', '/subscriptions', null, false, null, false, {}, {}],
     [
       'subscriptionsForCustomer',
       'GET',
@@ -144,6 +157,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -155,6 +169,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'listDiscounts',
@@ -165,8 +180,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
-    ['retrieve', 'GET', '/subscriptions', null, true, null, false, {}],
+    ['retrieve', 'GET', '/subscriptions', null, true, null, false, {}, {}],
     [
       'retrieveWithScheduledChanges',
       'GET',
@@ -175,6 +191,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -186,6 +203,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'removeScheduledCancellation',
@@ -196,6 +216,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'removeCoupons',
@@ -206,6 +229,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'update',
@@ -218,6 +244,9 @@ export const Endpoints: Endpoints = {
       {
         meta_data: 0,
         additional_information: 1,
+      },
+      {
+        isIdempotent: true,
       },
     ],
     [
@@ -232,6 +261,9 @@ export const Endpoints: Endpoints = {
         meta_data: 0,
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'changeTermEnd',
@@ -242,6 +274,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'reactivate',
@@ -254,6 +289,9 @@ export const Endpoints: Endpoints = {
       {
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'addChargeAtTermEnd',
@@ -264,6 +302,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'chargeAddonAtTermEnd',
@@ -274,6 +315,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'chargeFutureRenewals',
@@ -284,6 +328,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'editAdvanceInvoiceSchedule',
@@ -294,6 +341,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'retrieveAdvanceInvoiceSchedule',
@@ -303,6 +353,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -314,6 +365,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'regenerateInvoice',
@@ -324,6 +378,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'importSubscription',
@@ -337,6 +394,9 @@ export const Endpoints: Endpoints = {
         meta_data: 0,
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'importForCustomer',
@@ -349,6 +409,9 @@ export const Endpoints: Endpoints = {
       {
         meta_data: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'importContractTerm',
@@ -359,6 +422,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'importUnbilledCharges',
@@ -369,6 +435,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'importForItems',
@@ -381,6 +450,9 @@ export const Endpoints: Endpoints = {
       {
         meta_data: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'overrideBillingProfile',
@@ -391,10 +463,49 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['delete', 'POST', '/subscriptions', '/delete', true, null, false, {}],
-    ['pause', 'POST', '/subscriptions', '/pause', true, null, false, {}],
-    ['cancel', 'POST', '/subscriptions', '/cancel', true, null, false, {}],
+    [
+      'delete',
+      'POST',
+      '/subscriptions',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'pause',
+      'POST',
+      '/subscriptions',
+      '/pause',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'cancel',
+      'POST',
+      '/subscriptions',
+      '/cancel',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'cancelForItems',
       'POST',
@@ -404,6 +515,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'resume',
@@ -416,6 +530,9 @@ export const Endpoints: Endpoints = {
       {
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'removeScheduledPause',
@@ -426,6 +543,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'removeScheduledResumption',
@@ -436,8 +556,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['move', 'POST', '/subscriptions', '/move', true, null, false, {}],
+    [
+      'move',
+      'POST',
+      '/subscriptions',
+      '/move',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   contractTerm: [],
   discount: [],
@@ -457,9 +592,12 @@ export const Endpoints: Endpoints = {
         additional_information: 1,
         billing_address: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/customers', null, false, null, false, {}],
-    ['retrieve', 'GET', '/customers', null, true, null, false, {}],
+    ['list', 'GET', '/customers', null, false, null, false, {}, {}],
+    ['retrieve', 'GET', '/customers', null, true, null, false, {}, {}],
     [
       'update',
       'POST',
@@ -471,6 +609,9 @@ export const Endpoints: Endpoints = {
       {
         exemption_details: 0,
         meta_data: 0,
+      },
+      {
+        isIdempotent: true,
       },
     ],
     [
@@ -484,6 +625,9 @@ export const Endpoints: Endpoints = {
       {
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'updateBillingInfo',
@@ -494,6 +638,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'contactsForCustomer',
@@ -503,6 +650,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -514,8 +662,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['addContact', 'POST', '/customers', '/add_contact', true, null, false, {}],
+    [
+      'addContact',
+      'POST',
+      '/customers',
+      '/add_contact',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'updateContact',
       'POST',
@@ -525,6 +688,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'deleteContact',
@@ -535,6 +701,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'addPromotionalCredits',
@@ -545,6 +714,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'deductPromotionalCredits',
@@ -555,6 +727,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'setPromotionalCredits',
@@ -565,6 +740,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'recordExcessPayment',
@@ -575,6 +753,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'collectPayment',
@@ -587,9 +768,36 @@ export const Endpoints: Endpoints = {
       {
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['delete', 'POST', '/customers', '/delete', true, null, false, {}],
-    ['move', 'POST', '/customers', '/move', false, null, false, {}],
+    [
+      'delete',
+      'POST',
+      '/customers',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'move',
+      'POST',
+      '/customers',
+      '/move',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'changeBillingDate',
       'POST',
@@ -599,8 +807,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['merge', 'POST', '/customers', '/merge', false, null, false, {}],
+    [
+      'merge',
+      'POST',
+      '/customers',
+      '/merge',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'clearPersonalData',
       'POST',
@@ -610,6 +833,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'relationships',
@@ -620,6 +846,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'deleteRelationship',
@@ -630,8 +859,11 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['hierarchy', 'GET', '/customers', '/hierarchy', true, null, false, {}],
+    ['hierarchy', 'GET', '/customers', '/hierarchy', true, null, false, {}, {}],
     [
       'updateHierarchySettings',
       'POST',
@@ -641,6 +873,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   hierarchy: [],
@@ -659,6 +894,9 @@ export const Endpoints: Endpoints = {
       {
         additional_information: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createUsingPermanentToken',
@@ -671,6 +909,9 @@ export const Endpoints: Endpoints = {
       {
         additional_information: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createUsingToken',
@@ -681,6 +922,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createUsingPaymentIntent',
@@ -694,6 +938,9 @@ export const Endpoints: Endpoints = {
         additional_info: 1,
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createVoucherPaymentSource',
@@ -705,6 +952,9 @@ export const Endpoints: Endpoints = {
       false,
       {
         billing_address: 1,
+      },
+      {
+        isIdempotent: true,
       },
     ],
     [
@@ -718,6 +968,9 @@ export const Endpoints: Endpoints = {
       {
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createBankAccount',
@@ -729,6 +982,9 @@ export const Endpoints: Endpoints = {
       false,
       {
         billing_address: 1,
+      },
+      {
+        isIdempotent: true,
       },
     ],
     [
@@ -743,6 +999,9 @@ export const Endpoints: Endpoints = {
         gateway_meta_data: 0,
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'updateBankAccount',
@@ -753,6 +1012,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'verifyBankAccount',
@@ -763,9 +1025,12 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['retrieve', 'GET', '/payment_sources', null, true, null, false, {}],
-    ['list', 'GET', '/payment_sources', null, false, null, false, {}],
+    ['retrieve', 'GET', '/payment_sources', null, true, null, false, {}, {}],
+    ['list', 'GET', '/payment_sources', null, false, null, false, {}, {}],
     [
       'switchGatewayAccount',
       'POST',
@@ -775,6 +1040,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'exportPaymentSource',
@@ -785,8 +1053,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['delete', 'POST', '/payment_sources', '/delete', true, null, false, {}],
+    [
+      'delete',
+      'POST',
+      '/payment_sources',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'deleteLocal',
       'POST',
@@ -796,6 +1079,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   thirdPartyPaymentMethod: [],
@@ -809,10 +1095,35 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['create', 'POST', '/virtual_bank_accounts', null, false, null, false, {}],
-    ['retrieve', 'GET', '/virtual_bank_accounts', null, true, null, false, {}],
-    ['list', 'GET', '/virtual_bank_accounts', null, false, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/virtual_bank_accounts',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'retrieve',
+      'GET',
+      '/virtual_bank_accounts',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+    ['list', 'GET', '/virtual_bank_accounts', null, false, null, false, {}, {}],
     [
       'delete',
       'POST',
@@ -822,6 +1133,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'deleteLocal',
@@ -832,10 +1146,13 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   card: [
-    ['retrieve', 'GET', '/cards', null, true, null, false, {}],
+    ['retrieve', 'GET', '/cards', null, true, null, false, {}, {}],
     [
       'updateCardForCustomer',
       'POST',
@@ -845,6 +1162,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'switchGatewayForCustomer',
@@ -855,6 +1175,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'copyCardForCustomer',
@@ -865,6 +1188,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'deleteCardForCustomer',
@@ -875,10 +1201,25 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   promotionalCredit: [
-    ['add', 'POST', '/promotional_credits', '/add', false, null, false, {}],
+    [
+      'add',
+      'POST',
+      '/promotional_credits',
+      '/add',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'deduct',
       'POST',
@@ -888,10 +1229,35 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['set', 'POST', '/promotional_credits', '/set', false, null, false, {}],
-    ['list', 'GET', '/promotional_credits', null, false, null, false, {}],
-    ['retrieve', 'GET', '/promotional_credits', null, true, null, false, {}],
+    [
+      'set',
+      'POST',
+      '/promotional_credits',
+      '/set',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/promotional_credits', null, false, null, false, {}, {}],
+    [
+      'retrieve',
+      'GET',
+      '/promotional_credits',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
   ],
   invoice: [
     [
@@ -906,6 +1272,9 @@ export const Endpoints: Endpoints = {
         additional_information: 1,
         billing_address: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createForChargeItemsAndCharges',
@@ -919,8 +1288,23 @@ export const Endpoints: Endpoints = {
         additional_information: 1,
         billing_address: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['charge', 'POST', '/invoices', '/charge', false, null, false, {}],
+    [
+      'charge',
+      'POST',
+      '/invoices',
+      '/charge',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'chargeAddon',
       'POST',
@@ -930,6 +1314,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createForChargeItem',
@@ -940,6 +1327,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'stopDunning',
@@ -950,6 +1340,35 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'pauseDunning',
+      'POST',
+      '/invoices',
+      '/pause_dunning',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'resumeDunning',
+      'POST',
+      '/invoices',
+      '/resume_dunning',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'importInvoice',
@@ -960,6 +1379,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'applyPayments',
@@ -970,8 +1392,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['syncUsages', 'POST', '/invoices', '/sync_usages', true, null, false, {}],
+    [
+      'syncUsages',
+      'POST',
+      '/invoices',
+      '/sync_usages',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'deleteLineItems',
       'POST',
@@ -981,6 +1418,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'applyCredits',
@@ -991,8 +1431,11 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/invoices', null, false, null, false, {}],
+    ['list', 'GET', '/invoices', null, false, null, false, {}, {}],
     [
       'invoicesForCustomer',
       'GET',
@@ -1001,6 +1444,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -1012,9 +1456,22 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
-    ['retrieve', 'GET', '/invoices', null, true, null, false, {}],
-    ['pdf', 'POST', '/invoices', '/pdf', true, null, false, {}],
+    ['retrieve', 'GET', '/invoices', null, true, null, false, {}, {}],
+    [
+      'pdf',
+      'POST',
+      '/invoices',
+      '/pdf',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'downloadEinvoice',
       'GET',
@@ -1023,6 +1480,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -1034,8 +1492,21 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
-    ['addCharge', 'POST', '/invoices', '/add_charge', true, null, false, {}],
+    [
+      'addCharge',
+      'POST',
+      '/invoices',
+      '/add_charge',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'addAddonCharge',
       'POST',
@@ -1045,6 +1516,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'addChargeItem',
@@ -1055,8 +1529,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['close', 'POST', '/invoices', '/close', true, null, false, {}],
+    [
+      'close',
+      'POST',
+      '/invoices',
+      '/close',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'collectPayment',
       'POST',
@@ -1066,6 +1555,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'recordPayment',
@@ -1076,6 +1568,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'recordTaxWithheld',
@@ -1086,6 +1581,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'removeTaxWithheld',
@@ -1096,8 +1594,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['refund', 'POST', '/invoices', '/refund', true, null, false, {}],
+    [
+      'refund',
+      'POST',
+      '/invoices',
+      '/refund',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'recordRefund',
       'POST',
@@ -1107,6 +1620,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'removePayment',
@@ -1117,6 +1633,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'removeCreditNote',
@@ -1127,10 +1646,49 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['voidInvoice', 'POST', '/invoices', '/void', true, null, false, {}],
-    ['writeOff', 'POST', '/invoices', '/write_off', true, null, false, {}],
-    ['delete', 'POST', '/invoices', '/delete', true, null, false, {}],
+    [
+      'voidInvoice',
+      'POST',
+      '/invoices',
+      '/void',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'writeOff',
+      'POST',
+      '/invoices',
+      '/write_off',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'delete',
+      'POST',
+      '/invoices',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'updateDetails',
       'POST',
@@ -1140,6 +1698,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'applyPaymentScheduleScheme',
@@ -1150,6 +1711,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'paymentSchedules',
@@ -1160,6 +1724,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'resendEinvoice',
@@ -1170,6 +1735,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'sendEinvoice',
@@ -1180,15 +1748,42 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   paymentReferenceNumber: [],
   paymentSchedule: [],
   taxWithheld: [],
   creditNote: [
-    ['create', 'POST', '/credit_notes', null, false, null, false, {}],
-    ['retrieve', 'GET', '/credit_notes', null, true, null, false, {}],
-    ['pdf', 'POST', '/credit_notes', '/pdf', true, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/credit_notes',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/credit_notes', null, true, null, false, {}, {}],
+    [
+      'pdf',
+      'POST',
+      '/credit_notes',
+      '/pdf',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'downloadEinvoice',
       'GET',
@@ -1198,8 +1793,21 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
-    ['refund', 'POST', '/credit_notes', '/refund', true, null, false, {}],
+    [
+      'refund',
+      'POST',
+      '/credit_notes',
+      '/refund',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'recordRefund',
       'POST',
@@ -1209,9 +1817,24 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['voidCreditNote', 'POST', '/credit_notes', '/void', true, null, false, {}],
-    ['list', 'GET', '/credit_notes', null, false, null, false, {}],
+    [
+      'voidCreditNote',
+      'POST',
+      '/credit_notes',
+      '/void',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/credit_notes', null, false, null, false, {}, {}],
     [
       'creditNotesForCustomer',
       'GET',
@@ -1221,8 +1844,21 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
-    ['delete', 'POST', '/credit_notes', '/delete', true, null, false, {}],
+    [
+      'delete',
+      'POST',
+      '/credit_notes',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'removeTaxWithheldRefund',
       'POST',
@@ -1232,6 +1868,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'resendEinvoice',
@@ -1242,6 +1881,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'sendEinvoice',
@@ -1252,6 +1894,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'importCreditNote',
@@ -1262,6 +1907,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   unbilledCharge: [
@@ -1274,8 +1922,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['create', 'POST', '/unbilled_charges', null, false, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/unbilled_charges',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'invoiceUnbilledCharges',
       'POST',
@@ -1285,9 +1948,24 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['delete', 'POST', '/unbilled_charges', '/delete', true, null, false, {}],
-    ['list', 'GET', '/unbilled_charges', null, false, null, false, {}],
+    [
+      'delete',
+      'POST',
+      '/unbilled_charges',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/unbilled_charges', null, false, null, false, {}, {}],
     [
       'invoiceNowEstimate',
       'POST',
@@ -1297,12 +1975,49 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
   ],
   order: [
-    ['create', 'POST', '/orders', null, false, null, false, {}],
-    ['update', 'POST', '/orders', null, true, null, false, {}],
-    ['importOrder', 'POST', '/orders', '/import_order', false, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/orders',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'update',
+      'POST',
+      '/orders',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'importOrder',
+      'POST',
+      '/orders',
+      '/import_order',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'assignOrderNumber',
       'POST',
@@ -1312,8 +2027,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['cancel', 'POST', '/orders', '/cancel', true, null, false, {}],
+    [
+      'cancel',
+      'POST',
+      '/orders',
+      '/cancel',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'createRefundableCreditNote',
       'POST',
@@ -1323,13 +2053,62 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['reopen', 'POST', '/orders', '/reopen', true, null, false, {}],
-    ['retrieve', 'GET', '/orders', null, true, null, false, {}],
-    ['delete', 'POST', '/orders', '/delete', true, null, false, {}],
-    ['list', 'GET', '/orders', null, false, null, false, {}],
-    ['ordersForInvoice', 'GET', '/invoices', '/orders', true, null, false, {}],
-    ['resend', 'POST', '/orders', '/resend', true, null, false, {}],
+    [
+      'reopen',
+      'POST',
+      '/orders',
+      '/reopen',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/orders', null, true, null, false, {}, {}],
+    [
+      'delete',
+      'POST',
+      '/orders',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/orders', null, false, null, false, {}, {}],
+    [
+      'ordersForInvoice',
+      'GET',
+      '/invoices',
+      '/orders',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
+      'resend',
+      'POST',
+      '/orders',
+      '/resend',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   gift: [
     [
@@ -1343,6 +2122,9 @@ export const Endpoints: Endpoints = {
       {
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createForItems',
@@ -1355,12 +2137,51 @@ export const Endpoints: Endpoints = {
       {
         additional_information: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['retrieve', 'GET', '/gifts', null, true, null, false, {}],
-    ['list', 'GET', '/gifts', null, false, null, false, {}],
-    ['claim', 'POST', '/gifts', '/claim', true, null, false, {}],
-    ['cancel', 'POST', '/gifts', '/cancel', true, null, false, {}],
-    ['updateGift', 'POST', '/gifts', '/update_gift', true, null, false, {}],
+    ['retrieve', 'GET', '/gifts', null, true, null, false, {}, {}],
+    ['list', 'GET', '/gifts', null, false, null, false, {}, {}],
+    [
+      'claim',
+      'POST',
+      '/gifts',
+      '/claim',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'cancel',
+      'POST',
+      '/gifts',
+      '/cancel',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'updateGift',
+      'POST',
+      '/gifts',
+      '/update_gift',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   transaction: [
     [
@@ -1372,6 +2193,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'voidTransaction',
@@ -1382,6 +2206,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'recordRefund',
@@ -1392,10 +2219,37 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['reconcile', 'POST', '/transactions', '/reconcile', true, null, false, {}],
-    ['refund', 'POST', '/transactions', '/refund', true, null, false, {}],
-    ['list', 'GET', '/transactions', null, false, null, false, {}],
+    [
+      'reconcile',
+      'POST',
+      '/transactions',
+      '/reconcile',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'refund',
+      'POST',
+      '/transactions',
+      '/refund',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/transactions', null, false, null, false, {}, {}],
     [
       'transactionsForCustomer',
       'GET',
@@ -1404,6 +2258,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -1415,6 +2270,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'paymentsForInvoice',
@@ -1425,8 +2281,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
-    ['retrieve', 'GET', '/transactions', null, true, null, false, {}],
+    ['retrieve', 'GET', '/transactions', null, true, null, false, {}, {}],
     [
       'deleteOfflineTransaction',
       'POST',
@@ -1436,6 +2293,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   hostedPage: [
@@ -1448,6 +2308,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'checkoutOneTime',
@@ -1458,6 +2321,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'checkoutOneTimeForItems',
@@ -1468,6 +2334,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'checkoutNewForItems',
@@ -1478,6 +2347,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'checkoutExisting',
@@ -1488,6 +2360,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'checkoutExistingForItems',
@@ -1498,6 +2373,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'updateCard',
@@ -1508,6 +2386,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'updatePaymentMethod',
@@ -1518,6 +2399,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'managePaymentSources',
@@ -1528,6 +2412,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'collectNow',
@@ -1538,6 +2425,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'acceptQuote',
@@ -1548,6 +2438,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'extendSubscription',
@@ -1558,6 +2451,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'checkoutGift',
@@ -1568,6 +2464,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'checkoutGiftForItems',
@@ -1578,6 +2477,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'claimGift',
@@ -1588,6 +2490,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'retrieveAgreementPdf',
@@ -1598,6 +2503,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'acknowledge',
@@ -1608,9 +2516,12 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['retrieve', 'GET', '/hosted_pages', null, true, null, false, {}],
-    ['list', 'GET', '/hosted_pages', null, false, null, false, {}],
+    ['retrieve', 'GET', '/hosted_pages', null, true, null, false, {}, {}],
+    ['list', 'GET', '/hosted_pages', null, false, null, false, {}, {}],
     [
       'preCancel',
       'POST',
@@ -1620,6 +2531,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'events',
@@ -1632,6 +2546,9 @@ export const Endpoints: Endpoints = {
       {
         event_data: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'viewVoucher',
@@ -1642,6 +2559,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   estimate: [
@@ -1656,6 +2576,7 @@ export const Endpoints: Endpoints = {
       {
         exemption_details: 1,
       },
+      {},
     ],
     [
       'createSubItemEstimate',
@@ -1668,6 +2589,7 @@ export const Endpoints: Endpoints = {
       {
         exemption_details: 1,
       },
+      {},
     ],
     [
       'createSubForCustomerEstimate',
@@ -1677,6 +2599,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -1688,6 +2611,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'updateSubscription',
@@ -1697,6 +2621,7 @@ export const Endpoints: Endpoints = {
       false,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -1708,6 +2633,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'renewalEstimate',
@@ -1717,6 +2643,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -1728,6 +2655,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'regenerateInvoiceEstimate',
@@ -1737,6 +2665,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -1748,6 +2677,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'changeTermEnd',
@@ -1757,6 +2687,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -1768,6 +2699,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'cancelSubscriptionForItems',
@@ -1777,6 +2709,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -1788,6 +2721,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'resumeSubscription',
@@ -1797,6 +2731,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -1810,6 +2745,7 @@ export const Endpoints: Endpoints = {
       {
         additional_information: 1,
       },
+      {},
     ],
     [
       'giftSubscriptionForItems',
@@ -1822,6 +2758,7 @@ export const Endpoints: Endpoints = {
       {
         additional_information: 1,
       },
+      {},
     ],
     [
       'createInvoice',
@@ -1831,6 +2768,7 @@ export const Endpoints: Endpoints = {
       false,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -1842,6 +2780,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'paymentSchedules',
@@ -1852,10 +2791,13 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   quote: [
-    ['retrieve', 'GET', '/quotes', null, true, null, false, {}],
+    ['retrieve', 'GET', '/quotes', null, true, null, false, {}, {}],
     [
       'createSubForCustomerQuote',
       'POST',
@@ -1865,6 +2807,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'editCreateSubForCustomerQuote',
@@ -1875,6 +2820,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'updateSubscriptionQuote',
@@ -1885,6 +2833,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'editUpdateSubscriptionQuote',
@@ -1895,6 +2846,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createForOnetimeCharges',
@@ -1905,6 +2859,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'editOneTimeQuote',
@@ -1915,6 +2872,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createSubItemsForCustomerQuote',
@@ -1925,6 +2885,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'editCreateSubCustomerQuoteForItems',
@@ -1935,6 +2898,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'updateSubscriptionQuoteForItems',
@@ -1945,6 +2911,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'editUpdateSubscriptionQuoteForItems',
@@ -1955,6 +2924,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createForChargeItemsAndCharges',
@@ -1965,6 +2937,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'editForChargeItemsAndCharges',
@@ -1975,8 +2950,11 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/quotes', null, false, null, false, {}],
+    ['list', 'GET', '/quotes', null, false, null, false, {}, {}],
     [
       'quoteLineGroupsForQuote',
       'GET',
@@ -1986,8 +2964,21 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
-    ['convert', 'POST', '/quotes', '/convert', true, null, false, {}],
+    [
+      'convert',
+      'POST',
+      '/quotes',
+      '/convert',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'updateStatus',
       'POST',
@@ -1997,6 +2988,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'extendExpiryDate',
@@ -2007,12 +3001,40 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['delete', 'POST', '/quotes', '/delete', true, null, false, {}],
-    ['pdf', 'POST', '/quotes', '/pdf', true, null, false, {}],
+    [
+      'delete',
+      'POST',
+      '/quotes',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'pdf',
+      'POST',
+      '/quotes',
+      '/pdf',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   quotedSubscription: [],
   quotedCharge: [],
+  quotedRamp: [],
   quoteLineGroup: [],
   plan: [
     [
@@ -2026,6 +3048,9 @@ export const Endpoints: Endpoints = {
       {
         meta_data: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'update',
@@ -2038,12 +3063,51 @@ export const Endpoints: Endpoints = {
       {
         meta_data: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/plans', null, false, null, false, {}],
-    ['retrieve', 'GET', '/plans', null, true, null, false, {}],
-    ['delete', 'POST', '/plans', '/delete', true, null, false, {}],
-    ['copy', 'POST', '/plans', '/copy', false, null, false, {}],
-    ['unarchive', 'POST', '/plans', '/unarchive', true, null, false, {}],
+    ['list', 'GET', '/plans', null, false, null, false, {}, {}],
+    ['retrieve', 'GET', '/plans', null, true, null, false, {}, {}],
+    [
+      'delete',
+      'POST',
+      '/plans',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'copy',
+      'POST',
+      '/plans',
+      '/copy',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'unarchive',
+      'POST',
+      '/plans',
+      '/unarchive',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   addon: [
     [
@@ -2057,6 +3121,9 @@ export const Endpoints: Endpoints = {
       {
         meta_data: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'update',
@@ -2069,12 +3136,51 @@ export const Endpoints: Endpoints = {
       {
         meta_data: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/addons', null, false, null, false, {}],
-    ['retrieve', 'GET', '/addons', null, true, null, false, {}],
-    ['delete', 'POST', '/addons', '/delete', true, null, false, {}],
-    ['copy', 'POST', '/addons', '/copy', false, null, false, {}],
-    ['unarchive', 'POST', '/addons', '/unarchive', true, null, false, {}],
+    ['list', 'GET', '/addons', null, false, null, false, {}, {}],
+    ['retrieve', 'GET', '/addons', null, true, null, false, {}, {}],
+    [
+      'delete',
+      'POST',
+      '/addons',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'copy',
+      'POST',
+      '/addons',
+      '/copy',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'unarchive',
+      'POST',
+      '/addons',
+      '/unarchive',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   coupon: [
     [
@@ -2087,6 +3193,9 @@ export const Endpoints: Endpoints = {
       false,
       {
         meta_data: 0,
+      },
+      {
+        isIdempotent: true,
       },
     ],
     [
@@ -2103,6 +3212,9 @@ export const Endpoints: Endpoints = {
         item_family_ids: 1,
         currencies: 1,
         item_price_periods: 1,
+      },
+      {
+        isIdempotent: true,
       },
     ],
     [
@@ -2120,9 +3232,12 @@ export const Endpoints: Endpoints = {
         currencies: 1,
         item_price_periods: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/coupons', null, false, null, false, {}],
-    ['retrieve', 'GET', '/coupons', null, true, null, false, {}],
+    ['list', 'GET', '/coupons', null, false, null, false, {}, {}],
+    ['retrieve', 'GET', '/coupons', null, true, null, false, {}, {}],
     [
       'update',
       'POST',
@@ -2134,10 +3249,49 @@ export const Endpoints: Endpoints = {
       {
         meta_data: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['delete', 'POST', '/coupons', '/delete', true, null, false, {}],
-    ['copy', 'POST', '/coupons', '/copy', false, null, false, {}],
-    ['unarchive', 'POST', '/coupons', '/unarchive', true, null, false, {}],
+    [
+      'delete',
+      'POST',
+      '/coupons',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'copy',
+      'POST',
+      '/coupons',
+      '/copy',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'unarchive',
+      'POST',
+      '/coupons',
+      '/unarchive',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   couponSet: [
     [
@@ -2151,6 +3305,9 @@ export const Endpoints: Endpoints = {
       {
         meta_data: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'addCouponCodes',
@@ -2161,9 +3318,12 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/coupon_sets', null, false, null, false, {}],
-    ['retrieve', 'GET', '/coupon_sets', null, true, null, false, {}],
+    ['list', 'GET', '/coupon_sets', null, false, null, false, {}, {}],
+    ['retrieve', 'GET', '/coupon_sets', null, true, null, false, {}, {}],
     [
       'update',
       'POST',
@@ -2175,8 +3335,23 @@ export const Endpoints: Endpoints = {
       {
         meta_data: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['delete', 'POST', '/coupon_sets', '/delete', true, null, false, {}],
+    [
+      'delete',
+      'POST',
+      '/coupon_sets',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'deleteUnusedCouponCodes',
       'POST',
@@ -2186,21 +3361,72 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   couponCode: [
-    ['create', 'POST', '/coupon_codes', null, false, null, false, {}],
-    ['retrieve', 'GET', '/coupon_codes', null, true, null, false, {}],
-    ['list', 'GET', '/coupon_codes', null, false, null, false, {}],
-    ['archive', 'POST', '/coupon_codes', '/archive', true, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/coupon_codes',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/coupon_codes', null, true, null, false, {}, {}],
+    ['list', 'GET', '/coupon_codes', null, false, null, false, {}, {}],
+    [
+      'archive',
+      'POST',
+      '/coupon_codes',
+      '/archive',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   address: [
-    ['retrieve', 'GET', '/addresses', null, false, null, false, {}],
-    ['update', 'POST', '/addresses', null, false, null, false, {}],
+    ['retrieve', 'GET', '/addresses', null, false, null, false, {}, {}],
+    [
+      'update',
+      'POST',
+      '/addresses',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   usage: [
-    ['create', 'POST', '/subscriptions', '/usages', true, null, false, {}],
-    ['retrieve', 'GET', '/subscriptions', '/usages', true, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/subscriptions',
+      '/usages',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/subscriptions', '/usages', true, null, false, {}, {}],
     [
       'delete',
       'POST',
@@ -2210,25 +3436,88 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/usages', null, false, null, false, {}],
-    ['pdf', 'POST', '/usages', '/pdf', false, null, false, {}],
+    ['list', 'GET', '/usages', null, false, null, false, {}, {}],
+    [
+      'pdf',
+      'POST',
+      '/usages',
+      '/pdf',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   event: [
-    ['list', 'GET', '/events', null, false, null, false, {}],
-    ['retrieve', 'GET', '/events', null, true, null, false, {}],
+    ['list', 'GET', '/events', null, false, null, false, {}, {}],
+    ['retrieve', 'GET', '/events', null, true, null, false, {}, {}],
   ],
   comment: [
-    ['create', 'POST', '/comments', null, false, null, false, {}],
-    ['retrieve', 'GET', '/comments', null, true, null, false, {}],
-    ['list', 'GET', '/comments', null, false, null, false, {}],
-    ['delete', 'POST', '/comments', '/delete', true, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/comments',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/comments', null, true, null, false, {}, {}],
+    ['list', 'GET', '/comments', null, false, null, false, {}, {}],
+    [
+      'delete',
+      'POST',
+      '/comments',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   download: [],
   portalSession: [
-    ['create', 'POST', '/portal_sessions', null, false, null, false, {}],
-    ['retrieve', 'GET', '/portal_sessions', null, true, null, false, {}],
-    ['logout', 'POST', '/portal_sessions', '/logout', true, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/portal_sessions',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/portal_sessions', null, true, null, false, {}, {}],
+    [
+      'logout',
+      'POST',
+      '/portal_sessions',
+      '/logout',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'activate',
       'POST',
@@ -2238,10 +3527,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   siteMigrationDetail: [
-    ['list', 'GET', '/site_migration_details', null, false, null, false, {}],
+    [
+      'list',
+      'GET',
+      '/site_migration_details',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {},
+    ],
   ],
   resourceMigration: [
     [
@@ -2253,10 +3555,11 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
   ],
   timeMachine: [
-    ['retrieve', 'GET', '/time_machines', null, true, null, false, {}],
+    ['retrieve', 'GET', '/time_machines', null, true, null, false, {}, {}],
     [
       'startAfresh',
       'POST',
@@ -2266,6 +3569,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'travelForward',
@@ -2276,10 +3582,13 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   export: [
-    ['retrieve', 'GET', '/exports', null, true, null, false, {}],
+    ['retrieve', 'GET', '/exports', null, true, null, false, {}, {}],
     [
       'revenueRecognition',
       'POST',
@@ -2289,6 +3598,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'deferredRevenue',
@@ -2299,11 +3611,62 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['plans', 'POST', '/exports', '/plans', false, null, false, {}],
-    ['addons', 'POST', '/exports', '/addons', false, null, false, {}],
-    ['coupons', 'POST', '/exports', '/coupons', false, null, false, {}],
-    ['customers', 'POST', '/exports', '/customers', false, null, false, {}],
+    [
+      'plans',
+      'POST',
+      '/exports',
+      '/plans',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'addons',
+      'POST',
+      '/exports',
+      '/addons',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'coupons',
+      'POST',
+      '/exports',
+      '/coupons',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'customers',
+      'POST',
+      '/exports',
+      '/customers',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'subscriptions',
       'POST',
@@ -2313,8 +3676,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['invoices', 'POST', '/exports', '/invoices', false, null, false, {}],
+    [
+      'invoices',
+      'POST',
+      '/exports',
+      '/invoices',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'creditNotes',
       'POST',
@@ -2324,6 +3702,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'transactions',
@@ -2334,8 +3715,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['orders', 'POST', '/exports', '/orders', false, null, false, {}],
+    [
+      'orders',
+      'POST',
+      '/exports',
+      '/orders',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'itemFamilies',
       'POST',
@@ -2345,9 +3741,36 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['items', 'POST', '/exports', '/items', false, null, false, {}],
-    ['itemPrices', 'POST', '/exports', '/item_prices', false, null, false, {}],
+    [
+      'items',
+      'POST',
+      '/exports',
+      '/items',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'itemPrices',
+      'POST',
+      '/exports',
+      '/item_prices',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'attachedItems',
       'POST',
@@ -2357,6 +3780,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'differentialPrices',
@@ -2367,6 +3793,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'priceVariants',
@@ -2377,20 +3806,83 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   paymentIntent: [
-    ['create', 'POST', '/payment_intents', null, false, null, false, {}],
-    ['update', 'POST', '/payment_intents', null, true, null, false, {}],
-    ['retrieve', 'GET', '/payment_intents', null, true, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/payment_intents',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'update',
+      'POST',
+      '/payment_intents',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/payment_intents', null, true, null, false, {}, {}],
   ],
   gatewayErrorDetail: [],
   itemFamily: [
-    ['create', 'POST', '/item_families', null, false, null, false, {}],
-    ['retrieve', 'GET', '/item_families', null, true, null, false, {}],
-    ['list', 'GET', '/item_families', null, false, null, false, {}],
-    ['update', 'POST', '/item_families', null, true, null, false, {}],
-    ['delete', 'POST', '/item_families', '/delete', true, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/item_families',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/item_families', null, true, null, false, {}, {}],
+    ['list', 'GET', '/item_families', null, false, null, false, {}, {}],
+    [
+      'update',
+      'POST',
+      '/item_families',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'delete',
+      'POST',
+      '/item_families',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   item: [
     [
@@ -2404,8 +3896,11 @@ export const Endpoints: Endpoints = {
       {
         metadata: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['retrieve', 'GET', '/items', null, true, null, false, {}],
+    ['retrieve', 'GET', '/items', null, true, null, false, {}, {}],
     [
       'update',
       'POST',
@@ -2417,16 +3912,67 @@ export const Endpoints: Endpoints = {
       {
         metadata: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/items', null, false, null, false, {}],
-    ['delete', 'POST', '/items', '/delete', true, null, false, {}],
+    ['list', 'GET', '/items', null, false, null, false, {}, {}],
+    [
+      'delete',
+      'POST',
+      '/items',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   priceVariant: [
-    ['create', 'POST', '/price_variants', null, false, null, false, {}],
-    ['retrieve', 'GET', '/price_variants', null, true, null, false, {}],
-    ['update', 'POST', '/price_variants', null, true, null, false, {}],
-    ['delete', 'POST', '/price_variants', '/delete', true, null, false, {}],
-    ['list', 'GET', '/price_variants', null, false, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/price_variants',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/price_variants', null, true, null, false, {}, {}],
+    [
+      'update',
+      'POST',
+      '/price_variants',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'delete',
+      'POST',
+      '/price_variants',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/price_variants', null, false, null, false, {}, {}],
   ],
   attribute: [],
   itemPrice: [
@@ -2441,8 +3987,11 @@ export const Endpoints: Endpoints = {
       {
         metadata: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['retrieve', 'GET', '/item_prices', null, true, null, false, {}],
+    ['retrieve', 'GET', '/item_prices', null, true, null, false, {}, {}],
     [
       'update',
       'POST',
@@ -2454,9 +4003,24 @@ export const Endpoints: Endpoints = {
       {
         metadata: 0,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/item_prices', null, false, null, false, {}],
-    ['delete', 'POST', '/item_prices', '/delete', true, null, false, {}],
+    ['list', 'GET', '/item_prices', null, false, null, false, {}, {}],
+    [
+      'delete',
+      'POST',
+      '/item_prices',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'findApplicableItems',
       'GET',
@@ -2465,6 +4029,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -2476,14 +4041,51 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
   ],
   attachedItem: [
-    ['create', 'POST', '/items', '/attached_items', true, null, false, {}],
-    ['update', 'POST', '/attached_items', null, true, null, false, {}],
-    ['retrieve', 'GET', '/attached_items', null, true, null, false, {}],
-    ['delete', 'POST', '/attached_items', '/delete', true, null, false, {}],
-    ['list', 'GET', '/items', '/attached_items', true, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/items',
+      '/attached_items',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'update',
+      'POST',
+      '/attached_items',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/attached_items', null, true, null, false, {}, {}],
+    [
+      'delete',
+      'POST',
+      '/attached_items',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/items', '/attached_items', true, null, false, {}, {}],
   ],
   differentialPrice: [
     [
@@ -2497,8 +4099,21 @@ export const Endpoints: Endpoints = {
       {
         period: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
-    ['retrieve', 'GET', '/differential_prices', null, true, null, false, {}],
+    [
+      'retrieve',
+      'GET',
+      '/differential_prices',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
     [
       'update',
       'POST',
@@ -2510,6 +4125,9 @@ export const Endpoints: Endpoints = {
       {
         period: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'delete',
@@ -2520,18 +4138,57 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['list', 'GET', '/differential_prices', null, false, null, false, {}],
+    ['list', 'GET', '/differential_prices', null, false, null, false, {}, {}],
   ],
   configuration: [
-    ['list', 'GET', '/configurations', null, false, null, false, {}],
+    ['list', 'GET', '/configurations', null, false, null, false, {}, {}],
   ],
   feature: [
-    ['list', 'GET', '/features', null, false, null, false, {}],
-    ['create', 'POST', '/features', null, false, null, false, {}],
-    ['update', 'POST', '/features', null, true, null, false, {}],
-    ['retrieve', 'GET', '/features', null, true, null, false, {}],
-    ['delete', 'POST', '/features', '/delete', true, null, false, {}],
+    ['list', 'GET', '/features', null, false, null, false, {}, {}],
+    [
+      'create',
+      'POST',
+      '/features',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'update',
+      'POST',
+      '/features',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/features', null, true, null, false, {}, {}],
+    [
+      'delete',
+      'POST',
+      '/features',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'activate',
       'POST',
@@ -2541,8 +4198,23 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['archive', 'POST', '/features', '/archive_command', true, null, false, {}],
+    [
+      'archive',
+      'POST',
+      '/features',
+      '/archive_command',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'reactivate',
       'POST',
@@ -2552,6 +4224,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   impactedSubscription: [],
@@ -2568,6 +4243,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'setSubscriptionEntitlementAvailability',
@@ -2578,6 +4254,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   customerEntitlement: [
@@ -2589,6 +4268,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
   ],
@@ -2602,6 +4282,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
     [
       'itemEntitlementsForFeature',
@@ -2611,6 +4292,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -2622,6 +4304,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'upsertOrRemoveItemEntitlementsForItem',
@@ -2632,11 +4317,26 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   entitlement: [
-    ['list', 'GET', '/entitlements', null, false, null, false, {}],
-    ['create', 'POST', '/entitlements', null, false, null, false, {}],
+    ['list', 'GET', '/entitlements', null, false, null, false, {}, {}],
+    [
+      'create',
+      'POST',
+      '/entitlements',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   inAppSubscription: [
     [
@@ -2648,6 +4348,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'importReceipt',
@@ -2658,6 +4361,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'importSubscription',
@@ -2668,6 +4374,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'retrieveStoreSubs',
@@ -2678,6 +4387,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   nonSubscription: [
@@ -2690,6 +4402,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   entitlementOverride: [
@@ -2702,6 +4417,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'listEntitlementOverrideForSubscription',
@@ -2711,6 +4429,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
   ],
@@ -2724,6 +4443,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'getTransfers',
@@ -2733,6 +4455,7 @@ export const Endpoints: Endpoints = {
       false,
       null,
       false,
+      {},
       {},
     ],
   ],
@@ -2749,6 +4472,9 @@ export const Endpoints: Endpoints = {
         additional_information: 1,
         meta_data: 1,
       },
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'estimate',
@@ -2761,11 +4487,24 @@ export const Endpoints: Endpoints = {
       {
         exemption_details: 1,
       },
+      {},
     ],
   ],
   paymentVoucher: [
-    ['create', 'POST', '/payment_vouchers', null, false, null, false, {}],
-    ['retrieve', 'GET', '/payment_vouchers', null, true, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/payment_vouchers',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/payment_vouchers', null, true, null, false, {}, {}],
     [
       'payment_vouchersForInvoice',
       'GET',
@@ -2774,6 +4513,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -2785,13 +4525,38 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
   ],
   currency: [
-    ['list', 'GET', '/currencies', '/list', false, null, false, {}],
-    ['retrieve', 'GET', '/currencies', null, true, null, false, {}],
-    ['create', 'POST', '/currencies', null, false, null, false, {}],
-    ['update', 'POST', '/currencies', null, true, null, false, {}],
+    ['list', 'GET', '/currencies', '/list', false, null, false, {}, {}],
+    ['retrieve', 'GET', '/currencies', null, true, null, false, {}, {}],
+    [
+      'create',
+      'POST',
+      '/currencies',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'update',
+      'POST',
+      '/currencies',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     [
       'addSchedule',
       'POST',
@@ -2801,6 +4566,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'removeSchedule',
@@ -2811,6 +4579,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   ramp: [
@@ -2823,11 +4594,38 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
-    ['update', 'POST', '/ramps', '/update', true, null, false, {}],
-    ['retrieve', 'GET', '/ramps', null, true, null, false, {}],
-    ['delete', 'POST', '/ramps', '/delete', true, null, false, {}],
-    ['list', 'GET', '/ramps', null, false, null, false, {}],
+    [
+      'update',
+      'POST',
+      '/ramps',
+      '/update',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/ramps', null, true, null, false, {}, {}],
+    [
+      'delete',
+      'POST',
+      '/ramps',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/ramps', null, false, null, false, {}, {}],
   ],
   paymentScheduleScheme: [
     [
@@ -2839,6 +4637,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'retrieve',
@@ -2848,6 +4649,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
     [
@@ -2859,6 +4661,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   pricingPageSession: [
@@ -2871,6 +4676,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
     [
       'createForExistingSubscription',
@@ -2881,6 +4689,9 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   omnichannelSubscription: [
@@ -2893,8 +4704,19 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
-    ['list', 'GET', '/omnichannel_subscriptions', null, false, null, false, {}],
+    [
+      'list',
+      'GET',
+      '/omnichannel_subscriptions',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {},
+    ],
     [
       'omnichannel_transactionsForOmnichannelSubscription',
       'GET',
@@ -2903,6 +4725,7 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
+      {},
       {},
     ],
   ],
@@ -2917,13 +4740,26 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {},
+      {},
     ],
   ],
   recordedPurchase: [
-    ['create', 'POST', '/recorded_purchases', null, false, null, false, {}],
-    ['retrieve', 'GET', '/recorded_purchases', null, true, null, false, {}],
+    [
+      'create',
+      'POST',
+      '/recorded_purchases',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/recorded_purchases', null, true, null, false, {}, {}],
   ],
-  rule: [['retrieve', 'GET', '/rules', null, true, null, false, {}]],
+  rule: [['retrieve', 'GET', '/rules', null, true, null, false, {}, {}]],
   usageEvent: [
     [
       'create',
@@ -2936,6 +4772,7 @@ export const Endpoints: Endpoints = {
       {
         properties: 0,
       },
+      {},
     ],
     [
       'batchIngest',
@@ -2948,6 +4785,7 @@ export const Endpoints: Endpoints = {
       {
         properties: 1,
       },
+      {},
     ],
   ],
   omnichannelSubscriptionItemScheduledChange: [],
@@ -2961,6 +4799,7 @@ export const Endpoints: Endpoints = {
       'file-ingest',
       false,
       {},
+      {},
     ],
     [
       'status',
@@ -2970,6 +4809,7 @@ export const Endpoints: Endpoints = {
       true,
       'file-ingest',
       false,
+      {},
       {},
     ],
   ],

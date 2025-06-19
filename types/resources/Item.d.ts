@@ -119,9 +119,9 @@ declare module 'chargebee' {
       included_in_mrr?: boolean;
       metered?: boolean;
       usage_calculation?: 'sum_of_usages' | 'last_usage' | 'max_usage';
+      is_percentage_pricing?: boolean;
       metadata?: any;
       business_entity_id?: string;
-      is_percentage_pricing?: boolean;
       bundle_configuration?: BundleConfigurationCreateInputParam;
       bundle_items_to_add?: BundleItemsToAddCreateInputParam[];
       [key: `cf_${string}`]: unknown;
@@ -146,6 +146,7 @@ declare module 'chargebee' {
       metadata?: any;
       included_in_mrr?: boolean;
       status?: 'active' | 'archived';
+      is_percentage_pricing?: boolean;
       bundle_configuration?: BundleConfigurationUpdateInputParam;
       bundle_items_to_add?: BundleItemsToAddUpdateInputParam[];
       bundle_items_to_update?: BundleItemsToUpdateUpdateInputParam[];

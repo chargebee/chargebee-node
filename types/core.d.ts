@@ -38,6 +38,8 @@ declare module 'chargebee' {
   type BillingAlignmentModeEnum = 'immediate' | 'delayed';
   type BillingDateModeEnum = 'using_defaults' | 'manually_set';
   type BillingDayOfWeekModeEnum = 'using_defaults' | 'manually_set';
+  type BillingPeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
+  type BillingStartOptionEnum = 'immediately' | 'on_specific_date';
   type CancelOptionEnum =
     | 'immediately'
     | 'end_of_term'
@@ -54,6 +56,7 @@ declare module 'chargebee' {
     | 'contract_termination'
     | 'on_demand';
   type ChargeOnOptionEnum = 'immediately' | 'on_event';
+  type ChargebeeResponseSchemaTypeEnum = 'plans_addons' | 'items' | 'compat';
   type ChargesHandlingEnum = 'invoice_immediately' | 'add_to_unbilled_charges';
   type ContractTermCancelOptionEnum =
     | 'terminate_immediately'
@@ -345,6 +348,7 @@ declare module 'chargebee' {
     | 'sales_order_updated'
     | 'omnichannel_subscription_item_changed'
     | 'omnichannel_subscription_item_paused'
+    | 'omnichannel_subscription_item_resumed'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'

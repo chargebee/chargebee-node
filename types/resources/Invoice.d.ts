@@ -112,6 +112,18 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<StopDunningResponse>>;
 
+      pauseDunning(
+        invoice_id: string,
+        input: PauseDunningInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<PauseDunningResponse>>;
+
+      resumeDunning(
+        invoice_id: string,
+        input?: ResumeDunningInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ResumeDunningResponse>>;
+
       importInvoice(
         input: ImportInvoiceInputParam,
         headers?: ChargebeeRequestHeader,
@@ -159,6 +171,7 @@ declare module 'chargebee' {
 
       retrieve(
         invoice_id: string,
+        input?: RetrieveInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
@@ -317,6 +330,14 @@ declare module 'chargebee' {
     }
 
     export interface StopDunningResponse {
+      invoice: Invoice;
+    }
+
+    export interface PauseDunningResponse {
+      invoice: Invoice;
+    }
+
+    export interface ResumeDunningResponse {
       invoice: Invoice;
     }
 
@@ -486,7 +507,7 @@ declare module 'chargebee' {
       discount_amount?: number;
       item_level_discount_amount?: number;
       metered?: boolean;
-      percentage?: string;
+      is_percentage_pricing?: boolean;
       reference_line_item_id?: string;
       description: string;
       entity_description?: string;
@@ -702,7 +723,9 @@ declare module 'chargebee' {
       created_at: number;
     }
     export interface Note {
-      entity_type:
+      note: string;
+      entity_id?: string;
+      entity_type?:
         | 'coupon'
         | 'subscription'
         | 'customer'
@@ -712,8 +735,6 @@ declare module 'chargebee' {
         | 'tax'
         | 'plan'
         | 'addon';
-      note: string;
-      entity_id?: string;
     }
     export interface ShippingAddress {
       first_name?: string;
@@ -917,6 +938,13 @@ declare module 'chargebee' {
     export interface StopDunningInputParam {
       comment?: string;
     }
+    export interface PauseDunningInputParam {
+      expected_payment_date: number;
+      comment?: string;
+    }
+    export interface ResumeDunningInputParam {
+      comment?: string;
+    }
     export interface ImportInvoiceInputParam {
       id: string;
       currency_code?: string;
@@ -1007,6 +1035,9 @@ declare module 'chargebee' {
     export interface InvoicesForSubscriptionInputParam {
       limit?: number;
       offset?: string;
+    }
+    export interface RetrieveInputParam {
+      line_item?: LineItemRetrieveInputParam;
     }
     export interface PdfInputParam {
       disposition_type?: DispositionTypeEnum;
@@ -1613,6 +1644,11 @@ declare module 'chargebee' {
     }
     export interface EinvoiceInvoiceListInputParam {
       status?: filter.Enum;
+    }
+
+    export interface LineItemRetrieveInputParam {
+      subscription_id?: filter.String;
+      customer_id?: filter.String;
     }
 
     export interface PaymentReferenceNumberInvoiceListPaymentReferenceNumbersInputParam {

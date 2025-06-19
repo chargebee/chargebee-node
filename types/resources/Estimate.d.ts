@@ -275,6 +275,7 @@ declare module 'chargebee' {
       shipping_address?: ShippingAddressCreateSubItemForCustomerEstimateInputParam;
       billing_address?: BillingAddressCreateSubItemForCustomerEstimateInputParam;
       contract_term?: ContractTermCreateSubItemForCustomerEstimateInputParam;
+      billing_override?: BillingOverrideCreateSubItemForCustomerEstimateInputParam;
       subscription_items?: SubscriptionItemsCreateSubItemForCustomerEstimateInputParam[];
       discounts?: DiscountsCreateSubItemForCustomerEstimateInputParam[];
       item_tiers?: ItemTiersCreateSubItemForCustomerEstimateInputParam[];
@@ -329,6 +330,7 @@ declare module 'chargebee' {
       billing_address?: BillingAddressUpdateSubscriptionForItemsInputParam;
       shipping_address?: ShippingAddressUpdateSubscriptionForItemsInputParam;
       customer?: CustomerUpdateSubscriptionForItemsInputParam;
+      billing_override?: BillingOverrideUpdateSubscriptionForItemsInputParam;
       subscription_items?: SubscriptionItemsUpdateSubscriptionForItemsInputParam[];
       discounts?: DiscountsUpdateSubscriptionForItemsInputParam[];
       item_tiers?: ItemTiersUpdateSubscriptionForItemsInputParam[];
@@ -691,6 +693,10 @@ declare module 'chargebee' {
       billing_cycles?: number;
       trial_end?: number;
     }
+    export interface BillingOverrideCreateSubItemForCustomerEstimateInputParam {
+      max_excess_payment_usage?: number;
+      max_refundable_credits_usage?: number;
+    }
     export interface BillingAddressCreateSubItemForCustomerEstimateInputParam {
       line1?: string;
       line2?: string;
@@ -841,6 +847,10 @@ declare module 'chargebee' {
       unit_price_in_decimal?: string;
       trial_end?: number;
       proration_type?: ProrationTypeEnum;
+    }
+    export interface BillingOverrideUpdateSubscriptionForItemsInputParam {
+      max_excess_payment_usage?: number;
+      max_refundable_credits_usage?: number;
     }
     export interface BillingAddressUpdateSubscriptionForItemsInputParam {
       line1?: string;

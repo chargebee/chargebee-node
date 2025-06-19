@@ -887,6 +887,8 @@ declare module 'chargebee' {
     export interface ContractTermsForSubscriptionInputParam {
       limit?: number;
       offset?: string;
+      'sort_by[asc]'?: string;
+      'sort_by[desc]'?: string;
     }
     export interface ListDiscountsInputParam {
       limit?: number;

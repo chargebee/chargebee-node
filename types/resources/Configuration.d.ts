@@ -5,6 +5,7 @@ declare module 'chargebee' {
   export interface Configuration {
     domain?: string;
     product_catalog_version?: ProductCatalogVersionEnum;
+    chargebee_response_schema_type?: ChargebeeResponseSchemaTypeEnum;
   }
 
   export namespace Configuration {

@@ -10,11 +10,22 @@ declare module 'chargebee' {
     customer_id: string;
     subscription_id?: string;
     invoice_id?: string;
-    status: 'open' | 'accepted' | 'declined' | 'invoiced' | 'closed';
+    status:
+      | 'open'
+      | 'accepted'
+      | 'declined'
+      | 'invoiced'
+      | 'closed'
+      | 'pending_approval'
+      | 'approval_rejected'
+      | 'proposed'
+      | 'voided'
+      | 'expired';
     operation_type:
       | 'create_subscription_for_customer'
       | 'change_subscription'
-      | 'onetime_invoice';
+      | 'onetime_invoice'
+      | 'renew_subscription';
     vat_number?: string;
     price_type: PriceTypeEnum;
     valid_till: number;
@@ -46,6 +57,8 @@ declare module 'chargebee' {
     contract_term_termination_fee?: number;
     business_entity_id?: string;
     deleted: boolean;
+    total_contract_value?: number;
+    total_discount?: number;
   }
 
   export namespace Quote {
@@ -299,7 +312,7 @@ declare module 'chargebee' {
       discount_amount?: number;
       item_level_discount_amount?: number;
       metered?: boolean;
-      percentage?: string;
+      is_percentage_pricing?: boolean;
       reference_line_item_id?: string;
       description: string;
       entity_description?: string;
@@ -542,12 +555,16 @@ declare module 'chargebee' {
       terms_to_charge?: number;
       billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
+      billing_start_option?: BillingStartOptionEnum;
+      net_term_days?: number;
       subscription?: SubscriptionCreateSubItemsForCustomerQuoteInputParam;
       shipping_address?: ShippingAddressCreateSubItemsForCustomerQuoteInputParam;
       contract_term?: ContractTermCreateSubItemsForCustomerQuoteInputParam;
+      billing_address?: BillingAddressCreateSubItemsForCustomerQuoteInputParam;
       subscription_items?: SubscriptionItemsCreateSubItemsForCustomerQuoteInputParam[];
       discounts?: DiscountsCreateSubItemsForCustomerQuoteInputParam[];
       item_tiers?: ItemTiersCreateSubItemsForCustomerQuoteInputParam[];
+      coupons?: CouponsCreateSubItemsForCustomerQuoteInputParam[];
       [key: `cf_${string}`]: unknown;
     }
     export interface EditCreateSubCustomerQuoteForItemsInputParam {
@@ -558,12 +575,16 @@ declare module 'chargebee' {
       terms_to_charge?: number;
       billing_alignment_mode?: BillingAlignmentModeEnum;
       coupon_ids?: string[];
+      billing_start_option?: BillingStartOptionEnum;
+      net_term_days?: number;
       subscription?: SubscriptionEditCreateSubCustomerQuoteForItemsInputParam;
       shipping_address?: ShippingAddressEditCreateSubCustomerQuoteForItemsInputParam;
       contract_term?: ContractTermEditCreateSubCustomerQuoteForItemsInputParam;
+      billing_address?: BillingAddressEditCreateSubCustomerQuoteForItemsInputParam;
       subscription_items?: SubscriptionItemsEditCreateSubCustomerQuoteForItemsInputParam[];
       discounts?: DiscountsEditCreateSubCustomerQuoteForItemsInputParam[];
       item_tiers?: ItemTiersEditCreateSubCustomerQuoteForItemsInputParam[];
+      coupons?: CouponsEditCreateSubCustomerQuoteForItemsInputParam[];
       [key: `cf_${string}`]: unknown;
     }
     export interface UpdateSubscriptionQuoteForItemsInputParam {
@@ -582,6 +603,7 @@ declare module 'chargebee' {
       changes_scheduled_at?: number;
       force_term_reset?: boolean;
       reactivate?: boolean;
+      net_term_days?: number;
       subscription?: SubscriptionUpdateSubscriptionQuoteForItemsInputParam;
       billing_address?: BillingAddressUpdateSubscriptionQuoteForItemsInputParam;
       shipping_address?: ShippingAddressUpdateSubscriptionQuoteForItemsInputParam;
@@ -590,6 +612,7 @@ declare module 'chargebee' {
       subscription_items?: SubscriptionItemsUpdateSubscriptionQuoteForItemsInputParam[];
       discounts?: DiscountsUpdateSubscriptionQuoteForItemsInputParam[];
       item_tiers?: ItemTiersUpdateSubscriptionQuoteForItemsInputParam[];
+      coupons?: CouponsUpdateSubscriptionQuoteForItemsInputParam[];
       [key: `cf_${string}`]: unknown;
     }
     export interface EditUpdateSubscriptionQuoteForItemsInputParam {
@@ -607,6 +630,7 @@ declare module 'chargebee' {
       changes_scheduled_at?: number;
       force_term_reset?: boolean;
       reactivate?: boolean;
+      net_term_days?: number;
       subscription?: SubscriptionEditUpdateSubscriptionQuoteForItemsInputParam;
       billing_address?: BillingAddressEditUpdateSubscriptionQuoteForItemsInputParam;
       shipping_address?: ShippingAddressEditUpdateSubscriptionQuoteForItemsInputParam;
@@ -615,6 +639,7 @@ declare module 'chargebee' {
       subscription_items?: SubscriptionItemsEditUpdateSubscriptionQuoteForItemsInputParam[];
       discounts?: DiscountsEditUpdateSubscriptionQuoteForItemsInputParam[];
       item_tiers?: ItemTiersEditUpdateSubscriptionQuoteForItemsInputParam[];
+      coupons?: CouponsEditUpdateSubscriptionQuoteForItemsInputParam[];
       [key: `cf_${string}`]: unknown;
     }
     export interface CreateForChargeItemsAndChargesInputParam {
@@ -626,6 +651,7 @@ declare module 'chargebee' {
       currency_code?: string;
       coupon?: string;
       coupon_ids?: string[];
+      billing_address?: BillingAddressCreateForChargeItemsAndChargesInputParam;
       shipping_address?: ShippingAddressCreateForChargeItemsAndChargesInputParam;
       item_prices?: ItemPricesCreateForChargeItemsAndChargesInputParam[];
       item_tiers?: ItemTiersCreateForChargeItemsAndChargesInputParam[];
@@ -640,6 +666,7 @@ declare module 'chargebee' {
       currency_code?: string;
       coupon?: string;
       coupon_ids?: string[];
+      billing_address?: BillingAddressEditForChargeItemsAndChargesInputParam;
       shipping_address?: ShippingAddressEditForChargeItemsAndChargesInputParam;
       item_prices?: ItemPricesEditForChargeItemsAndChargesInputParam[];
       item_tiers?: ItemTiersEditForChargeItemsAndChargesInputParam[];
@@ -673,7 +700,7 @@ declare module 'chargebee' {
       subscription?: SubscriptionConvertInputParam;
     }
     export interface UpdateStatusInputParam {
-      status: 'accepted' | 'declined' | 'closed';
+      status: 'accepted' | 'declined' | 'proposed' | 'voided' | 'closed';
       comment?: string;
     }
     export interface ExtendExpiryDateInputParam {
@@ -1033,6 +1060,22 @@ declare module 'chargebee' {
       field_id?: string;
       field_value?: string;
     }
+    export interface BillingAddressCreateSubItemsForCustomerQuoteInputParam {
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      company?: string;
+      phone?: string;
+      line1?: string;
+      line2?: string;
+      line3?: string;
+      city?: string;
+      state_code?: string;
+      state?: string;
+      zip?: string;
+      country?: string;
+      validation_status?: ValidationStatusEnum;
+    }
     export interface ShippingAddressCreateSubItemsForCustomerQuoteInputParam {
       first_name?: string;
       last_name?: string;
@@ -1081,6 +1124,9 @@ declare module 'chargebee' {
        */
       item_type?: ItemTypeEnum;
       charge_on_option?: ChargeOnOptionEnum;
+      start_date?: number;
+      end_date?: number;
+      ramp_tier_id?: string;
     }
     export interface DiscountsCreateSubItemsForCustomerQuoteInputParam {
       apply_on?: ApplyOnEnum;
@@ -1091,6 +1137,13 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      start_date?: number;
+      end_date?: number;
+    }
+    export interface CouponsCreateSubItemsForCustomerQuoteInputParam {
+      id?: string;
+      start_date?: number;
+      end_date?: number;
     }
     export interface ItemTiersCreateSubItemsForCustomerQuoteInputParam {
       item_price_id?: string;
@@ -1102,6 +1155,23 @@ declare module 'chargebee' {
       price_in_decimal?: string;
       pricing_type?: PricingTypeEnum;
       package_size?: number;
+      ramp_tier_id?: string;
+    }
+    export interface BillingAddressEditCreateSubCustomerQuoteForItemsInputParam {
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      company?: string;
+      phone?: string;
+      line1?: string;
+      line2?: string;
+      line3?: string;
+      city?: string;
+      state_code?: string;
+      state?: string;
+      zip?: string;
+      country?: string;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ShippingAddressEditCreateSubCustomerQuoteForItemsInputParam {
       first_name?: string;
@@ -1151,6 +1221,9 @@ declare module 'chargebee' {
        */
       item_type?: ItemTypeEnum;
       charge_on_option?: ChargeOnOptionEnum;
+      start_date?: number;
+      end_date?: number;
+      ramp_tier_id?: string;
     }
     export interface DiscountsEditCreateSubCustomerQuoteForItemsInputParam {
       apply_on?: ApplyOnEnum;
@@ -1161,6 +1234,13 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      start_date?: number;
+      end_date?: number;
+    }
+    export interface CouponsEditCreateSubCustomerQuoteForItemsInputParam {
+      id?: string;
+      start_date?: number;
+      end_date?: number;
     }
     export interface ItemTiersEditCreateSubCustomerQuoteForItemsInputParam {
       item_price_id?: string;
@@ -1172,6 +1252,7 @@ declare module 'chargebee' {
       price_in_decimal?: string;
       pricing_type?: PricingTypeEnum;
       package_size?: number;
+      ramp_tier_id?: string;
     }
     export interface BillingAddressUpdateSubscriptionQuoteForItemsInputParam {
       first_name?: string;
@@ -1247,6 +1328,9 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       item_type?: ItemTypeEnum;
+      start_date?: number;
+      end_date?: number;
+      ramp_tier_id?: string;
     }
     export interface DiscountsUpdateSubscriptionQuoteForItemsInputParam {
       apply_on?: ApplyOnEnum;
@@ -1259,6 +1343,13 @@ declare module 'chargebee' {
       item_price_id?: string;
       operation_type: OperationTypeEnum;
       id?: string;
+      start_date?: number;
+      end_date?: number;
+    }
+    export interface CouponsUpdateSubscriptionQuoteForItemsInputParam {
+      id?: string;
+      start_date?: number;
+      end_date?: number;
     }
     export interface ItemTiersUpdateSubscriptionQuoteForItemsInputParam {
       item_price_id?: string;
@@ -1270,6 +1361,7 @@ declare module 'chargebee' {
       price_in_decimal?: string;
       pricing_type?: PricingTypeEnum;
       package_size?: number;
+      ramp_tier_id?: string;
     }
     export interface BillingAddressEditUpdateSubscriptionQuoteForItemsInputParam {
       first_name?: string;
@@ -1344,6 +1436,9 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       item_type?: ItemTypeEnum;
+      start_date?: number;
+      end_date?: number;
+      ramp_tier_id?: string;
     }
     export interface DiscountsEditUpdateSubscriptionQuoteForItemsInputParam {
       apply_on?: ApplyOnEnum;
@@ -1356,6 +1451,13 @@ declare module 'chargebee' {
       item_price_id?: string;
       operation_type: OperationTypeEnum;
       id?: string;
+      start_date?: number;
+      end_date?: number;
+    }
+    export interface CouponsEditUpdateSubscriptionQuoteForItemsInputParam {
+      id?: string;
+      start_date?: number;
+      end_date?: number;
     }
     export interface ItemTiersEditUpdateSubscriptionQuoteForItemsInputParam {
       item_price_id?: string;
@@ -1367,6 +1469,23 @@ declare module 'chargebee' {
       price_in_decimal?: string;
       pricing_type?: PricingTypeEnum;
       package_size?: number;
+      ramp_tier_id?: string;
+    }
+    export interface BillingAddressCreateForChargeItemsAndChargesInputParam {
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      company?: string;
+      phone?: string;
+      line1?: string;
+      line2?: string;
+      line3?: string;
+      city?: string;
+      state_code?: string;
+      state?: string;
+      zip?: string;
+      country?: string;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ShippingAddressCreateForChargeItemsAndChargesInputParam {
       first_name?: string;
@@ -1423,6 +1542,22 @@ declare module 'chargebee' {
       provider_name?: string;
       field_id?: string;
       field_value?: string;
+    }
+    export interface BillingAddressEditForChargeItemsAndChargesInputParam {
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      company?: string;
+      phone?: string;
+      line1?: string;
+      line2?: string;
+      line3?: string;
+      city?: string;
+      state_code?: string;
+      state?: string;
+      zip?: string;
+      country?: string;
+      validation_status?: ValidationStatusEnum;
     }
     export interface ShippingAddressEditForChargeItemsAndChargesInputParam {
       first_name?: string;

@@ -73,6 +73,7 @@ declare module 'chargebee' {
 
       retrieve(
         credit_note_id: string,
+        input?: RetrieveInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
@@ -240,7 +241,7 @@ declare module 'chargebee' {
       discount_amount?: number;
       item_level_discount_amount?: number;
       metered?: boolean;
-      percentage?: string;
+      is_percentage_pricing?: boolean;
       reference_line_item_id?: string;
       description: string;
       entity_description?: string;
@@ -450,6 +451,9 @@ declare module 'chargebee' {
       comment?: string;
       line_items?: LineItemsCreateInputParam[];
     }
+    export interface RetrieveInputParam {
+      line_item?: LineItemRetrieveInputParam;
+    }
     export interface PdfInputParam {
       disposition_type?: DispositionTypeEnum;
     }
@@ -542,6 +546,11 @@ declare module 'chargebee' {
         | 'charge_item_price';
       entity_id?: string;
     }
+    export interface LineItemRetrieveInputParam {
+      subscription_id?: filter.String;
+      customer_id?: filter.String;
+    }
+
     export interface TransactionRecordRefundInputParam {
       amount?: number;
       payment_method: PaymentMethodEnum;

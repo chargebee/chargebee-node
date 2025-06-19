@@ -45,7 +45,7 @@ declare module 'chargebee' {
       discount_amount?: number;
       item_level_discount_amount?: number;
       metered?: boolean;
-      percentage?: string;
+      is_percentage_pricing?: boolean;
       reference_line_item_id?: string;
       description: string;
       entity_description?: string;

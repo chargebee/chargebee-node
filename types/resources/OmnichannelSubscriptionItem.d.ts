@@ -26,9 +26,11 @@ declare module 'chargebee' {
       | 'refunded_for_other_reason'
       | 'merchant_revoked';
     grace_period_expires_at?: number;
+    resumes_at?: number;
     has_scheduled_changes: boolean;
     resource_version?: number;
     upcoming_renewal?: OmnichannelSubscriptionItem.UpcomingRenewal;
+    linked_item?: OmnichannelSubscriptionItem.LinkedItem;
   }
 
   export namespace OmnichannelSubscriptionItem {
@@ -51,6 +53,10 @@ declare module 'chargebee' {
       price_currency?: string;
       price_units?: number;
       price_nanos?: number;
+    }
+    export interface LinkedItem {
+      id: string;
+      linked_at?: number;
     }
     // REQUEST PARAMS
     //---------------
