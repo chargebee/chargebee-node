@@ -83,6 +83,7 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
             subDomain: metaArr[5],
             isJsonRequest: metaArr[6],
             jsonKeys: metaArr[7],
+            options: metaArr[8],
           };
           this[res][apiCall.methodName] = this._createApiFunc(
             apiCall,
