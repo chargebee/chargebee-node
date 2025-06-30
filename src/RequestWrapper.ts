@@ -53,8 +53,10 @@ export class RequestWrapper {
   }
 
   public async request(): Promise<any> {
-    let env: any = {};
-    extend(true, env, this.envArg);
+    let _env: any = {};
+    extend(true, _env, this.envArg);
+
+    const env = _env as EnvType;
 
     const retryConfig: RetryConfig = {
       enabled: false,
@@ -118,12 +120,14 @@ export class RequestWrapper {
         ? 'application/json;charset=UTF-8'
         : 'application/x-www-form-urlencoded; charset=utf-8';
 
+      const userAgent = `Chargebee-NodeJs-Client ${env.clientVersion}${env.userAgentSuffix ? ';' + env.userAgentSuffix : ''}`;
+
       extend(true, requestHeaders, {
         Authorization:
           'Basic ' + Buffer.from(env.apiKey + ':').toString('base64'),
         Accept: 'application/json',
         'Content-Type': contentType,
-        'User-Agent': 'Chargebee-NodeJs-Client ' + env.clientVersion,
+        'User-Agent': userAgent,
         'Lang-Version': typeof process === 'undefined' ? '' : process.version,
       });
 

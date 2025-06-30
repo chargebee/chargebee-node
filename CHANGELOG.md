@@ -1,3 +1,10 @@
+### v3.10.0 (2025-06-30)
+* * * 
+
+### New Features
+* Added `userAgentSuffix` to the environment config to allow appending custom text to the `User-Agent` header.
+
+
 ### v3.9.0 (2025-06-23)
 * * * 
 

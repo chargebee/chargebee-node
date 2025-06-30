@@ -132,6 +132,11 @@ export type Config = {
    * @enableDebugLogs whether to enable debug logs, default value is false
    */
   enableDebugLogs?: boolean;
+
+  /**
+   * @userAgentSuffix optional string appended to the User-Agent header for additional logging
+   */
+  userAgentSuffix?: string;
 };
 
 export type RetryConfig = {

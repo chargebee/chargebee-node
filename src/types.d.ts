@@ -33,6 +33,7 @@ export type EnvType = {
   httpClient: HttpClientInterface;
   retryConfig?: RetryConfig;
   enableDebugLogs?: boolean;
+  userAgentSuffix?: string;
 };
 
 export type RetryConfig = {
@@ -55,6 +56,7 @@ export type Config = {
   hostSuffix?: string;
   retryConfig?: RetryConfig;
   enableDebugLogs?: boolean;
+  userAgentSuffix?: string;
 };
 
 export type Callback = (error: unknown, result: any | null) => void;
