@@ -264,20 +264,6 @@ declare module 'chargebee' {
       offset?:string;
        
       /**
-        * @description Parameters for addon
-
-        */
-        
-      addon?:{};
-       
-      /**
-        * @description Parameters for plan
-
-        */
-        
-      plan?:{};
-       
-      /**
         * @description Used to uniquely identify the coupon in your website/application and to integrate with Chargebee.  
 **Note:**
 
@@ -343,20 +329,6 @@ Make sure that you [encode](https://www.urlencoder.org/) the name of the coupon 
         
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      /**
-        * @description Plans the coupon can be applied to.
-
-        */
-        
-      plan_constraint?:{in?:string,is?:'none' | 'all' | 'specific' | 'not_applicable',is_not?:'none' | 'all' | 'specific' | 'not_applicable',not_in?:string};
-       
-      /**
-        * @description Addons the coupon can be applied to.
-
-        */
-        
-      addon_constraint?:{in?:string,is?:'none' | 'all' | 'specific' | 'not_applicable',is_not?:'none' | 'all' | 'specific' | 'not_applicable',not_in?:string};
-       
       sort_by?:{asc?:'created_at',desc?:'created_at'};
        
       /**
@@ -365,15 +337,6 @@ Make sure that you [encode](https://www.urlencoder.org/) the name of the coupon 
         */
         
       currency_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      /**
-        * @description Item families for which this coupon is applicable.
-
-        */
-        
-      item_family?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
-       
-      include_discounts?:boolean;
     }
     export interface RetrieveResponse {  
        coupon:Coupon;

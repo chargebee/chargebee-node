@@ -79,7 +79,7 @@ declare module 'chargebee' {
        
       metered?:boolean;
        
-      percentage?:string;
+      is_percentage_pricing?:boolean;
        
       reference_line_item_id?:string;
        

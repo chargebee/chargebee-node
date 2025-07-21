@@ -1,12 +1,12 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
-  export interface Attribute {
+  export interface Brand {
     
 
-    name:string;
+    id:string;
 
-    value:string;
+    name:string;
 
   }
 }

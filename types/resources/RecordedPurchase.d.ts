@@ -44,6 +44,8 @@ declare module 'chargebee' {
        
       google_play_store?:{purchase_token?:string};
        
+      omnichannel_subscription?:{id?:string};
+       
       app_id:string;
     }
     export interface RetrieveResponse {  

@@ -1,18 +1,21 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface Currency {
     
+
     id?:string;
-    
+
     enabled:boolean;
-    
+
     forex_type?:'manual' | 'auto';
-    
+
     currency_code?:string;
-    
+
     is_base_currency?:boolean;
-    
+
     manual_exchange_rate?:string;
+
   }
   export namespace Currency {
     export class CurrencyResource {  

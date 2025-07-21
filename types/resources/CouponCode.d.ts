@@ -1,62 +1,94 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface CouponCode {
     
-    /**
-      * @description Unique coupon code that can be redeemed only once.
 
-      */
-    
     code:string;
-    
-    /**
-      * @description Status of the coupon code. \* not_redeemed - Can be applied to a subscription. \* redeemed - Cannot be applied to a subscription as the coupon code has been already used. \* archived - Cannot be applied to a subscription as it has been made inactive.
 
-      */
-    
-    status:'archived' | 'redeemed' | 'not_redeemed';
-    
-    /**
-      * @description Id of the main coupon resource.
+    status:'not_redeemed' | 'redeemed' | 'archived';
 
-      */
-    
     coupon_id:string;
-    
-    /**
-      * @description Uniquely identifies a coupon_set
 
-      */
-    
     coupon_set_id:string;
-    
-    /**
-      * @description Coupon set name to which this coupon code would be grouped under. If the coupon set with the passed name is not present, a new coupon set will be created.
 
-      */
-    
     coupon_set_name:string;
+
   }
   export namespace CouponCode {
     export class CouponCodeResource {  
-      /**
-        * @description Retrieves a specific coupon code details.
-
-        */
-      
+      create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
+       
       retrieve(coupon_code_code:string):ChargebeeRequest<RetrieveResponse>;
        
-      /**
-        * @description Archives a coupon code thereby making it inactive. The archived coupon code cannot be applied to any subscription.
-
-        */
-      
+      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
+       
       archive(coupon_code_code:string):ChargebeeRequest<ArchiveResponse>;
+    }
+    export interface CreateResponse {  
+       coupon_code:CouponCode;
+    }
+    export interface CreateInputParam {
+       
+      coupon_id:string;
+       
+      coupon_set_name:string;
+       
+      code:string;
     }
     export interface RetrieveResponse {  
        coupon_code:CouponCode;
     }
     
+    export interface ListResponse {  
+       list:{coupon_code:CouponCode}[];
+       
+       next_offset?:string;
+    }
+    export interface ListInputParam {
+      [key : string]: any;  
+      /**
+        * @description The number of resources to be returned.
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+
+        */
+        
+      offset?:string;
+       
+      /**
+        * @description Unique coupon code that can be redeemed only once.
+
+        */
+        
+      code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Id of the main coupon resource.
+
+        */
+        
+      coupon_id?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
+       
+      /**
+        * @description Coupon set name to which this coupon code would be grouped under. If the coupon set with the passed name is not present, a new coupon set will be created.
+
+        */
+        
+      coupon_set_name?:{is?:string,is_not?:string,starts_with?:string};
+       
+      /**
+        * @description Status of the coupon code.
+
+        */
+        
+      status?:{in?:string,is?:'not_redeemed' | 'redeemed' | 'archived',is_not?:'not_redeemed' | 'redeemed' | 'archived',not_in?:string};
+    }
     export interface ArchiveResponse {  
        coupon_code:CouponCode;
     }

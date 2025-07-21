@@ -3,19 +3,21 @@
 declare module 'chargebee' {
   export interface BusinessEntity {
     
+
     id:string;
-    
+
     name:string;
-    
+
     status:'active' | 'inactive';
-    
+
     deleted:boolean;
-    
+
     created_at:number;
-    
+
     resource_version?:number;
-    
+
     updated_at?:number;
+
   }
   export namespace BusinessEntity {
     export class BusinessEntityResource {  

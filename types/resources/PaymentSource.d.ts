@@ -163,7 +163,7 @@ declare module 'chargebee' {
     }
     export interface CreateUsingPaymentIntentInputParam {
        
-      payment_intent?:{additional_info?:object,additional_information?:object,gateway_account_id?:string,gw_payment_method_id?:string,gw_token?:string,id?:string,payment_method_type?:'card' | 'ideal' | 'sofort' | 'bancontact' | 'google_pay' | 'dotpay' | 'giropay' | 'apple_pay' | 'upi' | 'netbanking_emandates' | 'paypal_express_checkout' | 'direct_debit' | 'boleto' | 'venmo' | 'amazon_payments' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'klarna_pay_now' | 'online_banking_poland',reference_id?:string};
+      payment_intent?:{additional_info?:object,additional_information?:object,gateway_account_id?:string,gw_payment_method_id?:string,gw_token?:string,id?:string,payment_method_type?:'card' | 'ideal' | 'sofort' | 'bancontact' | 'google_pay' | 'dotpay' | 'giropay' | 'apple_pay' | 'upi' | 'netbanking_emandates' | 'paypal_express_checkout' | 'direct_debit' | 'boleto' | 'venmo' | 'amazon_payments' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'klarna_pay_now' | 'online_banking_poland' | 'payconiq_by_bancontact',reference_id?:string};
        
       customer_id:string;
        
@@ -280,7 +280,7 @@ declare module 'chargebee' {
 
         */
         
-      type?:{in?:string,is?:'card' | 'paypal_express_checkout' | 'amazon_payments' | 'direct_debit' | 'generic' | 'alipay' | 'unionpay' | 'apple_pay' | 'wechat_pay' | 'ideal' | 'google_pay' | 'sofort' | 'bancontact' | 'giropay' | 'dotpay' | 'upi' | 'netbanking_emandates' | 'venmo' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'automated_bank_transfer' | 'klarna_pay_now' | 'online_banking_poland',is_not?:'card' | 'paypal_express_checkout' | 'amazon_payments' | 'direct_debit' | 'generic' | 'alipay' | 'unionpay' | 'apple_pay' | 'wechat_pay' | 'ideal' | 'google_pay' | 'sofort' | 'bancontact' | 'giropay' | 'dotpay' | 'upi' | 'netbanking_emandates' | 'venmo' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'automated_bank_transfer' | 'klarna_pay_now' | 'online_banking_poland',not_in?:string};
+      type?:{in?:string,is?:'card' | 'paypal_express_checkout' | 'amazon_payments' | 'direct_debit' | 'generic' | 'alipay' | 'unionpay' | 'apple_pay' | 'wechat_pay' | 'ideal' | 'google_pay' | 'sofort' | 'bancontact' | 'giropay' | 'dotpay' | 'upi' | 'netbanking_emandates' | 'venmo' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'automated_bank_transfer' | 'klarna_pay_now' | 'online_banking_poland' | 'payconiq_by_bancontact',is_not?:'card' | 'paypal_express_checkout' | 'amazon_payments' | 'direct_debit' | 'generic' | 'alipay' | 'unionpay' | 'apple_pay' | 'wechat_pay' | 'ideal' | 'google_pay' | 'sofort' | 'bancontact' | 'giropay' | 'dotpay' | 'upi' | 'netbanking_emandates' | 'venmo' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'automated_bank_transfer' | 'klarna_pay_now' | 'online_banking_poland' | 'payconiq_by_bancontact',not_in?:string};
        
       /**
         * @description Current status of the payment source.

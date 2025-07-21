@@ -164,10 +164,6 @@ declare module 'chargebee' {
     export interface RetrieveInputParam {
        
       line_item?:{customer_id?:{is?:string},subscription_id?:{is?:string}};
-       
-      line_items_limit?:number;
-       
-      line_items_offset?:string;
     }
     export interface PdfResponse {  
        download:Download;
@@ -240,8 +236,6 @@ declare module 'chargebee' {
         */
         
       einvoice?:{status?:{in?:string,is?:'scheduled' | 'skipped' | 'in_progress' | 'success' | 'failed' | 'registered',is_not?:'scheduled' | 'skipped' | 'in_progress' | 'success' | 'failed' | 'registered',not_in?:string}};
-       
-      show_exempted_tax_lines?:boolean;
        
       /**
         * @description Indicates whether to include deleted objects in the list. The deleted objects have the attribute \&#x60;deleted\&#x60; as \&#x60;true\&#x60;.

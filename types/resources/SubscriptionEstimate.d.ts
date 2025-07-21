@@ -1,24 +1,27 @@
 ///<reference path='./../core.d.ts'/>
+///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface SubscriptionEstimate {
     
+
     id?:string;
-    
+
     currency_code:string;
-    
-    status?:'in_trial' | 'paused' | 'transferred' | 'future' | 'active' | 'cancelled' | 'non_renewing';
-    
+
+    status?:'future' | 'in_trial' | 'active' | 'non_renewing' | 'paused' | 'cancelled' | 'transferred';
+
     trial_end_action?:TrialEndAction;
-    
+
     next_billing_at?:number;
-    
+
     pause_date?:number;
-    
+
     resume_date?:number;
-    
+
     shipping_address?:SubscriptionEstimate.ShippingAddress;
-    
+
     contract_term?:SubscriptionEstimate.ContractTerm;
+
   }
   export namespace SubscriptionEstimate {
     
@@ -57,7 +60,7 @@ declare module 'chargebee' {
     export interface ContractTerm {  
       id:string;
        
-      status:'active' | 'cancelled' | 'completed' | 'terminated';
+      status:'active' | 'completed' | 'cancelled' | 'terminated';
        
       contract_start:number;
        
@@ -65,7 +68,7 @@ declare module 'chargebee' {
        
       billing_cycle:number;
        
-      action_at_term_end:'cancel' | 'renew_once' | 'renew' | 'evergreen';
+      action_at_term_end:'renew' | 'evergreen' | 'cancel' | 'renew_once';
        
       total_contract_value:number;
        

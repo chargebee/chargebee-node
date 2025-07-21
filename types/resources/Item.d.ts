@@ -291,13 +291,6 @@ declare module 'chargebee' {
       usage_calculation?:{in?:string,is?:'sum_of_usages' | 'last_usage' | 'max_usage',is_not?:'sum_of_usages' | 'last_usage' | 'max_usage',not_in?:string};
        
       /**
-        * @description Indicates Whether a plan is grouped(bundle) or not. If it is grouped, it gives us the type of group.
-
-        */
-        
-      item_grouping_category?:{in?:string,is?:'non_bundle' | 'fixed',is_not?:'non_bundle' | 'fixed',not_in?:string};
-       
-      /**
         * @description The subscription channel this object originated from and is maintained in.
 
         */

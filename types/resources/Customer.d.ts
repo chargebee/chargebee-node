@@ -3,157 +3,139 @@
 declare module 'chargebee' {
   export interface Customer {
     [key : string] : any;
-    /**
-      * @description Identifier of the customer.
 
-      */
-    
     id:string;
-    
-    /**
-      * @description First name of the customer
 
-      */
-    
     first_name?:string;
-    
-    /**
-      * @description Last name of the customer
 
-      */
-    
     last_name?:string;
-    
-    /**
-      * @description Email of the customer. Configured email notifications will be sent to this email.
 
-      */
-    
     email?:string;
-    
+
     phone?:string;
-    
+
     company?:string;
-    
+
     vat_number?:string;
-    
+
     auto_collection:AutoCollection;
-    
+
     offline_payment_method?:OfflinePaymentMethod;
-    
+
     net_term_days:number;
-    
+
     vat_number_validated_time?:number;
-    
+
     vat_number_status?:'valid' | 'invalid' | 'not_validated' | 'undetermined';
-    
+
     allow_direct_debit:boolean;
-    
+
     is_location_valid?:boolean;
-    
+
     created_at:number;
-    
+
     created_from_ip?:string;
-    
+
     exemption_details?:any[];
-    
+
     taxability?:Taxability;
-    
+
     entity_code?:EntityCode;
-    
+
     exempt_number?:string;
-    
+
     resource_version?:number;
-    
+
     updated_at?:number;
-    
+
     locale?:string;
-    
+
     billing_date?:number;
-    
+
     billing_month?:number;
-    
+
     billing_date_mode?:BillingDateMode;
-    
+
     billing_day_of_week?:'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
-    
+
     billing_day_of_week_mode?:BillingDayOfWeekMode;
-    
+
     pii_cleared?:'active' | 'scheduled_for_clear' | 'cleared';
-    
+
     auto_close_invoices?:boolean;
-    
+
     channel?:Channel;
-    
+
     active_id?:string;
-    
+
     card_status?:'no_card' | 'valid' | 'expiring' | 'expired' | 'pending_verification' | 'invalid';
-    
+
     fraud_flag?:'safe' | 'suspicious' | 'fraudulent';
-    
+
     primary_payment_source_id?:string;
-    
+
     backup_payment_source_id?:string;
-    
+
     billing_address?:Customer.BillingAddress;
-    
+
     referral_urls?:Customer.ReferralUrl[];
-    
+
     contacts?:Customer.Contact[];
-    
+
     payment_method?:Customer.PaymentMethod;
-    
+
     invoice_notes?:string;
-    
+
     business_entity_id?:string;
-    
+
     preferred_currency_code?:string;
-    
+
     promotional_credits:number;
-    
+
     unbilled_charges:number;
-    
+
     refundable_credits:number;
-    
+
     excess_payments:number;
-    
+
     balances?:Customer.Balance[];
-    
+
     entity_identifiers?:Customer.EntityIdentifier[];
-    
+
     tax_providers_fields?:Customer.TaxProvidersField[];
-    
+
     is_einvoice_enabled?:boolean;
-    
+
     einvoicing_method?:EinvoicingMethod;
-    
+
     meta_data?:object;
-    
+
     deleted:boolean;
-    
+
     registered_for_gst?:boolean;
-    
+
     consolidated_invoicing?:boolean;
-    
+
     customer_type?:CustomerType;
-    
+
     business_customer_without_vat_number?:boolean;
-    
+
     client_profile_id?:string;
-    
+
     relationship?:Customer.Relationship;
-    
+
     use_default_hierarchy_settings?:boolean;
-    
+
     parent_account_access?:Customer.ParentAccountAccess;
-    
+
     child_account_access?:Customer.ChildAccountAccess;
-    
+
     vat_number_prefix?:string;
-    
+
     entity_identifier_scheme?:string;
-    
+
     entity_identifier_standard?:string;
+
   }
   export namespace Customer {
     export class CustomerResource {  
@@ -205,6 +187,8 @@ declare module 'chargebee' {
        
       hierarchy(customer_id:string, input:HierarchyInputParam):ChargebeeRequest<HierarchyResponse>;
        
+      list_hierarchy_detail(customer_id:string, input:ListHierarchyDetailInputParam):ChargebeeRequest<ListHierarchyDetailResponse>;
+       
       update_hierarchy_settings(customer_id:string, input?:UpdateHierarchySettingsInputParam):ChargebeeRequest<UpdateHierarchySettingsResponse>;
     }
     export interface CreateResponse {  
@@ -220,7 +204,7 @@ declare module 'chargebee' {
        
       payment_method?:{additional_information?:object,gateway?:Gateway,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type?:Type};
        
-      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_payment_method_id?:string,gw_token?:string,id?:string,payment_method_type?:'card' | 'ideal' | 'sofort' | 'bancontact' | 'google_pay' | 'dotpay' | 'giropay' | 'apple_pay' | 'upi' | 'netbanking_emandates' | 'paypal_express_checkout' | 'direct_debit' | 'boleto' | 'venmo' | 'amazon_payments' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'klarna_pay_now' | 'online_banking_poland',reference_id?:string};
+      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_payment_method_id?:string,gw_token?:string,id?:string,payment_method_type?:'card' | 'ideal' | 'sofort' | 'bancontact' | 'google_pay' | 'dotpay' | 'giropay' | 'apple_pay' | 'upi' | 'netbanking_emandates' | 'paypal_express_checkout' | 'direct_debit' | 'boleto' | 'venmo' | 'amazon_payments' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'klarna_pay_now' | 'online_banking_poland' | 'payconiq_by_bancontact',reference_id?:string};
        
       billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
@@ -330,8 +314,6 @@ declare module 'chargebee' {
         */
         
       include_deleted?:boolean;
-       
-      include_deprecated?:boolean;
        
       /**
         * @description Identifier of the customer.
@@ -662,7 +644,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway_account_id?:string,last_name?:string,number?:string,preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa'};
        
-      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_payment_method_id?:string,gw_token?:string,id?:string,payment_method_type?:'card' | 'ideal' | 'sofort' | 'bancontact' | 'google_pay' | 'dotpay' | 'giropay' | 'apple_pay' | 'upi' | 'netbanking_emandates' | 'paypal_express_checkout' | 'direct_debit' | 'boleto' | 'venmo' | 'amazon_payments' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'klarna_pay_now' | 'online_banking_poland',reference_id?:string};
+      payment_intent?:{additional_information?:object,gateway_account_id?:string,gw_payment_method_id?:string,gw_token?:string,id?:string,payment_method_type?:'card' | 'ideal' | 'sofort' | 'bancontact' | 'google_pay' | 'dotpay' | 'giropay' | 'apple_pay' | 'upi' | 'netbanking_emandates' | 'paypal_express_checkout' | 'direct_debit' | 'boleto' | 'venmo' | 'amazon_payments' | 'pay_to' | 'faster_payments' | 'sepa_instant_transfer' | 'klarna_pay_now' | 'online_banking_poland' | 'payconiq_by_bancontact',reference_id?:string};
        
       invoice_allocations:{allocation_amount?:number,invoice_id:string}[];
        
@@ -692,8 +674,6 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface MoveInputParam {
        
-      tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
-       
       id_at_from_site:string;
        
       from_site:string;
@@ -717,8 +697,6 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        customer:Customer;
     }
     export interface MergeInputParam {
-       
-      tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
        
       from_customer_id:string;
        
@@ -753,6 +731,29 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        hierarchies:Hierarchy[];
     }
     export interface HierarchyInputParam {
+       
+      hierarchy_operation_type:'complete_hierarchy' | 'subordinates' | 'path_to_root';
+    }
+    export interface ListHierarchyDetailResponse {  
+       list:{hierarchies:any[]}[];
+       
+       next_offset?:string;
+    }
+    export interface ListHierarchyDetailInputParam {
+      [key : string]: any;  
+      /**
+        * @description The number of resources to be returned.
+
+        */
+        
+      limit?:number;
+       
+      /**
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+
+        */
+        
+      offset?:string;
        
       hierarchy_operation_type:'complete_hierarchy' | 'subordinates' | 'path_to_root';
     }

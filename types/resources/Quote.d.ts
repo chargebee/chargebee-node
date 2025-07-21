@@ -135,6 +135,8 @@ declare module 'chargebee' {
        quoted_subscription?:QuotedSubscription;
        
        quoted_charge?:QuotedCharge;
+       
+       quoted_ramp?:QuotedRamp;
     }
     
     export interface CreateSubForCustomerQuoteResponse {  
@@ -363,6 +365,8 @@ declare module 'chargebee' {
        quote:Quote;
        
        quoted_subscription?:QuotedSubscription;
+       
+       quoted_ramp?:QuotedRamp;
     }
     export interface CreateSubItemsForCustomerQuoteInputParam {
       [key : string] : any;  
@@ -406,6 +410,8 @@ declare module 'chargebee' {
        quote:Quote;
        
        quoted_subscription?:QuotedSubscription;
+       
+       quoted_ramp?:QuotedRamp;
     }
     export interface EditCreateSubCustomerQuoteForItemsInputParam {
       [key : string] : any;  
@@ -447,6 +453,8 @@ declare module 'chargebee' {
        quote:Quote;
        
        quoted_subscription?:QuotedSubscription;
+       
+       quoted_ramp?:QuotedRamp;
     }
     export interface UpdateSubscriptionQuoteForItemsInputParam {
       [key : string] : any;  
@@ -504,6 +512,8 @@ declare module 'chargebee' {
        quote:Quote;
        
        quoted_subscription?:QuotedSubscription;
+       
+       quoted_ramp?:QuotedRamp;
     }
     export interface EditUpdateSubscriptionQuoteForItemsInputParam {
       [key : string] : any;  
@@ -626,7 +636,7 @@ declare module 'chargebee' {
       coupon_ids?:string[];
     }
     export interface ListResponse {  
-       list:{quote:Quote,quoted_subscription?:QuotedSubscription}[];
+       list:{quote:Quote,quoted_subscription?:QuotedSubscription,quoted_ramp?:QuotedRamp}[];
        
        next_offset?:string;
     }
@@ -726,6 +736,8 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
        quoted_charge?:QuotedCharge;
        
+       quoted_ramp?:QuotedRamp;
+       
        customer:Customer;
        
        subscription?:Subscription;
@@ -754,6 +766,8 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        quoted_subscription?:QuotedSubscription;
        
        quoted_charge?:QuotedCharge;
+       
+       quoted_ramp?:QuotedRamp;
     }
     export interface UpdateStatusInputParam {
        
@@ -767,6 +781,8 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        quoted_subscription?:QuotedSubscription;
        
        quoted_charge?:QuotedCharge;
+       
+       quoted_ramp?:QuotedRamp;
     }
     export interface ExtendExpiryDateInputParam {
        
@@ -778,6 +794,8 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        quoted_subscription?:QuotedSubscription;
        
        quoted_charge?:QuotedCharge;
+       
+       quoted_ramp?:QuotedRamp;
     }
     export interface DeleteInputParam {
        
