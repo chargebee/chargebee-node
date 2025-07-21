@@ -896,6 +896,8 @@ declare module 'chargebee' {
     }
     export interface RemoveScheduledCancellationInputParam {
       billing_cycles?: number;
+      contract_term_billing_cycle_on_renewal?: number;
+      contract_term?: ContractTermRemoveScheduledCancellationInputParam;
     }
     export interface RemoveCouponsInputParam {
       coupon_ids?: string[];
@@ -1397,7 +1399,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1524,7 +1527,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1618,7 +1622,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1676,6 +1681,11 @@ declare module 'chargebee' {
       pricing_type?: PricingTypeEnum;
       package_size?: number;
     }
+    export interface ContractTermRemoveScheduledCancellationInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel';
+      cancellation_cutoff_period?: number;
+    }
+
     export interface BillingAddressUpdateInputParam {
       first_name?: string;
       last_name?: string;
@@ -1761,7 +1771,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1924,7 +1935,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2042,7 +2054,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2463,7 +2476,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

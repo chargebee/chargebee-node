@@ -30,7 +30,8 @@ declare module 'chargebee' {
       | 'faster_payments'
       | 'sepa_instant_transfer'
       | 'klarna_pay_now'
-      | 'online_banking_poland';
+      | 'online_banking_poland'
+      | 'payconiq_by_bancontact';
     success_url?: string;
     failure_url?: string;
     created_at: number;
@@ -104,7 +105,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -142,7 +144,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       success_url?: string;
       failure_url?: string;
     }
@@ -170,7 +173,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       success_url?: string;
       failure_url?: string;
     }

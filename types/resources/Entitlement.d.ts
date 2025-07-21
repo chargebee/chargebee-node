@@ -54,6 +54,7 @@ declare module 'chargebee' {
     }
     export interface CreateInputParam {
       action: ActionEnum;
+      change_reason?: string;
       entitlements?: EntitlementsCreateInputParam[];
     }
     export interface EntitlementsCreateInputParam {
@@ -61,6 +62,7 @@ declare module 'chargebee' {
       feature_id: string;
       entity_type?: 'plan' | 'addon' | 'charge' | 'plan_price' | 'addon_price';
       value?: string;
+      apply_grandfathering?: boolean;
     }
   }
 }

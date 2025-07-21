@@ -62,6 +62,7 @@ declare module 'chargebee' {
       | 'giropay'
       | 'card'
       | 'latam_local_card'
+      | 'payconiq'
       | 'not_applicable';
     customer_id: string;
     masked_number?: string;

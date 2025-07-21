@@ -3,6 +3,8 @@
 ///<reference path='./resources/AdvanceInvoiceSchedule.d.ts' />
 ///<reference path='./resources/AttachedItem.d.ts' />
 ///<reference path='./resources/Attribute.d.ts' />
+///<reference path='./resources/BillingConfiguration.d.ts' />
+///<reference path='./resources/Brand.d.ts' />
 ///<reference path='./resources/BusinessEntity.d.ts' />
 ///<reference path='./resources/BusinessEntityTransfer.d.ts' />
 ///<reference path='./resources/Card.d.ts' />

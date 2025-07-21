@@ -547,7 +547,13 @@ declare module 'chargebee' {
       entity_id?: string;
     }
     export interface LineItemRetrieveInputParam {
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
       subscription_id?: filter.String;
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
       customer_id?: filter.String;
     }
 

@@ -409,6 +409,7 @@ declare module 'chargebee' {
     | 'ebanx'
     | 'dlocal'
     | 'nuvei'
+    | 'solidgate'
     | 'paystack'
     | 'jp_morgan'
     | 'gocardless'
@@ -484,7 +485,8 @@ declare module 'chargebee' {
     | 'sepa_instant_transfer'
     | 'automated_bank_transfer'
     | 'klarna_pay_now'
-    | 'online_banking_poland';
+    | 'online_banking_poland'
+    | 'payconiq_by_bancontact';
   type PaymentMethodTypeEnum =
     | 'card'
     | 'paypal_express_checkout'
@@ -509,7 +511,8 @@ declare module 'chargebee' {
     | 'sepa_instant_transfer'
     | 'automated_bank_transfer'
     | 'klarna_pay_now'
-    | 'online_banking_poland';
+    | 'online_banking_poland'
+    | 'payconiq_by_bancontact';
   type PaymentVoucherTypeEnum = 'boleto';
   type PeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
   type PriceTypeEnum = 'tax_exclusive' | 'tax_inclusive';
@@ -600,7 +603,8 @@ declare module 'chargebee' {
     | 'sepa_instant_transfer'
     | 'automated_bank_transfer'
     | 'klarna_pay_now'
-    | 'online_banking_poland';
+    | 'online_banking_poland'
+    | 'payconiq_by_bancontact';
   type UnbilledChargesHandlingEnum = 'no_action' | 'invoice';
   type UnbilledChargesOptionEnum = 'invoice' | 'delete';
   type UnpaidInvoicesHandlingEnum = 'no_action' | 'schedule_payment_collection';

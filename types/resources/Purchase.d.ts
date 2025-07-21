@@ -38,6 +38,7 @@ declare module 'chargebee' {
     export interface CreateInputParam {
       customer_id: string;
       payment_source_id?: string;
+      replace_primary_payment_source?: boolean;
       invoice_info?: InvoiceInfoCreateInputParam;
       payment_schedule?: PaymentScheduleCreateInputParam;
       statement_descriptor?: StatementDescriptorCreateInputParam;
@@ -96,7 +97,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

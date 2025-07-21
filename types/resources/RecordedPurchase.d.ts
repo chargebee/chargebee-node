@@ -51,6 +51,7 @@ declare module 'chargebee' {
       customer?: CustomerCreateInputParam;
       apple_app_store?: AppleAppStoreCreateInputParam;
       google_play_store?: GooglePlayStoreCreateInputParam;
+      omnichannel_subscription?: OmnichannelSubscriptionCreateInputParam;
     }
     export interface CustomerCreateInputParam {
       id: string;
@@ -62,6 +63,9 @@ declare module 'chargebee' {
       transaction_id?: string;
       receipt?: string;
       product_id?: string;
+    }
+    export interface OmnichannelSubscriptionCreateInputParam {
+      id?: string;
     }
   }
 }
