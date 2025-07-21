@@ -184,6 +184,7 @@ declare module 'chargebee' {
       quote: Quote;
       quoted_subscription?: QuotedSubscription;
       quoted_charge?: QuotedCharge;
+      quoted_ramp?: QuotedRamp;
     }
 
     export interface CreateSubForCustomerQuoteResponse {
@@ -219,21 +220,25 @@ declare module 'chargebee' {
     export interface CreateSubItemsForCustomerQuoteResponse {
       quote: Quote;
       quoted_subscription?: QuotedSubscription;
+      quoted_ramp?: QuotedRamp;
     }
 
     export interface EditCreateSubCustomerQuoteForItemsResponse {
       quote: Quote;
       quoted_subscription?: QuotedSubscription;
+      quoted_ramp?: QuotedRamp;
     }
 
     export interface UpdateSubscriptionQuoteForItemsResponse {
       quote: Quote;
       quoted_subscription?: QuotedSubscription;
+      quoted_ramp?: QuotedRamp;
     }
 
     export interface EditUpdateSubscriptionQuoteForItemsResponse {
       quote: Quote;
       quoted_subscription?: QuotedSubscription;
+      quoted_ramp?: QuotedRamp;
     }
 
     export interface CreateForChargeItemsAndChargesResponse {
@@ -247,7 +252,11 @@ declare module 'chargebee' {
     }
 
     export interface ListResponse {
-      list: { quote: Quote; quoted_subscription?: QuotedSubscription }[];
+      list: {
+        quote: Quote;
+        quoted_subscription?: QuotedSubscription;
+        quoted_ramp?: QuotedRamp;
+      }[];
       next_offset?: string;
     }
 
@@ -260,6 +269,7 @@ declare module 'chargebee' {
       quote: Quote;
       quoted_subscription?: QuotedSubscription;
       quoted_charge?: QuotedCharge;
+      quoted_ramp?: QuotedRamp;
       customer: Customer;
       subscription?: Subscription;
       invoice?: Invoice;
@@ -271,18 +281,21 @@ declare module 'chargebee' {
       quote: Quote;
       quoted_subscription?: QuotedSubscription;
       quoted_charge?: QuotedCharge;
+      quoted_ramp?: QuotedRamp;
     }
 
     export interface ExtendExpiryDateResponse {
       quote: Quote;
       quoted_subscription?: QuotedSubscription;
       quoted_charge?: QuotedCharge;
+      quoted_ramp?: QuotedRamp;
     }
 
     export interface DeleteResponse {
       quote: Quote;
       quoted_subscription?: QuotedSubscription;
       quoted_charge?: QuotedCharge;
+      quoted_ramp?: QuotedRamp;
     }
 
     export interface PdfResponse {

@@ -7,6 +7,7 @@ declare module 'chargebee' {
     line_items?: QuotedRamp.LineItem[];
     discounts?: QuotedRamp.Discount[];
     item_tiers?: QuotedRamp.ItemTier[];
+    coupon_applicability_mappings?: QuotedRamp.CouponApplicabilityMapping[];
   }
 
   export namespace QuotedRamp {
@@ -37,16 +38,10 @@ declare module 'chargebee' {
       start_date?: number;
       end_date?: number;
       ramp_tier_id?: string;
-      discount_amount?: number;
-      md_discount_amount?: string;
-      item_level_discount_amount?: number;
-      md_item_level_discount_amount?: string;
       discount_per_billing_cycle?: number;
       discount_per_billing_cycle_in_decimal?: string;
       item_level_discount_per_billing_cycle?: number;
       item_level_discount_per_billing_cycle_in_decimal?: string;
-      net_amount?: number;
-      md_net_amount?: string;
       amount_per_billing_cycle?: number;
       amount_per_billing_cycle_in_decimal?: string;
       net_amount_per_billing_cycle?: number;
@@ -54,7 +49,6 @@ declare module 'chargebee' {
     }
     export interface Discount {
       id: string;
-      name: string;
       invoice_name?: string;
       type: 'fixed_amount' | 'percentage';
       percentage?: number;
@@ -70,7 +64,6 @@ declare module 'chargebee' {
       period_unit?: 'day' | 'week' | 'month' | 'year';
       included_in_mrr: boolean;
       apply_on: 'invoice_amount' | 'specific_item_price';
-      apply_on_item_type?: 'plan' | 'addon' | 'charge';
       item_price_id?: string;
       created_at: number;
       updated_at?: number;
@@ -86,6 +79,12 @@ declare module 'chargebee' {
       ending_unit_in_decimal?: string;
       price_in_decimal?: string;
       ramp_tier_id?: string;
+      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
+      package_size?: number;
+    }
+    export interface CouponApplicabilityMapping {
+      coupon_id?: string;
+      applicable_item_price_ids?: string[];
     }
     // REQUEST PARAMS
     //---------------

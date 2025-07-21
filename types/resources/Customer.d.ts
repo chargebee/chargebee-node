@@ -224,6 +224,12 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<HierarchyResponse>>;
 
+      listHierarchyDetail(
+        customer_id: string,
+        input: ListHierarchyDetailInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListHierarchyDetailResponse>>;
+
       updateHierarchySettings(
         customer_id: string,
         input?: UpdateHierarchySettingsInputParam,
@@ -339,6 +345,11 @@ declare module 'chargebee' {
 
     export interface HierarchyResponse {
       hierarchies: Hierarchy[];
+    }
+
+    export interface ListHierarchyDetailResponse {
+      list: { hierarchies: any[] }[];
+      next_offset?: string;
     }
 
     export interface UpdateHierarchySettingsResponse {
@@ -641,6 +652,14 @@ declare module 'chargebee' {
         | 'subordinates'
         | 'path_to_root';
     }
+    export interface ListHierarchyDetailInputParam {
+      limit?: number;
+      offset?: string;
+      hierarchy_operation_type:
+        | 'complete_hierarchy'
+        | 'subordinates'
+        | 'path_to_root';
+    }
     export interface UpdateHierarchySettingsInputParam {
       use_default_hierarchy_settings?: boolean;
       parent_account_access?: ParentAccountAccessUpdateHierarchySettingsInputParam;
@@ -717,7 +736,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -888,7 +908,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       /**
        * @deprecated Please refer API docs to use other attributes
        */

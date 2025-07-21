@@ -42,6 +42,7 @@ interface Endpoints {
   quotedSubscription: EndpointTuple[];
   quotedCharge: EndpointTuple[];
   quotedRamp: EndpointTuple[];
+  billingConfiguration: EndpointTuple[];
   quoteLineGroup: EndpointTuple[];
   plan: EndpointTuple[];
   addon: EndpointTuple[];
@@ -95,6 +96,7 @@ interface Endpoints {
   usageEvent: EndpointTuple[];
   omnichannelSubscriptionItemScheduledChange: EndpointTuple[];
   usageFile: EndpointTuple[];
+  brand: EndpointTuple[];
 }
 export const Endpoints: Endpoints = {
   subscription: [
@@ -864,6 +866,17 @@ export const Endpoints: Endpoints = {
       },
     ],
     ['hierarchy', 'GET', '/customers', '/hierarchy', true, null, false, {}, {}],
+    [
+      'listHierarchyDetail',
+      'GET',
+      '/customers',
+      '/hierarchy_detail',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
     [
       'updateHierarchySettings',
       'POST',
@@ -3035,6 +3048,7 @@ export const Endpoints: Endpoints = {
   quotedSubscription: [],
   quotedCharge: [],
   quotedRamp: [],
+  billingConfiguration: [],
   quoteLineGroup: [],
   plan: [
     [
@@ -4813,4 +4827,5 @@ export const Endpoints: Endpoints = {
       {},
     ],
   ],
+  brand: [],
 };

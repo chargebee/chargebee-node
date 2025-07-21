@@ -1216,7 +1216,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1362,7 +1363,8 @@ declare module 'chargebee' {
         | 'faster_payments'
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
-        | 'online_banking_poland';
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1647,7 +1649,13 @@ declare module 'chargebee' {
     }
 
     export interface LineItemRetrieveInputParam {
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
       subscription_id?: filter.String;
+      /**
+       * @deprecated Please refer API docs to use other attributes
+       */
       customer_id?: filter.String;
     }
 
