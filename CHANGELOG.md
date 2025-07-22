@@ -1,3 +1,10 @@
+### v3.11.1 (2025-07-18) 
+* * * 
+
+### Bug Fixes: 
+* Resolved a module dependency issue that was causing runtime failures in the Edge environment. 
+
+
 ### v3.11.0 (2025-07-18) 
 * * * 
 
