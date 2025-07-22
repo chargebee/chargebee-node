@@ -1,4 +1,11 @@
-### v2.52.0 (2025-07-18) 
+### v3.11.1 (2025-07-18) 
+* * * 
+
+### Bug Fixes: 
+* Resolved a module dependency issue that was causing runtime failures in the Edge environment. 
+
+
+### v3.11.0 (2025-07-18) 
 * * * 
 
 ### New Resources: 
@@ -25,7 +32,23 @@
 * solidgate has been added to Gateway.
 * solidgate has been added to PaymentMethod.
 
-### v2.51.0 (2025-06-19) 
+### v3.10.0 (2025-06-30)
+* * * 
+
+### New Features
+* Added `userAgentSuffix` to the environment config to allow appending custom text to the `User-Agent` header.
+
+
+### v3.9.0 (2025-06-23)
+* * * 
+
+### New Features
+* Added built-in retry support for handling transient errors and rate-limiting.
+* Retries are now supported for HTTP status codes 500, 502, 503, 504, and 429.
+* Includes exponential backoff for server errors and Retry-After respect for rate limits (429).
+* Configurable via retryConfig during SDK initialization.
+
+### v3.8.0 (2025-06-19)
 * * * 
 
 ### New Resources 
@@ -90,7 +113,7 @@
 * BillingStartOptionEnum has been added.
 * OMNICHANNEL_SUBSCRIPTION_ITEM_RESUMED has been added to EventTypeEnum.
 
-### v2.50.0 (2025-05-15)
+### v3.7.0 (2025-05-15)
 * * * 
 
 ### New Resources
@@ -124,14 +147,14 @@
 * PAUSED has been added to OmnichannelSubscriptionItem#StatusEnum.
 * MERCHANT_REVOKED has been added to OmnichannelSubscriptionItem#CancellationReasonEnum.
 
-### v2.49.1 (2025-04-25)
+### v3.6.1 (2025-04-25)
 * * * 
 
 ### Bug fixes: 
 * Fixed an issue where the optional boolean field is_percentage_pricing at Item Model was incorrectly marked as required.
 * Fixed an issue where the optional enum field item_applicability at Item Model was incorrectly marked as required.
 
-### v2.49.0 (2025-04-23)
+### v3.6.0 (2025-04-23)
 * * * 
 
 ### New Resources:
@@ -270,7 +293,7 @@
 * REFUNDED_DUE_TO_APP_ISSUE has been added to OmnichannelSubscriptionItem#CancellationReasonEnum. 
 * REFUNDED_FOR_OTHER_REASON has been added to OmnichannelSubscriptionItem#CancellationReasonEnum.
 
-### v2.48.0 (2025-03-06)
+### v3.5.0 (2025-03-06)
 * * * 
 
 ### New Input Params:
@@ -280,7 +303,7 @@
 ### New Enums:
 * SUBSCRIPTION_ENTITLEMENTS_UPDATED has been added to EventType#Enum.
 
-### v2.47.0 (2025-02-10)
+### v3.4.0 (2025-02-10)
 * * * 
 
 #### New Resources:
@@ -321,7 +344,7 @@
 * deprecated label in discount_quantity has been removed from Coupon#CreateForItemsParams.
 * deprecated label in discount_quantity has been removed from Coupon#UpdateForItemsParams.
 
-### v2.46.0 (2024-12-19)
+### v3.3.0 (2024-12-19)
 * * * 
 
 #### New Resource: 
@@ -361,10 +384,15 @@
 * IGNORED has been added to RecordedPurchase#StatusEnum.
 * IN_DUNNING & IN_GRACE_PERIOD have been added to OmnichannelSubscriptionItem#StatusEnum.
 
+### v3.2.1 (2024-12-04)
+* * *
 
-### v2.45.0 (2024-11-27)
-* * * 
+#### Bug Fixes
+* unable to access content of HostedPage & Event (#57).
+* uncaught promise in case of fetch failure (#58). 
 
+### v3.2.0 (2024-11-27)
+* * *
 #### New Resource: 
 * OmnichannelSubscriptionItem has been added. 
 
@@ -384,10 +412,10 @@
 #### Removed Subresource: 
 * OmnichannelSubscriptionItem subresource has been removed from OmnichannelSubscription and is now a standalone resource.
 
-#### Deprecated Attribute: 
-* metadata has been deprecated from subscription. 
+#### Removed Attribute: 
+* metadata has been removed from subscription. 
 
-###  v2.44.0 (2024-11-14)
+### v3.1.0 (2024-11-14)
 * * *
 
 #### New Resource: 
@@ -446,8 +474,28 @@
 * OMNICHANNEL_SUBSCRIPTION_ITEM_UPGRADED, has been added to EventTypeEnum.
 * OMNICHANNEL_SUBSCRIPTION_ITEM_CANCELLED, has been added to EventTypeEnum.
 
-### v2.43.0 (2024-10-17)
-* * *
+## v3.0.2 (2024-11-09)
+
+### Bug fixes: 
+* Fix minor typo in .npmignore that caused the types folder to be missed. Resolves #55.
+
+
+## v3.0.1 (2024-11-06)
+* Updated README. 
+
+## v3.0.0 (2024-11-06)
+* Releasing major version `v3.0.0` :tada:
+
+### v3.0.0-beta.5 (2024-11-05)
+
+#### Naming Convention Fix:
+* New suffix Enum has been added to global type.
+* payment_vouchersForInvoice has been renamed to paymentVouchersForInvoice.
+* payment_vouchersForCustomer has been renamed to paymentVouchersForCustomer.
+* Payment_vouchersForInvoiceResponse has been renamed to PaymentVouchersForInvoiceResponse.
+* Payment_vouchersForCustomerResponse has been renmed to PaymentVouchersForCustomerResponse. 
+
+### v3.0.0-beta.4 (2024-10-18)
 
 #### New Resource:
 * PaymentScheduleEstimate has been added. 
@@ -469,7 +517,13 @@
 * discounts has been added to PricingPageSession#CreateForExistingSubscriptionParams.
 * invoice_immediately has been added to Quote#ConvertParams.
 
-### v2.42.0 (2024-09-19)
+### Bug Fixes:
+* metadata field not working bug fixed. 
+
+### Dependency 
+* moved @types/node to devDependencies.
+
+### v3.0.0-beta.3 (2024-09-20)
 * * *
 
 #### New Resource:
@@ -514,30 +568,28 @@
 * installment_config_created has been removed from EventTypeEnum.
 * installment_config_deleted has been removed from EventTypeEnum.
 
-### v2.41.1 (2024-09-02)
+
+#### Bug Fixes: 
+* HttpClient wrong configuration fixed. 
+* Missed Resource Non-Subscription has been added. 
+
+#### Enhancements: 
+* Better type support for custom fields. 
+
+### v3.0.0-beta.2 (2024-08-29)
 * * *
 
 #### Bug Fixes: 
-* Specified return type of configure method.
+* content-length bug fixes for fetch.
 
-### v2.41.0 (2024-08-29)
+### v3.0.0-beta.1 (2024-08-26)
 * * *
 
-#### New Resource:
-* CustomerEntitlement has been added. 
-
-#### New Endpoints:
-* Ramp#UpdateRequest has been added to Ramp resource.
-* Transaction#ReconcileRequest has been added to Transaction resource. 
-
-### New Attributes: 
-* arr has been added to Subscription. 
-
-### New Enum Values: 
-* customer_entitlements_updated has been added to EntityTypeEnum.
-* subscription_moved_in has been added in EventType enum.
-* subscription_moved_out has been added in EventType enum.
-* subscription_movement_failed has been added in EventType enum.
+* Names of the resources, operations etc. have been changed from snake_case to camelCase. For example, configuration option api_key is now apiKey.
+* Minimum Node.js version is 18
+* Class based models are replaced with TypeScript types.
+* Response will contain headers instead of responseHeaders.
+* Response will contain isIdempotencyReplayed field instead of isIdempotencyReplayed() method.
 
 ### v2.40.0 (2024-08-14)
 * * *

@@ -1,46 +1,53 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
+
 declare module 'chargebee' {
   export interface UsageEvent {
-    
-
-    subscription_id:string;
-
-    deduplication_id:string;
-
-    usage_timestamp:number;
-
-    properties:object;
-
+    subscription_id: string;
+    deduplication_id: string;
+    usage_timestamp: number;
+    properties: any;
   }
+
   export namespace UsageEvent {
-    export class UsageEventResource {  
-      create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
-       
-      batch_ingest(input:BatchIngestInputParam):ChargebeeRequest<BatchIngestResponse>;
+    export class UsageEventResource {
+      create(
+        input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CreateResponse>>;
+
+      batchIngest(
+        input: BatchIngestInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<BatchIngestResponse>>;
     }
-    export interface CreateResponse {  
-       usage_event:UsageEvent;
+
+    export interface CreateResponse {
+      usage_event: UsageEvent;
     }
+
+    export interface BatchIngestResponse {
+      batch_id: string;
+      failed_events: any[];
+    }
+
+    // REQUEST PARAMS
+    //---------------
+
     export interface CreateInputParam {
-       
-      deduplication_id:string;
-       
-      subscription_id:string;
-       
-      usage_timestamp:number;
-       
-      properties:object;
-    }
-    export interface BatchIngestResponse {  
-       batch_id:string;
-       
-       failed_events:any[];
+      deduplication_id: string;
+      subscription_id: string;
+      usage_timestamp: number;
+      properties: any;
     }
     export interface BatchIngestInputParam {
-       
-      events:{deduplication_id:string,properties:object,subscription_id:string,usage_timestamp:number}[];
+      events?: EventsBatchIngestInputParam[];
     }
-    
+    export interface EventsBatchIngestInputParam {
+      deduplication_id: string;
+      subscription_id: string;
+      usage_timestamp: number;
+      properties: any;
+    }
   }
 }

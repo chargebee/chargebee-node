@@ -1,87 +1,68 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
+///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface Entitlement {
-    
-
-    id:string;
-
-    entity_id?:string;
-
-    entity_type?:'plan' | 'addon' | 'charge' | 'plan_price' | 'addon_price';
-
-    feature_id?:string;
-
-    feature_name?:string;
-
-    value?:string;
-
-    name?:string;
-
+    id: string;
+    entity_id?: string;
+    entity_type?: 'plan' | 'addon' | 'charge' | 'plan_price' | 'addon_price';
+    feature_id?: string;
+    feature_name?: string;
+    value?: string;
+    name?: string;
   }
+
   export namespace Entitlement {
-    export class EntitlementResource {  
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
-       
-      create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
+    export class EntitlementResource {
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
+
+      create(
+        input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CreateResponse>>;
     }
-    export interface ListResponse {  
-       list:{entitlement:Entitlement}[];
-       
-       next_offset?:string;
+
+    export interface ListResponse {
+      list: { entitlement: Entitlement }[];
+      next_offset?: string;
     }
+
+    export interface CreateResponse {
+      entitlement: Entitlement;
+    }
+
+    // REQUEST PARAMS
+    //---------------
+
     export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
+      limit?: number;
+      offset?: string;
+      feature_id?: filter.String;
+      entity_type?: filter.Enum;
+      entity_id?: filter.String /**
+       * @deprecated Please refer API docs to use other attributes
+       */;
 
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+      include_drafts?: boolean /**
+       * @deprecated Please refer API docs to use other attributes
+       */;
 
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description The &#x60;id&#x60; of the feature towards which this entitlement has been granted.
-
-        */
-        
-      feature_id?:{in?:string,is?:string};
-       
-      /**
-        * @description The &#x60;type&#x60; of the &#x60;entity&#x60; to which this entitlement belongs.
-
-        */
-        
-      entity_type?:{in?:string,is?:'plan' | 'addon' | 'charge' | 'plan_price' | 'addon_price'};
-       
-      /**
-        * @description The &#x60;id&#x60; of the &#x60;entity&#x60; to which this entitlement belongs.
-
-        */
-        
-      entity_id?:{in?:string,is?:string};
-       
-      include_drafts?:boolean;
-       
-      embed?:string;
-    }
-    export interface CreateResponse {  
-       entitlement:Entitlement;
+      embed?: string;
     }
     export interface CreateInputParam {
-       
-      entitlements:{apply_grandfathering?:boolean,entity_id:string,entity_type?:'plan' | 'addon' | 'charge' | 'plan_price' | 'addon_price',feature_id:string,value?:string}[];
-       
-      action:Action;
-       
-      change_reason?:string;
+      action: ActionEnum;
+      change_reason?: string;
+      entitlements?: EntitlementsCreateInputParam[];
     }
-    
+    export interface EntitlementsCreateInputParam {
+      entity_id: string;
+      feature_id: string;
+      entity_type?: 'plan' | 'addon' | 'charge' | 'plan_price' | 'addon_price';
+      value?: string;
+      apply_grandfathering?: boolean;
+    }
   }
 }

@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "outDir": "./cjs",
+        "module": "commonjs",
+        "target": "es2017",
+        "strict": true,
+        "types": [
+            "node"
+        ],
+        "esModuleInterop": false
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "./src/*js",
+        "./src/*js",
+        "./src/chargebee.esm.ts",
+        "./src/chargebee.esm.worker.ts"
+    ],
+}

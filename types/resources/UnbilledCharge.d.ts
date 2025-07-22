@@ -1,190 +1,213 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
+///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface UnbilledCharge {
-    
-
-    id?:string;
-
-    customer_id?:string;
-
-    subscription_id?:string;
-
-    date_from?:number;
-
-    date_to?:number;
-
-    unit_amount?:number;
-
-    pricing_model?:PricingModel;
-
-    quantity?:number;
-
-    amount?:number;
-
-    currency_code:string;
-
-    discount_amount?:number;
-
-    description?:string;
-
-    entity_type:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'plan_setup' | 'plan' | 'addon';
-
-    entity_id?:string;
-
-    is_voided:boolean;
-
-    voided_at?:number;
-
-    unit_amount_in_decimal?:string;
-
-    quantity_in_decimal?:string;
-
-    amount_in_decimal?:string;
-
-    updated_at:number;
-
-    tiers?:UnbilledCharge.Tier[];
-
-    is_advance_charge?:boolean;
-
-    business_entity_id?:string;
-
-    deleted:boolean;
-
+    id?: string;
+    customer_id?: string;
+    subscription_id?: string;
+    date_from?: number;
+    date_to?: number;
+    unit_amount?: number;
+    pricing_model?: PricingModelEnum;
+    quantity?: number;
+    amount?: number;
+    currency_code: string;
+    discount_amount?: number;
+    description?: string;
+    entity_type:
+      | 'adhoc'
+      | 'plan_item_price'
+      | 'addon_item_price'
+      | 'charge_item_price'
+      | 'plan_setup'
+      | 'plan'
+      | 'addon';
+    entity_id?: string;
+    is_voided: boolean;
+    voided_at?: number;
+    unit_amount_in_decimal?: string;
+    quantity_in_decimal?: string;
+    amount_in_decimal?: string;
+    updated_at: number;
+    tiers?: UnbilledCharge.Tier[];
+    is_advance_charge?: boolean;
+    business_entity_id?: string;
+    deleted: boolean;
   }
+
   export namespace UnbilledCharge {
-    export class UnbilledChargeResource {  
-      create_unbilled_charge(input:CreateUnbilledChargeInputParam):ChargebeeRequest<CreateUnbilledChargeResponse>;
-       
-      create(input:CreateInputParam):ChargebeeRequest<CreateResponse>;
-       
-      invoice_unbilled_charges(input?:InvoiceUnbilledChargesInputParam):ChargebeeRequest<InvoiceUnbilledChargesResponse>;
-       
-      delete(unbilled_charge_id:string):ChargebeeRequest<DeleteResponse>;
-       
-      list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
-       
-      invoice_now_estimate(input?:InvoiceNowEstimateInputParam):ChargebeeRequest<InvoiceNowEstimateResponse>;
+    export class UnbilledChargeResource {
+      createUnbilledCharge(
+        input: CreateUnbilledChargeInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CreateUnbilledChargeResponse>>;
+
+      create(
+        input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CreateResponse>>;
+
+      invoiceUnbilledCharges(
+        input?: InvoiceUnbilledChargesInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<InvoiceUnbilledChargesResponse>>;
+
+      delete(
+        unbilled_charge_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<DeleteResponse>>;
+
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
+
+      invoiceNowEstimate(
+        input?: InvoiceNowEstimateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<InvoiceNowEstimateResponse>>;
     }
-    export interface CreateUnbilledChargeResponse {  
-       unbilled_charges:UnbilledCharge[];
+
+    export interface CreateUnbilledChargeResponse {
+      unbilled_charges: UnbilledCharge[];
     }
+
+    export interface CreateResponse {
+      unbilled_charges: UnbilledCharge[];
+    }
+
+    export interface InvoiceUnbilledChargesResponse {
+      invoices: Invoice[];
+    }
+
+    export interface DeleteResponse {
+      unbilled_charge: UnbilledCharge;
+    }
+
+    export interface ListResponse {
+      list: { unbilled_charge: UnbilledCharge }[];
+      next_offset?: string;
+    }
+
+    export interface InvoiceNowEstimateResponse {
+      estimate: Estimate;
+    }
+
+    export interface Tier {
+      starting_unit: number;
+      ending_unit?: number;
+      quantity_used: number;
+      unit_amount: number;
+      starting_unit_in_decimal?: string;
+      ending_unit_in_decimal?: string;
+      quantity_used_in_decimal?: string;
+      unit_amount_in_decimal?: string;
+      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
+      package_size?: number;
+    }
+    // REQUEST PARAMS
+    //---------------
+
     export interface CreateUnbilledChargeInputParam {
-       
-      addons?:{date_from?:number,date_to?:number,id?:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string}[];
-       
-      charges?:{amount?:number,amount_in_decimal?:string,avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_tax_code?:string,avalara_transaction_type?:number,date_from?:number,date_to?:number,description?:string,hsn_code?:string,tax_profile_id?:string,taxable?:boolean,taxjar_product_code?:string}[];
-       
-      tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
-       
-      subscription_id:string;
-       
-      currency_code?:string;
-    }
-    export interface CreateResponse {  
-       unbilled_charges:UnbilledCharge[];
+      subscription_id: string;
+      currency_code?: string;
+      addons?: AddonsCreateUnbilledChargeInputParam[];
+      charges?: ChargesCreateUnbilledChargeInputParam[];
+      tax_providers_fields?: TaxProvidersFieldsCreateUnbilledChargeInputParam[];
     }
     export interface CreateInputParam {
-       
-      item_prices?:{date_from?:number,date_to?:number,item_price_id?:string,quantity?:number,quantity_in_decimal?:string,unit_price?:number,unit_price_in_decimal?:string}[];
-       
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
-       
-      charges?:{amount?:number,amount_in_decimal?:string,avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_tax_code?:string,avalara_transaction_type?:number,date_from?:number,date_to?:number,description?:string,hsn_code?:string,tax_profile_id?:string,taxable?:boolean,taxjar_product_code?:string}[];
-       
-      tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
-       
-      subscription_id:string;
-       
-      currency_code?:string;
-    }
-    export interface InvoiceUnbilledChargesResponse {  
-       invoices:Invoice[];
+      subscription_id: string;
+      currency_code?: string;
+      item_prices?: ItemPricesCreateInputParam[];
+      item_tiers?: ItemTiersCreateInputParam[];
+      charges?: ChargesCreateInputParam[];
+      tax_providers_fields?: TaxProvidersFieldsCreateInputParam[];
     }
     export interface InvoiceUnbilledChargesInputParam {
-       
-      subscription_id?:string;
-       
-      customer_id?:string;
-    }
-    export interface DeleteResponse {  
-       unbilled_charge:UnbilledCharge;
-    }
-    
-    export interface ListResponse {  
-       list:{unbilled_charge:UnbilledCharge}[];
-       
-       next_offset?:string;
+      subscription_id?: string;
+      customer_id?: string;
     }
     export interface ListInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
-       
-      /**
-        * @description Indicates whether to include deleted objects in the list. The deleted objects have the attribute \&#x60;deleted\&#x60; as \&#x60;true\&#x60;.
-
-        */
-        
-      include_deleted?:boolean;
-       
-      is_voided?:boolean;
-       
-      /**
-        * @description A unique identifier for the subscription this charge belongs to.
-
-        */
-        
-      subscription_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string};
-       
-      /**
-        * @description A unique identifier for the customer being charged.
-
-        */
-        
-      customer_id?:{in?:string,is?:string,is_not?:string,is_present?:'true' | 'false',not_in?:string,starts_with?:string};
-    }
-    export interface InvoiceNowEstimateResponse {  
-       estimate:Estimate;
+      limit?: number;
+      offset?: string;
+      include_deleted?: boolean;
+      is_voided?: boolean;
+      subscription_id?: filter.String;
+      customer_id?: filter.String;
     }
     export interface InvoiceNowEstimateInputParam {
-       
-      subscription_id?:string;
-       
-      customer_id?:string;
+      subscription_id?: string;
+      customer_id?: string;
     }
-    export interface Tier {  
-      starting_unit:number;
-       
-      ending_unit?:number;
-       
-      quantity_used:number;
-       
-      unit_amount:number;
-       
-      starting_unit_in_decimal?:string;
-       
-      ending_unit_in_decimal?:string;
-       
-      quantity_used_in_decimal?:string;
-       
-      unit_amount_in_decimal?:string;
-       
-      pricing_type?:'per_unit' | 'flat_fee' | 'package';
-       
-      package_size?:number;
+    export interface ChargesCreateUnbilledChargeInputParam {
+      amount?: number;
+      amount_in_decimal?: string;
+      description?: string;
+      taxable?: boolean;
+      tax_profile_id?: string;
+      avalara_tax_code?: string;
+      hsn_code?: string;
+      taxjar_product_code?: string;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
+      avalara_transaction_type?: number;
+      avalara_service_type?: number;
+      date_from?: number;
+      date_to?: number;
+    }
+    export interface AddonsCreateUnbilledChargeInputParam {
+      id?: string;
+      quantity?: number;
+      unit_price?: number;
+      quantity_in_decimal?: string;
+      unit_price_in_decimal?: string;
+      date_from?: number;
+      date_to?: number;
+    }
+    export interface TaxProvidersFieldsCreateUnbilledChargeInputParam {
+      provider_name?: string;
+      field_id?: string;
+      field_value?: string;
+    }
+    export interface ChargesCreateInputParam {
+      amount?: number;
+      amount_in_decimal?: string;
+      description?: string;
+      taxable?: boolean;
+      tax_profile_id?: string;
+      avalara_tax_code?: string;
+      hsn_code?: string;
+      taxjar_product_code?: string;
+      avalara_sale_type?: AvalaraSaleTypeEnum;
+      avalara_transaction_type?: number;
+      avalara_service_type?: number;
+      date_from?: number;
+      date_to?: number;
+    }
+    export interface ItemTiersCreateInputParam {
+      item_price_id?: string;
+      starting_unit?: number;
+      ending_unit?: number;
+      price?: number;
+      starting_unit_in_decimal?: string;
+      ending_unit_in_decimal?: string;
+      price_in_decimal?: string;
+      pricing_type?: PricingTypeEnum;
+      package_size?: number;
+    }
+    export interface ItemPricesCreateInputParam {
+      item_price_id?: string;
+      quantity?: number;
+      quantity_in_decimal?: string;
+      unit_price?: number;
+      unit_price_in_decimal?: string;
+      date_from?: number;
+      date_to?: number;
+    }
+    export interface TaxProvidersFieldsCreateInputParam {
+      provider_name?: string;
+      field_id?: string;
+      field_value?: string;
     }
   }
 }
