@@ -1,219 +1,232 @@
-# Chargebee Node.js / TypeScript Client Library
+> [!WARNING]  
+> This branch contains the code for Chargebee Node.js SDK v2 which is deprecated. v2 will continue to receive updates till September 30, 2025. If you are using v2, we request you to upgrade to v3 by following [this migration guide](https://github.com/chargebee/chargebee-node/wiki/Migration-guide-for-v3) before September 30, 2025.
 
-This is the official [Node.js](http://nodejs.org/) library for integrating with Chargebee.
+# Chargebee Node.js Client Library
 
-- 📘 For a complete reference of available APIs, check out our [API Documentation](https://apidocs.chargebee.com/docs/api/?lang=node).  
-- 🧪 To explore and test API capabilities interactively, head over to our [API Explorer](https://api-explorer.chargebee.com).
+[![npm](https://img.shields.io/npm/v/chargebee.svg?maxAge=3)](https://www.npmjs.com/package/chargebee)
+[![npm](https://img.shields.io/npm/dt/chargebee.svg?maxAge=3)](https://www.npmjs.com/package/chargebee)
 
-If you're upgrading from an older version of [`chargebee-typescript`](https://www.npmjs.com/package/chargebee-typescript) or [`chargebee`](https://www.npmjs.com/package/chargebee/v/2.40.0), please refer to the [Migration Guide](https://github.com/chargebee/chargebee-node/wiki/Migration-guide-for-v3).
+This is the [node.js](http://nodejs.org/) library for integrating with Chargebee. Sign up for a Chargebee account [here](https://www.chargebee.com).
+
+> **Note**
+> If you’re using [API V1](https://apidocs.chargebee.com/docs/api/v1), head to [chargebee-v1 branch](https://github.com/chargebee/chargebee-node/tree/chargebee-v1).
 
 ## Requirements
 
-Node.js 18 or higher.
+Node 0.6 or higher.
 
 ## Installation
 
-Install the library with npm:
+Install the latest version of the library with:
 
 ```sh
 npm install chargebee
-```
-With pnpm:
-```sh
-pnpm add chargebee
-```
-
-With yarn:
-```sh
+# or
 yarn add chargebee
+# or
+pnpm install chargebee
 ```
 
 ## Usage
 
-The package needs to be configured with your site's API key, which is available under Configure Chargebee Section. Refer [here](https://www.chargebee.com/docs/2.0/api_keys.html) for more details.
+The package needs to be configured with your site's API key, which is available under Configure Chargebee Section. Refer [here](https://www.chargebee.com/docs/2.0/api_keys.html) for more details. 
 
-If you're using ESM / TypeScript:
+The full documentation can be found on the Chargebee API Docs: [https://apidocs.chargebee.com/docs/api?lang=node](https://apidocs.chargebee.com/docs/api?lang=node)
 
-```typescript
-import Chargebee from 'chargebee';
 
-const chargebee = new Chargebee({
-  site: "{{site}}",
-  apiKey: "{{api-key}}",
+```js
+const chargebee = require('chargebee');
+
+chargebee.configure({
+  site: '<YOUR_SITE_NAME>',
+  api_key: '<YOUR_API_KEY>',
 });
 ```
 
-Or using Common JS module system:
+Or using ES modules,
 
-```javascript
-const Chargebee = require('chargebee');
+```js
+import chargebee from 'chargebee';
 
-const chargebee = new Chargebee({
-  site: "{{site}}",
-  apiKey: "{{api-key}}",
+chargebee.configure({
+  site: '<YOUR_SITE_NAME>',
+  api_key: '<YOUR_API_KEY>',
 });
+
 ```
 
 ### Using Async / Await
 
-```typescript
+```js
 try {
-  const { customer } = await chargebee.customer.create({
-    email: "john@test.com"
-    // other params
-  });
+  const result = await chargebee.customer
+    .create({
+      email: 'john@test.com',
+      // other params
+    })
+    .request();
+    // access customer as result.customer;
 } catch (err) {
   // handle error
 }
 ```
 
-### Using filters in the List API
+### Using Promises
 
-For pagination, `offset` is the parameter that is being used. The value used for this parameter must be the value returned for `next_offset` parameter in the previous API call.
-
-```typescript
-async function getAllCustomers() {
-  const allCustomers: Customer[] = [];
-  let offset: string | undefined = undefined;
-
-  do {
-    const listCustomersReponse = await chargebee.customer.list({
-      limit: 2,
-      offset,
-      first_name: {
-        is: "John"
-      }
-    });
-
-    const customers = listCustomersReponse.list.map(
-      (object) => object.customer
-    );
-    
-    allCustomers.push(...customers);
-    offset = listCustomersReponse.next_offset;
-  } while (offset);
-
-  console.log(allCustomers);
-}
+```js
+chargebee.customer
+  .create({
+    email: 'john@test.com',
+    // other params
+  })
+  .request()
+  .then((result) => {
+    // handle result
+    // access customer as result.customer;
+  })
+  .catch((err) => {
+    // handle error
+  });
 ```
 
-### Using custom headers and custom fields
+### Using callbacks
 
-```typescript
-const { customer } = await chargebee.customer.create(
-  {
-    email: "john@test.com",
-    cf_host_url: "http://xyz.com" // `cf_host_url` is a custom field in Customer object
-  },
-  {
-    "chargebee-event-email": "all-disabled" // To disable webhooks
-  }
-);
+```js
+chargebee.customer
+  .create({
+    email: 'john@test.com',
+    // other params
+  })
+  .request(function (error, result) {
+    if (error) {
+      // handle error
+    } else {
+      // handle result
+     // access customer as result.customer;
+    }
+  });
+```
+
+### Usage with TypeScript
+
+You can import the types as shown below.
+
+```ts
+import chargebee, { Customer } from 'chargebee';
+
+chargebee.configure({
+  site: '<YOUR_SITE_NAME>',
+  api_key: '<YOUR_API_KEY>',
+});
+
+const createCustomer = async () => {
+  const inputParams: Customer.CreateInputParam = {
+    email: 'john@test.com',
+    first_name: 'John',
+    last_name: 'Doe',
+  };
+
+  const { customer } = await chargebee.customer.create(inputParams).request();
+  console.log(customer);
+};
+
+createCustomer();
+```
+
+### Using filters in the List API
+
+For pagination: `offset` is the parameter that is being used. The value used for this parameter must be the value returned for `next_offset` parameter in the previous API call.
+
+```js
+const fetchCustomers = async (offset) => {
+    const result = await chargebee.customer.list({
+      limit: 2,
+      offset: offset,
+      first_name: { is: 'John' },
+    }).request();
+
+    return {
+      customers: result.list.map((obj) => obj.customer),
+      next_offset: result.next_offset,
+    };
+  };
+
+  const getCustomers = async () => {
+    const { customers, next_offset } = await fetchCustomers();
+    console.log('Offset:', next_offset); // Print the offset value
+
+    // Fetching next set of customers
+    await fetchCustomers(next_offset);
+  };
+
+  getCustomers().catch((err) => {
+    console.log(err);
+  });
+```
+
+### Using custom headers and custom fields:
+
+```js
+const result = await chargebee.customer
+.create({ email: 'john@test.com', cf_host_url: 'http://xyz.com' }) //Add custom field in payload
+.headers({
+  'chargebee-event-email': 'all-disabled', // To disable webhooks
+  'chargebee-request-origin-ip': '192.168.1.2',
+})
+.setIdempotencyKey("safeKey")
+.request();
+
+const customer = result.customer;
+console.log(customer.cf_host_url);
 ```
 
 ### Creating an idempotent request
 
 [Idempotency keys](https://apidocs.chargebee.com/docs/api/idempotency?prod_cat_ver=2) are passed along with request headers to allow a safe retry of POST requests.
 
-```typescript
-const { customer, isIdempotencyReplayed } = await chargebee.customer.create(
-  { email: "john@test.com" },
-  {
-    "chargebee-idempotency-key": "eBs7iOFQuR7asUKHfddyxDDerOuF1JtFrLmDI" // Add idempotency key
-  }
-);
-console.log("isIdempotencyReplayed: ", isIdempotencyReplayed);
+```js
+const result = await chargebee.customer
+    .create({ email: 'john@test.com' })
+    .setIdempotencyKey("safeKey")
+    .request();
+const customer = result.customer;
+const headers = result.headers;
+const isIdempotencyReplayed = result.isIdempotencyReplayed;
 ```
 
-### Creating multiple instances of Chargebee for different sites
+OR
 
-```typescript
-const chargebeeSiteUS = new Chargebee({
-  apiKey: "{api-key}",
-  site: "my-site-us"
+```js
+chargebee.customer.create({ email: 'john@test.com', cf_host_url: 'http://xyz.com' })
+.setIdempotencyKey("safeKey")
+.request(function(error,result) {
+  if(error){
+    //handle error
+  }else{
+    const customer = result.customer;
+    const headers = result.headers;
+    const isIdempotencyReplayed = result.isIdempotencyReplayed;
+  }
 });
+```
 
-const chargebeeSiteEU = new Chargebee({
-  apiKey: "{api-key}",
-  site: "my-site-eu"
+### Passing API Keys at request level
+
+```js
+const newCust = await chargebee.customer.create({
+  email: 'john@test.com',
+  first_name: 'John',
+  last_name: 'Doe'
+}).request({
+  site: '<YOUR_SITE_NAME>',
+  api_key: '<YOUR_API_KEY>',
 });
 ```
 
 ### Processing Webhooks - API Version Check
 
-An attribute `api_version` is added to the [Event](https://apidocs.chargebee.com/docs/api/events) resource, which indicates the API version based on which the event content is structured. In your webhook servers, ensure this `api_version` is the same as the [API version](https://apidocs.chargebee.com/docs/api#versions) used by your webhook server's client library.
+An attribute, <b>api_version</b>, is added to the [Event](https://apidocs.chargebee.com/docs/api/events) resource, which indicates the API version based on which the event content is structured. In your webhook servers, ensure this \_api_version* is the same as the [API version](https://apidocs.chargebee.com/docs/api#versions) used by your webhook server's client library.
 
-### Retry Handling
+## License
 
-Chargebee's SDK includes built-in retry logic to handle temporary network issues and server-side errors. This feature is **disabled by default** but can be **enabled when needed**.
-
-#### Key features include:
-
-- **Automatic retries for specific HTTP status codes**: Retries are automatically triggered for status codes `500`, `502`, `503`, and `504`.
-- **Exponential backoff**: Retry delays increase exponentially to prevent overwhelming the server.
-- **Rate limit management**: If a `429 Too Many Requests` response is received with a `Retry-After` header, the SDK waits for the specified duration before retrying.  
-  > *Note: Exponential backoff and max retries do not apply in this case.*
-- **Customizable retry behavior**: Retry logic can be configured using the `retryConfig` parameter in the environment configuration.
-
-#### Example: Customizing Retry Logic
-
-You can enable and configure the retry logic by passing a `retryConfig` object when initializing the Chargebee environment:
-
-```typescript
-import Chargebee from 'chargebee';
-
-const chargebee = new Chargebee({
-  site: "{{site}}",
-  apiKey: "{{api-key}}",
-  retryConfig: {
-    enabled: true, // Enable retry logic
-    maxRetries: 5, // Maximum number of retries
-    delayMs: 300, // Initial delay between retries in milliseconds
-    retryOn: [500, 502, 503, 504], // HTTP status codes to retry on
-  },
-});
-
-try {
-  const { customer } = await chargebee.customer.create({
-    email: "john@test.com",
-  });
-  console.log("Customer created:", customer);
-} catch (err) {
-  console.error("Request failed after retries:", err);
-}
-```
-
-#### Example: Rate Limit retry logic
-
-You can enable and configure the retry logic for rate-limit by passing a `retryConfig` object when initializing the Chargebee environment:
-
-```typescript
-import Chargebee from 'chargebee';
-
-const chargebee = new Chargebee({
-  site: "{{site}}",
-  apiKey: "{{api-key}}",
-  retryConfig: {
-    enabled: true,
-    retryOn: [429], 
-  },
-});
-
-try {
-  const { customer } = await chargebee.customer.create({
-    email: "john@test.com",
-  });
-  console.log("Customer created:", customer);
-} catch (err) {
-  console.error("Request failed after retries:", err);
-}
-```
-
-## Feedback
-
-If you find any bugs or have any questions / feedback, open an issue in this repository or reach out to us on dx@chargebee.com
-
-
-## v2
-
-Chargebee Node SDK v2 is deprecated. If you using v2, follow [this guide](https://github.com/chargebee/chargebee-node/wiki/Migration-guide-for-v3) to migrate to v3.
+See the [LICENSE](./LICENSE) file.
