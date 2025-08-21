@@ -126,6 +126,7 @@ declare module 'chargebee' {
       index?: number;
       coupon_id?: string;
       percentage?: number;
+      quantity?: number;
       amount?: number;
       included_in_mrr?: boolean;
     }
@@ -199,6 +200,7 @@ declare module 'chargebee' {
       index?: number;
       coupon_id?: string;
       percentage?: number;
+      quantity?: number;
       amount?: number;
       included_in_mrr?: boolean;
     }

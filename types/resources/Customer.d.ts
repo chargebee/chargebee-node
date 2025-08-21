@@ -869,6 +869,7 @@ declare module 'chargebee' {
     }
 
     export interface TransactionRecordExcessPaymentInputParam {
+      id?: string;
       amount: number;
       currency_code?: string;
       date: number;

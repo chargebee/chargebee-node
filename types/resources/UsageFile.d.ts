@@ -22,22 +22,22 @@ declare module 'chargebee' {
 
   export namespace UsageFile {
     export class UsageFileResource {
-      upload(
-        input: UploadInputParam,
+      uploadUrl(
+        input: UploadUrlInputParam,
         headers?: ChargebeeRequestHeader,
-      ): Promise<ChargebeeResponse<UploadResponse>>;
+      ): Promise<ChargebeeResponse<UploadUrlResponse>>;
 
-      status(
+      processingStatus(
         usage_file_id: string,
         headers?: ChargebeeRequestHeader,
-      ): Promise<ChargebeeResponse<StatusResponse>>;
+      ): Promise<ChargebeeResponse<ProcessingStatusResponse>>;
     }
 
-    export interface UploadResponse {
+    export interface UploadUrlResponse {
       usage_file: UsageFile;
     }
 
-    export interface StatusResponse {
+    export interface ProcessingStatusResponse {
       usage_file: UsageFile;
     }
 
@@ -48,7 +48,7 @@ declare module 'chargebee' {
     // REQUEST PARAMS
     //---------------
 
-    export interface UploadInputParam {
+    export interface UploadUrlInputParam {
       file_name: string;
       mime_type: string;
     }

@@ -12,6 +12,7 @@ declare module 'chargebee' {
     created_at: number;
     resource_version?: number;
     linked_omnichannel_subscriptions?: RecordedPurchase.LinkedOmnichannelSubscription[];
+    linked_omnichannel_one_time_orders?: RecordedPurchase.LinkedOmnichannelOneTimeOrder[];
     error_detail?: RecordedPurchase.ErrorDetail;
   }
 
@@ -40,6 +41,9 @@ declare module 'chargebee' {
     export interface LinkedOmnichannelSubscription {
       omnichannel_subscription_id?: string;
     }
+    export interface LinkedOmnichannelOneTimeOrder {
+      omnichannel_one_time_order_id?: string;
+    }
     export interface ErrorDetail {
       error_message?: string;
     }
@@ -58,6 +62,8 @@ declare module 'chargebee' {
     }
     export interface GooglePlayStoreCreateInputParam {
       purchase_token?: string;
+      product_id?: string;
+      order_id?: string;
     }
     export interface AppleAppStoreCreateInputParam {
       transaction_id?: string;

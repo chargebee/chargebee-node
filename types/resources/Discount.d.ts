@@ -5,9 +5,10 @@ declare module 'chargebee' {
   export interface Discount {
     id: string;
     invoice_name?: string;
-    type: 'fixed_amount' | 'percentage';
+    type: 'fixed_amount' | 'percentage' | 'offer_quantity';
     percentage?: number;
     amount?: number;
+    quantity?: number;
     currency_code?: string;
     duration_type: DurationTypeEnum;
     period?: number;

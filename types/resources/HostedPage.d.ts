@@ -720,6 +720,7 @@ declare module 'chargebee' {
     export interface DiscountsCheckoutOneTimeForItemsInputParam {
       percentage?: number;
       amount?: number;
+      quantity?: number;
       apply_on: ApplyOnEnum;
       item_price_id?: string;
     }
@@ -850,6 +851,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
     }
     export interface EntityIdentifiersCheckoutNewForItemsInputParam {
       id?: string;
@@ -985,6 +987,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
       operation_type: OperationTypeEnum;
       id?: string;
     }

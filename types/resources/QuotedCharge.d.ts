@@ -8,6 +8,7 @@ declare module 'chargebee' {
     invoice_items?: QuotedCharge.InvoiceItem[];
     item_tiers?: QuotedCharge.ItemTier[];
     coupons?: QuotedCharge.Coupon[];
+    coupon_applicability_mappings?: QuotedCharge.CouponApplicabilityMapping[];
   }
 
   export namespace QuotedCharge {
@@ -51,6 +52,10 @@ declare module 'chargebee' {
     }
     export interface Coupon {
       coupon_id: string;
+    }
+    export interface CouponApplicabilityMapping {
+      coupon_id?: string;
+      applicable_item_price_ids?: string[];
     }
     // REQUEST PARAMS
     //---------------

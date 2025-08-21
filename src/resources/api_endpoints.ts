@@ -92,11 +92,17 @@ interface Endpoints {
   omnichannelTransaction: EndpointTuple[];
   omnichannelSubscriptionItem: EndpointTuple[];
   recordedPurchase: EndpointTuple[];
+  omnichannelOneTimeOrder: EndpointTuple[];
+  omnichannelOneTimeOrderItem: EndpointTuple[];
   rule: EndpointTuple[];
   usageEvent: EndpointTuple[];
   omnichannelSubscriptionItemScheduledChange: EndpointTuple[];
   usageFile: EndpointTuple[];
   brand: EndpointTuple[];
+  webhookEndpoint: EndpointTuple[];
+  impactedCustomer: EndpointTuple[];
+  subscriptionEntitlementsUpdatedDetail: EndpointTuple[];
+  subscriptionEntitlementsCreatedDetail: EndpointTuple[];
 }
 export const Endpoints: Endpoints = {
   subscription: [
@@ -4773,6 +4779,31 @@ export const Endpoints: Endpoints = {
     ],
     ['retrieve', 'GET', '/recorded_purchases', null, true, null, false, {}, {}],
   ],
+  omnichannelOneTimeOrder: [
+    [
+      'retrieve',
+      'GET',
+      '/omnichannel_one_time_orders',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
+      'list',
+      'GET',
+      '/omnichannel_one_time_orders',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
+  omnichannelOneTimeOrderItem: [],
   rule: [['retrieve', 'GET', '/rules', null, true, null, false, {}, {}]],
   usageEvent: [
     [
@@ -4805,10 +4836,10 @@ export const Endpoints: Endpoints = {
   omnichannelSubscriptionItemScheduledChange: [],
   usageFile: [
     [
-      'upload',
+      'uploadUrl',
       'POST',
       '/usage_files',
-      '/upload',
+      '/upload_url',
       false,
       'file-ingest',
       false,
@@ -4816,10 +4847,10 @@ export const Endpoints: Endpoints = {
       {},
     ],
     [
-      'status',
+      'processingStatus',
       'GET',
       '/usage_files',
-      '/status',
+      '/processing_status',
       true,
       'file-ingest',
       false,
@@ -4828,4 +4859,50 @@ export const Endpoints: Endpoints = {
     ],
   ],
   brand: [],
+  webhookEndpoint: [
+    [
+      'create',
+      'POST',
+      '/webhook_endpoints',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'update',
+      'POST',
+      '/webhook_endpoints',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/webhook_endpoints', null, true, null, false, {}, {}],
+    [
+      'delete',
+      'POST',
+      '/webhook_endpoints',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/webhook_endpoints', null, false, null, false, {}, {}],
+  ],
+  impactedCustomer: [],
+  subscriptionEntitlementsUpdatedDetail: [],
+  subscriptionEntitlementsCreatedDetail: [],
 };

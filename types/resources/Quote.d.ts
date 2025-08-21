@@ -1150,6 +1150,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
       start_date?: number;
       end_date?: number;
     }
@@ -1247,6 +1248,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
       start_date?: number;
       end_date?: number;
     }
@@ -1354,6 +1356,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
       operation_type: OperationTypeEnum;
       id?: string;
       start_date?: number;
@@ -1462,6 +1465,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
       operation_type: OperationTypeEnum;
       id?: string;
       start_date?: number;
@@ -1528,6 +1532,7 @@ declare module 'chargebee' {
     }
     export interface DiscountsCreateForChargeItemsAndChargesInputParam {
       percentage?: number;
+      quantity?: number;
       amount?: number;
       apply_on: ApplyOnEnum;
       item_price_id?: string;
@@ -1600,6 +1605,7 @@ declare module 'chargebee' {
     }
     export interface DiscountsEditForChargeItemsAndChargesInputParam {
       percentage?: number;
+      quantity?: number;
       amount?: number;
       apply_on: ApplyOnEnum;
       item_price_id?: string;

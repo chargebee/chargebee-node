@@ -144,7 +144,10 @@ declare module 'chargebee' {
     | 'omnichannel_transaction'
     | 'recorded_purchase'
     | 'omnichannel_subscription_item_scheduled_change'
-    | 'sales_order';
+    | 'sales_order'
+    | 'omnichannel_one_time_order'
+    | 'omnichannel_one_time_order_item'
+    | 'usage_file';
   type EventNameEnum = 'cancellation_page_loaded';
   type EventTypeEnum =
     | 'coupon_created'
@@ -349,6 +352,10 @@ declare module 'chargebee' {
     | 'omnichannel_subscription_item_changed'
     | 'omnichannel_subscription_item_paused'
     | 'omnichannel_subscription_item_resumed'
+    | 'omnichannel_one_time_order_created'
+    | 'omnichannel_one_time_order_item_cancelled'
+    | 'usage_file_ingested'
+    | 'omnichannel_subscription_item_pause_scheduled'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'
