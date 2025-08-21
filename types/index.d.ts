@@ -33,6 +33,7 @@
 ///<reference path='./resources/Gift.d.ts' />
 ///<reference path='./resources/Hierarchy.d.ts' />
 ///<reference path='./resources/HostedPage.d.ts' />
+///<reference path='./resources/ImpactedCustomer.d.ts' />
 ///<reference path='./resources/ImpactedItem.d.ts' />
 ///<reference path='./resources/ImpactedItemPrice.d.ts' />
 ///<reference path='./resources/ImpactedSubscription.d.ts' />
@@ -45,6 +46,8 @@
 ///<reference path='./resources/ItemPrice.d.ts' />
 ///<reference path='./resources/Metadata.d.ts' />
 ///<reference path='./resources/NonSubscription.d.ts' />
+///<reference path='./resources/OmnichannelOneTimeOrder.d.ts' />
+///<reference path='./resources/OmnichannelOneTimeOrderItem.d.ts' />
 ///<reference path='./resources/OmnichannelSubscription.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItem.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItemScheduledChange.d.ts' />
@@ -75,6 +78,8 @@
 ///<reference path='./resources/SiteMigrationDetail.d.ts' />
 ///<reference path='./resources/Subscription.d.ts' />
 ///<reference path='./resources/SubscriptionEntitlement.d.ts' />
+///<reference path='./resources/SubscriptionEntitlementsCreatedDetail.d.ts' />
+///<reference path='./resources/SubscriptionEntitlementsUpdatedDetail.d.ts' />
 ///<reference path='./resources/SubscriptionEstimate.d.ts' />
 ///<reference path='./resources/TaxWithheld.d.ts' />
 ///<reference path='./resources/ThirdPartyPaymentMethod.d.ts' />
@@ -86,6 +91,7 @@
 ///<reference path='./resources/UsageEvent.d.ts' />
 ///<reference path='./resources/UsageFile.d.ts' />
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
+///<reference path='./resources/WebhookEndpoint.d.ts' />
 
 export type Config = {
   /**
@@ -186,6 +192,7 @@ declare module 'chargebee' {
     itemFamily: ItemFamily.ItemFamilyResource;
     itemPrice: ItemPrice.ItemPriceResource;
     nonSubscription: NonSubscription.NonSubscriptionResource;
+    omnichannelOneTimeOrder: OmnichannelOneTimeOrder.OmnichannelOneTimeOrderResource;
     omnichannelSubscription: OmnichannelSubscription.OmnichannelSubscriptionResource;
     omnichannelSubscriptionItem: OmnichannelSubscriptionItem.OmnichannelSubscriptionItemResource;
     order: Order.OrderResource;
@@ -214,5 +221,6 @@ declare module 'chargebee' {
     usageEvent: UsageEvent.UsageEventResource;
     usageFile: UsageFile.UsageFileResource;
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
+    webhookEndpoint: WebhookEndpoint.WebhookEndpointResource;
   }
 }

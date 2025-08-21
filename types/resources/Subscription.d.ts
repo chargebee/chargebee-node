@@ -689,9 +689,10 @@ declare module 'chargebee' {
     export interface Discount {
       id: string;
       invoice_name?: string;
-      type: 'fixed_amount' | 'percentage';
+      type: 'fixed_amount' | 'percentage' | 'offer_quantity';
       percentage?: number;
       amount?: number;
+      quantity?: number;
       currency_code?: string;
       duration_type: 'one_time' | 'forever' | 'limited_period';
       period?: number;
@@ -1659,6 +1660,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
     }
     export interface CouponsCreateWithItemsInputParam {
       /**
@@ -2003,6 +2005,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
       operation_type: OperationTypeEnum;
       id?: string;
     }
@@ -2341,7 +2344,10 @@ declare module 'chargebee' {
         | 'adhoc'
         | 'plan_item_price'
         | 'addon_item_price'
-        | 'charge_item_price';
+        | 'charge_item_price'
+        | 'plan_setup'
+        | 'plan'
+        | 'addon';
       entity_id?: string;
       description?: string;
       unit_amount?: number;
@@ -2412,6 +2418,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
     }
     export interface CouponsImportForItemsInputParam {
       /**

@@ -6,7 +6,7 @@ declare module 'chargebee' {
     id?: string;
     omnichannel_subscription_item_id?: string;
     scheduled_at: number;
-    change_type: 'downgrade';
+    change_type: 'downgrade' | 'pause';
     created_at: number;
     modified_at: number;
     resource_version?: number;

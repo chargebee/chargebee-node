@@ -4,8 +4,8 @@
 declare module 'chargebee' {
   export interface Invoice {
     id: string;
-    po_number?: string;
     customer_id: string;
+    payment_owner?: string;
     subscription_id?: string;
     recurring: boolean;
     status:
@@ -15,31 +15,32 @@ declare module 'chargebee' {
       | 'not_paid'
       | 'voided'
       | 'pending';
-    vat_number?: string;
-    price_type: PriceTypeEnum;
     date?: number;
     due_date?: number;
     net_term_days?: number;
+    po_number?: string;
+    vat_number?: string;
+    price_type: PriceTypeEnum;
     exchange_rate?: number;
+    local_currency_exchange_rate?: number;
     currency_code: string;
+    local_currency_code?: string;
+    tax: number;
+    sub_total: number;
+    sub_total_in_local_currency?: number;
     total?: number;
-    amount_paid?: number;
+    total_in_local_currency?: number;
+    amount_due?: number;
     amount_adjusted?: number;
+    amount_paid?: number;
+    paid_at?: number;
     write_off_amount?: number;
     credits_applied?: number;
-    amount_due?: number;
-    paid_at?: number;
     dunning_status?: 'in_progress' | 'exhausted' | 'stopped' | 'success';
     next_retry_at?: number;
     voided_at?: number;
     resource_version?: number;
     updated_at?: number;
-    sub_total: number;
-    sub_total_in_local_currency?: number;
-    total_in_local_currency?: number;
-    local_currency_code?: string;
-    tax: number;
-    local_currency_exchange_rate?: number;
     first_invoice?: boolean;
     new_sales_amount?: number;
     has_advance_charges?: boolean;
@@ -50,12 +51,14 @@ declare module 'chargebee' {
     amount_to_collect?: number;
     round_off_amount?: number;
     line_items?: Invoice.LineItem[];
-    discounts?: Invoice.Discount[];
+    line_item_tiers?: Invoice.LineItemTier[];
     line_item_discounts?: Invoice.LineItemDiscount[];
-    taxes?: Invoice.Tax[];
     line_item_taxes?: Invoice.LineItemTax[];
     line_item_credits?: Invoice.LineItemCredit[];
-    line_item_tiers?: Invoice.LineItemTier[];
+    line_item_addresses?: Invoice.LineItemAddress[];
+    discounts?: Invoice.Discount[];
+    taxes?: Invoice.Tax[];
+    tax_origin?: Invoice.TaxOrigin;
     linked_payments?: Invoice.LinkedPayment[];
     dunning_attempts?: Invoice.DunningAttempt[];
     applied_credits?: Invoice.AppliedCredit[];
@@ -64,10 +67,9 @@ declare module 'chargebee' {
     linked_orders?: Invoice.LinkedOrder[];
     notes?: Invoice.Note[];
     shipping_address?: Invoice.ShippingAddress;
-    statement_descriptor?: Invoice.StatementDescriptor;
     billing_address?: Invoice.BillingAddress;
+    statement_descriptor?: Invoice.StatementDescriptor;
     einvoice?: Invoice.Einvoice;
-    payment_owner?: string;
     void_reason_code?: string;
     deleted: boolean;
     tax_category?: string;
@@ -75,8 +77,6 @@ declare module 'chargebee' {
     channel?: ChannelEnum;
     business_entity_id?: string;
     site_details_at_creation?: Invoice.SiteDetailsAtCreation;
-    tax_origin?: Invoice.TaxOrigin;
-    line_item_addresses?: Invoice.LineItemAddress[];
   }
 
   export namespace Invoice {
@@ -533,19 +533,18 @@ declare module 'chargebee' {
       entity_id?: string;
       customer_id?: string;
     }
-    export interface Discount {
-      amount: number;
-      description?: string;
-      entity_type:
-        | 'item_level_coupon'
-        | 'document_level_coupon'
-        | 'promotional_credits'
-        | 'prorated_credits'
-        | 'item_level_discount'
-        | 'document_level_discount';
-      discount_type?: 'fixed_amount' | 'percentage';
-      entity_id?: string;
-      coupon_set_code?: string;
+    export interface LineItemTier {
+      line_item_id?: string;
+      starting_unit: number;
+      ending_unit?: number;
+      quantity_used: number;
+      unit_amount: number;
+      starting_unit_in_decimal?: string;
+      ending_unit_in_decimal?: string;
+      quantity_used_in_decimal?: string;
+      unit_amount_in_decimal?: string;
+      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
+      package_size?: number;
     }
     export interface LineItemDiscount {
       line_item_id: string;
@@ -559,11 +558,6 @@ declare module 'chargebee' {
       coupon_id?: string;
       entity_id?: string;
       discount_amount: number;
-    }
-    export interface Tax {
-      name: string;
-      amount: number;
-      description?: string;
     }
     export interface LineItemTax {
       line_item_id?: string;
@@ -595,18 +589,49 @@ declare module 'chargebee' {
       applied_amount: number;
       line_item_id?: string;
     }
-    export interface LineItemTier {
+    export interface LineItemAddress {
       line_item_id?: string;
-      starting_unit: number;
-      ending_unit?: number;
-      quantity_used: number;
-      unit_amount: number;
-      starting_unit_in_decimal?: string;
-      ending_unit_in_decimal?: string;
-      quantity_used_in_decimal?: string;
-      unit_amount_in_decimal?: string;
-      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
-      package_size?: number;
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      company?: string;
+      phone?: string;
+      line1?: string;
+      line2?: string;
+      line3?: string;
+      city?: string;
+      state_code?: string;
+      state?: string;
+      country?: string;
+      zip?: string;
+      validation_status?:
+        | 'not_validated'
+        | 'valid'
+        | 'partially_valid'
+        | 'invalid';
+    }
+    export interface Discount {
+      amount: number;
+      description?: string;
+      entity_type:
+        | 'item_level_coupon'
+        | 'document_level_coupon'
+        | 'promotional_credits'
+        | 'prorated_credits'
+        | 'item_level_discount'
+        | 'document_level_discount';
+      discount_type?: 'fixed_amount' | 'percentage';
+      entity_id?: string;
+      coupon_set_code?: string;
+    }
+    export interface Tax {
+      name: string;
+      amount: number;
+      description?: string;
+    }
+    export interface TaxOrigin {
+      country?: string;
+      registration_number?: string;
     }
     export interface LinkedPayment {
       txn_id: string;
@@ -753,10 +778,6 @@ declare module 'chargebee' {
       validation_status?: ValidationStatusEnum;
       index: number;
     }
-    export interface StatementDescriptor {
-      id: string;
-      descriptor?: string;
-    }
     export interface BillingAddress {
       first_name?: string;
       last_name?: string;
@@ -773,6 +794,10 @@ declare module 'chargebee' {
       zip?: string;
       validation_status?: ValidationStatusEnum;
     }
+    export interface StatementDescriptor {
+      id: string;
+      descriptor?: string;
+    }
     export interface Einvoice {
       id: string;
       reference_number?: string;
@@ -788,31 +813,6 @@ declare module 'chargebee' {
     export interface SiteDetailsAtCreation {
       timezone?: string;
       organization_address?: object;
-    }
-    export interface TaxOrigin {
-      country?: string;
-      registration_number?: string;
-    }
-    export interface LineItemAddress {
-      line_item_id?: string;
-      first_name?: string;
-      last_name?: string;
-      email?: string;
-      company?: string;
-      phone?: string;
-      line1?: string;
-      line2?: string;
-      line3?: string;
-      city?: string;
-      state_code?: string;
-      state?: string;
-      country?: string;
-      zip?: string;
-      validation_status?:
-        | 'not_validated'
-        | 'valid'
-        | 'partially_valid'
-        | 'invalid';
     }
     // REQUEST PARAMS
     //---------------
@@ -1421,6 +1421,7 @@ declare module 'chargebee' {
     export interface DiscountsCreateForChargeItemsAndChargesInputParam {
       percentage?: number;
       amount?: number;
+      quantity?: number;
       apply_on: ApplyOnEnum;
       item_price_id?: string;
     }
@@ -1524,7 +1525,9 @@ declare module 'chargebee' {
         | 'coupon'
         | 'plan_item_price'
         | 'addon_item_price'
-        | 'charge_item_price';
+        | 'charge_item_price'
+        | 'plan'
+        | 'addon';
       entity_id?: string;
       note?: string;
     }
@@ -1540,6 +1543,7 @@ declare module 'chargebee' {
       amount: number;
     }
     export interface PaymentsImportInvoiceInputParam {
+      id?: string;
       amount: number;
       payment_method: PaymentMethodEnum;
       date?: number;
@@ -1606,7 +1610,10 @@ declare module 'chargebee' {
         | 'adhoc'
         | 'plan_item_price'
         | 'addon_item_price'
-        | 'charge_item_price';
+        | 'charge_item_price'
+        | 'plan_setup'
+        | 'plan'
+        | 'addon';
       entity_id?: string;
       item_level_discount1_entity_id?: string;
       item_level_discount1_amount?: number;

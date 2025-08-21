@@ -10,6 +10,7 @@ declare module 'chargebee' {
     created_at: number;
     type: 'user' | 'system';
     entity_id: string;
+    business_entity_id?: string;
   }
 
   export namespace Comment {
@@ -82,6 +83,9 @@ declare module 'chargebee' {
         | 'recorded_purchase'
         | 'omnichannel_subscription_item_scheduled_change'
         | 'sales_order'
+        | 'omnichannel_one_time_order'
+        | 'omnichannel_one_time_order_item'
+        | 'usage_file'
         | 'item_family'
         | 'item'
         | 'item_price'

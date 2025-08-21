@@ -31,6 +31,7 @@ declare module 'chargebee' {
     export interface EntitlementsForCustomerInputParam {
       limit?: number;
       offset?: string;
+      consolidate_entitlements?: boolean;
     }
   }
 }

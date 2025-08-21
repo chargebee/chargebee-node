@@ -625,6 +625,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
     }
     export interface ItemTiersCreateSubItemEstimateInputParam {
       item_price_id?: string;
@@ -765,6 +766,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
     }
     export interface ItemTiersCreateSubItemForCustomerEstimateInputParam {
       item_price_id?: string;
@@ -927,6 +929,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
       operation_type: OperationTypeEnum;
       id?: string;
     }
@@ -1232,6 +1235,7 @@ declare module 'chargebee' {
     export interface DiscountsCreateInvoiceForItemsInputParam {
       percentage?: number;
       amount?: number;
+      quantity?: number;
       apply_on: ApplyOnEnum;
       item_price_id?: string;
     }

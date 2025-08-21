@@ -106,6 +106,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
       label?: string;
     }
     export interface PricingPageCreateForExistingSubscriptionInputParam {
@@ -124,6 +125,7 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+      quantity?: number;
       label?: string;
     }
   }

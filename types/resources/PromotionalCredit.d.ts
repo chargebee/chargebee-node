@@ -15,6 +15,7 @@ declare module 'chargebee' {
     closing_balance: number;
     done_by?: string;
     created_at: number;
+    business_entity_id?: string;
   }
 
   export namespace PromotionalCredit {
