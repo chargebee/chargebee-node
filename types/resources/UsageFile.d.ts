@@ -37,20 +37,20 @@ declare module 'chargebee' {
   }
   export namespace UsageFile {
     export class UsageFileResource {  
-      upload(input:UploadInputParam):ChargebeeRequest<UploadResponse>;
+      upload_url(input:UploadUrlInputParam):ChargebeeRequest<UploadUrlResponse>;
        
-      status(usage_file_id:string):ChargebeeRequest<StatusResponse>;
+      processing_status(usage_file_id:string):ChargebeeRequest<ProcessingStatusResponse>;
     }
-    export interface UploadResponse {  
+    export interface UploadUrlResponse {  
        usage_file:UsageFile;
     }
-    export interface UploadInputParam {
+    export interface UploadUrlInputParam {
        
       file_name:string;
        
       mime_type:string;
     }
-    export interface StatusResponse {  
+    export interface ProcessingStatusResponse {  
        usage_file:UsageFile;
     }
     

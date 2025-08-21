@@ -253,7 +253,7 @@ declare module 'chargebee' {
        unbilled_charges?:UnbilledCharge[];
     }
     export interface CreateInputParam {
-      [key : string] : any;  
+       
       customer?:object;
        
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa',tmp_token?:string};
@@ -356,7 +356,7 @@ declare module 'chargebee' {
        unbilled_charges?:UnbilledCharge[];
     }
     export interface CreateForCustomerInputParam {
-      [key : string] : any;  
+       
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       statement_descriptor?:{descriptor?:string};
@@ -443,7 +443,7 @@ declare module 'chargebee' {
        unbilled_charges?:UnbilledCharge[];
     }
     export interface CreateWithItemsInputParam {
-      [key : string] : any;  
+       
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       statement_descriptor?:{descriptor?:string};
@@ -456,7 +456,7 @@ declare module 'chargebee' {
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string,usage_accumulation_reset_frequency?:UsageAccumulationResetFrequency}[];
        
-      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit,quantity?:number}[];
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
@@ -535,7 +535,7 @@ declare module 'chargebee' {
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -620,7 +620,7 @@ declare module 'chargebee' {
       created_at?:{after?:string,before?:string,between?:string,on?:string};
        
       /**
-        * @description Time at which the subscription &#x60;status&#x60; last changed to &#x60;active&#x60;. For example, this value is updated when an &#x60;in_trial&#x60; or &#x60;cancelled&#x60; subscription activates.
+        * @description Time at which the subscription?&#x60;status&#x60;?last changed to? &#x60;active&#x60;. For example, this value is updated when an?&#x60;in_trial&#x60;?or? &#x60;cancelled&#x60;?subscription activates.
 
         */
         
@@ -675,7 +675,7 @@ declare module 'chargebee' {
         
       override_relationship?:{is?:'true' | 'false'};
        
-      sort_by?:{asc?:'created_at' | 'updated_at',desc?:'created_at' | 'updated_at'};
+      sort_by?:object;
        
       /**
         * @description The unique ID of the [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe) of this subscription. This is always the same as the [business entity](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_customer_id) of the customer.  
@@ -710,7 +710,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -731,13 +731,13 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
       offset?:string;
        
-      sort_by?:{asc?:'created_at',desc?:'created_at'};
+      sort_by?:object;
     }
     export interface ListDiscountsResponse {  
        list:{discount:Discount}[];
@@ -754,7 +754,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -826,7 +826,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        credit_notes?:CreditNote[];
     }
     export interface UpdateInputParam {
-      [key : string] : any;  
+       
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa',tmp_token?:string};
        
       payment_method?:{additional_information?:object,gateway?:Gateway,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type?:Type};
@@ -935,7 +935,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        credit_notes?:CreditNote[];
     }
     export interface UpdateForItemsInputParam {
-      [key : string] : any;  
+       
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa',tmp_token?:string};
        
       payment_method?:{additional_information?:object,gateway?:Gateway,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type?:Type};
@@ -956,7 +956,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,item_type?:ItemType,proration_type?:ProrationType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string,usage_accumulation_reset_frequency?:UsageAccumulationResetFrequency}[];
        
-      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit,quantity?:number}[];
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
@@ -1208,7 +1208,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        invoice?:Invoice;
     }
     export interface ImportSubscriptionInputParam {
-      [key : string] : any;  
+       
       customer?:object;
        
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',billing_cycle?:number,cancellation_cutoff_period?:number,contract_start?:number,created_at?:number,id?:string,total_amount_raised?:number,total_amount_raised_before_tax?:number};
@@ -1297,7 +1297,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        invoice?:Invoice;
     }
     export interface ImportForCustomerInputParam {
-      [key : string] : any;  
+       
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',billing_cycle?:number,cancellation_cutoff_period?:number,contract_start?:number,created_at?:number,id?:string,total_amount_raised?:number,total_amount_raised_before_tax?:number};
        
       transaction?:{amount?:number,date?:number,payment_method?:PaymentMethod,reference_number?:string};
@@ -1380,7 +1380,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface ImportUnbilledChargesInputParam {
        
-      unbilled_charges:{amount?:number,amount_in_decimal?:string,date_from:number,date_to:number,description?:string,discount_amount?:number,entity_id?:string,entity_type:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price',id?:string,is_advance_charge?:boolean,quantity?:number,quantity_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string,use_for_proration?:boolean}[];
+      unbilled_charges:{amount?:number,amount_in_decimal?:string,date_from:number,date_to:number,description?:string,discount_amount?:number,entity_id?:string,entity_type:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'plan_setup' | 'plan' | 'addon',id?:string,is_advance_charge?:boolean,quantity?:number,quantity_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string,use_for_proration?:boolean}[];
        
       discounts:{amount:number,description?:string,entity_id?:string,entity_type?:'item_level_coupon' | 'document_level_coupon' | 'item_level_discount' | 'document_level_discount',unbilled_charge_id?:string}[];
        
@@ -1396,7 +1396,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        invoice?:Invoice;
     }
     export interface ImportForItemsInputParam {
-      [key : string] : any;  
+       
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',billing_cycle?:number,cancellation_cutoff_period?:number,contract_start?:number,created_at?:number,id?:string,total_amount_raised?:number,total_amount_raised_before_tax?:number};
        
       transaction?:{amount?:number,date?:number,payment_method?:PaymentMethod,reference_number?:string};
@@ -1405,7 +1405,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_once?:boolean,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit,quantity?:number}[];
        
       charged_items?:{item_price_id?:string,last_charged_at?:number}[];
        
@@ -1861,11 +1861,13 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        
       invoice_name?:string;
        
-      type:'fixed_amount' | 'percentage';
+      type:'fixed_amount' | 'percentage' | 'offer_quantity';
        
       percentage?:number;
        
       amount?:number;
+       
+      quantity?:number;
        
       currency_code?:string;
        

@@ -46,8 +46,6 @@ declare module 'chargebee' {
 
     channel?:Channel;
 
-    einvoice?:CreditNote.Einvoice;
-
     sub_total:number;
 
     sub_total_in_local_currency?:number;
@@ -62,15 +60,19 @@ declare module 'chargebee' {
 
     line_items?:CreditNote.LineItem[];
 
-    discounts?:CreditNote.Discount[];
+    line_item_tiers?:CreditNote.LineItemTier[];
 
     line_item_discounts?:CreditNote.LineItemDiscount[];
 
-    line_item_tiers?:CreditNote.LineItemTier[];
+    line_item_taxes?:CreditNote.LineItemTax[];
+
+    line_item_addresses?:CreditNote.LineItemAddress[];
+
+    discounts?:CreditNote.Discount[];
 
     taxes?:CreditNote.Tax[];
 
-    line_item_taxes?:CreditNote.LineItemTax[];
+    tax_origin?:CreditNote.TaxOrigin;
 
     linked_refunds?:CreditNote.LinkedRefund[];
 
@@ -92,11 +94,9 @@ declare module 'chargebee' {
 
     billing_address?:CreditNote.BillingAddress;
 
+    einvoice?:CreditNote.Einvoice;
+
     site_details_at_creation?:CreditNote.SiteDetailsAtCreation;
-
-    tax_origin?:CreditNote.TaxOrigin;
-
-    line_item_addresses?:CreditNote.LineItemAddress[];
 
   }
   export namespace CreditNote {
@@ -136,7 +136,7 @@ declare module 'chargebee' {
     }
     export interface CreateInputParam {
        
-      line_items?:{amount?:number,date_from?:number,date_to?:number,description?:string,entity_id?:string,entity_type?:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price',quantity?:number,quantity_in_decimal?:string,reference_line_item_id?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
+      line_items?:{amount?:number,date_from?:number,date_to?:number,description?:string,entity_id?:string,entity_type?:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'plan' | 'addon',quantity?:number,quantity_in_decimal?:string,reference_line_item_id?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
       reference_invoice_id?:string;
        
@@ -196,7 +196,7 @@ declare module 'chargebee' {
     }
     export interface RecordRefundInputParam {
        
-      transaction:{amount?:number,custom_payment_method_id?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
+      transaction:{amount?:number,custom_payment_method_id?:string,date:number,id?:string,payment_method:PaymentMethod,reference_number?:string};
        
       refund_reason_code?:string;
        
@@ -224,7 +224,7 @@ declare module 'chargebee' {
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -357,7 +357,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
         
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      sort_by?:{asc?:'date',desc?:'date'};
+      sort_by?:object;
        
       /**
         * @description The subscription channel this object originated from and is maintained in.
@@ -381,7 +381,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -414,7 +414,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
     }
     export interface ImportCreditNoteInputParam {
        
-      line_items:{amount?:number,amount_in_decimal?:string,date_from?:number,date_to?:number,description:string,entity_id?:string,entity_type?:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price',id?:string,item_level_discount1_amount?:number,item_level_discount1_entity_id?:string,item_level_discount2_amount?:number,item_level_discount2_entity_id?:string,quantity?:number,quantity_in_decimal?:string,reference_line_item_id?:string,subscription_id?:string,tax10_amount?:number,tax10_name?:string,tax1_amount?:number,tax1_name?:string,tax2_amount?:number,tax2_name?:string,tax3_amount?:number,tax3_name?:string,tax4_amount?:number,tax4_name?:string,tax5_amount?:number,tax5_name?:string,tax6_amount?:number,tax6_name?:string,tax7_amount?:number,tax7_name?:string,tax8_amount?:number,tax8_name?:string,tax9_amount?:number,tax9_name?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
+      line_items:{amount?:number,amount_in_decimal?:string,date_from?:number,date_to?:number,description:string,entity_id?:string,entity_type?:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'plan_setup' | 'plan' | 'addon',id?:string,item_level_discount1_amount?:number,item_level_discount1_entity_id?:string,item_level_discount2_amount?:number,item_level_discount2_entity_id?:string,quantity?:number,quantity_in_decimal?:string,reference_line_item_id?:string,subscription_id?:string,tax10_amount?:number,tax10_name?:string,tax1_amount?:number,tax1_name?:string,tax2_amount?:number,tax2_name?:string,tax3_amount?:number,tax3_name?:string,tax4_amount?:number,tax4_name?:string,tax5_amount?:number,tax5_name?:string,tax6_amount?:number,tax6_name?:string,tax7_amount?:number,tax7_name?:string,tax8_amount?:number,tax8_name?:string,tax9_amount?:number,tax9_name?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
       line_item_tiers:{ending_unit?:number,ending_unit_in_decimal?:string,line_item_id:string,quantity_used?:number,quantity_used_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
@@ -424,7 +424,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
       allocations:{allocated_amount:number,allocated_at:number,invoice_id:string}[];
        
-      linked_refunds:{amount:number,date:number,payment_method:PaymentMethod,reference_number?:string}[];
+      linked_refunds:{amount:number,date:number,id?:string,payment_method:PaymentMethod,reference_number?:string}[];
        
       id:string;
        
@@ -457,15 +457,6 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       fractional_correction?:number;
        
       vat_number_prefix?:string;
-    }
-    export interface Einvoice {  
-      id:string;
-       
-      reference_number?:string;
-       
-      status:'scheduled' | 'skipped' | 'in_progress' | 'success' | 'failed' | 'registered';
-       
-      message?:string;
     }
     export interface LineItem {  
       id?:string;
@@ -518,30 +509,6 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
       customer_id?:string;
     }
-    export interface Discount {  
-      amount:number;
-       
-      description?:string;
-       
-      entity_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
-       
-      discount_type?:'fixed_amount' | 'percentage';
-       
-      entity_id?:string;
-       
-      coupon_set_code?:string;
-    }
-    export interface LineItemDiscount {  
-      line_item_id:string;
-       
-      discount_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
-       
-      coupon_id?:string;
-       
-      entity_id?:string;
-       
-      discount_amount:number;
-    }
     export interface LineItemTier {  
       line_item_id?:string;
        
@@ -565,12 +532,16 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
       package_size?:number;
     }
-    export interface Tax {  
-      name:string;
+    export interface LineItemDiscount {  
+      line_item_id:string;
        
-      amount:number;
+      discount_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
        
-      description?:string;
+      coupon_id?:string;
+       
+      entity_id?:string;
+       
+      discount_amount:number;
     }
     export interface LineItemTax {  
       line_item_id?:string;
@@ -602,6 +573,62 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       tax_amount_in_local_currency?:number;
        
       local_currency_code?:string;
+    }
+    export interface LineItemAddress {  
+      line_item_id?:string;
+       
+      first_name?:string;
+       
+      last_name?:string;
+       
+      email?:string;
+       
+      company?:string;
+       
+      phone?:string;
+       
+      line1?:string;
+       
+      line2?:string;
+       
+      line3?:string;
+       
+      city?:string;
+       
+      state_code?:string;
+       
+      state?:string;
+       
+      country?:string;
+       
+      zip?:string;
+       
+      validation_status?:'not_validated' | 'valid' | 'partially_valid' | 'invalid';
+    }
+    export interface Discount {  
+      amount:number;
+       
+      description?:string;
+       
+      entity_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
+       
+      discount_type?:'fixed_amount' | 'percentage';
+       
+      entity_id?:string;
+       
+      coupon_set_code?:string;
+    }
+    export interface Tax {  
+      name:string;
+       
+      amount:number;
+       
+      description?:string;
+    }
+    export interface TaxOrigin {  
+      country?:string;
+       
+      registration_number?:string;
     }
     export interface LinkedRefund {  
       txn_id:string;
@@ -691,46 +718,19 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
       validation_status?:ValidationStatus;
     }
+    export interface Einvoice {  
+      id:string;
+       
+      reference_number?:string;
+       
+      status:'scheduled' | 'skipped' | 'in_progress' | 'success' | 'failed' | 'registered';
+       
+      message?:string;
+    }
     export interface SiteDetailsAtCreation {  
       timezone?:string;
        
       organization_address?:object;
-    }
-    export interface TaxOrigin {  
-      country?:string;
-       
-      registration_number?:string;
-    }
-    export interface LineItemAddress {  
-      line_item_id?:string;
-       
-      first_name?:string;
-       
-      last_name?:string;
-       
-      email?:string;
-       
-      company?:string;
-       
-      phone?:string;
-       
-      line1?:string;
-       
-      line2?:string;
-       
-      line3?:string;
-       
-      city?:string;
-       
-      state_code?:string;
-       
-      state?:string;
-       
-      country?:string;
-       
-      zip?:string;
-       
-      validation_status?:'not_validated' | 'valid' | 'partially_valid' | 'invalid';
     }
   }
 }

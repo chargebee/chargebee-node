@@ -197,7 +197,7 @@ declare module 'chargebee' {
        card?:Card;
     }
     export interface CreateInputParam {
-      [key : string] : any;  
+       
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa',tmp_token?:string};
        
       bank_account?:{account_holder_type?:AccountHolderType,account_number?:string,account_type?:AccountType,bank_code?:string,bank_name?:string,billing_address?:object,company?:string,echeck_type?:EcheckType,email?:string,first_name?:string,gateway_account_id?:string,iban?:string,issuing_country?:string,last_name?:string,phone?:string,routing_number?:string,swedish_identity_number?:string};
@@ -295,7 +295,7 @@ declare module 'chargebee' {
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -417,7 +417,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
         
       business_entity_id?:{is?:string};
        
-      sort_by?:{asc?:'created_at' | 'updated_at',desc?:'created_at' | 'updated_at'};
+      sort_by?:object;
     }
     export interface RetrieveResponse {  
        customer:Customer;
@@ -431,7 +431,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        card?:Card;
     }
     export interface UpdateInputParam {
-      [key : string] : any;  
+       
       tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
        
       first_name?:string;
@@ -533,7 +533,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -629,7 +629,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
     }
     export interface RecordExcessPaymentInputParam {
        
-      transaction:{amount:number,currency_code?:string,custom_payment_method_id?:string,date:number,payment_method:PaymentMethod,reference_number?:string};
+      transaction:{amount:number,currency_code?:string,custom_payment_method_id?:string,date:number,id?:string,payment_method:PaymentMethod,reference_number?:string};
        
       comment?:string;
     }
@@ -749,7 +749,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         

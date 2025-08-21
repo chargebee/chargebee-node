@@ -148,7 +148,7 @@ declare module 'chargebee' {
        coupon:Coupon;
     }
     export interface CreateForItemsInputParam {
-      [key : string] : any;  
+       
       item_constraints:{constraint:'none' | 'all' | 'specific' | 'criteria',item_price_ids?:any[],item_type:'plan' | 'addon' | 'charge'}[];
        
       item_constraint_criteria?:{currencies?:any[],item_family_ids?:any[],item_price_periods?:any[],item_type?:'plan' | 'addon' | 'charge'}[];
@@ -199,7 +199,7 @@ declare module 'chargebee' {
        coupon:Coupon;
     }
     export interface UpdateForItemsInputParam {
-      [key : string] : any;  
+       
       item_constraints:{constraint:'none' | 'all' | 'specific' | 'criteria',item_price_ids?:any[],item_type:'plan' | 'addon' | 'charge'}[];
        
       item_constraint_criteria?:{currencies?:any[],item_family_ids?:any[],item_price_periods?:any[],item_type?:'plan' | 'addon' | 'charge'}[];
@@ -257,7 +257,7 @@ declare module 'chargebee' {
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -329,7 +329,7 @@ Make sure that you [encode](https://www.urlencoder.org/) the name of the coupon 
         
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      sort_by?:{asc?:'created_at',desc?:'created_at'};
+      sort_by?:object;
        
       /**
         * @description The currency code ([ISO 4217 format](https://www.chargebee.com/docs/supported-currencies.html)) of the coupon. Applicable for *fixed_amount* coupons alone.

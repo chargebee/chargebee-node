@@ -137,7 +137,7 @@ declare module 'chargebee' {
        plan:Plan;
     }
     export interface CreateInputParam {
-      [key : string] : any;  
+       
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       tax_providers_fields:{field_id:string,field_value:string,provider_name:string}[];
@@ -246,7 +246,7 @@ declare module 'chargebee' {
        plan:Plan;
     }
     export interface UpdateInputParam {
-      [key : string] : any;  
+       
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       tax_providers_fields:{field_id:string,field_value:string,provider_name:string}[];
@@ -358,7 +358,7 @@ declare module 'chargebee' {
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         

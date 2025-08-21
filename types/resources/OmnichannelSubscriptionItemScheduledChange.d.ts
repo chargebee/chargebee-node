@@ -10,7 +10,7 @@ declare module 'chargebee' {
 
     scheduled_at:number;
 
-    change_type:'downgrade';
+    change_type:'downgrade' | 'pause';
 
     created_at:number;
 

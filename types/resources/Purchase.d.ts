@@ -42,7 +42,7 @@ declare module 'chargebee' {
        
       shipping_addresses?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string}[];
        
-      discounts?:{amount?:number,coupon_id?:string,included_in_mrr?:boolean,index?:number,percentage?:number}[];
+      discounts?:{amount?:number,coupon_id?:string,included_in_mrr?:boolean,index?:number,percentage?:number,quantity?:number}[];
        
       subscription_info:{billing_cycles?:number,contract_term_billing_cycle_on_renewal?:number,index:number,meta_data?:object,subscription_id?:string}[];
        
@@ -69,7 +69,7 @@ declare module 'chargebee' {
        
       shipping_addresses?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string}[];
        
-      discounts?:{amount?:number,coupon_id?:string,included_in_mrr?:boolean,index?:number,percentage?:number}[];
+      discounts?:{amount?:number,coupon_id?:string,included_in_mrr?:boolean,index?:number,percentage?:number,quantity?:number}[];
        
       subscription_info:{billing_cycles?:number,contract_term_billing_cycle_on_renewal?:number,index:number,subscription_id?:string}[];
        

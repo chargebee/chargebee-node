@@ -6,9 +6,9 @@ declare module 'chargebee' {
 
     id:string;
 
-    po_number?:string;
-
     customer_id:string;
+
+    payment_owner?:string;
 
     subscription_id?:string;
 
@@ -16,33 +16,47 @@ declare module 'chargebee' {
 
     status:'paid' | 'posted' | 'payment_due' | 'not_paid' | 'voided' | 'pending';
 
-    vat_number?:string;
-
-    price_type:PriceType;
-
     date?:number;
 
     due_date?:number;
 
     net_term_days?:number;
 
+    po_number?:string;
+
+    vat_number?:string;
+
+    price_type:PriceType;
+
     exchange_rate?:number;
+
+    local_currency_exchange_rate?:number;
 
     currency_code:string;
 
+    local_currency_code?:string;
+
+    tax:number;
+
+    sub_total:number;
+
+    sub_total_in_local_currency?:number;
+
     total?:number;
+
+    total_in_local_currency?:number;
+
+    amount_due?:number;
+
+    amount_adjusted?:number;
 
     amount_paid?:number;
 
-    amount_adjusted?:number;
+    paid_at?:number;
 
     write_off_amount?:number;
 
     credits_applied?:number;
-
-    amount_due?:number;
-
-    paid_at?:number;
 
     dunning_status?:'in_progress' | 'exhausted' | 'stopped' | 'success';
 
@@ -53,18 +67,6 @@ declare module 'chargebee' {
     resource_version?:number;
 
     updated_at?:number;
-
-    sub_total:number;
-
-    sub_total_in_local_currency?:number;
-
-    total_in_local_currency?:number;
-
-    local_currency_code?:string;
-
-    tax:number;
-
-    local_currency_exchange_rate?:number;
 
     first_invoice?:boolean;
 
@@ -86,17 +88,21 @@ declare module 'chargebee' {
 
     line_items?:Invoice.LineItem[];
 
-    discounts?:Invoice.Discount[];
+    line_item_tiers?:Invoice.LineItemTier[];
 
     line_item_discounts?:Invoice.LineItemDiscount[];
-
-    taxes?:Invoice.Tax[];
 
     line_item_taxes?:Invoice.LineItemTax[];
 
     line_item_credits?:Invoice.LineItemCredit[];
 
-    line_item_tiers?:Invoice.LineItemTier[];
+    line_item_addresses?:Invoice.LineItemAddress[];
+
+    discounts?:Invoice.Discount[];
+
+    taxes?:Invoice.Tax[];
+
+    tax_origin?:Invoice.TaxOrigin;
 
     linked_payments?:Invoice.LinkedPayment[];
 
@@ -114,13 +120,11 @@ declare module 'chargebee' {
 
     shipping_address?:Invoice.ShippingAddress;
 
-    statement_descriptor?:Invoice.StatementDescriptor;
-
     billing_address?:Invoice.BillingAddress;
 
-    einvoice?:Invoice.Einvoice;
+    statement_descriptor?:Invoice.StatementDescriptor;
 
-    payment_owner?:string;
+    einvoice?:Invoice.Einvoice;
 
     void_reason_code?:string;
 
@@ -135,10 +139,6 @@ declare module 'chargebee' {
     business_entity_id?:string;
 
     site_details_at_creation?:Invoice.SiteDetailsAtCreation;
-
-    tax_origin?:Invoice.TaxOrigin;
-
-    line_item_addresses?:Invoice.LineItemAddress[];
 
   }
   export namespace Invoice {
@@ -307,7 +307,7 @@ declare module 'chargebee' {
        
       tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
        
-      discounts:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
+      discounts:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number,quantity?:number}[];
        
       customer_id?:string;
        
@@ -476,7 +476,7 @@ declare module 'chargebee' {
        
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      line_items:{amount?:number,amount_in_decimal?:string,created_at?:number,date_from?:number,date_to?:number,description:string,entity_id?:string,entity_type?:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price',id?:string,item_level_discount1_amount?:number,item_level_discount1_entity_id?:string,item_level_discount2_amount?:number,item_level_discount2_entity_id?:string,quantity?:number,quantity_in_decimal?:string,subscription_id?:string,tax10_amount?:number,tax10_name?:string,tax1_amount?:number,tax1_name?:string,tax2_amount?:number,tax2_name?:string,tax3_amount?:number,tax3_name?:string,tax4_amount?:number,tax4_name?:string,tax5_amount?:number,tax5_name?:string,tax6_amount?:number,tax6_name?:string,tax7_amount?:number,tax7_name?:string,tax8_amount?:number,tax8_name?:string,tax9_amount?:number,tax9_name?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
+      line_items:{amount?:number,amount_in_decimal?:string,created_at?:number,date_from?:number,date_to?:number,description:string,entity_id?:string,entity_type?:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'plan_setup' | 'plan' | 'addon',id?:string,item_level_discount1_amount?:number,item_level_discount1_entity_id?:string,item_level_discount2_amount?:number,item_level_discount2_entity_id?:string,quantity?:number,quantity_in_decimal?:string,subscription_id?:string,tax10_amount?:number,tax10_name?:string,tax1_amount?:number,tax1_name?:string,tax2_amount?:number,tax2_name?:string,tax3_amount?:number,tax3_name?:string,tax4_amount?:number,tax4_name?:string,tax5_amount?:number,tax5_name?:string,tax6_amount?:number,tax6_name?:string,tax7_amount?:number,tax7_name?:string,tax8_amount?:number,tax8_name?:string,tax9_amount?:number,tax9_name?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
       payment_reference_numbers:{id?:string,number:string,type:'kid' | 'ocr' | 'frn' | 'fik' | 'swiss_reference'}[];
        
@@ -486,9 +486,9 @@ declare module 'chargebee' {
        
       taxes:{amount?:number,description?:string,juris_code?:string,juris_name?:string,juris_type?:'country' | 'federal' | 'state' | 'county' | 'city' | 'special' | 'unincorporated' | 'other',name:string,rate:number}[];
        
-      payments:{amount:number,date?:number,payment_method:PaymentMethod,reference_number?:string}[];
+      payments:{amount:number,date?:number,id?:string,payment_method:PaymentMethod,reference_number?:string}[];
        
-      notes?:{entity_id?:string,entity_type?:'coupon' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price',note?:string}[];
+      notes?:{entity_id?:string,entity_type?:'coupon' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'plan' | 'addon',note?:string}[];
        
       line_item_addresses?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,line_item_id?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string}[];
        
@@ -580,7 +580,7 @@ declare module 'chargebee' {
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -736,7 +736,7 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
         
       void_reason_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
        
-      sort_by?:{asc?:'date' | 'updated_at',desc?:'date' | 'updated_at'};
+      sort_by?:object;
     }
     export interface InvoicesForCustomerResponse {  
        list:{invoice:Invoice}[];
@@ -753,7 +753,7 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -774,7 +774,7 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -813,7 +813,7 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -1122,18 +1122,28 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
        
       customer_id?:string;
     }
-    export interface Discount {  
-      amount:number;
+    export interface LineItemTier {  
+      line_item_id?:string;
        
-      description?:string;
+      starting_unit:number;
        
-      entity_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
+      ending_unit?:number;
        
-      discount_type?:'fixed_amount' | 'percentage';
+      quantity_used:number;
        
-      entity_id?:string;
+      unit_amount:number;
        
-      coupon_set_code?:string;
+      starting_unit_in_decimal?:string;
+       
+      ending_unit_in_decimal?:string;
+       
+      quantity_used_in_decimal?:string;
+       
+      unit_amount_in_decimal?:string;
+       
+      pricing_type?:'per_unit' | 'flat_fee' | 'package';
+       
+      package_size?:number;
     }
     export interface LineItemDiscount {  
       line_item_id:string;
@@ -1145,13 +1155,6 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
       entity_id?:string;
        
       discount_amount:number;
-    }
-    export interface Tax {  
-      name:string;
-       
-      amount:number;
-       
-      description?:string;
     }
     export interface LineItemTax {  
       line_item_id?:string;
@@ -1191,28 +1194,61 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
        
       line_item_id?:string;
     }
-    export interface LineItemTier {  
+    export interface LineItemAddress {  
       line_item_id?:string;
        
-      starting_unit:number;
+      first_name?:string;
        
-      ending_unit?:number;
+      last_name?:string;
        
-      quantity_used:number;
+      email?:string;
        
-      unit_amount:number;
+      company?:string;
        
-      starting_unit_in_decimal?:string;
+      phone?:string;
        
-      ending_unit_in_decimal?:string;
+      line1?:string;
        
-      quantity_used_in_decimal?:string;
+      line2?:string;
        
-      unit_amount_in_decimal?:string;
+      line3?:string;
        
-      pricing_type?:'per_unit' | 'flat_fee' | 'package';
+      city?:string;
        
-      package_size?:number;
+      state_code?:string;
+       
+      state?:string;
+       
+      country?:string;
+       
+      zip?:string;
+       
+      validation_status?:'not_validated' | 'valid' | 'partially_valid' | 'invalid';
+    }
+    export interface Discount {  
+      amount:number;
+       
+      description?:string;
+       
+      entity_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
+       
+      discount_type?:'fixed_amount' | 'percentage';
+       
+      entity_id?:string;
+       
+      coupon_set_code?:string;
+    }
+    export interface Tax {  
+      name:string;
+       
+      amount:number;
+       
+      description?:string;
+    }
+    export interface TaxOrigin {  
+      country?:string;
+       
+      registration_number?:string;
     }
     export interface LinkedPayment {  
       txn_id:string;
@@ -1338,11 +1374,6 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
        
       index:number;
     }
-    export interface StatementDescriptor {  
-      id:string;
-       
-      descriptor?:string;
-    }
     export interface BillingAddress {  
       first_name?:string;
        
@@ -1372,6 +1403,11 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
        
       validation_status?:ValidationStatus;
     }
+    export interface StatementDescriptor {  
+      id:string;
+       
+      descriptor?:string;
+    }
     export interface Einvoice {  
       id:string;
        
@@ -1385,42 +1421,6 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
       timezone?:string;
        
       organization_address?:object;
-    }
-    export interface TaxOrigin {  
-      country?:string;
-       
-      registration_number?:string;
-    }
-    export interface LineItemAddress {  
-      line_item_id?:string;
-       
-      first_name?:string;
-       
-      last_name?:string;
-       
-      email?:string;
-       
-      company?:string;
-       
-      phone?:string;
-       
-      line1?:string;
-       
-      line2?:string;
-       
-      line3?:string;
-       
-      city?:string;
-       
-      state_code?:string;
-       
-      state?:string;
-       
-      country?:string;
-       
-      zip?:string;
-       
-      validation_status?:'not_validated' | 'valid' | 'partially_valid' | 'invalid';
     }
   }
 }

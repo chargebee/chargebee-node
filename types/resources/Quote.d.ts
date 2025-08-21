@@ -369,7 +369,7 @@ declare module 'chargebee' {
        quoted_ramp?:QuotedRamp;
     }
     export interface CreateSubItemsForCustomerQuoteInputParam {
-      [key : string] : any;  
+       
       subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
@@ -380,7 +380,7 @@ declare module 'chargebee' {
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,end_date?:number,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,ramp_tier_id?:string,service_period_days?:number,start_date?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit,start_date?:number}[];
+      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit,quantity?:number,start_date?:number}[];
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,ramp_tier_id?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
@@ -414,7 +414,7 @@ declare module 'chargebee' {
        quoted_ramp?:QuotedRamp;
     }
     export interface EditCreateSubCustomerQuoteForItemsInputParam {
-      [key : string] : any;  
+       
       subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
@@ -425,7 +425,7 @@ declare module 'chargebee' {
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,end_date?:number,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,ramp_tier_id?:string,service_period_days?:number,start_date?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit,start_date?:number}[];
+      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit,quantity?:number,start_date?:number}[];
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,ramp_tier_id?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
@@ -457,7 +457,7 @@ declare module 'chargebee' {
        quoted_ramp?:QuotedRamp;
     }
     export interface UpdateSubscriptionQuoteForItemsInputParam {
-      [key : string] : any;  
+       
       subscription:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,id:string,offline_payment_method?:OfflinePaymentMethod,setup_fee?:number,start_date?:number,trial_end?:number};
        
       billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
@@ -470,7 +470,7 @@ declare module 'chargebee' {
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,end_date?:number,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,ramp_tier_id?:string,service_period_days?:number,start_date?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit,start_date?:number}[];
+      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit,quantity?:number,start_date?:number}[];
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,ramp_tier_id?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
@@ -516,7 +516,7 @@ declare module 'chargebee' {
        quoted_ramp?:QuotedRamp;
     }
     export interface EditUpdateSubscriptionQuoteForItemsInputParam {
-      [key : string] : any;  
+       
       subscription?:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,offline_payment_method?:OfflinePaymentMethod,setup_fee?:number,start_date?:number,trial_end?:number};
        
       billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
@@ -529,7 +529,7 @@ declare module 'chargebee' {
        
       subscription_items:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,end_date?:number,item_price_id:string,item_type?:ItemType,quantity?:number,quantity_in_decimal?:string,ramp_tier_id?:string,service_period_days?:number,start_date?:number,trial_end?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit,start_date?:number}[];
+      discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,end_date?:number,id?:string,included_in_mrr?:boolean,item_price_id?:string,operation_type:OperationType,percentage?:number,period?:number,period_unit?:PeriodUnit,quantity?:number,start_date?:number}[];
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,ramp_tier_id?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
@@ -582,7 +582,7 @@ declare module 'chargebee' {
        
       charges?:{amount?:number,amount_in_decimal?:string,avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_transaction_type?:number,description?:string,service_period?:number}[];
        
-      discounts:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
+      discounts:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number,quantity?:number}[];
        
       tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
        
@@ -619,7 +619,7 @@ declare module 'chargebee' {
        
       charges?:{amount?:number,amount_in_decimal?:string,avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_transaction_type?:number,description?:string,service_period?:number}[];
        
-      discounts:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number}[];
+      discounts:{amount?:number,apply_on:ApplyOn,item_price_id?:string,percentage?:number,quantity?:number}[];
        
       tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
        
@@ -650,7 +650,7 @@ declare module 'chargebee' {
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -706,7 +706,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
         
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      sort_by?:{asc?:'date',desc?:'date'};
+      sort_by?:object;
     }
     export interface QuoteLineGroupsForQuoteResponse {  
        list:{quote_line_group:QuoteLineGroup}[];
@@ -723,7 +723,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         

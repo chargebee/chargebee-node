@@ -111,7 +111,7 @@ declare module 'chargebee' {
        item_price:ItemPrice;
     }
     export interface CreateInputParam {
-      [key : string] : any;  
+       
       tax_detail?:{avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_tax_code?:string,avalara_transaction_type?:number,hsn_code?:string,tax_profile_id?:string,taxjar_product_code?:string};
        
       accounting_detail?:{accounting_category1?:string,accounting_category2?:string,accounting_category3?:string,accounting_category4?:string,accounting_code?:string,sku?:string};
@@ -260,7 +260,7 @@ declare module 'chargebee' {
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -384,7 +384,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
         
       channel?:{in?:string,is?:'web' | 'app_store' | 'play_store',is_not?:'web' | 'app_store' | 'play_store',not_in?:string};
        
-      sort_by?:{asc?:'name' | 'id' | 'updated_at',desc?:'name' | 'id' | 'updated_at'};
+      sort_by?:object;
     }
     export interface DeleteResponse {  
        item_price:ItemPrice;
@@ -405,13 +405,13 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
       offset?:string;
        
-      sort_by?:{asc?:'name' | 'id' | 'updated_at',desc?:'name' | 'id' | 'updated_at'};
+      sort_by?:object;
     }
     export interface FindApplicableItemPricesResponse {  
        list:{item_price:ItemPrice}[];
@@ -428,7 +428,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -436,7 +436,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        
       item_id?:string;
        
-      sort_by?:{asc?:'name' | 'id' | 'updated_at',desc?:'name' | 'id' | 'updated_at'};
+      sort_by?:object;
     }
     export interface Tier {  
       starting_unit:number;

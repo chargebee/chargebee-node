@@ -18,6 +18,8 @@ declare module 'chargebee' {
 
     entity_id:string;
 
+    business_entity_id?:string;
+
   }
   export namespace Comment {
     export class CommentResource {  
@@ -61,13 +63,13 @@ declare module 'chargebee' {
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
       offset?:string;
        
-      entity_type?:'customer' | 'subscription' | 'invoice' | 'quote' | 'credit_note' | 'transaction' | 'plan' | 'addon' | 'coupon' | 'order' | 'business_entity' | 'omnichannel_subscription' | 'omnichannel_subscription_item' | 'omnichannel_transaction' | 'recorded_purchase' | 'omnichannel_subscription_item_scheduled_change' | 'sales_order' | 'item_family' | 'item' | 'item_price' | 'price_variant';
+      entity_type?:'customer' | 'subscription' | 'invoice' | 'quote' | 'credit_note' | 'transaction' | 'plan' | 'addon' | 'coupon' | 'order' | 'business_entity' | 'omnichannel_subscription' | 'omnichannel_subscription_item' | 'omnichannel_transaction' | 'recorded_purchase' | 'omnichannel_subscription_item_scheduled_change' | 'sales_order' | 'omnichannel_one_time_order' | 'omnichannel_one_time_order_item' | 'usage_file' | 'item_family' | 'item' | 'item_price' | 'price_variant';
        
       entity_id?:string;
        
@@ -78,7 +80,7 @@ declare module 'chargebee' {
         
       created_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      sort_by?:{asc?:'created_at',desc?:'created_at'};
+      sort_by?:object;
     }
     export interface DeleteResponse {  
        comment:Comment;

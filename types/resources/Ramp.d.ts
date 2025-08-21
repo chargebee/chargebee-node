@@ -83,15 +83,15 @@ declare module 'chargebee' {
     }
     export interface UpdateInputParam {
        
-      items_to_add:{billing_cycles?:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      items_to_add:{billing_cycles?:any,item_price_id:any,quantity?:any,quantity_in_decimal?:any,service_period_days?:any,unit_price?:any,unit_price_in_decimal?:any}[];
        
-      items_to_update:{billing_cycles?:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      items_to_update:{billing_cycles?:any,item_price_id:any,quantity?:any,quantity_in_decimal?:any,service_period_days?:any,unit_price?:any,unit_price_in_decimal?:any}[];
        
-      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
+      item_tiers?:{ending_unit?:any,ending_unit_in_decimal?:any,item_price_id?:any,package_size?:any,price?:any,price_in_decimal?:any,pricing_type?:any,starting_unit?:any,starting_unit_in_decimal?:any}[];
        
-      coupons_to_add?:{apply_till?:number,coupon_id?:string}[];
+      coupons_to_add?:{apply_till?:any,coupon_id?:any}[];
        
-      discounts_to_add:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
+      discounts_to_add:{amount?:any,apply_on:any,duration_type:any,included_in_mrr?:any,item_price_id?:any,percentage?:any,period?:any,period_unit?:any}[];
        
       effective_from:number;
        
@@ -126,7 +126,7 @@ declare module 'chargebee' {
       limit?:number;
        
       /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set \&#x60;offset\&#x60; to the value of \&#x60;next_offset\&#x60; obtained in the previous iteration of the API call.
+        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
 
         */
         
@@ -167,7 +167,7 @@ declare module 'chargebee' {
         
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      sort_by?:{asc?:'effective_from' | 'updated_at',desc?:'effective_from' | 'updated_at'};
+      sort_by?:object;
     }
     export interface ItemsToAdd {  
       item_price_id:string;

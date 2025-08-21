@@ -1,42 +1,42 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
-  export interface OmnichannelSubscription {
+  export interface OmnichannelOneTimeOrder {
     
 
     id:string;
 
-    id_at_source:string;
-
     app_id:string;
 
-    source:'apple_app_store' | 'google_play_store';
-
     customer_id?:string;
+
+    id_at_source:string;
+
+    origin?:string;
+
+    source:'apple_app_store' | 'google_play_store';
 
     created_at:number;
 
     resource_version?:number;
 
-    omnichannel_subscription_items:OmnichannelSubscriptionItem[];
+    omnichannel_one_time_order_items:OmnichannelOneTimeOrderItem[];
 
-    initial_purchase_transaction?:OmnichannelSubscription.OmnichannelTransaction;
+    purchase_transaction?:OmnichannelOneTimeOrder.OmnichannelTransaction;
 
   }
-  export namespace OmnichannelSubscription {
-    export class OmnichannelSubscriptionResource {  
-      retrieve(omnichannel_subscription_id:string):ChargebeeRequest<RetrieveResponse>;
+  export namespace OmnichannelOneTimeOrder {
+    export class OmnichannelOneTimeOrderResource {  
+      retrieve(omnichannel_one_time_order_id:string):ChargebeeRequest<RetrieveResponse>;
        
       list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
-       
-      omnichannel_transactions_for_omnichannel_subscription(omnichannel_subscription_id:string, input?:Omnichannel_transactionsForOmnichannelSubscriptionInputParam):ChargebeeRequest<OmnichannelTransactionsForOmnichannelSubscriptionResponse>;
     }
     export interface RetrieveResponse {  
-       omnichannel_subscription:OmnichannelSubscription;
+       omnichannel_one_time_order:OmnichannelOneTimeOrder;
     }
     
     export interface ListResponse {  
-       list:{omnichannel_subscription:OmnichannelSubscription}[];
+       list:{omnichannel_one_time_order:OmnichannelOneTimeOrder}[];
        
        next_offset?:string;
     }
@@ -64,27 +64,6 @@ declare module 'chargebee' {
         */
         
       customer_id?:{is?:string,is_not?:string,starts_with?:string};
-    }
-    export interface OmnichannelTransactionsForOmnichannelSubscriptionResponse {  
-       list:{omnichannel_transaction:OmnichannelTransaction}[];
-       
-       next_offset?:string;
-    }
-    export interface Omnichannel_transactionsForOmnichannelSubscriptionInputParam {
-      [key : string]: any;  
-      /**
-        * @description The number of resources to be returned.
-
-        */
-        
-      limit?:number;
-       
-      /**
-        * @description Determines your position in the list for pagination. To ensure that the next page is retrieved correctly, always set &#x27;offset&#x27; to the value of &#x27;next_offset&#x27; obtained in the previous iteration of the API call.
-
-        */
-        
-      offset?:string;
     }
     export interface OmnichannelTransaction {  
       id:string;
