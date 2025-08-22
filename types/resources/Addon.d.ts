@@ -113,7 +113,7 @@ declare module 'chargebee' {
        addon:Addon;
     }
     export interface CreateInputParam {
-       
+      [key : string] : any;  
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       tax_providers_fields:{field_id:string,field_value:string,provider_name:string}[];
@@ -198,7 +198,7 @@ declare module 'chargebee' {
        addon:Addon;
     }
     export interface UpdateInputParam {
-       
+      [key : string] : any;  
       tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,price?:number,price_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
       tax_providers_fields:{field_id:string,field_value:string,provider_name:string}[];

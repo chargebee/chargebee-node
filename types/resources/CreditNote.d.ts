@@ -357,7 +357,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
         
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'date',desc?:'date'};
        
       /**
         * @description The subscription channel this object originated from and is maintained in.

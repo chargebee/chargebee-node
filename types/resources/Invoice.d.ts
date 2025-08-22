@@ -736,7 +736,7 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
         
       void_reason_code?:{in?:string,is?:string,is_not?:string,not_in?:string,starts_with?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'date' | 'updated_at',desc?:'date' | 'updated_at'};
     }
     export interface InvoicesForCustomerResponse {  
        list:{invoice:Invoice}[];

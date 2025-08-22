@@ -79,7 +79,7 @@ declare module 'chargebee' {
        
       created_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'created_at',desc?:'created_at'};
     }
     
   }

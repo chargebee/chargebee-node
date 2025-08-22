@@ -79,7 +79,7 @@ declare module 'chargebee' {
        item:Item;
     }
     export interface CreateInputParam {
-       
+      [key : string] : any;  
       bundle_configuration?:{type?:'fixed'};
        
       bundle_items_to_add?:{item_id?:string,item_type?:ItemType,price_allocation?:number,quantity?:number}[];
@@ -134,7 +134,7 @@ declare module 'chargebee' {
        item:Item;
     }
     export interface UpdateInputParam {
-       
+      [key : string] : any;  
       bundle_configuration?:{type?:'fixed'};
        
       bundle_items_to_add?:{item_id?:string,item_type?:ItemType,price_allocation?:number,quantity?:number}[];
@@ -310,7 +310,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        
       include_site_level_resources?:{is?:'true' | 'false'};
        
-      sort_by?:object;
+      sort_by?:{asc?:'name' | 'id' | 'updated_at',desc?:'name' | 'id' | 'updated_at'};
     }
     export interface DeleteResponse {  
        item:Item;

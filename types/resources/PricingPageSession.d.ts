@@ -26,9 +26,9 @@ declare module 'chargebee' {
        
       pricing_page:{id:string};
        
-      subscription?:object;
+      subscription?:{id?:string};
        
-      customer?:object;
+      customer?:{company?:string,email?:string,first_name?:string,id?:string,last_name?:string,locale?:string,phone?:string};
        
       billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
@@ -47,7 +47,7 @@ declare module 'chargebee' {
        
       pricing_page:{id:string};
        
-      subscription:object;
+      subscription:{id:string};
        
       discounts:{amount?:number,apply_on?:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,label?:string,percentage?:number,period?:number,period_unit?:PeriodUnit,quantity?:number}[];
        

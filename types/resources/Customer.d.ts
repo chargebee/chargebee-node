@@ -197,7 +197,7 @@ declare module 'chargebee' {
        card?:Card;
     }
     export interface CreateInputParam {
-       
+      [key : string] : any;  
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa',tmp_token?:string};
        
       bank_account?:{account_holder_type?:AccountHolderType,account_number?:string,account_type?:AccountType,bank_code?:string,bank_name?:string,billing_address?:object,company?:string,echeck_type?:EcheckType,email?:string,first_name?:string,gateway_account_id?:string,iban?:string,issuing_country?:string,last_name?:string,phone?:string,routing_number?:string,swedish_identity_number?:string};
@@ -417,7 +417,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
         
       business_entity_id?:{is?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'created_at' | 'updated_at',desc?:'created_at' | 'updated_at'};
     }
     export interface RetrieveResponse {  
        customer:Customer;
@@ -431,7 +431,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        card?:Card;
     }
     export interface UpdateInputParam {
-       
+      [key : string] : any;  
       tax_providers_fields?:{field_id?:string,field_value?:string,provider_name?:string}[];
        
       first_name?:string;

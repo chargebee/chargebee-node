@@ -60,7 +60,7 @@ declare module 'chargebee' {
        
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
-      subscription:object;
+      subscription:{plan_id:string,plan_quantity?:number,plan_quantity_in_decimal?:string};
        
       addons?:{id?:string,quantity?:number,quantity_in_decimal?:string}[];
        

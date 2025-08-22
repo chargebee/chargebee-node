@@ -308,7 +308,7 @@ declare module 'chargebee' {
         
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'date' | 'updated_at',desc?:'date' | 'updated_at'};
     }
     export interface TransactionsForCustomerResponse {  
        list:{transaction:Transaction}[];
