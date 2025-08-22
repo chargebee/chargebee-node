@@ -253,8 +253,8 @@ declare module 'chargebee' {
        unbilled_charges?:UnbilledCharge[];
     }
     export interface CreateInputParam {
-       
-      customer?:object;
+      [key : string] : any;  
+      customer?:{allow_direct_debit?:boolean,auto_collection?:AutoCollection,business_customer_without_vat_number?:boolean,company?:string,consolidated_invoicing?:boolean,customer_type?:CustomerType,einvoicing_method?:EinvoicingMethod,email?:string,entity_code?:EntityCode,entity_identifier_scheme?:string,entity_identifier_standard?:string,exempt_number?:string,exemption_details?:any[],first_name?:string,id?:string,is_einvoice_enabled?:boolean,last_name?:string,locale?:string,net_term_days?:number,offline_payment_method?:OfflinePaymentMethod,phone?:string,registered_for_gst?:boolean,taxability?:Taxability,taxjar_exemption_category?:TaxjarExemptionCategory,vat_number?:string,vat_number_prefix?:string};
        
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa',tmp_token?:string};
        
@@ -356,7 +356,7 @@ declare module 'chargebee' {
        unbilled_charges?:UnbilledCharge[];
     }
     export interface CreateForCustomerInputParam {
-       
+      [key : string] : any;  
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       statement_descriptor?:{descriptor?:string};
@@ -443,7 +443,7 @@ declare module 'chargebee' {
        unbilled_charges?:UnbilledCharge[];
     }
     export interface CreateWithItemsInputParam {
-       
+      [key : string] : any;  
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       statement_descriptor?:{descriptor?:string};
@@ -675,7 +675,7 @@ declare module 'chargebee' {
         
       override_relationship?:{is?:'true' | 'false'};
        
-      sort_by?:object;
+      sort_by?:{asc?:'created_at' | 'updated_at',desc?:'created_at' | 'updated_at'};
        
       /**
         * @description The unique ID of the [business entity](/docs/api?prod_cat_ver&#x3D;2#mbe) of this subscription. This is always the same as the [business entity](/docs/api/subscriptions?prod_cat_ver&#x3D;2#subscription_customer_id) of the customer.  
@@ -737,7 +737,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
         
       offset?:string;
        
-      sort_by?:object;
+      sort_by?:{asc?:'created_at',desc?:'created_at'};
     }
     export interface ListDiscountsResponse {  
        list:{discount:Discount}[];
@@ -826,7 +826,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        credit_notes?:CreditNote[];
     }
     export interface UpdateInputParam {
-       
+      [key : string] : any;  
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa',tmp_token?:string};
        
       payment_method?:{additional_information?:object,gateway?:Gateway,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type?:Type};
@@ -935,7 +935,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        credit_notes?:CreditNote[];
     }
     export interface UpdateForItemsInputParam {
-       
+      [key : string] : any;  
       card?:{additional_information?:object,billing_addr1?:string,billing_addr2?:string,billing_city?:string,billing_country?:string,billing_state?:string,billing_state_code?:string,billing_zip?:string,cvv?:string,expiry_month?:number,expiry_year?:number,first_name?:string,gateway?:Gateway,gateway_account_id?:string,ip_address?:string,last_name?:string,number?:string,preferred_scheme?:'cartes_bancaires' | 'mastercard' | 'visa',tmp_token?:string};
        
       payment_method?:{additional_information?:object,gateway?:Gateway,gateway_account_id?:string,issuing_country?:string,reference_id?:string,tmp_token?:string,type?:Type};
@@ -1208,8 +1208,8 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        invoice?:Invoice;
     }
     export interface ImportSubscriptionInputParam {
-       
-      customer?:object;
+      [key : string] : any;  
+      customer?:{allow_direct_debit?:boolean,auto_collection?:AutoCollection,company?:string,customer_type?:CustomerType,email?:string,entity_code?:EntityCode,exempt_number?:string,first_name?:string,id?:string,last_name?:string,locale?:string,net_term_days?:number,phone?:string,taxability?:Taxability,taxjar_exemption_category?:TaxjarExemptionCategory,vat_number?:string,vat_number_prefix?:string};
        
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',billing_cycle?:number,cancellation_cutoff_period?:number,contract_start?:number,created_at?:number,id?:string,total_amount_raised?:number,total_amount_raised_before_tax?:number};
        
@@ -1297,7 +1297,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        invoice?:Invoice;
     }
     export interface ImportForCustomerInputParam {
-       
+      [key : string] : any;  
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',billing_cycle?:number,cancellation_cutoff_period?:number,contract_start?:number,created_at?:number,id?:string,total_amount_raised?:number,total_amount_raised_before_tax?:number};
        
       transaction?:{amount?:number,date?:number,payment_method?:PaymentMethod,reference_number?:string};
@@ -1396,7 +1396,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        invoice?:Invoice;
     }
     export interface ImportForItemsInputParam {
-       
+      [key : string] : any;  
       contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',billing_cycle?:number,cancellation_cutoff_period?:number,contract_start?:number,created_at?:number,id?:string,total_amount_raised?:number,total_amount_raised_before_tax?:number};
        
       transaction?:{amount?:number,date?:number,payment_method?:PaymentMethod,reference_number?:string};

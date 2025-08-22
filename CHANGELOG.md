@@ -1,3 +1,10 @@
+### v2.53.1 (2025-08-22)
+* * * 
+
+### Bug fixes:
+* Re-added missing type definitions for some attributes.
+* Restored additionalProperties support for certain input parameters.
+
 ### v2.53.0 (2025-08-19)
 * * * 
 

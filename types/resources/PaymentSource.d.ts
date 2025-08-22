@@ -303,7 +303,7 @@ declare module 'chargebee' {
         
       created_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'created_at' | 'updated_at',desc?:'created_at' | 'updated_at'};
     }
     export interface SwitchGatewayAccountResponse {  
        customer:Customer;

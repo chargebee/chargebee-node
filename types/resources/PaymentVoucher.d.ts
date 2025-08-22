@@ -100,7 +100,7 @@ declare module 'chargebee' {
         
       status?:{in?:string,is?:'active' | 'consumed' | 'expired' | 'failure',is_not?:'active' | 'consumed' | 'expired' | 'failure',not_in?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'date' | 'updated_at',desc?:'date' | 'updated_at'};
     }
     export interface PaymentVouchersForCustomerResponse {  
        list:{payment_voucher:PaymentVoucher}[];
@@ -130,7 +130,7 @@ declare module 'chargebee' {
         
       status?:{in?:string,is?:'active' | 'consumed' | 'expired' | 'failure',is_not?:'active' | 'consumed' | 'expired' | 'failure',not_in?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'date' | 'updated_at',desc?:'date' | 'updated_at'};
     }
     export interface LinkedInvoice {  
       invoice_id:string;

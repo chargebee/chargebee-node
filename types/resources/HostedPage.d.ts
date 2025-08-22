@@ -82,9 +82,9 @@ declare module 'chargebee' {
     }
     export interface CheckoutNewInputParam {
        
-      subscription:object;
+      subscription:{affiliate_token?:string,auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,id?:string,invoice_notes?:string,offline_payment_method?:OfflinePaymentMethod,plan_id:string,plan_quantity?:number,plan_quantity_in_decimal?:string,plan_unit_price?:number,plan_unit_price_in_decimal?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      customer?:object;
+      customer?:{company?:string,consolidated_invoicing?:boolean,email?:string,first_name?:string,id?:string,last_name?:string,locale?:string,phone?:string,taxability?:Taxability,vat_number?:string,vat_number_prefix?:string};
        
       card?:{gateway?:Gateway,gateway_account_id?:string};
        
@@ -125,7 +125,7 @@ declare module 'chargebee' {
     }
     export interface CheckoutOneTimeInputParam {
        
-      customer?:object;
+      customer?:{company?:string,consolidated_invoicing?:boolean,email?:string,first_name?:string,id?:string,last_name?:string,locale?:string,phone?:string,taxability?:Taxability,vat_number?:string,vat_number_prefix?:string};
        
       invoice?:{po_number?:string};
        
@@ -162,7 +162,7 @@ declare module 'chargebee' {
     }
     export interface CheckoutOneTimeForItemsInputParam {
        
-      customer?:object;
+      customer?:{company?:string,consolidated_invoicing?:boolean,einvoicing_method?:EinvoicingMethod,email?:string,entity_identifier_scheme?:string,entity_identifier_standard?:string,first_name?:string,id?:string,is_einvoice_enabled?:boolean,last_name?:string,locale?:string,phone?:string,taxability?:Taxability,vat_number?:string,vat_number_prefix?:string};
        
       invoice?:{po_number?:string};
        
@@ -205,9 +205,9 @@ declare module 'chargebee' {
     }
     export interface CheckoutNewForItemsInputParam {
        
-      subscription?:object;
+      subscription?:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,id?:string,invoice_notes?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      customer?:object;
+      customer?:{company?:string,einvoicing_method?:EinvoicingMethod,email?:string,entity_identifier_scheme?:string,entity_identifier_standard?:string,first_name?:string,id?:string,is_einvoice_enabled?:boolean,last_name?:string,locale?:string,phone?:string,taxability?:Taxability,vat_number?:string,vat_number_prefix?:string};
        
       card?:{gateway?:Gateway,gateway_account_id?:string};
        
@@ -252,9 +252,9 @@ declare module 'chargebee' {
     }
     export interface CheckoutExistingInputParam {
        
-      subscription:object;
+      subscription:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,id:string,invoice_notes?:string,offline_payment_method?:OfflinePaymentMethod,plan_id?:string,plan_quantity?:number,plan_quantity_in_decimal?:string,plan_unit_price?:number,plan_unit_price_in_decimal?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      customer?:object;
+      customer?:{vat_number?:string,vat_number_prefix?:string};
        
       card?:{gateway?:Gateway,gateway_account_id?:string};
        
@@ -303,9 +303,9 @@ declare module 'chargebee' {
     }
     export interface CheckoutExistingForItemsInputParam {
        
-      subscription:object;
+      subscription:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,id:string,invoice_notes?:string,offline_payment_method?:OfflinePaymentMethod,setup_fee?:number,start_date?:number,trial_end?:number};
        
-      customer?:object;
+      customer?:{entity_identifier_scheme?:string,entity_identifier_standard?:string,is_einvoice_enabled?:boolean,vat_number?:string,vat_number_prefix?:string};
        
       card?:{gateway?:Gateway,gateway_account_id?:string};
        
@@ -446,7 +446,7 @@ declare module 'chargebee' {
        
       gifter?:{customer_id?:string};
        
-      subscription:object;
+      subscription:{coupon?:string,plan_id:string,plan_quantity?:number,plan_quantity_in_decimal?:string};
        
       addons?:{id?:string,quantity?:number,quantity_in_decimal?:string}[];
        

@@ -111,7 +111,7 @@ declare module 'chargebee' {
        item_price:ItemPrice;
     }
     export interface CreateInputParam {
-       
+      [key : string] : any;  
       tax_detail?:{avalara_sale_type?:AvalaraSaleType,avalara_service_type?:number,avalara_tax_code?:string,avalara_transaction_type?:number,hsn_code?:string,tax_profile_id?:string,taxjar_product_code?:string};
        
       accounting_detail?:{accounting_category1?:string,accounting_category2?:string,accounting_category3?:string,accounting_category4?:string,accounting_code?:string,sku?:string};
@@ -384,7 +384,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
         
       channel?:{in?:string,is?:'web' | 'app_store' | 'play_store',is_not?:'web' | 'app_store' | 'play_store',not_in?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'name' | 'id' | 'updated_at',desc?:'name' | 'id' | 'updated_at'};
     }
     export interface DeleteResponse {  
        item_price:ItemPrice;
@@ -411,7 +411,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
         
       offset?:string;
        
-      sort_by?:object;
+      sort_by?:{asc?:'name' | 'id' | 'updated_at',desc?:'name' | 'id' | 'updated_at'};
     }
     export interface FindApplicableItemPricesResponse {  
        list:{item_price:ItemPrice}[];
@@ -436,7 +436,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        
       item_id?:string;
        
-      sort_by?:object;
+      sort_by?:{asc?:'name' | 'id' | 'updated_at',desc?:'name' | 'id' | 'updated_at'};
     }
     export interface Tier {  
       starting_unit:number;

@@ -369,7 +369,7 @@ declare module 'chargebee' {
        quoted_ramp?:QuotedRamp;
     }
     export interface CreateSubItemsForCustomerQuoteInputParam {
-       
+      [key : string] : any;  
       subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
@@ -414,7 +414,7 @@ declare module 'chargebee' {
        quoted_ramp?:QuotedRamp;
     }
     export interface EditCreateSubCustomerQuoteForItemsInputParam {
-       
+      [key : string] : any;  
       subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
@@ -457,7 +457,7 @@ declare module 'chargebee' {
        quoted_ramp?:QuotedRamp;
     }
     export interface UpdateSubscriptionQuoteForItemsInputParam {
-       
+      [key : string] : any;  
       subscription:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,id:string,offline_payment_method?:OfflinePaymentMethod,setup_fee?:number,start_date?:number,trial_end?:number};
        
       billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
@@ -516,7 +516,7 @@ declare module 'chargebee' {
        quoted_ramp?:QuotedRamp;
     }
     export interface EditUpdateSubscriptionQuoteForItemsInputParam {
-       
+      [key : string] : any;  
       subscription?:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,offline_payment_method?:OfflinePaymentMethod,setup_fee?:number,start_date?:number,trial_end?:number};
        
       billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
@@ -706,7 +706,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
         
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'date',desc?:'date'};
     }
     export interface QuoteLineGroupsForQuoteResponse {  
        list:{quote_line_group:QuoteLineGroup}[];

@@ -143,7 +143,7 @@ declare module 'chargebee' {
         
       source?:{in?:string,is?:'admin_console' | 'api' | 'bulk_operation',is_not?:'admin_console' | 'api' | 'bulk_operation',not_in?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'usage_date' | 'updated_at',desc?:'usage_date' | 'updated_at'};
     }
     export interface PdfResponse {  
        download:Download;

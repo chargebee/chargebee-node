@@ -97,7 +97,7 @@ declare module 'chargebee' {
        feature:Feature;
     }
     export interface CreateInputParam {
-       
+      [key : string] : any;  
       levels?:{is_unlimited?:boolean,level?:number,name?:string,value?:string}[];
        
       id?:string;
@@ -114,7 +114,7 @@ declare module 'chargebee' {
        feature:Feature;
     }
     export interface UpdateInputParam {
-       
+      [key : string] : any;  
       levels?:{is_unlimited?:boolean,level?:number,name?:string,value?:string}[];
        
       name?:string;

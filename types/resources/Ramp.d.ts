@@ -167,7 +167,7 @@ declare module 'chargebee' {
         
       updated_at?:{after?:string,before?:string,between?:string,on?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'effective_from' | 'updated_at',desc?:'effective_from' | 'updated_at'};
     }
     export interface ItemsToAdd {  
       item_price_id:string;

@@ -39,7 +39,7 @@ declare module 'chargebee' {
        item_family:ItemFamily;
     }
     export interface CreateInputParam {
-       
+      [key : string] : any;  
       id:string;
        
       name:string;
@@ -111,7 +111,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        item_family:ItemFamily;
     }
     export interface UpdateInputParam {
-       
+      [key : string] : any;  
       name?:string;
        
       description?:string;

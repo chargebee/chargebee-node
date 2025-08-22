@@ -429,7 +429,7 @@ declare module 'chargebee' {
         
       original_order_id?:{is?:string,is_not?:string,starts_with?:string};
        
-      sort_by?:object;
+      sort_by?:{asc?:'created_at' | 'updated_at',desc?:'created_at' | 'updated_at'};
     }
     export interface OrdersForInvoiceResponse {  
        list:{order:Order}[];

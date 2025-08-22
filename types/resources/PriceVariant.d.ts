@@ -156,7 +156,7 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
        
       include_site_level_resources?:{is?:'true' | 'false'};
        
-      sort_by?:object;
+      sort_by?:{asc?:'name' | 'id' | 'status' | 'created_at' | 'updated_at',desc?:'name' | 'id' | 'status' | 'created_at' | 'updated_at'};
     }
     export interface Attribute {  
       name:string;
