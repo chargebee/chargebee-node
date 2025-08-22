@@ -29,6 +29,6 @@ jobs:
             *) echo "ERROR: package.json version must be 2.x.x for v2 tags" && exit 1 ;;
           esac
       - name: Publish to NPM with dist-tag "v2"
-        run: npm publish --tag v2 --//registry.npmjs.org/:_authToken="$NPM_TOKEN"
+        run: npm publish --tag v2-latest --//registry.npmjs.org/:_authToken="$NPM_TOKEN"
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
