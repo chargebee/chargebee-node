@@ -2,10 +2,15 @@
 
 This is the official [Node.js](http://nodejs.org/) library for integrating with Chargebee.
 
+> [!TIP]
+> If you are using [Next.js](https://nextjs.org/) or [Express](https://expressjs.com/), check out [chargebee-init](https://www.npmjs.com/package/chargebee-init) to get started quickly with the adapters for these frameworks. Learn more about it in this [tutorial](https://www.chargebee.com/tutorials/chargebee-init-nextjs-integration/).
+
+
 - 📘 For a complete reference of available APIs, check out our [API Documentation](https://apidocs.chargebee.com/docs/api/?lang=node).  
 - 🧪 To explore and test API capabilities interactively, head over to our [API Explorer](https://api-explorer.chargebee.com).
 
 If you're upgrading from an older version of [`chargebee-typescript`](https://www.npmjs.com/package/chargebee-typescript) or [`chargebee`](https://www.npmjs.com/package/chargebee/v/2.40.0), please refer to the [Migration Guide](https://github.com/chargebee/chargebee-node/wiki/Migration-guide-for-v3).
+
 
 ## Requirements
 
