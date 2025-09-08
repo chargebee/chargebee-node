@@ -1,6 +1,10 @@
 # Chargebee Node.js / TypeScript Client Library
 
-This is the official [Node.js](http://nodejs.org/) library for integrating with Chargebee.
+> [!NOTE]
+> [![Join Discord](https://img.shields.io/badge/Discord-Early%20Access-blue?logo=discord&logoColor=white)](https://discord.gg/S3SXDzXHAg)
+>
+> We are trialing a Discord server for developers building with Chargebee. Limited spots are open on a first-come basis. Join [here](https://discord.gg/S3SXDzXHAg) if interested.
+
 
 > [!TIP]
 > If you are using [Next.js](https://nextjs.org/) or [Express](https://expressjs.com/), check out [chargebee-init](https://www.npmjs.com/package/chargebee-init) to get started quickly with the adapters for these frameworks. Learn more about it in this [tutorial](https://www.chargebee.com/tutorials/chargebee-init-nextjs-integration/).
