@@ -218,6 +218,28 @@ try {
 }
 ```
 
+### Webhook Type Mapping
+To improve type safety and gain better autocompletion when working with webhooks, you can leverage the `WebhookContent` resource. This allows you to strongly type the event content for a particular webhook event.
+
+#### Example
+
+```ts
+import { WebhookContentTypeEnum, WebhookContent } from "chargebee";
+
+const result = await chargebeeInstance.event.retrieve("{event-id}");
+
+const webhookContent: WebhookContent<WebhookContentTypeEnum.SubscriptionCreated> = result.event;
+
+const subscription = webhookContent.subscription;
+```
+
+#### Notes
+
+* `WebhookEvent<T>` provides type hinting for the event payload, making it easier to work with specific event structures.
+* Use the `WebhookContentTypeEnum` to specify the exact event type (e.g., `SubscriptionCreated`, `InvoiceGenerated`, etc.).
+* This approach ensures you get proper IntelliSense and compile-time checks when accessing event fields.
+
+
 ## Feedback
 
 If you find any bugs or have any questions / feedback, open an issue in this repository or reach out to us on dx@chargebee.com

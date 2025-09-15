@@ -28,7 +28,7 @@ declare module 'chargebee' {
     embed: boolean;
     created_at?: number;
     expires_at?: number;
-    content: any;
+    content: Content;
     updated_at?: number;
     resource_version?: number;
     checkout_info?: any;

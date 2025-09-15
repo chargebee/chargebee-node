@@ -1,3 +1,17 @@
+### v3.13.0 (2025-09-15)
+* * * 
+
+### New Resources: 
+* BusinessEntityChange has been added.
+* Product has been added.
+* SalesOrder has been added.
+* UsageReminderInfo has been added. 
+* Variant has been added.
+
+### New Enhancement: 
+* Content of HostedPages and Events now have a type. 
+* WebhookContent has been added for better type mapping with actual event and webhook content.
+
 ### v3.12.0 (2025-08-19)
 * * * 
 
