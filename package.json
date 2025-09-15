@@ -11,7 +11,7 @@
   },
   "types": "./types/index.d.ts",
   "keywords": [
-    "paymetns",
+    "payments",
     "billings",
     "subscription",
     "chargebee"
