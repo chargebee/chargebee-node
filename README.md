@@ -224,11 +224,11 @@ To improve type safety and gain better autocompletion when working with webhooks
 #### Example
 
 ```ts
-import { WebhookContentTypeEnum, WebhookContent } from "chargebee";
+import { WebhookContentType, WebhookContent } from "chargebee";
 
 const result = await chargebeeInstance.event.retrieve("{event-id}");
 
-const webhookContent: WebhookContent<WebhookContentTypeEnum.SubscriptionCreated> = result.event;
+const webhookContent: WebhookContent<WebhookContentType.SubscriptionCreated> = result.event;
 
 const subscription = webhookContent.subscription;
 ```
