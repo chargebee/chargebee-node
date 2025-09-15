@@ -6,6 +6,7 @@
 ///<reference path='./resources/BillingConfiguration.d.ts' />
 ///<reference path='./resources/Brand.d.ts' />
 ///<reference path='./resources/BusinessEntity.d.ts' />
+///<reference path='./resources/BusinessEntityChange.d.ts' />
 ///<reference path='./resources/BusinessEntityTransfer.d.ts' />
 ///<reference path='./resources/Card.d.ts' />
 ///<reference path='./resources/Comment.d.ts' />
@@ -64,6 +65,7 @@
 ///<reference path='./resources/PortalSession.d.ts' />
 ///<reference path='./resources/PriceVariant.d.ts' />
 ///<reference path='./resources/PricingPageSession.d.ts' />
+///<reference path='./resources/Product.d.ts' />
 ///<reference path='./resources/PromotionalCredit.d.ts' />
 ///<reference path='./resources/Purchase.d.ts' />
 ///<reference path='./resources/Quote.d.ts' />
@@ -75,6 +77,7 @@
 ///<reference path='./resources/RecordedPurchase.d.ts' />
 ///<reference path='./resources/ResourceMigration.d.ts' />
 ///<reference path='./resources/Rule.d.ts' />
+///<reference path='./resources/SalesOrder.d.ts' />
 ///<reference path='./resources/SiteMigrationDetail.d.ts' />
 ///<reference path='./resources/Subscription.d.ts' />
 ///<reference path='./resources/SubscriptionEntitlement.d.ts' />
@@ -90,8 +93,12 @@
 ///<reference path='./resources/Usage.d.ts' />
 ///<reference path='./resources/UsageEvent.d.ts' />
 ///<reference path='./resources/UsageFile.d.ts' />
+///<reference path='./resources/UsageReminderInfo.d.ts' />
+///<reference path='./resources/Variant.d.ts' />
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
 ///<reference path='./resources/WebhookEndpoint.d.ts' />
+///<reference path='./resources/Content.d.ts' />
+///<reference path='./resources/WebhookEvent.d.ts' />
 
 export type Config = {
   /**
@@ -204,6 +211,7 @@ declare module 'chargebee' {
     portalSession: PortalSession.PortalSessionResource;
     priceVariant: PriceVariant.PriceVariantResource;
     pricingPageSession: PricingPageSession.PricingPageSessionResource;
+    product: Product.ProductResource;
     promotionalCredit: PromotionalCredit.PromotionalCreditResource;
     purchase: Purchase.PurchaseResource;
     quote: Quote.QuoteResource;
@@ -220,6 +228,7 @@ declare module 'chargebee' {
     usage: Usage.UsageResource;
     usageEvent: UsageEvent.UsageEventResource;
     usageFile: UsageFile.UsageFileResource;
+    variant: Variant.VariantResource;
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
     webhookEndpoint: WebhookEndpoint.WebhookEndpointResource;
   }
