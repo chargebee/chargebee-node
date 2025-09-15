@@ -10,7 +10,7 @@
 
 ### New Enhancement: 
 * Content of HostedPages and Events now have a type. 
-* WebhookContent has been added for better type mapping with actual event and webhook content.
+* WebhookEvent has been added for better type mapping with actual event and webhook content.
 
 ### v3.12.0 (2025-08-19)
 * * * 
