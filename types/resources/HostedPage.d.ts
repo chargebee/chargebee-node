@@ -6,7 +6,7 @@ declare module 'chargebee' {
 
     id?:string;
 
-    type?:'checkout_new' | 'checkout_existing' | 'update_payment_method' | 'manage_payment_sources' | 'collect_now' | 'extend_subscription' | 'checkout_one_time' | 'pre_cancel' | 'view_voucher' | 'checkout_gift' | 'claim_gift';
+    type?:'checkout_new' | 'checkout_existing' | 'update_payment_method' | 'manage_payment_sources' | 'collect_now' | 'extend_subscription' | 'checkout_one_time' | 'pre_cancel' | 'view_voucher' | 'accept_quote' | 'checkout_gift' | 'claim_gift';
 
     url?:string;
 
@@ -205,7 +205,7 @@ declare module 'chargebee' {
     }
     export interface CheckoutNewForItemsInputParam {
        
-      subscription?:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,id?:string,invoice_notes?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
+      subscription?:{auto_collection?:AutoCollection,contract_term_billing_cycle_on_renewal?:number,coupon?:string,id?:string,invoice_notes?:string,offline_payment_method?:OfflinePaymentMethod,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
       customer?:{company?:string,einvoicing_method?:EinvoicingMethod,email?:string,entity_identifier_scheme?:string,entity_identifier_standard?:string,first_name?:string,id?:string,is_einvoice_enabled?:boolean,last_name?:string,locale?:string,phone?:string,taxability?:Taxability,vat_number?:string,vat_number_prefix?:string};
        
@@ -528,7 +528,7 @@ declare module 'chargebee' {
 
         */
         
-      type?:{in?:string,is?:'checkout_new' | 'checkout_existing' | 'update_payment_method' | 'manage_payment_sources' | 'collect_now' | 'extend_subscription' | 'checkout_one_time' | 'pre_cancel' | 'view_voucher',is_not?:'checkout_new' | 'checkout_existing' | 'update_payment_method' | 'manage_payment_sources' | 'collect_now' | 'extend_subscription' | 'checkout_one_time' | 'pre_cancel' | 'view_voucher',not_in?:string};
+      type?:{in?:string,is?:'checkout_new' | 'checkout_existing' | 'update_payment_method' | 'manage_payment_sources' | 'collect_now' | 'extend_subscription' | 'checkout_one_time' | 'pre_cancel' | 'view_voucher' | 'accept_quote',is_not?:'checkout_new' | 'checkout_existing' | 'update_payment_method' | 'manage_payment_sources' | 'collect_now' | 'extend_subscription' | 'checkout_one_time' | 'pre_cancel' | 'view_voucher' | 'accept_quote',not_in?:string};
        
       /**
         * @description Indicating the current state of the hosted page resource.

@@ -69,7 +69,7 @@ declare module 'chargebee' {
         
       offset?:string;
        
-      entity_type?:'customer' | 'subscription' | 'invoice' | 'quote' | 'credit_note' | 'transaction' | 'plan' | 'addon' | 'coupon' | 'order' | 'business_entity' | 'omnichannel_subscription' | 'omnichannel_subscription_item' | 'omnichannel_transaction' | 'recorded_purchase' | 'omnichannel_subscription_item_scheduled_change' | 'sales_order' | 'omnichannel_one_time_order' | 'omnichannel_one_time_order_item' | 'usage_file' | 'item_family' | 'item' | 'item_price' | 'price_variant';
+      entity_type?:'customer' | 'subscription' | 'invoice' | 'quote' | 'credit_note' | 'transaction' | 'plan' | 'addon' | 'coupon' | 'order' | 'business_entity' | 'item_family' | 'item' | 'item_price' | 'price_variant';
        
       entity_id?:string;
        

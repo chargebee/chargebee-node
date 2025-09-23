@@ -36,6 +36,8 @@ declare module 'chargebee' {
 
     discounts_to_remove?:string[];
 
+    contract_term?:Ramp.ContractTerm;
+
     deleted:boolean;
 
     status_transition_reason?:Ramp.StatusTransitionReason;
@@ -58,9 +60,11 @@ declare module 'chargebee' {
     }
     export interface CreateForSubscriptionInputParam {
        
-      items_to_add:{billing_cycles?:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',cancellation_cutoff_period?:number,renewal_billing_cycles?:number};
        
-      items_to_update:{billing_cycles?:number,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+      items_to_add:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
+       
+      items_to_update:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
       item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
@@ -83,15 +87,17 @@ declare module 'chargebee' {
     }
     export interface UpdateInputParam {
        
-      items_to_add:{billing_cycles?:any,item_price_id:any,quantity?:any,quantity_in_decimal?:any,service_period_days?:any,unit_price?:any,unit_price_in_decimal?:any}[];
+      contract_term?:{action_at_term_end?:'renew' | 'evergreen' | 'cancel' | 'renew_once',cancellation_cutoff_period?:number,renewal_billing_cycles?:number};
        
-      items_to_update:{billing_cycles?:any,item_price_id:any,quantity?:any,quantity_in_decimal?:any,service_period_days?:any,unit_price?:any,unit_price_in_decimal?:any}[];
+      items_to_add:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      item_tiers?:{ending_unit?:any,ending_unit_in_decimal?:any,item_price_id?:any,package_size?:any,price?:any,price_in_decimal?:any,pricing_type?:any,starting_unit?:any,starting_unit_in_decimal?:any}[];
+      items_to_update:{billing_cycles?:number,charge_on_event?:ChargeOnEvent,charge_on_option?:ChargeOnOption,charge_once?:boolean,item_price_id:string,quantity?:number,quantity_in_decimal?:string,service_period_days?:number,unit_price?:number,unit_price_in_decimal?:string}[];
        
-      coupons_to_add?:{apply_till?:any,coupon_id?:any}[];
+      item_tiers?:{ending_unit?:number,ending_unit_in_decimal?:string,item_price_id?:string,package_size?:number,price?:number,price_in_decimal?:string,pricing_type?:PricingType,starting_unit?:number,starting_unit_in_decimal?:string}[];
        
-      discounts_to_add:{amount?:any,apply_on:any,duration_type:any,included_in_mrr?:any,item_price_id?:any,percentage?:any,period?:any,period_unit?:any}[];
+      coupons_to_add?:{apply_till?:number,coupon_id?:string}[];
+       
+      discounts_to_add:{amount?:number,apply_on:ApplyOn,duration_type:DurationType,included_in_mrr?:boolean,item_price_id?:string,percentage?:number,period?:number,period_unit?:PeriodUnit}[];
        
       effective_from:number;
        
@@ -195,6 +201,12 @@ declare module 'chargebee' {
       service_period_days?:number;
        
       metered_quantity?:string;
+       
+      charge_once?:boolean;
+       
+      charge_on_option?:'immediately' | 'on_event';
+       
+      charge_on_event?:'subscription_trial_start' | 'plan_activation' | 'subscription_activation' | 'contract_termination';
     }
     export interface ItemsToUpdate {  
       item_price_id:string;
@@ -222,6 +234,12 @@ declare module 'chargebee' {
       service_period_days?:number;
        
       metered_quantity?:string;
+       
+      charge_once?:boolean;
+       
+      charge_on_option?:'immediately' | 'on_event';
+       
+      charge_on_event?:'subscription_trial_start' | 'plan_activation' | 'subscription_activation' | 'contract_termination';
     }
     export interface CouponsToAdd {  
       coupon_id:string;
@@ -273,6 +291,13 @@ declare module 'chargebee' {
       package_size?:number;
        
       index:number;
+    }
+    export interface ContractTerm {  
+      cancellation_cutoff_period?:number;
+       
+      renewal_billing_cycles?:number;
+       
+      action_at_term_end:'renew' | 'evergreen' | 'cancel' | 'renew_once';
     }
     export interface StatusTransitionReason {  
       code?:string;

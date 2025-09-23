@@ -32,5 +32,7 @@ declare module 'chargebee' {
 
     error_cause_id?:string;
 
+    processor_advice_code?:string;
+
   }
 }

@@ -486,6 +486,8 @@ declare module 'chargebee' {
        
       billing_alignment_mode?:BillingAlignmentMode;
        
+      offline_payment_method?:OfflinePaymentMethod;
+       
       po_number?:string;
        
       coupon_ids?:string[];
@@ -1794,8 +1796,6 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       zip?:string;
        
       validation_status?:ValidationStatus;
-       
-      index:number;
     }
     export interface ReferralInfo {  
       referral_code?:string;

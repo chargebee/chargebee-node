@@ -2,7 +2,7 @@
 ///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface CreditNote {
-    
+    [key : string] : any;
 
     id:string;
 
@@ -135,7 +135,7 @@ declare module 'chargebee' {
        invoice?:Invoice;
     }
     export interface CreateInputParam {
-       
+      [key : string] : any;  
       line_items?:{amount?:number,date_from?:number,date_to?:number,description?:string,entity_id?:string,entity_type?:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'plan' | 'addon',quantity?:number,quantity_in_decimal?:string,reference_line_item_id?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
       reference_invoice_id?:string;
@@ -413,7 +413,7 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        credit_note:CreditNote;
     }
     export interface ImportCreditNoteInputParam {
-       
+      [key : string] : any;  
       line_items:{amount?:number,amount_in_decimal?:string,date_from?:number,date_to?:number,description:string,entity_id?:string,entity_type?:'adhoc' | 'plan_item_price' | 'addon_item_price' | 'charge_item_price' | 'plan_setup' | 'plan' | 'addon',id?:string,item_level_discount1_amount?:number,item_level_discount1_entity_id?:string,item_level_discount2_amount?:number,item_level_discount2_entity_id?:string,quantity?:number,quantity_in_decimal?:string,reference_line_item_id?:string,subscription_id?:string,tax10_amount?:number,tax10_name?:string,tax1_amount?:number,tax1_name?:string,tax2_amount?:number,tax2_name?:string,tax3_amount?:number,tax3_name?:string,tax4_amount?:number,tax4_name?:string,tax5_amount?:number,tax5_name?:string,tax6_amount?:number,tax6_name?:string,tax7_amount?:number,tax7_name?:string,tax8_amount?:number,tax8_name?:string,tax9_amount?:number,tax9_name?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
        
       line_item_tiers:{ending_unit?:number,ending_unit_in_decimal?:string,line_item_id:string,quantity_used?:number,quantity_used_in_decimal?:string,starting_unit?:number,starting_unit_in_decimal?:string,unit_amount?:number,unit_amount_in_decimal?:string}[];
@@ -686,8 +686,6 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       zip?:string;
        
       validation_status?:ValidationStatus;
-       
-      index:number;
     }
     export interface BillingAddress {  
       first_name?:string;

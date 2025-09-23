@@ -107,7 +107,7 @@ declare module 'chargebee' {
     }
     export interface CreateSubItemEstimateInputParam {
        
-      subscription?:{contract_term_billing_cycle_on_renewal?:number,coupon?:string,free_period?:number,free_period_unit?:FreePeriodUnit,id?:string,setup_fee?:number,start_date?:number,trial_end?:number,trial_end_action?:TrialEndAction};
+      subscription?:{contract_term_billing_cycle_on_renewal?:number,coupon?:string,free_period?:number,free_period_unit?:FreePeriodUnit,id?:string,offline_payment_method?:OfflinePaymentMethod,setup_fee?:number,start_date?:number,trial_end?:number,trial_end_action?:TrialEndAction};
        
       billing_address?:{city?:string,country?:string,line1?:string,line2?:string,line3?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
@@ -177,7 +177,7 @@ declare module 'chargebee' {
     }
     export interface CreateSubItemForCustomerEstimateInputParam {
        
-      subscription?:{contract_term_billing_cycle_on_renewal?:number,free_period?:number,free_period_unit?:FreePeriodUnit,id?:string,setup_fee?:number,start_date?:number,trial_end?:number,trial_end_action?:TrialEndAction};
+      subscription?:{contract_term_billing_cycle_on_renewal?:number,free_period?:number,free_period_unit?:FreePeriodUnit,id?:string,offline_payment_method?:OfflinePaymentMethod,setup_fee?:number,start_date?:number,trial_end?:number,trial_end_action?:TrialEndAction};
        
       shipping_address?:{city?:string,country?:string,line1?:string,line2?:string,line3?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        

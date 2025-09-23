@@ -462,6 +462,8 @@ declare module 'chargebee' {
       processor_error_message?:string;
        
       error_cause_id?:string;
+       
+      processor_advice_code?:string;
     }
   }
 }

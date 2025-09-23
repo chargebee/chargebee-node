@@ -532,8 +532,6 @@ declare module 'chargebee' {
       zip?:string;
        
       validation_status?:ValidationStatus;
-       
-      index:number;
     }
     export interface BillingAddress {  
       first_name?:string;
