@@ -52,15 +52,15 @@ declare module 'chargebee' {
 
     line_items?:Quote.LineItem[];
 
-    discounts?:Quote.Discount[];
+    line_item_tiers?:Quote.LineItemTier[];
 
     line_item_discounts?:Quote.LineItemDiscount[];
 
-    taxes?:Quote.Tax[];
-
     line_item_taxes?:Quote.LineItemTax[];
 
-    line_item_tiers?:Quote.LineItemTier[];
+    discounts?:Quote.Discount[];
+
+    taxes?:Quote.Tax[];
 
     tax_category?:string;
 
@@ -370,7 +370,7 @@ declare module 'chargebee' {
     }
     export interface CreateSubItemsForCustomerQuoteInputParam {
       [key : string] : any;  
-      subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
+      subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,offline_payment_method?:OfflinePaymentMethod,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
@@ -415,7 +415,7 @@ declare module 'chargebee' {
     }
     export interface EditCreateSubCustomerQuoteForItemsInputParam {
       [key : string] : any;  
-      subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
+      subscription?:{contract_term_billing_cycle_on_renewal?:number,id?:string,offline_payment_method?:OfflinePaymentMethod,po_number?:string,setup_fee?:number,start_date?:number,trial_end?:number};
        
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
@@ -861,18 +861,28 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
       customer_id?:string;
     }
-    export interface Discount {  
-      amount:number;
+    export interface LineItemTier {  
+      line_item_id?:string;
        
-      description?:string;
+      starting_unit:number;
        
-      entity_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
+      ending_unit?:number;
        
-      discount_type?:'fixed_amount' | 'percentage';
+      quantity_used:number;
        
-      entity_id?:string;
+      unit_amount:number;
        
-      coupon_set_code?:string;
+      starting_unit_in_decimal?:string;
+       
+      ending_unit_in_decimal?:string;
+       
+      quantity_used_in_decimal?:string;
+       
+      unit_amount_in_decimal?:string;
+       
+      pricing_type?:'per_unit' | 'flat_fee' | 'package';
+       
+      package_size?:number;
     }
     export interface LineItemDiscount {  
       line_item_id:string;
@@ -884,13 +894,6 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       entity_id?:string;
        
       discount_amount:number;
-    }
-    export interface Tax {  
-      name:string;
-       
-      amount:number;
-       
-      description?:string;
     }
     export interface LineItemTax {  
       line_item_id?:string;
@@ -923,28 +926,25 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
        
       local_currency_code?:string;
     }
-    export interface LineItemTier {  
-      line_item_id?:string;
+    export interface Discount {  
+      amount:number;
        
-      starting_unit:number;
+      description?:string;
        
-      ending_unit?:number;
+      entity_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
        
-      quantity_used:number;
+      discount_type?:'fixed_amount' | 'percentage';
        
-      unit_amount:number;
+      entity_id?:string;
        
-      starting_unit_in_decimal?:string;
+      coupon_set_code?:string;
+    }
+    export interface Tax {  
+      name:string;
        
-      ending_unit_in_decimal?:string;
+      amount:number;
        
-      quantity_used_in_decimal?:string;
-       
-      unit_amount_in_decimal?:string;
-       
-      pricing_type?:'per_unit' | 'flat_fee' | 'package';
-       
-      package_size?:number;
+      description?:string;
     }
     export interface ShippingAddress {  
       first_name?:string;
@@ -974,8 +974,6 @@ NOTE: Not to be used if *consolidated invoicing* feature is enabled.
       zip?:string;
        
       validation_status?:ValidationStatus;
-       
-      index:number;
     }
     export interface BillingAddress {  
       first_name?:string;

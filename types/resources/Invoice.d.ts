@@ -2,7 +2,7 @@
 ///<reference path='./../index.d.ts'/>
 declare module 'chargebee' {
   export interface Invoice {
-    
+    [key : string] : any;
 
     id:string;
 
@@ -284,7 +284,7 @@ declare module 'chargebee' {
        invoice:Invoice;
     }
     export interface CreateForChargeItemsAndChargesInputParam {
-       
+      [key : string] : any;  
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       statement_descriptor?:{descriptor?:string};
@@ -469,7 +469,7 @@ declare module 'chargebee' {
        credit_note?:CreditNote;
     }
     export interface ImportInvoiceInputParam {
-       
+      [key : string] : any;  
       credit_note?:{id?:string};
        
       billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
@@ -899,7 +899,7 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
        invoice:Invoice;
     }
     export interface CloseInputParam {
-       
+      [key : string] : any;  
       notes_to_remove?:{entity_id?:string,entity_type?:EntityType}[];
        
       comment?:string;
@@ -1035,7 +1035,7 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
        invoice:Invoice;
     }
     export interface UpdateDetailsInputParam {
-       
+      [key : string] : any;  
       billing_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
        
       shipping_address?:{city?:string,company?:string,country?:string,email?:string,first_name?:string,last_name?:string,line1?:string,line2?:string,line3?:string,phone?:string,state?:string,state_code?:string,validation_status?:ValidationStatus,zip?:string};
@@ -1371,8 +1371,6 @@ NOTE: Not to be used if *consolidated invoicing* is enabled.
       zip?:string;
        
       validation_status?:ValidationStatus;
-       
-      index:number;
     }
     export interface BillingAddress {  
       first_name?:string;

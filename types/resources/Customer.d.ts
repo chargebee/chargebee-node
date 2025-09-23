@@ -856,6 +856,8 @@ The ID of the business entity created for the site. For Product Catalog 1.0, all
       currency_code:string;
        
       balance_currency_code:string;
+       
+      business_entity_id?:string;
     }
     export interface EntityIdentifier {  
       id:string;

@@ -22,7 +22,7 @@ declare module 'chargebee' {
 
     omnichannel_one_time_order_items:OmnichannelOneTimeOrderItem[];
 
-    purchase_transaction?:OmnichannelOneTimeOrder.OmnichannelTransaction;
+    purchase_transaction?:OmnichannelTransaction;
 
   }
   export namespace OmnichannelOneTimeOrder {
@@ -65,26 +65,6 @@ declare module 'chargebee' {
         
       customer_id?:{is?:string,is_not?:string,starts_with?:string};
     }
-    export interface OmnichannelTransaction {  
-      id:string;
-       
-      id_at_source:string;
-       
-      app_id:string;
-       
-      price_currency?:string;
-       
-      price_units?:number;
-       
-      price_nanos?:number;
-       
-      type:'purchase' | 'renewal';
-       
-      transacted_at?:number;
-       
-      created_at:number;
-       
-      resource_version?:number;
-    }
+    
   }
 }

@@ -32,6 +32,10 @@ declare module 'chargebee' {
 
     uploaded_at?:number;
 
+    error_file_path?:string;
+
+    error_file_url?:string;
+
     upload_details?:UsageFile.UploadDetail;
 
   }

@@ -54,8 +54,6 @@ declare module 'chargebee' {
       zip?:string;
        
       validation_status?:ValidationStatus;
-       
-      index:number;
     }
     export interface ContractTerm {  
       id:string;

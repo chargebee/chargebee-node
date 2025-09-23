@@ -22,15 +22,15 @@ declare module 'chargebee' {
 
     line_items?:CreditNoteEstimate.LineItem[];
 
-    discounts?:CreditNoteEstimate.Discount[];
-
-    taxes?:CreditNoteEstimate.Tax[];
-
-    line_item_taxes?:CreditNoteEstimate.LineItemTax[];
+    line_item_tiers?:CreditNoteEstimate.LineItemTier[];
 
     line_item_discounts?:CreditNoteEstimate.LineItemDiscount[];
 
-    line_item_tiers?:CreditNoteEstimate.LineItemTier[];
+    line_item_taxes?:CreditNoteEstimate.LineItemTax[];
+
+    discounts?:CreditNoteEstimate.Discount[];
+
+    taxes?:CreditNoteEstimate.Tax[];
 
     round_off_amount?:number;
 
@@ -91,25 +91,39 @@ declare module 'chargebee' {
        
       customer_id?:string;
     }
-    export interface Discount {  
-      amount:number;
+    export interface LineItemTier {  
+      line_item_id?:string;
        
-      description?:string;
+      starting_unit:number;
        
-      entity_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
+      ending_unit?:number;
        
-      discount_type?:'fixed_amount' | 'percentage';
+      quantity_used:number;
+       
+      unit_amount:number;
+       
+      starting_unit_in_decimal?:string;
+       
+      ending_unit_in_decimal?:string;
+       
+      quantity_used_in_decimal?:string;
+       
+      unit_amount_in_decimal?:string;
+       
+      pricing_type?:'per_unit' | 'flat_fee' | 'package';
+       
+      package_size?:number;
+    }
+    export interface LineItemDiscount {  
+      line_item_id:string;
+       
+      discount_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
+       
+      coupon_id?:string;
        
       entity_id?:string;
        
-      coupon_set_code?:string;
-    }
-    export interface Tax {  
-      name:string;
-       
-      amount:number;
-       
-      description?:string;
+      discount_amount:number;
     }
     export interface LineItemTax {  
       line_item_id?:string;
@@ -142,39 +156,25 @@ declare module 'chargebee' {
        
       local_currency_code?:string;
     }
-    export interface LineItemDiscount {  
-      line_item_id:string;
+    export interface Discount {  
+      amount:number;
        
-      discount_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
+      description?:string;
        
-      coupon_id?:string;
+      entity_type:'item_level_coupon' | 'document_level_coupon' | 'promotional_credits' | 'prorated_credits' | 'item_level_discount' | 'document_level_discount';
+       
+      discount_type?:'fixed_amount' | 'percentage';
        
       entity_id?:string;
        
-      discount_amount:number;
+      coupon_set_code?:string;
     }
-    export interface LineItemTier {  
-      line_item_id?:string;
+    export interface Tax {  
+      name:string;
        
-      starting_unit:number;
+      amount:number;
        
-      ending_unit?:number;
-       
-      quantity_used:number;
-       
-      unit_amount:number;
-       
-      starting_unit_in_decimal?:string;
-       
-      ending_unit_in_decimal?:string;
-       
-      quantity_used_in_decimal?:string;
-       
-      unit_amount_in_decimal?:string;
-       
-      pricing_type?:'per_unit' | 'flat_fee' | 'package';
-       
-      package_size?:number;
+      description?:string;
     }
   }
 }

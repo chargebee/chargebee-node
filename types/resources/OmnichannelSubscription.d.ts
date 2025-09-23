@@ -20,7 +20,7 @@ declare module 'chargebee' {
 
     omnichannel_subscription_items:OmnichannelSubscriptionItem[];
 
-    initial_purchase_transaction?:OmnichannelSubscription.OmnichannelTransaction;
+    initial_purchase_transaction?:OmnichannelTransaction;
 
   }
   export namespace OmnichannelSubscription {
@@ -30,6 +30,8 @@ declare module 'chargebee' {
       list(input?:ListInputParam):ChargebeeRequest<ListResponse>;
        
       omnichannel_transactions_for_omnichannel_subscription(omnichannel_subscription_id:string, input?:Omnichannel_transactionsForOmnichannelSubscriptionInputParam):ChargebeeRequest<OmnichannelTransactionsForOmnichannelSubscriptionResponse>;
+       
+      move(omnichannel_subscription_id:string, input:MoveInputParam):ChargebeeRequest<MoveResponse>;
     }
     export interface RetrieveResponse {  
        omnichannel_subscription:OmnichannelSubscription;
@@ -86,26 +88,13 @@ declare module 'chargebee' {
         
       offset?:string;
     }
-    export interface OmnichannelTransaction {  
-      id:string;
-       
-      id_at_source:string;
-       
-      app_id:string;
-       
-      price_currency?:string;
-       
-      price_units?:number;
-       
-      price_nanos?:number;
-       
-      type:'purchase' | 'renewal';
-       
-      transacted_at?:number;
-       
-      created_at:number;
-       
-      resource_version?:number;
+    export interface MoveResponse {  
+       omnichannel_subscription:OmnichannelSubscription;
     }
+    export interface MoveInputParam {
+       
+      to_customer_id:string;
+    }
+    
   }
 }

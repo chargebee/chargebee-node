@@ -46,10 +46,13 @@
 ///<reference path='./resources/ItemPrice.d.ts' />
 ///<reference path='./resources/Metadata.d.ts' />
 ///<reference path='./resources/NonSubscription.d.ts' />
+///<reference path='./resources/OfferEvent.d.ts' />
+///<reference path='./resources/OfferFulfillment.d.ts' />
 ///<reference path='./resources/OmnichannelOneTimeOrder.d.ts' />
 ///<reference path='./resources/OmnichannelOneTimeOrderItem.d.ts' />
 ///<reference path='./resources/OmnichannelSubscription.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItem.d.ts' />
+///<reference path='./resources/OmnichannelSubscriptionItemOffer.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItemScheduledChange.d.ts' />
 ///<reference path='./resources/OmnichannelTransaction.d.ts' />
 ///<reference path='./resources/Order.d.ts' />
@@ -60,6 +63,7 @@
 ///<reference path='./resources/PaymentScheduleScheme.d.ts' />
 ///<reference path='./resources/PaymentSource.d.ts' />
 ///<reference path='./resources/PaymentVoucher.d.ts' />
+///<reference path='./resources/PersonalizedOffer.d.ts' />
 ///<reference path='./resources/Plan.d.ts' />
 ///<reference path='./resources/PortalSession.d.ts' />
 ///<reference path='./resources/PriceVariant.d.ts' />
@@ -126,6 +130,8 @@ declare module 'chargebee' {
     static item_family: ItemFamily.ItemFamilyResource;
     static item_price: ItemPrice.ItemPriceResource;
     static non_subscription: NonSubscription.NonSubscriptionResource;
+    static offer_event: OfferEvent.OfferEventResource;
+    static offer_fulfillment: OfferFulfillment.OfferFulfillmentResource;
     static omnichannel_one_time_order: OmnichannelOneTimeOrder.OmnichannelOneTimeOrderResource;
     static omnichannel_subscription: OmnichannelSubscription.OmnichannelSubscriptionResource;
     static omnichannel_subscription_item: OmnichannelSubscriptionItem.OmnichannelSubscriptionItemResource;
@@ -134,6 +140,7 @@ declare module 'chargebee' {
     static payment_schedule_scheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;
     static payment_source: PaymentSource.PaymentSourceResource;
     static payment_voucher: PaymentVoucher.PaymentVoucherResource;
+    static personalized_offer: PersonalizedOffer.PersonalizedOfferResource;
     static plan: Plan.PlanResource;
     static portal_session: PortalSession.PortalSessionResource;
     static price_variant: PriceVariant.PriceVariantResource;

@@ -34,6 +34,8 @@ declare module 'chargebee' {
 
     resource_version?:number;
 
+    omnichannel_subscription_item_offers:OmnichannelSubscriptionItemOffer[];
+
     upcoming_renewal?:OmnichannelSubscriptionItem.UpcomingRenewal;
 
     linked_item?:OmnichannelSubscriptionItem.LinkedItem;
