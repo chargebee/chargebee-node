@@ -412,6 +412,7 @@ declare module 'chargebee' {
       unbilled_charges: number;
       currency_code: string;
       balance_currency_code: string;
+      business_entity_id?: string;
     }
     export interface EntityIdentifier {
       id: string;

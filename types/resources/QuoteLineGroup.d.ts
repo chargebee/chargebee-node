@@ -19,10 +19,10 @@ declare module 'chargebee' {
       | 'subscription_cancel';
     billing_cycle_number?: number;
     line_items?: QuoteLineGroup.LineItem[];
-    discounts?: QuoteLineGroup.Discount[];
     line_item_discounts?: QuoteLineGroup.LineItemDiscount[];
-    taxes?: QuoteLineGroup.Tax[];
     line_item_taxes?: QuoteLineGroup.LineItemTax[];
+    discounts?: QuoteLineGroup.Discount[];
+    taxes?: QuoteLineGroup.Tax[];
   }
 
   export namespace QuoteLineGroup {
@@ -75,20 +75,6 @@ declare module 'chargebee' {
       entity_id?: string;
       customer_id?: string;
     }
-    export interface Discount {
-      amount: number;
-      description?: string;
-      entity_type:
-        | 'item_level_coupon'
-        | 'document_level_coupon'
-        | 'promotional_credits'
-        | 'prorated_credits'
-        | 'item_level_discount'
-        | 'document_level_discount';
-      discount_type?: 'fixed_amount' | 'percentage';
-      entity_id?: string;
-      coupon_set_code?: string;
-    }
     export interface LineItemDiscount {
       line_item_id: string;
       discount_type:
@@ -101,11 +87,6 @@ declare module 'chargebee' {
       coupon_id?: string;
       entity_id?: string;
       discount_amount: number;
-    }
-    export interface Tax {
-      name: string;
-      amount: number;
-      description?: string;
     }
     export interface LineItemTax {
       line_item_id?: string;
@@ -131,6 +112,25 @@ declare module 'chargebee' {
       tax_juris_code?: string;
       tax_amount_in_local_currency?: number;
       local_currency_code?: string;
+    }
+    export interface Discount {
+      amount: number;
+      description?: string;
+      entity_type:
+        | 'item_level_coupon'
+        | 'document_level_coupon'
+        | 'promotional_credits'
+        | 'prorated_credits'
+        | 'item_level_discount'
+        | 'document_level_discount';
+      discount_type?: 'fixed_amount' | 'percentage';
+      entity_id?: string;
+      coupon_set_code?: string;
+    }
+    export interface Tax {
+      name: string;
+      amount: number;
+      description?: string;
     }
     // REQUEST PARAMS
     //---------------

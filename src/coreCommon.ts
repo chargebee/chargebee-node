@@ -31,7 +31,8 @@ export const handleResponse = async (
   response: HttpClientResponseInterface,
 ): Promise<Callback | void> => {
   try {
-    const res = await response.toJson();
+    const res =
+      response.getStatusCode() === 204 ? response : await response.toJson();
     const status: number | undefined = response.getStatusCode();
     const headers = response.getHeaders();
     if (status && (status < 200 || status > 299)) {

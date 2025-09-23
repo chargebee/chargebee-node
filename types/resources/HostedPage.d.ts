@@ -14,6 +14,7 @@ declare module 'chargebee' {
       | 'checkout_one_time'
       | 'pre_cancel'
       | 'view_voucher'
+      | 'accept_quote'
       | 'checkout_gift'
       | 'claim_gift';
     url?: string;
@@ -813,6 +814,7 @@ declare module 'chargebee' {
       start_date?: number;
       coupon?: string;
       auto_collection?: AutoCollectionEnum;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       invoice_notes?: string;
       po_number?: string;
       contract_term_billing_cycle_on_renewal?: number;

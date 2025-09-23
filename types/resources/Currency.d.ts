@@ -1,19 +1,20 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
-
+///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface Currency {
-    id?: string;
+    id: string;
     enabled: boolean;
     forex_type?: 'manual' | 'auto';
-    currency_code?: string;
-    is_base_currency?: boolean;
+    currency_code: string;
+    is_base_currency: boolean;
     manual_exchange_rate?: string;
   }
 
   export namespace Currency {
     export class CurrencyResource {
       list(
+        input?: ListInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListResponse>>;
 
@@ -46,7 +47,8 @@ declare module 'chargebee' {
     }
 
     export interface ListResponse {
-      currency: Currency;
+      list: { currency: Currency }[];
+      next_offset?: string;
     }
 
     export interface RetrieveResponse {
@@ -74,6 +76,10 @@ declare module 'chargebee' {
     // REQUEST PARAMS
     //---------------
 
+    export interface ListInputParam {
+      limit?: number;
+      offset?: string;
+    }
     export interface CreateInputParam {
       currency_code: string;
       forex_type: 'manual' | 'auto';

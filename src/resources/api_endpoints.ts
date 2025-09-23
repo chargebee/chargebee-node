@@ -98,7 +98,10 @@ interface Endpoints {
   usageEvent: EndpointTuple[];
   omnichannelSubscriptionItemScheduledChange: EndpointTuple[];
   usageFile: EndpointTuple[];
+  personalizedOffer: EndpointTuple[];
   brand: EndpointTuple[];
+  offerFulfillment: EndpointTuple[];
+  offerEvent: EndpointTuple[];
   webhookEndpoint: EndpointTuple[];
   impactedCustomer: EndpointTuple[];
   subscriptionEntitlementsUpdatedDetail: EndpointTuple[];
@@ -4748,6 +4751,19 @@ export const Endpoints: Endpoints = {
       {},
       {},
     ],
+    [
+      'move',
+      'POST',
+      '/omnichannel_subscriptions',
+      '/move',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   omnichannelTransaction: [],
   omnichannelSubscriptionItem: [
@@ -4858,7 +4874,60 @@ export const Endpoints: Endpoints = {
       {},
     ],
   ],
+  personalizedOffer: [
+    [
+      'personalizedOffers',
+      'POST',
+      '/personalized_offers',
+      null,
+      false,
+      'grow',
+      true,
+      {
+        custom: 0,
+      },
+      {},
+    ],
+  ],
   brand: [],
+  offerFulfillment: [
+    [
+      'offerFulfillments',
+      'POST',
+      '/offer_fulfillments',
+      null,
+      false,
+      'grow',
+      true,
+      {},
+      {},
+    ],
+    [
+      'offerFulfillmentsGet',
+      'GET',
+      '/offer_fulfillments',
+      null,
+      true,
+      'grow',
+      true,
+      {},
+      {},
+    ],
+    [
+      'offerFulfillmentsUpdate',
+      'POST',
+      '/offer_fulfillments',
+      null,
+      true,
+      'grow',
+      true,
+      {},
+      {},
+    ],
+  ],
+  offerEvent: [
+    ['offerEvents', 'POST', '/offer_events', null, false, 'grow', true, {}, {}],
+  ],
   webhookEndpoint: [
     [
       'create',

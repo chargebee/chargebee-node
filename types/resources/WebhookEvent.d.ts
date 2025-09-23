@@ -57,6 +57,7 @@ declare module 'chargebee' {
     SubscriptionAdvanceInvoiceScheduleUpdated = 'subscription_advance_invoice_schedule_updated',
     ItemDeleted = 'item_deleted',
     SubscriptionRampDrafted = 'subscription_ramp_drafted',
+    DunningUpdated = 'dunning_updated',
     ItemEntitlementsUpdated = 'item_entitlements_updated',
     TokenConsumed = 'token_consumed',
     HierarchyDeleted = 'hierarchy_deleted',
@@ -150,6 +151,7 @@ declare module 'chargebee' {
     SubscriptionScheduledCancellationRemoved = 'subscription_scheduled_cancellation_removed',
     PaymentRefunded = 'payment_refunded',
     UsageFileIngested = 'usage_file_ingested',
+    OmnichannelSubscriptionMovedIn = 'omnichannel_subscription_moved_in',
     DifferentialPriceCreated = 'differential_price_created',
     TransactionCreated = 'transaction_created',
     PaymentSucceeded = 'payment_succeeded',
@@ -266,6 +268,7 @@ declare module 'chargebee' {
     [WebhookContentType.SubscriptionAdvanceInvoiceScheduleUpdated]: SubscriptionAdvanceInvoiceScheduleUpdatedContent;
     [WebhookContentType.ItemDeleted]: ItemDeletedContent;
     [WebhookContentType.SubscriptionRampDrafted]: SubscriptionRampDraftedContent;
+    [WebhookContentType.DunningUpdated]: DunningUpdatedContent;
     [WebhookContentType.ItemEntitlementsUpdated]: ItemEntitlementsUpdatedContent;
     [WebhookContentType.TokenConsumed]: TokenConsumedContent;
     [WebhookContentType.HierarchyDeleted]: HierarchyDeletedContent;
@@ -359,6 +362,7 @@ declare module 'chargebee' {
     [WebhookContentType.SubscriptionScheduledCancellationRemoved]: SubscriptionScheduledCancellationRemovedContent;
     [WebhookContentType.PaymentRefunded]: PaymentRefundedContent;
     [WebhookContentType.UsageFileIngested]: UsageFileIngestedContent;
+    [WebhookContentType.OmnichannelSubscriptionMovedIn]: OmnichannelSubscriptionMovedInContent;
     [WebhookContentType.DifferentialPriceCreated]: DifferentialPriceCreatedContent;
     [WebhookContentType.TransactionCreated]: TransactionCreatedContent;
     [WebhookContentType.PaymentSucceeded]: PaymentSucceededContent;
@@ -752,6 +756,9 @@ declare module 'chargebee' {
   };
   export type SubscriptionRampDraftedContent = {
     ramp: Ramp;
+  };
+  export type DunningUpdatedContent = {
+    invoice: Invoice;
   };
   export type ItemEntitlementsUpdatedContent = {
     feature: Feature;
@@ -1287,6 +1294,11 @@ declare module 'chargebee' {
   };
   export type UsageFileIngestedContent = {
     usage_file: UsageFile;
+  };
+  export type OmnichannelSubscriptionMovedInContent = {
+    omnichannel_subscription: OmnichannelSubscription;
+
+    customer: Customer;
   };
   export type DifferentialPriceCreatedContent = {
     differential_price: DifferentialPrice;

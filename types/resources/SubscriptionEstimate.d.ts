@@ -37,7 +37,6 @@ declare module 'chargebee' {
       country?: string;
       zip?: string;
       validation_status?: ValidationStatusEnum;
-      index: number;
     }
     export interface ContractTerm {
       id: string;

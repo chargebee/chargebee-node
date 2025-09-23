@@ -47,10 +47,13 @@
 ///<reference path='./resources/ItemPrice.d.ts' />
 ///<reference path='./resources/Metadata.d.ts' />
 ///<reference path='./resources/NonSubscription.d.ts' />
+///<reference path='./resources/OfferEvent.d.ts' />
+///<reference path='./resources/OfferFulfillment.d.ts' />
 ///<reference path='./resources/OmnichannelOneTimeOrder.d.ts' />
 ///<reference path='./resources/OmnichannelOneTimeOrderItem.d.ts' />
 ///<reference path='./resources/OmnichannelSubscription.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItem.d.ts' />
+///<reference path='./resources/OmnichannelSubscriptionItemOffer.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItemScheduledChange.d.ts' />
 ///<reference path='./resources/OmnichannelTransaction.d.ts' />
 ///<reference path='./resources/Order.d.ts' />
@@ -61,6 +64,7 @@
 ///<reference path='./resources/PaymentScheduleScheme.d.ts' />
 ///<reference path='./resources/PaymentSource.d.ts' />
 ///<reference path='./resources/PaymentVoucher.d.ts' />
+///<reference path='./resources/PersonalizedOffer.d.ts' />
 ///<reference path='./resources/Plan.d.ts' />
 ///<reference path='./resources/PortalSession.d.ts' />
 ///<reference path='./resources/PriceVariant.d.ts' />
@@ -199,6 +203,8 @@ declare module 'chargebee' {
     itemFamily: ItemFamily.ItemFamilyResource;
     itemPrice: ItemPrice.ItemPriceResource;
     nonSubscription: NonSubscription.NonSubscriptionResource;
+    offerEvent: OfferEvent.OfferEventResource;
+    offerFulfillment: OfferFulfillment.OfferFulfillmentResource;
     omnichannelOneTimeOrder: OmnichannelOneTimeOrder.OmnichannelOneTimeOrderResource;
     omnichannelSubscription: OmnichannelSubscription.OmnichannelSubscriptionResource;
     omnichannelSubscriptionItem: OmnichannelSubscriptionItem.OmnichannelSubscriptionItemResource;
@@ -207,6 +213,7 @@ declare module 'chargebee' {
     paymentScheduleScheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;
     paymentSource: PaymentSource.PaymentSourceResource;
     paymentVoucher: PaymentVoucher.PaymentVoucherResource;
+    personalizedOffer: PersonalizedOffer.PersonalizedOfferResource;
     plan: Plan.PlanResource;
     portalSession: PortalSession.PortalSessionResource;
     priceVariant: PriceVariant.PriceVariantResource;

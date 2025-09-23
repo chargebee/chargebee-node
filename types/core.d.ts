@@ -45,6 +45,7 @@ declare module 'chargebee' {
     | 'end_of_term'
     | 'specific_date'
     | 'end_of_billing_term';
+  type CategoryEnum = 'introductory' | 'promotional' | 'developer_determined';
   type ChangeOptionEnum = 'immediately' | 'end_of_term' | 'specific_date';
   type ChannelEnum = 'web' | 'app_store' | 'play_store';
   type ChargeModelEnum = 'full_charge' | 'prorate';
@@ -80,6 +81,7 @@ declare module 'chargebee' {
     | 'becs_nz'
     | 'pad'
     | 'not_applicable';
+  type DiscountTypeEnum = 'fixed_amount' | 'percentage' | 'price';
   type DispositionTypeEnum = 'attachment' | 'inline';
   type DunningTypeEnum = 'auto_collect' | 'offline' | 'direct_debit';
   type DurationTypeEnum = 'one_time' | 'forever' | 'limited_period';
@@ -219,6 +221,7 @@ declare module 'chargebee' {
     | 'transaction_deleted'
     | 'payment_succeeded'
     | 'payment_failed'
+    | 'dunning_updated'
     | 'payment_refunded'
     | 'payment_initiated'
     | 'refund_initiated'
@@ -356,6 +359,7 @@ declare module 'chargebee' {
     | 'omnichannel_one_time_order_item_cancelled'
     | 'usage_file_ingested'
     | 'omnichannel_subscription_item_pause_scheduled'
+    | 'omnichannel_subscription_moved_in'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'
@@ -611,7 +615,10 @@ declare module 'chargebee' {
     | 'automated_bank_transfer'
     | 'klarna_pay_now'
     | 'online_banking_poland'
-    | 'payconiq_by_bancontact';
+    | 'payconiq_by_bancontact'
+    | 'free_trial'
+    | 'pay_up_front'
+    | 'pay_as_you_go';
   type UnbilledChargesHandlingEnum = 'no_action' | 'invoice';
   type UnbilledChargesOptionEnum = 'invoice' | 'delete';
   type UnpaidInvoicesHandlingEnum = 'no_action' | 'schedule_payment_collection';

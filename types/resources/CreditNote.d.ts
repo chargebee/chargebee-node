@@ -3,6 +3,7 @@
 ///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface CreditNote {
+    [key: string]: unknown;
     id: string;
     customer_id: string;
     subscription_id?: string;
@@ -395,7 +396,6 @@ declare module 'chargebee' {
       country?: string;
       zip?: string;
       validation_status?: ValidationStatusEnum;
-      index: number;
     }
     export interface BillingAddress {
       first_name?: string;
@@ -450,6 +450,7 @@ declare module 'chargebee' {
       currency_code?: string;
       comment?: string;
       line_items?: LineItemsCreateInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface RetrieveInputParam {
       line_item?: LineItemRetrieveInputParam;
@@ -528,6 +529,7 @@ declare module 'chargebee' {
       taxes?: TaxesImportCreditNoteInputParam[];
       allocations?: AllocationsImportCreditNoteInputParam[];
       linked_refunds?: LinkedRefundsImportCreditNoteInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface LineItemsCreateInputParam {
       reference_line_item_id?: string;

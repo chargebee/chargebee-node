@@ -13,5 +13,18 @@ declare module 'chargebee' {
     transacted_at?: number;
     created_at: number;
     resource_version?: number;
+    linked_omnichannel_subscriptions?: OmnichannelTransaction.LinkedOmnichannelSubscription[];
+    linked_omnichannel_one_time_orders?: OmnichannelTransaction.LinkedOmnichannelOneTimeOrder[];
+  }
+
+  export namespace OmnichannelTransaction {
+    export interface LinkedOmnichannelSubscription {
+      omnichannel_subscription_id?: string;
+    }
+    export interface LinkedOmnichannelOneTimeOrder {
+      omnichannel_one_time_order_id?: string;
+    }
+    // REQUEST PARAMS
+    //---------------
   }
 }
