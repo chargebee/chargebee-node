@@ -3,6 +3,7 @@
 ///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface Invoice {
+    [key: string]: unknown;
     id: string;
     customer_id: string;
     payment_owner?: string;
@@ -776,7 +777,6 @@ declare module 'chargebee' {
       country?: string;
       zip?: string;
       validation_status?: ValidationStatusEnum;
-      index: number;
     }
     export interface BillingAddress {
       first_name?: string;
@@ -880,6 +880,7 @@ declare module 'chargebee' {
       notes_to_remove?: NotesToRemoveCreateForChargeItemsAndChargesInputParam[];
       tax_providers_fields?: TaxProvidersFieldsCreateForChargeItemsAndChargesInputParam[];
       discounts?: DiscountsCreateForChargeItemsAndChargesInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface ChargeInputParam {
       customer_id?: string;
@@ -985,6 +986,7 @@ declare module 'chargebee' {
       payments?: PaymentsImportInvoiceInputParam[];
       notes?: NotesImportInvoiceInputParam[];
       line_item_addresses?: LineItemAddressesImportInvoiceInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface ApplyPaymentsInputParam {
       comment?: string;
@@ -1083,6 +1085,7 @@ declare module 'chargebee' {
       remove_general_note?: boolean;
       invoice_date?: number;
       notes_to_remove?: NotesToRemoveCloseInputParam[];
+      [key: `cf_${string}`]: unknown;
     }
     export interface CollectPaymentInputParam {
       amount?: number;
@@ -1137,6 +1140,7 @@ declare module 'chargebee' {
       billing_address?: BillingAddressUpdateDetailsInputParam;
       shipping_address?: ShippingAddressUpdateDetailsInputParam;
       statement_descriptor?: StatementDescriptorUpdateDetailsInputParam;
+      [key: `cf_${string}`]: unknown;
     }
     export interface ApplyPaymentScheduleSchemeInputParam {
       scheme_id: string;

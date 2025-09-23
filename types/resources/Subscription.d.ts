@@ -650,7 +650,6 @@ declare module 'chargebee' {
       country?: string;
       zip?: string;
       validation_status?: ValidationStatusEnum;
-      index: number;
     }
     export interface ReferralInfo {
       referral_code?: string;
@@ -825,6 +824,7 @@ declare module 'chargebee' {
       auto_collection?: AutoCollectionEnum;
       terms_to_charge?: number;
       billing_alignment_mode?: BillingAlignmentModeEnum;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       po_number?: string;
       coupon_ids?: string[];
       payment_source_id?: string;

@@ -593,6 +593,7 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       coupon?: string;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       free_period?: number;
       free_period_unit?: FreePeriodUnitEnum;
       contract_term_billing_cycle_on_renewal?: number;
@@ -734,6 +735,7 @@ declare module 'chargebee' {
        */
       setup_fee?: number;
       start_date?: number;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       free_period?: number;
       free_period_unit?: FreePeriodUnitEnum;
       contract_term_billing_cycle_on_renewal?: number;

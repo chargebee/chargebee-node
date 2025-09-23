@@ -17,6 +17,8 @@ declare module 'chargebee' {
     processing_completed_at?: number;
     uploaded_by?: string;
     uploaded_at?: number;
+    error_file_path?: string;
+    error_file_url?: string;
     upload_details?: UsageFile.UploadDetail;
   }
 

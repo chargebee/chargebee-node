@@ -73,6 +73,7 @@ declare module 'chargebee' {
       SubscriptionAdvanceInvoiceScheduleUpdatedContent &
       ItemDeletedContent &
       SubscriptionRampDraftedContent &
+      DunningUpdatedContent &
       ItemEntitlementsUpdatedContent &
       TokenConsumedContent &
       HierarchyDeletedContent &
@@ -166,6 +167,7 @@ declare module 'chargebee' {
       SubscriptionScheduledCancellationRemovedContent &
       PaymentRefundedContent &
       UsageFileIngestedContent &
+      OmnichannelSubscriptionMovedInContent &
       DifferentialPriceCreatedContent &
       TransactionCreatedContent &
       PaymentSucceededContent &

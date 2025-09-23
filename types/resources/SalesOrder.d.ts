@@ -15,6 +15,7 @@ declare module 'chargebee' {
     end_date?: number;
     business_entity_id?: string;
     customer_id: string;
+    subscription_id: string;
     currency_code: string;
     line_items?: SalesOrder.LineItem[];
     billing_addresses?: SalesOrder.BillingAddress[];
@@ -106,7 +107,6 @@ declare module 'chargebee' {
         | 'valid'
         | 'partially_valid'
         | 'invalid';
-      index: number;
     }
     export interface LineItemTier {
       starting_unit: string;

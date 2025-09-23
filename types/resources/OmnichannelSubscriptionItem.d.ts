@@ -29,6 +29,7 @@ declare module 'chargebee' {
     resumes_at?: number;
     has_scheduled_changes: boolean;
     resource_version?: number;
+    omnichannel_subscription_item_offers: OmnichannelSubscriptionItemOffer[];
     upcoming_renewal?: OmnichannelSubscriptionItem.UpcomingRenewal;
     linked_item?: OmnichannelSubscriptionItem.LinkedItem;
   }

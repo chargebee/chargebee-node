@@ -19,6 +19,7 @@ declare module 'chargebee' {
     items_to_remove?: string[];
     coupons_to_remove?: string[];
     discounts_to_remove?: string[];
+    contract_term?: Ramp.ContractTerm;
     deleted: boolean;
     status_transition_reason?: Ramp.StatusTransitionReason;
   }
@@ -88,6 +89,13 @@ declare module 'chargebee' {
       billing_cycles?: number;
       service_period_days?: number;
       metered_quantity?: string;
+      charge_once?: boolean;
+      charge_on_option?: 'immediately' | 'on_event';
+      charge_on_event?:
+        | 'subscription_trial_start'
+        | 'plan_activation'
+        | 'subscription_activation'
+        | 'contract_termination';
     }
     export interface ItemsToUpdate {
       item_price_id: string;
@@ -103,6 +111,13 @@ declare module 'chargebee' {
       billing_cycles?: number;
       service_period_days?: number;
       metered_quantity?: string;
+      charge_once?: boolean;
+      charge_on_option?: 'immediately' | 'on_event';
+      charge_on_event?:
+        | 'subscription_trial_start'
+        | 'plan_activation'
+        | 'subscription_activation'
+        | 'contract_termination';
     }
     export interface CouponsToAdd {
       coupon_id: string;
@@ -134,6 +149,11 @@ declare module 'chargebee' {
       package_size?: number;
       index: number;
     }
+    export interface ContractTerm {
+      cancellation_cutoff_period?: number;
+      renewal_billing_cycles?: number;
+      action_at_term_end: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
+    }
     export interface StatusTransitionReason {
       code?: string;
       message?: string;
@@ -147,6 +167,7 @@ declare module 'chargebee' {
       coupons_to_remove?: string[];
       discounts_to_remove?: string[];
       items_to_remove?: string[];
+      contract_term?: ContractTermCreateForSubscriptionInputParam;
       items_to_add?: ItemsToAddCreateForSubscriptionInputParam[];
       items_to_update?: ItemsToUpdateCreateForSubscriptionInputParam[];
       item_tiers?: ItemTiersCreateForSubscriptionInputParam[];
@@ -159,6 +180,7 @@ declare module 'chargebee' {
       coupons_to_remove?: string[];
       discounts_to_remove?: string[];
       items_to_remove?: string[];
+      contract_term?: ContractTermUpdateInputParam;
       items_to_add?: ItemsToAddUpdateInputParam[];
       items_to_update?: ItemsToUpdateUpdateInputParam[];
       item_tiers?: ItemTiersUpdateInputParam[];
@@ -176,6 +198,12 @@ declare module 'chargebee' {
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
     }
+    export interface ContractTermCreateForSubscriptionInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
+      cancellation_cutoff_period?: number;
+      renewal_billing_cycles?: number;
+    }
+
     export interface ItemsToAddCreateForSubscriptionInputParam {
       item_price_id: string;
       quantity?: number;
@@ -184,6 +212,9 @@ declare module 'chargebee' {
       unit_price_in_decimal?: string;
       billing_cycles?: number;
       service_period_days?: number;
+      charge_on_event?: ChargeOnEventEnum;
+      charge_once?: boolean;
+      charge_on_option?: ChargeOnOptionEnum;
     }
     export interface CouponsToAddCreateForSubscriptionInputParam {
       coupon_id?: string;
@@ -208,6 +239,9 @@ declare module 'chargebee' {
       unit_price_in_decimal?: string;
       billing_cycles?: number;
       service_period_days?: number;
+      charge_on_event?: ChargeOnEventEnum;
+      charge_once?: boolean;
+      charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsToAddCreateForSubscriptionInputParam {
       apply_on: ApplyOnEnum;
@@ -219,6 +253,12 @@ declare module 'chargebee' {
       included_in_mrr?: boolean;
       item_price_id?: string;
     }
+    export interface ContractTermUpdateInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
+      cancellation_cutoff_period?: number;
+      renewal_billing_cycles?: number;
+    }
+
     export interface ItemsToAddUpdateInputParam {
       item_price_id: string;
       quantity?: number;
@@ -227,6 +267,9 @@ declare module 'chargebee' {
       unit_price_in_decimal?: string;
       billing_cycles?: number;
       service_period_days?: number;
+      charge_on_event?: ChargeOnEventEnum;
+      charge_once?: boolean;
+      charge_on_option?: ChargeOnOptionEnum;
     }
     export interface CouponsToAddUpdateInputParam {
       coupon_id?: string;
@@ -251,6 +294,9 @@ declare module 'chargebee' {
       unit_price_in_decimal?: string;
       billing_cycles?: number;
       service_period_days?: number;
+      charge_on_event?: ChargeOnEventEnum;
+      charge_once?: boolean;
+      charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsToAddUpdateInputParam {
       apply_on: ApplyOnEnum;

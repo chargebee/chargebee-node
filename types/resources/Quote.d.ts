@@ -42,11 +42,11 @@ declare module 'chargebee' {
     updated_at?: number;
     vat_number_prefix?: string;
     line_items?: Quote.LineItem[];
-    discounts?: Quote.Discount[];
-    line_item_discounts?: Quote.LineItemDiscount[];
-    taxes?: Quote.Tax[];
-    line_item_taxes?: Quote.LineItemTax[];
     line_item_tiers?: Quote.LineItemTier[];
+    line_item_discounts?: Quote.LineItemDiscount[];
+    line_item_taxes?: Quote.LineItemTax[];
+    discounts?: Quote.Discount[];
+    taxes?: Quote.Tax[];
     tax_category?: string;
     currency_code: string;
     notes?: any;
@@ -351,19 +351,18 @@ declare module 'chargebee' {
       entity_id?: string;
       customer_id?: string;
     }
-    export interface Discount {
-      amount: number;
-      description?: string;
-      entity_type:
-        | 'item_level_coupon'
-        | 'document_level_coupon'
-        | 'promotional_credits'
-        | 'prorated_credits'
-        | 'item_level_discount'
-        | 'document_level_discount';
-      discount_type?: 'fixed_amount' | 'percentage';
-      entity_id?: string;
-      coupon_set_code?: string;
+    export interface LineItemTier {
+      line_item_id?: string;
+      starting_unit: number;
+      ending_unit?: number;
+      quantity_used: number;
+      unit_amount: number;
+      starting_unit_in_decimal?: string;
+      ending_unit_in_decimal?: string;
+      quantity_used_in_decimal?: string;
+      unit_amount_in_decimal?: string;
+      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
+      package_size?: number;
     }
     export interface LineItemDiscount {
       line_item_id: string;
@@ -377,11 +376,6 @@ declare module 'chargebee' {
       coupon_id?: string;
       entity_id?: string;
       discount_amount: number;
-    }
-    export interface Tax {
-      name: string;
-      amount: number;
-      description?: string;
     }
     export interface LineItemTax {
       line_item_id?: string;
@@ -408,18 +402,24 @@ declare module 'chargebee' {
       tax_amount_in_local_currency?: number;
       local_currency_code?: string;
     }
-    export interface LineItemTier {
-      line_item_id?: string;
-      starting_unit: number;
-      ending_unit?: number;
-      quantity_used: number;
-      unit_amount: number;
-      starting_unit_in_decimal?: string;
-      ending_unit_in_decimal?: string;
-      quantity_used_in_decimal?: string;
-      unit_amount_in_decimal?: string;
-      pricing_type?: 'per_unit' | 'flat_fee' | 'package';
-      package_size?: number;
+    export interface Discount {
+      amount: number;
+      description?: string;
+      entity_type:
+        | 'item_level_coupon'
+        | 'document_level_coupon'
+        | 'promotional_credits'
+        | 'prorated_credits'
+        | 'item_level_discount'
+        | 'document_level_discount';
+      discount_type?: 'fixed_amount' | 'percentage';
+      entity_id?: string;
+      coupon_set_code?: string;
+    }
+    export interface Tax {
+      name: string;
+      amount: number;
+      description?: string;
     }
     export interface ShippingAddress {
       first_name?: string;
@@ -436,7 +436,6 @@ declare module 'chargebee' {
       country?: string;
       zip?: string;
       validation_status?: ValidationStatusEnum;
-      index: number;
     }
     export interface BillingAddress {
       first_name?: string;
@@ -1118,6 +1117,7 @@ declare module 'chargebee' {
        */
       setup_fee?: number;
       start_date?: number;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       contract_term_billing_cycle_on_renewal?: number;
     }
 
@@ -1216,6 +1216,7 @@ declare module 'chargebee' {
        */
       setup_fee?: number;
       start_date?: number;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       contract_term_billing_cycle_on_renewal?: number;
     }
 

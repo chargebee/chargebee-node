@@ -52,10 +52,13 @@ declare module 'chargebee' {
     item_price: ItemPrice;
     metadata: Metadata;
     non_subscription: NonSubscription;
+    offer_event: OfferEvent;
+    offer_fulfillment: OfferFulfillment;
     omnichannel_one_time_order: OmnichannelOneTimeOrder;
     omnichannel_one_time_order_item: OmnichannelOneTimeOrderItem;
     omnichannel_subscription: OmnichannelSubscription;
     omnichannel_subscription_item: OmnichannelSubscriptionItem;
+    omnichannel_subscription_item_offer: OmnichannelSubscriptionItemOffer;
     omnichannel_subscription_item_scheduled_change: OmnichannelSubscriptionItemScheduledChange;
     omnichannel_transaction: OmnichannelTransaction;
     order: Order;
@@ -66,6 +69,7 @@ declare module 'chargebee' {
     payment_schedule_scheme: PaymentScheduleScheme;
     payment_source: PaymentSource;
     payment_voucher: PaymentVoucher;
+    personalized_offer: PersonalizedOffer;
     plan: Plan;
     portal_session: PortalSession;
     price_variant: PriceVariant;
