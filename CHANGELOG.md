@@ -1,3 +1,11 @@
+### v3.15.0 (2025-10-15)
+* * * 
+
+### Enhancements
+* Added support for injectable **custom HTTP clients**.
+* Added example implementation using **Axios**.
+* Added example implementation using **Got**.
+
 ### v3.14.0 (2025-09-23)
 * * * 
 
