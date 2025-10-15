@@ -1,10 +1,10 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import{
-    HttpClientInterface, 
-    HttpClientRequestInterface, 
-    HttpClientResponseInterface,
-    HttpResponseHeaders,
-} from "chargebee"
+import {
+  HttpClientInterface,
+  HttpClientRequestInterface,
+  HttpClientResponseInterface,
+  HttpResponseHeaders,
+} from 'chargebee';
 
 class AxiosHttpResponse implements HttpClientResponseInterface {
   constructor(private response: AxiosResponse) {}
@@ -26,7 +26,7 @@ class AxiosHttpResponse implements HttpClientResponseInterface {
   }
 }
 
-export class AxiosHttpClient implements HttpClientInterface{
+export class AxiosHttpClient implements HttpClientInterface {
   private axiosInstance: AxiosInstance;
 
   constructor() {
@@ -35,7 +35,8 @@ export class AxiosHttpClient implements HttpClientInterface{
   async makeApiRequest(
     props: HttpClientRequestInterface,
   ): Promise<HttpClientResponseInterface> {
-    const { host, port, path, method, headers, data, protocol, timeout } = props;
+    const { host, port, path, method, headers, data, protocol, timeout } =
+      props;
     const url = `${protocol}://${host}${port ? `:${port}` : ''}${path}`;
     try {
       const response = await this.axiosInstance.request({
