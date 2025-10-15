@@ -103,74 +103,103 @@
 ///<reference path='./resources/WebhookEndpoint.d.ts' />
 ///<reference path='./resources/Content.d.ts' />
 ///<reference path='./resources/WebhookEvent.d.ts' />
-
-export type Config = {
-  /**
-   * @apiKey api key for the site.
-   */
-  apiKey: string;
-  /**
-   * @site api site name.
-   */
-  site: string;
-  /**
-   * @apiPath this value indicates the api version, default value is /api/v2.
-   */
-  apiPath?: '/api/v2' | '/api/v1';
-  /**
-   * @timeout client side request timeout in milliseconds, default value is 80000ms.
-   */
-  timeout?: number;
-  /**
-   * @port url port
-   */
-  port?: number;
-  /**
-   * @timemachineWaitInMillis time interval at which two subsequent retrieve timemachine call in milliseconds, default value is 3000ms.
-   */
-  timemachineWaitInMillis?: number;
-  /**
-   * @exportWaitInMillis time interval at which two subsequent retrieve export call in milliseconds, default value is 3000ms.
-   */
-  exportWaitInMillis?: number;
-  /**
-   * @protocol http protocol, default value is https
-   */
-  protocol?: 'https' | 'http';
-  /**
-   * @hostSuffix url host suffix, default value is .chargebee.com
-   */
-  hostSuffix?: string;
-
-  /**
-   * @retryConfig retry configuration for the client, default value is { enabled: false, maxRetries: 3, delayMs: 1000, retryOn: [500, 502, 503, 504]}
-   */
-  retryConfig?: RetryConfig;
-
-  /**
-   * @enableDebugLogs whether to enable debug logs, default value is false
-   */
-  enableDebugLogs?: boolean;
-
-  /**
-   * @userAgentSuffix optional string appended to the User-Agent header for additional logging
-   */
-  userAgentSuffix?: string;
-};
-
-export type RetryConfig = {
-  /**
-   * @enabled whether to enable retry logic, default value is false
-   * @maxRetries maximum number of retries, default value is 3
-   * @delayMs delay in milliseconds between retries, default value is 1000ms
-   * @retryOn array of HTTP status codes to retry on, default value is [500, 502, 503, 504]
-   */
-  enabled?: boolean;
-  maxRetries?: number;
-  delayMs?: number;
-  retryOn?: Array<number>;
-};
 declare module 'chargebee' {
+  export type Config = {
+    /**
+     * @apiKey api key for the site.
+     */
+    apiKey: string;
+    /**
+     * @site api site name.
+     */
+    site: string;
+    /**
+     * @apiPath this value indicates the api version, default value is /api/v2.
+     */
+    apiPath?: '/api/v2' | '/api/v1';
+    /**
+     * @timeout client side request timeout in milliseconds, default value is 80000ms.
+     */
+    timeout?: number;
+    /**
+     * @port url port
+     */
+    port?: number;
+    /**
+     * @timemachineWaitInMillis time interval at which two subsequent retrieve timemachine call in milliseconds, default value is 3000ms.
+     */
+    timemachineWaitInMillis?: number;
+    /**
+     * @exportWaitInMillis time interval at which two subsequent retrieve export call in milliseconds, default value is 3000ms.
+     */
+    exportWaitInMillis?: number;
+    /**
+     * @protocol http protocol, default value is https
+     */
+    protocol?: 'https' | 'http';
+    /**
+     * @hostSuffix url host suffix, default value is .chargebee.com
+     */
+    hostSuffix?: string;
+
+    /**
+     * @retryConfig retry configuration for the client, default value is { enabled: false, maxRetries: 3, delayMs: 1000, retryOn: [500, 502, 503, 504]}
+     */
+    retryConfig?: RetryConfig;
+
+    /**
+     * @enableDebugLogs whether to enable debug logs, default value is false
+     */
+    enableDebugLogs?: boolean;
+
+    /**
+     * @userAgentSuffix optional string appended to the User-Agent header for additional logging
+     */
+    userAgentSuffix?: string;
+
+    /**
+     * @httpClient optional http client implementation, default http client will be used if not provided
+     */
+    httpClient?: HttpClientInterface;
+  };
+
+  export interface HttpClientInterface {
+    makeApiRequest: (
+      props: HttpClientRequestInterface,
+    ) => Promise<HttpClientResponseInterface>;
+  }
+  export interface HttpClientRequestInterface {
+    host: string;
+    port: number;
+    path: string;
+    method: string;
+    headers: HttpRequestHeaders;
+    data: string;
+    protocol: string;
+    timeout: number;
+  }
+  export interface HttpClientResponseInterface {
+    getStatusCode: () => number;
+    getHeaders: () => HttpResponseHeaders;
+    getRawResponse: () => unknown;
+    toJson: () => Promise<any>;
+  }
+  export type HttpResponseHeaders = Record<string, string | string[] | number>;
+  export type HttpRequestHeaders = Record<string, string | number>;
+
+  export type RetryConfig = {
+    /**
+     * @enabled whether to enable retry logic, default value is false
+     * @maxRetries maximum number of retries, default value is 3
+     * @delayMs delay in milliseconds between retries, default value is 1000ms
+     * @retryOn array of HTTP status codes to retry on, default value is [500, 502, 503, 504]
+     */
+    enabled?: boolean;
+    maxRetries?: number;
+    delayMs?: number;
+    retryOn?: Array<number>;
+  };
+
   export default class Chargebee {
     constructor(config: Config);
     addon: Addon.AddonResource;

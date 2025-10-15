@@ -57,6 +57,7 @@ export type Config = {
   retryConfig?: RetryConfig;
   enableDebugLogs?: boolean;
   userAgentSuffix?: string;
+  httpClient?: HttpClientInterface;
 };
 
 export type Callback = (error: unknown, result: any | null) => void;

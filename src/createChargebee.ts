@@ -17,7 +17,8 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
     this._env = { ...Environment };
     extend(true, this._env, conf);
     // @ts-ignore
-    this._env.httpClient = httpClient;
+    this._env.httpClient =
+      conf.httpClient != null ? conf.httpClient : httpClient;
     this._buildResources();
     this._endpoints = Endpoints;
   } as any as { new (): ChargebeeType };
