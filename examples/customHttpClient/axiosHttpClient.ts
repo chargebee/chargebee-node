@@ -51,7 +51,6 @@ export class AxiosHttpClient implements HttpClientInterface {
           });
           return fetchResponse;
         }
-        console.log(error);
         throw new Error(
           `Request failed: ${error.message}${
             error.code ? ` (${error.code})` : ''

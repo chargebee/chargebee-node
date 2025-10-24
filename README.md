@@ -257,10 +257,10 @@ const chargebee = new Chargebee({
 * Example implementations are available under:
 
   * [`/examples/customHttpClient/axiosHttpClient.ts`](./examples/customHttpClient/axiosHttpClient.ts)
-  * [`/examples/customHttpClient/gotHttpClient.ts`](./examples/customHttpClient/gotHttpClient.ts)
+  * [`/examples/customHttpClient/kyHttpClient.ts`](./examples/customHttpClient/kyHttpClient.ts)
 * You may need to implement custom conversion logic when integrating third-party HTTP libraries, as their request and response formats might not directly align with the `HttpClientInterface` expected by the SDK.
 
-These examples demonstrate how to implement and inject custom clients using `axios` and `got`, respectively.
+These examples demonstrate how to implement and inject custom clients using `axios` and `ky`, respectively.
 
 ## Feedback
 
