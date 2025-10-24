@@ -1,11 +1,10 @@
 import Chargebee from 'chargebee';
 import { AxiosHttpClient } from './axiosHttpClient';
-import { GotHttpClient } from './gotHttpClient';
 
 const chargebee = new Chargebee({
   site: '{{site}}',
   apiKey: '{{apiKey}}',
-  httpClient: new AxiosHttpClient(), // httpClient: new AxiosHttpClient(),
+  httpClient: new AxiosHttpClient(), // httpClient: new KyHttpClient(),
 });
 
 const listCustomers = async () => {

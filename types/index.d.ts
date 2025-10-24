@@ -164,28 +164,8 @@ declare module 'chargebee' {
   };
 
   export interface HttpClientInterface {
-    makeApiRequest: (
-      props: HttpClientRequestInterface,
-    ) => Promise<HttpClientResponseInterface>;
+    makeApiRequest: (request: Request, timeout: number) => Promise<Response>;
   }
-  export interface HttpClientRequestInterface {
-    host: string;
-    port: number;
-    path: string;
-    method: string;
-    headers: HttpRequestHeaders;
-    data: string;
-    protocol: string;
-    timeout: number;
-  }
-  export interface HttpClientResponseInterface {
-    getStatusCode: () => number;
-    getHeaders: () => HttpResponseHeaders;
-    getRawResponse: () => unknown;
-    toJson: () => Promise<any>;
-  }
-  export type HttpResponseHeaders = Record<string, string | string[] | number>;
-  export type HttpRequestHeaders = Record<string, string | number>;
 
   export type RetryConfig = {
     /**

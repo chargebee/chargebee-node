@@ -4,7 +4,8 @@
 ### Enhancements
 * Added support for injectable **custom HTTP clients**.
 * Added example implementation using **Axios**.
-* Added example implementation using **Got**.
+* Added example implementation using **ky**.
+* Removed support for `http` and `https` based HttpClient as the minimum supported Node.js version for this package is >= 18.
 
 ### v3.14.0 (2025-09-23)
 * * * 

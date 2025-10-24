@@ -1,5 +1,4 @@
 import { ChargebeeError } from './chargebeeError.js';
-import { HttpClientResponseInterface } from './net/ClientInterface.js';
 import { Callback, ResponseHeaders } from './types.js';
 import { isNotUndefinedNEmpty } from './util.js';
 const IDEMPOTENCY_REPLAYED_HEADER = 'chargebee-idempotency-replayed';
@@ -28,13 +27,12 @@ export function throwError(
 }
 export const handleResponse = async (
   callback: Callback,
-  response: HttpClientResponseInterface,
+  response: Response,
 ): Promise<Callback | void> => {
   try {
-    const res =
-      response.getStatusCode() === 204 ? response : await response.toJson();
-    const status: number | undefined = response.getStatusCode();
-    const headers = response.getHeaders();
+    const status: number = response.status;
+    const headers = Object.fromEntries(response.headers.entries());
+    const res = status === 204 ? {} : await response.json();
     if (status && (status < 200 || status > 299)) {
       res.http_status_code = status;
       res.headers = headers;
@@ -49,8 +47,8 @@ export const handleResponse = async (
       return callback(null, res);
     }
   } catch (error) {
-    const status = response.getStatusCode();
-    const headers = response.getHeaders();
+    const status = response.status;
+    const headers = Object.fromEntries(response.headers.entries());
     switch (status) {
       case 503:
         return throwError(
