@@ -47,6 +47,7 @@ declare module 'chargebee' {
       CustomerDeletedContent &
       RefundInitiatedContent &
       InvoiceGeneratedWithBackdatingContent &
+      OmnichannelTransactionCreatedContent &
       AddUsagesReminderContent &
       VoucherCreatedContent &
       RuleUpdatedContent &

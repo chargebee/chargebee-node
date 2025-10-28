@@ -43,7 +43,7 @@ declare module 'chargebee' {
     }
 
     export interface SetSubscriptionEntitlementAvailabilityResponse {
-      subscription_entitlement: SubscriptionEntitlement;
+      list: { subscription_entitlement: SubscriptionEntitlement }[];
     }
 
     export interface Component {

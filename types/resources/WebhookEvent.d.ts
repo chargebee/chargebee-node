@@ -31,6 +31,7 @@ declare module 'chargebee' {
     CustomerDeleted = 'customer_deleted',
     RefundInitiated = 'refund_initiated',
     InvoiceGeneratedWithBackdating = 'invoice_generated_with_backdating',
+    OmnichannelTransactionCreated = 'omnichannel_transaction_created',
     AddUsagesReminder = 'add_usages_reminder',
     VoucherCreated = 'voucher_created',
     RuleUpdated = 'rule_updated',
@@ -242,6 +243,7 @@ declare module 'chargebee' {
     [WebhookContentType.CustomerDeleted]: CustomerDeletedContent;
     [WebhookContentType.RefundInitiated]: RefundInitiatedContent;
     [WebhookContentType.InvoiceGeneratedWithBackdating]: InvoiceGeneratedWithBackdatingContent;
+    [WebhookContentType.OmnichannelTransactionCreated]: OmnichannelTransactionCreatedContent;
     [WebhookContentType.AddUsagesReminder]: AddUsagesReminderContent;
     [WebhookContentType.VoucherCreated]: VoucherCreatedContent;
     [WebhookContentType.RuleUpdated]: RuleUpdatedContent;
@@ -632,6 +634,9 @@ declare module 'chargebee' {
   };
   export type InvoiceGeneratedWithBackdatingContent = {
     invoice: Invoice;
+  };
+  export type OmnichannelTransactionCreatedContent = {
+    omnichannel_transaction: OmnichannelTransaction;
   };
   export type AddUsagesReminderContent = {
     subscription: Subscription;

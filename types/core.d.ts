@@ -360,6 +360,7 @@ declare module 'chargebee' {
     | 'usage_file_ingested'
     | 'omnichannel_subscription_item_pause_scheduled'
     | 'omnichannel_subscription_moved_in'
+    | 'omnichannel_transaction_created'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'
@@ -423,6 +424,7 @@ declare module 'chargebee' {
     | 'solidgate'
     | 'paystack'
     | 'jp_morgan'
+    | 'deutsche_bank'
     | 'gocardless'
     | 'not_applicable';
   type HierarchyOperationTypeEnum =

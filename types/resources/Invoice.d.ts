@@ -61,6 +61,7 @@ declare module 'chargebee' {
     taxes?: Invoice.Tax[];
     tax_origin?: Invoice.TaxOrigin;
     linked_payments?: Invoice.LinkedPayment[];
+    reference_transactions?: Invoice.ReferenceTransaction[];
     dunning_attempts?: Invoice.DunningAttempt[];
     applied_credits?: Invoice.AppliedCredit[];
     adjustment_credit_notes?: Invoice.AdjustmentCreditNote[];
@@ -614,6 +615,7 @@ declare module 'chargebee' {
     export interface Discount {
       amount: number;
       description?: string;
+      line_item_id?: string;
       entity_type:
         | 'item_level_coupon'
         | 'document_level_coupon'
@@ -648,6 +650,27 @@ declare module 'chargebee' {
         | 'late_failure';
       txn_date?: number;
       txn_amount?: number;
+    }
+    export interface ReferenceTransaction {
+      applied_amount: number;
+      applied_at: number;
+      txn_id: string;
+      txn_status?:
+        | 'in_progress'
+        | 'success'
+        | 'voided'
+        | 'failure'
+        | 'timeout'
+        | 'needs_attention'
+        | 'late_failure';
+      txn_date?: number;
+      txn_amount?: number;
+      txn_type: 'authorization' | 'payment' | 'refund' | 'payment_reversal';
+      amount_capturable: number;
+      authorization_reason?:
+        | 'verification'
+        | 'blocking_funds'
+        | 'scheduled_capture';
     }
     export interface DunningAttempt {
       attempt: number;
@@ -1536,6 +1559,7 @@ declare module 'chargebee' {
       note?: string;
     }
     export interface DiscountsImportInvoiceInputParam {
+      line_item_id?: string;
       entity_type:
         | 'item_level_coupon'
         | 'document_level_coupon'

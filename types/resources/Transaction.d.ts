@@ -29,7 +29,10 @@ declare module 'chargebee' {
     fraud_flag?: 'safe' | 'suspicious' | 'fraudulent';
     initiator_type?: 'customer' | 'merchant';
     three_d_secure?: boolean;
-    authorization_reason?: 'blocking_funds' | 'verification';
+    authorization_reason?:
+      | 'blocking_funds'
+      | 'verification'
+      | 'scheduled_capture';
     error_code?: string;
     error_text?: string;
     voided_at?: number;

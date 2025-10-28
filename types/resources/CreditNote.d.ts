@@ -331,6 +331,7 @@ declare module 'chargebee' {
     export interface Discount {
       amount: number;
       description?: string;
+      line_item_id?: string;
       entity_type:
         | 'item_level_coupon'
         | 'document_level_coupon'
@@ -584,6 +585,7 @@ declare module 'chargebee' {
       allocated_at: number;
     }
     export interface DiscountsImportCreditNoteInputParam {
+      line_item_id?: string;
       entity_type:
         | 'item_level_coupon'
         | 'document_level_coupon'
