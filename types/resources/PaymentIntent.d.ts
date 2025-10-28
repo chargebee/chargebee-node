@@ -41,6 +41,7 @@ declare module 'chargebee' {
     customer_id: string;
     gateway?: string;
     active_payment_attempt?: PaymentIntent.PaymentAttempt;
+    payment_attempts?: PaymentIntent.PaymentAttempt[];
     business_entity_id?: string;
   }
 
@@ -110,6 +111,47 @@ declare module 'chargebee' {
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
+      checkout_details?: string;
+      created_at: number;
+      modified_at: number;
+      error_detail?: GatewayErrorDetail;
+    }
+    export interface PaymentAttempt {
+      id?: string;
+      status:
+        | 'inited'
+        | 'requires_identification'
+        | 'requires_challenge'
+        | 'requires_redirection'
+        | 'authorized'
+        | 'refused'
+        | 'pending_authorization';
+      payment_method_type?:
+        | 'card'
+        | 'ideal'
+        | 'sofort'
+        | 'bancontact'
+        | 'google_pay'
+        | 'dotpay'
+        | 'giropay'
+        | 'apple_pay'
+        | 'upi'
+        | 'netbanking_emandates'
+        | 'paypal_express_checkout'
+        | 'direct_debit'
+        | 'boleto'
+        | 'venmo'
+        | 'amazon_payments'
+        | 'pay_to'
+        | 'faster_payments'
+        | 'sepa_instant_transfer'
+        | 'klarna_pay_now'
+        | 'online_banking_poland'
+        | 'payconiq_by_bancontact';
+      id_at_gateway?: string;
+      error_code?: string;
+      error_text?: string;
+      checkout_details?: string;
       created_at: number;
       modified_at: number;
       error_detail?: GatewayErrorDetail;

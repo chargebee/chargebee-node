@@ -1,30 +1,9 @@
-import { RequestHeaders, ResponseHeaders } from '../types.js';
 import { ChargebeeError } from '../chargebeeError.js';
-export interface RequestInterface {
-  host: string;
-  port: number;
-  path: string;
-  method: string;
-  headers: RequestHeaders;
-  data: string;
-  protocol: string;
-  timeout: number;
-}
-export interface HttpClientResponseInterface {
-  getStatusCode: () => number;
-  getHeaders: () => ResponseHeaders;
-  getRawResponse: () => unknown;
-  toJson: () => Promise<any>;
-}
 export interface HttpClientInterface {
-  makeApiRequest: (
-    props: RequestInterface,
-  ) => Promise<HttpClientResponseInterface>;
+  makeApiRequest: (request: Request, timeout: number) => Promise<Response>;
 }
 export class HttpClient implements HttpClientInterface {
-  async makeApiRequest(
-    props: RequestInterface,
-  ): Promise<HttpClientResponseInterface> {
+  async makeApiRequest(props: Request, timeout: number): Promise<Response> {
     throw new Error('makeApiRequest is not implemented');
   }
   static timeOutError(): ChargebeeError {
@@ -41,25 +20,5 @@ export class HttpClient implements HttpClientInterface {
       null,
     );
     return error;
-  }
-}
-export class HttpClientResponse implements HttpClientResponseInterface {
-  _statusCode: number;
-  _headers: ResponseHeaders;
-  constructor(statusCode: number, headers: ResponseHeaders) {
-    this._statusCode = statusCode;
-    this._headers = headers;
-  }
-  getStatusCode(): number {
-    return this._statusCode;
-  }
-  getHeaders(): ResponseHeaders {
-    return this._headers;
-  }
-  getRawResponse(): unknown {
-    throw new Error('getRawResponse not implemented.');
-  }
-  toJson(): any {
-    throw new Error('toJSON not implemented.');
   }
 }

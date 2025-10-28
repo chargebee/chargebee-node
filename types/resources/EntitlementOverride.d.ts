@@ -35,7 +35,7 @@ declare module 'chargebee' {
     }
 
     export interface AddEntitlementOverrideForSubscriptionResponse {
-      entitlement_override: EntitlementOverride;
+      list: { entitlement_override: EntitlementOverride }[];
     }
 
     export interface ListEntitlementOverrideForSubscriptionResponse {

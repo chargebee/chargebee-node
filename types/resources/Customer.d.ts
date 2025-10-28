@@ -348,7 +348,7 @@ declare module 'chargebee' {
     }
 
     export interface ListHierarchyDetailResponse {
-      list: { hierarchies: any[] }[];
+      list: { hierarchy: Hierarchy }[];
       next_offset?: string;
     }
 

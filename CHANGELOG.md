@@ -1,3 +1,35 @@
+### v3.15.0 (2025-10-28)
+* * * 
+
+### New Attributes: 
+* reference_transactions has been added to Invoice.
+* payment_attempts[] has been added to PaymentIntent.
+* checkout_details has been added to PaymentIntent#PaymentAttempt.
+* line_item_id has been added to CreditNoteEstimate#Discount.
+* line_item_id has been added to CreditNote#Discount.
+* line_item_id has been added to InvoiceEstimate#Discount.
+* line_item_id has been added to Invoice#Discount.
+* line_item_id has been added to InvoiceEstimate#Discount.
+* line_item_id has been added to Quote#Discount.
+* line_item_id has been added to QuoteLineGroup#Discount.
+
+### Modified Attributes: 
+* omnichannel_subscription_item_offers has been made optional attribute from required attribute.
+
+### New Input Parameters: 
+* discount[line_item_id] has been added to CreditNote#ImportCreditNoteRequest.
+* discount[line_item_id] has been added to CreditNote#ImportInvoiceRequest.
+
+### New Enums: 
+* OMNICHANNEL_TRANSACTION_CREATED has been added to EventTypeEnum.
+* DEUTSCHE_BANK has been added to Gateway.
+
+### Enhancements
+* Added support for injectable **custom HTTP clients**.
+* Added example implementation using **Axios**.
+* Added example implementation using **ky**.
+* Removed support for `http` and `https` based HttpClient as the minimum supported Node.js version for this package is >= 18.
+
 ### v3.14.0 (2025-09-23)
 * * * 
 

@@ -1,23 +1,5 @@
 interface HttpClientInterface {
-  makeApiRequest: (
-    props: RequestInterface,
-  ) => Promise<HttpClientResponseInterface>;
-}
-interface RequestInterface {
-  host: string;
-  port: number;
-  path: string;
-  method: string;
-  headers: RequestHeaders;
-  data: string;
-  protocol: string;
-  timeout: number;
-}
-interface HttpClientResponseInterface {
-  getStatusCode: () => number;
-  getHeaders: () => ResponseHeaders;
-  getRawResponse: () => unknown;
-  toJson: () => Promise<any>;
+  makeApiRequest: (props: Request, timeout: number) => Promise<Response>;
 }
 export type EnvType = {
   protocol: string;
@@ -57,6 +39,7 @@ export type Config = {
   retryConfig?: RetryConfig;
   enableDebugLogs?: boolean;
   userAgentSuffix?: string;
+  httpClient?: HttpClientInterface;
 };
 
 export type Callback = (error: unknown, result: any | null) => void;

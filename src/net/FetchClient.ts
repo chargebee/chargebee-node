@@ -1,29 +1,14 @@
-import {
-  HttpClient,
-  HttpClientInterface,
-  RequestInterface,
-  HttpClientResponseInterface,
-  HttpClientResponse,
-} from './ClientInterface.js';
+import { HttpClient, HttpClientInterface } from './ClientInterface.js';
 
-import { RequestHeaders, ResponseHeaders } from '../types.js';
+import { RequestHeaders } from '../types.js';
 
 export class FetchHttpClient extends HttpClient implements HttpClientInterface {
-  async makeApiRequest(
-    props: RequestInterface,
-  ): Promise<HttpClientResponseInterface> {
-    const headers: Headers = this._createHeaders(props.headers);
-    let url: string = `${props.protocol}://${props.host}:${props.port}${props.path}`;
-    let fetchOptions: RequestInit = {
-      method: props.method,
-      headers: headers,
-      body: props.data ? props.data : undefined,
-    };
+  async makeApiRequest(request: Request, timeout: number): Promise<Response> {
     try {
       const response: Response = globalThis.AbortController
-        ? await this.fetchWithAbortTimeout(url, fetchOptions, props.timeout)
-        : await this.fetchWithTimeout(url, fetchOptions, props.timeout);
-      return new FetchHttpClientResponse(response);
+        ? await this.fetchWithAbortTimeout(request, timeout)
+        : await this.fetchWithTimeout(request, timeout);
+      return response;
     } catch (err) {
       return Promise.reject(err);
     }
@@ -36,8 +21,7 @@ export class FetchHttpClient extends HttpClient implements HttpClientInterface {
     return headers;
   }
   private async fetchWithTimeout(
-    url: string,
-    fetchOptions: RequestInit,
+    request: Request,
     timeout: number,
   ): Promise<Response> {
     let pendingTimeoutId: NodeJS.Timeout | null;
@@ -47,7 +31,7 @@ export class FetchHttpClient extends HttpClient implements HttpClientInterface {
         reject(HttpClient.timeOutError());
       }, timeout);
     });
-    const fetchPromise = fetch(url, fetchOptions);
+    const fetchPromise = fetch(request);
     return Promise.race([fetchPromise, timeoutPromise]).finally(() => {
       if (pendingTimeoutId) {
         clearTimeout(pendingTimeoutId);
@@ -55,8 +39,7 @@ export class FetchHttpClient extends HttpClient implements HttpClientInterface {
     });
   }
   private async fetchWithAbortTimeout(
-    url: string,
-    fetchOptions: RequestInit,
+    request: Request,
     timeout: number,
   ): Promise<Response> {
     const abort = new AbortController();
@@ -65,10 +48,7 @@ export class FetchHttpClient extends HttpClient implements HttpClientInterface {
       abort.abort(HttpClient.timeOutError());
     }, timeout);
     try {
-      return await fetch(url, {
-        ...fetchOptions,
-        signal: abort.signal,
-      });
+      return await fetch(new Request(request, { signal: abort.signal }));
     } catch (err) {
       if ((err as DOMException).name === 'AbortError') {
         return Promise.reject(HttpClient.timeOutError());
@@ -80,36 +60,5 @@ export class FetchHttpClient extends HttpClient implements HttpClientInterface {
         clearTimeout(timeoutId);
       }
     }
-  }
-}
-
-export class FetchHttpClientResponse
-  extends HttpClientResponse
-  implements HttpClientResponseInterface
-{
-  _res: Response;
-  constructor(response: Response) {
-    super(
-      response.status,
-      FetchHttpClientResponse._transformHeadersToObject(response.headers),
-    );
-    this._res = response;
-  }
-  getRawResponse(): Response {
-    return this._res;
-  }
-  toJson(): Promise<any> {
-    return this._res.json();
-  }
-  static _transformHeadersToObject(headers: Headers): ResponseHeaders {
-    const headersObj: ResponseHeaders = {};
-    for (const entry of headers) {
-      if (!Array.isArray(entry) || entry.length != 2) {
-        throw new Error('Headers should be an iterable object.');
-      }
-
-      headersObj[entry[0]] = entry[1];
-    }
-    return headersObj;
   }
 }

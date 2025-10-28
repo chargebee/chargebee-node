@@ -16,7 +16,6 @@ import {
   RequestHeaders,
   RetryConfig,
 } from './types.js';
-import { HttpClientResponseInterface } from './net/ClientInterface.js';
 import { handleResponse } from './coreCommon.js';
 import { Buffer } from 'node:buffer';
 
@@ -135,17 +134,19 @@ export class RequestWrapper {
         requestHeaders['X-CB-Retry-Attempt'] = attempt.toString();
       }
 
-      const resp: HttpClientResponseInterface =
-        await this.envArg.httpClient.makeApiRequest({
-          host: getHost(env, this.apiCall.subDomain),
-          port: env.port,
-          path,
-          method: this.apiCall.httpMethod,
-          protocol: env.protocol,
-          headers: requestHeaders,
-          data,
-          timeout: env.timeout,
-        });
+      const url = new URL(
+        path,
+        `${env.protocol}://${getHost(env, this.apiCall.subDomain)}${env.port ? `:${env.port}` : ''}`,
+      );
+      const request: Request = new Request(url, {
+        method: this.apiCall.httpMethod,
+        body: data ?? undefined,
+        headers: this._createHeaders(requestHeaders),
+      });
+      const resp: Response = await this.envArg.httpClient.makeApiRequest(
+        request,
+        env.timeout,
+      );
 
       return new Promise((resolve, reject) => {
         handleResponse((err, response) => {
@@ -222,4 +223,12 @@ export class RequestWrapper {
   public getRequest = () => {
     return this.request();
   };
+
+  _createHeaders(httpHeaders: RequestHeaders): Headers {
+    const headers = new Headers();
+    Object.entries(httpHeaders).forEach(([key, value]) => {
+      headers.append(key, String(value));
+    });
+    return headers;
+  }
 }

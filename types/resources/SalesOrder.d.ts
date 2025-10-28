@@ -76,7 +76,7 @@ declare module 'chargebee' {
     export interface Discount {
       id: string;
       invoice_name?: string;
-      type: 'fixed_amount' | 'percentage';
+      type: 'fixed_amount' | 'percentage' | 'offer_quantity';
       apply_on: 'invoice_amount' | 'specific_item_price';
       duration_type: 'one_time' | 'forever' | 'limited_period';
       percentage?: number;

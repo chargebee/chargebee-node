@@ -31,7 +31,7 @@ declare module 'chargebee' {
     }
 
     export interface CreateResponse {
-      entitlement: Entitlement;
+      list: { entitlement: Entitlement }[];
     }
 
     // REQUEST PARAMS
