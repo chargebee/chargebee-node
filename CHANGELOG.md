@@ -1,3 +1,9 @@
+### v3.15.1 (2025-10-29)
+* * * 
+
+### Bug Fixes:
+* Resolves(#88): an issue where requests made with the GET methods incorrectly included a request body, causing the Request interface to throw an error. 
+
 ### v3.15.0 (2025-10-28)
 * * * 
 
