@@ -140,7 +140,7 @@ export class RequestWrapper {
       );
       const request: Request = new Request(url, {
         method: this.apiCall.httpMethod,
-        body: data ?? undefined,
+        body: data ? data : undefined,
         headers: this._createHeaders(requestHeaders),
       });
       const resp: Response = await this.envArg.httpClient.makeApiRequest(
