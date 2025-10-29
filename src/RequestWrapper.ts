@@ -66,7 +66,7 @@ export class RequestWrapper {
     };
 
     const urlIdParam: string = this.apiCall.hasIdInUrl ? this.args[0] : null;
-    let params: JSONValue = this.apiCall.hasIdInUrl
+    const params: JSONValue = this.apiCall.hasIdInUrl
       ? this.args[1]
       : this.args[0];
     let headers = this.apiCall.hasIdInUrl ? this.args[2] : this.args[1];
@@ -91,22 +91,30 @@ export class RequestWrapper {
         urlIdParam,
       );
 
-      if (typeof params === 'undefined' || params === null) {
-        params = {};
+      let requestParams: JSONValue = params;
+
+      if (typeof requestParams === 'undefined' || requestParams === null) {
+        requestParams = {};
       }
 
       if (this.apiCall.httpMethod === 'GET') {
         const queryParam = this.apiCall.isListReq
-          ? encodeListParams(serialize(params))
-          : encodeParams(serialize(params));
+          ? encodeListParams(serialize(requestParams))
+          : encodeParams(serialize(requestParams));
         path += '?' + queryParam;
-        params = {};
+        requestParams = {};
       }
 
       const jsonKeys = this.apiCall.jsonKeys;
       const data: string = this.apiCall.isJsonRequest
-        ? JSON.stringify(params)
-        : encodeParams(params, undefined, undefined, undefined, jsonKeys);
+        ? JSON.stringify(requestParams)
+        : encodeParams(
+            requestParams,
+            undefined,
+            undefined,
+            undefined,
+            jsonKeys,
+          );
 
       const requestHeaders: RequestHeaders = { ...this.httpHeaders };
       if (data.length) {
