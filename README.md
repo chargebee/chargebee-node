@@ -148,6 +148,149 @@ const chargebeeSiteEU = new Chargebee({
 });
 ```
 
+### Handle webhooks
+
+Use the webhook handlers to parse and route webhook payloads from Chargebee with full TypeScript support.
+
+#### High-level: Route events with callbacks using `WebhookHandler`
+
+```typescript
+import express from 'express';
+import { WebhookHandler, basicAuthValidator } from 'chargebee';
+import type { 
+  SubscriptionCreatedContent, 
+  PaymentSucceededContent,
+  WebhookEvent 
+} from 'chargebee';
+
+const app = express();
+app.use(express.json());
+
+const handler = new WebhookHandler({
+  // Register only the events you care about
+  // Event callbacks are fully typed with proper content types
+  onSubscriptionCreated: async (event: WebhookEvent & { content: SubscriptionCreatedContent }) => {
+    console.log(`Subscription created: ${event.id}`);
+    // Full IntelliSense for subscription properties
+    const subscription = event.content.subscription;
+    console.log(`Customer: ${subscription.customer_id}`);
+    console.log(`Plan: ${subscription.plan_id}`);
+  },
+  
+  onPaymentSucceeded: async (event: WebhookEvent & { content: PaymentSucceededContent }) => {
+    console.log(`Payment succeeded: ${event.id}`);
+    // Full IntelliSense for transaction and customer
+    const transaction = event.content.transaction;
+    const customer = event.content.customer;
+    console.log(`Amount: ${transaction.amount}, Customer: ${customer.email}`);
+  },
+});
+
+// Optional: Add request validator (e.g., Basic Auth)
+handler.requestValidator = basicAuthValidator((username, password) => {
+  return username === 'admin' && password === 'secret';
+});
+
+app.post('/chargebee/webhooks', async (req, res) => {
+  try {
+    await handler.handle(req.body, req.headers);
+    res.status(200).send('OK');
+  } catch (err) {
+    console.error('Webhook error:', err);
+    res.status(500).send('Error processing webhook');
+  }
+});
+
+app.listen(8080);
+```
+
+#### Low-level: Parse and handle events manually
+
+For more control, you can parse webhook events manually:
+
+```typescript
+import express from 'express';
+import Chargebee, { type WebhookEvent } from 'chargebee';
+
+const app = express();
+app.use(express.json());
+
+app.post('/chargebee/webhooks', async (req, res) => {
+  try {
+    const event = req.body as WebhookEvent;
+    
+    switch (event.event_type) {
+      case 'subscription_created':
+        // Access event content with proper typing
+        const subscription = event.content.subscription;
+        console.log('Subscription created:', subscription.id);
+        break;
+        
+      case 'payment_succeeded':
+        const transaction = event.content.transaction;
+        console.log('Payment succeeded:', transaction.amount);
+        break;
+        
+      default:
+        console.log('Unhandled event type:', event.event_type);
+    }
+    
+    res.status(200).send('OK');
+  } catch (err) {
+    console.error('Error processing webhook:', err);
+    res.status(500).send('Error processing webhook');
+  }
+});
+
+app.listen(8080);
+```
+
+#### Handling Unhandled Events
+
+By default, if an incoming webhook event type is not recognized or you haven't registered a corresponding callback handler, the SDK provides flexible options to handle these scenarios:
+
+**Using `onUnhandledEvent` callback:**
+
+```typescript
+import { WebhookHandler } from 'chargebee';
+
+const handler = new WebhookHandler({
+  onSubscriptionCreated: async (event) => {
+    // Handle subscription created
+  },
+  
+  // Gracefully handle events without registered callbacks
+  onUnhandledEvent: async (event) => {
+    console.log(`Received unhandled event: ${event.event_type}`);
+    // Log for monitoring or store for later processing
+  },
+});
+```
+
+**Using `onError` for error handling:**
+
+If no `onUnhandledEvent` callback is provided and an unhandled event is received, the SDK will invoke the `onError` callback (if configured):
+
+```typescript
+const handler = new WebhookHandler({
+  onSubscriptionCreated: async (event) => {
+    // Handle subscription created
+  },
+  
+  // Catch any errors during webhook processing
+  onError: (err) => {
+    console.error('Webhook processing error:', err);
+    // Log to monitoring service, alert team, etc.
+  },
+});
+```
+
+**Best Practices:**
+
+- Set `onUnhandledEvent` if you want to acknowledge unknown events (return 200 OK) and log them
+- Use `onError` to catch and handle exceptions thrown during event processing
+- Both callbacks help ensure your webhook endpoint remains stable even when new event types are introduced by Chargebee
+
 ### Processing Webhooks - API Version Check
 
 An attribute `api_version` is added to the [Event](https://apidocs.chargebee.com/docs/api/events) resource, which indicates the API version based on which the event content is structured. In your webhook servers, ensure this `api_version` is the same as the [API version](https://apidocs.chargebee.com/docs/api#versions) used by your webhook server's client library.

@@ -248,4 +248,35 @@ declare module 'chargebee' {
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
     webhookEndpoint: WebhookEndpoint.WebhookEndpointResource;
   }
+
+  // Webhook Handler
+  export class WebhookHandler {
+    constructor(handlers?: Record<string, (event: any) => Promise<void>>);
+    handle(
+      body: string | object,
+      headers?: Record<string, string | string[] | undefined>,
+    ): Promise<void>;
+    onUnhandledEvent?: (event: WebhookEvent) => Promise<void>;
+    onError?: (error: any) => void;
+    requestValidator?: (
+      headers: Record<string, string | string[] | undefined>,
+    ) => void;
+  }
+
+  // Webhook Auth
+  export function basicAuthValidator(
+    validateCredentials: (username: string, password: string) => boolean,
+  ): (headers: Record<string, string | string[] | undefined>) => void;
+
+  // Additional webhook content types not in WebhookEvent.d.ts
+  // Note: These use lowercase property names to match the actual webhook JSON structure
+  export type AddonCreatedContent = {
+    addon: Addon;
+  };
+  export type AddonUpdatedContent = {
+    addon: Addon;
+  };
+  export type AddonDeletedContent = {
+    addon: Addon;
+  };
 }
