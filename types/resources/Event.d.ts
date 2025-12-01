@@ -228,7 +228,13 @@ declare module 'chargebee' {
       PaymentSourceUpdatedContent &
       BusinessEntityDeletedContent &
       AuthorizationVoidedContent &
-      SubscriptionRampDeletedContent;
+      SubscriptionRampDeletedContent &
+      PlanDeletedContent &
+      AddonDeletedContent &
+      AddonUpdatedContent &
+      AddonCreatedContent &
+      PlanCreatedContent &
+      PlanUpdatedContent;
     origin_user?: string;
   }
 

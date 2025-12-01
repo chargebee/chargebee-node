@@ -42,6 +42,7 @@ declare module 'chargebee' {
     voided_at?: number;
     resource_version?: number;
     updated_at?: number;
+    line_items_next_offset?: string;
     first_invoice?: boolean;
     new_sales_amount?: number;
     has_advance_charges?: boolean;
@@ -1062,6 +1063,8 @@ declare module 'chargebee' {
       offset?: string;
     }
     export interface RetrieveInputParam {
+      line_items_limit?: number;
+      line_items_offset?: string;
       line_item?: LineItemRetrieveInputParam;
     }
     export interface PdfInputParam {

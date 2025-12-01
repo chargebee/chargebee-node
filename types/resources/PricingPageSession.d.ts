@@ -36,6 +36,7 @@ declare module 'chargebee' {
     export interface CreateForNewSubscriptionInputParam {
       redirect_url?: string;
       business_entity_id?: string;
+      auto_select_local_currency?: boolean;
       pricing_page?: PricingPageCreateForNewSubscriptionInputParam;
       subscription?: SubscriptionCreateForNewSubscriptionInputParam;
       customer?: CustomerCreateForNewSubscriptionInputParam;

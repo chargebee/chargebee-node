@@ -37,6 +37,7 @@ declare module 'chargebee' {
     resource_version?: number;
     updated_at?: number;
     channel?: ChannelEnum;
+    line_items_next_offset?: string;
     sub_total: number;
     sub_total_in_local_currency?: number;
     total_in_local_currency?: number;
@@ -454,6 +455,8 @@ declare module 'chargebee' {
       [key: `cf_${string}`]: unknown;
     }
     export interface RetrieveInputParam {
+      line_items_limit?: number;
+      line_items_offset?: string;
       line_item?: LineItemRetrieveInputParam;
     }
     export interface PdfInputParam {
