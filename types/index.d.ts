@@ -250,13 +250,17 @@ declare module 'chargebee' {
   }
 
   // Webhook Handler
+  export type WebhookEventType = EventTypeEnum | 'unhandled_event' | 'error';
+  export type WebhookEventListener = (event: WebhookEvent) => Promise<void> | void;
+
   export class WebhookHandler {
-    constructor(handlers?: Record<string, (event: any) => Promise<void>>);
+    on(eventName: WebhookEventType, listener: WebhookEventListener): this;
+    once(eventName: WebhookEventType, listener: WebhookEventListener): this;
+    off(eventName: WebhookEventType, listener: WebhookEventListener): this;
     handle(
       body: string | object,
       headers?: Record<string, string | string[] | undefined>,
-    ): Promise<void>;
-    onUnhandledEvent?: (event: WebhookEvent) => Promise<void>;
+    ): void;
     onError?: (error: any) => void;
     requestValidator?: (
       headers: Record<string, string | string[] | undefined>,

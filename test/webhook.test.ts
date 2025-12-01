@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { WebhookHandler } from '../src/resources/webhook/handler.js';
-import { EventType } from '../src/resources/webhook/event_types.js';
 import { basicAuthValidator } from '../src/resources/webhook/auth.js';
 
 describe('WebhookHandler', () => {
@@ -17,14 +16,14 @@ describe('WebhookHandler', () => {
   it('should route to callback successfully', async () => {
     let called = false;
     const handler = new WebhookHandler();
-    handler.onPendingInvoiceCreated = async (event) => {
+    handler.on('pending_invoice_created', async (event) => {
       called = true;
       expect(event.id).to.not.be.empty;
-      expect(event.event_type).to.equal(EventType.PENDING_INVOICE_CREATED);
+      expect(event.event_type).to.equal('pending_invoice_created');
       expect(event.content).to.not.be.null;
-    };
+    });
 
-    await handler.handle(makeEventBody('pending_invoice_created'));
+    handler.handle(makeEventBody('pending_invoice_created'));
     expect(called).to.be.true;
   });
 
@@ -34,39 +33,39 @@ describe('WebhookHandler', () => {
     handler.requestValidator = () => {
       throw new Error('bad signature');
     };
-    handler.onError = (err) => {
+    handler.on('error', (err: unknown) => {
       onErrorCalled = true;
-      expect(err.message).to.equal('bad signature');
-    };
+      expect((err as Error).message).to.equal('bad signature');
+    });
 
-    await handler.handle(makeEventBody('pending_invoice_created'), {});
+    handler.handle(makeEventBody('pending_invoice_created'), {});
     expect(onErrorCalled).to.be.true;
   });
 
-  it('should handle callback error', async () => {
+  it('should handle sync callback error', () => {
     let onErrorCalled = false;
     const handler = new WebhookHandler();
-    handler.onPendingInvoiceCreated = async () => {
+    handler.on('pending_invoice_created', () => {
       throw new Error('user code failed');
-    };
-    handler.onError = (err) => {
+    });
+    handler.on('error', (err: unknown) => {
       onErrorCalled = true;
-      expect(err.message).to.equal('user code failed');
-    };
+      expect((err as Error).message).to.equal('user code failed');
+    });
 
-    await handler.handle(makeEventBody('pending_invoice_created'));
+    handler.handle(makeEventBody('pending_invoice_created'));
     expect(onErrorCalled).to.be.true;
   });
 
   it('should handle unknown event', async () => {
     let onUnhandledCalled = false;
     const handler = new WebhookHandler();
-    handler.onUnhandledEvent = async (event) => {
+    handler.on('unhandled_event', async (event) => {
       onUnhandledCalled = true;
       expect(event.event_type).to.equal('non_existing_event');
-    };
+    });
 
-    await handler.handle(makeEventBody('non_existing_event'));
+    handler.handle(makeEventBody('non_existing_event'));
     expect(onUnhandledCalled).to.be.true;
   });
 
@@ -75,19 +74,19 @@ describe('WebhookHandler', () => {
     let subscriptionCalled = false;
 
     const handler = new WebhookHandler();
-    handler.onPendingInvoiceCreated = async () => {
+    handler.on('pending_invoice_created', async () => {
       pendingInvoiceCalled = true;
-    };
-    handler.onSubscriptionCreated = async () => {
+    });
+    handler.on('subscription_created', async () => {
       subscriptionCalled = true;
-    };
+    });
 
-    await handler.handle(makeEventBody('pending_invoice_created'));
+    handler.handle(makeEventBody('pending_invoice_created'));
     expect(pendingInvoiceCalled).to.be.true;
     expect(subscriptionCalled).to.be.false;
 
     pendingInvoiceCalled = false;
-    await handler.handle(makeEventBody('subscription_created'));
+    handler.handle(makeEventBody('subscription_created'));
     expect(pendingInvoiceCalled).to.be.false;
     expect(subscriptionCalled).to.be.true;
   });
@@ -95,11 +94,11 @@ describe('WebhookHandler', () => {
   it('should handle invalid JSON body', async () => {
     let onErrorCalled = false;
     const handler = new WebhookHandler();
-    handler.onError = (err) => {
+    handler.on('error', () => {
       onErrorCalled = true;
-    };
+    });
 
-    await handler.handle('invalid json');
+    handler.handle('invalid json');
     expect(onErrorCalled).to.be.true;
   });
 
@@ -114,24 +113,116 @@ describe('WebhookHandler', () => {
     };
 
     let onErrorCalled = false;
-    handler.onError = (err) => {
+    handler.on('error', (err: unknown) => {
       onErrorCalled = true;
-      expect(err.message).to.equal('missing required header');
-    };
+      expect((err as Error).message).to.equal('missing required header');
+    });
 
     // Fail case
-    await handler.handle(makeEventBody('pending_invoice_created'), {});
+    handler.handle(makeEventBody('pending_invoice_created'), {});
     expect(validatorCalled).to.be.true;
     expect(onErrorCalled).to.be.true;
 
     // Success case
     validatorCalled = false;
     onErrorCalled = false;
-    await handler.handle(makeEventBody('pending_invoice_created'), {
+    handler.handle(makeEventBody('pending_invoice_created'), {
       'x-custom-header': 'expected-value',
     });
     expect(validatorCalled).to.be.true;
     expect(onErrorCalled).to.be.false;
+  });
+
+  it('should support multiple listeners for same event', async () => {
+    let listener1Called = false;
+    let listener2Called = false;
+
+    const handler = new WebhookHandler();
+    handler.on('customer_created', async () => {
+      listener1Called = true;
+    });
+    handler.on('customer_created', async () => {
+      listener2Called = true;
+    });
+
+    handler.handle(makeEventBody('customer_created'));
+    expect(listener1Called).to.be.true;
+    expect(listener2Called).to.be.true;
+  });
+
+  it('should support once() for one-time listeners', async () => {
+    let callCount = 0;
+
+    const handler = new WebhookHandler();
+    handler.once('customer_created', async () => {
+      callCount++;
+    });
+
+    handler.handle(makeEventBody('customer_created'));
+    handler.handle(makeEventBody('customer_created'));
+
+    expect(callCount).to.equal(1);
+  });
+
+  it('should support off() to remove listeners', async () => {
+    let callCount = 0;
+
+    const handler = new WebhookHandler();
+    const listener = async () => {
+      callCount++;
+    };
+
+    handler.on('customer_created', listener);
+    handler.handle(makeEventBody('customer_created'));
+    expect(callCount).to.equal(1);
+
+    handler.off('customer_created', listener);
+    handler.handle(makeEventBody('customer_created'));
+    expect(callCount).to.equal(1); // Should not increment
+  });
+
+  it('should support removeAllListeners()', async () => {
+    let callCount = 0;
+
+    const handler = new WebhookHandler();
+    handler.on('customer_created', async () => {
+      callCount++;
+    });
+    handler.on('customer_created', async () => {
+      callCount++;
+    });
+
+    handler.removeAllListeners('customer_created');
+    handler.handle(makeEventBody('customer_created'));
+    expect(callCount).to.equal(0);
+  });
+
+  it('should correctly report listenerCount', () => {
+    const handler = new WebhookHandler();
+    expect(handler.listenerCount('customer_created')).to.equal(0);
+
+    handler.on('customer_created', async () => {});
+    expect(handler.listenerCount('customer_created')).to.equal(1);
+
+    handler.on('customer_created', async () => {});
+    expect(handler.listenerCount('customer_created')).to.equal(2);
+  });
+
+  it('should support method chaining', async () => {
+    let customerCreatedCalled = false;
+    let subscriptionCreatedCalled = false;
+
+    const handler = new WebhookHandler()
+      .on('customer_created', async () => {
+        customerCreatedCalled = true;
+      })
+      .on('subscription_created', async () => {
+        subscriptionCreatedCalled = true;
+      });
+
+    handler.handle(makeEventBody('customer_created'));
+    expect(customerCreatedCalled).to.be.true;
+    expect(subscriptionCreatedCalled).to.be.false;
   });
 });
 
@@ -173,9 +264,9 @@ describe('BasicAuthValidator', () => {
     let callbackCalled = false;
     const handler = new WebhookHandler();
     handler.requestValidator = validator;
-    handler.onPendingInvoiceCreated = async () => {
+    handler.on('pending_invoice_created', async () => {
       callbackCalled = true;
-    };
+    });
 
     const auth = 'Basic ' + Buffer.from('testuser:testpass').toString('base64');
     const body = JSON.stringify({
@@ -183,7 +274,7 @@ describe('BasicAuthValidator', () => {
       content: {},
     });
 
-    await handler.handle(body, { authorization: auth });
+    handler.handle(body, { authorization: auth });
     expect(callbackCalled).to.be.true;
   });
 });

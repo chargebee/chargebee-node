@@ -13,6 +13,5 @@ module.exports.default = Chargebee;
 module.exports.WebhookHandler = WebhookHandler;
 module.exports.basicAuthValidator = basicAuthValidator;
 
-// Export webhook types (for TypeScript users)
-export type * from './resources/webhook/content.js';
-export type * from './resources/webhook/event_types.js';
+// Export webhook types
+export type { WebhookEvent } from './resources/webhook/content.js';
