@@ -213,6 +213,12 @@ declare module 'chargebee' {
     BusinessEntityDeleted = 'business_entity_deleted',
     AuthorizationVoided = 'authorization_voided',
     SubscriptionRampDeleted = 'subscription_ramp_deleted',
+    PlanDeleted = 'plan_deleted',
+    AddonDeleted = 'addon_deleted',
+    AddonUpdated = 'addon_updated',
+    AddonCreated = 'addon_created',
+    PlanCreated = 'plan_created',
+    PlanUpdated = 'plan_updated',
   }
 
   export type WebhookContentMap = {
@@ -425,6 +431,12 @@ declare module 'chargebee' {
     [WebhookContentType.BusinessEntityDeleted]: BusinessEntityDeletedContent;
     [WebhookContentType.AuthorizationVoided]: AuthorizationVoidedContent;
     [WebhookContentType.SubscriptionRampDeleted]: SubscriptionRampDeletedContent;
+    [WebhookContentType.PlanDeleted]: PlanDeletedContent;
+    [WebhookContentType.AddonDeleted]: AddonDeletedContent;
+    [WebhookContentType.AddonUpdated]: AddonUpdatedContent;
+    [WebhookContentType.AddonCreated]: AddonCreatedContent;
+    [WebhookContentType.PlanCreated]: PlanCreatedContent;
+    [WebhookContentType.PlanUpdated]: PlanUpdatedContent;
   };
 
   export type ContentFor<T extends WebhookContentType> = WebhookContentMap[T];
@@ -1620,5 +1632,23 @@ declare module 'chargebee' {
   };
   export type SubscriptionRampDeletedContent = {
     ramp: Ramp;
+  };
+  export type PlanDeletedContent = {
+    plan: Plan;
+  };
+  export type AddonDeletedContent = {
+    addon: Addon;
+  };
+  export type AddonUpdatedContent = {
+    addon: Addon;
+  };
+  export type AddonCreatedContent = {
+    addon: Addon;
+  };
+  export type PlanCreatedContent = {
+    plan: Plan;
+  };
+  export type PlanUpdatedContent = {
+    plan: Plan;
   };
 }

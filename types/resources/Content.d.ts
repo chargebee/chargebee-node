@@ -29,6 +29,7 @@ declare module 'chargebee' {
     differential_price: DifferentialPrice;
     discount: Discount;
     download: Download;
+    einvoice: Einvoice;
     entitlement: Entitlement;
     entitlement_override: EntitlementOverride;
     estimate: Estimate;
@@ -80,6 +81,7 @@ declare module 'chargebee' {
     quote: Quote;
     quote_line_group: QuoteLineGroup;
     quoted_charge: QuotedCharge;
+    quoted_delta_ramp: QuotedDeltaRamp;
     quoted_ramp: QuotedRamp;
     quoted_subscription: QuotedSubscription;
     ramp: Ramp;

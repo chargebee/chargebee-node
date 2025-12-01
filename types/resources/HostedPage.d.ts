@@ -435,6 +435,7 @@ declare module 'chargebee' {
       coupon_ids?: string[];
       gifter?: GifterCheckoutGiftForItemsInputParam;
       subscription_items?: SubscriptionItemsCheckoutGiftForItemsInputParam[];
+      item_tiers?: ItemTiersCheckoutGiftForItemsInputParam[];
     }
     export interface ClaimGiftInputParam {
       redirect_url?: string;
@@ -1105,6 +1106,17 @@ declare module 'chargebee' {
       item_price_id?: string;
       quantity?: number;
       quantity_in_decimal?: string;
+      unit_price?: number;
+      unit_price_in_decimal?: string;
+    }
+    export interface ItemTiersCheckoutGiftForItemsInputParam {
+      item_price_id?: string;
+      starting_unit?: number;
+      ending_unit?: number;
+      price?: number;
+      starting_unit_in_decimal?: string;
+      ending_unit_in_decimal?: string;
+      price_in_decimal?: string;
     }
     export interface GiftClaimGiftInputParam {
       id: string;

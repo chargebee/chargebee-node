@@ -149,7 +149,9 @@ declare module 'chargebee' {
     | 'sales_order'
     | 'omnichannel_one_time_order'
     | 'omnichannel_one_time_order_item'
-    | 'usage_file';
+    | 'usage_file'
+    | 'business_rule'
+    | 'ruleset';
   type EventNameEnum = 'cancellation_page_loaded';
   type EventTypeEnum =
     | 'coupon_created'
@@ -425,6 +427,7 @@ declare module 'chargebee' {
     | 'paystack'
     | 'jp_morgan'
     | 'deutsche_bank'
+    | 'ezidebit'
     | 'gocardless'
     | 'not_applicable';
   type HierarchyOperationTypeEnum =
