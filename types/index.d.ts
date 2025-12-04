@@ -250,13 +250,17 @@ declare module 'chargebee' {
   }
 
   // Webhook Handler
-  export type WebhookEventType = EventTypeEnum | 'unhandled_event' | 'error';
+  export type WebhookEventType = EventTypeEnum | 'unhandled_event';
   export type WebhookEventListener = (event: WebhookEvent) => Promise<void> | void;
+  export type WebhookErrorListener = (error: Error) => Promise<void> | void;
 
   export class WebhookHandler {
     on(eventName: WebhookEventType, listener: WebhookEventListener): this;
+    on(eventName: 'error', listener: WebhookErrorListener): this;
     once(eventName: WebhookEventType, listener: WebhookEventListener): this;
+    once(eventName: 'error', listener: WebhookErrorListener): this;
     off(eventName: WebhookEventType, listener: WebhookEventListener): this;
+    off(eventName: 'error', listener: WebhookErrorListener): this;
     handle(
       body: string | object,
       headers?: Record<string, string | string[] | undefined>,
@@ -271,6 +275,9 @@ declare module 'chargebee' {
   export function basicAuthValidator(
     validateCredentials: (username: string, password: string) => boolean,
   ): (headers: Record<string, string | string[] | undefined>) => void;
+
+  // Default webhook handler instance
+  export const webhook: WebhookHandler;
 
   // Additional webhook content types not in WebhookEvent.d.ts
   // Note: These use lowercase property names to match the actual webhook JSON structure

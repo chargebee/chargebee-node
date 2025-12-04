@@ -1,5 +1,6 @@
 import { EventEmitter } from 'node:events';
 import { WebhookEvent } from './content.js';
+import { basicAuthValidator } from './auth.js';
 
 export type EventType = import('chargebee').EventTypeEnum;
 
@@ -45,5 +46,19 @@ export class WebhookHandler extends EventEmitter<WebhookEventMap> {
     }
   }
 }
+
+const webhook = new WebhookHandler();
+
+// Auto-configure basic auth if env vars are present
+const username = process.env.CHARGEBEE_WEBHOOK_USERNAME;
+const password = process.env.CHARGEBEE_WEBHOOK_PASSWORD;
+
+if (username && password) {
+  webhook.requestValidator = basicAuthValidator(
+    (u, p) => u === username && p === password,
+  );
+}
+
+export default webhook;
 
 export type { WebhookEvent } from './content.js';

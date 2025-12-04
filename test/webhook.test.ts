@@ -2,17 +2,42 @@ import { expect } from 'chai';
 import { WebhookHandler } from '../src/resources/webhook/handler.js';
 import { basicAuthValidator } from '../src/resources/webhook/auth.js';
 
-describe('WebhookHandler', () => {
-  const makeEventBody = (eventType: string, content: string = '{}') => {
-    return JSON.stringify({
-      id: 'evt_test_1',
-      occurred_at: Math.floor(Date.now() / 1000),
-      event_type: eventType,
-      api_version: 'v2',
-      content: JSON.parse(content),
-    });
-  };
+// Helper to re-import the default webhook instance with fresh env vars
+async function getDefaultWebhookWithEnv(
+  env: Record<string, string | undefined>,
+): Promise<WebhookHandler> {
+  // Save original env
+  const originalEnv = { ...process.env };
 
+  // Clear module cache for handler
+  const modulePath = require.resolve('../src/resources/webhook/handler.js');
+  delete require.cache[modulePath];
+
+  // Set new env vars
+  Object.assign(process.env, env);
+
+  // Re-import
+  const { default: webhook } = await import(
+    '../src/resources/webhook/handler.js'
+  );
+
+  // Restore original env
+  process.env = originalEnv;
+
+  return webhook;
+}
+
+const makeEventBody = (eventType: string, content: string = '{}') => {
+  return JSON.stringify({
+    id: 'evt_test_1',
+    occurred_at: Math.floor(Date.now() / 1000),
+    event_type: eventType,
+    api_version: 'v2',
+    content: JSON.parse(content),
+  });
+};
+
+describe('WebhookHandler', () => {
   it('should route to callback successfully', async () => {
     let called = false;
     const handler = new WebhookHandler();
@@ -276,5 +301,95 @@ describe('BasicAuthValidator', () => {
 
     handler.handle(body, { authorization: auth });
     expect(callbackCalled).to.be.true;
+  });
+});
+
+describe('Default webhook instance', () => {
+  it('should auto-configure basic auth when env vars are set', async () => {
+    const webhook = await getDefaultWebhookWithEnv({
+      CHARGEBEE_WEBHOOK_USERNAME: 'envuser',
+      CHARGEBEE_WEBHOOK_PASSWORD: 'envpass',
+    });
+
+    expect(webhook.requestValidator).to.not.be.undefined;
+
+    // Valid credentials should pass
+    const validAuth =
+      'Basic ' + Buffer.from('envuser:envpass').toString('base64');
+    expect(() =>
+      webhook.requestValidator!({ authorization: validAuth }),
+    ).to.not.throw();
+
+    // Invalid credentials should fail
+    const invalidAuth =
+      'Basic ' + Buffer.from('wrong:wrong').toString('base64');
+    expect(() =>
+      webhook.requestValidator!({ authorization: invalidAuth }),
+    ).to.throw('Invalid credentials');
+  });
+
+  it('should not configure auth when env vars are missing', async () => {
+    const webhook = await getDefaultWebhookWithEnv({
+      CHARGEBEE_WEBHOOK_USERNAME: undefined,
+      CHARGEBEE_WEBHOOK_PASSWORD: undefined,
+    });
+
+    expect(webhook.requestValidator).to.be.undefined;
+  });
+
+  it('should not configure auth when only username is set', async () => {
+    const webhook = await getDefaultWebhookWithEnv({
+      CHARGEBEE_WEBHOOK_USERNAME: 'envuser',
+      CHARGEBEE_WEBHOOK_PASSWORD: undefined,
+    });
+
+    expect(webhook.requestValidator).to.be.undefined;
+  });
+
+  it('should not configure auth when only password is set', async () => {
+    const webhook = await getDefaultWebhookWithEnv({
+      CHARGEBEE_WEBHOOK_USERNAME: undefined,
+      CHARGEBEE_WEBHOOK_PASSWORD: 'envpass',
+    });
+
+    expect(webhook.requestValidator).to.be.undefined;
+  });
+
+  it('should work end-to-end with env-configured auth', async () => {
+    const webhook = await getDefaultWebhookWithEnv({
+      CHARGEBEE_WEBHOOK_USERNAME: 'testuser',
+      CHARGEBEE_WEBHOOK_PASSWORD: 'testpass',
+    });
+
+    let callbackCalled = false;
+    let errorCalled = false;
+
+    webhook.on('customer_created', async () => {
+      callbackCalled = true;
+    });
+    webhook.on('error', () => {
+      errorCalled = true;
+    });
+
+    const validAuth =
+      'Basic ' + Buffer.from('testuser:testpass').toString('base64');
+    const body = JSON.stringify({
+      id: 'evt_test',
+      event_type: 'customer_created',
+      content: {},
+    });
+
+    // With valid auth, callback should be called
+    webhook.handle(body, { authorization: validAuth });
+    expect(callbackCalled).to.be.true;
+    expect(errorCalled).to.be.false;
+
+    // With invalid auth, error should be emitted
+    callbackCalled = false;
+    const invalidAuth =
+      'Basic ' + Buffer.from('wrong:wrong').toString('base64');
+    webhook.handle(body, { authorization: invalidAuth });
+    expect(callbackCalled).to.be.false;
+    expect(errorCalled).to.be.true;
   });
 });
