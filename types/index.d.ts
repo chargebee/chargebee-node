@@ -250,16 +250,51 @@ declare module 'chargebee' {
   }
 
   // Webhook Handler
-  export type WebhookEventType = EventTypeEnum | 'unhandled_event';
-  export type WebhookEventListener = (event: WebhookEvent) => Promise<void> | void;
+  export type WebhookEventName = EventTypeEnum | 'unhandled_event';
+  export type WebhookEventTypeValue = `${WebhookEventType}`;
+  /** @deprecated Use WebhookEventTypeValue instead */
+  export type WebhookContentTypeValue = WebhookEventTypeValue;
+
+  export type WebhookEventListener<
+    T extends WebhookEventType = WebhookEventType,
+  > = (event: WebhookEvent<T>) => Promise<void> | void;
   export type WebhookErrorListener = (error: Error) => Promise<void> | void;
 
+  // Helper type to map string literal to enum member
+  type StringToWebhookEventType<S extends WebhookEventTypeValue> = {
+    [K in WebhookEventType]: `${K}` extends S ? K : never;
+  }[WebhookEventType];
+
   export class WebhookHandler {
-    on(eventName: WebhookEventType, listener: WebhookEventListener): this;
+    on<T extends WebhookEventType>(
+      eventName: T,
+      listener: WebhookEventListener<T>,
+    ): this;
+    on<S extends WebhookEventTypeValue>(
+      eventName: S,
+      listener: WebhookEventListener<StringToWebhookEventType<S>>,
+    ): this;
+    on(eventName: 'unhandled_event', listener: WebhookEventListener): this;
     on(eventName: 'error', listener: WebhookErrorListener): this;
-    once(eventName: WebhookEventType, listener: WebhookEventListener): this;
+    once<T extends WebhookEventType>(
+      eventName: T,
+      listener: WebhookEventListener<T>,
+    ): this;
+    once<S extends WebhookEventTypeValue>(
+      eventName: S,
+      listener: WebhookEventListener<StringToWebhookEventType<S>>,
+    ): this;
+    once(eventName: 'unhandled_event', listener: WebhookEventListener): this;
     once(eventName: 'error', listener: WebhookErrorListener): this;
-    off(eventName: WebhookEventType, listener: WebhookEventListener): this;
+    off<T extends WebhookEventType>(
+      eventName: T,
+      listener: WebhookEventListener<T>,
+    ): this;
+    off<S extends WebhookEventTypeValue>(
+      eventName: S,
+      listener: WebhookEventListener<StringToWebhookEventType<S>>,
+    ): this;
+    off(eventName: 'unhandled_event', listener: WebhookEventListener): this;
     off(eventName: 'error', listener: WebhookErrorListener): this;
     handle(
       body: string | object,
@@ -278,16 +313,4 @@ declare module 'chargebee' {
 
   // Default webhook handler instance
   export const webhook: WebhookHandler;
-
-  // Additional webhook content types not in WebhookEvent.d.ts
-  // Note: These use lowercase property names to match the actual webhook JSON structure
-  export type AddonCreatedContent = {
-    addon: Addon;
-  };
-  export type AddonUpdatedContent = {
-    addon: Addon;
-  };
-  export type AddonDeletedContent = {
-    addon: Addon;
-  };
 }
