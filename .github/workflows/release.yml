@@ -29,6 +29,6 @@ jobs:
             *) echo "ERROR: package.json version must be 3.x.x for v3 tags" && exit 1 ;;
           esac
       - name: Publish to NPM with dist-tag "latest"
-        run: npm run prepack && npm publish --tag latest --//registry.npmjs.org/:_authToken="$NPM_TOKEN"
+        run: npm run prepack && npm publish --tag beta --//registry.npmjs.org/:_authToken="$NPM_TOKEN"
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
