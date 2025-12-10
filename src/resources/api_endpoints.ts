@@ -30,6 +30,7 @@ interface Endpoints {
   invoice: EndpointTuple[];
   paymentReferenceNumber: EndpointTuple[];
   paymentSchedule: EndpointTuple[];
+  einvoice: EndpointTuple[];
   taxWithheld: EndpointTuple[];
   creditNote: EndpointTuple[];
   unbilledCharge: EndpointTuple[];
@@ -42,6 +43,7 @@ interface Endpoints {
   quotedSubscription: EndpointTuple[];
   quotedCharge: EndpointTuple[];
   quotedRamp: EndpointTuple[];
+  quotedDeltaRamp: EndpointTuple[];
   billingConfiguration: EndpointTuple[];
   quoteLineGroup: EndpointTuple[];
   plan: EndpointTuple[];
@@ -1777,6 +1779,7 @@ export const Endpoints: Endpoints = {
   ],
   paymentReferenceNumber: [],
   paymentSchedule: [],
+  einvoice: [],
   taxWithheld: [],
   creditNote: [
     [
@@ -2157,6 +2160,7 @@ export const Endpoints: Endpoints = {
       null,
       false,
       {
+        meta_data: 0,
         additional_information: 1,
       },
       {
@@ -3057,6 +3061,7 @@ export const Endpoints: Endpoints = {
   quotedSubscription: [],
   quotedCharge: [],
   quotedRamp: [],
+  quotedDeltaRamp: [],
   billingConfiguration: [],
   quoteLineGroup: [],
   plan: [
@@ -4065,6 +4070,19 @@ export const Endpoints: Endpoints = {
       false,
       {},
       {},
+    ],
+    [
+      'moveItemPrice',
+      'POST',
+      '/item_prices',
+      '/move',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   attachedItem: [

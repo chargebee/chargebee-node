@@ -27,6 +27,7 @@ declare module 'chargebee' {
     billing_configuration?: SalesOrder.BillingConfiguration;
     renewal_term?: SalesOrder.RenewalTerm;
     status: 'active' | 'completed';
+    credit_lines?: SalesOrder.CreditLine[];
   }
 
   export namespace SalesOrder {
@@ -37,6 +38,9 @@ declare module 'chargebee' {
       name?: string;
       quantity: string;
       unit_price: string;
+      billable_unit_price?: string;
+      billable_quantity?: string;
+      billable_amount?: string;
       billing_period?: number;
       billing_period_unit?: 'day' | 'week' | 'month' | 'year';
       service_period_days?: number;
@@ -136,6 +140,11 @@ declare module 'chargebee' {
       end_of_term_action: 'renew' | 'cancel' | 'evergreen';
       cancellation_cutoff_period?: number;
       renewal_billing_cycles?: number;
+    }
+    export interface CreditLine {
+      amount: string;
+      unit_price: string;
+      line_item_association_id?: string;
     }
     // REQUEST PARAMS
     //---------------

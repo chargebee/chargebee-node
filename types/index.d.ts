@@ -24,6 +24,7 @@
 ///<reference path='./resources/DifferentialPrice.d.ts' />
 ///<reference path='./resources/Discount.d.ts' />
 ///<reference path='./resources/Download.d.ts' />
+///<reference path='./resources/Einvoice.d.ts' />
 ///<reference path='./resources/Entitlement.d.ts' />
 ///<reference path='./resources/EntitlementOverride.d.ts' />
 ///<reference path='./resources/Estimate.d.ts' />
@@ -75,6 +76,7 @@
 ///<reference path='./resources/Quote.d.ts' />
 ///<reference path='./resources/QuoteLineGroup.d.ts' />
 ///<reference path='./resources/QuotedCharge.d.ts' />
+///<reference path='./resources/QuotedDeltaRamp.d.ts' />
 ///<reference path='./resources/QuotedRamp.d.ts' />
 ///<reference path='./resources/QuotedSubscription.d.ts' />
 ///<reference path='./resources/Ramp.d.ts' />

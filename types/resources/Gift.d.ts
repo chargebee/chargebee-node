@@ -131,11 +131,13 @@ declare module 'chargebee' {
       no_expiry?: boolean;
       claim_expiry_date?: number;
       coupon_ids?: string[];
+      meta_data?: any;
       gifter?: GifterCreateForItemsInputParam;
       gift_receiver?: GiftReceiverCreateForItemsInputParam;
       payment_intent?: PaymentIntentCreateForItemsInputParam;
       shipping_address?: ShippingAddressCreateForItemsInputParam;
       subscription_items?: SubscriptionItemsCreateForItemsInputParam[];
+      item_tiers?: ItemTiersCreateForItemsInputParam[];
     }
     export interface ListInputParam {
       limit?: number;
@@ -286,6 +288,17 @@ declare module 'chargebee' {
       item_price_id?: string;
       quantity?: number;
       quantity_in_decimal?: string;
+      unit_price?: number;
+      unit_price_in_decimal?: string;
+    }
+    export interface ItemTiersCreateForItemsInputParam {
+      item_price_id?: string;
+      starting_unit?: number;
+      ending_unit?: number;
+      price?: number;
+      starting_unit_in_decimal?: string;
+      ending_unit_in_decimal?: string;
+      price_in_decimal?: string;
     }
     export interface GifterGiftListInputParam {
       customer_id?: filter.String;

@@ -91,6 +91,12 @@ declare module 'chargebee' {
         input?: FindApplicableItemPricesInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<FindApplicableItemPricesResponse>>;
+
+      moveItemPrice(
+        item_price_id: string,
+        input: MoveItemPriceInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<MoveItemPriceResponse>>;
     }
 
     export interface CreateResponse {
@@ -122,6 +128,10 @@ declare module 'chargebee' {
     export interface FindApplicableItemPricesResponse {
       list: { item_price: ItemPrice }[];
       next_offset?: string;
+    }
+
+    export interface MoveItemPriceResponse {
+      item_price: ItemPrice;
     }
 
     export interface Tier {
@@ -268,6 +278,9 @@ declare module 'chargebee' {
       item_id?: string;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
+    }
+    export interface MoveItemPriceInputParam {
+      destination_item_id: string;
     }
     export interface TaxDetailCreateInputParam {
       tax_profile_id?: string;
