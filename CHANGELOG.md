@@ -1,3 +1,9 @@
+### v3.17.0-beta.1 (2025-12-10)
+
+### Enhancements
+* add webhook event handler to process chargebee-events.
+* deprecated `WebhookContentType` class, added `WebhookEventType` class.
+
 ### v3.16.0 (2025-12-01)
 * * * 
 
