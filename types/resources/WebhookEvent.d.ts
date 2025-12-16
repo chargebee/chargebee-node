@@ -219,6 +219,7 @@ declare module 'chargebee' {
     AddonCreated = 'addon_created',
     PlanCreated = 'plan_created',
     PlanUpdated = 'plan_updated',
+    UnhandledEvent = 'unhandled_event',
   }
   /**
    * @deprecated Use WebhookEventType instead.

@@ -1,6 +1,9 @@
 import { EventEmitter } from 'node:events';
 import { WebhookEvent } from './content.js';
 import { basicAuthValidator } from './auth.js';
+import { WebhookEventType, WebhookContentType } from './eventType.js';
+
+export { WebhookEventType, WebhookContentType };
 
 export type EventType = import('chargebee').EventTypeEnum;
 
@@ -21,7 +24,7 @@ export class WebhookHandler extends EventEmitter<WebhookEventMap> {
   constructor() {
     super({ captureRejections: true });
   }
-  
+
   handle(
     body: string | object,
     headers?: Record<string, string | string[] | undefined>,
