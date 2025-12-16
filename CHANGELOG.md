@@ -1,8 +1,14 @@
+### v3.17.0-beta.2 (2025-12-16)
+
+### Enhancements
+* Added `UnhandledEvent` to `WebhookEventType` enum for handling unknown event types.
+* `WebhookEventType` and `WebhookContentType` are now exported from the main entry points.
+
 ### v3.17.0-beta.1 (2025-12-10)
 
 ### Enhancements
-* add webhook event handler to process chargebee-events.
-* deprecated `WebhookContentType` class, added `WebhookEventType` class.
+* Add webhook event handler to process chargebee-events.
+* Deprecated `WebhookContentType` class, added `WebhookEventType` class.
 
 ### v3.16.0 (2025-12-01)
 * * * 
