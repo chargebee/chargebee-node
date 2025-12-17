@@ -450,8 +450,6 @@ export enum WebhookEventType {
   VoucherCreated = 'voucher_created',
 
   VoucherExpired = 'voucher_expired',
-
-  UnhandledEvent = 'unhandled_event',
 }
 
 /**

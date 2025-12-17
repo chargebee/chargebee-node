@@ -1,7 +1,7 @@
 ### v3.17.0-beta.2 (2025-12-16)
 
 ### Enhancements
-* Added `UnhandledEvent` to `WebhookEventType` enum for handling unknown event types.
+* `WebhookEventType` is now a runtime enum that can be used for event type comparisons at runtime.
 * `WebhookEventType` and `WebhookContentType` are now exported from the main entry points.
 
 ### v3.17.0-beta.1 (2025-12-10)
