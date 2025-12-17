@@ -250,4 +250,69 @@ declare module 'chargebee' {
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
     webhookEndpoint: WebhookEndpoint.WebhookEndpointResource;
   }
+
+  // Webhook Handler
+  export type WebhookEventName = EventTypeEnum | 'unhandled_event';
+  export type WebhookEventTypeValue = `${WebhookEventType}`;
+  /** @deprecated Use WebhookEventTypeValue instead */
+  export type WebhookContentTypeValue = WebhookEventTypeValue;
+
+  export type WebhookEventListener<
+    T extends WebhookEventType = WebhookEventType,
+  > = (event: WebhookEvent<T>) => Promise<void> | void;
+  export type WebhookErrorListener = (error: Error) => Promise<void> | void;
+
+  // Helper type to map string literal to enum member
+  type StringToWebhookEventType<S extends WebhookEventTypeValue> = {
+    [K in WebhookEventType]: `${K}` extends S ? K : never;
+  }[WebhookEventType];
+
+  export class WebhookHandler {
+    on<T extends WebhookEventType>(
+      eventName: T,
+      listener: WebhookEventListener<T>,
+    ): this;
+    on<S extends WebhookEventTypeValue>(
+      eventName: S,
+      listener: WebhookEventListener<StringToWebhookEventType<S>>,
+    ): this;
+    on(eventName: 'unhandled_event', listener: WebhookEventListener): this;
+    on(eventName: 'error', listener: WebhookErrorListener): this;
+    once<T extends WebhookEventType>(
+      eventName: T,
+      listener: WebhookEventListener<T>,
+    ): this;
+    once<S extends WebhookEventTypeValue>(
+      eventName: S,
+      listener: WebhookEventListener<StringToWebhookEventType<S>>,
+    ): this;
+    once(eventName: 'unhandled_event', listener: WebhookEventListener): this;
+    once(eventName: 'error', listener: WebhookErrorListener): this;
+    off<T extends WebhookEventType>(
+      eventName: T,
+      listener: WebhookEventListener<T>,
+    ): this;
+    off<S extends WebhookEventTypeValue>(
+      eventName: S,
+      listener: WebhookEventListener<StringToWebhookEventType<S>>,
+    ): this;
+    off(eventName: 'unhandled_event', listener: WebhookEventListener): this;
+    off(eventName: 'error', listener: WebhookErrorListener): this;
+    handle(
+      body: string | object,
+      headers?: Record<string, string | string[] | undefined>,
+    ): void;
+    onError?: (error: any) => void;
+    requestValidator?: (
+      headers: Record<string, string | string[] | undefined>,
+    ) => void;
+  }
+
+  // Webhook Auth
+  export function basicAuthValidator(
+    validateCredentials: (username: string, password: string) => boolean,
+  ): (headers: Record<string, string | string[] | undefined>) => void;
+
+  // Default webhook handler instance
+  export const webhook: WebhookHandler;
 }

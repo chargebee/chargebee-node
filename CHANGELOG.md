@@ -1,3 +1,15 @@
+### v3.17.0-beta.2 (2025-12-16)
+
+### Enhancements
+* `WebhookEventType` is now a runtime enum that can be used for event type comparisons at runtime.
+* `WebhookEventType` and `WebhookContentType` are now exported from the main entry points.
+
+### v3.17.0-beta.1 (2025-12-10)
+
+### Enhancements
+* Add webhook event handler to process chargebee-events.
+* Deprecated `WebhookContentType` class, added `WebhookEventType` class.
+
 ### v3.16.0 (2025-12-01)
 * * * 
 
