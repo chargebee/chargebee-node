@@ -224,18 +224,38 @@ To improve type safety and gain better autocompletion when working with webhooks
 #### Example
 
 ```ts
-import Chargebee, { type WebhookContentType, WebhookEvent } from "chargebee";
+import Chargebee, { WebhookEventType, WebhookEvent } from "chargebee";
 
 const result = await chargebeeInstance.event.retrieve("{event-id}");
-const subscripitonActivatedEvent: WebhookEvent<WebhookContentType.SubscriptionActivated> = result.event;
-const subscription = subscripitonActivatedEvent.content.subscription;
+const subscriptionActivatedEvent: WebhookEvent<typeof WebhookEventType.SubscriptionActivated> = result.event;
+const subscription = subscriptionActivatedEvent.content.subscription;
+```
+
+You can also use `WebhookEventType` in switch statements for runtime event handling:
+
+```ts
+import { WebhookEventType, WebhookEvent } from "chargebee";
+
+function handleWebhook(event: WebhookEvent) {
+  switch (event.event_type) {
+    case WebhookEventType.SubscriptionCreated:
+      console.log("Subscription created:", event.content.subscription?.id);
+      break;
+    case WebhookEventType.PaymentSucceeded:
+      console.log("Payment succeeded:", event.content.transaction?.id);
+      break;
+    default:
+      console.log("Unhandled event:", event.event_type);
+  }
+}
 ```
 
 #### Notes
 
 * `WebhookEvent<T>` provides type hinting for the event payload, making it easier to work with specific event structures.
-* Use the `WebhookContentType` to specify the exact event type (e.g., `SubscriptionCreated`, `InvoiceGenerated`, etc.).
-* This approach ensures you get proper IntelliSense and compile-time checks when accessing event fields.
+* Use `WebhookEventType` to specify the exact event type (e.g., `SubscriptionCreated`, `InvoiceGenerated`, etc.).
+* `WebhookEventType` is available at runtime, so you can use it in switch statements and comparisons.
+* `WebhookContentType` is deprecated but still available for backward compatibility.
 
 ### Custom HTTP Client
 
