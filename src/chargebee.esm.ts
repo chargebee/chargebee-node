@@ -5,3 +5,9 @@ const httpClient = new FetchHttpClient();
 const Chargebee = CreateChargebee(httpClient);
 
 export default Chargebee;
+
+// Export webhook event types
+export {
+  WebhookEventType,
+  WebhookContentType,
+} from './resources/webhook/eventType.js';
