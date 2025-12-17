@@ -1,3 +1,10 @@
+### v3.16.1 (2025-12-17)
+* * * 
+
+### Improvements:
+* Renamed `WebhookContentType` to `WebhookEventType` for better clarity. `WebhookContentType` is now deprecated but still available for backward compatibility.
+* Added runtime export of `WebhookEventType` enum.
+
 ### v3.16.0 (2025-12-01)
 * * * 
 
