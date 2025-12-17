@@ -1,3 +1,9 @@
+### v3.16.2 (2025-12-17)
+* * * 
+
+### Improvements:
+* `WebhookContentType` is now deprecated but still available for backward compatibility.
+
 ### v3.16.1 (2025-12-17)
 * * * 
 
