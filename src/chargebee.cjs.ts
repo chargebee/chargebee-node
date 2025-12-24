@@ -22,4 +22,10 @@ module.exports.webhook = webhookInstance;
 module.exports.basicAuthValidator = basicAuthValidator;
 
 // Export webhook types
-export type { WebhookEvent } from './resources/webhook/content.js';
+export type {
+  WebhookEvent,
+  WebhookContext,
+  WebhookHandlerOptions,
+  RequestValidator,
+} from './resources/webhook/handler.js';
+export type { CredentialValidator } from './resources/webhook/auth.js';

@@ -1,11 +1,41 @@
+/**
+ * Credential validator function type.
+ * Can be synchronous or asynchronous (e.g., for database lookups).
+ */
+export type CredentialValidator = (
+  username: string,
+  password: string,
+) => boolean | Promise<boolean>;
+
+/**
+ * Creates a Basic Auth validator for webhook requests.
+ * Parses the Authorization header and validates credentials.
+ *
+ * @param validateCredentials - Function to validate username/password.
+ *   Can be sync or async (e.g., for database lookups).
+ * @returns A request validator function for use with WebhookHandler
+ *
+ * @example
+ * // Simple sync validation
+ * const validator = basicAuthValidator((u, p) => u === 'admin' && p === 'secret');
+ *
+ * @example
+ * // Async validation (e.g., database lookup)
+ * const validator = basicAuthValidator(async (u, p) => {
+ *   const user = await db.findUser(u);
+ *   return user && await bcrypt.compare(p, user.passwordHash);
+ * });
+ */
 export const basicAuthValidator = (
-  validateCredentials: (username: string, password: string) => boolean,
+  validateCredentials: CredentialValidator,
 ) => {
-  return (headers: Record<string, string | string[] | undefined>) => {
+  return async (
+    headers: Record<string, string | string[] | undefined>,
+  ): Promise<void> => {
     const authHeader = headers['authorization'] || headers['Authorization'];
 
     if (!authHeader) {
-      throw new Error('Invalid authorization header');
+      throw new Error('Missing authorization header');
     }
 
     const authStr = Array.isArray(authHeader) ? authHeader[0] : authHeader;
@@ -15,15 +45,21 @@ export const basicAuthValidator = (
 
     const parts = authStr.split(' ');
     if (parts.length !== 2 || parts[0] !== 'Basic') {
-      throw new Error('Invalid authorization header');
+      throw new Error('Invalid authorization header format');
     }
 
-    const credentials = Buffer.from(parts[1], 'base64').toString().split(':');
-    if (credentials.length !== 2) {
-      throw new Error('Invalid credentials');
+    const decoded = Buffer.from(parts[1], 'base64').toString();
+    const separatorIndex = decoded.indexOf(':');
+
+    if (separatorIndex === -1) {
+      throw new Error('Invalid credentials format');
     }
 
-    if (!validateCredentials(credentials[0], credentials[1])) {
+    const username = decoded.substring(0, separatorIndex);
+    const password = decoded.substring(separatorIndex + 1);
+
+    const isValid = await validateCredentials(username, password);
+    if (!isValid) {
       throw new Error('Invalid credentials');
     }
   };

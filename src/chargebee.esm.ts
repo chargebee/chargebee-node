@@ -16,4 +16,10 @@ export { default as webhook } from './resources/webhook/handler.js';
 export { basicAuthValidator } from './resources/webhook/auth.js';
 
 // Export webhook types
-export type { WebhookEvent } from './resources/webhook/content.js';
+export type {
+  WebhookEvent,
+  WebhookContext,
+  WebhookHandlerOptions,
+  RequestValidator,
+} from './resources/webhook/handler.js';
+export type { CredentialValidator } from './resources/webhook/auth.js';
