@@ -92,6 +92,10 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<FindApplicableItemPricesResponse>>;
 
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
       moveItemPrice(
         item_price_id: string,
         input: MoveItemPriceInputParam,
@@ -281,6 +285,7 @@ declare module 'chargebee' {
     }
     export interface MoveItemPriceInputParam {
       destination_item_id: string;
+      variant_id?: string;
     }
     export interface TaxDetailCreateInputParam {
       tax_profile_id?: string;

@@ -113,6 +113,10 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListResponse>>;
 
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
       creditNotesForCustomer(
         customer_id: string,
         input?: CreditNotesForCustomerInputParam,

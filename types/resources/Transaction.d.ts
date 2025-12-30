@@ -96,11 +96,19 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListResponse>>;
 
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
       transactionsForCustomer(
         customer_id: string,
         input?: TransactionsForCustomerInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<TransactionsForCustomerResponse>>;
+
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
 
       transactionsForSubscription(
         subscription_id: string,

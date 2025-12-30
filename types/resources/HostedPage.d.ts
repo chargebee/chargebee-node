@@ -68,6 +68,10 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<CheckoutExistingForItemsResponse>>;
 
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
       updateCard(
         input: UpdateCardInputParam,
         headers?: ChargebeeRequestHeader,

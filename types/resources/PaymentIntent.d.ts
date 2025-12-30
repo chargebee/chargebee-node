@@ -31,7 +31,12 @@ declare module 'chargebee' {
       | 'sepa_instant_transfer'
       | 'klarna_pay_now'
       | 'online_banking_poland'
-      | 'payconiq_by_bancontact';
+      | 'payconiq_by_bancontact'
+      | 'electronic_payment_standard'
+      | 'kbc_payment_button'
+      | 'pay_by_bank'
+      | 'trustly'
+      | 'stablecoin';
     success_url?: string;
     failure_url?: string;
     created_at: number;
@@ -107,7 +112,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -147,7 +157,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -187,7 +202,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       success_url?: string;
       failure_url?: string;
     }
@@ -216,7 +236,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       success_url?: string;
       failure_url?: string;
     }

@@ -12,6 +12,10 @@ declare module 'chargebee' {
 
   export namespace CouponCode {
     export class CouponCodeResource {
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
       create(
         input: CreateInputParam,
         headers?: ChargebeeRequestHeader,

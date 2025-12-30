@@ -369,6 +369,7 @@ declare module 'chargebee' {
     | 'addon_created'
     | 'addon_updated'
     | 'addon_deleted';
+  type ExcludeTaxTypeEnum = 'exclusive' | 'none';
   type ExportTypeEnum = 'data' | 'import_friendly_data';
   type FreePeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
   type FriendOfferTypeEnum = 'none' | 'coupon' | 'coupon_code';
@@ -502,7 +503,12 @@ declare module 'chargebee' {
     | 'automated_bank_transfer'
     | 'klarna_pay_now'
     | 'online_banking_poland'
-    | 'payconiq_by_bancontact';
+    | 'payconiq_by_bancontact'
+    | 'electronic_payment_standard'
+    | 'kbc_payment_button'
+    | 'pay_by_bank'
+    | 'trustly'
+    | 'stablecoin';
   type PaymentMethodTypeEnum =
     | 'card'
     | 'paypal_express_checkout'
@@ -528,7 +534,12 @@ declare module 'chargebee' {
     | 'automated_bank_transfer'
     | 'klarna_pay_now'
     | 'online_banking_poland'
-    | 'payconiq_by_bancontact';
+    | 'payconiq_by_bancontact'
+    | 'electronic_payment_standard'
+    | 'kbc_payment_button'
+    | 'pay_by_bank'
+    | 'trustly'
+    | 'stablecoin';
   type PaymentVoucherTypeEnum = 'boleto';
   type PeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
   type PriceTypeEnum = 'tax_exclusive' | 'tax_inclusive';
@@ -553,6 +564,7 @@ declare module 'chargebee' {
   type RefundableCreditsHandlingEnum = 'no_action' | 'schedule_refund';
   type ReportByEnum = 'customer' | 'invoice' | 'product' | 'subscription';
   type ResumeOptionEnum = 'immediately' | 'specific_date';
+  type RetryEngineEnum = 'chargebee' | 'flexpay' | 'successplus';
   type RoleEnum = 'primary' | 'backup' | 'none';
   type ScheduleTypeEnum = 'immediate' | 'specific_dates' | 'fixed_intervals';
   type SourceEnum =
@@ -621,6 +633,11 @@ declare module 'chargebee' {
     | 'klarna_pay_now'
     | 'online_banking_poland'
     | 'payconiq_by_bancontact'
+    | 'electronic_payment_standard'
+    | 'kbc_payment_button'
+    | 'pay_by_bank'
+    | 'trustly'
+    | 'stablecoin'
     | 'free_trial'
     | 'pay_up_front'
     | 'pay_as_you_go';
