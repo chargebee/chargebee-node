@@ -4716,7 +4716,9 @@ export const Endpoints: Endpoints = {
       false,
       null,
       false,
-      {},
+      {
+        custom: 0,
+      },
       {
         isIdempotent: true,
       },
@@ -4729,7 +4731,9 @@ export const Endpoints: Endpoints = {
       false,
       null,
       false,
-      {},
+      {
+        custom: 0,
+      },
       {
         isIdempotent: true,
       },

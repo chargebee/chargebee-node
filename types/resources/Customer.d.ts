@@ -150,17 +150,29 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteContactResponse>>;
 
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
       addPromotionalCredits(
         customer_id: string,
         input: AddPromotionalCreditsInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<AddPromotionalCreditsResponse>>;
 
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
       deductPromotionalCredits(
         customer_id: string,
         input: DeductPromotionalCreditsInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeductPromotionalCreditsResponse>>;
+
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
 
       setPromotionalCredits(
         customer_id: string,
@@ -738,7 +750,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -911,7 +928,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       /**
        * @deprecated Please refer API docs to use other attributes
        */

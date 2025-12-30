@@ -453,7 +453,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

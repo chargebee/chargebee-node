@@ -143,6 +143,10 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListResponse>>;
 
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
       ordersForInvoice(
         invoice_id: string,
         input?: OrdersForInvoiceInputParam,

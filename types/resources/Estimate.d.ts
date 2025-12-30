@@ -340,6 +340,7 @@ declare module 'chargebee' {
       use_existing_balances?: boolean;
       ignore_scheduled_cancellation?: boolean;
       ignore_scheduled_changes?: boolean;
+      exclude_tax_type?: 'exclusive' | 'none';
     }
     export interface AdvanceInvoiceEstimateInputParam {
       terms_to_charge?: number;
@@ -1041,7 +1042,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1119,7 +1125,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

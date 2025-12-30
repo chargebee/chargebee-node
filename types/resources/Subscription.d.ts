@@ -122,6 +122,10 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListResponse>>;
 
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
       subscriptionsForCustomer(
         customer_id: string,
         input?: SubscriptionsForCustomerInputParam,
@@ -1401,7 +1405,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1529,7 +1538,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1624,7 +1638,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1774,7 +1793,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1938,7 +1962,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2058,7 +2087,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2484,7 +2518,12 @@ declare module 'chargebee' {
         | 'sepa_instant_transfer'
         | 'klarna_pay_now'
         | 'online_banking_poland'
-        | 'payconiq_by_bancontact';
+        | 'payconiq_by_bancontact'
+        | 'electronic_payment_standard'
+        | 'kbc_payment_button'
+        | 'pay_by_bank'
+        | 'trustly'
+        | 'stablecoin';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
