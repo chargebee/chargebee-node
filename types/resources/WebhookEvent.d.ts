@@ -488,7 +488,7 @@ declare module 'chargebee' {
 
     customer: Customer;
 
-    advance_invoice_schedule: AdvanceInvoiceSchedule;
+    advance_invoice_schedule: AdvanceInvoiceSchedule[];
   };
   export type GiftExpiredContent = {
     gift: Gift;
@@ -501,7 +501,7 @@ declare module 'chargebee' {
     credit_note: CreditNote;
   };
   export type UnbilledChargesDeletedContent = {
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type CouponUpdatedContent = {
     coupon: Coupon;
@@ -525,7 +525,7 @@ declare module 'chargebee' {
     customer: Customer;
   };
   export type UnbilledChargesCreatedContent = {
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type SubscriptionResumedContent = {
     subscription: Subscription;
@@ -536,7 +536,7 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type OmnichannelOneTimeOrderItemCancelledContent = {
     omnichannel_one_time_order: OmnichannelOneTimeOrder;
@@ -556,9 +556,9 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    credit_note: CreditNote;
+    credit_note: CreditNote[];
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type ItemEntitlementsRemovedContent = {
     feature: Feature;
@@ -601,7 +601,7 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type SubscriptionTrialEndReminderContent = {
     subscription: Subscription;
@@ -632,7 +632,7 @@ declare module 'chargebee' {
 
     card: Card;
 
-    subscription: Subscription;
+    subscription: Subscription[];
   };
   export type RefundInitiatedContent = {
     transaction: Transaction;
@@ -713,9 +713,9 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    credit_note: CreditNote;
+    credit_note: CreditNote[];
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type OmnichannelSubscriptionItemChangedContent = {
     omnichannel_subscription_item: OmnichannelSubscriptionItem;
@@ -769,7 +769,7 @@ declare module 'chargebee' {
 
     customer: Customer;
 
-    advance_invoice_schedule: AdvanceInvoiceSchedule;
+    advance_invoice_schedule: AdvanceInvoiceSchedule[];
   };
   export type ItemDeletedContent = {
     item: Item;
@@ -813,7 +813,7 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type FeatureUpdatedContent = {
     feature: Feature;
@@ -917,9 +917,9 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    credit_note: CreditNote;
+    credit_note: CreditNote[];
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type OrderReadyToProcessContent = {
     order: Order;
@@ -965,7 +965,7 @@ declare module 'chargebee' {
     subscription: Subscription;
   };
   export type UnbilledChargesInvoicedContent = {
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
 
     invoice: Invoice;
   };
@@ -994,9 +994,9 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    credit_note: CreditNote;
+    credit_note: CreditNote[];
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type PaymentFailedContent = {
     transaction: Transaction;
@@ -1153,7 +1153,7 @@ declare module 'chargebee' {
 
     customer: Customer;
 
-    advance_invoice_schedule: AdvanceInvoiceSchedule;
+    advance_invoice_schedule: AdvanceInvoiceSchedule[];
   };
   export type CardDeletedContent = {
     customer: Customer;
@@ -1206,7 +1206,7 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type OmnichannelSubscriptionImportedContent = {
     omnichannel_subscription_item: OmnichannelSubscriptionItem;
@@ -1262,7 +1262,7 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type SubscriptionEntitlementsCreatedContent = {
     subscription_entitlements_created_detail: SubscriptionEntitlementsCreatedDetail;
@@ -1346,12 +1346,12 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    credit_note: CreditNote;
+    credit_note: CreditNote[];
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type UnbilledChargesVoidedContent = {
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type QuoteCreatedContent = {
     quote: Quote;
@@ -1404,7 +1404,7 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type OrderUpdatedContent = {
     order: Order;
@@ -1436,7 +1436,7 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type SubscriptionRampCreatedContent = {
     ramp: Ramp;
@@ -1571,9 +1571,9 @@ declare module 'chargebee' {
 
     invoice: Invoice;
 
-    credit_note: CreditNote;
+    credit_note: CreditNote[];
 
-    unbilled_charge: UnbilledCharge;
+    unbilled_charge: UnbilledCharge[];
   };
   export type RuleCreatedContent = {
     rule: Rule;

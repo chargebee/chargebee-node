@@ -28,6 +28,7 @@ declare module 'chargebee' {
     renewal_term?: SalesOrder.RenewalTerm;
     status: 'active' | 'completed';
     credit_lines?: SalesOrder.CreditLine[];
+    deleted: boolean;
   }
 
   export namespace SalesOrder {
