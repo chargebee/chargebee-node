@@ -374,6 +374,7 @@ declare module 'chargebee' {
       force_term_reset?: boolean;
       change_option?: ChangeOptionEnum;
       changes_scheduled_at?: number;
+      invoice_usages?: boolean;
       redirect_url?: string;
       cancel_url?: string;
       pass_thru_content?: string;
