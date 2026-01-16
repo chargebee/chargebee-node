@@ -4071,19 +4071,6 @@ export const Endpoints: Endpoints = {
       {},
       {},
     ],
-    [
-      'moveItemPrice',
-      'POST',
-      '/item_prices',
-      '/move',
-      true,
-      null,
-      false,
-      {},
-      {
-        isIdempotent: true,
-      },
-    ],
   ],
   attachedItem: [
     [
