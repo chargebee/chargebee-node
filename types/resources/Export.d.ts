@@ -230,6 +230,7 @@ declare module 'chargebee' {
     }
     export interface CouponsInputParam {
       currency_code?: filter.String;
+      applicable_item_price_ids?: filter.String;
       coupon?: CouponCouponsInputParam;
     }
     export interface CustomersInputParam {

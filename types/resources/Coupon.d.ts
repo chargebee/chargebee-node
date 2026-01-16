@@ -241,6 +241,7 @@ declare module 'chargebee' {
       created_at?: filter.Timestamp;
       updated_at?: filter.Timestamp;
       currency_code?: filter.String;
+      applicable_item_price_ids?: filter.String;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
       [key: `cf_${string}`]: unknown;

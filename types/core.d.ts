@@ -429,6 +429,7 @@ declare module 'chargebee' {
     | 'jp_morgan'
     | 'deutsche_bank'
     | 'ezidebit'
+    | 'twikey'
     | 'gocardless'
     | 'not_applicable';
   type HierarchyOperationTypeEnum =

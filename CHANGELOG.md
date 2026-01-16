@@ -1,3 +1,13 @@
+### v3.19.0 (2026-01-16)
+* * * 
+
+### New Parameters:
+* `applicable_item_price_ids` has been added to Coupon#CouponListRequest.
+* `applicable_item_price_ids` has been added to Export#CouponRequest.
+
+### New Enums: 
+* `Twikey` has been added to GatewayEnum.
+
 ### v3.18.0 (2026-01-12)
 * * * 
 
