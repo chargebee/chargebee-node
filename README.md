@@ -392,17 +392,17 @@ To improve type safety and gain better autocompletion when working with webhooks
 #### Example
 
 ```ts
-import Chargebee, { type WebhookContentType, WebhookEvent } from "chargebee";
+import Chargebee, { WebhookEventType, WebhookEvent } from "chargebee";
 
 const result = await chargebeeInstance.event.retrieve("{event-id}");
-const subscripitonActivatedEvent: WebhookEvent<WebhookContentType.SubscriptionActivated> = result.event;
-const subscription = subscripitonActivatedEvent.content.subscription;
+const subscriptionActivatedEvent: WebhookEvent<WebhookEventType.SubscriptionActivated> = result.event;
+const subscription = subscriptionActivatedEvent.content.subscription;
 ```
 
 #### Notes
 
 * `WebhookEvent<T>` provides type hinting for the event payload, making it easier to work with specific event structures.
-* Use the `WebhookContentType` to specify the exact event type (e.g., `SubscriptionCreated`, `InvoiceGenerated`, etc.).
+* Use the `WebhookEventType` to specify the exact event type (e.g., `SubscriptionCreated`, `InvoiceGenerated`, etc.).
 * This approach ensures you get proper IntelliSense and compile-time checks when accessing event fields.
 
 ### Custom HTTP Client
