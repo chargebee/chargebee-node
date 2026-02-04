@@ -168,6 +168,7 @@ const chargebee = new Chargebee({
 const app = express();
 app.use(express.json());
 
+// ⚠️ Register listeners once at startup, not inside request handlers
 chargebee.webhooks.on('subscription_created', async ({ event, response }) => {
   console.log(`Subscription created: ${event.id}`);
   const subscription = event.content.subscription;
@@ -179,8 +180,8 @@ chargebee.webhooks.on('error', (err: Error) => {
   console.error('Webhook error:', err.message);
 });
 
-app.post('/chargebee/webhooks', (req, res) => {
-  chargebee.webhooks.handle({
+app.post('/chargebee/webhooks', async (req, res) => {
+  await chargebee.webhooks.handle({
     body: req.body,
     headers: req.headers,
     request: req,
@@ -217,7 +218,12 @@ app.use(express.json());
 // Create a typed handler for Express
 const handler = chargebee.webhooks.createHandler<Request, Response>();
 
-// Register event listeners using .on() - events are fully typed
+// Optional: Add request validator (e.g., Basic Auth)
+handler.requestValidator = basicAuthValidator((username, password) => {
+  return username === 'admin' && password === 'secret';
+});
+
+// ⚠️ Register event listeners once at startup, not inside request handlers
 handler.on('subscription_created', async ({ event, response }) => {
   console.log(`Subscription created: ${event.id}`);
   const subscription = event.content.subscription;
@@ -234,13 +240,8 @@ handler.on('payment_succeeded', async ({ event, response }) => {
   response?.status(200).send('OK');
 });
 
-// Optional: Add request validator (e.g., Basic Auth)
-handler.requestValidator = basicAuthValidator((username, password) => {
-  return username === 'admin' && password === 'secret';
-});
-
-app.post('/chargebee/webhooks', (req, res) => {
-  handler.handle({
+app.post('/chargebee/webhooks', async (req, res) => {
+  await handler.handle({
     body: req.body,
     headers: req.headers,
     request: req,
@@ -293,6 +294,8 @@ app.listen(8080);
 ```
 
 #### Responding to Webhooks
+
+> ⚠️ **Important:** Always send an HTTP response from your webhook handlers. If you don't respond with a 2xx status, Chargebee will retry the webhook, potentially causing duplicate processing.
 
 **Respond with 200** to acknowledge receipt:
 
