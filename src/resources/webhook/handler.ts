@@ -440,7 +440,7 @@ export class WebhookHandler<
         console.warn(
           '[chargebee] Warning: No webhook authentication configured. ' +
             'Consider using basicAuthValidator() or a custom requestValidator for production. ' +
-            'See: https://apidocs.chargebee.com/docs/api/webhooks',
+            'See: https://www.chargebee.com/docs/billing/2.0/site-configuration/webhook_settings#basic-authentication',
         );
       }
 

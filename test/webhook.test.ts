@@ -365,6 +365,7 @@ describe('BasicAuthValidator', () => {
 
     const auth = 'Basic ' + Buffer.from('testuser:testpass').toString('base64');
     const body = JSON.stringify({
+      id: 'evt_test_auth',
       event_type: 'pending_invoice_created',
       content: {},
     });
