@@ -124,6 +124,19 @@ export class WebhookHandler<
       const event: WebhookEvent =
         typeof body === 'string' ? JSON.parse(body) : (body as WebhookEvent);
 
+      // Validate required fields
+      if (!event || typeof event !== 'object' || Array.isArray(event)) {
+        throw new Error('Invalid webhook payload: body must be a JSON object');
+      }
+      if (!event.event_type || typeof event.event_type !== 'string') {
+        throw new Error(
+          'Invalid webhook payload: missing or invalid event_type',
+        );
+      }
+      if (!event.id) {
+        throw new Error('Invalid webhook payload: missing event id');
+      }
+
       const context: WebhookContext<ReqT, ResT> = {
         event,
         request,
