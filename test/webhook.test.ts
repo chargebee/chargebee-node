@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { WebhookHandler } from '../src/resources/webhook/handler.js';
+import { WebhookHandler, createDefaultHandler } from '../src/resources/webhook/handler.js';
 import { basicAuthValidator } from '../src/resources/webhook/auth.js';
 import { CreateChargebee } from '../src/createChargebee.js';
 
@@ -13,8 +13,20 @@ const Chargebee = CreateChargebee(mockHttpClient);
 
 // Helper to create a fresh Chargebee instance with env vars
 function createChargebeeWithEnv(env: Record<string, string | undefined>) {
-  const originalEnv = { ...process.env };
-  Object.assign(process.env, env);
+  // Save original env
+  const originalUsername = process.env.CHARGEBEE_WEBHOOK_USERNAME;
+  const originalPassword = process.env.CHARGEBEE_WEBHOOK_PASSWORD;
+
+  // Clear and set new env vars
+  delete process.env.CHARGEBEE_WEBHOOK_USERNAME;
+  delete process.env.CHARGEBEE_WEBHOOK_PASSWORD;
+
+  if (env.CHARGEBEE_WEBHOOK_USERNAME !== undefined) {
+    process.env.CHARGEBEE_WEBHOOK_USERNAME = env.CHARGEBEE_WEBHOOK_USERNAME;
+  }
+  if (env.CHARGEBEE_WEBHOOK_PASSWORD !== undefined) {
+    process.env.CHARGEBEE_WEBHOOK_PASSWORD = env.CHARGEBEE_WEBHOOK_PASSWORD;
+  }
 
   const chargebee = new (Chargebee as any)({
     site: 'test-site',
@@ -22,38 +34,49 @@ function createChargebeeWithEnv(env: Record<string, string | undefined>) {
   });
 
   // Restore original env
-  Object.keys(env).forEach((key) => {
-    if (originalEnv[key] === undefined) {
-      delete process.env[key];
-    } else {
-      process.env[key] = originalEnv[key];
-    }
-  });
+  delete process.env.CHARGEBEE_WEBHOOK_USERNAME;
+  delete process.env.CHARGEBEE_WEBHOOK_PASSWORD;
+  if (originalUsername !== undefined) {
+    process.env.CHARGEBEE_WEBHOOK_USERNAME = originalUsername;
+  }
+  if (originalPassword !== undefined) {
+    process.env.CHARGEBEE_WEBHOOK_PASSWORD = originalPassword;
+  }
 
   return chargebee;
 }
 
-// Helper to re-import the default webhook instance with fresh env vars
-async function getDefaultWebhookWithEnv(
+// Helper to create a default webhook handler with fresh env vars
+function getDefaultWebhookWithEnv(
   env: Record<string, string | undefined>,
-): Promise<WebhookHandler> {
+): WebhookHandler {
   // Save original env
-  const originalEnv = { ...process.env };
+  const originalUsername = process.env.CHARGEBEE_WEBHOOK_USERNAME;
+  const originalPassword = process.env.CHARGEBEE_WEBHOOK_PASSWORD;
 
-  // Clear module cache for handler
-  const modulePath = require.resolve('../src/resources/webhook/handler.js');
-  delete require.cache[modulePath];
+  // Clear and set new env vars
+  delete process.env.CHARGEBEE_WEBHOOK_USERNAME;
+  delete process.env.CHARGEBEE_WEBHOOK_PASSWORD;
 
-  // Set new env vars
-  Object.assign(process.env, env);
+  if (env.CHARGEBEE_WEBHOOK_USERNAME !== undefined) {
+    process.env.CHARGEBEE_WEBHOOK_USERNAME = env.CHARGEBEE_WEBHOOK_USERNAME;
+  }
+  if (env.CHARGEBEE_WEBHOOK_PASSWORD !== undefined) {
+    process.env.CHARGEBEE_WEBHOOK_PASSWORD = env.CHARGEBEE_WEBHOOK_PASSWORD;
+  }
 
-  // Re-import
-  const { default: webhook } = await import(
-    '../src/resources/webhook/handler.js'
-  );
+  // Create handler with env-based auto-config
+  const webhook = createDefaultHandler();
 
   // Restore original env
-  process.env = originalEnv;
+  delete process.env.CHARGEBEE_WEBHOOK_USERNAME;
+  delete process.env.CHARGEBEE_WEBHOOK_PASSWORD;
+  if (originalUsername !== undefined) {
+    process.env.CHARGEBEE_WEBHOOK_USERNAME = originalUsername;
+  }
+  if (originalPassword !== undefined) {
+    process.env.CHARGEBEE_WEBHOOK_PASSWORD = originalPassword;
+  }
 
   return webhook;
 }
@@ -353,7 +376,7 @@ describe('BasicAuthValidator', () => {
 
 describe('Default webhook instance', () => {
   it('should auto-configure basic auth when env vars are set', async () => {
-    const webhook = await getDefaultWebhookWithEnv({
+    const webhook = getDefaultWebhookWithEnv({
       CHARGEBEE_WEBHOOK_USERNAME: 'envuser',
       CHARGEBEE_WEBHOOK_PASSWORD: 'envpass',
     });
@@ -377,7 +400,7 @@ describe('Default webhook instance', () => {
   });
 
   it('should not configure auth when env vars are missing', async () => {
-    const webhook = await getDefaultWebhookWithEnv({
+    const webhook = getDefaultWebhookWithEnv({
       CHARGEBEE_WEBHOOK_USERNAME: undefined,
       CHARGEBEE_WEBHOOK_PASSWORD: undefined,
     });
@@ -386,7 +409,7 @@ describe('Default webhook instance', () => {
   });
 
   it('should not configure auth when only username is set', async () => {
-    const webhook = await getDefaultWebhookWithEnv({
+    const webhook = getDefaultWebhookWithEnv({
       CHARGEBEE_WEBHOOK_USERNAME: 'envuser',
       CHARGEBEE_WEBHOOK_PASSWORD: undefined,
     });
@@ -395,7 +418,7 @@ describe('Default webhook instance', () => {
   });
 
   it('should not configure auth when only password is set', async () => {
-    const webhook = await getDefaultWebhookWithEnv({
+    const webhook = getDefaultWebhookWithEnv({
       CHARGEBEE_WEBHOOK_USERNAME: undefined,
       CHARGEBEE_WEBHOOK_PASSWORD: 'envpass',
     });
@@ -404,7 +427,7 @@ describe('Default webhook instance', () => {
   });
 
   it('should work end-to-end with env-configured auth', async () => {
-    const webhook = await getDefaultWebhookWithEnv({
+    const webhook = getDefaultWebhookWithEnv({
       CHARGEBEE_WEBHOOK_USERNAME: 'testuser',
       CHARGEBEE_WEBHOOK_PASSWORD: 'testpass',
     });

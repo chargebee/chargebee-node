@@ -14,7 +14,7 @@ import {
 import {
   WebhookHandler,
   type WebhookHandlerOptions,
-  basicAuthValidator,
+  createDefaultHandler,
 } from './resources/webhook/handler.js';
 
 export const CreateChargebee = (httpClient: HttpClientInterface) => {
@@ -27,17 +27,8 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
     this._buildResources();
     this._endpoints = Endpoints;
 
-    // Initialize webhooks handler for this instance
-    const handler = new WebhookHandler();
-
-    // Auto-configure basic auth if env vars are present
-    const username = process.env.CHARGEBEE_WEBHOOK_USERNAME;
-    const password = process.env.CHARGEBEE_WEBHOOK_PASSWORD;
-    if (username && password) {
-      handler.requestValidator = basicAuthValidator(
-        (u, p) => u === username && p === password,
-      );
-    }
+    // Initialize webhooks handler with auto-configured Basic Auth (if env vars are set)
+    const handler = createDefaultHandler();
 
     // Create webhooks namespace with handler methods + createHandler factory
     this.webhooks = Object.assign(handler, {

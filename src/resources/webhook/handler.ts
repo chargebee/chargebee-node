@@ -127,5 +127,25 @@ export class WebhookHandler<
   }
 }
 
+/**
+ * Creates a WebhookHandler with auto-configured Basic Auth from environment variables.
+ * If CHARGEBEE_WEBHOOK_USERNAME and CHARGEBEE_WEBHOOK_PASSWORD are set,
+ * the handler will automatically validate incoming requests against those credentials.
+ */
+export function createDefaultHandler<
+  ReqT = unknown,
+  ResT = unknown,
+>(): WebhookHandler<ReqT, ResT> {
+  const handler = new WebhookHandler<ReqT, ResT>();
+  const username = process.env.CHARGEBEE_WEBHOOK_USERNAME;
+  const password = process.env.CHARGEBEE_WEBHOOK_PASSWORD;
+  if (username && password) {
+    handler.requestValidator = basicAuthValidator(
+      (u, p) => u === username && p === password,
+    );
+  }
+  return handler;
+}
+
 export type { WebhookEvent } from './content.js';
 export { basicAuthValidator, type CredentialValidator } from './auth.js';
