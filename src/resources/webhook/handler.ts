@@ -151,7 +151,15 @@ export class WebhookHandler<
         this.emit('unhandled_event', context);
       }
     } catch (err) {
-      this.emit('error', err instanceof Error ? err : new Error(String(err)));
+      const error = err instanceof Error ? err : new Error(String(err));
+      if (this.listenerCount('error') === 0) {
+        console.warn(
+          '[chargebee] Webhook error with no handler:',
+          error.message,
+        );
+        throw error;
+      }
+      this.emit('error', error);
     }
   }
 }
