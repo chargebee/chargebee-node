@@ -11,6 +11,11 @@ import {
   EndpointTuple,
   HttpClientInterface,
 } from './types.js';
+import {
+  WebhookHandler,
+  type WebhookHandlerOptions,
+  basicAuthValidator,
+} from './resources/webhook/handler.js';
 
 export const CreateChargebee = (httpClient: HttpClientInterface) => {
   const Chargebee = function (this: ChargebeeType, conf: Config) {
@@ -21,6 +26,27 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
       conf.httpClient != null ? conf.httpClient : httpClient;
     this._buildResources();
     this._endpoints = Endpoints;
+
+    // Initialize webhooks handler for this instance
+    const handler = new WebhookHandler();
+
+    // Auto-configure basic auth if env vars are present
+    const username = process.env.CHARGEBEE_WEBHOOK_USERNAME;
+    const password = process.env.CHARGEBEE_WEBHOOK_PASSWORD;
+    if (username && password) {
+      handler.requestValidator = basicAuthValidator(
+        (u, p) => u === username && p === password,
+      );
+    }
+
+    // Create webhooks namespace with handler methods + createHandler factory
+    this.webhooks = Object.assign(handler, {
+      createHandler<ReqT = unknown, ResT = unknown>(
+        options?: WebhookHandlerOptions,
+      ): WebhookHandler<ReqT, ResT> {
+        return new WebhookHandler<ReqT, ResT>(options);
+      },
+    });
   } as any as { new (): ChargebeeType };
   Chargebee.prototype = {
     _createApiFunc(apiCall: ResourceType, env: EnvType) {

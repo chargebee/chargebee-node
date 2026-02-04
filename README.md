@@ -152,30 +152,35 @@ const chargebeeSiteEU = new Chargebee({
 
 Use the webhook handlers to parse and route webhook payloads from Chargebee with full TypeScript support.
 
-#### Quick Start: Using the default `webhook` instance
+#### Quick Start: Using the instance `webhooks` handler
 
-The simplest way to handle webhooks is using the pre-configured `webhook` instance:
+The simplest way to handle webhooks is using the `webhooks` property on your initialized Chargebee client:
 
 ```typescript
 import express from 'express';
-import { webhook } from 'chargebee';
+import Chargebee from 'chargebee';
+
+const chargebee = new Chargebee({
+  site: '{{site}}',
+  apiKey: '{{api-key}}',
+});
 
 const app = express();
 app.use(express.json());
 
-webhook.on('subscription_created', async ({ event, response }) => {
+chargebee.webhooks.on('subscription_created', async ({ event, response }) => {
   console.log(`Subscription created: ${event.id}`);
   const subscription = event.content.subscription;
   console.log(`Customer: ${subscription.customer_id}`);
   response?.status(200).send('OK');
 });
 
-webhook.on('error', (err: Error) => {
+chargebee.webhooks.on('error', (err: Error) => {
   console.error('Webhook error:', err.message);
 });
 
 app.post('/chargebee/webhooks', (req, res) => {
-  webhook.handle({
+  chargebee.webhooks.handle({
     body: req.body,
     headers: req.headers,
     request: req,
@@ -186,26 +191,31 @@ app.post('/chargebee/webhooks', (req, res) => {
 app.listen(8080);
 ```
 
-**Auto-configured Basic Auth:** The default `webhook` instance automatically configures Basic Auth validation if the following environment variables are set:
+**Auto-configured Basic Auth:** The `webhooks` handler automatically configures Basic Auth validation if the following environment variables are set:
 
 - `CHARGEBEE_WEBHOOK_USERNAME` - The expected username
 - `CHARGEBEE_WEBHOOK_PASSWORD` - The expected password
 
-When both are present, incoming webhook requests will be validated against these credentials. If not set, no authentication is applied.
+When both are present, incoming webhook requests will be validated against these credentials.
 
-#### Creating custom `WebhookHandler` instances
+#### Creating typed webhook handlers
 
-For more control or multiple webhook endpoints, create your own instances:
+For more control or multiple webhook endpoints, use `chargebee.webhooks.createHandler()`:
 
 ```typescript
 import express, { Request, Response } from 'express';
-import { WebhookHandler, basicAuthValidator } from 'chargebee';
+import Chargebee, { basicAuthValidator } from 'chargebee';
+
+const chargebee = new Chargebee({
+  site: '{{site}}',
+  apiKey: '{{api-key}}',
+});
 
 const app = express();
 app.use(express.json());
 
 // Create a typed handler for Express
-const handler = new WebhookHandler<Request, Response>();
+const handler = chargebee.webhooks.createHandler<Request, Response>();
 
 // Register event listeners using .on() - events are fully typed
 handler.on('subscription_created', async ({ event, response }) => {

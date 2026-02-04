@@ -8,11 +8,9 @@ export default Chargebee;
 
 // Export webhook modules
 export {
-  WebhookHandler,
   WebhookEventType,
   WebhookContentType,
 } from './resources/webhook/handler.js';
-export { default as webhook } from './resources/webhook/handler.js';
 export { basicAuthValidator } from './resources/webhook/auth.js';
 
 // Export webhook types

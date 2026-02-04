@@ -249,6 +249,12 @@ declare module 'chargebee' {
     variant: Variant.VariantResource;
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
     webhookEndpoint: WebhookEndpoint.WebhookEndpointResource;
+    /** Webhook handler instance with createHandler factory */
+    webhooks: WebhookHandler & {
+      createHandler<ReqT = unknown, ResT = unknown>(
+        options?: WebhookHandlerOptions,
+      ): WebhookHandler<ReqT, ResT>;
+    };
   }
 
   // Webhook Handler Types
@@ -290,6 +296,20 @@ declare module 'chargebee' {
     requestValidator?: RequestValidator;
   }
 
+  /**
+   * Options for the handle() method.
+   */
+  export interface HandleOptions<ReqT = unknown, ResT = unknown> {
+    /** The raw request body (string) or pre-parsed object */
+    body: string | object;
+    /** Optional HTTP headers for validation */
+    headers?: Record<string, string | string[] | undefined>;
+    /** Framework-specific request object (Express, Fastify, etc.) */
+    request?: ReqT;
+    /** Framework-specific response object (Express, Fastify, etc.) */
+    response?: ResT;
+  }
+
   export type WebhookEventListener<
     ReqT = unknown,
     ResT = unknown,
@@ -304,8 +324,7 @@ declare module 'chargebee' {
     [K in WebhookEventType]: `${K}` extends S ? K : never;
   }[WebhookEventType];
 
-  export class WebhookHandler<ReqT = unknown, ResT = unknown> {
-    constructor(options?: WebhookHandlerOptions);
+  export interface WebhookHandler<ReqT = unknown, ResT = unknown> {
     on<T extends WebhookEventType>(
       eventName: T,
       listener: WebhookEventListener<ReqT, ResT, T>,
@@ -345,12 +364,7 @@ declare module 'chargebee' {
       listener: WebhookEventListener<ReqT, ResT>,
     ): this;
     off(eventName: 'error', listener: WebhookErrorListener): this;
-    handle(
-      body: string | object,
-      headers?: Record<string, string | string[] | undefined>,
-      request?: ReqT,
-      response?: ResT,
-    ): Promise<void>;
+    handle(options: HandleOptions<ReqT, ResT>): Promise<void>;
     requestValidator: RequestValidator | undefined;
   }
 
@@ -370,7 +384,4 @@ declare module 'chargebee' {
   export function basicAuthValidator(
     validateCredentials: CredentialValidator,
   ): (headers: Record<string, string | string[] | undefined>) => Promise<void>;
-
-  // Default webhook handler instance
-  export const webhook: WebhookHandler;
 }

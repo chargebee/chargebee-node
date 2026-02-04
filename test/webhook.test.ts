@@ -1,6 +1,37 @@
 import { expect } from 'chai';
 import { WebhookHandler } from '../src/resources/webhook/handler.js';
 import { basicAuthValidator } from '../src/resources/webhook/auth.js';
+import { CreateChargebee } from '../src/createChargebee.js';
+
+// Mock HTTP client for Chargebee instance
+const mockHttpClient = {
+  makeApiRequest: async () => new Response('{}'),
+};
+
+// Create Chargebee class
+const Chargebee = CreateChargebee(mockHttpClient);
+
+// Helper to create a fresh Chargebee instance with env vars
+function createChargebeeWithEnv(env: Record<string, string | undefined>) {
+  const originalEnv = { ...process.env };
+  Object.assign(process.env, env);
+
+  const chargebee = new (Chargebee as any)({
+    site: 'test-site',
+    apiKey: 'test-key',
+  });
+
+  // Restore original env
+  Object.keys(env).forEach((key) => {
+    if (originalEnv[key] === undefined) {
+      delete process.env[key];
+    } else {
+      process.env[key] = originalEnv[key];
+    }
+  });
+
+  return chargebee;
+}
 
 // Helper to re-import the default webhook instance with fresh env vars
 async function getDefaultWebhookWithEnv(
@@ -408,5 +439,268 @@ describe('Default webhook instance', () => {
     await webhook.handle({ body, headers: { authorization: invalidAuth } });
     expect(callbackCalled).to.be.false;
     expect(errorCalled).to.be.true;
+  });
+});
+
+describe('chargebee.webhooks (instance property)', () => {
+  it('should have webhooks property on Chargebee instance', () => {
+    const chargebee = new (Chargebee as any)({
+      site: 'test-site',
+      apiKey: 'test-key',
+    });
+
+    expect(chargebee.webhooks).to.not.be.undefined;
+    expect(chargebee.webhooks.on).to.be.a('function');
+    expect(chargebee.webhooks.handle).to.be.a('function');
+    expect(chargebee.webhooks.createHandler).to.be.a('function');
+  });
+
+  it('should handle events using chargebee.webhooks.on()', async () => {
+    const chargebee = new (Chargebee as any)({
+      site: 'test-site',
+      apiKey: 'test-key',
+    });
+
+    let called = false;
+    chargebee.webhooks.on('subscription_created', async ({ event }: any) => {
+      called = true;
+      expect(event.event_type).to.equal('subscription_created');
+    });
+
+    const body = JSON.stringify({
+      id: 'evt_test',
+      event_type: 'subscription_created',
+      content: { subscription: { id: 'sub_123' } },
+    });
+
+    await chargebee.webhooks.handle({ body });
+    expect(called).to.be.true;
+  });
+
+  it('should pass request and response to callbacks', async () => {
+    const chargebee = new (Chargebee as any)({
+      site: 'test-site',
+      apiKey: 'test-key',
+    });
+
+    let receivedRequest: any;
+    let receivedResponse: any;
+
+    chargebee.webhooks.on('payment_succeeded', async ({ event, request, response }: any) => {
+      receivedRequest = request;
+      receivedResponse = response;
+    });
+
+    const mockReq = { headers: { 'x-custom': 'value' } };
+    const mockRes = { status: () => ({ send: () => {} }) };
+    const body = JSON.stringify({
+      id: 'evt_test',
+      event_type: 'payment_succeeded',
+      content: {},
+    });
+
+    await chargebee.webhooks.handle({
+      body,
+      request: mockReq,
+      response: mockRes,
+    });
+
+    expect(receivedRequest).to.equal(mockReq);
+    expect(receivedResponse).to.equal(mockRes);
+  });
+
+  it('should auto-configure basic auth from env vars', async () => {
+    const chargebee = createChargebeeWithEnv({
+      CHARGEBEE_WEBHOOK_USERNAME: 'envuser',
+      CHARGEBEE_WEBHOOK_PASSWORD: 'envpass',
+    });
+
+    expect(chargebee.webhooks.requestValidator).to.not.be.undefined;
+
+    // Valid credentials should pass
+    const validAuth = 'Basic ' + Buffer.from('envuser:envpass').toString('base64');
+    await chargebee.webhooks.requestValidator!({ authorization: validAuth });
+
+    // Invalid credentials should fail
+    const invalidAuth = 'Basic ' + Buffer.from('wrong:wrong').toString('base64');
+    try {
+      await chargebee.webhooks.requestValidator!({ authorization: invalidAuth });
+      expect.fail('Expected validator to throw');
+    } catch (err) {
+      expect((err as Error).message).to.equal('Invalid credentials');
+    }
+  });
+
+  it('should not configure auth when env vars are missing', () => {
+    const chargebee = createChargebeeWithEnv({
+      CHARGEBEE_WEBHOOK_USERNAME: undefined,
+      CHARGEBEE_WEBHOOK_PASSWORD: undefined,
+    });
+
+    expect(chargebee.webhooks.requestValidator).to.be.undefined;
+  });
+});
+
+describe('chargebee.webhooks.createHandler()', () => {
+  it('should create a new handler instance', () => {
+    const chargebee = new (Chargebee as any)({
+      site: 'test-site',
+      apiKey: 'test-key',
+    });
+
+    const handler = chargebee.webhooks.createHandler();
+
+    expect(handler).to.not.be.undefined;
+    expect(handler.on).to.be.a('function');
+    expect(handler.handle).to.be.a('function');
+    // Should be a different instance than chargebee.webhooks
+    expect(handler).to.not.equal(chargebee.webhooks);
+  });
+
+  it('should create handler with custom validator', async () => {
+    const chargebee = new (Chargebee as any)({
+      site: 'test-site',
+      apiKey: 'test-key',
+    });
+
+    let validatorCalled = false;
+    const handler = chargebee.webhooks.createHandler({
+      requestValidator: () => {
+        validatorCalled = true;
+      },
+    });
+
+    const body = JSON.stringify({
+      id: 'evt_test',
+      event_type: 'customer_created',
+      content: {},
+    });
+
+    await handler.handle({ body, headers: {} });
+    expect(validatorCalled).to.be.true;
+  });
+
+  it('should handle events independently from main webhooks', async () => {
+    const chargebee = new (Chargebee as any)({
+      site: 'test-site',
+      apiKey: 'test-key',
+    });
+
+    let mainHandlerCalled = false;
+    let customHandlerCalled = false;
+
+    // Register on main webhooks
+    chargebee.webhooks.on('invoice_generated', async () => {
+      mainHandlerCalled = true;
+    });
+
+    // Create separate handler
+    const customHandler = chargebee.webhooks.createHandler();
+    customHandler.on('invoice_generated', async () => {
+      customHandlerCalled = true;
+    });
+
+    const body = JSON.stringify({
+      id: 'evt_test',
+      event_type: 'invoice_generated',
+      content: {},
+    });
+
+    // Only call custom handler
+    await customHandler.handle({ body });
+    expect(mainHandlerCalled).to.be.false;
+    expect(customHandlerCalled).to.be.true;
+
+    // Reset and call main webhooks
+    customHandlerCalled = false;
+    await chargebee.webhooks.handle({ body });
+    expect(mainHandlerCalled).to.be.true;
+    expect(customHandlerCalled).to.be.false;
+  });
+
+  it('should support typed request/response in callbacks', async () => {
+    const chargebee = new (Chargebee as any)({
+      site: 'test-site',
+      apiKey: 'test-key',
+    });
+
+    // Simulating Express-like types
+    interface MockRequest {
+      body: any;
+      headers: Record<string, string>;
+    }
+    interface MockResponse {
+      status: (code: number) => MockResponse;
+      json: (data: any) => void;
+    }
+
+    const handler = chargebee.webhooks.createHandler();
+
+    let responseStatusCalled = false;
+    const mockRes: MockResponse = {
+      status: (code: number) => {
+        responseStatusCalled = true;
+        expect(code).to.equal(200);
+        return mockRes;
+      },
+      json: () => {},
+    };
+
+    handler.on('subscription_cancelled', async ({ response }: any) => {
+      response?.status(200).json({ received: true });
+    });
+
+    const body = JSON.stringify({
+      id: 'evt_test',
+      event_type: 'subscription_cancelled',
+      content: {},
+    });
+
+    await handler.handle({ body, response: mockRes });
+    expect(responseStatusCalled).to.be.true;
+  });
+
+  it('should create multiple independent handlers', async () => {
+    const chargebee = new (Chargebee as any)({
+      site: 'test-site',
+      apiKey: 'test-key',
+    });
+
+    let handler1Called = false;
+    let handler2Called = false;
+
+    const customerHandler = chargebee.webhooks.createHandler();
+    const paymentHandler = chargebee.webhooks.createHandler();
+
+    customerHandler.on('customer_created', async () => {
+      handler1Called = true;
+    });
+
+    paymentHandler.on('payment_succeeded', async () => {
+      handler2Called = true;
+    });
+
+    // Customer event should only trigger customerHandler
+    await customerHandler.handle({
+      body: JSON.stringify({
+        id: 'evt_1',
+        event_type: 'customer_created',
+        content: {},
+      }),
+    });
+    expect(handler1Called).to.be.true;
+    expect(handler2Called).to.be.false;
+
+    // Payment event should only trigger paymentHandler
+    handler1Called = false;
+    await paymentHandler.handle({
+      body: JSON.stringify({
+        id: 'evt_2',
+        event_type: 'payment_succeeded',
+        content: {},
+      }),
+    });
+    expect(handler1Called).to.be.false;
+    expect(handler2Called).to.be.true;
   });
 });
