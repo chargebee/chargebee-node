@@ -71,6 +71,7 @@ export class WebhookHandler<
   ResT = unknown,
 > extends EventEmitter<WebhookEventMap<ReqT, ResT>> {
   private _requestValidator?: RequestValidator;
+  private _noAuthWarningShown = false;
 
   constructor(options?: WebhookHandlerOptions) {
     super({ captureRejections: true });
@@ -101,8 +102,23 @@ export class WebhookHandler<
   async handle(options: HandleOptions<ReqT, ResT>): Promise<void> {
     const { body, headers, request, response } = options;
     try {
-      if (this._requestValidator && headers) {
-        await this._requestValidator(headers);
+      if (this._requestValidator) {
+        if (!headers) {
+          console.warn(
+            '[chargebee] Warning: Request validator is configured but no headers were passed. ' +
+              'Authentication check skipped. If this is intentional (no-auth webhook), ' +
+              'you can remove the requestValidator or ignore this warning.',
+          );
+        } else {
+          await this._requestValidator(headers);
+        }
+      } else if (!this._noAuthWarningShown) {
+        this._noAuthWarningShown = true;
+        console.warn(
+          '[chargebee] Warning: No webhook authentication configured. ' +
+            'Consider using basicAuthValidator() or a custom requestValidator for production. ' +
+            'See: https://apidocs.chargebee.com/docs/api/webhooks',
+        );
       }
 
       const event: WebhookEvent =

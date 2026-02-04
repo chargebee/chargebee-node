@@ -727,3 +727,103 @@ describe('chargebee.webhooks.createHandler()', () => {
     expect(handler2Called).to.be.true;
   });
 });
+
+describe('Webhook Auth Warnings', () => {
+  let originalWarn: typeof console.warn;
+  let warnCalls: string[];
+
+  beforeEach(() => {
+    originalWarn = console.warn;
+    warnCalls = [];
+    console.warn = (...args: any[]) => {
+      warnCalls.push(args.join(' '));
+    };
+  });
+
+  afterEach(() => {
+    console.warn = originalWarn;
+  });
+
+  it('should warn when validator is configured but headers are not passed', async () => {
+    const handler = new WebhookHandler();
+    handler.requestValidator = () => {}; // Configure a validator
+
+    handler.on('customer_created', async () => {});
+
+    // Call handle WITHOUT headers
+    await handler.handle({ body: makeEventBody('customer_created') });
+
+    expect(warnCalls.length).to.equal(1);
+    expect(warnCalls[0]).to.include(
+      'Request validator is configured but no headers were passed',
+    );
+  });
+
+  it('should not warn when validator is configured and headers are passed', async () => {
+    const handler = new WebhookHandler();
+    handler.requestValidator = () => {}; // Configure a validator
+
+    handler.on('customer_created', async () => {});
+
+    // Call handle WITH headers
+    await handler.handle({
+      body: makeEventBody('customer_created'),
+      headers: { authorization: 'Basic xyz' },
+    });
+
+    // Should not warn about missing headers
+    const headerWarning = warnCalls.find((msg) =>
+      msg.includes('Request validator is configured but no headers were passed'),
+    );
+    expect(headerWarning).to.be.undefined;
+  });
+
+  it('should warn once when no auth is configured', async () => {
+    const handler = new WebhookHandler(); // No validator configured
+
+    handler.on('customer_created', async () => {});
+
+    // First call - should warn
+    await handler.handle({ body: makeEventBody('customer_created') });
+    expect(warnCalls.length).to.equal(1);
+    expect(warnCalls[0]).to.include('No webhook authentication configured');
+
+    // Second call - should NOT warn again
+    await handler.handle({ body: makeEventBody('customer_created') });
+    expect(warnCalls.length).to.equal(1); // Still only once
+  });
+
+  it('should not warn about no auth when validator is configured', async () => {
+    const handler = new WebhookHandler();
+    handler.requestValidator = () => {}; // Configure validator immediately
+
+    handler.on('customer_created', async () => {});
+
+    await handler.handle({
+      body: makeEventBody('customer_created'),
+      headers: {},
+    });
+
+    // Should not warn about "no auth configured"
+    const noAuthWarning = warnCalls.find((msg) =>
+      msg.includes('No webhook authentication configured'),
+    );
+    expect(noAuthWarning).to.be.undefined;
+  });
+
+  it('should still process event even when warnings are emitted', async () => {
+    const handler = new WebhookHandler();
+    handler.requestValidator = () => {}; // Configure a validator
+
+    let eventProcessed = false;
+    handler.on('customer_created', async () => {
+      eventProcessed = true;
+    });
+
+    // Call handle WITHOUT headers - warning should be emitted but event still processed
+    await handler.handle({ body: makeEventBody('customer_created') });
+
+    expect(warnCalls.length).to.be.greaterThan(0);
+    expect(eventProcessed).to.be.true;
+  });
+});
