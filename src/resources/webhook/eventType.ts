@@ -453,6 +453,16 @@ export enum WebhookEventType {
 }
 
 /**
- * @deprecated Use WebhookEventType instead.
+ * @deprecated Renamed to `WebhookEventType` for clarity. Use `WebhookEventType` instead.
+ * This alias will be removed in the next major version.
+ *
+ * @example
+ * // Before (deprecated)
+ * import { WebhookContentType } from 'chargebee';
+ * if (event.event_type === WebhookContentType.SubscriptionCreated) { ... }
+ *
+ * // After (recommended)
+ * import { WebhookEventType } from 'chargebee';
+ * if (event.event_type === WebhookEventType.SubscriptionCreated) { ... }
  */
 export const WebhookContentType = WebhookEventType;

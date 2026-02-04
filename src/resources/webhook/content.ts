@@ -1388,7 +1388,484 @@ export interface VoucherExpiredContent {
   PaymentVoucher: import('chargebee').PaymentVoucher;
 }
 
-export interface WebhookEvent {
+import { WebhookEventType } from './eventType.js';
+
+/**
+ * Maps webhook event types to their corresponding content types.
+ * Used for type-safe access to event.content based on event_type.
+ */
+export type WebhookContentMap = {
+  [WebhookEventType.AddUsagesReminder]: AddUsagesReminderContent;
+
+  [WebhookEventType.AddonCreated]: AddonCreatedContent;
+
+  [WebhookEventType.AddonDeleted]: AddonDeletedContent;
+
+  [WebhookEventType.AddonUpdated]: AddonUpdatedContent;
+
+  [WebhookEventType.AttachedItemCreated]: AttachedItemCreatedContent;
+
+  [WebhookEventType.AttachedItemDeleted]: AttachedItemDeletedContent;
+
+  [WebhookEventType.AttachedItemUpdated]: AttachedItemUpdatedContent;
+
+  [WebhookEventType.AuthorizationSucceeded]: AuthorizationSucceededContent;
+
+  [WebhookEventType.AuthorizationVoided]: AuthorizationVoidedContent;
+
+  [WebhookEventType.BusinessEntityCreated]: BusinessEntityCreatedContent;
+
+  [WebhookEventType.BusinessEntityDeleted]: BusinessEntityDeletedContent;
+
+  [WebhookEventType.BusinessEntityUpdated]: BusinessEntityUpdatedContent;
+
+  [WebhookEventType.CardAdded]: CardAddedContent;
+
+  [WebhookEventType.CardDeleted]: CardDeletedContent;
+
+  [WebhookEventType.CardExpired]: CardExpiredContent;
+
+  [WebhookEventType.CardExpiryReminder]: CardExpiryReminderContent;
+
+  [WebhookEventType.CardUpdated]: CardUpdatedContent;
+
+  [WebhookEventType.ContractTermCancelled]: ContractTermCancelledContent;
+
+  [WebhookEventType.ContractTermCompleted]: ContractTermCompletedContent;
+
+  [WebhookEventType.ContractTermCreated]: ContractTermCreatedContent;
+
+  [WebhookEventType.ContractTermRenewed]: ContractTermRenewedContent;
+
+  [WebhookEventType.ContractTermTerminated]: ContractTermTerminatedContent;
+
+  [WebhookEventType.CouponCodesAdded]: CouponCodesAddedContent;
+
+  [WebhookEventType.CouponCodesDeleted]: CouponCodesDeletedContent;
+
+  [WebhookEventType.CouponCodesUpdated]: CouponCodesUpdatedContent;
+
+  [WebhookEventType.CouponCreated]: CouponCreatedContent;
+
+  [WebhookEventType.CouponDeleted]: CouponDeletedContent;
+
+  [WebhookEventType.CouponSetCreated]: CouponSetCreatedContent;
+
+  [WebhookEventType.CouponSetDeleted]: CouponSetDeletedContent;
+
+  [WebhookEventType.CouponSetUpdated]: CouponSetUpdatedContent;
+
+  [WebhookEventType.CouponUpdated]: CouponUpdatedContent;
+
+  [WebhookEventType.CreditNoteCreated]: CreditNoteCreatedContent;
+
+  [WebhookEventType.CreditNoteCreatedWithBackdating]: CreditNoteCreatedWithBackdatingContent;
+
+  [WebhookEventType.CreditNoteDeleted]: CreditNoteDeletedContent;
+
+  [WebhookEventType.CreditNoteUpdated]: CreditNoteUpdatedContent;
+
+  [WebhookEventType.CustomerBusinessEntityChanged]: CustomerBusinessEntityChangedContent;
+
+  [WebhookEventType.CustomerChanged]: CustomerChangedContent;
+
+  [WebhookEventType.CustomerCreated]: CustomerCreatedContent;
+
+  [WebhookEventType.CustomerDeleted]: CustomerDeletedContent;
+
+  [WebhookEventType.CustomerEntitlementsUpdated]: CustomerEntitlementsUpdatedContent;
+
+  [WebhookEventType.CustomerMovedIn]: CustomerMovedInContent;
+
+  [WebhookEventType.CustomerMovedOut]: CustomerMovedOutContent;
+
+  [WebhookEventType.DifferentialPriceCreated]: DifferentialPriceCreatedContent;
+
+  [WebhookEventType.DifferentialPriceDeleted]: DifferentialPriceDeletedContent;
+
+  [WebhookEventType.DifferentialPriceUpdated]: DifferentialPriceUpdatedContent;
+
+  [WebhookEventType.DunningUpdated]: DunningUpdatedContent;
+
+  [WebhookEventType.EntitlementOverridesAutoRemoved]: EntitlementOverridesAutoRemovedContent;
+
+  [WebhookEventType.EntitlementOverridesRemoved]: EntitlementOverridesRemovedContent;
+
+  [WebhookEventType.EntitlementOverridesUpdated]: EntitlementOverridesUpdatedContent;
+
+  [WebhookEventType.FeatureActivated]: FeatureActivatedContent;
+
+  [WebhookEventType.FeatureArchived]: FeatureArchivedContent;
+
+  [WebhookEventType.FeatureCreated]: FeatureCreatedContent;
+
+  [WebhookEventType.FeatureDeleted]: FeatureDeletedContent;
+
+  [WebhookEventType.FeatureReactivated]: FeatureReactivatedContent;
+
+  [WebhookEventType.FeatureUpdated]: FeatureUpdatedContent;
+
+  [WebhookEventType.GiftCancelled]: GiftCancelledContent;
+
+  [WebhookEventType.GiftClaimed]: GiftClaimedContent;
+
+  [WebhookEventType.GiftExpired]: GiftExpiredContent;
+
+  [WebhookEventType.GiftScheduled]: GiftScheduledContent;
+
+  [WebhookEventType.GiftUnclaimed]: GiftUnclaimedContent;
+
+  [WebhookEventType.GiftUpdated]: GiftUpdatedContent;
+
+  [WebhookEventType.HierarchyCreated]: HierarchyCreatedContent;
+
+  [WebhookEventType.HierarchyDeleted]: HierarchyDeletedContent;
+
+  [WebhookEventType.InvoiceDeleted]: InvoiceDeletedContent;
+
+  [WebhookEventType.InvoiceGenerated]: InvoiceGeneratedContent;
+
+  [WebhookEventType.InvoiceGeneratedWithBackdating]: InvoiceGeneratedWithBackdatingContent;
+
+  [WebhookEventType.InvoiceUpdated]: InvoiceUpdatedContent;
+
+  [WebhookEventType.ItemCreated]: ItemCreatedContent;
+
+  [WebhookEventType.ItemDeleted]: ItemDeletedContent;
+
+  [WebhookEventType.ItemEntitlementsRemoved]: ItemEntitlementsRemovedContent;
+
+  [WebhookEventType.ItemEntitlementsUpdated]: ItemEntitlementsUpdatedContent;
+
+  [WebhookEventType.ItemFamilyCreated]: ItemFamilyCreatedContent;
+
+  [WebhookEventType.ItemFamilyDeleted]: ItemFamilyDeletedContent;
+
+  [WebhookEventType.ItemFamilyUpdated]: ItemFamilyUpdatedContent;
+
+  [WebhookEventType.ItemPriceCreated]: ItemPriceCreatedContent;
+
+  [WebhookEventType.ItemPriceDeleted]: ItemPriceDeletedContent;
+
+  [WebhookEventType.ItemPriceEntitlementsRemoved]: ItemPriceEntitlementsRemovedContent;
+
+  [WebhookEventType.ItemPriceEntitlementsUpdated]: ItemPriceEntitlementsUpdatedContent;
+
+  [WebhookEventType.ItemPriceUpdated]: ItemPriceUpdatedContent;
+
+  [WebhookEventType.ItemUpdated]: ItemUpdatedContent;
+
+  [WebhookEventType.MrrUpdated]: MrrUpdatedContent;
+
+  [WebhookEventType.NetdPaymentDueReminder]: NetdPaymentDueReminderContent;
+
+  [WebhookEventType.OmnichannelOneTimeOrderCreated]: OmnichannelOneTimeOrderCreatedContent;
+
+  [WebhookEventType.OmnichannelOneTimeOrderItemCancelled]: OmnichannelOneTimeOrderItemCancelledContent;
+
+  [WebhookEventType.OmnichannelSubscriptionCreated]: OmnichannelSubscriptionCreatedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionImported]: OmnichannelSubscriptionImportedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemCancellationScheduled]: OmnichannelSubscriptionItemCancellationScheduledContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemCancelled]: OmnichannelSubscriptionItemCancelledContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemChangeScheduled]: OmnichannelSubscriptionItemChangeScheduledContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemChanged]: OmnichannelSubscriptionItemChangedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemDowngradeScheduled]: OmnichannelSubscriptionItemDowngradeScheduledContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemDowngraded]: OmnichannelSubscriptionItemDowngradedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemDunningExpired]: OmnichannelSubscriptionItemDunningExpiredContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemDunningStarted]: OmnichannelSubscriptionItemDunningStartedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemExpired]: OmnichannelSubscriptionItemExpiredContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemGracePeriodExpired]: OmnichannelSubscriptionItemGracePeriodExpiredContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemGracePeriodStarted]: OmnichannelSubscriptionItemGracePeriodStartedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemPauseScheduled]: OmnichannelSubscriptionItemPauseScheduledContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemPaused]: OmnichannelSubscriptionItemPausedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemReactivated]: OmnichannelSubscriptionItemReactivatedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemRenewed]: OmnichannelSubscriptionItemRenewedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemResubscribed]: OmnichannelSubscriptionItemResubscribedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemResumed]: OmnichannelSubscriptionItemResumedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemScheduledCancellationRemoved]: OmnichannelSubscriptionItemScheduledCancellationRemovedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemScheduledChangeRemoved]: OmnichannelSubscriptionItemScheduledChangeRemovedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemScheduledDowngradeRemoved]: OmnichannelSubscriptionItemScheduledDowngradeRemovedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemUpgraded]: OmnichannelSubscriptionItemUpgradedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionMovedIn]: OmnichannelSubscriptionMovedInContent;
+
+  [WebhookEventType.OmnichannelTransactionCreated]: OmnichannelTransactionCreatedContent;
+
+  [WebhookEventType.OrderCancelled]: OrderCancelledContent;
+
+  [WebhookEventType.OrderCreated]: OrderCreatedContent;
+
+  [WebhookEventType.OrderDeleted]: OrderDeletedContent;
+
+  [WebhookEventType.OrderDelivered]: OrderDeliveredContent;
+
+  [WebhookEventType.OrderReadyToProcess]: OrderReadyToProcessContent;
+
+  [WebhookEventType.OrderReadyToShip]: OrderReadyToShipContent;
+
+  [WebhookEventType.OrderResent]: OrderResentContent;
+
+  [WebhookEventType.OrderReturned]: OrderReturnedContent;
+
+  [WebhookEventType.OrderUpdated]: OrderUpdatedContent;
+
+  [WebhookEventType.PaymentFailed]: PaymentFailedContent;
+
+  [WebhookEventType.PaymentInitiated]: PaymentInitiatedContent;
+
+  [WebhookEventType.PaymentIntentCreated]: PaymentIntentCreatedContent;
+
+  [WebhookEventType.PaymentIntentUpdated]: PaymentIntentUpdatedContent;
+
+  [WebhookEventType.PaymentRefunded]: PaymentRefundedContent;
+
+  [WebhookEventType.PaymentScheduleSchemeCreated]: PaymentScheduleSchemeCreatedContent;
+
+  [WebhookEventType.PaymentScheduleSchemeDeleted]: PaymentScheduleSchemeDeletedContent;
+
+  [WebhookEventType.PaymentSchedulesCreated]: PaymentSchedulesCreatedContent;
+
+  [WebhookEventType.PaymentSchedulesUpdated]: PaymentSchedulesUpdatedContent;
+
+  [WebhookEventType.PaymentSourceAdded]: PaymentSourceAddedContent;
+
+  [WebhookEventType.PaymentSourceDeleted]: PaymentSourceDeletedContent;
+
+  [WebhookEventType.PaymentSourceExpired]: PaymentSourceExpiredContent;
+
+  [WebhookEventType.PaymentSourceExpiring]: PaymentSourceExpiringContent;
+
+  [WebhookEventType.PaymentSourceLocallyDeleted]: PaymentSourceLocallyDeletedContent;
+
+  [WebhookEventType.PaymentSourceUpdated]: PaymentSourceUpdatedContent;
+
+  [WebhookEventType.PaymentSucceeded]: PaymentSucceededContent;
+
+  [WebhookEventType.PendingInvoiceCreated]: PendingInvoiceCreatedContent;
+
+  [WebhookEventType.PendingInvoiceUpdated]: PendingInvoiceUpdatedContent;
+
+  [WebhookEventType.PlanCreated]: PlanCreatedContent;
+
+  [WebhookEventType.PlanDeleted]: PlanDeletedContent;
+
+  [WebhookEventType.PlanUpdated]: PlanUpdatedContent;
+
+  [WebhookEventType.PriceVariantCreated]: PriceVariantCreatedContent;
+
+  [WebhookEventType.PriceVariantDeleted]: PriceVariantDeletedContent;
+
+  [WebhookEventType.PriceVariantUpdated]: PriceVariantUpdatedContent;
+
+  [WebhookEventType.ProductCreated]: ProductCreatedContent;
+
+  [WebhookEventType.ProductDeleted]: ProductDeletedContent;
+
+  [WebhookEventType.ProductUpdated]: ProductUpdatedContent;
+
+  [WebhookEventType.PromotionalCreditsAdded]: PromotionalCreditsAddedContent;
+
+  [WebhookEventType.PromotionalCreditsDeducted]: PromotionalCreditsDeductedContent;
+
+  [WebhookEventType.PurchaseCreated]: PurchaseCreatedContent;
+
+  [WebhookEventType.QuoteCreated]: QuoteCreatedContent;
+
+  [WebhookEventType.QuoteDeleted]: QuoteDeletedContent;
+
+  [WebhookEventType.QuoteUpdated]: QuoteUpdatedContent;
+
+  [WebhookEventType.RecordPurchaseFailed]: RecordPurchaseFailedContent;
+
+  [WebhookEventType.RefundInitiated]: RefundInitiatedContent;
+
+  [WebhookEventType.RuleCreated]: RuleCreatedContent;
+
+  [WebhookEventType.RuleDeleted]: RuleDeletedContent;
+
+  [WebhookEventType.RuleUpdated]: RuleUpdatedContent;
+
+  [WebhookEventType.SalesOrderCreated]: SalesOrderCreatedContent;
+
+  [WebhookEventType.SalesOrderUpdated]: SalesOrderUpdatedContent;
+
+  [WebhookEventType.SubscriptionActivated]: SubscriptionActivatedContent;
+
+  [WebhookEventType.SubscriptionActivatedWithBackdating]: SubscriptionActivatedWithBackdatingContent;
+
+  [WebhookEventType.SubscriptionAdvanceInvoiceScheduleAdded]: SubscriptionAdvanceInvoiceScheduleAddedContent;
+
+  [WebhookEventType.SubscriptionAdvanceInvoiceScheduleRemoved]: SubscriptionAdvanceInvoiceScheduleRemovedContent;
+
+  [WebhookEventType.SubscriptionAdvanceInvoiceScheduleUpdated]: SubscriptionAdvanceInvoiceScheduleUpdatedContent;
+
+  [WebhookEventType.SubscriptionBusinessEntityChanged]: SubscriptionBusinessEntityChangedContent;
+
+  [WebhookEventType.SubscriptionCanceledWithBackdating]: SubscriptionCanceledWithBackdatingContent;
+
+  [WebhookEventType.SubscriptionCancellationReminder]: SubscriptionCancellationReminderContent;
+
+  [WebhookEventType.SubscriptionCancellationScheduled]: SubscriptionCancellationScheduledContent;
+
+  [WebhookEventType.SubscriptionCancelled]: SubscriptionCancelledContent;
+
+  [WebhookEventType.SubscriptionChanged]: SubscriptionChangedContent;
+
+  [WebhookEventType.SubscriptionChangedWithBackdating]: SubscriptionChangedWithBackdatingContent;
+
+  [WebhookEventType.SubscriptionChangesScheduled]: SubscriptionChangesScheduledContent;
+
+  [WebhookEventType.SubscriptionCreated]: SubscriptionCreatedContent;
+
+  [WebhookEventType.SubscriptionCreatedWithBackdating]: SubscriptionCreatedWithBackdatingContent;
+
+  [WebhookEventType.SubscriptionDeleted]: SubscriptionDeletedContent;
+
+  [WebhookEventType.SubscriptionEntitlementsCreated]: SubscriptionEntitlementsCreatedContent;
+
+  [WebhookEventType.SubscriptionEntitlementsUpdated]: SubscriptionEntitlementsUpdatedContent;
+
+  [WebhookEventType.SubscriptionItemsRenewed]: SubscriptionItemsRenewedContent;
+
+  [WebhookEventType.SubscriptionMovedIn]: SubscriptionMovedInContent;
+
+  [WebhookEventType.SubscriptionMovedOut]: SubscriptionMovedOutContent;
+
+  [WebhookEventType.SubscriptionMovementFailed]: SubscriptionMovementFailedContent;
+
+  [WebhookEventType.SubscriptionPauseScheduled]: SubscriptionPauseScheduledContent;
+
+  [WebhookEventType.SubscriptionPaused]: SubscriptionPausedContent;
+
+  [WebhookEventType.SubscriptionRampApplied]: SubscriptionRampAppliedContent;
+
+  [WebhookEventType.SubscriptionRampCreated]: SubscriptionRampCreatedContent;
+
+  [WebhookEventType.SubscriptionRampDeleted]: SubscriptionRampDeletedContent;
+
+  [WebhookEventType.SubscriptionRampDrafted]: SubscriptionRampDraftedContent;
+
+  [WebhookEventType.SubscriptionRampUpdated]: SubscriptionRampUpdatedContent;
+
+  [WebhookEventType.SubscriptionReactivated]: SubscriptionReactivatedContent;
+
+  [WebhookEventType.SubscriptionReactivatedWithBackdating]: SubscriptionReactivatedWithBackdatingContent;
+
+  [WebhookEventType.SubscriptionRenewalReminder]: SubscriptionRenewalReminderContent;
+
+  [WebhookEventType.SubscriptionRenewed]: SubscriptionRenewedContent;
+
+  [WebhookEventType.SubscriptionResumed]: SubscriptionResumedContent;
+
+  [WebhookEventType.SubscriptionResumptionScheduled]: SubscriptionResumptionScheduledContent;
+
+  [WebhookEventType.SubscriptionScheduledCancellationRemoved]: SubscriptionScheduledCancellationRemovedContent;
+
+  [WebhookEventType.SubscriptionScheduledChangesRemoved]: SubscriptionScheduledChangesRemovedContent;
+
+  [WebhookEventType.SubscriptionScheduledPauseRemoved]: SubscriptionScheduledPauseRemovedContent;
+
+  [WebhookEventType.SubscriptionScheduledResumptionRemoved]: SubscriptionScheduledResumptionRemovedContent;
+
+  [WebhookEventType.SubscriptionShippingAddressUpdated]: SubscriptionShippingAddressUpdatedContent;
+
+  [WebhookEventType.SubscriptionStarted]: SubscriptionStartedContent;
+
+  [WebhookEventType.SubscriptionTrialEndReminder]: SubscriptionTrialEndReminderContent;
+
+  [WebhookEventType.SubscriptionTrialExtended]: SubscriptionTrialExtendedContent;
+
+  [WebhookEventType.TaxWithheldDeleted]: TaxWithheldDeletedContent;
+
+  [WebhookEventType.TaxWithheldRecorded]: TaxWithheldRecordedContent;
+
+  [WebhookEventType.TaxWithheldRefunded]: TaxWithheldRefundedContent;
+
+  [WebhookEventType.TokenConsumed]: TokenConsumedContent;
+
+  [WebhookEventType.TokenCreated]: TokenCreatedContent;
+
+  [WebhookEventType.TokenExpired]: TokenExpiredContent;
+
+  [WebhookEventType.TransactionCreated]: TransactionCreatedContent;
+
+  [WebhookEventType.TransactionDeleted]: TransactionDeletedContent;
+
+  [WebhookEventType.TransactionUpdated]: TransactionUpdatedContent;
+
+  [WebhookEventType.UnbilledChargesCreated]: UnbilledChargesCreatedContent;
+
+  [WebhookEventType.UnbilledChargesDeleted]: UnbilledChargesDeletedContent;
+
+  [WebhookEventType.UnbilledChargesInvoiced]: UnbilledChargesInvoicedContent;
+
+  [WebhookEventType.UnbilledChargesVoided]: UnbilledChargesVoidedContent;
+
+  [WebhookEventType.UsageFileIngested]: UsageFileIngestedContent;
+
+  [WebhookEventType.VariantCreated]: VariantCreatedContent;
+
+  [WebhookEventType.VariantDeleted]: VariantDeletedContent;
+
+  [WebhookEventType.VariantUpdated]: VariantUpdatedContent;
+
+  [WebhookEventType.VirtualBankAccountAdded]: VirtualBankAccountAddedContent;
+
+  [WebhookEventType.VirtualBankAccountDeleted]: VirtualBankAccountDeletedContent;
+
+  [WebhookEventType.VirtualBankAccountUpdated]: VirtualBankAccountUpdatedContent;
+
+  [WebhookEventType.VoucherCreateFailed]: VoucherCreateFailedContent;
+
+  [WebhookEventType.VoucherCreated]: VoucherCreatedContent;
+
+  [WebhookEventType.VoucherExpired]: VoucherExpiredContent;
+};
+
+/**
+ * Utility type to get the content type for a specific webhook event type.
+ * @example
+ * type SubCreatedContent = ContentFor<WebhookEventType.SubscriptionCreated>;
+ */
+export type ContentFor<T extends WebhookEventType> = WebhookContentMap[T];
+
+/**
+ * Webhook event payload from Chargebee.
+ *
+ * @typeParam T - The specific event type. When provided, `content` is strongly typed.
+ *                Defaults to `WebhookEventType` for backward compatibility (content becomes union of all types).
+ *
+ * @example
+ * // Backward compatible usage (content is union of all content types)
+ * const event: WebhookEvent = payload;
+ *
+ * // Type-safe usage with specific event type
+ * const event: WebhookEvent<WebhookEventType.SubscriptionCreated> = payload;
+ * event.content.Subscription; // ✓ Typed as Subscription
+ */
+export interface WebhookEvent<T extends WebhookEventType = WebhookEventType> {
   id: string;
   occurred_at: number;
   source: string;
@@ -1396,7 +1873,7 @@ export interface WebhookEvent {
   webhook_status: string;
   webhook_failure_reason?: string;
   webhooks?: any[];
-  event_type: string;
+  event_type: T;
   api_version: string;
-  content: any;
+  content: ContentFor<T>;
 }
