@@ -12,7 +12,7 @@ module.exports = Chargebee;
 module.exports.Chargebee = Chargebee;
 module.exports.default = Chargebee;
 
-// Export webhook modules
+// Export webhook utilities
 module.exports.WebhookEventType = WebhookEventType;
 module.exports.WebhookContentType = WebhookContentType;
 module.exports.basicAuthValidator = basicAuthValidator;

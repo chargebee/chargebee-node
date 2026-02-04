@@ -249,8 +249,10 @@ declare module 'chargebee' {
     variant: Variant.VariantResource;
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
     webhookEndpoint: WebhookEndpoint.WebhookEndpointResource;
-    /** Webhook handler instance with createHandler factory */
+
+    /** Webhook handler instance with auto-configured Basic Auth (if env vars are set) */
     webhooks: WebhookHandler & {
+      /** Create a new typed webhook handler instance */
       createHandler<ReqT = unknown, ResT = unknown>(
         options?: WebhookHandlerOptions,
       ): WebhookHandler<ReqT, ResT>;
@@ -304,9 +306,9 @@ declare module 'chargebee' {
     body: string | object;
     /** Optional HTTP headers for validation */
     headers?: Record<string, string | string[] | undefined>;
-    /** Framework-specific request object (Express, Fastify, etc.) */
+    /** Optional framework-specific request object (Express, Fastify, etc.) */
     request?: ReqT;
-    /** Framework-specific response object (Express, Fastify, etc.) */
+    /** Optional framework-specific response object (Express, Fastify, etc.) */
     response?: ResT;
   }
 

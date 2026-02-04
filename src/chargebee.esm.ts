@@ -6,7 +6,7 @@ const Chargebee = CreateChargebee(httpClient);
 
 export default Chargebee;
 
-// Export webhook modules
+// Export webhook utilities
 export {
   WebhookEventType,
   WebhookContentType,

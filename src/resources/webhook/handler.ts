@@ -60,9 +60,9 @@ export interface HandleOptions<ReqT = unknown, ResT = unknown> {
   body: string | object;
   /** Optional HTTP headers for validation */
   headers?: Record<string, string | string[] | undefined>;
-  /** Framework-specific request object (Express, Fastify, etc.) */
+  /** Optional framework-specific request object (Express, Fastify, etc.) */
   request?: ReqT;
-  /** Framework-specific response object (Express, Fastify, etc.) */
+  /** Optional framework-specific response object (Express, Fastify, etc.) */
   response?: ResT;
 }
 
@@ -96,7 +96,7 @@ export class WebhookHandler<
    * Validates the request (if validator configured), parses the body,
    * and emits the appropriate event.
    *
-   * @param options - The handle options containing body, headers, request, and response
+   * @param options - Handle options containing body, headers, request, and response
    */
   async handle(options: HandleOptions<ReqT, ResT>): Promise<void> {
     const { body, headers, request, response } = options;
@@ -126,21 +126,6 @@ export class WebhookHandler<
     }
   }
 }
-
-// Default instance for simple use cases
-const webhook = new WebhookHandler();
-
-// Auto-configure basic auth if env vars are present
-const username = process.env.CHARGEBEE_WEBHOOK_USERNAME;
-const password = process.env.CHARGEBEE_WEBHOOK_PASSWORD;
-
-if (username && password) {
-  webhook.requestValidator = basicAuthValidator(
-    (u, p) => u === username && p === password,
-  );
-}
-
-export default webhook;
 
 export type { WebhookEvent } from './content.js';
 export { basicAuthValidator, type CredentialValidator } from './auth.js';

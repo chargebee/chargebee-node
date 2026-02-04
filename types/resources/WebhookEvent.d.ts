@@ -220,6 +220,10 @@ declare module 'chargebee' {
     PlanCreated = 'plan_created',
     PlanUpdated = 'plan_updated',
   }
+  /**
+   * @deprecated Use WebhookEventType instead.
+   */
+  export import WebhookContentType = WebhookEventType;
 
   /**
    * @deprecated Use WebhookEventType instead.
