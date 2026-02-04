@@ -20,6 +20,7 @@ export type {
   WebhookEvent,
   WebhookContext,
   WebhookHandlerOptions,
+  HandleOptions,
   RequestValidator,
 } from './resources/webhook/handler.js';
 export type { CredentialValidator } from './resources/webhook/auth.js';

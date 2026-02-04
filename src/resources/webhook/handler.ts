@@ -52,6 +52,20 @@ export interface WebhookHandlerOptions {
   requestValidator?: RequestValidator;
 }
 
+/**
+ * Options for the handle() method.
+ */
+export interface HandleOptions<ReqT = unknown, ResT = unknown> {
+  /** The raw request body (string) or pre-parsed object */
+  body: string | object;
+  /** Optional HTTP headers for validation */
+  headers?: Record<string, string | string[] | undefined>;
+  /** Framework-specific request object (Express, Fastify, etc.) */
+  request?: ReqT;
+  /** Framework-specific response object (Express, Fastify, etc.) */
+  response?: ResT;
+}
+
 export class WebhookHandler<
   ReqT = unknown,
   ResT = unknown,
@@ -82,17 +96,10 @@ export class WebhookHandler<
    * Validates the request (if validator configured), parses the body,
    * and emits the appropriate event.
    *
-   * @param body - The raw request body (string) or pre-parsed object
-   * @param headers - Optional HTTP headers for validation
-   * @param request - Optional framework-specific request object
-   * @param response - Optional framework-specific response object
+   * @param options - The handle options containing body, headers, request, and response
    */
-  async handle(
-    body: string | object,
-    headers?: Record<string, string | string[] | undefined>,
-    request?: ReqT,
-    response?: ResT,
-  ): Promise<void> {
+  async handle(options: HandleOptions<ReqT, ResT>): Promise<void> {
+    const { body, headers, request, response } = options;
     try {
       if (this._requestValidator && headers) {
         await this._requestValidator(headers);

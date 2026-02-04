@@ -41,14 +41,14 @@ describe('WebhookHandler', () => {
   it('should route to callback successfully', async () => {
     let called = false;
     const handler = new WebhookHandler();
-    handler.on('pending_invoice_created', async (event) => {
+    handler.on('pending_invoice_created', async ({ event }) => {
       called = true;
       expect(event.id).to.not.be.empty;
       expect(event.event_type).to.equal('pending_invoice_created');
       expect(event.content).to.not.be.null;
     });
 
-    handler.handle(makeEventBody('pending_invoice_created'));
+    handler.handle({ body: makeEventBody('pending_invoice_created') });
     expect(called).to.be.true;
   });
 
@@ -63,7 +63,7 @@ describe('WebhookHandler', () => {
       expect((err as Error).message).to.equal('bad signature');
     });
 
-    handler.handle(makeEventBody('pending_invoice_created'), {});
+    handler.handle({ body: makeEventBody('pending_invoice_created'), headers: {} });
     expect(onErrorCalled).to.be.true;
   });
 
@@ -78,19 +78,19 @@ describe('WebhookHandler', () => {
       expect((err as Error).message).to.equal('user code failed');
     });
 
-    handler.handle(makeEventBody('pending_invoice_created'));
+    handler.handle({ body: makeEventBody('pending_invoice_created') });
     expect(onErrorCalled).to.be.true;
   });
 
   it('should handle unknown event', async () => {
     let onUnhandledCalled = false;
     const handler = new WebhookHandler();
-    handler.on('unhandled_event', async (event) => {
+    handler.on('unhandled_event', async ({ event }) => {
       onUnhandledCalled = true;
       expect(event.event_type).to.equal('non_existing_event');
     });
 
-    handler.handle(makeEventBody('non_existing_event'));
+    handler.handle({ body: makeEventBody('non_existing_event') });
     expect(onUnhandledCalled).to.be.true;
   });
 
@@ -106,12 +106,12 @@ describe('WebhookHandler', () => {
       subscriptionCalled = true;
     });
 
-    handler.handle(makeEventBody('pending_invoice_created'));
+    handler.handle({ body: makeEventBody('pending_invoice_created') });
     expect(pendingInvoiceCalled).to.be.true;
     expect(subscriptionCalled).to.be.false;
 
     pendingInvoiceCalled = false;
-    handler.handle(makeEventBody('subscription_created'));
+    handler.handle({ body: makeEventBody('subscription_created') });
     expect(pendingInvoiceCalled).to.be.false;
     expect(subscriptionCalled).to.be.true;
   });
@@ -123,7 +123,7 @@ describe('WebhookHandler', () => {
       onErrorCalled = true;
     });
 
-    handler.handle('invalid json');
+    handler.handle({ body: 'invalid json' });
     expect(onErrorCalled).to.be.true;
   });
 
@@ -144,15 +144,16 @@ describe('WebhookHandler', () => {
     });
 
     // Fail case
-    handler.handle(makeEventBody('pending_invoice_created'), {});
+    handler.handle({ body: makeEventBody('pending_invoice_created'), headers: {} });
     expect(validatorCalled).to.be.true;
     expect(onErrorCalled).to.be.true;
 
     // Success case
     validatorCalled = false;
     onErrorCalled = false;
-    handler.handle(makeEventBody('pending_invoice_created'), {
-      'x-custom-header': 'expected-value',
+    handler.handle({
+      body: makeEventBody('pending_invoice_created'),
+      headers: { 'x-custom-header': 'expected-value' },
     });
     expect(validatorCalled).to.be.true;
     expect(onErrorCalled).to.be.false;
@@ -170,7 +171,7 @@ describe('WebhookHandler', () => {
       listener2Called = true;
     });
 
-    handler.handle(makeEventBody('customer_created'));
+    handler.handle({ body: makeEventBody('customer_created') });
     expect(listener1Called).to.be.true;
     expect(listener2Called).to.be.true;
   });
@@ -183,8 +184,8 @@ describe('WebhookHandler', () => {
       callCount++;
     });
 
-    handler.handle(makeEventBody('customer_created'));
-    handler.handle(makeEventBody('customer_created'));
+    handler.handle({ body: makeEventBody('customer_created') });
+    handler.handle({ body: makeEventBody('customer_created') });
 
     expect(callCount).to.equal(1);
   });
@@ -198,11 +199,11 @@ describe('WebhookHandler', () => {
     };
 
     handler.on('customer_created', listener);
-    handler.handle(makeEventBody('customer_created'));
+    handler.handle({ body: makeEventBody('customer_created') });
     expect(callCount).to.equal(1);
 
     handler.off('customer_created', listener);
-    handler.handle(makeEventBody('customer_created'));
+    handler.handle({ body: makeEventBody('customer_created') });
     expect(callCount).to.equal(1); // Should not increment
   });
 
@@ -218,7 +219,7 @@ describe('WebhookHandler', () => {
     });
 
     handler.removeAllListeners('customer_created');
-    handler.handle(makeEventBody('customer_created'));
+    handler.handle({ body: makeEventBody('customer_created') });
     expect(callCount).to.equal(0);
   });
 
@@ -245,7 +246,7 @@ describe('WebhookHandler', () => {
         subscriptionCreatedCalled = true;
       });
 
-    handler.handle(makeEventBody('customer_created'));
+    handler.handle({ body: makeEventBody('customer_created') });
     expect(customerCreatedCalled).to.be.true;
     expect(subscriptionCreatedCalled).to.be.false;
   });
@@ -256,33 +257,48 @@ describe('BasicAuthValidator', () => {
     return username === 'testuser' && password === 'testpass';
   });
 
-  it('should validate valid credentials', () => {
+  it('should validate valid credentials', async () => {
     const auth = 'Basic ' + Buffer.from('testuser:testpass').toString('base64');
-    expect(() => validator({ authorization: auth })).to.not.throw();
+    // Should not throw
+    await validator({ authorization: auth });
   });
 
-  it('should reject invalid credentials', () => {
+  it('should reject invalid credentials', async () => {
     const auth = 'Basic ' + Buffer.from('wrong:wrong').toString('base64');
-    expect(() => validator({ authorization: auth })).to.throw(
-      'Invalid credentials',
-    );
+    try {
+      await validator({ authorization: auth });
+      expect.fail('Expected validator to throw');
+    } catch (err) {
+      expect((err as Error).message).to.equal('Invalid credentials');
+    }
   });
 
-  it('should reject missing header', () => {
-    expect(() => validator({})).to.throw('Invalid authorization header');
+  it('should reject missing header', async () => {
+    try {
+      await validator({});
+      expect.fail('Expected validator to throw');
+    } catch (err) {
+      expect((err as Error).message).to.equal('Missing authorization header');
+    }
   });
 
-  it('should reject invalid scheme', () => {
-    expect(() => validator({ authorization: 'Bearer token' })).to.throw(
-      'Invalid authorization header',
-    );
+  it('should reject invalid scheme', async () => {
+    try {
+      await validator({ authorization: 'Bearer token' });
+      expect.fail('Expected validator to throw');
+    } catch (err) {
+      expect((err as Error).message).to.equal('Invalid authorization header format');
+    }
   });
 
-  it('should reject invalid credentials format', () => {
+  it('should reject invalid credentials format', async () => {
     // Node's Buffer.from() decodes base64 leniently, so this tests the credentials format check
-    expect(() => validator({ authorization: 'Basic invalid!!!' })).to.throw(
-      'Invalid credentials',
-    );
+    try {
+      await validator({ authorization: 'Basic invalid!!!' });
+      expect.fail('Expected validator to throw');
+    } catch (err) {
+      expect((err as Error).message).to.equal('Invalid credentials format');
+    }
   });
 
   it('should integrate with WebhookHandler', async () => {
@@ -299,7 +315,7 @@ describe('BasicAuthValidator', () => {
       content: {},
     });
 
-    handler.handle(body, { authorization: auth });
+    await handler.handle({ body, headers: { authorization: auth } });
     expect(callbackCalled).to.be.true;
   });
 });
@@ -316,16 +332,17 @@ describe('Default webhook instance', () => {
     // Valid credentials should pass
     const validAuth =
       'Basic ' + Buffer.from('envuser:envpass').toString('base64');
-    expect(() =>
-      webhook.requestValidator!({ authorization: validAuth }),
-    ).to.not.throw();
+    await webhook.requestValidator!({ authorization: validAuth });
 
     // Invalid credentials should fail
     const invalidAuth =
       'Basic ' + Buffer.from('wrong:wrong').toString('base64');
-    expect(() =>
-      webhook.requestValidator!({ authorization: invalidAuth }),
-    ).to.throw('Invalid credentials');
+    try {
+      await webhook.requestValidator!({ authorization: invalidAuth });
+      expect.fail('Expected validator to throw');
+    } catch (err) {
+      expect((err as Error).message).to.equal('Invalid credentials');
+    }
   });
 
   it('should not configure auth when env vars are missing', async () => {
@@ -380,7 +397,7 @@ describe('Default webhook instance', () => {
     });
 
     // With valid auth, callback should be called
-    webhook.handle(body, { authorization: validAuth });
+    await webhook.handle({ body, headers: { authorization: validAuth } });
     expect(callbackCalled).to.be.true;
     expect(errorCalled).to.be.false;
 
@@ -388,7 +405,7 @@ describe('Default webhook instance', () => {
     callbackCalled = false;
     const invalidAuth =
       'Basic ' + Buffer.from('wrong:wrong').toString('base64');
-    webhook.handle(body, { authorization: invalidAuth });
+    await webhook.handle({ body, headers: { authorization: invalidAuth } });
     expect(callbackCalled).to.be.false;
     expect(errorCalled).to.be.true;
   });

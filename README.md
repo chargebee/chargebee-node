@@ -158,15 +158,16 @@ The simplest way to handle webhooks is using the pre-configured `webhook` instan
 
 ```typescript
 import express from 'express';
-import { webhook, type WebhookEvent } from 'chargebee';
+import { webhook } from 'chargebee';
 
 const app = express();
 app.use(express.json());
 
-webhook.on('subscription_created', async (event: WebhookEvent) => {
+webhook.on('subscription_created', async ({ event, response }) => {
   console.log(`Subscription created: ${event.id}`);
   const subscription = event.content.subscription;
   console.log(`Customer: ${subscription.customer_id}`);
+  response?.status(200).send('OK');
 });
 
 webhook.on('error', (err: Error) => {
@@ -174,8 +175,12 @@ webhook.on('error', (err: Error) => {
 });
 
 app.post('/chargebee/webhooks', (req, res) => {
-  webhook.handle(req.body, req.headers);
-  res.status(200).send('OK');
+  webhook.handle({
+    body: req.body,
+    headers: req.headers,
+    request: req,
+    response: res,
+  });
 });
 
 app.listen(8080);
@@ -193,27 +198,30 @@ When both are present, incoming webhook requests will be validated against these
 For more control or multiple webhook endpoints, create your own instances:
 
 ```typescript
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { WebhookHandler, basicAuthValidator } from 'chargebee';
 
 const app = express();
 app.use(express.json());
 
-const handler = new WebhookHandler();
+// Create a typed handler for Express
+const handler = new WebhookHandler<Request, Response>();
 
 // Register event listeners using .on() - events are fully typed
-handler.on('subscription_created', async (event) => {
+handler.on('subscription_created', async ({ event, response }) => {
   console.log(`Subscription created: ${event.id}`);
   const subscription = event.content.subscription;
   console.log(`Customer: ${subscription.customer_id}`);
   console.log(`Plan: ${subscription.plan_id}`);
+  response?.status(200).send('OK');
 });
 
-handler.on('payment_succeeded', async (event) => {
+handler.on('payment_succeeded', async ({ event, response }) => {
   console.log(`Payment succeeded: ${event.id}`);
   const transaction = event.content.transaction;
   const customer = event.content.customer;
   console.log(`Amount: ${transaction.amount}, Customer: ${customer.email}`);
+  response?.status(200).send('OK');
 });
 
 // Optional: Add request validator (e.g., Basic Auth)
@@ -222,8 +230,12 @@ handler.requestValidator = basicAuthValidator((username, password) => {
 });
 
 app.post('/chargebee/webhooks', (req, res) => {
-  handler.handle(req.body, req.headers);
-  res.status(200).send('OK');
+  handler.handle({
+    body: req.body,
+    headers: req.headers,
+    request: req,
+    response: res,
+  });
 });
 
 app.listen(8080);
@@ -270,51 +282,54 @@ app.post('/chargebee/webhooks', async (req, res) => {
 app.listen(8080);
 ```
 
-#### Handling Unhandled Events
+#### Responding to Webhooks
 
-By default, if an incoming webhook event type is not recognized or you haven't registered a corresponding callback handler, the SDK provides flexible options to handle these scenarios:
-
-**Using the `unhandled_event` listener:**
+**Respond with 200** to acknowledge receipt:
 
 ```typescript
-import { WebhookHandler } from 'chargebee';
-
-const handler = new WebhookHandler();
-
-handler.on('subscription_created', async (event) => {
-  // Handle subscription created
-});
-
-// Gracefully handle events without registered listeners
-handler.on('unhandled_event', async (event) => {
-  console.log(`Received unhandled event: ${event.event_type}`);
-  // Log for monitoring or store for later processing
+handler.on('subscription_created', async ({ event, response }) => {
+  await provisionAccess(event.content.subscription);
+  response?.status(200).json({ received: true });
 });
 ```
 
-**Using the `error` listener for error handling:**
-
-If an error occurs during webhook processing (e.g., invalid JSON, validator failure), the SDK will emit an `error` event:
+**Respond with 5xx** so Chargebee retries on failure:
 
 ```typescript
-const handler = new WebhookHandler();
+handler.on('payment_succeeded', async ({ event, response }) => {
+  try {
+    await recordPayment(event.content.transaction);
+    response?.status(200).send('OK');
+  } catch (err) {
+    response?.status(500).json({ error: 'Processing failed' });
+  }
+});
+```
 
-handler.on('subscription_created', async (event) => {
-  // Handle subscription created
+**Access request context** (headers, middleware data):
+
+```typescript
+handler.on('customer_created', async ({ event, request, response }) => {
+  const tenantId = (request as any)?.tenant?.id;
+  await createCustomerForTenant(tenantId, event.content.customer);
+  response?.status(200).send('OK');
+});
+```
+
+#### Handling Unhandled Events and Errors
+
+```typescript
+// Handle events without registered listeners
+handler.on('unhandled_event', async ({ event, response }) => {
+  console.log(`Unhandled: ${event.event_type}`);
+  response?.status(200).send('OK');
 });
 
-// Catch any errors during webhook processing
+// Catch processing errors (invalid JSON, validator failure, etc.)
 handler.on('error', (err) => {
-  console.error('Webhook processing error:', err);
-  // Log to monitoring service, alert team, etc.
+  console.error('Webhook error:', err.message);
 });
 ```
-
-**Best Practices:**
-
-- Use `unhandled_event` listener to acknowledge unknown events (return 200 OK) and log them
-- Use `error` listener to catch and handle exceptions thrown during event processing
-- Both listeners help ensure your webhook endpoint remains stable even when new event types are introduced by Chargebee
 
 ### Processing Webhooks - API Version Check
 

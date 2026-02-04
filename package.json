@@ -33,8 +33,6 @@
       "url": "http://github.com/chargebee/chargebee-node/blob/master/LICENSE"
     }
   ],
-  "dependencies": {
-  },
   "exports": {
     "types": "./types/index.d.ts",
     "browser": {
