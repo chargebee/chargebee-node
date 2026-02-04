@@ -221,12 +221,8 @@ declare module 'chargebee' {
     PlanUpdated = 'plan_updated',
   }
   /**
-   * @deprecated Use WebhookEventType instead.
-   */
-  export import WebhookContentType = WebhookEventType;
-
-  /**
-   * @deprecated Use WebhookEventType instead.
+   * @deprecated Renamed to `WebhookEventType` for clarity. Use `WebhookEventType` instead.
+   * This alias will be removed in the next major version.
    */
   export import WebhookContentType = WebhookEventType;
 
