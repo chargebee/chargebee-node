@@ -6,7 +6,6 @@
 ///<reference path='./resources/BillingConfiguration.d.ts' />
 ///<reference path='./resources/Brand.d.ts' />
 ///<reference path='./resources/BusinessEntity.d.ts' />
-///<reference path='./resources/BusinessEntityChange.d.ts' />
 ///<reference path='./resources/BusinessEntityTransfer.d.ts' />
 ///<reference path='./resources/Card.d.ts' />
 ///<reference path='./resources/Comment.d.ts' />
@@ -262,7 +261,10 @@ declare module 'chargebee' {
   // Webhook Handler Types
   export type WebhookEventName = EventTypeEnum | 'unhandled_event';
   export type WebhookEventTypeValue = `${WebhookEventType}`;
-  /** @deprecated Use WebhookEventTypeValue instead */
+  /**
+   * @deprecated Renamed to `WebhookEventTypeValue` for clarity. Use `WebhookEventTypeValue` instead.
+   * This alias will be removed in the next major version.
+   */
   export type WebhookContentTypeValue = WebhookEventTypeValue;
 
   /**
