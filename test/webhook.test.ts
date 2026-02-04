@@ -102,7 +102,7 @@ describe('WebhookHandler', () => {
       expect(event.content).to.not.be.null;
     });
 
-    handler.handle({ body: makeEventBody('pending_invoice_created') });
+    await handler.handle({ body: makeEventBody('pending_invoice_created') });
     expect(called).to.be.true;
   });
 
@@ -117,11 +117,11 @@ describe('WebhookHandler', () => {
       expect((err as Error).message).to.equal('bad signature');
     });
 
-    handler.handle({ body: makeEventBody('pending_invoice_created'), headers: {} });
+    await handler.handle({ body: makeEventBody('pending_invoice_created'), headers: {} });
     expect(onErrorCalled).to.be.true;
   });
 
-  it('should handle sync callback error', () => {
+  it('should handle sync callback error', async () => {
     let onErrorCalled = false;
     const handler = new WebhookHandler();
     handler.on('pending_invoice_created', () => {
@@ -132,7 +132,7 @@ describe('WebhookHandler', () => {
       expect((err as Error).message).to.equal('user code failed');
     });
 
-    handler.handle({ body: makeEventBody('pending_invoice_created') });
+    await handler.handle({ body: makeEventBody('pending_invoice_created') });
     expect(onErrorCalled).to.be.true;
   });
 
@@ -144,7 +144,7 @@ describe('WebhookHandler', () => {
       expect(event.event_type).to.equal('non_existing_event');
     });
 
-    handler.handle({ body: makeEventBody('non_existing_event') });
+    await handler.handle({ body: makeEventBody('non_existing_event') });
     expect(onUnhandledCalled).to.be.true;
   });
 
@@ -160,12 +160,12 @@ describe('WebhookHandler', () => {
       subscriptionCalled = true;
     });
 
-    handler.handle({ body: makeEventBody('pending_invoice_created') });
+    await handler.handle({ body: makeEventBody('pending_invoice_created') });
     expect(pendingInvoiceCalled).to.be.true;
     expect(subscriptionCalled).to.be.false;
 
     pendingInvoiceCalled = false;
-    handler.handle({ body: makeEventBody('subscription_created') });
+    await handler.handle({ body: makeEventBody('subscription_created') });
     expect(pendingInvoiceCalled).to.be.false;
     expect(subscriptionCalled).to.be.true;
   });
@@ -177,7 +177,7 @@ describe('WebhookHandler', () => {
       onErrorCalled = true;
     });
 
-    handler.handle({ body: 'invalid json' });
+    await handler.handle({ body: 'invalid json' });
     expect(onErrorCalled).to.be.true;
   });
 
@@ -198,14 +198,14 @@ describe('WebhookHandler', () => {
     });
 
     // Fail case
-    handler.handle({ body: makeEventBody('pending_invoice_created'), headers: {} });
+    await handler.handle({ body: makeEventBody('pending_invoice_created'), headers: {} });
     expect(validatorCalled).to.be.true;
     expect(onErrorCalled).to.be.true;
 
     // Success case
     validatorCalled = false;
     onErrorCalled = false;
-    handler.handle({
+    await handler.handle({
       body: makeEventBody('pending_invoice_created'),
       headers: { 'x-custom-header': 'expected-value' },
     });
@@ -225,7 +225,7 @@ describe('WebhookHandler', () => {
       listener2Called = true;
     });
 
-    handler.handle({ body: makeEventBody('customer_created') });
+    await handler.handle({ body: makeEventBody('customer_created') });
     expect(listener1Called).to.be.true;
     expect(listener2Called).to.be.true;
   });
@@ -238,8 +238,8 @@ describe('WebhookHandler', () => {
       callCount++;
     });
 
-    handler.handle({ body: makeEventBody('customer_created') });
-    handler.handle({ body: makeEventBody('customer_created') });
+    await handler.handle({ body: makeEventBody('customer_created') });
+    await handler.handle({ body: makeEventBody('customer_created') });
 
     expect(callCount).to.equal(1);
   });
@@ -253,11 +253,11 @@ describe('WebhookHandler', () => {
     };
 
     handler.on('customer_created', listener);
-    handler.handle({ body: makeEventBody('customer_created') });
+    await handler.handle({ body: makeEventBody('customer_created') });
     expect(callCount).to.equal(1);
 
     handler.off('customer_created', listener);
-    handler.handle({ body: makeEventBody('customer_created') });
+    await handler.handle({ body: makeEventBody('customer_created') });
     expect(callCount).to.equal(1); // Should not increment
   });
 
@@ -273,7 +273,7 @@ describe('WebhookHandler', () => {
     });
 
     handler.removeAllListeners('customer_created');
-    handler.handle({ body: makeEventBody('customer_created') });
+    await handler.handle({ body: makeEventBody('customer_created') });
     expect(callCount).to.equal(0);
   });
 
@@ -300,7 +300,7 @@ describe('WebhookHandler', () => {
         subscriptionCreatedCalled = true;
       });
 
-    handler.handle({ body: makeEventBody('customer_created') });
+    await handler.handle({ body: makeEventBody('customer_created') });
     expect(customerCreatedCalled).to.be.true;
     expect(subscriptionCreatedCalled).to.be.false;
   });
