@@ -11,7 +11,6 @@ declare module 'chargebee' {
     billing_configuration: BillingConfiguration;
     brand: Brand;
     business_entity: BusinessEntity;
-    business_entity_change: BusinessEntityChange;
     business_entity_transfer: BusinessEntityTransfer;
     card: Card;
     comment: Comment;
@@ -75,7 +74,6 @@ declare module 'chargebee' {
     portal_session: PortalSession;
     price_variant: PriceVariant;
     pricing_page_session: PricingPageSession;
-    product: Product;
     promotional_credit: PromotionalCredit;
     purchase: Purchase;
     quote: Quote;
@@ -88,7 +86,6 @@ declare module 'chargebee' {
     recorded_purchase: RecordedPurchase;
     resource_migration: ResourceMigration;
     rule: Rule;
-    sales_order: SalesOrder;
     site_migration_detail: SiteMigrationDetail;
     subscription: Subscription;
     subscription_entitlement: SubscriptionEntitlement;
@@ -104,8 +101,6 @@ declare module 'chargebee' {
     usage: Usage;
     usage_event: UsageEvent;
     usage_file: UsageFile;
-    usage_reminder_info: UsageReminderInfo;
-    variant: Variant;
     virtual_bank_account: VirtualBankAccount;
     webhook_endpoint: WebhookEndpoint;
   }

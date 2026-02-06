@@ -151,7 +151,8 @@ declare module 'chargebee' {
     | 'omnichannel_one_time_order_item'
     | 'usage_file'
     | 'business_rule'
-    | 'ruleset';
+    | 'ruleset'
+    | 'charge';
   type EventNameEnum = 'cancellation_page_loaded';
   type EventTypeEnum =
     | 'coupon_created'
@@ -218,6 +219,7 @@ declare module 'chargebee' {
     | 'payment_schedule_scheme_deleted'
     | 'subscription_renewal_reminder'
     | 'add_usages_reminder'
+    | 'payment_due_reminder'
     | 'transaction_created'
     | 'transaction_updated'
     | 'transaction_deleted'
@@ -430,6 +432,7 @@ declare module 'chargebee' {
     | 'deutsche_bank'
     | 'ezidebit'
     | 'twikey'
+    | 'tempus'
     | 'gocardless'
     | 'not_applicable';
   type HierarchyOperationTypeEnum =
@@ -509,7 +512,12 @@ declare module 'chargebee' {
     | 'kbc_payment_button'
     | 'pay_by_bank'
     | 'trustly'
-    | 'stablecoin';
+    | 'stablecoin'
+    | 'kakao_pay'
+    | 'naver_pay'
+    | 'revolut_pay'
+    | 'cash_app_pay';
+  type PaymentMethodSavePolicyEnum = 'always' | 'ask' | 'never';
   type PaymentMethodTypeEnum =
     | 'card'
     | 'paypal_express_checkout'
@@ -540,7 +548,11 @@ declare module 'chargebee' {
     | 'kbc_payment_button'
     | 'pay_by_bank'
     | 'trustly'
-    | 'stablecoin';
+    | 'stablecoin'
+    | 'kakao_pay'
+    | 'naver_pay'
+    | 'revolut_pay'
+    | 'cash_app_pay';
   type PaymentVoucherTypeEnum = 'boleto';
   type PeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
   type PriceTypeEnum = 'tax_exclusive' | 'tax_inclusive';
@@ -639,6 +651,10 @@ declare module 'chargebee' {
     | 'pay_by_bank'
     | 'trustly'
     | 'stablecoin'
+    | 'kakao_pay'
+    | 'naver_pay'
+    | 'revolut_pay'
+    | 'cash_app_pay'
     | 'free_trial'
     | 'pay_up_front'
     | 'pay_as_you_go';

@@ -36,7 +36,13 @@ declare module 'chargebee' {
       | 'kbc_payment_button'
       | 'pay_by_bank'
       | 'trustly'
-      | 'stablecoin';
+      | 'stablecoin'
+      | 'kakao_pay'
+      | 'naver_pay'
+      | 'revolut_pay'
+      | 'cash_app_pay'
+      | 'wechat_pay'
+      | 'alipay';
     success_url?: string;
     failure_url?: string;
     created_at: number;
@@ -117,7 +123,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -162,7 +174,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -207,7 +225,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       success_url?: string;
       failure_url?: string;
     }
@@ -241,7 +265,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       success_url?: string;
       failure_url?: string;
     }
