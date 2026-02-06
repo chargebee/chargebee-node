@@ -96,6 +96,7 @@ declare module 'chargebee' {
     auto_close_invoices?: boolean;
     discounts?: Subscription.Discount[];
     business_entity_id?: string;
+    decommissioned: boolean;
   }
 
   export namespace Subscription {
@@ -1268,6 +1269,7 @@ declare module 'chargebee' {
       contract_term_cancel_option?: ContractTermCancelOptionEnum;
       invoice_date?: number;
       cancel_reason_code?: string;
+      decommissioned?: boolean;
       subscription_items?: SubscriptionItemsCancelForItemsInputParam[];
     }
     export interface ResumeInputParam {
@@ -1410,7 +1412,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1543,7 +1551,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1643,7 +1657,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1798,7 +1818,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1967,7 +1993,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2092,7 +2124,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2523,7 +2561,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

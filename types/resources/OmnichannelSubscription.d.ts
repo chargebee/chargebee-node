@@ -65,6 +65,7 @@ declare module 'chargebee' {
     export interface ListInputParam {
       limit?: number;
       offset?: string;
+      omnichannel_subscription_item?: OmnichannelSubscriptionItemOmnichannelSubscriptionListInputParam;
       source?: filter.Enum;
       customer_id?: filter.String;
     }
@@ -74,6 +75,10 @@ declare module 'chargebee' {
     }
     export interface MoveInputParam {
       to_customer_id: string;
+    }
+    export interface OmnichannelSubscriptionItemOmnichannelSubscriptionListInputParam {
+      status?: filter.Enum;
+      item_id_at_source?: filter.String;
     }
   }
 }

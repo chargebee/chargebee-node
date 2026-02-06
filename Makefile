@@ -36,8 +36,11 @@ test:
 format:
 	npm run prettier
 
-build:
+build: install 
 	npm run build
 
 prepack:
 	npm run prepack
+
+install: 
+	npm install

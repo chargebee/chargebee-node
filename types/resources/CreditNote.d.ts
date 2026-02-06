@@ -428,7 +428,14 @@ declare module 'chargebee' {
         | 'in_progress'
         | 'success'
         | 'failed'
-        | 'registered';
+        | 'registered'
+        | 'accepted'
+        | 'rejected'
+        | 'message_acknowledgement'
+        | 'in_process'
+        | 'under_query'
+        | 'conditionally_accepted'
+        | 'paid';
       message?: string;
     }
     export interface SiteDetailsAtCreation {

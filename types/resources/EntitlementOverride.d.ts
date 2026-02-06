@@ -4,6 +4,7 @@
 declare module 'chargebee' {
   export interface EntitlementOverride {
     id: string;
+    subscription_id?: string;
     entity_id?: string;
     entity_type?: string;
     feature_id?: string;
@@ -12,6 +13,7 @@ declare module 'chargebee' {
     name?: string;
     expires_at?: number;
     effective_from?: number;
+    is_enabled: boolean;
     schedule_status?: 'activated' | 'scheduled' | 'failed';
   }
 
@@ -68,9 +70,12 @@ declare module 'chargebee' {
     }
     export interface EntitlementOverridesAddEntitlementOverrideForSubscriptionInputParam {
       feature_id: string;
+      entity_id?: string;
+      entity_type?: EntityTypeEnum;
       value?: string;
       expires_at?: number;
       effective_from?: number;
+      is_enabled?: boolean;
     }
   }
 }

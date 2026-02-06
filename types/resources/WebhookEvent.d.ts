@@ -106,6 +106,7 @@ declare module 'chargebee' {
     CardUpdated = 'card_updated',
     CustomerCreated = 'customer_created',
     SubscriptionRenewalReminder = 'subscription_renewal_reminder',
+    PaymentDueReminder = 'payment_due_reminder',
     OrderDelivered = 'order_delivered',
     OmnichannelSubscriptionItemCancellationScheduled = 'omnichannel_subscription_item_cancellation_scheduled',
     OmnichannelSubscriptionItemGracePeriodExpired = 'omnichannel_subscription_item_grace_period_expired',
@@ -329,6 +330,7 @@ declare module 'chargebee' {
     [WebhookEventType.CardUpdated]: CardUpdatedContent;
     [WebhookEventType.CustomerCreated]: CustomerCreatedContent;
     [WebhookEventType.SubscriptionRenewalReminder]: SubscriptionRenewalReminderContent;
+    [WebhookEventType.PaymentDueReminder]: PaymentDueReminderContent;
     [WebhookEventType.OrderDelivered]: OrderDeliveredContent;
     [WebhookEventType.OmnichannelSubscriptionItemCancellationScheduled]: OmnichannelSubscriptionItemCancellationScheduledContent;
     [WebhookEventType.OmnichannelSubscriptionItemGracePeriodExpired]: OmnichannelSubscriptionItemGracePeriodExpiredContent;
@@ -477,8 +479,6 @@ declare module 'chargebee' {
     advance_invoice_schedule: AdvanceInvoiceSchedule;
   };
   export type CustomerBusinessEntityChangedContent = {
-    business_entity_change: BusinessEntityChange;
-
     business_entity_transfer: BusinessEntityTransfer;
 
     customer: Customer;
@@ -657,8 +657,6 @@ declare module 'chargebee' {
     subscription: Subscription;
 
     customer: Customer;
-
-    usage_reminder_info: UsageReminderInfo;
   };
   export type VoucherCreatedContent = {
     payment_voucher: PaymentVoucher;
@@ -1051,6 +1049,11 @@ declare module 'chargebee' {
 
     advance_invoice_schedule: AdvanceInvoiceSchedule;
   };
+  export type PaymentDueReminderContent = {
+    customer: Customer;
+
+    invoice: Invoice;
+  };
   export type OrderDeliveredContent = {
     order: Order;
   };
@@ -1115,8 +1118,6 @@ declare module 'chargebee' {
     customer: Customer;
   };
   export type SubscriptionBusinessEntityChangedContent = {
-    business_entity_change: BusinessEntityChange;
-
     business_entity_transfer: BusinessEntityTransfer;
 
     subscription: Subscription;
@@ -1364,9 +1365,7 @@ declare module 'chargebee' {
   export type AttachedItemCreatedContent = {
     attached_item: AttachedItem;
   };
-  export type SalesOrderCreatedContent = {
-    sales_order: SalesOrder;
-  };
+  export type SalesOrderCreatedContent = {};
   export type CustomerChangedContent = {
     customer: Customer;
 
@@ -1596,9 +1595,7 @@ declare module 'chargebee' {
 
     impacted_subscription: ImpactedSubscription;
   };
-  export type SalesOrderUpdatedContent = {
-    sales_order: SalesOrder;
-  };
+  export type SalesOrderUpdatedContent = {};
   export type OmnichannelSubscriptionItemDunningStartedContent = {
     omnichannel_subscription: OmnichannelSubscription;
 

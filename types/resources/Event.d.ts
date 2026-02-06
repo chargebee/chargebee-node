@@ -122,6 +122,7 @@ declare module 'chargebee' {
       CardUpdatedContent &
       CustomerCreatedContent &
       SubscriptionRenewalReminderContent &
+      PaymentDueReminderContent &
       OrderDeliveredContent &
       OmnichannelSubscriptionItemCancellationScheduledContent &
       OmnichannelSubscriptionItemGracePeriodExpiredContent &
