@@ -239,6 +239,8 @@ export enum WebhookEventType {
 
   OrderUpdated = 'order_updated',
 
+  PaymentDueReminder = 'payment_due_reminder',
+
   PaymentFailed = 'payment_failed',
 
   PaymentInitiated = 'payment_initiated',

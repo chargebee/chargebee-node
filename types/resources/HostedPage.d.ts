@@ -414,6 +414,7 @@ declare module 'chargebee' {
     export interface CollectNowInputParam {
       redirect_url?: string;
       currency_code?: string;
+      payment_method_save_policy?: PaymentMethodSavePolicyEnum;
       customer?: CustomerCollectNowInputParam;
       card?: CardCollectNowInputParam;
     }

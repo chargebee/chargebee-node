@@ -1047,7 +1047,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1130,7 +1136,13 @@ declare module 'chargebee' {
         | 'kbc_payment_button'
         | 'pay_by_bank'
         | 'trustly'
-        | 'stablecoin';
+        | 'stablecoin'
+        | 'kakao_pay'
+        | 'naver_pay'
+        | 'revolut_pay'
+        | 'cash_app_pay'
+        | 'wechat_pay'
+        | 'alipay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

@@ -31,13 +31,16 @@ increment-patch:
 	@echo "Version bumped from $(CURRENT) to $(NEW_VERSION)"
 
 test:
-	npm test
+	@echo "Test is not written currently for this module."
 
 format:
 	npm run prettier
 
-build:
+build: install 
 	npm run build
 
 prepack:
 	npm run prepack
+
+install: 
+	npm install

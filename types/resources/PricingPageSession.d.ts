@@ -113,7 +113,7 @@ declare module 'chargebee' {
       label?: string;
     }
     export interface PricingPageCreateForExistingSubscriptionInputParam {
-      id: string;
+      id?: string;
     }
     export interface SubscriptionCreateForExistingSubscriptionInputParam {
       id: string;
