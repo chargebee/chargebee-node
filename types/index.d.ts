@@ -275,6 +275,17 @@ declare module 'chargebee' {
   }
 
   /**
+   * Context object passed to webhook error listeners.
+   * Contains the request/response objects so errors can be handled appropriately.
+   */
+  export interface WebhookErrorContext<ReqT = unknown, ResT = unknown> {
+    /** Framework-specific request object (Express, Fastify, etc.) */
+    request?: ReqT;
+    /** Framework-specific response object (Express, Fastify, etc.) */
+    response?: ResT;
+  }
+
+  /**
    * Validator function type for authenticating webhook requests.
    * Can be synchronous or asynchronous.
    */
@@ -315,7 +326,10 @@ declare module 'chargebee' {
   > = (
     context: WebhookContext<ReqT, ResT> & { event: WebhookEvent<T> },
   ) => Promise<void> | void;
-  export type WebhookErrorListener = (error: Error) => Promise<void> | void;
+  export type WebhookErrorListener<ReqT = unknown, ResT = unknown> = (
+    error: Error,
+    context: WebhookErrorContext<ReqT, ResT>,
+  ) => Promise<void> | void;
 
   // Helper type to map string literal to enum member
   type StringToWebhookEventType<S extends WebhookEventTypeValue> = {
@@ -335,7 +349,7 @@ declare module 'chargebee' {
       eventName: 'unhandled_event',
       listener: WebhookEventListener<ReqT, ResT>,
     ): this;
-    on(eventName: 'error', listener: WebhookErrorListener): this;
+    on(eventName: 'error', listener: WebhookErrorListener<ReqT, ResT>): this;
     once<T extends WebhookEventType>(
       eventName: T,
       listener: WebhookEventListener<ReqT, ResT, T>,
@@ -348,7 +362,7 @@ declare module 'chargebee' {
       eventName: 'unhandled_event',
       listener: WebhookEventListener<ReqT, ResT>,
     ): this;
-    once(eventName: 'error', listener: WebhookErrorListener): this;
+    once(eventName: 'error', listener: WebhookErrorListener<ReqT, ResT>): this;
     off<T extends WebhookEventType>(
       eventName: T,
       listener: WebhookEventListener<ReqT, ResT, T>,
@@ -361,7 +375,7 @@ declare module 'chargebee' {
       eventName: 'unhandled_event',
       listener: WebhookEventListener<ReqT, ResT>,
     ): this;
-    off(eventName: 'error', listener: WebhookErrorListener): this;
+    off(eventName: 'error', listener: WebhookErrorListener<ReqT, ResT>): this;
     handle(options: HandleOptions<ReqT, ResT>): Promise<void>;
     requestValidator: RequestValidator | undefined;
   }

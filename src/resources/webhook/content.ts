@@ -4,8 +4,6 @@ export interface AddUsagesReminderContent {
   Subscription: import('chargebee').Subscription;
 
   Customer: import('chargebee').Customer;
-
-  UsageReminderInfo: import('chargebee').UsageReminderInfo;
 }
 
 export interface AddonCreatedContent {
@@ -190,6 +188,8 @@ export interface CustomerDeletedContent {
   Customer: import('chargebee').Customer;
 
   Card: import('chargebee').Card;
+
+  Subscription: import('chargebee').Subscription[];
 }
 
 export interface CustomerEntitlementsUpdatedContent {
@@ -702,6 +702,12 @@ export interface OrderUpdatedContent {
   Order: import('chargebee').Order;
 }
 
+export interface PaymentDueReminderContent {
+  Customer: import('chargebee').Customer;
+
+  Invoice: import('chargebee').Invoice;
+}
+
 export interface PaymentFailedContent {
   Transaction: import('chargebee').Transaction;
 
@@ -850,17 +856,11 @@ export interface PriceVariantUpdatedContent {
   Attribute: import('chargebee').Attribute;
 }
 
-export interface ProductCreatedContent {
-  Product: import('chargebee').Product;
-}
+export interface ProductCreatedContent {}
 
-export interface ProductDeletedContent {
-  Product: import('chargebee').Product;
-}
+export interface ProductDeletedContent {}
 
-export interface ProductUpdatedContent {
-  Product: import('chargebee').Product;
-}
+export interface ProductUpdatedContent {}
 
 export interface PromotionalCreditsAddedContent {
   Customer: import('chargebee').Customer;
@@ -922,13 +922,9 @@ export interface RuleUpdatedContent {
   Rule: import('chargebee').Rule;
 }
 
-export interface SalesOrderCreatedContent {
-  SalesOrder: import('chargebee').SalesOrder;
-}
+export interface SalesOrderCreatedContent {}
 
-export interface SalesOrderUpdatedContent {
-  SalesOrder: import('chargebee').SalesOrder;
-}
+export interface SalesOrderUpdatedContent {}
 
 export interface SubscriptionActivatedContent {
   Subscription: import('chargebee').Subscription;
@@ -948,24 +944,32 @@ export interface SubscriptionActivatedWithBackdatingContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionAdvanceInvoiceScheduleAddedContent {
   Subscription: import('chargebee').Subscription;
 
   Customer: import('chargebee').Customer;
+
+  AdvanceInvoiceSchedule: import('chargebee').AdvanceInvoiceSchedule[];
 }
 
 export interface SubscriptionAdvanceInvoiceScheduleRemovedContent {
   Subscription: import('chargebee').Subscription;
 
   Customer: import('chargebee').Customer;
+
+  AdvanceInvoiceSchedule: import('chargebee').AdvanceInvoiceSchedule[];
 }
 
 export interface SubscriptionAdvanceInvoiceScheduleUpdatedContent {
   Subscription: import('chargebee').Subscription;
 
   Customer: import('chargebee').Customer;
+
+  AdvanceInvoiceSchedule: import('chargebee').AdvanceInvoiceSchedule[];
 }
 
 export interface SubscriptionBusinessEntityChangedContent {
@@ -982,6 +986,10 @@ export interface SubscriptionCanceledWithBackdatingContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  CreditNote: import('chargebee').CreditNote[];
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionCancellationReminderContent {
@@ -1012,6 +1020,10 @@ export interface SubscriptionCancelledContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  CreditNote: import('chargebee').CreditNote[];
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionChangedContent {
@@ -1022,6 +1034,10 @@ export interface SubscriptionChangedContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  CreditNote: import('chargebee').CreditNote[];
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionChangedWithBackdatingContent {
@@ -1032,6 +1048,10 @@ export interface SubscriptionChangedWithBackdatingContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  CreditNote: import('chargebee').CreditNote[];
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionChangesScheduledContent {
@@ -1052,6 +1072,8 @@ export interface SubscriptionCreatedContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionCreatedWithBackdatingContent {
@@ -1062,6 +1084,8 @@ export interface SubscriptionCreatedWithBackdatingContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionDeletedContent {
@@ -1090,6 +1114,10 @@ export interface SubscriptionItemsRenewedContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  CreditNote: import('chargebee').CreditNote[];
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionMovedInContent {
@@ -1122,6 +1150,10 @@ export interface SubscriptionPausedContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  CreditNote: import('chargebee').CreditNote[];
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionRampAppliedContent {
@@ -1152,6 +1184,8 @@ export interface SubscriptionReactivatedContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionReactivatedWithBackdatingContent {
@@ -1162,6 +1196,8 @@ export interface SubscriptionReactivatedWithBackdatingContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionRenewalReminderContent {
@@ -1182,6 +1218,8 @@ export interface SubscriptionRenewedContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionResumedContent {
@@ -1192,6 +1230,8 @@ export interface SubscriptionResumedContent {
   Card: import('chargebee').Card;
 
   Invoice: import('chargebee').Invoice;
+
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
 }
 
 export interface SubscriptionResumptionScheduledContent {
@@ -1332,31 +1372,33 @@ export interface TransactionUpdatedContent {
   Transaction: import('chargebee').Transaction;
 }
 
-export interface UnbilledChargesCreatedContent {}
+export interface UnbilledChargesCreatedContent {
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
+}
 
-export interface UnbilledChargesDeletedContent {}
+export interface UnbilledChargesDeletedContent {
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
+}
 
 export interface UnbilledChargesInvoicedContent {
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
+
   Invoice: import('chargebee').Invoice;
 }
 
-export interface UnbilledChargesVoidedContent {}
+export interface UnbilledChargesVoidedContent {
+  UnbilledCharge: import('chargebee').UnbilledCharge[];
+}
 
 export interface UsageFileIngestedContent {
   UsageFile: import('chargebee').UsageFile;
 }
 
-export interface VariantCreatedContent {
-  Variant: import('chargebee').Variant;
-}
+export interface VariantCreatedContent {}
 
-export interface VariantDeletedContent {
-  Variant: import('chargebee').Variant;
-}
+export interface VariantDeletedContent {}
 
-export interface VariantUpdatedContent {
-  Variant: import('chargebee').Variant;
-}
+export interface VariantUpdatedContent {}
 
 export interface VirtualBankAccountAddedContent {
   Customer: import('chargebee').Customer;
@@ -1630,6 +1672,8 @@ export type WebhookContentMap = {
   [WebhookEventType.OrderReturned]: OrderReturnedContent;
 
   [WebhookEventType.OrderUpdated]: OrderUpdatedContent;
+
+  [WebhookEventType.PaymentDueReminder]: PaymentDueReminderContent;
 
   [WebhookEventType.PaymentFailed]: PaymentFailedContent;
 

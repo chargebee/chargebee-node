@@ -43,10 +43,17 @@ export interface WebhookContext<ReqT = unknown, ResT = unknown> {
  * @typeParam ReqT - Framework-specific request type
  * @typeParam ResT - Framework-specific response type
  */
+export interface WebhookErrorContext<ReqT = unknown, ResT = unknown> {
+  /** Framework-specific request object (Express, Fastify, etc.) */
+  request?: ReqT;
+  /** Framework-specific response object (Express, Fastify, etc.) */
+  response?: ResT;
+}
+
 export interface WebhookEventMap<ReqT, ResT>
   extends Record<EventType, [WebhookContext<ReqT, ResT>]> {
   unhandled_event: [WebhookContext<ReqT, ResT>];
-  error: [Error];
+  error: [Error, WebhookErrorContext<ReqT, ResT>];
 }
 
 /**
@@ -178,8 +185,9 @@ export interface HandleOptions<ReqT = unknown, ResT = unknown> {
  *   response?.status(200).send('OK');
  * });
  *
- * webhookHandler.on('error', (error) => {
+ * webhookHandler.on('error', (error, { response }) => {
  *   console.error('Webhook error:', error);
+ *   response?.status(500).send('Error');
  * });
  *
  * // Route handler
@@ -213,8 +221,9 @@ export interface HandleOptions<ReqT = unknown, ResT = unknown> {
  *   console.log('Unhandled event type:', event.event_type);
  * });
  *
- * handler.on('error', (error) => {
+ * handler.on('error', (error, { response }) => {
  *   console.error('Processing error:', error);
+ *   response?.status(500).send('Error');
  * });
  * ```
  *
@@ -332,9 +341,10 @@ export class WebhookHandler<
    *   console.log('Unhandled:', event.event_type);
    * });
    *
-   * handler.on('error', (error) => {
+   * handler.on('error', (error, { response }) => {
    *   // Called on validation errors, parse errors, or handler errors
    *   console.error('Webhook error:', error);
+   *   response?.status(500).send('Error');
    * });
    * ```
    *
@@ -482,7 +492,7 @@ export class WebhookHandler<
         );
         throw error;
       }
-      this.emit('error', error);
+      this.emit('error', error, { request, response });
     }
   }
 }
