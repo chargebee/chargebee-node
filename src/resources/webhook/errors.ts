@@ -89,29 +89,3 @@ export class PayloadParseError extends WebhookError {
     this.name = 'PayloadParseError';
   }
 }
-
-/**
- * Configuration error thrown when webhook handler configuration is invalid.
- *
- * Common scenarios:
- * - Missing required configuration
- * - Invalid configuration values
- *
- * Typically maps to HTTP 500 Internal Server Error (should be fixed by developer).
- *
- * @example
- * ```typescript
- * handler.on('error', (error, { response }) => {
- *   if (error instanceof ConfigurationError) {
- *     console.error('Configuration error:', error);
- *     response?.status(500).json({ error: 'Internal Server Error' });
- *   }
- * });
- * ```
- */
-export class ConfigurationError extends WebhookError {
-  constructor(message: string) {
-    super(message);
-    this.name = 'ConfigurationError';
-  }
-}

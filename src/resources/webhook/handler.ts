@@ -7,7 +7,6 @@ import {
   AuthenticationError,
   PayloadValidationError,
   PayloadParseError,
-  ConfigurationError,
 } from './errors.js';
 
 export { WebhookEventType, WebhookContentType };
@@ -16,7 +15,6 @@ export {
   AuthenticationError,
   PayloadValidationError,
   PayloadParseError,
-  ConfigurationError,
 };
 
 export type EventType = import('chargebee').EventTypeEnum;
