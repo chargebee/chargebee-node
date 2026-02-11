@@ -14,9 +14,9 @@ export {
 export { basicAuthValidator } from './resources/webhook/auth.js';
 export {
   WebhookError,
-  AuthenticationError,
-  PayloadValidationError,
-  PayloadParseError,
+  WebhookAuthenticationError,
+  WebhookPayloadValidationError,
+  WebhookPayloadParseError,
 } from './resources/webhook/handler.js';
 
 // Export webhook types

@@ -24,16 +24,16 @@ export class WebhookError extends Error {
  * @example
  * ```typescript
  * handler.on('error', (error, { response }) => {
- *   if (error instanceof AuthenticationError) {
+ *   if (error instanceof WebhookAuthenticationError) {
  *     response?.status(401).json({ error: 'Unauthorized' });
  *   }
  * });
  * ```
  */
-export class AuthenticationError extends WebhookError {
+export class WebhookAuthenticationError extends WebhookError {
   constructor(message: string) {
     super(message);
-    this.name = 'AuthenticationError';
+    this.name = 'WebhookAuthenticationError';
   }
 }
 
@@ -50,16 +50,16 @@ export class AuthenticationError extends WebhookError {
  * @example
  * ```typescript
  * handler.on('error', (error, { response }) => {
- *   if (error instanceof PayloadValidationError) {
+ *   if (error instanceof WebhookPayloadValidationError) {
  *     response?.status(400).json({ error: 'Bad Request', message: error.message });
  *   }
  * });
  * ```
  */
-export class PayloadValidationError extends WebhookError {
+export class WebhookPayloadValidationError extends WebhookError {
   constructor(message: string) {
     super(message);
-    this.name = 'PayloadValidationError';
+    this.name = 'WebhookPayloadValidationError';
   }
 }
 
@@ -73,19 +73,19 @@ export class PayloadValidationError extends WebhookError {
  * @example
  * ```typescript
  * handler.on('error', (error, { response }) => {
- *   if (error instanceof PayloadParseError) {
+ *   if (error instanceof WebhookPayloadParseError) {
  *     console.error('Failed to parse:', error.rawBody);
  *     response?.status(400).json({ error: 'Invalid JSON' });
  *   }
  * });
  * ```
  */
-export class PayloadParseError extends WebhookError {
+export class WebhookPayloadParseError extends WebhookError {
   constructor(
     message: string,
     public readonly rawBody?: string,
   ) {
     super(message);
-    this.name = 'PayloadParseError';
+    this.name = 'WebhookPayloadParseError';
   }
 }

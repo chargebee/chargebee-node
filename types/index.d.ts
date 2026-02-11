@@ -410,7 +410,7 @@ declare module 'chargebee' {
    * Authentication error thrown when webhook request authentication fails.
    * Typically maps to HTTP 401 Unauthorized.
    */
-  export class AuthenticationError extends WebhookError {
+  export class WebhookAuthenticationError extends WebhookError {
     constructor(message: string);
     name: string;
   }
@@ -419,7 +419,7 @@ declare module 'chargebee' {
    * Payload validation error thrown when the webhook payload structure is invalid.
    * Typically maps to HTTP 400 Bad Request.
    */
-  export class PayloadValidationError extends WebhookError {
+  export class WebhookPayloadValidationError extends WebhookError {
     constructor(message: string);
     name: string;
   }
@@ -428,7 +428,7 @@ declare module 'chargebee' {
    * JSON parsing error thrown when the webhook body cannot be parsed as JSON.
    * Typically maps to HTTP 400 Bad Request.
    */
-  export class PayloadParseError extends WebhookError {
+  export class WebhookPayloadParseError extends WebhookError {
     constructor(message: string, rawBody?: string);
     name: string;
     readonly rawBody?: string;

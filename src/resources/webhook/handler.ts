@@ -4,17 +4,17 @@ import { basicAuthValidator } from './auth.js';
 import { WebhookEventType, WebhookContentType } from './eventType.js';
 import {
   WebhookError,
-  AuthenticationError,
-  PayloadValidationError,
-  PayloadParseError,
+  WebhookAuthenticationError,
+  WebhookPayloadValidationError,
+  WebhookPayloadParseError,
 } from './errors.js';
 
 export { WebhookEventType, WebhookContentType };
 export {
   WebhookError,
-  AuthenticationError,
-  PayloadValidationError,
-  PayloadParseError,
+  WebhookAuthenticationError,
+  WebhookPayloadValidationError,
+  WebhookPayloadParseError,
 };
 
 export type EventType = import('chargebee').EventTypeEnum;
@@ -198,9 +198,9 @@ export interface HandleOptions<ReqT = unknown, ResT = unknown> {
  * });
  *
  * webhookHandler.on('error', (error, { response }) => {
- *   if (error instanceof AuthenticationError) {
+ *   if (error instanceof WebhookAuthenticationError) {
  *     response?.status(401).send('Unauthorized');
- *   } else if (error instanceof PayloadValidationError || error instanceof PayloadParseError) {
+ *   } else if (error instanceof WebhookPayloadValidationError || error instanceof WebhookPayloadParseError) {
  *     response?.status(400).send('Bad Request');
  *   } else {
  *     response?.status(500).send('Internal Server Error');
@@ -239,9 +239,9 @@ export interface HandleOptions<ReqT = unknown, ResT = unknown> {
  * });
  *
  * handler.on('error', (error, { response }) => {
- *   if (error instanceof AuthenticationError) {
+ *   if (error instanceof WebhookAuthenticationError) {
  *     response?.status(401).send('Unauthorized');
- *   } else if (error instanceof PayloadValidationError || error instanceof PayloadParseError) {
+ *   } else if (error instanceof WebhookPayloadValidationError || error instanceof WebhookPayloadParseError) {
  *     response?.status(400).send('Bad Request');
  *   } else {
  *     response?.status(500).send('Internal Server Error');
@@ -365,9 +365,9 @@ export class WebhookHandler<
    *
    * handler.on('error', (error, { response }) => {
    *   // Called on validation errors, parse errors, or handler errors
-   *   if (error instanceof AuthenticationError) {
+   *   if (error instanceof WebhookAuthenticationError) {
    *     response?.status(401).send('Unauthorized');
-   *   } else if (error instanceof PayloadValidationError || error instanceof PayloadParseError) {
+   *   } else if (error instanceof WebhookPayloadValidationError || error instanceof WebhookPayloadParseError) {
    *     response?.status(400).send('Bad Request');
    *   } else {
    *     response?.status(500).send('Internal Server Error');
@@ -488,7 +488,7 @@ export class WebhookHandler<
       } catch (parseErr) {
         const parseError =
           parseErr instanceof Error ? parseErr : new Error(String(parseErr));
-        throw new PayloadParseError(
+        throw new WebhookPayloadParseError(
           `Failed to parse webhook body: ${parseError.message}`,
           typeof body === 'string' ? body : undefined,
         );
@@ -496,17 +496,17 @@ export class WebhookHandler<
 
       // Validate required fields
       if (!event || typeof event !== 'object' || Array.isArray(event)) {
-        throw new PayloadValidationError(
+        throw new WebhookPayloadValidationError(
           'Invalid webhook payload: body must be a JSON object',
         );
       }
       if (!event.event_type || typeof event.event_type !== 'string') {
-        throw new PayloadValidationError(
+        throw new WebhookPayloadValidationError(
           'Invalid webhook payload: missing or invalid event_type',
         );
       }
       if (!event.id) {
-        throw new PayloadValidationError(
+        throw new WebhookPayloadValidationError(
           'Invalid webhook payload: missing event id',
         );
       }

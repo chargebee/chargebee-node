@@ -4,9 +4,9 @@ import {
   WebhookEventType,
   WebhookContentType,
   WebhookError,
-  AuthenticationError,
-  PayloadValidationError,
-  PayloadParseError,
+  WebhookAuthenticationError,
+  WebhookPayloadValidationError,
+  WebhookPayloadParseError,
 } from './resources/webhook/handler.js';
 import { basicAuthValidator } from './resources/webhook/auth.js';
 
@@ -23,9 +23,9 @@ module.exports.basicAuthValidator = basicAuthValidator;
 
 // Export webhook error classes
 module.exports.WebhookError = WebhookError;
-module.exports.AuthenticationError = AuthenticationError;
-module.exports.PayloadValidationError = PayloadValidationError;
-module.exports.PayloadParseError = PayloadParseError;
+module.exports.WebhookAuthenticationError = WebhookAuthenticationError;
+module.exports.WebhookPayloadValidationError = WebhookPayloadValidationError;
+module.exports.WebhookPayloadParseError = WebhookPayloadParseError;
 
 // Export webhook types
 export type {
