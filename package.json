@@ -1,9 +1,10 @@
 {
   "name": "chargebee",
-  "version": "3.20.0",
+  "version": "3.21.0",
   "description": "A library for integrating with Chargebee.",
   "scripts": {
     "prepack": "npm install && npm run build",
+    "test": "mocha -r ts-node/register 'test/**/*.test.ts'",
     "build": "npm run build-esm && npm run build-cjs",
     "build-esm": "rm -rf esm && mkdir -p esm && tsc -p tsconfig.esm.json && echo '{\"type\":\"module\"}' > esm/package.json",
     "build-cjs": "rm -rf cjs && mkdir -p cjs && tsc -p tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > cjs/package.json",
@@ -32,8 +33,6 @@
       "url": "http://github.com/chargebee/chargebee-node/blob/master/LICENSE"
     }
   ],
-  "dependencies": {
-  },
   "exports": {
     "types": "./types/index.d.ts",
     "browser": {
@@ -62,9 +61,15 @@
     }
   },
   "devDependencies": {
-    "@types/node": "20.0.0",
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.12.0",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.5.4"
+    "ts-node": "^10.9.1",
+    "typescript": "^5.5.4",
+    "undici-types": "^7.16.0"
   },
   "prettier": {
     "semi": true,

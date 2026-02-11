@@ -1,3 +1,10 @@
+### v3.21.0 (2026-02-11)
+* * * 
+
+### 🚀 New Feature
+
+* Added webhook handler support. Refer to the [README.md](https://github.com/chargebee/chargebee-node/blob/master/README.md#handle-webhooks) for more details.
+
 ### v3.20.0 (2026-02-06)
 * * *
 ### New Attributes:

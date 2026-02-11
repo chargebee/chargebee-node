@@ -242,5 +242,195 @@ declare module 'chargebee' {
     usageFile: UsageFile.UsageFileResource;
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
     webhookEndpoint: WebhookEndpoint.WebhookEndpointResource;
+
+    /** Webhook handler instance with auto-configured Basic Auth (if env vars are set) */
+    webhooks: WebhookHandler & {
+      /** Create a new typed webhook handler instance */
+      createHandler<ReqT = unknown, ResT = unknown>(
+        options?: WebhookHandlerOptions,
+      ): WebhookHandler<ReqT, ResT>;
+    };
+  }
+
+  // Webhook Handler Types
+  export type WebhookEventName = EventTypeEnum | 'unhandled_event';
+  export type WebhookEventTypeValue = `${WebhookEventType}`;
+  /**
+   * @deprecated Renamed to `WebhookEventTypeValue` for clarity. Use `WebhookEventTypeValue` instead.
+   * This alias will be removed in the next major version.
+   */
+  export type WebhookContentTypeValue = WebhookEventTypeValue;
+
+  /**
+   * Context object passed to webhook event listeners.
+   * Wraps the event data with optional framework-specific request/response objects.
+   */
+  export interface WebhookContext<ReqT = unknown, ResT = unknown> {
+    /** The parsed webhook event from Chargebee */
+    event: WebhookEvent;
+    /** Framework-specific request object (Express, Fastify, etc.) */
+    request?: ReqT;
+    /** Framework-specific response object (Express, Fastify, etc.) */
+    response?: ResT;
+  }
+
+  /**
+   * Context object passed to webhook error listeners.
+   * Contains the request/response objects so errors can be handled appropriately.
+   */
+  export interface WebhookErrorContext<ReqT = unknown, ResT = unknown> {
+    /** Framework-specific request object (Express, Fastify, etc.) */
+    request?: ReqT;
+    /** Framework-specific response object (Express, Fastify, etc.) */
+    response?: ResT;
+  }
+
+  /**
+   * Validator function type for authenticating webhook requests.
+   * Can be synchronous or asynchronous.
+   */
+  export type RequestValidator = (
+    headers: Record<string, string | string[] | undefined>,
+  ) => void | Promise<void>;
+
+  /**
+   * Configuration options for WebhookHandler.
+   */
+  export interface WebhookHandlerOptions {
+    /**
+     * Optional validator function to authenticate incoming webhook requests.
+     * Typically used for Basic Auth validation.
+     * Can be sync or async - throw an error to reject the request.
+     */
+    requestValidator?: RequestValidator;
+  }
+
+  /**
+   * Options for the handle() method.
+   */
+  export interface HandleOptions<ReqT = unknown, ResT = unknown> {
+    /** The raw request body (string) or pre-parsed object */
+    body: string | object;
+    /** Optional HTTP headers for validation */
+    headers?: Record<string, string | string[] | undefined>;
+    /** Optional framework-specific request object (Express, Fastify, etc.) */
+    request?: ReqT;
+    /** Optional framework-specific response object (Express, Fastify, etc.) */
+    response?: ResT;
+  }
+
+  export type WebhookEventListener<
+    ReqT = unknown,
+    ResT = unknown,
+    T extends WebhookEventType = WebhookEventType,
+  > = (
+    context: WebhookContext<ReqT, ResT> & { event: WebhookEvent<T> },
+  ) => Promise<void> | void;
+  export type WebhookErrorListener<ReqT = unknown, ResT = unknown> = (
+    error: Error,
+    context: WebhookErrorContext<ReqT, ResT>,
+  ) => Promise<void> | void;
+
+  // Helper type to map string literal to enum member
+  type StringToWebhookEventType<S extends WebhookEventTypeValue> = {
+    [K in WebhookEventType]: `${K}` extends S ? K : never;
+  }[WebhookEventType];
+
+  export interface WebhookHandler<ReqT = unknown, ResT = unknown> {
+    on<T extends WebhookEventType>(
+      eventName: T,
+      listener: WebhookEventListener<ReqT, ResT, T>,
+    ): this;
+    on<S extends WebhookEventTypeValue>(
+      eventName: S,
+      listener: WebhookEventListener<ReqT, ResT, StringToWebhookEventType<S>>,
+    ): this;
+    on(
+      eventName: 'unhandled_event',
+      listener: WebhookEventListener<ReqT, ResT>,
+    ): this;
+    on(eventName: 'error', listener: WebhookErrorListener<ReqT, ResT>): this;
+    once<T extends WebhookEventType>(
+      eventName: T,
+      listener: WebhookEventListener<ReqT, ResT, T>,
+    ): this;
+    once<S extends WebhookEventTypeValue>(
+      eventName: S,
+      listener: WebhookEventListener<ReqT, ResT, StringToWebhookEventType<S>>,
+    ): this;
+    once(
+      eventName: 'unhandled_event',
+      listener: WebhookEventListener<ReqT, ResT>,
+    ): this;
+    once(eventName: 'error', listener: WebhookErrorListener<ReqT, ResT>): this;
+    off<T extends WebhookEventType>(
+      eventName: T,
+      listener: WebhookEventListener<ReqT, ResT, T>,
+    ): this;
+    off<S extends WebhookEventTypeValue>(
+      eventName: S,
+      listener: WebhookEventListener<ReqT, ResT, StringToWebhookEventType<S>>,
+    ): this;
+    off(
+      eventName: 'unhandled_event',
+      listener: WebhookEventListener<ReqT, ResT>,
+    ): this;
+    off(eventName: 'error', listener: WebhookErrorListener<ReqT, ResT>): this;
+    handle(options: HandleOptions<ReqT, ResT>): Promise<void>;
+    requestValidator: RequestValidator | undefined;
+  }
+
+  // Webhook Auth
+  /**
+   * Credential validator function type.
+   * Can be synchronous or asynchronous (e.g., for database lookups).
+   */
+  export type CredentialValidator = (
+    username: string,
+    password: string,
+  ) => boolean | Promise<boolean>;
+
+  /**
+   * Creates a Basic Auth validator for webhook requests.
+   */
+  export function basicAuthValidator(
+    validateCredentials: CredentialValidator,
+  ): (headers: Record<string, string | string[] | undefined>) => Promise<void>;
+
+  // Webhook Error Classes
+  /**
+   * Base class for all webhook-related errors.
+   */
+  export class WebhookError extends Error {
+    constructor(message: string);
+    name: string;
+  }
+
+  /**
+   * Authentication error thrown when webhook request authentication fails.
+   * Typically maps to HTTP 401 Unauthorized.
+   */
+  export class WebhookAuthenticationError extends WebhookError {
+    constructor(message: string);
+    name: string;
+  }
+
+  /**
+   * Payload validation error thrown when the webhook payload structure is invalid.
+   * Typically maps to HTTP 400 Bad Request.
+   */
+  export class WebhookPayloadValidationError extends WebhookError {
+    constructor(message: string);
+    name: string;
+  }
+
+  /**
+   * JSON parsing error thrown when the webhook body cannot be parsed as JSON.
+   * Typically maps to HTTP 400 Bad Request.
+   */
+  export class WebhookPayloadParseError extends WebhookError {
+    constructor(message: string, rawBody?: string);
+    name: string;
+    readonly rawBody?: string;
   }
 }

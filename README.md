@@ -148,6 +148,253 @@ const chargebeeSiteEU = new Chargebee({
 });
 ```
 
+### Handle webhooks
+
+Use the webhook handlers to parse and route webhook payloads from Chargebee with full TypeScript support.
+
+#### Quick Start: Using the instance `webhooks` handler
+
+The simplest way to handle webhooks is using the `webhooks` property on your initialized Chargebee client:
+
+```typescript
+import express from 'express';
+import Chargebee, {
+  AuthenticationError,
+  PayloadValidationError,
+  PayloadParseError,
+} from 'chargebee';
+
+const chargebee = new Chargebee({
+  site: '{{site}}',
+  apiKey: '{{api-key}}',
+});
+
+const app = express();
+app.use(express.json());
+
+// ⚠️ Register listeners once at startup, not inside request handlers
+chargebee.webhooks.on('subscription_created', async ({ event, response }) => {
+  console.log(`Subscription created: ${event.id}`);
+  const subscription = event.content.subscription;
+  console.log(`Customer: ${subscription.customer_id}`);
+  response?.status(200).send('OK');
+});
+
+chargebee.webhooks.on('error', (error, { response }) => {
+  if (error instanceof AuthenticationError) {
+    response?.status(401).send('Unauthorized');
+  } else if (error instanceof PayloadValidationError || error instanceof PayloadParseError) {
+    response?.status(400).send('Bad Request');
+  } else {
+    console.error('Webhook error:', error.message);
+    response?.status(500).send('Internal Server Error');
+  }
+});
+
+app.post('/chargebee/webhooks', async (req, res) => {
+  await chargebee.webhooks.handle({
+    body: req.body,
+    headers: req.headers,
+    request: req,
+    response: res,
+  });
+});
+
+app.listen(8080);
+```
+
+**Auto-configured Basic Auth:** The `webhooks` handler automatically configures Basic Auth validation if the following environment variables are set:
+
+- `CHARGEBEE_WEBHOOK_USERNAME` - The expected username
+- `CHARGEBEE_WEBHOOK_PASSWORD` - The expected password
+
+When both are present, incoming webhook requests will be validated against these credentials.
+
+#### Creating typed webhook handlers
+
+For more control or multiple webhook endpoints, use `chargebee.webhooks.createHandler()`:
+
+```typescript
+import express, { Request, Response } from 'express';
+import Chargebee, {
+  basicAuthValidator,
+  AuthenticationError,
+  PayloadValidationError,
+  PayloadParseError,
+} from 'chargebee';
+
+const chargebee = new Chargebee({
+  site: '{{site}}',
+  apiKey: '{{api-key}}',
+});
+
+const app = express();
+app.use(express.json());
+
+// Create a typed handler for Express
+const handler = chargebee.webhooks.createHandler<Request, Response>();
+
+// Optional: Add request validator (e.g., Basic Auth)
+handler.requestValidator = basicAuthValidator((username, password) => {
+  return username === 'admin' && password === 'secret';
+});
+
+// ⚠️ Register event listeners once at startup, not inside request handlers
+handler.on('subscription_created', async ({ event, response }) => {
+  console.log(`Subscription created: ${event.id}`);
+  const subscription = event.content.subscription;
+  console.log(`Customer: ${subscription.customer_id}`);
+  console.log(`Plan: ${subscription.plan_id}`);
+  response?.status(200).send('OK');
+});
+
+handler.on('payment_succeeded', async ({ event, response }) => {
+  console.log(`Payment succeeded: ${event.id}`);
+  const transaction = event.content.transaction;
+  const customer = event.content.customer;
+  console.log(`Amount: ${transaction.amount}, Customer: ${customer.email}`);
+  response?.status(200).send('OK');
+});
+
+handler.on('error', (error, { response }) => {
+  if (error instanceof AuthenticationError) {
+    response?.status(401).send('Unauthorized');
+  } else if (error instanceof PayloadValidationError || error instanceof PayloadParseError) {
+    response?.status(400).send('Bad Request');
+  } else {
+    console.error('Webhook error:', error.message);
+    response?.status(500).send('Internal Server Error');
+  }
+});
+
+app.post('/chargebee/webhooks', async (req, res) => {
+  await handler.handle({
+    body: req.body,
+    headers: req.headers,
+    request: req,
+    response: res,
+  });
+});
+
+app.listen(8080);
+```
+
+#### Low-level: Parse and handle events manually
+
+For more control, you can parse webhook events manually:
+
+```typescript
+import express from 'express';
+import Chargebee, { type WebhookEvent } from 'chargebee';
+
+const app = express();
+app.use(express.json());
+
+app.post('/chargebee/webhooks', async (req, res) => {
+  try {
+    const event = req.body as WebhookEvent;
+    
+    switch (event.event_type) {
+      case 'subscription_created':
+        // Access event content with proper typing
+        const subscription = event.content.subscription;
+        console.log('Subscription created:', subscription.id);
+        break;
+        
+      case 'payment_succeeded':
+        const transaction = event.content.transaction;
+        console.log('Payment succeeded:', transaction.amount);
+        break;
+        
+      default:
+        console.log('Unhandled event type:', event.event_type);
+    }
+    
+    res.status(200).send('OK');
+  } catch (err) {
+    console.error('Error processing webhook:', err);
+    res.status(500).send('Error processing webhook');
+  }
+});
+
+app.listen(8080);
+```
+
+#### Responding to Webhooks
+
+> ⚠️ **Important:** Always send an HTTP response from your webhook handlers. If you don't respond with a 2xx status, Chargebee will retry the webhook, potentially causing duplicate processing.
+
+**Respond with 200** to acknowledge receipt:
+
+```typescript
+handler.on('subscription_created', async ({ event, response }) => {
+  await provisionAccess(event.content.subscription);
+  response?.status(200).json({ received: true });
+});
+```
+
+**Respond with 5xx** so Chargebee retries on failure:
+
+```typescript
+handler.on('payment_succeeded', async ({ event, response }) => {
+  try {
+    await recordPayment(event.content.transaction);
+    response?.status(200).send('OK');
+  } catch (err) {
+    response?.status(500).json({ error: 'Processing failed' });
+  }
+});
+```
+
+**Access request context** (headers, middleware data):
+
+```typescript
+handler.on('customer_created', async ({ event, request, response }) => {
+  const tenantId = (request as any)?.tenant?.id;
+  await createCustomerForTenant(tenantId, event.content.customer);
+  response?.status(200).send('OK');
+});
+```
+
+#### Handling Unhandled Events and Errors
+
+The webhook handler provides specific error classes for different failure scenarios:
+
+- **`AuthenticationError`** - Authentication failed (missing/invalid credentials)
+- **`PayloadValidationError`** - Invalid webhook payload structure (missing required fields)
+- **`PayloadParseError`** - Failed to parse JSON body
+
+```typescript
+import {
+  AuthenticationError,
+  PayloadValidationError,
+  PayloadParseError,
+} from 'chargebee';
+
+// Handle events without registered listeners
+handler.on('unhandled_event', async ({ event, response }) => {
+  console.log(`Unhandled: ${event.event_type}`);
+  response?.status(200).send('OK');
+});
+
+// Handle errors with appropriate HTTP status codes
+handler.on('error', (error, { response }) => {
+  if (error instanceof AuthenticationError) {
+    console.error('Authentication failed:', error.message);
+    response?.status(401).send('Unauthorized');
+  } else if (error instanceof PayloadValidationError) {
+    console.error('Invalid payload:', error.message);
+    response?.status(400).send('Bad Request');
+  } else if (error instanceof PayloadParseError) {
+    console.error('Failed to parse JSON:', error.message);
+    response?.status(400).send('Bad Request');
+  } else {
+    console.error('Unknown error:', error.message);
+    response?.status(500).send('Internal Server Error');
+  }
+});
+```
+
 ### Processing Webhooks - API Version Check
 
 An attribute `api_version` is added to the [Event](https://apidocs.chargebee.com/docs/api/events) resource, which indicates the API version based on which the event content is structured. In your webhook servers, ensure this `api_version` is the same as the [API version](https://apidocs.chargebee.com/docs/api#versions) used by your webhook server's client library.
@@ -227,35 +474,15 @@ To improve type safety and gain better autocompletion when working with webhooks
 import Chargebee, { WebhookEventType, WebhookEvent } from "chargebee";
 
 const result = await chargebeeInstance.event.retrieve("{event-id}");
-const subscriptionActivatedEvent: WebhookEvent<typeof WebhookEventType.SubscriptionActivated> = result.event;
+const subscriptionActivatedEvent: WebhookEvent<WebhookEventType.SubscriptionActivated> = result.event;
 const subscription = subscriptionActivatedEvent.content.subscription;
-```
-
-You can also use `WebhookEventType` in switch statements for runtime event handling:
-
-```ts
-import { WebhookEventType, WebhookEvent } from "chargebee";
-
-function handleWebhook(event: WebhookEvent) {
-  switch (event.event_type) {
-    case WebhookEventType.SubscriptionCreated:
-      console.log("Subscription created:", event.content.subscription?.id);
-      break;
-    case WebhookEventType.PaymentSucceeded:
-      console.log("Payment succeeded:", event.content.transaction?.id);
-      break;
-    default:
-      console.log("Unhandled event:", event.event_type);
-  }
-}
 ```
 
 #### Notes
 
 * `WebhookEvent<T>` provides type hinting for the event payload, making it easier to work with specific event structures.
-* Use `WebhookEventType` to specify the exact event type (e.g., `SubscriptionCreated`, `InvoiceGenerated`, etc.).
-* `WebhookEventType` is available at runtime, so you can use it in switch statements and comparisons.
-* `WebhookContentType` is deprecated but still available for backward compatibility.
+* Use the `WebhookEventType` to specify the exact event type (e.g., `SubscriptionCreated`, `InvoiceGenerated`, etc.).
+* This approach ensures you get proper IntelliSense and compile-time checks when accessing event fields.
 
 ### Custom HTTP Client
 
