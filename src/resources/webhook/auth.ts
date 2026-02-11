@@ -1,3 +1,5 @@
+import { AuthenticationError } from './errors.js';
+
 /**
  * Credential validator function type.
  * Can be synchronous or asynchronous (e.g., for database lookups).
@@ -14,6 +16,8 @@ export type CredentialValidator = (
  * @param validateCredentials - Function to validate username/password.
  *   Can be sync or async (e.g., for database lookups).
  * @returns A request validator function for use with WebhookHandler
+ *
+ * @throws {AuthenticationError} When authentication fails
  *
  * @example
  * // Simple sync validation
@@ -35,24 +39,24 @@ export const basicAuthValidator = (
     const authHeader = headers['authorization'] || headers['Authorization'];
 
     if (!authHeader) {
-      throw new Error('Missing authorization header');
+      throw new AuthenticationError('Missing authorization header');
     }
 
     const authStr = Array.isArray(authHeader) ? authHeader[0] : authHeader;
     if (!authStr) {
-      throw new Error('Invalid authorization header');
+      throw new AuthenticationError('Invalid authorization header');
     }
 
     const parts = authStr.split(' ');
     if (parts.length !== 2 || parts[0] !== 'Basic') {
-      throw new Error('Invalid authorization header format');
+      throw new AuthenticationError('Invalid authorization header format');
     }
 
     const decoded = Buffer.from(parts[1], 'base64').toString();
     const separatorIndex = decoded.indexOf(':');
 
     if (separatorIndex === -1) {
-      throw new Error('Invalid credentials format');
+      throw new AuthenticationError('Invalid credentials format');
     }
 
     const username = decoded.substring(0, separatorIndex);
@@ -60,7 +64,7 @@ export const basicAuthValidator = (
 
     const isValid = await validateCredentials(username, password);
     if (!isValid) {
-      throw new Error('Invalid credentials');
+      throw new AuthenticationError('Invalid credentials');
     }
   };
 };
