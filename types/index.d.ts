@@ -396,4 +396,41 @@ declare module 'chargebee' {
   export function basicAuthValidator(
     validateCredentials: CredentialValidator,
   ): (headers: Record<string, string | string[] | undefined>) => Promise<void>;
+
+  // Webhook Error Classes
+  /**
+   * Base class for all webhook-related errors.
+   */
+  export class WebhookError extends Error {
+    constructor(message: string);
+    name: string;
+  }
+
+  /**
+   * Authentication error thrown when webhook request authentication fails.
+   * Typically maps to HTTP 401 Unauthorized.
+   */
+  export class AuthenticationError extends WebhookError {
+    constructor(message: string);
+    name: string;
+  }
+
+  /**
+   * Payload validation error thrown when the webhook payload structure is invalid.
+   * Typically maps to HTTP 400 Bad Request.
+   */
+  export class PayloadValidationError extends WebhookError {
+    constructor(message: string);
+    name: string;
+  }
+
+  /**
+   * JSON parsing error thrown when the webhook body cannot be parsed as JSON.
+   * Typically maps to HTTP 400 Bad Request.
+   */
+  export class PayloadParseError extends WebhookError {
+    constructor(message: string, rawBody?: string);
+    name: string;
+    readonly rawBody?: string;
+  }
 }
