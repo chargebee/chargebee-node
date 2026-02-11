@@ -158,7 +158,11 @@ The simplest way to handle webhooks is using the `webhooks` property on your ini
 
 ```typescript
 import express from 'express';
-import Chargebee from 'chargebee';
+import Chargebee, {
+  AuthenticationError,
+  PayloadValidationError,
+  PayloadParseError,
+} from 'chargebee';
 
 const chargebee = new Chargebee({
   site: '{{site}}',
@@ -176,8 +180,15 @@ chargebee.webhooks.on('subscription_created', async ({ event, response }) => {
   response?.status(200).send('OK');
 });
 
-chargebee.webhooks.on('error', (err: Error) => {
-  console.error('Webhook error:', err.message);
+chargebee.webhooks.on('error', (error, { response }) => {
+  if (error instanceof AuthenticationError) {
+    response?.status(401).send('Unauthorized');
+  } else if (error instanceof PayloadValidationError || error instanceof PayloadParseError) {
+    response?.status(400).send('Bad Request');
+  } else {
+    console.error('Webhook error:', error.message);
+    response?.status(500).send('Internal Server Error');
+  }
 });
 
 app.post('/chargebee/webhooks', async (req, res) => {
@@ -205,7 +216,12 @@ For more control or multiple webhook endpoints, use `chargebee.webhooks.createHa
 
 ```typescript
 import express, { Request, Response } from 'express';
-import Chargebee, { basicAuthValidator } from 'chargebee';
+import Chargebee, {
+  basicAuthValidator,
+  AuthenticationError,
+  PayloadValidationError,
+  PayloadParseError,
+} from 'chargebee';
 
 const chargebee = new Chargebee({
   site: '{{site}}',
@@ -238,6 +254,17 @@ handler.on('payment_succeeded', async ({ event, response }) => {
   const customer = event.content.customer;
   console.log(`Amount: ${transaction.amount}, Customer: ${customer.email}`);
   response?.status(200).send('OK');
+});
+
+handler.on('error', (error, { response }) => {
+  if (error instanceof AuthenticationError) {
+    response?.status(401).send('Unauthorized');
+  } else if (error instanceof PayloadValidationError || error instanceof PayloadParseError) {
+    response?.status(400).send('Bad Request');
+  } else {
+    console.error('Webhook error:', error.message);
+    response?.status(500).send('Internal Server Error');
+  }
 });
 
 app.post('/chargebee/webhooks', async (req, res) => {
@@ -331,16 +358,40 @@ handler.on('customer_created', async ({ event, request, response }) => {
 
 #### Handling Unhandled Events and Errors
 
+The webhook handler provides specific error classes for different failure scenarios:
+
+- **`AuthenticationError`** - Authentication failed (missing/invalid credentials)
+- **`PayloadValidationError`** - Invalid webhook payload structure (missing required fields)
+- **`PayloadParseError`** - Failed to parse JSON body
+
 ```typescript
+import {
+  AuthenticationError,
+  PayloadValidationError,
+  PayloadParseError,
+} from 'chargebee';
+
 // Handle events without registered listeners
 handler.on('unhandled_event', async ({ event, response }) => {
   console.log(`Unhandled: ${event.event_type}`);
   response?.status(200).send('OK');
 });
 
-// Catch processing errors (invalid JSON, validator failure, etc.)
-handler.on('error', (err) => {
-  console.error('Webhook error:', err.message);
+// Handle errors with appropriate HTTP status codes
+handler.on('error', (error, { response }) => {
+  if (error instanceof AuthenticationError) {
+    console.error('Authentication failed:', error.message);
+    response?.status(401).send('Unauthorized');
+  } else if (error instanceof PayloadValidationError) {
+    console.error('Invalid payload:', error.message);
+    response?.status(400).send('Bad Request');
+  } else if (error instanceof PayloadParseError) {
+    console.error('Failed to parse JSON:', error.message);
+    response?.status(400).send('Bad Request');
+  } else {
+    console.error('Unknown error:', error.message);
+    response?.status(500).send('Internal Server Error');
+  }
 });
 ```
 
