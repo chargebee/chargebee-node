@@ -34,6 +34,9 @@ export function setResponseHeader<T extends HeaderTarget>(
   name: string,
   value: string
 ): T {
+  if (!response) {
+    return response;
+  }
 
   // instance of Headers
   if (isHeaders(response)) {

@@ -888,4 +888,11 @@ describe('Webhook User Agent', () => {
     setWebhookUserAgent('Custom-User-Agent');
     setResponseHeader(reply, 'User-Agent', webhookUserAgent);
   });
+
+  it('should not throw error for unknown object', async () => {
+    const response: any = null;
+    setWebhookUserAgent('Custom-User-Agent');
+    setResponseHeader(response, 'User-Agent', webhookUserAgent);    
+    expect(response).to.be.null;
+  });
 });
