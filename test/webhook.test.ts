@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { WebhookHandler, createDefaultHandler } from '../src/resources/webhook/handler.js';
 import { basicAuthValidator } from '../src/resources/webhook/auth.js';
 import { CreateChargebee } from '../src/createChargebee.js';
+import { setResponseHeader, setWebhookUserAgent, webhookUserAgent } from '../src/resources/webhook/response.js';
 
 // Mock HTTP client for Chargebee instance
 const mockHttpClient = {
@@ -826,5 +827,65 @@ describe('Webhook Auth Warnings', () => {
 
     expect(warnCalls.length).to.be.greaterThan(0);
     expect(eventProcessed).to.be.true;
+  });
+});
+
+describe('Webhook User Agent', () => {
+  it('should set the webhook user agent', () => {
+    setWebhookUserAgent('Custom-User-Agent');
+    expect(webhookUserAgent).to.equal('Custom-User-Agent');
+  });
+
+  it('should set webhook user agent for Response object', async () => {
+    const response = new Response('{}');
+    setWebhookUserAgent('Custom-User-Agent');
+    setResponseHeader(response, 'User-Agent', webhookUserAgent);
+
+    expect(response.headers.get('User-Agent')).to.equal('Custom-User-Agent');
+  });
+
+  it('should set webhook user agent for Headers  object', async () => {
+    const headers = new Headers([['Content-Type', 'application/json']]);
+    setWebhookUserAgent('Custom-User-Agent');
+    setResponseHeader(headers, 'User-Agent', webhookUserAgent);
+
+    expect(headers.get('Content-Type')).to.equal('application/json');
+    expect(headers.get('User-Agent')).to.equal('Custom-User-Agent');
+  });
+
+  it('should set webhook user agent for { headers: Headers } object', async () => {
+    const headers = { headers: new Headers([['Content-Type', 'application/json']]) };
+    setWebhookUserAgent('Custom-User-Agent');
+    setResponseHeader(headers, 'User-Agent', webhookUserAgent);
+
+    expect(headers.headers.get('Content-Type')).to.equal('application/json');
+    expect(headers.headers.get('User-Agent')).to.equal('Custom-User-Agent');
+  });
+
+  it('should set webhook user agent for Node/Bun http-like response object', async () => {
+    const response = { setHeader: (name: string, value: string) => {
+      expect(name).to.equal('User-Agent');
+      expect(value).to.equal('Custom-User-Agent');
+    } };
+    setWebhookUserAgent('Custom-User-Agent');
+    setResponseHeader(response, 'User-Agent', webhookUserAgent);
+  });
+
+  it('should set webhook user agent for Context-like object', async () => {
+    const context = { set: (name: string, value: string) => {
+      expect(name).to.equal('User-Agent');
+      expect(value).to.equal('Custom-User-Agent');
+    } };
+    setWebhookUserAgent('Custom-User-Agent');
+    setResponseHeader(context, 'User-Agent', webhookUserAgent);
+  });
+
+  it('should set webhook user agent for Reply-like object', async () => {
+    const reply = { header: (name: string, value: string) => {
+      expect(name).to.equal('User-Agent');
+      expect(value).to.equal('Custom-User-Agent');
+    } };
+    setWebhookUserAgent('Custom-User-Agent');
+    setResponseHeader(reply, 'User-Agent', webhookUserAgent);
   });
 });

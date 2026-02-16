@@ -8,6 +8,7 @@ import {
   WebhookPayloadValidationError,
   WebhookPayloadParseError,
 } from './errors.js';
+import { setResponseHeader, webhookUserAgent } from './response.js';
 
 export { WebhookEventType, WebhookContentType };
 export {
@@ -508,6 +509,15 @@ export class WebhookHandler<
       if (!event.id) {
         throw new WebhookPayloadValidationError(
           'Invalid webhook payload: missing event id',
+        );
+      }
+
+      try {
+        setResponseHeader(response as any, 'User-Agent', webhookUserAgent);
+      } catch (err) {
+        console.warn(
+          '[chargebee] Warning: Failed to set webhook user agent:',
+          err instanceof Error ? err.message : String(err),
         );
       }
 
