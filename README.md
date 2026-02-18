@@ -20,6 +20,16 @@ If you're upgrading from an older version of [`chargebee-typescript`](https://ww
 
 Node.js 18 or higher.
 
+## Runtime Support
+
+This SDK supports multiple JavaScript runtimes:
+
+- **Node.js** 18+
+- **Deno**
+- **Bun**
+- **Workerd** (Cloudflare Workers)
+- **Edge Runtimes** (e.g., Vercel Edge, Netlify Edge Functions)
+
 ## Installation
 
 Install the library with npm:
@@ -35,6 +45,16 @@ pnpm add chargebee
 With yarn:
 ```sh
 yarn add chargebee
+```
+
+With bun:
+```sh
+bun add chargebee
+```
+
+With deno:
+```sh
+deno add npm:chargebee
 ```
 
 ## Usage
@@ -61,6 +81,34 @@ const chargebee = new Chargebee({
   site: "{{site}}",
   apiKey: "{{api-key}}",
 });
+```
+
+### Using Deno:
+
+```typescript
+import Chargebee from "npm:chargebee";
+
+const chargebee = new Chargebee({
+  site: "{{site}}",
+  apiKey: "{{api-key}}",
+});
+
+const response = await chargebee.customer.list();
+console.log(response);
+```
+
+### Using Bun:
+
+```typescript
+import Chargebee from "chargebee";
+
+const chargebee = new Chargebee({
+  site: "{{site}}",
+  apiKey: "{{api-key}}",
+});
+
+const response = await chargebee.customer.list();
+console.log(response);
 ```
 
 ### Using Async / Await
