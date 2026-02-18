@@ -27,7 +27,7 @@ This SDK supports multiple JavaScript runtimes:
 - **Node.js** 18+
 - **Deno**
 - **Bun**
-- **Workerd** (Cloudflare Workers)
+- **Cloudflare Workers**
 - **Edge Runtimes** (e.g., Vercel Edge, Netlify Edge Functions)
 
 ## Installation
