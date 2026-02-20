@@ -207,6 +207,7 @@ The simplest way to handle webhooks is using the `webhooks` property on your ini
 ```typescript
 import express from 'express';
 import Chargebee, {
+  WebhookEventType,
   AuthenticationError,
   PayloadValidationError,
   PayloadParseError,
@@ -221,7 +222,7 @@ const app = express();
 app.use(express.json());
 
 // ⚠️ Register listeners once at startup, not inside request handlers
-chargebee.webhooks.on('subscription_created', async ({ event, response }) => {
+chargebee.webhooks.on(WebhookEventType.SubscriptionCreated, async ({ event, response }) => {
   console.log(`Subscription created: ${event.id}`);
   const subscription = event.content.subscription;
   console.log(`Customer: ${subscription.customer_id}`);
@@ -265,6 +266,7 @@ For more control or multiple webhook endpoints, use `chargebee.webhooks.createHa
 ```typescript
 import express, { Request, Response } from 'express';
 import Chargebee, {
+  WebhookEventType,
   basicAuthValidator,
   AuthenticationError,
   PayloadValidationError,
@@ -288,7 +290,7 @@ handler.requestValidator = basicAuthValidator((username, password) => {
 });
 
 // ⚠️ Register event listeners once at startup, not inside request handlers
-handler.on('subscription_created', async ({ event, response }) => {
+handler.on(WebhookEventType.SubscriptionCreated, async ({ event, response }) => {
   console.log(`Subscription created: ${event.id}`);
   const subscription = event.content.subscription;
   console.log(`Customer: ${subscription.customer_id}`);
@@ -296,7 +298,7 @@ handler.on('subscription_created', async ({ event, response }) => {
   response?.status(200).send('OK');
 });
 
-handler.on('payment_succeeded', async ({ event, response }) => {
+handler.on(WebhookEventType.PaymentSucceeded, async ({ event, response }) => {
   console.log(`Payment succeeded: ${event.id}`);
   const transaction = event.content.transaction;
   const customer = event.content.customer;
@@ -333,7 +335,7 @@ For more control, you can parse webhook events manually:
 
 ```typescript
 import express from 'express';
-import Chargebee, { type WebhookEvent } from 'chargebee';
+import Chargebee, { type WebhookEvent, WebhookEventType } from 'chargebee';
 
 const app = express();
 app.use(express.json());
@@ -341,23 +343,27 @@ app.use(express.json());
 app.post('/chargebee/webhooks', async (req, res) => {
   try {
     const event = req.body as WebhookEvent;
-    
+
     switch (event.event_type) {
-      case 'subscription_created':
-        // Access event content with proper typing
-        const subscription = event.content.subscription;
+      case WebhookEventType.SubscriptionCreated: {
+        // Cast to specific event type for proper content typing
+        const typedEvent = event as WebhookEvent<WebhookEventType.SubscriptionCreated>;
+        const subscription = typedEvent.content.subscription;
         console.log('Subscription created:', subscription.id);
         break;
-        
-      case 'payment_succeeded':
-        const transaction = event.content.transaction;
+      }
+
+      case WebhookEventType.PaymentSucceeded: {
+        const typedEvent = event as WebhookEvent<WebhookEventType.PaymentSucceeded>;
+        const transaction = typedEvent.content.transaction;
         console.log('Payment succeeded:', transaction.amount);
         break;
-        
+      }
+
       default:
         console.log('Unhandled event type:', event.event_type);
     }
-    
+
     res.status(200).send('OK');
   } catch (err) {
     console.error('Error processing webhook:', err);
@@ -375,7 +381,7 @@ app.listen(8080);
 **Respond with 200** to acknowledge receipt:
 
 ```typescript
-handler.on('subscription_created', async ({ event, response }) => {
+handler.on(WebhookEventType.SubscriptionCreated, async ({ event, response }) => {
   await provisionAccess(event.content.subscription);
   response?.status(200).json({ received: true });
 });
@@ -384,7 +390,7 @@ handler.on('subscription_created', async ({ event, response }) => {
 **Respond with 5xx** so Chargebee retries on failure:
 
 ```typescript
-handler.on('payment_succeeded', async ({ event, response }) => {
+handler.on(WebhookEventType.PaymentSucceeded, async ({ event, response }) => {
   try {
     await recordPayment(event.content.transaction);
     response?.status(200).send('OK');
@@ -397,7 +403,7 @@ handler.on('payment_succeeded', async ({ event, response }) => {
 **Access request context** (headers, middleware data):
 
 ```typescript
-handler.on('customer_created', async ({ event, request, response }) => {
+handler.on(WebhookEventType.CustomerCreated, async ({ event, request, response }) => {
   const tenantId = (request as any)?.tenant?.id;
   await createCustomerForTenant(tenantId, event.content.customer);
   response?.status(200).send('OK');
