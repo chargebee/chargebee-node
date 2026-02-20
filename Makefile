@@ -30,8 +30,8 @@ increment-patch:
 	@$(MAKE) update-version VERSION=$(NEW_VERSION)
 	@echo "Version bumped from $(CURRENT) to $(NEW_VERSION)"
 
-test:
-	@echo "Test is not written currently for this module."
+test: install
+	npm test
 
 format:
 	npm run prettier
