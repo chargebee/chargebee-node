@@ -38,7 +38,7 @@ beforeEach(() => {
 
 describe('RequestWrapper - request headers', () => {
   describe('User-Agent header', () => {
-    it('should set User-Agent to Chargebee-NodeJs-Client with clientVersion only when service() is not called', async () => {
+    it('should set User-Agent to Chargebee-NodeJs-Client with clientVersion only when __clientIdentifier() is not called', async () => {
       const chargebee = createChargebee();
       await chargebee.customer.list();
 
@@ -48,9 +48,9 @@ describe('RequestWrapper - request headers', () => {
       );
     });
 
-    it('should append service name with semicolon after calling chargebee.service()', async () => {
+    it('should append service name with semicolon after calling chargebee.__clientIdentifier()', async () => {
       const chargebee = createChargebee();
-      chargebee.service('local-test-suffix');
+      chargebee.__clientIdentifier('local-test-suffix');
 
       await chargebee.customer.list();
 
@@ -60,10 +60,10 @@ describe('RequestWrapper - request headers', () => {
       );
     });
 
-    it('should reflect updated service name if chargebee.service() is called again', async () => {
+    it('should reflect updated service name if chargebee.__clientIdentifier() is called again', async () => {
       const chargebee = createChargebee();
-      chargebee.service('first-service');
-      chargebee.service('second-service');
+      chargebee.__clientIdentifier('first-service');
+      chargebee.__clientIdentifier('second-service');
 
       await chargebee.customer.list();
 

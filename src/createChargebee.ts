@@ -29,7 +29,7 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
 
     // Initialize webhooks handler with auto-configured Basic Auth (if env vars are set)
     const handler = createDefaultHandler();
-    this.service = (serviceName: string) => {
+    this.__clientIdentifier = (serviceName: string) => {
       extend(true, this._env, { userAgentSuffix: serviceName });
     };
     // Create webhooks namespace with handler methods + createHandler factory
