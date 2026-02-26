@@ -17,6 +17,7 @@ import {
   RetryConfig,
 } from './types.js';
 import { handleResponse } from './coreCommon.js';
+import { setWebhookUserAgent } from './resources/webhook/response.js';
 import { Buffer } from 'node:buffer';
 
 export class RequestWrapper {
@@ -128,6 +129,7 @@ export class RequestWrapper {
         : 'application/x-www-form-urlencoded; charset=utf-8';
 
       const userAgent = `Chargebee-NodeJs-Client ${env.clientVersion}${env.userAgentSuffix ? ';' + env.userAgentSuffix : ''}`;
+      setWebhookUserAgent(userAgent);
 
       extend(true, requestHeaders, {
         Authorization:
