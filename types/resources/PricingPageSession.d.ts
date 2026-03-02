@@ -43,6 +43,7 @@ declare module 'chargebee' {
       customer?: CustomerCreateForNewSubscriptionInputParam;
       billing_address?: BillingAddressCreateForNewSubscriptionInputParam;
       shipping_address?: ShippingAddressCreateForNewSubscriptionInputParam;
+      contract_term?: ContractTermCreateForNewSubscriptionInputParam;
       discounts?: DiscountsCreateForNewSubscriptionInputParam[];
     }
     export interface CreateForExistingSubscriptionInputParam {
@@ -50,6 +51,7 @@ declare module 'chargebee' {
       custom?: any;
       pricing_page?: PricingPageCreateForExistingSubscriptionInputParam;
       subscription?: SubscriptionCreateForExistingSubscriptionInputParam;
+      contract_term?: ContractTermCreateForExistingSubscriptionInputParam;
       discounts?: DiscountsCreateForExistingSubscriptionInputParam[];
     }
     export interface BillingAddressCreateForNewSubscriptionInputParam {
@@ -96,6 +98,10 @@ declare module 'chargebee' {
       country?: string;
       validation_status?: ValidationStatusEnum;
     }
+    export interface ContractTermCreateForNewSubscriptionInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
+      cancellation_cutoff_period?: number;
+    }
     export interface SubscriptionCreateForNewSubscriptionInputParam {
       id?: string;
     }
@@ -114,6 +120,10 @@ declare module 'chargebee' {
     }
     export interface PricingPageCreateForExistingSubscriptionInputParam {
       id?: string;
+    }
+    export interface ContractTermCreateForExistingSubscriptionInputParam {
+      action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
+      cancellation_cutoff_period?: number;
     }
     export interface SubscriptionCreateForExistingSubscriptionInputParam {
       id: string;

@@ -1120,6 +1120,8 @@ declare module 'chargebee' {
       start_date?: number;
       offline_payment_method?: OfflinePaymentMethodEnum;
       contract_term_billing_cycle_on_renewal?: number;
+      free_period?: number;
+      free_period_unit?: FreePeriodUnitEnum;
     }
 
     export interface SubscriptionItemsCreateSubItemsForCustomerQuoteInputParam {
@@ -1219,6 +1221,8 @@ declare module 'chargebee' {
       start_date?: number;
       offline_payment_method?: OfflinePaymentMethodEnum;
       contract_term_billing_cycle_on_renewal?: number;
+      free_period?: number;
+      free_period_unit?: FreePeriodUnitEnum;
     }
 
     export interface SubscriptionItemsEditCreateSubCustomerQuoteForItemsInputParam {

@@ -99,8 +99,10 @@ declare module 'chargebee' {
     transaction: Transaction;
     unbilled_charge: UnbilledCharge;
     usage: Usage;
+    usage_charge: UsageCharge;
     usage_event: UsageEvent;
     usage_file: UsageFile;
+    usage_summary: UsageSummary;
     virtual_bank_account: VirtualBankAccount;
     webhook_endpoint: WebhookEndpoint;
   }

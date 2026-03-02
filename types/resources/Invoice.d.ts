@@ -907,6 +907,7 @@ declare module 'chargebee' {
       authorization_transaction_id?: string;
       payment_source_id?: string;
       auto_collection?: AutoCollectionEnum;
+      net_term_days?: number;
       invoice_date?: number;
       token_id?: string;
       replace_primary_payment_source?: boolean;
