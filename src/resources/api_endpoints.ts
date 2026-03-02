@@ -105,6 +105,8 @@ interface Endpoints {
   offerFulfillment: EndpointTuple[];
   offerEvent: EndpointTuple[];
   webhookEndpoint: EndpointTuple[];
+  usageSummary: EndpointTuple[];
+  usageCharge: EndpointTuple[];
   impactedCustomer: EndpointTuple[];
   subscriptionEntitlementsUpdatedDetail: EndpointTuple[];
   subscriptionEntitlementsCreatedDetail: EndpointTuple[];
@@ -4979,6 +4981,32 @@ export const Endpoints: Endpoints = {
       },
     ],
     ['list', 'GET', '/webhook_endpoints', null, false, null, false, {}, {}],
+  ],
+  usageSummary: [
+    [
+      'retrieveUsageSummaryForSubscription',
+      'GET',
+      '/subscriptions',
+      '/usage_summary',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
+  usageCharge: [
+    [
+      'retrieveUsageChargesForSubscription',
+      'GET',
+      '/subscriptions',
+      '/usage_charges',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
   ],
   impactedCustomer: [],
   subscriptionEntitlementsUpdatedDetail: [],

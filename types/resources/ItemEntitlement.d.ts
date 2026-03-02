@@ -52,11 +52,11 @@ declare module 'chargebee' {
     }
 
     export interface AddItemEntitlementsResponse {
-      item_entitlement: ItemEntitlement;
+      list: { item_entitlement: ItemEntitlement }[];
     }
 
     export interface UpsertOrRemoveItemEntitlementsForItemResponse {
-      item_entitlement: ItemEntitlement;
+      list: { item_entitlement: ItemEntitlement }[];
     }
 
     // REQUEST PARAMS

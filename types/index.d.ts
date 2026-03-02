@@ -94,8 +94,10 @@
 ///<reference path='./resources/Transaction.d.ts' />
 ///<reference path='./resources/UnbilledCharge.d.ts' />
 ///<reference path='./resources/Usage.d.ts' />
+///<reference path='./resources/UsageCharge.d.ts' />
 ///<reference path='./resources/UsageEvent.d.ts' />
 ///<reference path='./resources/UsageFile.d.ts' />
+///<reference path='./resources/UsageSummary.d.ts' />
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
 ///<reference path='./resources/WebhookEndpoint.d.ts' />
 ///<reference path='./resources/Content.d.ts' />
@@ -238,8 +240,10 @@ declare module 'chargebee' {
     transaction: Transaction.TransactionResource;
     unbilledCharge: UnbilledCharge.UnbilledChargeResource;
     usage: Usage.UsageResource;
+    usageCharge: UsageCharge.UsageChargeResource;
     usageEvent: UsageEvent.UsageEventResource;
     usageFile: UsageFile.UsageFileResource;
+    usageSummary: UsageSummary.UsageSummaryResource;
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
     webhookEndpoint: WebhookEndpoint.WebhookEndpointResource;
 

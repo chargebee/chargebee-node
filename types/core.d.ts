@@ -670,5 +670,6 @@ declare module 'chargebee' {
     | 'partially_valid'
     | 'invalid';
   type VoucherTypeEnum = 'boleto';
+  type WindowSizeEnum = 'month' | 'week' | 'day' | 'hour' | 'minute';
   type ChargeOnEnum = 'immediately' | 'on_event';
 }

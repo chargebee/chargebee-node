@@ -19,6 +19,8 @@ declare module 'chargebee' {
     plan_unit_price_in_decimal?: string;
     changes_scheduled_at?: number;
     change_option?: 'end_of_term' | 'specific_date' | 'immediately';
+    free_period?: number;
+    free_period_unit?: FreePeriodUnitEnum;
     contract_term_billing_cycle_on_renewal?: number;
     addons?: QuotedSubscription.Addon[];
     event_based_addons?: QuotedSubscription.EventBasedAddon[];
