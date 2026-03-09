@@ -106,18 +106,21 @@ export class RequestWrapper {
       }
 
       const jsonKeys = this.apiCall.jsonKeys;
-      const data: string = this.apiCall.isJsonRequest
-        ? JSON.stringify(requestParams)
-        : encodeParams(
-            requestParams,
-            undefined,
-            undefined,
-            undefined,
-            jsonKeys,
-          );
+      let data: string | null = null;
+      if (this.apiCall.httpMethod !== 'GET') {
+        data = this.apiCall.isJsonRequest
+          ? JSON.stringify(requestParams)
+          : encodeParams(
+              requestParams,
+              undefined,
+              undefined,
+              undefined,
+              jsonKeys,
+            );
+      }
 
       const requestHeaders: RequestHeaders = { ...this.httpHeaders };
-      if (data.length) {
+      if (data && data.length) {
         extend(true, requestHeaders, {
           'Content-Length': data.length,
         });
@@ -148,7 +151,7 @@ export class RequestWrapper {
       );
       const request: Request = new Request(url, {
         method: this.apiCall.httpMethod,
-        body: data ? data : undefined,
+        body: data || undefined,
         headers: this._createHeaders(requestHeaders),
       });
       const resp: Response = await this.envArg.httpClient.makeApiRequest(
