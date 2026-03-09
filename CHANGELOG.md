@@ -1,3 +1,14 @@
+### v3.22.1 (2026-03-09)
+* * *
+### Bug Fixes:
+- Fixed GET requests incorrectly sending a request body. Parameters are now only serialized into the request body for non-GET requests.
+
+### Tests:
+- GET list request — body must be empty.
+- GET retrieve request — body must be empty.
+- GET with params — params go into the query string, not the body.
+- POST request — body is correctly populated with encoded params.
+
 ### v3.22.0 (2026-03-02)
 * * *
 ### New Resources:

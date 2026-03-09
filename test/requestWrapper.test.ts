@@ -36,6 +36,60 @@ beforeEach(() => {
   callCount = 0;
 });
 
+describe('RequestWrapper - request body', () => {
+  describe('GET requests', () => {
+    it('should not have a body for a GET list request', async () => {
+      const chargebee = createChargebee();
+      await chargebee.customer.list();
+
+      const body = await capturedRequests[0].text();
+      expect(body).to.equal('');
+    });
+
+    it('should not have a body for a GET retrieve request', async () => {
+      responseFactory = () =>
+        new Response(JSON.stringify({ customer: { id: 'cust_123' } }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+      const chargebee = createChargebee();
+      await chargebee.customer.retrieve('cust_123');
+
+      const body = await capturedRequests[0].text();
+      expect(body).to.equal('');
+    });
+
+    it('should encode params into the query string, not the body, for GET requests', async () => {
+      const chargebee = createChargebee();
+      await chargebee.customer.list({ limit: 10 });
+
+      const url = new URL(capturedRequests[0].url);
+      expect(url.searchParams.get('limit')).to.equal('10');
+
+      const body = await capturedRequests[0].text();
+      expect(body).to.equal('');
+    });
+  });
+
+  describe('POST requests', () => {
+    it('should have a body for a POST request', async () => {
+      responseFactory = () =>
+        new Response(JSON.stringify({ customer: { id: 'cust_123' } }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+      const chargebee = createChargebee();
+      await chargebee.customer.create({ first_name: 'John' });
+
+      const body = await capturedRequests[0].text();
+      expect(body).to.not.equal('');
+      expect(body).to.include('first_name=John');
+    });
+  });
+});
+
 describe('RequestWrapper - request headers', () => {
   describe('User-Agent header', () => {
     it('should set User-Agent to Chargebee-NodeJs-Client with clientVersion only when __clientIdentifier() is not called', async () => {
