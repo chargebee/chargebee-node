@@ -421,6 +421,7 @@ declare module 'chargebee' {
     }
     export interface Einvoice {
       id: string;
+      reference_id?: string;
       reference_number?: string;
       status:
         | 'scheduled'
@@ -437,6 +438,7 @@ declare module 'chargebee' {
         | 'conditionally_accepted'
         | 'paid';
       message?: string;
+      provider_references?: any[];
     }
     export interface SiteDetailsAtCreation {
       timezone?: string;

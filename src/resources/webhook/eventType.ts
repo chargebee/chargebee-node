@@ -11,6 +11,8 @@ export enum WebhookEventType {
 
   AddonUpdated = 'addon_updated',
 
+  AlertStatusChanged = 'alert_status_changed',
+
   AttachedItemCreated = 'attached_item_created',
 
   AttachedItemDeleted = 'attached_item_deleted',

@@ -1,6 +1,8 @@
 ///<reference path='./resources/Addon.d.ts' />
 ///<reference path='./resources/Address.d.ts' />
 ///<reference path='./resources/AdvanceInvoiceSchedule.d.ts' />
+///<reference path='./resources/Alert.d.ts' />
+///<reference path='./resources/AlertStatus.d.ts' />
 ///<reference path='./resources/AttachedItem.d.ts' />
 ///<reference path='./resources/Attribute.d.ts' />
 ///<reference path='./resources/BillingConfiguration.d.ts' />
@@ -15,6 +17,7 @@
 ///<reference path='./resources/Coupon.d.ts' />
 ///<reference path='./resources/CouponCode.d.ts' />
 ///<reference path='./resources/CouponSet.d.ts' />
+///<reference path='./resources/CpqQuoteSignature.d.ts' />
 ///<reference path='./resources/CreditNote.d.ts' />
 ///<reference path='./resources/CreditNoteEstimate.d.ts' />
 ///<reference path='./resources/Currency.d.ts' />

@@ -407,6 +407,7 @@ declare module 'chargebee' {
       card?: CardUpdatePaymentMethodInputParam;
     }
     export interface ManagePaymentSourcesInputParam {
+      business_entity_id?: string;
       redirect_url?: string;
       customer?: CustomerManagePaymentSourcesInputParam;
       card?: CardManagePaymentSourcesInputParam;

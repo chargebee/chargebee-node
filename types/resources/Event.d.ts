@@ -69,6 +69,7 @@ declare module 'chargebee' {
       ItemFamilyUpdatedContent &
       OrderCreatedContent &
       PriceVariantDeletedContent &
+      AlertStatusChangedContent &
       SubscriptionMovementFailedContent &
       CustomerMovedInContent &
       SubscriptionAdvanceInvoiceScheduleUpdatedContent &

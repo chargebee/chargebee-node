@@ -761,7 +761,8 @@ declare module 'chargebee' {
         | 'revolut_pay'
         | 'cash_app_pay'
         | 'wechat_pay'
-        | 'alipay';
+        | 'alipay'
+        | 'pix';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -945,7 +946,8 @@ declare module 'chargebee' {
         | 'revolut_pay'
         | 'cash_app_pay'
         | 'wechat_pay'
-        | 'alipay';
+        | 'alipay'
+        | 'pix';
       /**
        * @deprecated Please refer API docs to use other attributes
        */

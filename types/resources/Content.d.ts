@@ -6,6 +6,8 @@ declare module 'chargebee' {
     addon: Addon;
     address: Address;
     advance_invoice_schedule: AdvanceInvoiceSchedule;
+    alert: Alert;
+    alert_status: AlertStatus;
     attached_item: AttachedItem;
     attribute: Attribute;
     billing_configuration: BillingConfiguration;
@@ -20,6 +22,7 @@ declare module 'chargebee' {
     coupon: Coupon;
     coupon_code: CouponCode;
     coupon_set: CouponSet;
+    cpq_quote_signature: CpqQuoteSignature;
     credit_note: CreditNote;
     credit_note_estimate: CreditNoteEstimate;
     currency: Currency;

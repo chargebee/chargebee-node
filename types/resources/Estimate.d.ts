@@ -68,6 +68,7 @@ declare module 'chargebee' {
 
       upcomingInvoicesEstimate(
         customer_id: string,
+        input?: UpcomingInvoicesEstimateInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpcomingInvoicesEstimateResponse>>;
 
@@ -354,6 +355,9 @@ declare module 'chargebee' {
       date_to?: number;
       prorate?: boolean;
       invoice_immediately?: boolean;
+    }
+    export interface UpcomingInvoicesEstimateInputParam {
+      include_usage_charges?: boolean;
     }
     export interface ChangeTermEndInputParam {
       term_ends_at: number;
@@ -1053,7 +1057,8 @@ declare module 'chargebee' {
         | 'revolut_pay'
         | 'cash_app_pay'
         | 'wechat_pay'
-        | 'alipay';
+        | 'alipay'
+        | 'pix';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1142,7 +1147,8 @@ declare module 'chargebee' {
         | 'revolut_pay'
         | 'cash_app_pay'
         | 'wechat_pay'
-        | 'alipay';
+        | 'alipay'
+        | 'pix';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
