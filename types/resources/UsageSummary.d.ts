@@ -12,10 +12,6 @@ declare module 'chargebee' {
 
   export namespace UsageSummary {
     export class UsageSummaryResource {
-      /**
-       * @deprecated This method is deprecated and will be removed in a future version.
-       */
-
       retrieveUsageSummaryForSubscription(
         subscription_id: string,
         input: RetrieveUsageSummaryForSubscriptionInputParam,

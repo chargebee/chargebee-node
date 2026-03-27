@@ -53,6 +53,7 @@ declare module 'chargebee' {
     ItemFamilyUpdated = 'item_family_updated',
     OrderCreated = 'order_created',
     PriceVariantDeleted = 'price_variant_deleted',
+    AlertStatusChanged = 'alert_status_changed',
     SubscriptionMovementFailed = 'subscription_movement_failed',
     CustomerMovedIn = 'customer_moved_in',
     SubscriptionAdvanceInvoiceScheduleUpdated = 'subscription_advance_invoice_schedule_updated',
@@ -277,6 +278,7 @@ declare module 'chargebee' {
     [WebhookEventType.ItemFamilyUpdated]: ItemFamilyUpdatedContent;
     [WebhookEventType.OrderCreated]: OrderCreatedContent;
     [WebhookEventType.PriceVariantDeleted]: PriceVariantDeletedContent;
+    [WebhookEventType.AlertStatusChanged]: AlertStatusChangedContent;
     [WebhookEventType.SubscriptionMovementFailed]: SubscriptionMovementFailedContent;
     [WebhookEventType.CustomerMovedIn]: CustomerMovedInContent;
     [WebhookEventType.SubscriptionAdvanceInvoiceScheduleUpdated]: SubscriptionAdvanceInvoiceScheduleUpdatedContent;
@@ -753,6 +755,11 @@ declare module 'chargebee' {
     price_variant: PriceVariant;
 
     attribute: Attribute;
+  };
+  export type AlertStatusChangedContent = {
+    alert: Alert;
+
+    alert_status: AlertStatus;
   };
   export type SubscriptionMovementFailedContent = {
     subscription: Subscription;

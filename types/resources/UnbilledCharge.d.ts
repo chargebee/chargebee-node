@@ -29,6 +29,7 @@ declare module 'chargebee' {
     unit_amount_in_decimal?: string;
     quantity_in_decimal?: string;
     amount_in_decimal?: string;
+    created_at?: number;
     updated_at: number;
     tiers?: UnbilledCharge.Tier[];
     is_advance_charge?: boolean;

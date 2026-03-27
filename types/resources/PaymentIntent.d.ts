@@ -42,7 +42,8 @@ declare module 'chargebee' {
       | 'revolut_pay'
       | 'cash_app_pay'
       | 'wechat_pay'
-      | 'alipay';
+      | 'alipay'
+      | 'pix';
     success_url?: string;
     failure_url?: string;
     created_at: number;
@@ -129,7 +130,8 @@ declare module 'chargebee' {
         | 'revolut_pay'
         | 'cash_app_pay'
         | 'wechat_pay'
-        | 'alipay';
+        | 'alipay'
+        | 'pix';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -180,7 +182,8 @@ declare module 'chargebee' {
         | 'revolut_pay'
         | 'cash_app_pay'
         | 'wechat_pay'
-        | 'alipay';
+        | 'alipay'
+        | 'pix';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -231,7 +234,8 @@ declare module 'chargebee' {
         | 'revolut_pay'
         | 'cash_app_pay'
         | 'wechat_pay'
-        | 'alipay';
+        | 'alipay'
+        | 'pix';
       success_url?: string;
       failure_url?: string;
     }
@@ -271,7 +275,8 @@ declare module 'chargebee' {
         | 'revolut_pay'
         | 'cash_app_pay'
         | 'wechat_pay'
-        | 'alipay';
+        | 'alipay'
+        | 'pix';
       success_url?: string;
       failure_url?: string;
     }

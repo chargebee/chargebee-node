@@ -178,6 +178,61 @@ declare module 'chargebee' {
         input?: PdfInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<PdfResponse>>;
+
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
+      retrieveSignature(
+        quote_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveSignatureResponse>>;
+
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
+      retrieveSignedPdf(
+        quote_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveSignedPdfResponse>>;
+
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
+      createSignature(
+        quote_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CreateSignatureResponse>>;
+
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
+      updateSignature(
+        quote_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdateSignatureResponse>>;
+
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
+      updateSignatureStatus(
+        quote_id: string,
+        input?: UpdateSignatureStatusInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdateSignatureStatusResponse>>;
+
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
+
+      refreshSignatureLink(
+        quote_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RefreshSignatureLinkResponse>>;
     }
 
     export interface RetrieveResponse {
@@ -300,6 +355,30 @@ declare module 'chargebee' {
 
     export interface PdfResponse {
       download: Download;
+    }
+
+    export interface RetrieveSignatureResponse {
+      cpq_quote_signature: CpqQuoteSignature;
+    }
+
+    export interface RetrieveSignedPdfResponse {
+      download: Download;
+    }
+
+    export interface CreateSignatureResponse {
+      cpq_quote_signature: CpqQuoteSignature;
+    }
+
+    export interface UpdateSignatureResponse {
+      cpq_quote_signature: CpqQuoteSignature;
+    }
+
+    export interface UpdateSignatureStatusResponse {
+      cpq_quote_signature: CpqQuoteSignature;
+    }
+
+    export interface RefreshSignatureLinkResponse {
+      cpq_quote_signature: CpqQuoteSignature;
     }
 
     export interface LineItem {
@@ -725,6 +804,9 @@ declare module 'chargebee' {
     export interface PdfInputParam {
       consolidated_view?: boolean;
       disposition_type?: DispositionTypeEnum;
+    }
+    export interface UpdateSignatureStatusInputParam {
+      cpq_quote_signature?: CpqQuoteSignatureUpdateSignatureStatusInputParam;
     }
     export interface ShippingAddressCreateSubForCustomerQuoteInputParam {
       first_name?: string;
@@ -1645,6 +1727,16 @@ declare module 'chargebee' {
       auto_collection?: AutoCollectionEnum;
       po_number?: string;
       auto_close_invoices?: boolean;
+    }
+
+    export interface CpqQuoteSignatureUpdateSignatureStatusInputParam {
+      status?:
+        | 'draft'
+        | 'active'
+        | 'signed'
+        | 'expired'
+        | 'cancelled'
+        | 'declined';
     }
   }
 }

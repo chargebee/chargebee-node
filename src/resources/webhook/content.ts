@@ -18,6 +18,12 @@ export interface AddonUpdatedContent {
   Addon: import('chargebee').Addon;
 }
 
+export interface AlertStatusChangedContent {
+  Alert: import('chargebee').Alert;
+
+  AlertStatus: import('chargebee').AlertStatus;
+}
+
 export interface AttachedItemCreatedContent {
   AttachedItem: import('chargebee').AttachedItem;
 }
@@ -1444,6 +1450,8 @@ export type WebhookContentMap = {
   [WebhookEventType.AddonDeleted]: AddonDeletedContent;
 
   [WebhookEventType.AddonUpdated]: AddonUpdatedContent;
+
+  [WebhookEventType.AlertStatusChanged]: AlertStatusChangedContent;
 
   [WebhookEventType.AttachedItemCreated]: AttachedItemCreatedContent;
 

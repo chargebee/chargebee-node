@@ -17,10 +17,6 @@ declare module 'chargebee' {
 
   export namespace UsageCharge {
     export class UsageChargeResource {
-      /**
-       * @deprecated This method is deprecated and will be removed in a future version.
-       */
-
       retrieveUsageChargesForSubscription(
         subscription_id: string,
         input?: RetrieveUsageChargesForSubscriptionInputParam,

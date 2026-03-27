@@ -46,6 +46,7 @@ interface Endpoints {
   quotedDeltaRamp: EndpointTuple[];
   billingConfiguration: EndpointTuple[];
   quoteLineGroup: EndpointTuple[];
+  cpqQuoteSignature: EndpointTuple[];
   plan: EndpointTuple[];
   addon: EndpointTuple[];
   coupon: EndpointTuple[];
@@ -107,6 +108,8 @@ interface Endpoints {
   webhookEndpoint: EndpointTuple[];
   usageSummary: EndpointTuple[];
   usageCharge: EndpointTuple[];
+  alert: EndpointTuple[];
+  alertStatus: EndpointTuple[];
   impactedCustomer: EndpointTuple[];
   subscriptionEntitlementsUpdatedDetail: EndpointTuple[];
   subscriptionEntitlementsCreatedDetail: EndpointTuple[];
@@ -3059,6 +3062,82 @@ export const Endpoints: Endpoints = {
         isIdempotent: true,
       },
     ],
+    [
+      'retrieveSignature',
+      'GET',
+      '/quotes',
+      '/retrieve_signature',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
+      'retrieveSignedPdf',
+      'POST',
+      '/quotes',
+      '/retrieve_signed_pdf',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'createSignature',
+      'POST',
+      '/quotes',
+      '/create_signature',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'updateSignature',
+      'POST',
+      '/quotes',
+      '/update_signature',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'updateSignatureStatus',
+      'POST',
+      '/quotes',
+      '/update_signature_status',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'refreshSignatureLink',
+      'POST',
+      '/quotes',
+      '/refresh_signature_link',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   quotedSubscription: [],
   quotedCharge: [],
@@ -3066,6 +3145,7 @@ export const Endpoints: Endpoints = {
   quotedDeltaRamp: [],
   billingConfiguration: [],
   quoteLineGroup: [],
+  cpqQuoteSignature: [],
   plan: [
     [
       'create',
@@ -5008,6 +5088,8 @@ export const Endpoints: Endpoints = {
       {},
     ],
   ],
+  alert: [],
+  alertStatus: [],
   impactedCustomer: [],
   subscriptionEntitlementsUpdatedDetail: [],
   subscriptionEntitlementsCreatedDetail: [],
