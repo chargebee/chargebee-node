@@ -18,6 +18,7 @@ import {
 } from './types.js';
 import { handleResponse } from './coreCommon.js';
 import { Buffer } from 'node:buffer';
+import type { ZodObject, ZodRawShape } from 'zod';
 
 export class RequestWrapper {
   private readonly args: IArguments;
@@ -40,6 +41,27 @@ export class RequestWrapper {
       throw new Error('the required id parameter missing or wrong');
     }
     return idParam;
+  }
+
+  /**
+   * Validate params against the action's Zod schema when enableValidation is true.
+   * Throws a descriptive error listing every validation violation.
+   */
+  private static _validateParams(
+    params: JSONValue,
+    schema: ZodObject<ZodRawShape>,
+    actionName: string,
+  ): void {
+    const result = schema.safeParse(params);
+    if (!result.success) {
+      const messages = result.error.issues
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .map((e: any) => `${(e.path as unknown[]).join('.')}: ${e.message}`)
+        .join('; ');
+      throw new Error(
+        `[Chargebee] Validation failed for '${actionName}': ${messages}`,
+      );
+    }
   }
 
   private static parseRetryAfter(retryAfter?: string): number | null {
@@ -70,6 +92,19 @@ export class RequestWrapper {
       ? this.args[1]
       : this.args[0];
     let headers = this.apiCall.hasIdInUrl ? this.args[2] : this.args[1];
+
+    if (
+      env.enableValidation &&
+      this.apiCall.validationSchema &&
+      this.apiCall.httpMethod === 'POST' &&
+      params != null
+    ) {
+      RequestWrapper._validateParams(
+        params,
+        this.apiCall.validationSchema as ZodObject<ZodRawShape>,
+        this.apiCall.methodName,
+      );
+    }
 
     Object.assign(this.httpHeaders, headers);
 

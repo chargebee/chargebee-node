@@ -75,5 +75,8 @@
     "semi": true,
     "singleQuote": true,
     "parser": "typescript"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
   }
 }

@@ -2,6 +2,7 @@ import { RequestWrapper } from './RequestWrapper.js';
 import { Environment } from './environment.js';
 import { Endpoints } from './resources/api_endpoints.js';
 import { extend, sleep } from './util.js';
+import { getSchema } from './validationLoader.js';
 import { waitForProcessToComplete } from './asyncApiSupport.js';
 import {
   ResourceType,
@@ -105,6 +106,10 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
             jsonKeys: metaArr[7],
             options: metaArr[8],
           };
+          if (this._env.enableValidation && metaArr[1] === 'POST') {
+            apiCall.validationSchema =
+              getSchema(res, metaArr[0] as string) ?? undefined;
+          }
           this[res][apiCall.methodName] = this._createApiFunc(
             apiCall,
             this._env,

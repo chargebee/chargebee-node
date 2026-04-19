@@ -163,6 +163,11 @@ declare module 'chargebee' {
      * @httpClient optional http client implementation, default http client will be used if not provided
      */
     httpClient?: HttpClientInterface;
+
+    /**
+     * @enableValidation when true, request params are validated against Zod schemas before the HTTP call.
+     */
+    enableValidation?: boolean;
   };
 
   export interface HttpClientInterface {

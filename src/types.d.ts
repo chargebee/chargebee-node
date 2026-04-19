@@ -16,6 +16,8 @@ export type EnvType = {
   retryConfig?: RetryConfig;
   enableDebugLogs?: boolean;
   userAgentSuffix?: string;
+  /** When true, request params are validated against Zod schemas before the HTTP call. */
+  enableValidation?: boolean;
 };
 
 export type RetryConfig = {
@@ -40,6 +42,8 @@ export type Config = {
   enableDebugLogs?: boolean;
   userAgentSuffix?: string;
   httpClient?: HttpClientInterface;
+  /** When true, request params are validated against Zod schemas before the HTTP call. */
+  enableValidation?: boolean;
 };
 
 export type Callback = (error: unknown, result: any | null) => void;
@@ -62,6 +66,8 @@ export type ResourceType = {
   options?: {
     isIdempotent?: boolean;
   };
+  /** Optional Zod schema for opt-in request param validation. */
+  validationSchema?: import('zod').ZodObject<import('zod').ZodRawShape>;
 };
 type RequestWrapperType = {
   args: IArguments;

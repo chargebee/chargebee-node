@@ -5,6 +5,8 @@ declare module 'chargebee' {
     timeout?: number;
     timemachineWaitInMillis?: number;
     exportWaitInMillis?: number;
+    /** When true, request params are validated against Zod schemas before the HTTP call. */
+    enableValidation?: boolean;
   }
   export type ChargebeeResponse<T> = T & {
     headers: { [key: string]: string };
