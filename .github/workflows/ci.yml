@@ -48,7 +48,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: bun run build
 
-      - name: Run Node.js tests
-        run: npm test
+      - name: Run Bun tests
+        run: bun test
