@@ -71,20 +71,35 @@ describeIfEsmBuilt('Worker thread can load ESM worker bundle', () => {
       workerData: { root: repoRoot },
       type: 'module',
     });
-    worker.on('message', (msg: { ok: boolean; error?: string; missing?: string[]; stack?: string }) => {
-      void worker.terminate().then(() => {
-        try {
-          expect(msg.ok, JSON.stringify(msg)).to.be.true;
+    let settled = false;
+    const finish = (err?: Error): void => {
+      if (settled) {
+        return;
+      }
+      settled = true;
+      void worker.terminate().finally(() => {
+        if (err) {
+          done(err);
+        } else {
           done();
-        } catch (e) {
-          done(e as Error);
         }
       });
+    };
+    worker.on('message', (msg: { ok: boolean; error?: string; missing?: string[]; stack?: string }) => {
+      try {
+        expect(msg.ok, JSON.stringify(msg)).to.be.true;
+        finish();
+      } catch (e) {
+        finish(e as Error);
+      }
     });
-    worker.on('error', done);
+    worker.on('error', finish);
     worker.on('exit', (code) => {
+      if (settled) {
+        return;
+      }
       if (code !== 0) {
-        done(new Error(`worker exited with code ${code}`));
+        finish(new Error(`worker exited with code ${code}`));
       }
     });
   });
