@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-import fs from 'node:fs';
-import path from 'node:path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { Worker } from 'node:worker_threads';
 
-const testDir = path.dirname(fileURLToPath(import.meta.url));
+const testDir = path.dirname(fileURLToPath(__dirname));
 const repoRoot = path.join(testDir, '..');
 const esmWorkerPath = path.join(repoRoot, 'esm/chargebee.esm.worker.js');
 
