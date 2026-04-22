@@ -21,23 +21,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
-      - name: Install deps
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Run Node.js tests
-        run: npm test
-
-      - name: Run Bun tests
-        run: bun test
-
       - name: Ensure package version is 3.x.x
         run: |
           VERSION=$(node -p "require('./package.json').version")
