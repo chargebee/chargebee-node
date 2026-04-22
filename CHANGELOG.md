@@ -1,3 +1,10 @@
+### v3.23.1 (2026-04-22)
+* * * 
+
+### Bug Fixes
+- Fixed missing webhook exports (`WebhookEventType`, `WebhookContentType`, `basicAuthValidator`, and webhook error classes) from worker entrypoints, causing a `SyntaxError` in Bun and other runtimes that resolve to the worker bundle.
+
+
 ### v3.23.0 (2026-03-27)
 * * *
 ### New Resources:
