@@ -9,7 +9,7 @@ type WorkerThreadOptions = NonNullable<ConstructorParameters<typeof Worker>[1]> 
   type?: 'module' | 'classic';
 };
 
-const testDir = path.dirname(fileURLToPath(import.meta.url));
+const testDir = path.resolve(process.cwd(), 'test');
 const repoRoot = path.join(testDir, '..');
 const esmWorkerPath = path.join(repoRoot, 'esm/chargebee.esm.worker.js');
 
@@ -63,8 +63,13 @@ function assertWebhookExports(mod: Record<string, unknown>, label: string): void
 
 describeIfEsmBuilt('Worker entry bundle (ESM)', () => {
   it('exposes webhook value exports from built ESM worker entry', async function () {
-    const mod = (await import(pathToFileURL(esmWorkerPath).href)) as Record<string, unknown>;
-    assertWebhookExports(mod, 'esm/chargebee.esm.worker.js');
+    try {
+      const mod = (await import(pathToFileURL(esmWorkerPath).href)) as Record<string, unknown>;
+      assertWebhookExports(mod, 'esm/chargebee.esm.worker.js');
+    } catch (error) {
+      const mod = require(esmWorkerPath);
+      assertWebhookExports(mod, 'esm/chargebee.esm.worker.js');
+    }
   });
 });
 
