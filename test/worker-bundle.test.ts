@@ -4,7 +4,8 @@ import * as path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { Worker } from 'node:worker_threads';
 
-const testDir = __dirname;
+const __filename = fileURLToPath(import.meta.url);
+const testDir = path.dirname(__filename);
 const repoRoot = path.join(testDir, '..');
 const esmWorkerPath = path.join(repoRoot, 'esm/chargebee.esm.worker.js');
 
