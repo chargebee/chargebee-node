@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.cjs.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": ".",
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "types": ["node", "mocha"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "ts-node": {
+    "experimentalResolver": true,
+    "compilerOptions": {
+      "module": "CommonJS",
+      "moduleResolution": "node"
+    }
+  }
+}

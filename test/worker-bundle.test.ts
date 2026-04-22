@@ -4,14 +4,12 @@ import * as path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { Worker } from 'node:worker_threads';
 
-let testDir;
+/** `type` is supported at runtime for ESM workers; widen options until typings always include it. */
+type WorkerThreadOptions = NonNullable<ConstructorParameters<typeof Worker>[1]> & {
+  type?: 'module' | 'classic';
+};
 
-if (globalThis.__dirname) {
-  testDir = globalThis.__dirname;
-} else {
-  testDir = path.dirname(fileURLToPath(import.meta.url));
-}
-
+const testDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.join(testDir, '..');
 const esmWorkerPath = path.join(repoRoot, 'esm/chargebee.esm.worker.js');
 
@@ -73,10 +71,11 @@ describeIfEsmBuilt('Worker entry bundle (ESM)', () => {
 describeIfEsmBuilt('Worker thread can load ESM worker bundle', () => {
   it('parses the bundle and receives all webhook exports inside a worker', function (done) {
     const fixture = path.join(testDir, 'fixtures', 'load-esm-worker-bundle.mjs');
-    const worker = new Worker(fixture, {
+    const workerOptions: WorkerThreadOptions = {
       workerData: { root: repoRoot },
       type: 'module',
-    });
+    };
+    const worker = new Worker(fixture, workerOptions);
     let settled = false;
     const finish = (err?: Error): void => {
       if (settled) {
