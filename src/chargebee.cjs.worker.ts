@@ -7,4 +7,27 @@ const Chargebee = CreateChargebee(httpClient);
 module.exports = Chargebee;
 module.exports.Chargebee = Chargebee;
 module.exports.default = Chargebee;
+
+// Export webhook utilities
+export {
+  WebhookEventType,
+  WebhookContentType,
+} from './resources/webhook/handler.js';
+export { basicAuthValidator } from './resources/webhook/auth.js';
+export {
+  WebhookError,
+  WebhookAuthenticationError,
+  WebhookPayloadValidationError,
+  WebhookPayloadParseError,
+} from './resources/webhook/handler.js';
+
+// Export webhook types
+export type {
+  WebhookEvent,
+  WebhookContext,
+  WebhookHandlerOptions,
+  HandleOptions,
+  RequestValidator,
+} from './resources/webhook/handler.js';
+export type { CredentialValidator } from './resources/webhook/auth.js';
 module.exports.ChargebeeZodValidationError = ChargebeeZodValidationError;

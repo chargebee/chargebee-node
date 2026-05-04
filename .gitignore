@@ -1,5 +1,7 @@
 node_modules
 *js
+!test/fixtures/**/*.mjs
+!test/scripts/**/*.mjs
 cjs
 esm
 .idea
