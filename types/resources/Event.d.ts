@@ -15,7 +15,8 @@ declare module 'chargebee' {
       | 'failed'
       | 'skipped'
       | 'not_applicable'
-      | 'disabled';
+      | 'disabled'
+      | 'rate_limited';
     webhook_failure_reason?: string;
     webhooks?: Event.Webhook[];
     event_type?: EventTypeEnum;
@@ -272,7 +273,8 @@ declare module 'chargebee' {
         | 'failed'
         | 'skipped'
         | 'not_applicable'
-        | 'disabled';
+        | 'disabled'
+        | 'rate_limited';
     }
     // REQUEST PARAMS
     //---------------

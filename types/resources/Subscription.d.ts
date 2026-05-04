@@ -1419,7 +1419,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1559,7 +1566,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1666,7 +1680,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1828,7 +1849,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2004,7 +2032,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2136,7 +2171,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2574,7 +2616,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
