@@ -226,6 +226,7 @@ declare module 'chargebee' {
         | 'maestro'
         | 'dankort'
         | 'cartes_bancaires'
+        | 'mada'
         | 'not_applicable';
       funding_type:
         | 'credit'
@@ -424,7 +425,8 @@ declare module 'chargebee' {
         | 'rupay'
         | 'maestro'
         | 'dankort'
-        | 'cartes_bancaires';
+        | 'cartes_bancaires'
+        | 'mada';
       funding_type?: 'credit' | 'debit' | 'prepaid' | 'not_known';
     }
 
@@ -465,7 +467,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

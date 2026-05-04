@@ -743,6 +743,7 @@ declare module 'chargebee' {
       currency_code?: string;
       coupon?: string;
       coupon_ids?: string[];
+      net_term_days?: number;
       billing_address?: BillingAddressCreateForChargeItemsAndChargesInputParam;
       shipping_address?: ShippingAddressCreateForChargeItemsAndChargesInputParam;
       item_prices?: ItemPricesCreateForChargeItemsAndChargesInputParam[];
@@ -758,6 +759,7 @@ declare module 'chargebee' {
       currency_code?: string;
       coupon?: string;
       coupon_ids?: string[];
+      net_term_days?: number;
       billing_address?: BillingAddressEditForChargeItemsAndChargesInputParam;
       shipping_address?: ShippingAddressEditForChargeItemsAndChargesInputParam;
       item_prices?: ItemPricesEditForChargeItemsAndChargesInputParam[];

@@ -33,6 +33,7 @@
 ///<reference path='./resources/Event.d.ts' />
 ///<reference path='./resources/Export.d.ts' />
 ///<reference path='./resources/Feature.d.ts' />
+///<reference path='./resources/FilterCondition.d.ts' />
 ///<reference path='./resources/GatewayErrorDetail.d.ts' />
 ///<reference path='./resources/Gift.d.ts' />
 ///<reference path='./resources/Hierarchy.d.ts' />
@@ -75,6 +76,7 @@
 ///<reference path='./resources/PromotionalCredit.d.ts' />
 ///<reference path='./resources/Purchase.d.ts' />
 ///<reference path='./resources/Quote.d.ts' />
+///<reference path='./resources/QuoteEntitlement.d.ts' />
 ///<reference path='./resources/QuoteLineGroup.d.ts' />
 ///<reference path='./resources/QuotedCharge.d.ts' />
 ///<reference path='./resources/QuotedDeltaRamp.d.ts' />
@@ -186,6 +188,8 @@ declare module 'chargebee' {
     constructor(config: Config);
     addon: Addon.AddonResource;
     address: Address.AddressResource;
+    alert: Alert.AlertResource;
+    alertStatu: AlertStatus.AlertStatusResource;
     attachedItem: AttachedItem.AttachedItemResource;
     businessEntity: BusinessEntity.BusinessEntityResource;
     card: Card.CardResource;
