@@ -93,6 +93,7 @@ declare module 'chargebee' {
     export interface CreateUsingPermanentTokenInputParam {
       customer_id: string;
       reference_id: string;
+      gateway_account_id?: string;
       scheme?:
         | 'ach_credit'
         | 'sepa_credit'
@@ -105,6 +106,7 @@ declare module 'chargebee' {
     export interface CreateInputParam {
       customer_id: string;
       email?: string;
+      gateway_account_id?: string;
       scheme?:
         | 'ach_credit'
         | 'sepa_credit'

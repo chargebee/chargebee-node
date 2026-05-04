@@ -7,7 +7,7 @@ declare module 'chargebee' {
     status: 'inited' | 'in_progress' | 'authorized' | 'consumed' | 'expired';
     currency_code?: string;
     amount: number;
-    gateway_account_id: string;
+    gateway_account_id?: string;
     expires_at: number;
     reference_id?: string;
     payment_method_type?:
@@ -43,7 +43,14 @@ declare module 'chargebee' {
       | 'cash_app_pay'
       | 'wechat_pay'
       | 'alipay'
-      | 'pix';
+      | 'pix'
+      | 'twint'
+      | 'go_pay'
+      | 'grab_pay'
+      | 'pay_co'
+      | 'after_pay'
+      | 'swish'
+      | 'payme';
     success_url?: string;
     failure_url?: string;
     created_at: number;
@@ -131,7 +138,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -183,7 +197,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -202,6 +223,7 @@ declare module 'chargebee' {
       currency_code: string;
       gateway_account_id?: string;
       reference_id?: string;
+      defer_payment_method_type?: boolean;
       payment_method_type?:
         | 'card'
         | 'ideal'
@@ -235,7 +257,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       success_url?: string;
       failure_url?: string;
     }
@@ -276,7 +305,14 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix';
+        | 'pix'
+        | 'twint'
+        | 'go_pay'
+        | 'grab_pay'
+        | 'pay_co'
+        | 'after_pay'
+        | 'swish'
+        | 'payme';
       success_url?: string;
       failure_url?: string;
     }
