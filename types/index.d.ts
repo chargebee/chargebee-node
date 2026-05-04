@@ -445,4 +445,14 @@ declare module 'chargebee' {
     name: string;
     readonly rawBody?: string;
   }
+
+  /**
+   * Thrown when `enableValidation` is on and request params fail the action's Zod schema.
+   */
+  export class ChargebeeZodValidationError extends Error {
+    constructor(actionName: string, zodError: import('zod').ZodError);
+    name: string;
+    readonly actionName: string;
+    readonly zodError: import('zod').ZodError;
+  }
 }

@@ -18,6 +18,7 @@ export {
   WebhookPayloadValidationError,
   WebhookPayloadParseError,
 } from './resources/webhook/handler.js';
+export { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
 
 // Export webhook types
 export type {

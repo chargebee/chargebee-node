@@ -19,6 +19,7 @@ import {
 import { handleResponse } from './coreCommon.js';
 import { Buffer } from 'node:buffer';
 import type { ZodObject, ZodRawShape } from 'zod';
+import { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
 
 export class RequestWrapper {
   private readonly args: IArguments;
@@ -54,13 +55,7 @@ export class RequestWrapper {
   ): void {
     const result = schema.safeParse(params);
     if (!result.success) {
-      const messages = result.error.issues
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .map((e: any) => `${(e.path as unknown[]).join('.')}: ${e.message}`)
-        .join('; ');
-      throw new Error(
-        `[Chargebee] Validation failed for '${actionName}': ${messages}`,
-      );
+      throw new ChargebeeZodValidationError(actionName, result.error);
     }
   }
 

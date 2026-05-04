@@ -5,3 +5,4 @@ const httpClient = new FetchHttpClient();
 const Chargebee = CreateChargebee(httpClient);
 
 export default Chargebee;
+export { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
