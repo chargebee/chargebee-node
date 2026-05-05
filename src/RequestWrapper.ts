@@ -45,7 +45,8 @@ export class RequestWrapper {
   }
 
   /**
-   * Validate params against the action's Zod schema when enableValidation is true.
+   * Validate parameters against the action's Zod schema when enableValidation is true.
+   * Query params are validated as `params ?? {}`; body params are validated when `params` is non-null.
    * Throws a descriptive error listing every validation violation.
    */
   private static _validateParams(
@@ -88,17 +89,20 @@ export class RequestWrapper {
       : this.args[0];
     let headers = this.apiCall.hasIdInUrl ? this.args[2] : this.args[1];
 
-    if (
-      env.enableValidation &&
-      this.apiCall.validationSchema &&
-      this.apiCall.httpMethod === 'POST' &&
-      params != null
-    ) {
-      RequestWrapper._validateParams(
-        params,
-        this.apiCall.validationSchema as ZodObject<ZodRawShape>,
-        this.apiCall.methodName,
-      );
+    if (env.enableValidation && this.apiCall.validationSchema) {
+      if (this.apiCall.httpMethod === 'GET') {
+        RequestWrapper._validateParams(
+          params ?? {},
+          this.apiCall.validationSchema as ZodObject<ZodRawShape>,
+          this.apiCall.methodName,
+        );
+      } else if (params != null) {
+        RequestWrapper._validateParams(
+          params,
+          this.apiCall.validationSchema as ZodObject<ZodRawShape>,
+          this.apiCall.methodName,
+        );
+      }
     }
 
     Object.assign(this.httpHeaders, headers);

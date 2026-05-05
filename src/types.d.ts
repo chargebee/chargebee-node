@@ -16,7 +16,7 @@ export type EnvType = {
   retryConfig?: RetryConfig;
   enableDebugLogs?: boolean;
   userAgentSuffix?: string;
-  /** When true, request params are validated against Zod schemas before the HTTP call. */
+  /** When true, request parameters are validated against Zod schemas before each HTTP call (where a schema exists). */
   enableValidation?: boolean;
 };
 
@@ -42,7 +42,7 @@ export type Config = {
   enableDebugLogs?: boolean;
   userAgentSuffix?: string;
   httpClient?: HttpClientInterface;
-  /** When true, request params are validated against Zod schemas before the HTTP call. */
+  /** When true, request parameters are validated against Zod schemas before each HTTP call (where a schema exists). */
   enableValidation?: boolean;
 };
 

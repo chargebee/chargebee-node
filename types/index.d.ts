@@ -165,7 +165,8 @@ declare module 'chargebee' {
     httpClient?: HttpClientInterface;
 
     /**
-     * @enableValidation when true, request params are validated against Zod schemas before the HTTP call.
+     * @enableValidation when true, parameters for every API request are validated against Zod schemas
+     * before the HTTP call (for actions that ship with a schema).
      */
     enableValidation?: boolean;
   };
@@ -447,7 +448,8 @@ declare module 'chargebee' {
   }
 
   /**
-   * Thrown when `enableValidation` is on and request params fail the action's Zod schema.
+   * Thrown when `enableValidation` is on and request parameters fail the action's Zod schema.
+   * Carries `actionName` and the original `ZodError` (issues, `flatten()`, etc.) for programmatic handling.
    */
   export class ChargebeeZodValidationError extends Error {
     constructor(actionName: string, zodError: import('zod').ZodError);

@@ -124,6 +124,45 @@ try {
 }
 ```
 
+### Request parameter validation (Zod)
+
+When `enableValidation` is set to `true`, the SDK validates parameters for **every** API request against Zod schemas **before** the HTTP call is made. If you omit the params object on a call, it is validated as `{}`. This is **off by default**. Schemas are included for API actions that support them; actions without a bundled schema behave as usual.
+
+```typescript
+import Chargebee, { ChargebeeZodValidationError } from 'chargebee';
+
+const chargebee = new Chargebee({
+  site: '{{site}}',
+  apiKey: '{{api-key}}',
+  enableValidation: true,
+});
+
+try {
+  await chargebee.customer.create({
+    id: 'a'.repeat(100),
+    auto_collection: 'invalid',
+  });
+} catch (err) {
+  if (err instanceof ChargebeeZodValidationError) {
+    console.error(err.message);
+    console.error(err.actionName);
+    console.error(err.zodError.issues);
+  } else {
+    throw err;
+  }
+}
+```
+
+Invalid parameters produce a `ChargebeeZodValidationError`. The error message lists every problem (field path and message). You can also inspect `actionName` (the API action, for example `create`) and `zodError` (Zod’s `ZodError`, including `issues`) for structured handling.
+
+**Example message:**
+
+```text
+ChargebeeZodValidationError: [Chargebee] Validation failed for 'create': id: Too big: expected string to have <=50 characters; auto_collection: Invalid option: expected one of "on"|"off"
+```
+
+The same `ChargebeeZodValidationError` shape applies to any action with a schema when parameters are invalid (for example bad filters or limits on `list`).
+
 ### Using filters in the List API
 
 For pagination, `offset` is the parameter that is being used. The value used for this parameter must be the value returned for `next_offset` parameter in the previous API call.

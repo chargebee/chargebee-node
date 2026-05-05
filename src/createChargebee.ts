@@ -106,7 +106,7 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
             jsonKeys: metaArr[7],
             options: metaArr[8],
           };
-          if (this._env.enableValidation && metaArr[1] === 'POST') {
+          if (this._env.enableValidation) {
             apiCall.validationSchema =
               getSchema(res, metaArr[0] as string) ?? undefined;
           }
