@@ -10,19 +10,19 @@ import type { ZodObject, ZodRawShape } from 'zod';
 import { createRequire } from 'node:module';
 import * as nodePath from 'node:path';
 
-// Locate the chargebee package's cjs/ directory and build a require function
-// anchored there. This works in CJS, ESM, tsx, and ts-node because we use
-// createRequire (not the global require which is absent in ESM).
+// Locate the chargebee package's CJS entry file and build a require function
+// anchored there. createRequire() resolves relative paths from dirname(filename);
+// passing a directory path ending with a separator makes dirname() skip past `cjs`,
+// so we must pass the entry file (e.g. cjs/chargebee.cjs.js), not the folder.
 //
 // Strategy: resolve 'chargebee' (the default CJS entry) from the caller's
-// working directory to get the absolute path of cjs/chargebee.cjs.js,
-// then anchor _require to that same directory.
+// working directory, then createRequire(entryFile) so ./validation/... loads
+// from the cjs/ directory next to that file.
 const _cwdRequire = createRequire(
   nodePath.resolve(process.cwd(), 'package.json'),
 );
 const _cjsEntry: string = _cwdRequire.resolve('chargebee');
-const _cjsDir: string = nodePath.dirname(_cjsEntry);
-const _require: NodeRequire = createRequire(_cjsDir + nodePath.sep);
+const _require: NodeRequire = createRequire(_cjsEntry);
 
 type AnyZodObject = ZodObject<ZodRawShape>;
 const schemaCache = new Map<string, AnyZodObject | null>();

@@ -9,6 +9,7 @@ export class ChargebeeZodValidationError extends Error {
       .map((e) => `${e.path.join('.')}: ${e.message}`)
       .join('; ');
     super(`[Chargebee] Validation failed for '${actionName}': ${messages}`);
+    Object.setPrototypeOf(this, new.target.prototype);
     this.name = 'ChargebeeZodValidationError';
     this.actionName = actionName;
     this.zodError = zodError;
