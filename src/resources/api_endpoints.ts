@@ -46,6 +46,7 @@ interface Endpoints {
   quotedDeltaRamp: EndpointTuple[];
   billingConfiguration: EndpointTuple[];
   quoteLineGroup: EndpointTuple[];
+  quoteEntitlement: EndpointTuple[];
   cpqQuoteSignature: EndpointTuple[];
   plan: EndpointTuple[];
   addon: EndpointTuple[];
@@ -109,6 +110,7 @@ interface Endpoints {
   usageSummary: EndpointTuple[];
   usageCharge: EndpointTuple[];
   alert: EndpointTuple[];
+  filterCondition: EndpointTuple[];
   alertStatus: EndpointTuple[];
   impactedCustomer: EndpointTuple[];
   subscriptionEntitlementsUpdatedDetail: EndpointTuple[];
@@ -3145,6 +3147,7 @@ export const Endpoints: Endpoints = {
   quotedDeltaRamp: [],
   billingConfiguration: [],
   quoteLineGroup: [],
+  quoteEntitlement: [],
   cpqQuoteSignature: [],
   plan: [
     [
@@ -5088,8 +5091,85 @@ export const Endpoints: Endpoints = {
       {},
     ],
   ],
-  alert: [],
-  alertStatus: [],
+  alert: [
+    [
+      'create',
+      'POST',
+      '/alerts',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/alerts', null, true, null, false, {}, {}],
+    ['list', 'GET', '/alerts', null, false, null, false, {}, {}],
+    [
+      'update',
+      'POST',
+      '/alerts',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'delete',
+      'POST',
+      '/alerts',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'application_alertsForSubscription',
+      'GET',
+      '/subscriptions',
+      '/applicable_alerts',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
+  filterCondition: [],
+  alertStatus: [
+    [
+      'alert_statusesForSubscription',
+      'GET',
+      '/subscriptions',
+      '/alert_statuses',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
+      'alert_statusesForAlert',
+      'GET',
+      '/alerts',
+      '/alert_statuses',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
   impactedCustomer: [],
   subscriptionEntitlementsUpdatedDetail: [],
   subscriptionEntitlementsCreatedDetail: [],

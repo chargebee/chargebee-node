@@ -33,6 +33,7 @@ declare module 'chargebee' {
       | 'maestro'
       | 'dankort'
       | 'cartes_bancaires'
+      | 'mada'
       | 'other'
       | 'not_applicable';
     funding_type:

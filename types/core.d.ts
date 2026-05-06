@@ -33,6 +33,7 @@ declare module 'chargebee' {
     | 'business_checking'
     | 'current';
   type ActionEnum = 'upsert' | 'remove';
+  type AlarmStatusEnum = 'within_limit' | 'in_alarm';
   type ApiVersionEnum = 'v1' | 'v2';
   type ApplyOnEnum = 'invoice_amount' | 'specific_item_price';
   type AutoCollectionEnum = 'on' | 'off';
@@ -120,6 +121,10 @@ declare module 'chargebee' {
     | 'plan_item_price'
     | 'addon_item_price'
     | 'charge_item_price'
+    | 'plan_price'
+    | 'addon_price'
+    | 'charge_price'
+    | 'charge'
     | 'invoice'
     | 'quote'
     | 'credit_note'
@@ -133,9 +138,6 @@ declare module 'chargebee' {
     | 'plan_item'
     | 'addon_item'
     | 'charge_item'
-    | 'plan_price'
-    | 'addon_price'
-    | 'charge_price'
     | 'differential_price'
     | 'attached_item'
     | 'feature'
@@ -154,8 +156,7 @@ declare module 'chargebee' {
     | 'usage_file'
     | 'business_rule'
     | 'ruleset'
-    | 'alert_status'
-    | 'charge';
+    | 'alert_status';
   type EventNameEnum = 'cancellation_page_loaded';
   type EventTypeEnum =
     | 'coupon_created'
@@ -437,6 +438,8 @@ declare module 'chargebee' {
     | 'ezidebit'
     | 'twikey'
     | 'tempus'
+    | 'moyasar'
+    | 'payway'
     | 'gocardless'
     | 'not_applicable';
   type HierarchyOperationTypeEnum =
@@ -446,6 +449,7 @@ declare module 'chargebee' {
   type InvoiceDunningHandlingEnum = 'continue' | 'stop';
   type ItemTypeEnum = 'plan' | 'addon' | 'charge';
   type LayoutEnum = 'in_app' | 'full_page';
+  type ModeEnum = 'absolute' | 'percentage';
   type NotifyReferralSystemEnum =
     | 'none'
     | 'first_paid_conversion'
@@ -521,7 +525,14 @@ declare module 'chargebee' {
     | 'naver_pay'
     | 'revolut_pay'
     | 'cash_app_pay'
-    | 'pix';
+    | 'pix'
+    | 'twint'
+    | 'go_pay'
+    | 'grab_pay'
+    | 'pay_co'
+    | 'after_pay'
+    | 'swish'
+    | 'payme';
   type PaymentMethodSavePolicyEnum = 'always' | 'ask' | 'never';
   type PaymentMethodTypeEnum =
     | 'card'
@@ -558,7 +569,14 @@ declare module 'chargebee' {
     | 'naver_pay'
     | 'revolut_pay'
     | 'cash_app_pay'
-    | 'pix';
+    | 'pix'
+    | 'twint'
+    | 'go_pay'
+    | 'grab_pay'
+    | 'pay_co'
+    | 'after_pay'
+    | 'swish'
+    | 'payme';
   type PaymentVoucherTypeEnum = 'boleto';
   type PeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
   type PriceTypeEnum = 'tax_exclusive' | 'tax_inclusive';
@@ -662,6 +680,13 @@ declare module 'chargebee' {
     | 'revolut_pay'
     | 'cash_app_pay'
     | 'pix'
+    | 'twint'
+    | 'go_pay'
+    | 'grab_pay'
+    | 'pay_co'
+    | 'after_pay'
+    | 'swish'
+    | 'payme'
     | 'free_trial'
     | 'pay_up_front'
     | 'pay_as_you_go'
@@ -680,7 +705,6 @@ declare module 'chargebee' {
   type VoucherTypeEnum = 'boleto';
   type WindowSizeEnum = 'month' | 'week' | 'day' | 'hour' | 'minute';
   type ChargeOnEnum = 'immediately' | 'on_event';
-  type AlertStatusEnum = AlertStatusEnum;
   type EnabledEventsEnum =
     | 'coupon_created'
     | 'coupon_updated'
