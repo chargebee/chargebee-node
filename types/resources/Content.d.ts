@@ -38,6 +38,7 @@ declare module 'chargebee' {
     event: Event;
     export: Export;
     feature: Feature;
+    filter_condition: FilterCondition;
     gateway_error_detail: GatewayErrorDetail;
     gift: Gift;
     hierarchy: Hierarchy;
@@ -80,6 +81,7 @@ declare module 'chargebee' {
     promotional_credit: PromotionalCredit;
     purchase: Purchase;
     quote: Quote;
+    quote_entitlement: QuoteEntitlement;
     quote_line_group: QuoteLineGroup;
     quoted_charge: QuotedCharge;
     quoted_delta_ramp: QuotedDeltaRamp;
