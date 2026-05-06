@@ -1,0 +1,478 @@
+// Generated Zod validator: Subscription.updateForItems
+// Do not edit manually – regenerate via sdk-generator
+
+import { z } from 'zod';
+const updateForItemsSubscriptionMetaDataSchema = z.looseObject({});
+const updateForItemsSubscriptionAdditionalInformationSchema = z.looseObject({});
+const updateForItemsSubscriptionCardSchema = z.object({
+  gateway: z
+    .enum([
+      'chargebee',
+      'chargebee_payments',
+      'adyen',
+      'stripe',
+      'wepay',
+      'braintree',
+      'authorize_net',
+      'paypal_pro',
+      'pin',
+      'eway',
+      'eway_rapid',
+      'worldpay',
+      'balanced_payments',
+      'beanstream',
+      'bluepay',
+      'elavon',
+      'first_data_global',
+      'hdfc',
+      'migs',
+      'nmi',
+      'ogone',
+      'paymill',
+      'paypal_payflow_pro',
+      'sage_pay',
+      'tco',
+      'wirecard',
+      'amazon_payments',
+      'paypal_express_checkout',
+      'orbital',
+      'moneris_us',
+      'moneris',
+      'bluesnap',
+      'cybersource',
+      'vantiv',
+      'checkout_com',
+      'paypal',
+      'ingenico_direct',
+      'exact',
+      'mollie',
+      'quickbooks',
+      'razorpay',
+      'global_payments',
+      'bank_of_america',
+      'ecentric',
+      'metrics_global',
+      'windcave',
+      'pay_com',
+      'ebanx',
+      'dlocal',
+      'nuvei',
+      'solidgate',
+      'paystack',
+      'jp_morgan',
+      'deutsche_bank',
+      'ezidebit',
+      'twikey',
+      'tempus',
+      'moyasar',
+      'payway',
+    ])
+    .optional(),
+  gateway_account_id: z.string().max(50).optional(),
+  tmp_token: z.string().max(300).optional(),
+  first_name: z.string().max(50).optional(),
+  last_name: z.string().max(50).optional(),
+  number: z.string().max(1500).optional(),
+  expiry_month: z.number().int().min(1).max(12).optional(),
+  expiry_year: z.number().int().optional(),
+  cvv: z.string().max(520).optional(),
+  preferred_scheme: z
+    .enum(['cartes_bancaires', 'mastercard', 'visa'])
+    .optional(),
+  billing_addr1: z.string().max(150).optional(),
+  billing_addr2: z.string().max(150).optional(),
+  billing_city: z.string().max(50).optional(),
+  billing_state_code: z.string().max(50).optional(),
+  billing_state: z.string().max(50).optional(),
+  billing_zip: z.string().max(20).optional(),
+  billing_country: z.string().max(50).optional(),
+  ip_address: z.string().max(50).optional(),
+  additional_information:
+    updateForItemsSubscriptionAdditionalInformationSchema.optional(),
+});
+const updateForItemsSubscriptionPaymentMethodSchema = z.object({
+  type: z
+    .enum([
+      'card',
+      'paypal_express_checkout',
+      'amazon_payments',
+      'direct_debit',
+      'generic',
+      'alipay',
+      'unionpay',
+      'apple_pay',
+      'wechat_pay',
+      'ideal',
+      'google_pay',
+      'sofort',
+      'bancontact',
+      'giropay',
+      'dotpay',
+      'upi',
+      'netbanking_emandates',
+      'venmo',
+      'pay_to',
+      'faster_payments',
+      'sepa_instant_transfer',
+      'automated_bank_transfer',
+      'klarna_pay_now',
+      'online_banking_poland',
+      'payconiq_by_bancontact',
+      'electronic_payment_standard',
+      'kbc_payment_button',
+      'pay_by_bank',
+      'trustly',
+      'stablecoin',
+      'kakao_pay',
+      'naver_pay',
+      'revolut_pay',
+      'cash_app_pay',
+      'pix',
+      'twint',
+      'go_pay',
+      'grab_pay',
+      'pay_co',
+      'after_pay',
+      'swish',
+      'payme',
+    ])
+    .optional(),
+  gateway: z
+    .enum([
+      'chargebee_payments',
+      'adyen',
+      'stripe',
+      'wepay',
+      'braintree',
+      'authorize_net',
+      'paypal_pro',
+      'pin',
+      'eway',
+      'eway_rapid',
+      'worldpay',
+      'balanced_payments',
+      'beanstream',
+      'bluepay',
+      'elavon',
+      'first_data_global',
+      'hdfc',
+      'migs',
+      'nmi',
+      'ogone',
+      'paymill',
+      'paypal_payflow_pro',
+      'sage_pay',
+      'tco',
+      'wirecard',
+      'amazon_payments',
+      'paypal_express_checkout',
+      'gocardless',
+      'orbital',
+      'moneris_us',
+      'moneris',
+      'bluesnap',
+      'cybersource',
+      'vantiv',
+      'checkout_com',
+      'paypal',
+      'ingenico_direct',
+      'exact',
+      'mollie',
+      'quickbooks',
+      'razorpay',
+      'global_payments',
+      'bank_of_america',
+      'ecentric',
+      'metrics_global',
+      'windcave',
+      'pay_com',
+      'ebanx',
+      'dlocal',
+      'nuvei',
+      'solidgate',
+      'paystack',
+      'jp_morgan',
+      'deutsche_bank',
+      'ezidebit',
+      'twikey',
+      'tempus',
+      'moyasar',
+      'payway',
+    ])
+    .optional(),
+  gateway_account_id: z.string().max(50).optional(),
+  reference_id: z.string().max(200).optional(),
+  tmp_token: z.string().max(65000).optional(),
+  issuing_country: z.string().max(50).optional(),
+  additional_information:
+    updateForItemsSubscriptionAdditionalInformationSchema.optional(),
+});
+const updateForItemsSubscriptionPaymentIntentSchema = z.object({
+  id: z.string().max(150).optional(),
+  gateway_account_id: z.string().max(50).optional(),
+  gw_token: z.string().max(65000).optional(),
+  payment_method_type: z
+    .enum([
+      'card',
+      'ideal',
+      'sofort',
+      'bancontact',
+      'google_pay',
+      'dotpay',
+      'giropay',
+      'apple_pay',
+      'upi',
+      'netbanking_emandates',
+      'paypal_express_checkout',
+      'direct_debit',
+      'boleto',
+      'venmo',
+      'amazon_payments',
+      'pay_to',
+      'faster_payments',
+      'sepa_instant_transfer',
+      'klarna_pay_now',
+      'online_banking_poland',
+      'payconiq_by_bancontact',
+      'electronic_payment_standard',
+      'kbc_payment_button',
+      'pay_by_bank',
+      'trustly',
+      'stablecoin',
+      'kakao_pay',
+      'naver_pay',
+      'revolut_pay',
+      'cash_app_pay',
+      'wechat_pay',
+      'alipay',
+      'pix',
+      'twint',
+      'go_pay',
+      'grab_pay',
+      'pay_co',
+      'after_pay',
+      'swish',
+      'payme',
+    ])
+    .optional(),
+  reference_id: z.string().max(65000).optional(),
+  gw_payment_method_id: z.string().max(65000).optional(),
+  additional_information:
+    updateForItemsSubscriptionAdditionalInformationSchema.optional(),
+});
+const updateForItemsSubscriptionBillingAddressSchema = z.object({
+  first_name: z.string().max(150).optional(),
+  last_name: z.string().max(150).optional(),
+  email: z.string().email().max(70).optional(),
+  company: z.string().max(250).optional(),
+  phone: z.string().max(50).optional(),
+  line1: z.string().max(150).optional(),
+  line2: z.string().max(150).optional(),
+  line3: z.string().max(150).optional(),
+  city: z.string().max(50).optional(),
+  state_code: z.string().max(50).optional(),
+  state: z.string().max(50).optional(),
+  zip: z.string().max(20).optional(),
+  country: z.string().max(50).optional(),
+  validation_status: z
+    .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
+    .optional(),
+});
+const updateForItemsSubscriptionShippingAddressSchema = z.object({
+  first_name: z.string().max(150).optional(),
+  last_name: z.string().max(150).optional(),
+  email: z.string().email().max(70).optional(),
+  company: z.string().max(250).optional(),
+  phone: z.string().max(50).optional(),
+  line1: z.string().max(150).optional(),
+  line2: z.string().max(150).optional(),
+  line3: z.string().max(150).optional(),
+  city: z.string().max(50).optional(),
+  state_code: z.string().max(50).optional(),
+  state: z.string().max(50).optional(),
+  zip: z.string().max(20).optional(),
+  country: z.string().max(50).optional(),
+  validation_status: z
+    .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
+    .optional(),
+});
+const updateForItemsSubscriptionStatementDescriptorSchema = z.object({
+  descriptor: z.string().max(65000).optional(),
+});
+const updateForItemsSubscriptionCustomerSchema = z.object({
+  vat_number: z.string().max(20).optional(),
+  vat_number_prefix: z.string().max(10).optional(),
+  entity_identifier_scheme: z.string().max(50).optional(),
+  is_einvoice_enabled: z.boolean().optional(),
+  einvoicing_method: z.enum(['automatic', 'manual', 'site_default']).optional(),
+  entity_identifier_standard: z.string().max(50).optional(),
+  business_customer_without_vat_number: z.boolean().optional(),
+  registered_for_gst: z.boolean().optional(),
+});
+const updateForItemsSubscriptionContractTermSchema = z.object({
+  action_at_term_end: z
+    .enum(['renew', 'evergreen', 'cancel', 'renew_once'])
+    .optional(),
+  cancellation_cutoff_period: z.number().int().optional(),
+  contract_start: z.number().int().optional(),
+});
+const updateForItemsSubscriptionBillingOverrideSchema = z.object({
+  max_excess_payment_usage: z.number().int().min(-1).optional(),
+  max_refundable_credits_usage: z.number().int().min(-1).optional(),
+});
+const updateForItemsSubscriptionSubscriptionItemsSchema = z.object({
+  item_price_id: z.array(z.string().max(100).optional()),
+  quantity: z.array(z.number().int().min(1).optional()).optional(),
+  quantity_in_decimal: z.array(z.string().max(33).optional()).optional(),
+  unit_price: z.array(z.number().int().min(0).optional()).optional(),
+  unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
+  billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
+  trial_end: z.array(z.number().int().optional()).optional(),
+  service_period_days: z
+    .array(z.number().int().min(1).max(730).optional())
+    .optional(),
+  charge_on_event: z
+    .array(
+      z
+        .enum([
+          'subscription_creation',
+          'subscription_trial_start',
+          'plan_activation',
+          'subscription_activation',
+          'contract_termination',
+        ])
+        .optional(),
+    )
+    .optional(),
+  charge_once: z.array(z.boolean().optional()).optional(),
+  charge_on_option: z
+    .array(z.enum(['immediately', 'on_event']).optional())
+    .optional(),
+  item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
+  proration_type: z
+    .array(z.enum(['full_term', 'partial_term', 'none']).optional())
+    .optional(),
+  usage_accumulation_reset_frequency: z
+    .array(z.enum(['never', 'subscription_billing_frequency']).optional())
+    .optional(),
+});
+const updateForItemsSubscriptionDiscountsSchema = z.object({
+  apply_on: z
+    .array(z.enum(['invoice_amount', 'specific_item_price']).optional())
+    .optional(),
+  duration_type: z.array(
+    z.enum(['one_time', 'forever', 'limited_period']).optional(),
+  ),
+  percentage: z.array(z.number().min(0.01).max(100).optional()).optional(),
+  amount: z.array(z.number().int().min(0).optional()).optional(),
+  period: z.array(z.number().int().min(1).optional()).optional(),
+  period_unit: z
+    .array(z.enum(['day', 'week', 'month', 'year']).optional())
+    .optional(),
+  included_in_mrr: z.array(z.boolean().optional()).optional(),
+  item_price_id: z.array(z.string().max(100).optional()).optional(),
+  quantity: z.array(z.number().int().min(1).optional()).optional(),
+  operation_type: z.array(z.enum(['add', 'remove']).optional()),
+  id: z.array(z.string().max(50).optional()).optional(),
+});
+const updateForItemsSubscriptionItemTiersSchema = z.object({
+  item_price_id: z.array(z.string().max(100).optional()).optional(),
+  starting_unit: z.array(z.number().int().min(1).optional()).optional(),
+  ending_unit: z.array(z.number().int().optional()).optional(),
+  price: z.array(z.number().int().min(0).optional()).optional(),
+  starting_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
+  ending_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
+  price_in_decimal: z.array(z.string().max(39).optional()).optional(),
+  pricing_type: z
+    .array(z.enum(['per_unit', 'flat_fee', 'package']).optional())
+    .optional(),
+  package_size: z.array(z.number().int().min(1).optional()).optional(),
+});
+const updateForItemsSubscriptionCouponsSchema = z.object({
+  coupon_id: z.array(z.string().max(100).optional()).optional(),
+  apply_till: z.array(z.number().int().optional()).optional(),
+});
+const updateForItemsSubscriptionBodySchema = z.looseObject({
+  mandatory_items_to_remove: z.array(z.string().max(100).optional()).optional(),
+  replace_items_list: z.boolean().default(false).optional(),
+  setup_fee: z.number().int().min(0).optional(),
+  net_term_days: z.number().int().optional(),
+  invoice_date: z.number().int().optional(),
+  start_date: z.number().int().optional(),
+  trial_end: z.number().int().optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  coupon: z.string().max(100).optional(),
+  terms_to_charge: z.number().int().min(1).optional(),
+  reactivate_from: z.number().int().optional(),
+  billing_alignment_mode: z.enum(['immediate', 'delayed']).optional(),
+  auto_collection: z.enum(['on', 'off']).optional(),
+  offline_payment_method: z
+    .enum([
+      'no_preference',
+      'cash',
+      'check',
+      'bank_transfer',
+      'ach_credit',
+      'sepa_credit',
+      'boleto',
+      'us_automated_bank_transfer',
+      'eu_automated_bank_transfer',
+      'uk_automated_bank_transfer',
+      'jp_automated_bank_transfer',
+      'mx_automated_bank_transfer',
+      'custom',
+    ])
+    .optional(),
+  po_number: z.string().max(100).optional(),
+  coupon_ids: z.array(z.string().max(100).optional()).optional(),
+  replace_coupon_list: z.boolean().default(false).optional(),
+  prorate: z.boolean().optional(),
+  end_of_term: z.boolean().default(false).optional(),
+  force_term_reset: z.boolean().default(false).optional(),
+  reactivate: z.boolean().optional(),
+  token_id: z.string().max(40).optional(),
+  invoice_notes: z.string().max(2000).optional(),
+  meta_data: updateForItemsSubscriptionMetaDataSchema.optional(),
+  invoice_immediately: z.boolean().optional(),
+  override_relationship: z.boolean().optional(),
+  changes_scheduled_at: z.number().int().optional(),
+  change_option: z
+    .enum(['immediately', 'end_of_term', 'specific_date'])
+    .optional(),
+  contract_term_billing_cycle_on_renewal: z
+    .number()
+    .int()
+    .min(1)
+    .max(100)
+    .optional(),
+  free_period: z.number().int().min(1).optional(),
+  free_period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  create_pending_invoices: z.boolean().optional(),
+  auto_close_invoices: z.boolean().optional(),
+  trial_end_action: z
+    .enum([
+      'site_default',
+      'plan_default',
+      'activate_subscription',
+      'cancel_subscription',
+    ])
+    .optional(),
+  payment_initiator: z.enum(['customer', 'merchant']).optional(),
+  invoice_usages: z.boolean().default(false).optional(),
+  card: updateForItemsSubscriptionCardSchema.optional(),
+  payment_method: updateForItemsSubscriptionPaymentMethodSchema.optional(),
+  payment_intent: updateForItemsSubscriptionPaymentIntentSchema.optional(),
+  billing_address: updateForItemsSubscriptionBillingAddressSchema.optional(),
+  shipping_address: updateForItemsSubscriptionShippingAddressSchema.optional(),
+  statement_descriptor:
+    updateForItemsSubscriptionStatementDescriptorSchema.optional(),
+  customer: updateForItemsSubscriptionCustomerSchema.optional(),
+  contract_term: updateForItemsSubscriptionContractTermSchema.optional(),
+  billing_override: updateForItemsSubscriptionBillingOverrideSchema.optional(),
+  subscription_items:
+    updateForItemsSubscriptionSubscriptionItemsSchema.optional(),
+  discounts: updateForItemsSubscriptionDiscountsSchema.optional(),
+  item_tiers: updateForItemsSubscriptionItemTiersSchema.optional(),
+  coupons: updateForItemsSubscriptionCouponsSchema.optional(),
+});
+export { updateForItemsSubscriptionBodySchema };
