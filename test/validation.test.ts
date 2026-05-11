@@ -43,20 +43,20 @@ describe('Validation – schema unit tests', () => {
   // ── customer.create ────────────────────────────────────────────────────────
 
   describe('customer.create schema', () => {
-    // Load once – schemas are cached so repeated calls are cheap.
-    const schema = getSchema('customer', 'create')!;
-
-    it('loads a schema for customer.create', () => {
+    it('loads a schema for customer.create', async () => {
+      const schema = await getSchema('customer', 'create');
       expect(schema).to.not.be.null;
     });
 
-    it('accepts an empty object (all fields are optional)', () => {
-      expect(schema.safeParse({}).success).to.be.true;
+    it('accepts an empty object (all fields are optional)', async () => {
+      const schema = await getSchema('customer', 'create');
+      expect(schema!.safeParse({}).success).to.be.true;
     });
 
-    it('accepts valid string fields', () => {
+    it('accepts valid string fields', async () => {
+      const schema = await getSchema('customer', 'create');
       expect(
-        schema.safeParse({
+        schema!.safeParse({
           first_name: 'Jane',
           last_name: 'Doe',
           company: 'Acme Inc',
@@ -65,49 +65,58 @@ describe('Validation – schema unit tests', () => {
       ).to.be.true;
     });
 
-    it('accepts a valid email address', () => {
-      expect(schema.safeParse({ email: 'jane@example.com' }).success).to.be.true;
+    it('accepts a valid email address', async () => {
+      const schema = await getSchema('customer', 'create');
+      expect(schema!.safeParse({ email: 'jane@example.com' }).success).to.be.true;
     });
 
-    it('accepts valid enum values for auto_collection', () => {
-      expect(schema.safeParse({ auto_collection: 'on' }).success).to.be.true;
-      expect(schema.safeParse({ auto_collection: 'off' }).success).to.be.true;
+    it('accepts valid enum values for auto_collection', async () => {
+      const schema = await getSchema('customer', 'create');
+      expect(schema!.safeParse({ auto_collection: 'on' }).success).to.be.true;
+      expect(schema!.safeParse({ auto_collection: 'off' }).success).to.be.true;
     });
 
-    it('accepts an integer for net_term_days', () => {
-      expect(schema.safeParse({ net_term_days: 30 }).success).to.be.true;
+    it('accepts an integer for net_term_days', async () => {
+      const schema = await getSchema('customer', 'create');
+      expect(schema!.safeParse({ net_term_days: 30 }).success).to.be.true;
     });
 
-    it('passes unknown keys through (looseObject / allow extra keys)', () => {
-      expect(schema.safeParse({ undocumented_cf: 'value' }).success).to.be.true;
+    it('passes unknown keys through (looseObject / allow extra keys)', async () => {
+      const schema = await getSchema('customer', 'create');
+      expect(schema!.safeParse({ undocumented_cf: 'value' }).success).to.be.true;
     });
 
-    it('rejects an invalid email address', () => {
-      const result = schema.safeParse({ email: 'not-an-email' });
+    it('rejects an invalid email address', async () => {
+      const schema = await getSchema('customer', 'create');
+      const result = schema!.safeParse({ email: 'not-an-email' });
       expect(result.success).to.be.false;
       expect(result.error!.issues[0].path).to.deep.equal(['email']);
     });
 
-    it('rejects first_name exceeding maxLength(150)', () => {
-      const result = schema.safeParse({ first_name: 'a'.repeat(151) });
+    it('rejects first_name exceeding maxLength(150)', async () => {
+      const schema = await getSchema('customer', 'create');
+      const result = schema!.safeParse({ first_name: 'a'.repeat(151) });
       expect(result.success).to.be.false;
       expect(result.error!.issues[0].path).to.deep.equal(['first_name']);
     });
 
-    it('rejects an invalid enum value for auto_collection', () => {
-      const result = schema.safeParse({ auto_collection: 'maybe' });
+    it('rejects an invalid enum value for auto_collection', async () => {
+      const schema = await getSchema('customer', 'create');
+      const result = schema!.safeParse({ auto_collection: 'maybe' });
       expect(result.success).to.be.false;
       expect(result.error!.issues[0].path).to.deep.equal(['auto_collection']);
     });
 
-    it('rejects a non-integer for net_term_days', () => {
-      const result = schema.safeParse({ net_term_days: 1.5 });
+    it('rejects a non-integer for net_term_days', async () => {
+      const schema = await getSchema('customer', 'create');
+      const result = schema!.safeParse({ net_term_days: 1.5 });
       expect(result.success).to.be.false;
       expect(result.error!.issues[0].path).to.deep.equal(['net_term_days']);
     });
 
-    it('reports all violated fields in a single parse (fail-all)', () => {
-      const result = schema.safeParse({
+    it('reports all violated fields in a single parse (fail-all)', async () => {
+      const schema = await getSchema('customer', 'create');
+      const result = schema!.safeParse({
         email: 'bad-email',
         first_name: 'x'.repeat(200),
         auto_collection: 'invalid',
@@ -125,28 +134,30 @@ describe('Validation – schema unit tests', () => {
   // ── customer.create – nested card sub-object ───────────────────────────────
 
   describe('customer.create – nested card sub-object', () => {
-    const schema = getSchema('customer', 'create')!;
-
-    it('accepts a valid card sub-object', () => {
+    it('accepts a valid card sub-object', async () => {
+      const schema = await getSchema('customer', 'create');
       expect(
-        schema.safeParse({ card: { number: '4111111111111111', cvv: '123' } }).success,
+        schema!.safeParse({ card: { number: '4111111111111111', cvv: '123' } }).success,
       ).to.be.true;
     });
 
-    it('rejects card.expiry_month > 12 (max constraint)', () => {
-      const result = schema.safeParse({ card: { expiry_month: 13 } });
+    it('rejects card.expiry_month > 12 (max constraint)', async () => {
+      const schema = await getSchema('customer', 'create');
+      const result = schema!.safeParse({ card: { expiry_month: 13 } });
       expect(result.success).to.be.false;
       expect(result.error!.issues[0].path).to.deep.equal(['card', 'expiry_month']);
     });
 
-    it('rejects card.expiry_month < 1 (min constraint)', () => {
-      const result = schema.safeParse({ card: { expiry_month: 0 } });
+    it('rejects card.expiry_month < 1 (min constraint)', async () => {
+      const schema = await getSchema('customer', 'create');
+      const result = schema!.safeParse({ card: { expiry_month: 0 } });
       expect(result.success).to.be.false;
       expect(result.error!.issues[0].path).to.deep.equal(['card', 'expiry_month']);
     });
 
-    it('rejects card.gateway_account_id exceeding maxLength(50)', () => {
-      const result = schema.safeParse({
+    it('rejects card.gateway_account_id exceeding maxLength(50)', async () => {
+      const schema = await getSchema('customer', 'create');
+      const result = schema!.safeParse({
         card: { gateway_account_id: 'x'.repeat(51) },
       });
       expect(result.success).to.be.false;
@@ -158,18 +169,19 @@ describe('Validation – schema unit tests', () => {
   // ── customer.update ────────────────────────────────────────────────────────
 
   describe('customer.update schema', () => {
-    const schema = getSchema('customer', 'update')!;
-
-    it('loads a schema for customer.update', () => {
+    it('loads a schema for customer.update', async () => {
+      const schema = await getSchema('customer', 'update');
       expect(schema).to.not.be.null;
     });
 
-    it('accepts a valid email for update', () => {
-      expect(schema.safeParse({ email: 'updated@example.com' }).success).to.be.true;
+    it('accepts a valid email for update', async () => {
+      const schema = await getSchema('customer', 'update');
+      expect(schema!.safeParse({ email: 'updated@example.com' }).success).to.be.true;
     });
 
-    it('rejects an invalid email in update', () => {
-      const result = schema.safeParse({ email: 'not-valid' });
+    it('rejects an invalid email in update', async () => {
+      const schema = await getSchema('customer', 'update');
+      const result = schema!.safeParse({ email: 'not-valid' });
       expect(result.success).to.be.false;
       expect(result.error!.issues[0].path).to.deep.equal(['email']);
     });
@@ -178,36 +190,40 @@ describe('Validation – schema unit tests', () => {
   // ── invoice.charge (has a required field: description) ────────────────────
 
   describe('invoice.charge schema', () => {
-    const schema = getSchema('invoice', 'charge')!;
-
-    it('loads a schema for invoice.charge', () => {
+    it('loads a schema for invoice.charge', async () => {
+      const schema = await getSchema('invoice', 'charge');
       expect(schema).to.not.be.null;
     });
 
-    it('accepts a payload that includes the required description', () => {
-      expect(schema.safeParse({ description: 'Consulting fee' }).success).to.be.true;
+    it('accepts a payload that includes the required description', async () => {
+      const schema = await getSchema('invoice', 'charge');
+      expect(schema!.safeParse({ description: 'Consulting fee' }).success).to.be.true;
     });
 
-    it('accepts description alongside optional fields', () => {
+    it('accepts description alongside optional fields', async () => {
+      const schema = await getSchema('invoice', 'charge');
       expect(
-        schema.safeParse({ description: 'Fee', amount: 500, currency_code: 'USD' }).success,
+        schema!.safeParse({ description: 'Fee', amount: 500, currency_code: 'USD' }).success,
       ).to.be.true;
     });
 
-    it('rejects a payload missing the required description field', () => {
-      const result = schema.safeParse({});
+    it('rejects a payload missing the required description field', async () => {
+      const schema = await getSchema('invoice', 'charge');
+      const result = schema!.safeParse({});
       expect(result.success).to.be.false;
       expect(result.error!.issues[0].path).to.deep.equal(['description']);
     });
 
-    it('rejects amount = 0 (min constraint is 1)', () => {
-      const result = schema.safeParse({ description: 'Fee', amount: 0 });
+    it('rejects amount = 0 (min constraint is 1)', async () => {
+      const schema = await getSchema('invoice', 'charge');
+      const result = schema!.safeParse({ description: 'Fee', amount: 0 });
       expect(result.success).to.be.false;
       expect(result.error!.issues[0].path).to.deep.equal(['amount']);
     });
 
-    it('rejects a negative amount', () => {
-      const result = schema.safeParse({ description: 'Fee', amount: -100 });
+    it('rejects a negative amount', async () => {
+      const schema = await getSchema('invoice', 'charge');
+      const result = schema!.safeParse({ description: 'Fee', amount: -100 });
       expect(result.success).to.be.false;
     });
   });
@@ -215,17 +231,19 @@ describe('Validation – schema unit tests', () => {
   // ── getSchema – loader behaviour ───────────────────────────────────────────
 
   describe('getSchema() loader', () => {
-    it('returns null for an action that has no schema', () => {
-      expect(getSchema('customer', 'nonexistent_action_xyz')).to.be.null;
+    it('returns null for an action that has no schema', async () => {
+      const schema = await getSchema('customer', 'nonexistent_action_xyz');
+      expect(schema).to.be.null;
     });
 
-    it('returns null for an unknown resource', () => {
-      expect(getSchema('nonexistent_resource_xyz', 'create')).to.be.null;
+    it('returns null for an unknown resource', async () => {
+      const schema = await getSchema('nonexistent_resource_xyz', 'create');
+      expect(schema).to.be.null;
     });
 
-    it('returns the same cached object on repeated calls', () => {
-      const a = getSchema('customer', 'create');
-      const b = getSchema('customer', 'create');
+    it('returns the same cached object on repeated calls', async () => {
+      const a = await getSchema('customer', 'create');
+      const b = await getSchema('customer', 'create');
       expect(a).to.equal(b); // strict reference equality → cached
     });
   });
