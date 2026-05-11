@@ -167,8 +167,7 @@ declare module 'chargebee' {
     httpClient?: HttpClientInterface;
 
     /**
-     * @enableValidation when true, parameters for every API request are validated against Zod schemas
-     * before the HTTP call (for actions that ship with a schema).
+     * @enableValidation When true, every request's parameters are validated against each endpoint's generated Zod schema before the HTTP request is sent. Violations throw `ChargebeeZodValidationError` with structured Zod issues. Calls with no params argument are validated as `{}`. Required resource ids in the URL path are still checked separately.
      */
     enableValidation?: boolean;
   };
