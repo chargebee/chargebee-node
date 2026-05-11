@@ -6,28 +6,14 @@
  *
  * The body schema const name follows {@code ZodNamingStrategy.bodySchemaName} in sdk-generator:
  * {@code {PascalAction}{PascalResource}BodySchema}
+ *
+ * Uses native dynamic import() - TypeScript transpiles appropriately for ESM/CJS targets.
  */
 
 import type { ZodObject, ZodRawShape } from 'zod';
-import { createRequire } from 'node:module';
-import * as nodePath from 'node:path';
-
-// Locate the chargebee package's CJS entry file and build a require function
-// anchored there. createRequire() resolves relative paths from dirname(filename);
-// passing a directory path ending with a separator makes dirname() skip past `cjs`,
-// so we must pass the entry file (e.g. cjs/chargebee.cjs.js), not the folder.
-//
-// Strategy: resolve 'chargebee' (the default CJS entry) from the caller's
-// working directory, then createRequire(entryFile) so ./schema/... loads
-// from the cjs/ directory next to that file.
-const _cwdRequire = createRequire(
-  nodePath.resolve(process.cwd(), 'package.json'),
-);
-const _cjsEntry: string = _cwdRequire.resolve('chargebee');
-const _require: NodeRequire = createRequire(_cjsEntry);
 
 type AnyZodObject = ZodObject<ZodRawShape>;
-const schemaCache = new Map<string, AnyZodObject | null>();
+const schemaCache = new Map<string, Promise<AnyZodObject | null>>();
 
 function toCamel(s: string): string {
   return s.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase());
@@ -54,26 +40,34 @@ function resourceSchemaBasename(resourceKey: string): string {
 /**
  * Load and cache the Zod schema for a given resource + action.
  * Returns null if no schema file exists for this combination.
+ *
+ * TypeScript compiler handles module system differences:
+ * - ESM build: keeps await import() as-is
+ * - CJS build: transpiles to require() or Promise-based equivalent
  */
-export function getSchema(
+export async function getSchema(
   resourceKey: string,
   actionName: string,
-): AnyZodObject | null {
+): Promise<AnyZodObject | null> {
   const cacheKey = `${resourceKey}:${actionName}`;
+
   if (schemaCache.has(cacheKey)) {
     return schemaCache.get(cacheKey)!;
   }
 
-  const base = resourceSchemaBasename(resourceKey);
-  const constName = schemaConstName(resourceKey, actionName);
+  const loadPromise = (async () => {
+    const base = resourceSchemaBasename(resourceKey);
+    const constName = schemaConstName(resourceKey, actionName);
 
-  try {
-    const mod = _require(`./schema/${base}.schema.js`);
-    const schema = (mod[constName] as AnyZodObject) ?? null;
-    schemaCache.set(cacheKey, schema);
-    return schema;
-  } catch {
-    schemaCache.set(cacheKey, null);
-    return null;
-  }
+    try {
+      const mod = await import(`./schema/${base}.schema.js`);
+      const schema = (mod[constName] as AnyZodObject) ?? null;
+      return schema;
+    } catch {
+      return null;
+    }
+  })();
+
+  schemaCache.set(cacheKey, loadPromise);
+  return loadPromise;
 }

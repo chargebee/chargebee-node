@@ -66,6 +66,10 @@ export type ResourceType = {
   options?: {
     isIdempotent?: boolean;
   };
+  /** Resource key for lazy schema loading (set when enableValidation is true). */
+  resourceKey?: string;
+  /** Action name for lazy schema loading (set when enableValidation is true). */
+  actionName?: string;
   /** Optional Zod schema for opt-in request param validation. */
   validationSchema?: import('zod').ZodObject<import('zod').ZodRawShape>;
 };
