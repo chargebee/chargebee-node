@@ -1,9 +1,11 @@
 /**
  * Lazy schema loader for opt-in Zod validation.
  *
- * Schemas are loaded on first use and cached. The schema const name follows the
- * convention: `{camelAction}{PascalResource}BodySchema`
- * e.g. resource=customer, action=create → createCustomerBodySchema
+ * Schemas are loaded on first use and cached. Each resource module lives at
+ * {@code schema/<resource_snake>.schema.ts} and exports one body schema per action.
+ *
+ * The body schema const name follows {@code ZodNamingStrategy.bodySchemaName} in sdk-generator:
+ * {@code {PascalAction}{PascalResource}BodySchema}
  */
 
 import type { ZodObject, ZodRawShape } from 'zod';
@@ -16,7 +18,7 @@ import * as nodePath from 'node:path';
 // so we must pass the entry file (e.g. cjs/chargebee.cjs.js), not the folder.
 //
 // Strategy: resolve 'chargebee' (the default CJS entry) from the caller's
-// working directory, then createRequire(entryFile) so ./validation/... loads
+// working directory, then createRequire(entryFile) so ./schema/... loads
 // from the cjs/ directory next to that file.
 const _cwdRequire = createRequire(
   nodePath.resolve(process.cwd(), 'package.json'),
@@ -36,22 +38,14 @@ function toPascal(s: string): string {
   return camel.charAt(0).toUpperCase() + camel.slice(1);
 }
 
-/** Matches JoiNamingStrategy.bodySchemaName() in sdk-generator. */
+/** Matches ZodNamingStrategy.bodySchemaName() in sdk-generator. */
 function schemaConstName(resourceKey: string, actionName: string): string {
-  return toCamel(actionName) + toPascal(resourceKey) + 'BodySchema';
+  return toPascal(actionName) + toPascal(resourceKey) + 'BodySchema';
 }
 
-/** camelCase resource key → snake_case directory name. */
-function resourceDir(resourceKey: string): string {
+/** camelCase resource key → snake_case module basename (e.g. virtualBankAccount → virtual_bank_account). */
+function resourceSchemaBasename(resourceKey: string): string {
   return resourceKey
-    .replace(/([A-Z])/g, '_$1')
-    .toLowerCase()
-    .replace(/^_/, '');
-}
-
-/** camelCase action name → snake_case file name. */
-function actionFileName(actionName: string): string {
-  return actionName
     .replace(/([A-Z])/g, '_$1')
     .toLowerCase()
     .replace(/^_/, '');
@@ -70,13 +64,11 @@ export function getSchema(
     return schemaCache.get(cacheKey)!;
   }
 
-  const dir = resourceDir(resourceKey);
-  const fileName = actionFileName(actionName);
+  const base = resourceSchemaBasename(resourceKey);
   const constName = schemaConstName(resourceKey, actionName);
 
   try {
-    // Load from cjs/validation/ using _require (works in both CJS and ESM).
-    const mod = _require(`./validation/${dir}/${fileName}.validation.js`);
+    const mod = _require(`./schema/${base}.schema.js`);
     const schema = (mod[constName] as AnyZodObject) ?? null;
     schemaCache.set(cacheKey, schema);
     return schema;
