@@ -20,6 +20,7 @@ import { handleResponse } from './coreCommon.js';
 import { Buffer } from 'node:buffer';
 import type { ZodObject, ZodRawShape } from 'zod';
 import { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
+import { getSchema } from './validationLoader.js';
 
 export class RequestWrapper {
   private readonly args: IArguments;
@@ -89,19 +90,30 @@ export class RequestWrapper {
       : this.args[0];
     let headers = this.apiCall.hasIdInUrl ? this.args[2] : this.args[1];
 
-    if (env.enableValidation && this.apiCall.validationSchema) {
-      if (this.apiCall.httpMethod === 'GET') {
-        RequestWrapper._validateParams(
-          params ?? {},
-          this.apiCall.validationSchema as ZodObject<ZodRawShape>,
-          this.apiCall.methodName,
-        );
-      } else if (params != null) {
-        RequestWrapper._validateParams(
-          params,
-          this.apiCall.validationSchema as ZodObject<ZodRawShape>,
-          this.apiCall.methodName,
-        );
+    // Lazy-load Zod schema when enableValidation is true
+    if (
+      env.enableValidation &&
+      this.apiCall.resourceKey &&
+      this.apiCall.actionName
+    ) {
+      const schema = await getSchema(
+        this.apiCall.resourceKey,
+        this.apiCall.actionName,
+      );
+      if (schema) {
+        if (this.apiCall.httpMethod === 'GET') {
+          RequestWrapper._validateParams(
+            params ?? {},
+            schema,
+            this.apiCall.methodName,
+          );
+        } else if (params != null) {
+          RequestWrapper._validateParams(
+            params,
+            schema,
+            this.apiCall.methodName,
+          );
+        }
       }
     }
 

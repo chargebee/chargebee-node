@@ -28,6 +28,7 @@ module.exports.WebhookAuthenticationError = WebhookAuthenticationError;
 module.exports.WebhookPayloadValidationError = WebhookPayloadValidationError;
 module.exports.WebhookPayloadParseError = WebhookPayloadParseError;
 
+// Export validation error class
 module.exports.ChargebeeZodValidationError = ChargebeeZodValidationError;
 
 // Export webhook types

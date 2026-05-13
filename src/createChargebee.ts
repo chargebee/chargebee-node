@@ -2,7 +2,6 @@ import { RequestWrapper } from './RequestWrapper.js';
 import { Environment } from './environment.js';
 import { Endpoints } from './resources/api_endpoints.js';
 import { extend, sleep } from './util.js';
-import { getSchema } from './validationLoader.js';
 import { waitForProcessToComplete } from './asyncApiSupport.js';
 import {
   ResourceType,
@@ -107,8 +106,9 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
             options: metaArr[8],
           };
           if (this._env.enableValidation) {
-            apiCall.validationSchema =
-              getSchema(res, metaArr[0] as string) ?? undefined;
+            // Store resource and action for lazy schema loading in RequestWrapper
+            apiCall.resourceKey = res;
+            apiCall.actionName = metaArr[0] as string;
           }
           this[res][apiCall.methodName] = this._createApiFunc(
             apiCall,
