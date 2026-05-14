@@ -1,3 +1,11 @@
+### v3.25.0-beta.1 (2026-05-14)
+* * *
+
+### Experimental
+- **Zod-backed request validation (beta)** — Enable `enableValidation` on the client to validate outgoing request payloads against generated Zod schemas before each API call; invalid payloads raise `ChargebeeZodValidationError` with the original `ZodError` for inspection.
+- **Runtime dependency** — Added [`zod`](https://www.npmjs.com/package/zod) (v4) as a dependency to support the above.
+
+
 ### v3.24.0 (2026-05-04)
 * * *
 ### New Resources:
