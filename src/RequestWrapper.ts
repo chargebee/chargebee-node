@@ -18,6 +18,9 @@ import {
 } from './types.js';
 import { handleResponse } from './coreCommon.js';
 import { Buffer } from 'node:buffer';
+import type { ZodObject, ZodRawShape } from 'zod';
+import { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
+import { getSchema } from './validationLoader.js';
 
 export class RequestWrapper {
   private readonly args: IArguments;
@@ -40,6 +43,22 @@ export class RequestWrapper {
       throw new Error('the required id parameter missing or wrong');
     }
     return idParam;
+  }
+
+  /**
+   * Validate parameters against the action's Zod schema when enableValidation is true.
+   * Query params are validated as `params ?? {}`; body params are validated when `params` is non-null.
+   * Throws a descriptive error listing every validation violation.
+   */
+  private static _validateParams(
+    params: JSONValue,
+    schema: ZodObject<ZodRawShape>,
+    actionName: string,
+  ): void {
+    const result = schema.safeParse(params);
+    if (!result.success) {
+      throw new ChargebeeZodValidationError(actionName, result.error);
+    }
   }
 
   private static parseRetryAfter(retryAfter?: string): number | null {
@@ -70,6 +89,33 @@ export class RequestWrapper {
       ? this.args[1]
       : this.args[0];
     let headers = this.apiCall.hasIdInUrl ? this.args[2] : this.args[1];
+
+    // Lazy-load Zod schema when enableValidation is true
+    if (
+      env.enableValidation &&
+      this.apiCall.resourceKey &&
+      this.apiCall.actionName
+    ) {
+      const schema = await getSchema(
+        this.apiCall.resourceKey,
+        this.apiCall.actionName,
+      );
+      if (schema) {
+        if (this.apiCall.httpMethod === 'GET') {
+          RequestWrapper._validateParams(
+            params ?? {},
+            schema,
+            this.apiCall.methodName,
+          );
+        } else if (params != null) {
+          RequestWrapper._validateParams(
+            params,
+            schema,
+            this.apiCall.methodName,
+          );
+        }
+      }
+    }
 
     Object.assign(this.httpHeaders, headers);
 

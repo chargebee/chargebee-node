@@ -1,5 +1,6 @@
 import { CreateChargebee } from './createChargebee.js';
 import { FetchHttpClient } from './net/FetchClient.js';
+import { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
 
 const httpClient = new FetchHttpClient();
 const Chargebee = CreateChargebee(httpClient);
@@ -29,3 +30,4 @@ export type {
   RequestValidator,
 } from './resources/webhook/handler.js';
 export type { CredentialValidator } from './resources/webhook/auth.js';
+module.exports.ChargebeeZodValidationError = ChargebeeZodValidationError;

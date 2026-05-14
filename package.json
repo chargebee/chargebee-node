@@ -1,6 +1,6 @@
 {
   "name": "chargebee",
-  "version": "3.24.0",
+  "version": "3.25.0-beta.1",
   "description": "A library for integrating with Chargebee.",
   "scripts": {
     "prepack": "npm install && npm run build",
@@ -75,5 +75,8 @@
     "semi": true,
     "singleQuote": true,
     "parser": "typescript"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
   }
 }
