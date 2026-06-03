@@ -1,3 +1,13 @@
+### v3.24.1 (2026-06-03)
+* * *
+### Bug Fixes:
+- Fixed `Content-Length` header being computed from the JavaScript string length (UTF-16 code units) instead of the UTF-8 byte length. Requests with non-ASCII payloads (e.g. accented characters, CJK, emoji) under-declared `Content-Length` and were rejected by Node's `fetch`/undici (≥ 7.26.0) with `Request body length does not match content-length header`. The header is now computed via `Buffer.byteLength(data, 'utf8')`. Resolves https://github.com/chargebee/chargebee-node/issues/119. 
+
+### Tests:
+- ASCII form-urlencoded body — `Content-Length` matches the UTF-8 byte length of the serialized body.
+- Multi-byte JSON body — `Content-Length` matches the UTF-8 byte length and is greater than the JS character count, ensuring the regression cannot return.
+
+
 ### v3.24.0 (2026-05-04)
 * * *
 ### New Resources:
