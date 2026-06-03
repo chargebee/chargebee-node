@@ -122,7 +122,7 @@ export class RequestWrapper {
       const requestHeaders: RequestHeaders = { ...this.httpHeaders };
       if (data && data.length) {
         extend(true, requestHeaders, {
-          'Content-Length': data.length,
+          'Content-Length': Buffer.byteLength(data, 'utf8'),
         });
       }
 

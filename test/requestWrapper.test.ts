@@ -189,6 +189,48 @@ describe('RequestWrapper - request headers', () => {
     });
   });
 
+  describe('Content-Length header', () => {
+    it('should set Content-Length to the UTF-8 byte length for ASCII form-urlencoded bodies', async () => {
+      responseFactory = () =>
+        new Response(JSON.stringify({ customer: { id: 'cust_123' } }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+      const chargebee = createChargebee();
+      await chargebee.customer.create({ first_name: 'John' });
+
+      const body = await capturedRequests[0].text();
+      const expected = Buffer.byteLength(body, 'utf8');
+      expect(capturedRequests[0].headers.get('Content-Length')).to.equal(
+        String(expected),
+      );
+    });
+
+    it('should set Content-Length to the UTF-8 byte length (not character count) for multi-byte JSON bodies', async () => {
+      responseFactory = () =>
+        new Response(JSON.stringify({ personalized_offers: [] }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+      const chargebee = createChargebee();
+      await chargebee.personalizedOffer.personalizedOffers({
+        customer_id: 'cust_123',
+        first_name: 'Jürgen',
+        last_name: 'Müller — 🎉',
+      });
+
+      const body = await capturedRequests[0].text();
+      const byteLength = Buffer.byteLength(body, 'utf8');
+      const charLength = body.length;
+      expect(byteLength).to.be.greaterThan(charLength);
+      expect(capturedRequests[0].headers.get('Content-Length')).to.equal(
+        String(byteLength),
+      );
+    });
+  });
+
   describe('Lang-Version header', () => {
     it('should set Lang-Version to the current Node.js process.version', async () => {
       const chargebee = createChargebee();
