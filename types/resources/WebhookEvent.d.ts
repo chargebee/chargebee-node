@@ -48,6 +48,7 @@ declare module 'chargebee' {
     GiftUnclaimed = 'gift_unclaimed',
     VirtualBankAccountAdded = 'virtual_bank_account_added',
     PaymentIntentCreated = 'payment_intent_created',
+    OmnichannelSubscriptionItemUpdated = 'omnichannel_subscription_item_updated',
     CreditNoteCreatedWithBackdating = 'credit_note_created_with_backdating',
     ContractTermTerminated = 'contract_term_terminated',
     ItemFamilyUpdated = 'item_family_updated',
@@ -60,6 +61,7 @@ declare module 'chargebee' {
     ItemDeleted = 'item_deleted',
     SubscriptionRampDrafted = 'subscription_ramp_drafted',
     DunningUpdated = 'dunning_updated',
+    OmnichannelSubscriptionItemRecovered = 'omnichannel_subscription_item_recovered',
     ItemEntitlementsUpdated = 'item_entitlements_updated',
     TokenConsumed = 'token_consumed',
     HierarchyDeleted = 'hierarchy_deleted',
@@ -273,6 +275,7 @@ declare module 'chargebee' {
     [WebhookEventType.GiftUnclaimed]: GiftUnclaimedContent;
     [WebhookEventType.VirtualBankAccountAdded]: VirtualBankAccountAddedContent;
     [WebhookEventType.PaymentIntentCreated]: PaymentIntentCreatedContent;
+    [WebhookEventType.OmnichannelSubscriptionItemUpdated]: OmnichannelSubscriptionItemUpdatedContent;
     [WebhookEventType.CreditNoteCreatedWithBackdating]: CreditNoteCreatedWithBackdatingContent;
     [WebhookEventType.ContractTermTerminated]: ContractTermTerminatedContent;
     [WebhookEventType.ItemFamilyUpdated]: ItemFamilyUpdatedContent;
@@ -285,6 +288,7 @@ declare module 'chargebee' {
     [WebhookEventType.ItemDeleted]: ItemDeletedContent;
     [WebhookEventType.SubscriptionRampDrafted]: SubscriptionRampDraftedContent;
     [WebhookEventType.DunningUpdated]: DunningUpdatedContent;
+    [WebhookEventType.OmnichannelSubscriptionItemRecovered]: OmnichannelSubscriptionItemRecoveredContent;
     [WebhookEventType.ItemEntitlementsUpdated]: ItemEntitlementsUpdatedContent;
     [WebhookEventType.TokenConsumed]: TokenConsumedContent;
     [WebhookEventType.HierarchyDeleted]: HierarchyDeletedContent;
@@ -522,8 +526,6 @@ declare module 'chargebee' {
 
     omnichannel_transaction: OmnichannelTransaction;
 
-    omnichannel_subscription_item_scheduled_change: OmnichannelSubscriptionItemScheduledChange;
-
     customer: Customer;
   };
   export type UnbilledChargesCreatedContent = {
@@ -739,6 +741,15 @@ declare module 'chargebee' {
   export type PaymentIntentCreatedContent = {
     payment_intent: PaymentIntent;
   };
+  export type OmnichannelSubscriptionItemUpdatedContent = {
+    omnichannel_subscription_item: OmnichannelSubscriptionItem;
+
+    omnichannel_subscription: OmnichannelSubscription;
+
+    omnichannel_transaction: OmnichannelTransaction;
+
+    customer: Customer;
+  };
   export type CreditNoteCreatedWithBackdatingContent = {
     credit_note: CreditNote;
   };
@@ -784,6 +795,15 @@ declare module 'chargebee' {
   };
   export type DunningUpdatedContent = {
     invoice: Invoice;
+  };
+  export type OmnichannelSubscriptionItemRecoveredContent = {
+    omnichannel_subscription_item: OmnichannelSubscriptionItem;
+
+    omnichannel_subscription: OmnichannelSubscription;
+
+    omnichannel_transaction: OmnichannelTransaction;
+
+    customer: Customer;
   };
   export type ItemEntitlementsUpdatedContent = {
     feature: Feature;
@@ -1548,8 +1568,6 @@ declare module 'chargebee' {
     omnichannel_subscription: OmnichannelSubscription;
 
     omnichannel_transaction: OmnichannelTransaction;
-
-    omnichannel_subscription_item_scheduled_change: OmnichannelSubscriptionItemScheduledChange;
 
     customer: Customer;
   };

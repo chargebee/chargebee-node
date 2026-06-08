@@ -9,6 +9,8 @@ declare module 'chargebee' {
     source: 'apple_app_store' | 'google_play_store';
     customer_id?: string;
     created_at: number;
+    purchased_at?: number;
+    updated_at: number;
     resource_version?: number;
     omnichannel_subscription_items: OmnichannelSubscriptionItem[];
     initial_purchase_transaction?: OmnichannelTransaction;
@@ -68,6 +70,10 @@ declare module 'chargebee' {
       omnichannel_subscription_item?: OmnichannelSubscriptionItemOmnichannelSubscriptionListInputParam;
       source?: filter.Enum;
       customer_id?: filter.String;
+      id?: filter.String;
+      id_at_source?: filter.String;
+      updated_at?: filter.Timestamp;
+      purchased_at?: filter.Timestamp;
     }
     export interface OmnichannelTransactionsForOmnichannelSubscriptionInputParam {
       limit?: number;

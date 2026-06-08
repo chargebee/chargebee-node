@@ -65,6 +65,7 @@ declare module 'chargebee' {
       GiftUnclaimedContent &
       VirtualBankAccountAddedContent &
       PaymentIntentCreatedContent &
+      OmnichannelSubscriptionItemUpdatedContent &
       CreditNoteCreatedWithBackdatingContent &
       ContractTermTerminatedContent &
       ItemFamilyUpdatedContent &
@@ -77,6 +78,7 @@ declare module 'chargebee' {
       ItemDeletedContent &
       SubscriptionRampDraftedContent &
       DunningUpdatedContent &
+      OmnichannelSubscriptionItemRecoveredContent &
       ItemEntitlementsUpdatedContent &
       TokenConsumedContent &
       HierarchyDeletedContent &

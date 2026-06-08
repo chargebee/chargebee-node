@@ -46,7 +46,6 @@ interface Endpoints {
   quotedDeltaRamp: EndpointTuple[];
   billingConfiguration: EndpointTuple[];
   quoteLineGroup: EndpointTuple[];
-  quoteEntitlement: EndpointTuple[];
   cpqQuoteSignature: EndpointTuple[];
   plan: EndpointTuple[];
   addon: EndpointTuple[];
@@ -92,6 +91,7 @@ interface Endpoints {
   ramp: EndpointTuple[];
   paymentScheduleScheme: EndpointTuple[];
   pricingPageSession: EndpointTuple[];
+  omnichannelSubscriptionItemScheduledChange: EndpointTuple[];
   omnichannelSubscription: EndpointTuple[];
   omnichannelTransaction: EndpointTuple[];
   omnichannelSubscriptionItem: EndpointTuple[];
@@ -100,7 +100,6 @@ interface Endpoints {
   omnichannelOneTimeOrderItem: EndpointTuple[];
   rule: EndpointTuple[];
   usageEvent: EndpointTuple[];
-  omnichannelSubscriptionItemScheduledChange: EndpointTuple[];
   usageFile: EndpointTuple[];
   personalizedOffer: EndpointTuple[];
   brand: EndpointTuple[];
@@ -3147,7 +3146,6 @@ export const Endpoints: Endpoints = {
   quotedDeltaRamp: [],
   billingConfiguration: [],
   quoteLineGroup: [],
-  quoteEntitlement: [],
   cpqQuoteSignature: [],
   plan: [
     [
@@ -4811,6 +4809,7 @@ export const Endpoints: Endpoints = {
       },
     ],
   ],
+  omnichannelSubscriptionItemScheduledChange: [],
   omnichannelSubscription: [
     [
       'retrieve',
@@ -4943,7 +4942,6 @@ export const Endpoints: Endpoints = {
       {},
     ],
   ],
-  omnichannelSubscriptionItemScheduledChange: [],
   usageFile: [
     [
       'uploadUrl',

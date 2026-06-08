@@ -50,7 +50,7 @@ declare module 'chargebee' {
 
       updateGift(
         gift_id: string,
-        input: UpdateGiftInputParam,
+        input?: UpdateGiftInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateGiftResponse>>;
     }
@@ -147,8 +147,9 @@ declare module 'chargebee' {
       status?: filter.Enum;
     }
     export interface UpdateGiftInputParam {
-      scheduled_at: number;
+      scheduled_at?: number;
       comment?: string;
+      gift_receiver?: GiftReceiverUpdateGiftInputParam;
     }
     export interface GiftReceiverCreateInputParam {
       customer_id: string;
@@ -215,14 +216,19 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix'
         | 'twint'
         | 'go_pay'
         | 'grab_pay'
         | 'pay_co'
         | 'after_pay'
         | 'swish'
-        | 'payme';
+        | 'payme'
+        | 'pix'
+        | 'klarna'
+        | 'alipay_hk'
+        | 'paypay'
+        | 'gcash'
+        | 'south_korean_cards';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -306,14 +312,19 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix'
         | 'twint'
         | 'go_pay'
         | 'grab_pay'
         | 'pay_co'
         | 'after_pay'
         | 'swish'
-        | 'payme';
+        | 'payme'
+        | 'pix'
+        | 'klarna'
+        | 'alipay_hk'
+        | 'paypay'
+        | 'gcash'
+        | 'south_korean_cards';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -344,6 +355,12 @@ declare module 'chargebee' {
     export interface GiftReceiverGiftListInputParam {
       email?: filter.String;
       customer_id?: filter.String;
+    }
+
+    export interface GiftReceiverUpdateGiftInputParam {
+      email?: string;
+      first_name?: string;
+      last_name?: string;
     }
   }
 }

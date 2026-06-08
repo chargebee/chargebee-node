@@ -43,14 +43,19 @@ declare module 'chargebee' {
       | 'cash_app_pay'
       | 'wechat_pay'
       | 'alipay'
-      | 'pix'
       | 'twint'
       | 'go_pay'
       | 'grab_pay'
       | 'pay_co'
       | 'after_pay'
       | 'swish'
-      | 'payme';
+      | 'payme'
+      | 'pix'
+      | 'klarna'
+      | 'alipay_hk'
+      | 'paypay'
+      | 'gcash'
+      | 'south_korean_cards';
     success_url?: string;
     failure_url?: string;
     created_at: number;
@@ -138,14 +143,19 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix'
         | 'twint'
         | 'go_pay'
         | 'grab_pay'
         | 'pay_co'
         | 'after_pay'
         | 'swish'
-        | 'payme';
+        | 'payme'
+        | 'pix'
+        | 'klarna'
+        | 'alipay_hk'
+        | 'paypay'
+        | 'gcash'
+        | 'south_korean_cards';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -197,14 +207,19 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix'
         | 'twint'
         | 'go_pay'
         | 'grab_pay'
         | 'pay_co'
         | 'after_pay'
         | 'swish'
-        | 'payme';
+        | 'payme'
+        | 'pix'
+        | 'klarna'
+        | 'alipay_hk'
+        | 'paypay'
+        | 'gcash'
+        | 'south_korean_cards';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -257,14 +272,19 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix'
         | 'twint'
         | 'go_pay'
         | 'grab_pay'
         | 'pay_co'
         | 'after_pay'
         | 'swish'
-        | 'payme';
+        | 'payme'
+        | 'pix'
+        | 'klarna'
+        | 'alipay_hk'
+        | 'paypay'
+        | 'gcash'
+        | 'south_korean_cards';
       success_url?: string;
       failure_url?: string;
     }
@@ -305,14 +325,19 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix'
         | 'twint'
         | 'go_pay'
         | 'grab_pay'
         | 'pay_co'
         | 'after_pay'
         | 'swish'
-        | 'payme';
+        | 'payme'
+        | 'pix'
+        | 'klarna'
+        | 'alipay_hk'
+        | 'paypay'
+        | 'gcash'
+        | 'south_korean_cards';
       success_url?: string;
       failure_url?: string;
     }

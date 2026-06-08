@@ -205,6 +205,8 @@ export enum WebhookEventType {
 
   OmnichannelSubscriptionItemReactivated = 'omnichannel_subscription_item_reactivated',
 
+  OmnichannelSubscriptionItemRecovered = 'omnichannel_subscription_item_recovered',
+
   OmnichannelSubscriptionItemRenewed = 'omnichannel_subscription_item_renewed',
 
   OmnichannelSubscriptionItemResubscribed = 'omnichannel_subscription_item_resubscribed',
@@ -216,6 +218,8 @@ export enum WebhookEventType {
   OmnichannelSubscriptionItemScheduledChangeRemoved = 'omnichannel_subscription_item_scheduled_change_removed',
 
   OmnichannelSubscriptionItemScheduledDowngradeRemoved = 'omnichannel_subscription_item_scheduled_downgrade_removed',
+
+  OmnichannelSubscriptionItemUpdated = 'omnichannel_subscription_item_updated',
 
   OmnichannelSubscriptionItemUpgraded = 'omnichannel_subscription_item_upgraded',
 

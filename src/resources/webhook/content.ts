@@ -459,8 +459,6 @@ export interface OmnichannelSubscriptionCreatedContent {
 
   OmnichannelTransaction: import('chargebee').OmnichannelTransaction;
 
-  OmnichannelSubscriptionItemScheduledChange: import('chargebee').OmnichannelSubscriptionItemScheduledChange;
-
   Customer: import('chargebee').Customer;
 }
 
@@ -594,14 +592,22 @@ export interface OmnichannelSubscriptionItemReactivatedContent {
   Customer: import('chargebee').Customer;
 }
 
-export interface OmnichannelSubscriptionItemRenewedContent {
+export interface OmnichannelSubscriptionItemRecoveredContent {
   OmnichannelSubscriptionItem: import('chargebee').OmnichannelSubscriptionItem;
 
   OmnichannelSubscription: import('chargebee').OmnichannelSubscription;
 
   OmnichannelTransaction: import('chargebee').OmnichannelTransaction;
 
-  OmnichannelSubscriptionItemScheduledChange: import('chargebee').OmnichannelSubscriptionItemScheduledChange;
+  Customer: import('chargebee').Customer;
+}
+
+export interface OmnichannelSubscriptionItemRenewedContent {
+  OmnichannelSubscriptionItem: import('chargebee').OmnichannelSubscriptionItem;
+
+  OmnichannelSubscription: import('chargebee').OmnichannelSubscription;
+
+  OmnichannelTransaction: import('chargebee').OmnichannelTransaction;
 
   Customer: import('chargebee').Customer;
 }
@@ -646,6 +652,16 @@ export interface OmnichannelSubscriptionItemScheduledDowngradeRemovedContent {
   OmnichannelSubscription: import('chargebee').OmnichannelSubscription;
 
   OmnichannelSubscriptionItem: import('chargebee').OmnichannelSubscriptionItem;
+
+  Customer: import('chargebee').Customer;
+}
+
+export interface OmnichannelSubscriptionItemUpdatedContent {
+  OmnichannelSubscriptionItem: import('chargebee').OmnichannelSubscriptionItem;
+
+  OmnichannelSubscription: import('chargebee').OmnichannelSubscription;
+
+  OmnichannelTransaction: import('chargebee').OmnichannelTransaction;
 
   Customer: import('chargebee').Customer;
 }
@@ -1645,6 +1661,8 @@ export type WebhookContentMap = {
 
   [WebhookEventType.OmnichannelSubscriptionItemReactivated]: OmnichannelSubscriptionItemReactivatedContent;
 
+  [WebhookEventType.OmnichannelSubscriptionItemRecovered]: OmnichannelSubscriptionItemRecoveredContent;
+
   [WebhookEventType.OmnichannelSubscriptionItemRenewed]: OmnichannelSubscriptionItemRenewedContent;
 
   [WebhookEventType.OmnichannelSubscriptionItemResubscribed]: OmnichannelSubscriptionItemResubscribedContent;
@@ -1656,6 +1674,8 @@ export type WebhookContentMap = {
   [WebhookEventType.OmnichannelSubscriptionItemScheduledChangeRemoved]: OmnichannelSubscriptionItemScheduledChangeRemovedContent;
 
   [WebhookEventType.OmnichannelSubscriptionItemScheduledDowngradeRemoved]: OmnichannelSubscriptionItemScheduledDowngradeRemovedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemUpdated]: OmnichannelSubscriptionItemUpdatedContent;
 
   [WebhookEventType.OmnichannelSubscriptionItemUpgraded]: OmnichannelSubscriptionItemUpgradedContent;
 

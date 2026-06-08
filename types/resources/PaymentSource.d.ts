@@ -467,14 +467,19 @@ declare module 'chargebee' {
         | 'cash_app_pay'
         | 'wechat_pay'
         | 'alipay'
-        | 'pix'
         | 'twint'
         | 'go_pay'
         | 'grab_pay'
         | 'pay_co'
         | 'after_pay'
         | 'swish'
-        | 'payme';
+        | 'payme'
+        | 'pix'
+        | 'klarna'
+        | 'alipay_hk'
+        | 'paypay'
+        | 'gcash'
+        | 'south_korean_cards';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

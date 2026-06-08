@@ -437,6 +437,7 @@ declare module 'chargebee' {
       addons?: AddonsCheckoutGiftInputParam[];
     }
     export interface CheckoutGiftForItemsInputParam {
+      layout?: LayoutEnum;
       business_entity_id?: string;
       redirect_url?: string;
       coupon_ids?: string[];
