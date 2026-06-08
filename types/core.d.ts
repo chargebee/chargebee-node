@@ -368,6 +368,8 @@ declare module 'chargebee' {
     | 'omnichannel_subscription_moved_in'
     | 'omnichannel_transaction_created'
     | 'alert_status_changed'
+    | 'omnichannel_subscription_item_updated'
+    | 'omnichannel_subscription_item_recovered'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'
@@ -530,7 +532,12 @@ declare module 'chargebee' {
     | 'pay_co'
     | 'after_pay'
     | 'swish'
-    | 'payme';
+    | 'payme'
+    | 'klarna'
+    | 'alipay_hk'
+    | 'paypay'
+    | 'gcash'
+    | 'south_korean_cards';
   type PaymentMethodSavePolicyEnum = 'always' | 'ask' | 'never';
   type PaymentMethodTypeEnum =
     | 'card'
@@ -567,14 +574,19 @@ declare module 'chargebee' {
     | 'naver_pay'
     | 'revolut_pay'
     | 'cash_app_pay'
-    | 'pix'
     | 'twint'
     | 'go_pay'
     | 'grab_pay'
     | 'pay_co'
     | 'after_pay'
     | 'swish'
-    | 'payme';
+    | 'payme'
+    | 'pix'
+    | 'klarna'
+    | 'alipay_hk'
+    | 'paypay'
+    | 'gcash'
+    | 'south_korean_cards';
   type PaymentVoucherTypeEnum = 'boleto';
   type PeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
   type PriceTypeEnum = 'tax_exclusive' | 'tax_inclusive';
@@ -677,7 +689,6 @@ declare module 'chargebee' {
     | 'naver_pay'
     | 'revolut_pay'
     | 'cash_app_pay'
-    | 'pix'
     | 'twint'
     | 'go_pay'
     | 'grab_pay'
@@ -685,6 +696,12 @@ declare module 'chargebee' {
     | 'after_pay'
     | 'swish'
     | 'payme'
+    | 'pix'
+    | 'klarna'
+    | 'alipay_hk'
+    | 'paypay'
+    | 'gcash'
+    | 'south_korean_cards'
     | 'free_trial'
     | 'pay_up_front'
     | 'pay_as_you_go'
@@ -915,6 +932,8 @@ declare module 'chargebee' {
     | 'omnichannel_subscription_moved_in'
     | 'omnichannel_transaction_created'
     | 'alert_status_changed'
+    | 'omnichannel_subscription_item_updated'
+    | 'omnichannel_subscription_item_recovered'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'

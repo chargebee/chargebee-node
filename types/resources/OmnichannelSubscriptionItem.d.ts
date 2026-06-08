@@ -28,6 +28,7 @@ declare module 'chargebee' {
     grace_period_expires_at?: number;
     resumes_at?: number;
     has_scheduled_changes: boolean;
+    updated_at: number;
     resource_version?: number;
     omnichannel_subscription_item_offers?: OmnichannelSubscriptionItemOffer[];
     upcoming_renewal?: OmnichannelSubscriptionItem.UpcomingRenewal;

@@ -76,7 +76,6 @@
 ///<reference path='./resources/PromotionalCredit.d.ts' />
 ///<reference path='./resources/Purchase.d.ts' />
 ///<reference path='./resources/Quote.d.ts' />
-///<reference path='./resources/QuoteEntitlement.d.ts' />
 ///<reference path='./resources/QuoteLineGroup.d.ts' />
 ///<reference path='./resources/QuotedCharge.d.ts' />
 ///<reference path='./resources/QuotedDeltaRamp.d.ts' />
