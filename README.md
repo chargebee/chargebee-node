@@ -574,7 +574,7 @@ Spans are named `chargebee.{resource}.{operation}` (e.g. `chargebee.subscription
 #### OpenTelemetry example
 
 ```bash
-npm install chargebee @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/exporter-trace-otlp-http @opentelemetry/auto-instrumentations-node
+npm install chargebee @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/exporter-trace-otlp-http
 ```
 
 Configure OpenTelemetry at app startup, then pass your adapter:
@@ -583,14 +583,12 @@ Configure OpenTelemetry at app startup, then pass your adapter:
 // instrumentation.ts — node --require ./instrumentation.js app.js
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
-import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 
 new NodeSDK({
   serviceName: 'billing-service',
   traceExporter: new OTLPTraceExporter({
     url: process.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT ?? 'http://localhost:4318/v1/traces',
   }),
-  instrumentations: [getNodeAutoInstrumentations()],
 }).start();
 ```
 
