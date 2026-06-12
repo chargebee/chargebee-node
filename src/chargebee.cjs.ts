@@ -9,6 +9,7 @@ import {
   WebhookPayloadParseError,
 } from './resources/webhook/handler.js';
 import { basicAuthValidator } from './resources/webhook/auth.js';
+import { TelemetryAttributeKeys } from './telemetry/index.js';
 
 const httpClient = new FetchHttpClient();
 const Chargebee = CreateChargebee(httpClient);
@@ -26,6 +27,7 @@ module.exports.WebhookError = WebhookError;
 module.exports.WebhookAuthenticationError = WebhookAuthenticationError;
 module.exports.WebhookPayloadValidationError = WebhookPayloadValidationError;
 module.exports.WebhookPayloadParseError = WebhookPayloadParseError;
+module.exports.TelemetryAttributeKeys = TelemetryAttributeKeys;
 
 // Export webhook types
 export type {

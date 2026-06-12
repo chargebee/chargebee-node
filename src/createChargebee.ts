@@ -20,10 +20,18 @@ import {
 export const CreateChargebee = (httpClient: HttpClientInterface) => {
   const Chargebee = function (this: ChargebeeType, conf: Config) {
     this._env = { ...Environment };
-    extend(true, this._env, conf);
+    const {
+      telemetryAdapter,
+      httpClient: configHttpClient,
+      ...confToMerge
+    } = conf;
+    extend(true, this._env, confToMerge);
     // @ts-ignore
     this._env.httpClient =
-      conf.httpClient != null ? conf.httpClient : httpClient;
+      configHttpClient != null ? configHttpClient : httpClient;
+    if (telemetryAdapter !== undefined) {
+      this._env.telemetryAdapter = telemetryAdapter;
+    }
     this._buildResources();
     this._endpoints = Endpoints;
 
@@ -94,6 +102,7 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
         for (let apiIdx = 0; apiIdx < apiCalls.length; apiIdx++) {
           const metaArr: EndpointTuple = apiCalls[apiIdx];
           const apiCall: ResourceType = {
+            resource: res,
             methodName: metaArr[0],
             httpMethod: metaArr[1],
             urlPrefix: metaArr[2],

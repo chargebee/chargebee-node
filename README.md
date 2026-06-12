@@ -563,6 +563,80 @@ const chargebee = new Chargebee({
 
 These examples demonstrate how to implement and inject custom clients using `axios` and `ky`, respectively.
 
+### Telemetry (OpenTelemetry)
+
+Optional. Pass a `telemetryAdapter` when you want Chargebee API calls traced in your observability stack (Datadog, Splunk, Honeycomb, Jaeger, etc.). OpenTelemetry is not bundled with `chargebee` — install and configure it in your app, implement `TelemetryAdapter`, and wire it on the client.
+
+The SDK builds standardized span attributes (`ctx.startAttributes`, `result.endAttributes`) following the stable [OpenTelemetry HTTP semantic conventions](https://opentelemetry.io/docs/specs/semconv/http/http-spans/) (`url.full`, `http.request.method`, `http.response.status_code`, `server.address`, `error.type`) plus Chargebee-specific `chargebee.*` attributes — use them as-is so spans render correctly in your APM and stay consistent across SDKs.
+
+Spans are named `chargebee.{resource}.{operation}` (e.g. `chargebee.subscription.create`).
+
+#### OpenTelemetry example
+
+```bash
+npm install chargebee @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/exporter-trace-otlp-http @opentelemetry/auto-instrumentations-node
+```
+
+Configure OpenTelemetry at app startup, then pass your adapter:
+
+```typescript
+// instrumentation.ts — node --require ./instrumentation.js app.js
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
+
+new NodeSDK({
+  serviceName: 'billing-service',
+  traceExporter: new OTLPTraceExporter({
+    url: process.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT ?? 'http://localhost:4318/v1/traces',
+  }),
+  instrumentations: [getNodeAutoInstrumentations()],
+}).start();
+```
+
+```typescript
+import Chargebee, {
+  type TelemetryAdapter,
+  type RequestTelemetryContext,
+  type RequestTelemetryResult,
+} from 'chargebee';
+import { context, propagation, trace, SpanKind, SpanStatusCode, type Span } from '@opentelemetry/api';
+
+class OtelTelemetryAdapter implements TelemetryAdapter<Span> {
+  private readonly tracer = trace.getTracer('chargebee-node');
+
+  onRequestStart(ctx: RequestTelemetryContext, requestHeaders: Record<string, string | number>): Span {
+    const span = this.tracer.startSpan(ctx.spanName, {
+      kind: SpanKind.CLIENT,
+      attributes: ctx.startAttributes,
+    });
+    propagation.inject(trace.setSpan(context.active(), span), requestHeaders);
+    return span;
+  }
+
+  onRequestEnd(span: Span | void, result: RequestTelemetryResult) {
+    if (!span) return;
+    for (const [key, value] of Object.entries(result.endAttributes)) {
+      span.setAttribute(key, value);
+    }
+    if (result.error) {
+      span.setStatus({ code: SpanStatusCode.ERROR, message: result.error.message });
+    } else {
+      span.setStatus({ code: SpanStatusCode.OK });
+    }
+    span.end();
+  }
+}
+
+const chargebee = new Chargebee({
+  site: '{{site}}',
+  apiKey: '{{api-key}}',
+  telemetryAdapter: new OtelTelemetryAdapter(),
+});
+```
+
+Spans are exported by your own OpenTelemetry setup, so they flow to whatever backend you've configured (Datadog, Splunk, Honeycomb, Jaeger, etc.). The Chargebee config above stays the same regardless of backend — refer to your APM vendor's OpenTelemetry/OTLP documentation for exporter endpoints.
+
 ## Feedback
 
 If you find any bugs or have any questions / feedback, open an issue in this repository or reach out to us on dx@chargebee.com
