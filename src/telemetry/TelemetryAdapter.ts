@@ -20,7 +20,7 @@ export type RequestHeadersForTelemetry = Record<string, string | number>;
 
 /**
  * Optional telemetry adapter for observability integrations (e.g. OpenTelemetry).
- * Default is a no-op — zero overhead when not configured.
+ * When not configured, the SDK skips all telemetry work — zero overhead.
  * Implement as a class or plain object; the SDK stores the adapter by reference.
  */
 export interface TelemetryAdapter<THandle = RequestTelemetryHandle> {

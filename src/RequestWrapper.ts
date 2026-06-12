@@ -21,8 +21,8 @@ import {
   buildRequestTelemetryResult,
   extractHttpStatusCode,
   extractRequestTelemetryError,
-  NO_OP_TELEMETRY_ADAPTER,
   resolveChargebeeApiVersion,
+  type TelemetryAdapter,
 } from './telemetry/index.js';
 import { handleResponse } from './coreCommon.js';
 import { Buffer } from 'node:buffer';
@@ -125,35 +125,40 @@ export class RequestWrapper {
       this.httpHeaders['chargebee-idempotency-key'] = uuidv4();
     }
 
-    const telemetryAdapter = env.telemetryAdapter ?? NO_OP_TELEMETRY_ADAPTER;
+    const telemetryAdapter = env.telemetryAdapter;
     const telemetryHeaders: RequestHeaders = {};
     const requestStartTime = Date.now();
 
     const requestUrl = this._buildRequestUrl(env, urlIdParam, params);
-    const telemetryContext = buildRequestTelemetryContext({
-      resource: this.apiCall.resource,
-      operation: this.apiCall.methodName,
-      httpMethod: this.apiCall.httpMethod,
-      httpUrl: `${requestUrl.origin}${requestUrl.pathname}`,
-      serverAddress: requestUrl.hostname,
-      chargebeeSite: env.site,
-      chargebeeApiVersion: resolveChargebeeApiVersion(env.apiPath),
-      sdkVersion: env.clientVersion,
-    });
+    // No telemetry adapter configured => skip all telemetry work (zero overhead).
     let telemetryHandle: unknown;
-    try {
-      telemetryHandle = telemetryAdapter.onRequestStart(
-        telemetryContext,
-        telemetryHeaders,
-      );
-    } catch (err) {
-      const message =
-        err instanceof Error ? err.message : 'Unknown telemetry adapter error';
-      log(env, {
-        level: 'ERROR',
-        message: `Telemetry adapter onRequestStart failed: ${message}. Continuing without telemetry.`,
+    if (telemetryAdapter !== undefined) {
+      const telemetryContext = buildRequestTelemetryContext({
+        resource: this.apiCall.resource,
+        operation: this.apiCall.methodName,
+        httpMethod: this.apiCall.httpMethod,
+        httpUrl: `${requestUrl.origin}${requestUrl.pathname}`,
+        serverAddress: requestUrl.hostname,
+        chargebeeSite: env.site,
+        chargebeeApiVersion: resolveChargebeeApiVersion(env.apiPath),
+        sdkVersion: env.clientVersion,
       });
-      telemetryHandle = undefined;
+      try {
+        telemetryHandle = telemetryAdapter.onRequestStart(
+          telemetryContext,
+          telemetryHeaders,
+        );
+      } catch (err) {
+        const message =
+          err instanceof Error
+            ? err.message
+            : 'Unknown telemetry adapter error';
+        log(env, {
+          level: 'ERROR',
+          message: `Telemetry adapter onRequestStart failed: ${message}. Continuing without telemetry.`,
+        });
+        telemetryHandle = undefined;
+      }
     }
 
     const makeRequest = async (attempt: number = 0): Promise<any> => {
@@ -284,7 +289,9 @@ export class RequestWrapper {
       }
     };
 
-    const runWithTelemetry = async (): Promise<any> => {
+    const runWithTelemetry = async (
+      adapter: TelemetryAdapter,
+    ): Promise<any> => {
       try {
         const result = await withRetry(0, requestStartTime);
         const httpStatusCode =
@@ -292,7 +299,7 @@ export class RequestWrapper {
             ? result.httpStatusCode
             : 200;
         try {
-          telemetryAdapter.onRequestEnd(
+          adapter.onRequestEnd(
             telemetryHandle,
             buildRequestTelemetryResult({
               httpStatusCode,
@@ -314,7 +321,7 @@ export class RequestWrapper {
         const httpStatusCode = extractHttpStatusCode(err) ?? 500;
         const telemetryError = extractRequestTelemetryError(err);
         try {
-          telemetryAdapter.onRequestEnd(
+          adapter.onRequestEnd(
             telemetryHandle,
             buildRequestTelemetryResult({
               httpStatusCode,
@@ -336,7 +343,10 @@ export class RequestWrapper {
       }
     };
 
-    const promise = runWithTelemetry();
+    const promise =
+      telemetryAdapter !== undefined
+        ? runWithTelemetry(telemetryAdapter)
+        : withRetry(0, requestStartTime);
     return callbackifyPromise(promise);
   }
 

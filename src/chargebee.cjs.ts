@@ -38,3 +38,12 @@ export type {
   RequestValidator,
 } from './resources/webhook/handler.js';
 export type { CredentialValidator } from './resources/webhook/auth.js';
+
+// Export telemetry types
+export type {
+  TelemetryAdapter,
+  RequestTelemetryContext,
+  RequestTelemetryResult,
+  RequestTelemetryError,
+  RequestTelemetryHandle,
+} from './telemetry/index.js';
