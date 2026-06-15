@@ -41,6 +41,7 @@ declare module 'chargebee' {
     filter_condition: FilterCondition;
     gateway_error_detail: GatewayErrorDetail;
     gift: Gift;
+    grant_block: GrantBlock;
     hierarchy: Hierarchy;
     hosted_page: HostedPage;
     impacted_customer: ImpactedCustomer;
@@ -54,6 +55,8 @@ declare module 'chargebee' {
     item_entitlement: ItemEntitlement;
     item_family: ItemFamily;
     item_price: ItemPrice;
+    ledger_account_balance: LedgerAccountBalance;
+    ledger_operation: LedgerOperation;
     metadata: Metadata;
     non_subscription: NonSubscription;
     offer_event: OfferEvent;
@@ -79,6 +82,7 @@ declare module 'chargebee' {
     price_variant: PriceVariant;
     pricing_page_session: PricingPageSession;
     promotional_credit: PromotionalCredit;
+    promotional_grant: PromotionalGrant;
     purchase: Purchase;
     quote: Quote;
     quote_line_group: QuoteLineGroup;
