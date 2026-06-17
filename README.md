@@ -618,6 +618,7 @@ class OtelTelemetryAdapter implements TelemetryAdapter<Span> {
       span.setAttribute(key, value);
     }
     if (result.error) {
+      span.recordException(new Error(result.error.message));
       span.setStatus({ code: SpanStatusCode.ERROR, message: result.error.message });
     } else {
       span.setStatus({ code: SpanStatusCode.OK });
