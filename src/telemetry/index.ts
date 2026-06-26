@@ -7,6 +7,9 @@
 
 export {
   CHARGEBEE_SDK_NAME,
+  CHARGEBEE_TELEMETRY_HEADER_EXCLUDE_PREFIX,
+  CHARGEBEE_TELEMETRY_HEADER_PREFIX,
+  HTTP_REQUEST_HEADER_ATTRIBUTE_PREFIX,
   TELEMETRY_SPAN_NAME_PREFIX,
   TelemetryAttributeKeys,
   type BuildRequestTelemetryContextInput,
@@ -22,6 +25,7 @@ export {
   type RequestHeadersForTelemetry,
   type TelemetryAdapter,
   buildRequestEndSpanAttributes,
+  buildRequestHeaderSpanAttributes,
   buildRequestStartSpanAttributes,
   buildRequestTelemetryContext,
   buildRequestTelemetryResult,

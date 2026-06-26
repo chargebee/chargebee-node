@@ -205,8 +205,11 @@ declare module 'chargebee' {
     chargebeeApiVersion: 'v1' | 'v2';
     sdkName: string;
     sdkVersion: string;
-    /** Prebuilt span attributes — pass these to your tracer. */
-    startAttributes: Record<string, string>;
+    /**
+     * Prebuilt span attributes — pass these to your tracer. Captured `chargebee-*` request
+     * headers appear as `http.request.header.<name>` with string[] values per OTel semconv.
+     */
+    startAttributes: Record<string, string | string[]>;
   };
 
   export type RequestTelemetryError = {

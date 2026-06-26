@@ -142,6 +142,7 @@ export class RequestWrapper {
         chargebeeSite: env.site,
         chargebeeApiVersion: resolveChargebeeApiVersion(env.apiPath),
         sdkVersion: env.clientVersion,
+        requestHeaders: this.httpHeaders,
       });
       try {
         telemetryHandle = telemetryAdapter.onRequestStart(

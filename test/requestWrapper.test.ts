@@ -483,6 +483,94 @@ describe('RequestWrapper - telemetry adapter', () => {
     expect(telemetryEvents).to.deep.equal(['start', 'end']);
   });
 
+  it('should capture chargebee-* request headers as http.request.header.* attributes', async () => {
+    let capturedContext: any = null;
+
+    const chargebee = createChargebee({
+      telemetryAdapter: {
+        onRequestStart: (ctx) => {
+          capturedContext = ctx;
+          return { id: 'span-1' };
+        },
+        onRequestEnd: () => {},
+      },
+    });
+
+    await chargebee.customer.list(
+      { limit: 1 },
+      {
+        'chargebee-business-entity-id': 'be_123',
+        'chargebee-event-actions': 'all-disabled',
+        // Mixed-case header name should normalize to lowercase.
+        'Chargebee-Idempotency-Key': 'idem-key-1',
+        // Non-chargebee headers must never be captured.
+        Authorization: 'Basic super-secret',
+        'X-Custom': 'nope',
+      },
+    );
+
+    const attrs = capturedContext.startAttributes;
+    expect(attrs['http.request.header.chargebee-business-entity-id']).to.deep.equal(
+      ['be_123'],
+    );
+    expect(attrs['http.request.header.chargebee-event-actions']).to.deep.equal([
+      'all-disabled',
+    ]);
+    expect(attrs['http.request.header.chargebee-idempotency-key']).to.deep.equal(
+      ['idem-key-1'],
+    );
+    expect(attrs['http.request.header.authorization']).to.equal(undefined);
+    expect(attrs['http.request.header.x-custom']).to.equal(undefined);
+  });
+
+  it('should exclude chargebee-request-origin-* (PII) headers from span attributes', async () => {
+    let capturedContext: any = null;
+
+    const chargebee = createChargebee({
+      telemetryAdapter: {
+        onRequestStart: (ctx) => {
+          capturedContext = ctx;
+          return { id: 'span-1' };
+        },
+        onRequestEnd: () => {},
+      },
+    });
+
+    await chargebee.customer.list(
+      { limit: 1 },
+      {
+        'chargebee-business-entity-id': 'be_123',
+        'chargebee-request-origin-ip': '202.170.207.70',
+        'chargebee-request-origin-user': 'amara@acme.com',
+        'chargebee-request-origin-user-encoded': 'dXNlckBhY21lLmNvbQ==',
+        'chargebee-request-origin-device': 'iOS',
+      },
+    );
+
+    const attrs = capturedContext.startAttributes;
+    // Safe control header is captured...
+    expect(attrs['http.request.header.chargebee-business-entity-id']).to.deep.equal(
+      ['be_123'],
+    );
+    // ...but the PII family is excluded by default.
+    expect(attrs['http.request.header.chargebee-request-origin-ip']).to.equal(
+      undefined,
+    );
+    expect(attrs['http.request.header.chargebee-request-origin-user']).to.equal(
+      undefined,
+    );
+    expect(
+      attrs['http.request.header.chargebee-request-origin-user-encoded'],
+    ).to.equal(undefined);
+    expect(attrs['http.request.header.chargebee-request-origin-device']).to.equal(
+      undefined,
+    );
+    // The PII values must not leak into any attribute.
+    const serialized = JSON.stringify(attrs);
+    expect(serialized).to.not.contain('202.170.207.70');
+    expect(serialized).to.not.contain('amara@acme.com');
+  });
+
   it('should not fail API call when onRequestEnd throws', async () => {
     const chargebee = createChargebee({
       telemetryAdapter: {

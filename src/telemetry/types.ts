@@ -11,6 +11,27 @@ export const CHARGEBEE_SDK_NAME = 'chargebee-node';
 /** Standard span name prefix: chargebee.{resource}.{operation} */
 export const TELEMETRY_SPAN_NAME_PREFIX = 'chargebee';
 
+/**
+ * OTel HTTP semantic-convention prefix for request-header attributes:
+ * `http.request.header.<lowercased-name>` with string[] values.
+ */
+export const HTTP_REQUEST_HEADER_ATTRIBUTE_PREFIX = 'http.request.header.';
+
+/**
+ * Request headers whose (lowercased) name starts with this prefix are captured as span
+ * attributes. Using a prefix instead of a fixed list means any future `chargebee-*` header
+ * is picked up automatically, with no SDK upgrade required.
+ */
+export const CHARGEBEE_TELEMETRY_HEADER_PREFIX = 'chargebee-';
+
+/**
+ * Headers under this sub-prefix carry end-user PII (origin IP, email, device) and are
+ * excluded from spans by default. Chargebee namespaces such headers under
+ * `chargebee-request-origin-*`, so future PII headers stay excluded automatically.
+ */
+export const CHARGEBEE_TELEMETRY_HEADER_EXCLUDE_PREFIX =
+  'chargebee-request-origin-';
+
 /** Span attribute keys — shared across Chargebee SDKs. */
 export const TelemetryAttributeKeys = {
   URL_FULL: 'url.full',
@@ -42,8 +63,11 @@ export type RequestTelemetryContext = {
   chargebeeApiVersion: 'v1' | 'v2';
   sdkName: typeof CHARGEBEE_SDK_NAME;
   sdkVersion: string;
-  /** Prebuilt span attributes — pass these to your tracer. */
-  startAttributes: Record<string, string>;
+  /**
+   * Prebuilt span attributes — pass these to your tracer. Captured `chargebee-*` request
+   * headers appear as `http.request.header.<name>` with string[] values per OTel semconv.
+   */
+  startAttributes: Record<string, string | string[]>;
 };
 
 export type RequestTelemetryError = {
@@ -70,4 +94,6 @@ export type BuildRequestTelemetryContextInput = {
   chargebeeSite: string;
   chargebeeApiVersion: 'v1' | 'v2';
   sdkVersion: string;
+  /** Outgoing request headers; matching `chargebee-*` headers are captured as span attributes. */
+  requestHeaders?: Record<string, string | number>;
 };

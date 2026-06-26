@@ -8,6 +8,9 @@
 import {
   BuildRequestTelemetryContextInput,
   CHARGEBEE_SDK_NAME,
+  CHARGEBEE_TELEMETRY_HEADER_EXCLUDE_PREFIX,
+  CHARGEBEE_TELEMETRY_HEADER_PREFIX,
+  HTTP_REQUEST_HEADER_ATTRIBUTE_PREFIX,
   RequestTelemetryContext,
   RequestTelemetryError,
   RequestTelemetryHandle,
@@ -51,9 +54,45 @@ export function resolveChargebeeApiVersion(apiPath: string): 'v1' | 'v2' {
   return apiPath === '/api/v1' ? 'v1' : 'v2';
 }
 
+/**
+ * Captures Chargebee custom request headers as OTel span attributes.
+ *
+ * Headers whose (lowercased) name starts with `chargebee-` are recorded as
+ * `http.request.header.<name>` with string[] values, per the OpenTelemetry HTTP semantic
+ * conventions. The `chargebee-request-origin-*` family (origin IP, email, device) is skipped
+ * because it carries end-user PII. Matching by prefix means new `chargebee-*` headers are
+ * captured automatically without an SDK upgrade.
+ */
+export function buildRequestHeaderSpanAttributes(
+  requestHeaders: Record<string, string | number> | undefined,
+): Record<string, string[]> {
+  const attributes: Record<string, string[]> = {};
+  if (!requestHeaders) {
+    return attributes;
+  }
+
+  for (const [name, value] of Object.entries(requestHeaders)) {
+    if (value === undefined || value === null) {
+      continue;
+    }
+    const lowerName = name.toLowerCase();
+    if (
+      !lowerName.startsWith(CHARGEBEE_TELEMETRY_HEADER_PREFIX) ||
+      lowerName.startsWith(CHARGEBEE_TELEMETRY_HEADER_EXCLUDE_PREFIX)
+    ) {
+      continue;
+    }
+    attributes[`${HTTP_REQUEST_HEADER_ATTRIBUTE_PREFIX}${lowerName}`] = [
+      String(value),
+    ];
+  }
+
+  return attributes;
+}
+
 export function buildRequestStartSpanAttributes(
   input: BuildRequestTelemetryContextInput,
-): Record<string, string> {
+): Record<string, string | string[]> {
   return {
     [TelemetryAttributeKeys.URL_FULL]: input.httpUrl,
     [TelemetryAttributeKeys.HTTP_REQUEST_METHOD]: input.httpMethod,
@@ -64,6 +103,7 @@ export function buildRequestStartSpanAttributes(
     [TelemetryAttributeKeys.CHARGEBEE_OPERATION]: input.operation,
     [TelemetryAttributeKeys.CHARGEBEE_SDK_NAME]: CHARGEBEE_SDK_NAME,
     [TelemetryAttributeKeys.CHARGEBEE_SDK_VERSION]: input.sdkVersion,
+    ...buildRequestHeaderSpanAttributes(input.requestHeaders),
   };
 }
 
