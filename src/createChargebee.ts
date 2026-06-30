@@ -105,6 +105,11 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
             jsonKeys: metaArr[7],
             options: metaArr[8],
           };
+          if (this._env.enableValidation) {
+            // Store resource and action for lazy schema loading in RequestWrapper
+            apiCall.resourceKey = res;
+            apiCall.actionName = metaArr[0] as string;
+          }
           this[res][apiCall.methodName] = this._createApiFunc(
             apiCall,
             this._env,
