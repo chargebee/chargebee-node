@@ -626,6 +626,7 @@ declare module 'chargebee' {
     | 'js_api'
     | 'migration'
     | 'external_service';
+  type StatusEnum = 'available' | 'exhausted' | 'scheduled' | 'in_grace_period';
   type TaxExemptReasonEnum =
     | 'tax_not_configured'
     | 'region_non_taxable'

@@ -44,6 +44,7 @@ declare module 'chargebee' {
     local_currency_code?: string;
     round_off_amount?: number;
     fractional_correction?: number;
+    notes?: string[];
     line_items?: CreditNote.LineItem[];
     line_item_tiers?: CreditNote.LineItemTier[];
     line_item_discounts?: CreditNote.LineItemDiscount[];

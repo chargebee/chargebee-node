@@ -36,6 +36,7 @@
 ///<reference path='./resources/FilterCondition.d.ts' />
 ///<reference path='./resources/GatewayErrorDetail.d.ts' />
 ///<reference path='./resources/Gift.d.ts' />
+///<reference path='./resources/GrantBlock.d.ts' />
 ///<reference path='./resources/Hierarchy.d.ts' />
 ///<reference path='./resources/HostedPage.d.ts' />
 ///<reference path='./resources/ImpactedCustomer.d.ts' />
@@ -49,6 +50,8 @@
 ///<reference path='./resources/ItemEntitlement.d.ts' />
 ///<reference path='./resources/ItemFamily.d.ts' />
 ///<reference path='./resources/ItemPrice.d.ts' />
+///<reference path='./resources/LedgerAccountBalance.d.ts' />
+///<reference path='./resources/LedgerOperation.d.ts' />
 ///<reference path='./resources/Metadata.d.ts' />
 ///<reference path='./resources/NonSubscription.d.ts' />
 ///<reference path='./resources/OfferEvent.d.ts' />
@@ -74,6 +77,7 @@
 ///<reference path='./resources/PriceVariant.d.ts' />
 ///<reference path='./resources/PricingPageSession.d.ts' />
 ///<reference path='./resources/PromotionalCredit.d.ts' />
+///<reference path='./resources/PromotionalGrant.d.ts' />
 ///<reference path='./resources/Purchase.d.ts' />
 ///<reference path='./resources/Quote.d.ts' />
 ///<reference path='./resources/QuoteLineGroup.d.ts' />
@@ -278,6 +282,7 @@ declare module 'chargebee' {
     export: Export.ExportResource;
     feature: Feature.FeatureResource;
     gift: Gift.GiftResource;
+    grantBlock: GrantBlock.GrantBlockResource;
     hostedPage: HostedPage.HostedPageResource;
     inAppSubscription: InAppSubscription.InAppSubscriptionResource;
     invoice: Invoice.InvoiceResource;
@@ -285,6 +290,8 @@ declare module 'chargebee' {
     itemEntitlement: ItemEntitlement.ItemEntitlementResource;
     itemFamily: ItemFamily.ItemFamilyResource;
     itemPrice: ItemPrice.ItemPriceResource;
+    ledgerAccountBalance: LedgerAccountBalance.LedgerAccountBalanceResource;
+    ledgerOperation: LedgerOperation.LedgerOperationResource;
     nonSubscription: NonSubscription.NonSubscriptionResource;
     offerEvent: OfferEvent.OfferEventResource;
     offerFulfillment: OfferFulfillment.OfferFulfillmentResource;
@@ -302,6 +309,7 @@ declare module 'chargebee' {
     priceVariant: PriceVariant.PriceVariantResource;
     pricingPageSession: PricingPageSession.PricingPageSessionResource;
     promotionalCredit: PromotionalCredit.PromotionalCreditResource;
+    promotionalGrant: PromotionalGrant.PromotionalGrantResource;
     purchase: Purchase.PurchaseResource;
     quote: Quote.QuoteResource;
     ramp: Ramp.RampResource;

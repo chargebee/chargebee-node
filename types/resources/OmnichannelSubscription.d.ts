@@ -74,6 +74,8 @@ declare module 'chargebee' {
       id_at_source?: filter.String;
       updated_at?: filter.Timestamp;
       purchased_at?: filter.Timestamp;
+      'sort_by[asc]'?: string;
+      'sort_by[desc]'?: string;
     }
     export interface OmnichannelTransactionsForOmnichannelSubscriptionInputParam {
       limit?: number;

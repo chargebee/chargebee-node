@@ -7,7 +7,6 @@ declare module 'chargebee' {
     type?:
       | 'checkout_new'
       | 'checkout_existing'
-      | 'update_payment_method'
       | 'manage_payment_sources'
       | 'collect_now'
       | 'extend_subscription'
@@ -29,6 +28,7 @@ declare module 'chargebee' {
     embed: boolean;
     created_at?: number;
     expires_at?: number;
+    layout?: LayoutEnum;
     content: Content;
     updated_at?: number;
     resource_version?: number;
@@ -76,6 +76,10 @@ declare module 'chargebee' {
         input: UpdateCardInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<UpdateCardResponse>>;
+
+      /**
+       * @deprecated This method is deprecated and will be removed in a future version.
+       */
 
       updatePaymentMethod(
         input: UpdatePaymentMethodInputParam,

@@ -111,6 +111,10 @@ interface Endpoints {
   alert: EndpointTuple[];
   filterCondition: EndpointTuple[];
   alertStatus: EndpointTuple[];
+  ledgerAccountBalance: EndpointTuple[];
+  ledgerOperation: EndpointTuple[];
+  grantBlock: EndpointTuple[];
+  promotionalGrant: EndpointTuple[];
   impactedCustomer: EndpointTuple[];
   subscriptionEntitlementsUpdatedDetail: EndpointTuple[];
   subscriptionEntitlementsCreatedDetail: EndpointTuple[];
@@ -5001,7 +5005,7 @@ export const Endpoints: Endpoints = {
       null,
       true,
       'grow',
-      true,
+      false,
       {},
       {},
     ],
@@ -5166,6 +5170,125 @@ export const Endpoints: Endpoints = {
       false,
       {},
       {},
+    ],
+  ],
+  ledgerAccountBalance: [
+    [
+      'listLedgerAccountBalances',
+      'GET',
+      '/ledger_account_balances',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
+  ledgerOperation: [
+    [
+      'retrieveLedgerOperation',
+      'GET',
+      '/ledger_operations',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
+      'listLedgerOperations',
+      'GET',
+      '/ledger_operations',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
+      'capture',
+      'POST',
+      '/ledger_operations',
+      '/capture',
+      false,
+      null,
+      true,
+      {
+        metadata: 0,
+      },
+      {},
+    ],
+    [
+      'authorize',
+      'POST',
+      '/ledger_operations',
+      '/authorize',
+      false,
+      null,
+      true,
+      {
+        metadata: 0,
+      },
+      {},
+    ],
+    [
+      'captureAuthorization',
+      'POST',
+      '/ledger_operations',
+      '/capture_authorization',
+      false,
+      null,
+      true,
+      {
+        metadata: 0,
+      },
+      {},
+    ],
+    [
+      'releaseAuthorization',
+      'POST',
+      '/ledger_operations',
+      '/release_authorization',
+      false,
+      null,
+      true,
+      {
+        metadata: 0,
+      },
+      {},
+    ],
+  ],
+  grantBlock: [
+    [
+      'listGrantBlocks',
+      'GET',
+      '/grant_blocks',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
+  promotionalGrant: [
+    [
+      'promotionalGrants',
+      'POST',
+      '/promotional_grants',
+      null,
+      false,
+      null,
+      true,
+      {
+        metadata: 0,
+      },
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   impactedCustomer: [],
