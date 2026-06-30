@@ -1,4 +1,4 @@
-### v3.27.0 (2026-06-30)
+### v3.28.0 (2026-06-30)
 * * *
 
 ### New Features
@@ -6,6 +6,10 @@
 * Each API call emits one CLIENT span (`chargebee.{resource}.{operation}`) with OpenTelemetry HTTP semantic-convention attributes plus `chargebee.*` attributes, and injects W3C trace context (`traceparent`) into outbound requests for distributed tracing.
 * Exposed `TelemetryAdapter`, `RequestTelemetryContext`, `RequestTelemetryResult`, `RequestTelemetryError`, `RequestTelemetryHandle` types and the `TelemetryAttributeKeys` constant from the CJS and ESM entry points.
 * Added a ready-to-use OpenTelemetry adapter via the `chargebee/telemetry/otel` subpath. `@opentelemetry/api` is an optional peer dependency and is not bundled — install it in your app to use this adapter.
+
+### Enhancements:
+- **Zod-backed request validation** — Set `enableValidation: true` in the client configuration to validate outgoing request parameters against each endpoint's generated Zod schema before the API call is sent. Invalid payloads raise `ChargebeeZodValidationError`, which carries the offending `actionName` and the original `ZodError` (including `issues` and `flatten()`) for inspection.
+- **Runtime dependency** — Added [`zod`](https://www.npmjs.com/package/zod) (v4) as a runtime dependency to support request validation.
 
 
 ### v3.26.0 (2026-06-12)

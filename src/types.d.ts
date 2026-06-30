@@ -20,6 +20,8 @@ export type EnvType = {
   enableDebugLogs?: boolean;
   userAgentSuffix?: string;
   telemetryAdapter?: TelemetryAdapter;
+  /** When true, request parameters are validated against Zod schemas before each HTTP call (where a schema exists). */
+  enableValidation?: boolean;
 };
 
 export type RetryConfig = {
@@ -45,6 +47,8 @@ export type Config = {
   userAgentSuffix?: string;
   httpClient?: HttpClientInterface;
   telemetryAdapter?: TelemetryAdapter;
+  /** When true, request parameters are validated against Zod schemas before each HTTP call (where a schema exists). */
+  enableValidation?: boolean;
 };
 
 export type Callback = (error: unknown, result: any | null) => void;
@@ -68,6 +72,12 @@ export type ResourceType = {
   options?: {
     isIdempotent?: boolean;
   };
+  /** Resource key for lazy schema loading (set when enableValidation is true). */
+  resourceKey?: string;
+  /** Action name for lazy schema loading (set when enableValidation is true). */
+  actionName?: string;
+  /** Optional Zod schema for opt-in request param validation. */
+  validationSchema?: import('zod').ZodObject<import('zod').ZodRawShape>;
 };
 type RequestWrapperType = {
   args: IArguments;

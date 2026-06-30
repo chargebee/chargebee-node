@@ -28,3 +28,4 @@ export type {
   RequestValidator,
 } from './resources/webhook/handler.js';
 export type { CredentialValidator } from './resources/webhook/auth.js';
+export { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
