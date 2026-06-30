@@ -168,9 +168,6 @@ export function extractRequestTelemetryError(
   err: unknown,
 ): RequestTelemetryError | undefined {
   if (err == null || typeof err !== 'object') {
-    if (err instanceof Error) {
-      return { message: err.message };
-    }
     return undefined;
   }
 
@@ -178,9 +175,7 @@ export function extractRequestTelemetryError(
   const message =
     typeof errorObj.message === 'string'
       ? errorObj.message
-      : err instanceof Error
-        ? err.message
-        : 'Chargebee API request failed';
+      : 'Chargebee API request failed';
 
   const result: RequestTelemetryError = { message };
 

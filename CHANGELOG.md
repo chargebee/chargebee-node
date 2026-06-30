@@ -1,3 +1,13 @@
+### v3.26.0 (2026-06-30)
+* * *
+
+### New Features
+* Added an optional `telemetryAdapter` config hook for tracing Chargebee API calls via OpenTelemetry (or any APM). When unconfigured, the SDK skips all telemetry work — no behavior change for existing integrations.
+* Each API call emits one CLIENT span (`chargebee.{resource}.{operation}`) with OpenTelemetry HTTP semantic-convention attributes plus `chargebee.*` attributes, and injects W3C trace context (`traceparent`) into outbound requests for distributed tracing.
+* Exposed `TelemetryAdapter`, `RequestTelemetryContext`, `RequestTelemetryResult`, `RequestTelemetryError`, `RequestTelemetryHandle` types and the `TelemetryAttributeKeys` constant from the CJS and ESM entry points.
+* Added a ready-to-use OpenTelemetry adapter via the `chargebee/telemetry/otel` subpath. `@opentelemetry/api` is an optional peer dependency and is not bundled — install it in your app to use this adapter.
+
+
 ### v3.25.0 (2026-06-08)
 * * *
 ### New Attributes:
