@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { CreateChargebee } from '../src/createChargebee.js';
 import { Environment } from '../src/environment.js';
+import { TelemetryAttributeKeys } from '../src/chargebee.esm.js';
 
 let capturedRequests: Request[] = [];
 let responseFactory: ((attempt: number) => Response) | null = null;
@@ -247,9 +248,7 @@ describe('RequestWrapper - request headers', () => {
       const chargebee = createChargebee();
       await chargebee.customer.list();
 
-      expect(
-        capturedRequests[0].headers.get('X-CB-Retry-Attempt'),
-      ).to.be.null;
+      expect(capturedRequests[0].headers.get('X-CB-Retry-Attempt')).to.be.null;
     });
 
     it('should set X-CB-Retry-Attempt to "1" on the first retry', async () => {
@@ -267,14 +266,17 @@ describe('RequestWrapper - request headers', () => {
       };
 
       const chargebee = createChargebee({
-        retryConfig: { enabled: true, maxRetries: 2, delayMs: 0, retryOn: [500] },
+        retryConfig: {
+          enabled: true,
+          maxRetries: 2,
+          delayMs: 0,
+          retryOn: [500],
+        },
       });
       await chargebee.customer.list();
 
       expect(capturedRequests.length).to.equal(2);
-      expect(
-        capturedRequests[0].headers.get('X-CB-Retry-Attempt'),
-      ).to.be.null;
+      expect(capturedRequests[0].headers.get('X-CB-Retry-Attempt')).to.be.null;
       expect(capturedRequests[1].headers.get('X-CB-Retry-Attempt')).to.equal(
         '1',
       );
@@ -295,14 +297,308 @@ describe('RequestWrapper - request headers', () => {
       };
 
       const chargebee = createChargebee({
-        retryConfig: { enabled: true, maxRetries: 3, delayMs: 0, retryOn: [500] },
+        retryConfig: {
+          enabled: true,
+          maxRetries: 3,
+          delayMs: 0,
+          retryOn: [500],
+        },
       });
       await chargebee.customer.list();
 
       expect(capturedRequests.length).to.equal(3);
       expect(capturedRequests[0].headers.get('X-CB-Retry-Attempt')).to.be.null;
-      expect(capturedRequests[1].headers.get('X-CB-Retry-Attempt')).to.equal('1');
-      expect(capturedRequests[2].headers.get('X-CB-Retry-Attempt')).to.equal('2');
+      expect(capturedRequests[1].headers.get('X-CB-Retry-Attempt')).to.equal(
+        '1',
+      );
+      expect(capturedRequests[2].headers.get('X-CB-Retry-Attempt')).to.equal(
+        '2',
+      );
     });
+  });
+});
+
+describe('RequestWrapper - telemetry adapter', () => {
+  it('should not call telemetry adapter when not configured', async () => {
+    const chargebee = createChargebee();
+    await chargebee.customer.list();
+    expect(capturedRequests.length).to.equal(1);
+  });
+
+  it('should call telemetry adapter once per API call including retries', async () => {
+    const telemetryEvents: string[] = [];
+    let capturedContext: any = null;
+    let capturedResult: any = null;
+
+    responseFactory = (attempt) => {
+      if (attempt < 1) {
+        return new Response(
+          JSON.stringify({ http_status_code: 500, message: 'server error' }),
+          { status: 500, headers: { 'Content-Type': 'application/json' } },
+        );
+      }
+      return new Response(JSON.stringify({ list: [], next_offset: null }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    };
+
+    const chargebee = createChargebee({
+      retryConfig: { enabled: true, maxRetries: 2, delayMs: 0, retryOn: [500] },
+      telemetryAdapter: {
+        onRequestStart: (ctx, headers) => {
+          telemetryEvents.push('start');
+          capturedContext = ctx;
+          headers['traceparent'] = '00-test-trace';
+          return { id: 'span-1' };
+        },
+        onRequestEnd: (_handle, result) => {
+          telemetryEvents.push('end');
+          capturedResult = result;
+        },
+      },
+    });
+
+    await chargebee.customer.list();
+
+    expect(telemetryEvents).to.deep.equal(['start', 'end']);
+    expect(capturedContext.spanName).to.equal('chargebee.customer.list');
+    expect(capturedContext.resource).to.equal('customer');
+    expect(capturedContext.operation).to.equal('list');
+    expect(capturedContext.chargebeeSite).to.equal('test-site');
+    expect(capturedContext.startAttributes['url.full']).to.match(
+      /^https:\/\/test-site\.chargebee\.com/,
+    );
+    expect(capturedContext.startAttributes['http.request.method']).to.equal(
+      'GET',
+    );
+    expect(capturedContext.startAttributes['chargebee.resource']).to.equal(
+      'customer',
+    );
+    expect(capturedResult.httpStatusCode).to.equal(200);
+    expect(capturedResult.endAttributes['http.response.status_code']).to.equal(
+      200,
+    );
+    expect(capturedResult.endAttributes['error.type']).to.equal(undefined);
+    expect(capturedRequests.length).to.equal(2);
+    expect(capturedRequests[0].headers.get('traceparent')).to.equal(
+      '00-test-trace',
+    );
+  });
+
+  it('should report error details on failed API response', async () => {
+    let capturedResult: any = null;
+
+    responseFactory = () =>
+      new Response(
+        JSON.stringify({
+          message: 'Not found',
+          type: 'invalid_request',
+          api_error_code: 'resource_not_found',
+          param: 'subscription_id',
+        }),
+        { status: 404, headers: { 'Content-Type': 'application/json' } },
+      );
+
+    const chargebee = createChargebee({
+      telemetryAdapter: {
+        onRequestStart: () => ({}),
+        onRequestEnd: (_handle, result) => {
+          capturedResult = result;
+        },
+      },
+    });
+
+    try {
+      await chargebee.subscription.retrieve('sub_missing');
+    } catch (_err) {
+      // expected
+    }
+
+    expect(capturedResult.httpStatusCode).to.equal(404);
+    expect(capturedResult.endAttributes['http.response.status_code']).to.equal(
+      404,
+    );
+    expect(capturedResult.endAttributes['error.type']).to.equal('404');
+    expect(capturedResult.endAttributes['chargebee.error.code']).to.equal(
+      'resource_not_found',
+    );
+    expect(capturedResult.endAttributes['chargebee.error.type']).to.equal(
+      'invalid_request',
+    );
+    expect(capturedResult.endAttributes['chargebee.error.param']).to.equal(
+      'subscription_id',
+    );
+    expect(capturedResult.error.chargebeeErrorCode).to.equal(
+      'resource_not_found',
+    );
+    expect(capturedResult.error.chargebeeApiErrorType).to.equal(
+      'invalid_request',
+    );
+    expect(capturedResult.error.chargebeeErrorParam).to.equal(
+      'subscription_id',
+    );
+  });
+
+  it('should not fail API call when onRequestStart throws', async () => {
+    let onRequestEndCalled = false;
+
+    const chargebee = createChargebee({
+      telemetryAdapter: {
+        onRequestStart: () => {
+          throw new Error('start hook failed');
+        },
+        onRequestEnd: () => {
+          onRequestEndCalled = true;
+        },
+      },
+    });
+
+    const result = await chargebee.customer.list();
+    expect(result).to.have.property('list');
+    expect(capturedRequests.length).to.equal(1);
+    expect(onRequestEndCalled).to.equal(true);
+  });
+
+  it('should invoke class-based telemetry adapters', async () => {
+    const telemetryEvents: string[] = [];
+
+    class ClassTelemetryAdapter {
+      onRequestStart() {
+        telemetryEvents.push('start');
+        return { id: 'class-span' };
+      }
+
+      onRequestEnd() {
+        telemetryEvents.push('end');
+      }
+    }
+
+    const chargebee = createChargebee({
+      telemetryAdapter: new ClassTelemetryAdapter(),
+    });
+
+    await chargebee.customer.list();
+
+    expect(telemetryEvents).to.deep.equal(['start', 'end']);
+  });
+
+  it('should capture chargebee-* request headers as http.request.header.* attributes', async () => {
+    let capturedContext: any = null;
+
+    const chargebee = createChargebee({
+      telemetryAdapter: {
+        onRequestStart: (ctx) => {
+          capturedContext = ctx;
+          return { id: 'span-1' };
+        },
+        onRequestEnd: () => {},
+      },
+    });
+
+    await chargebee.customer.list(
+      { limit: 1 },
+      {
+        'chargebee-business-entity-id': 'be_123',
+        'chargebee-event-actions': 'all-disabled',
+        // Mixed-case header name should normalize to lowercase.
+        'Chargebee-Idempotency-Key': 'idem-key-1',
+        // Non-chargebee headers must never be captured.
+        Authorization: 'Basic super-secret',
+        'X-Custom': 'nope',
+      },
+    );
+
+    const attrs = capturedContext.startAttributes;
+    expect(attrs['http.request.header.chargebee-business-entity-id']).to.deep.equal(
+      ['be_123'],
+    );
+    expect(attrs['http.request.header.chargebee-event-actions']).to.deep.equal([
+      'all-disabled',
+    ]);
+    expect(attrs['http.request.header.chargebee-idempotency-key']).to.deep.equal(
+      ['idem-key-1'],
+    );
+    expect(attrs['http.request.header.authorization']).to.equal(undefined);
+    expect(attrs['http.request.header.x-custom']).to.equal(undefined);
+  });
+
+  it('should exclude chargebee-request-origin-* (PII) headers from span attributes', async () => {
+    let capturedContext: any = null;
+
+    const chargebee = createChargebee({
+      telemetryAdapter: {
+        onRequestStart: (ctx) => {
+          capturedContext = ctx;
+          return { id: 'span-1' };
+        },
+        onRequestEnd: () => {},
+      },
+    });
+
+    await chargebee.customer.list(
+      { limit: 1 },
+      {
+        'chargebee-business-entity-id': 'be_123',
+        'chargebee-request-origin-ip': '202.170.207.70',
+        'chargebee-request-origin-user': 'amara@acme.com',
+        'chargebee-request-origin-user-encoded': 'dXNlckBhY21lLmNvbQ==',
+        'chargebee-request-origin-device': 'iOS',
+      },
+    );
+
+    const attrs = capturedContext.startAttributes;
+    // Safe control header is captured...
+    expect(attrs['http.request.header.chargebee-business-entity-id']).to.deep.equal(
+      ['be_123'],
+    );
+    // ...but the PII family is excluded by default.
+    expect(attrs['http.request.header.chargebee-request-origin-ip']).to.equal(
+      undefined,
+    );
+    expect(attrs['http.request.header.chargebee-request-origin-user']).to.equal(
+      undefined,
+    );
+    expect(
+      attrs['http.request.header.chargebee-request-origin-user-encoded'],
+    ).to.equal(undefined);
+    expect(attrs['http.request.header.chargebee-request-origin-device']).to.equal(
+      undefined,
+    );
+    // The PII values must not leak into any attribute.
+    const serialized = JSON.stringify(attrs);
+    expect(serialized).to.not.contain('202.170.207.70');
+    expect(serialized).to.not.contain('amara@acme.com');
+  });
+
+  it('should not fail API call when onRequestEnd throws', async () => {
+    const chargebee = createChargebee({
+      telemetryAdapter: {
+        onRequestStart: () => ({ id: 'span-1' }),
+        onRequestEnd: () => {
+          throw new Error('end hook failed');
+        },
+      },
+    });
+
+    const result = await chargebee.customer.list();
+    expect(result).to.have.property('list');
+    expect(capturedRequests.length).to.equal(1);
+  });
+});
+
+describe('Chargebee telemetry exports', () => {
+  it('should export TelemetryAttributeKeys at runtime', () => {
+    expect(TelemetryAttributeKeys.URL_FULL).to.equal('url.full');
+    expect(TelemetryAttributeKeys.HTTP_REQUEST_METHOD).to.equal(
+      'http.request.method',
+    );
+    expect(TelemetryAttributeKeys.HTTP_RESPONSE_STATUS_CODE).to.equal(
+      'http.response.status_code',
+    );
+    expect(TelemetryAttributeKeys.ERROR_TYPE).to.equal('error.type');
+    expect(TelemetryAttributeKeys.CHARGEBEE_RESOURCE).to.equal(
+      'chargebee.resource',
+    );
   });
 });

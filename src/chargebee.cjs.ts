@@ -9,6 +9,7 @@ import {
   WebhookPayloadParseError,
 } from './resources/webhook/handler.js';
 import { basicAuthValidator } from './resources/webhook/auth.js';
+import { TelemetryAttributeKeys } from './telemetry/index.js';
 import { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
 
 const httpClient = new FetchHttpClient();
@@ -27,6 +28,7 @@ module.exports.WebhookError = WebhookError;
 module.exports.WebhookAuthenticationError = WebhookAuthenticationError;
 module.exports.WebhookPayloadValidationError = WebhookPayloadValidationError;
 module.exports.WebhookPayloadParseError = WebhookPayloadParseError;
+module.exports.TelemetryAttributeKeys = TelemetryAttributeKeys;
 
 // Export validation error class
 module.exports.ChargebeeZodValidationError = ChargebeeZodValidationError;
@@ -40,3 +42,12 @@ export type {
   RequestValidator,
 } from './resources/webhook/handler.js';
 export type { CredentialValidator } from './resources/webhook/auth.js';
+
+// Export telemetry types
+export type {
+  TelemetryAdapter,
+  RequestTelemetryContext,
+  RequestTelemetryResult,
+  RequestTelemetryError,
+  RequestTelemetryHandle,
+} from './telemetry/index.js';

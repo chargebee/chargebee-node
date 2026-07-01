@@ -1,6 +1,9 @@
+import type { TelemetryAdapter } from './telemetry/index.js';
+
 interface HttpClientInterface {
   makeApiRequest: (props: Request, timeout: number) => Promise<Response>;
 }
+
 export type EnvType = {
   protocol: string;
   hostSuffix: string;
@@ -16,6 +19,7 @@ export type EnvType = {
   retryConfig?: RetryConfig;
   enableDebugLogs?: boolean;
   userAgentSuffix?: string;
+  telemetryAdapter?: TelemetryAdapter;
   /** When true, request parameters are validated against Zod schemas before each HTTP call (where a schema exists). */
   enableValidation?: boolean;
 };
@@ -42,6 +46,7 @@ export type Config = {
   enableDebugLogs?: boolean;
   userAgentSuffix?: string;
   httpClient?: HttpClientInterface;
+  telemetryAdapter?: TelemetryAdapter;
   /** When true, request parameters are validated against Zod schemas before each HTTP call (where a schema exists). */
   enableValidation?: boolean;
 };
@@ -54,6 +59,7 @@ export type CustomParam = {
 export type ResponseHeaders = Record<string, string | string[] | number>;
 export type RequestHeaders = Record<string, string | number>;
 export type ResourceType = {
+  resource: string;
   methodName: string;
   httpMethod: string;
   urlPrefix: string;

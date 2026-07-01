@@ -1,6 +1,6 @@
 {
   "name": "chargebee",
-  "version": "3.27.0",
+  "version": "3.28.0",
   "description": "A library for integrating with Chargebee.",
   "scripts": {
     "prepack": "npm install && npm run build",
@@ -34,33 +34,49 @@
     }
   ],
   "exports": {
-    "types": "./types/index.d.ts",
-    "browser": {
-      "import": "./esm/chargebee.esm.worker.js",
-      "require": "./cjs/chargebee.cjs.worker.js"
+    ".": {
+      "types": "./types/index.d.ts",
+      "browser": {
+        "import": "./esm/chargebee.esm.worker.js",
+        "require": "./cjs/chargebee.cjs.worker.js"
+      },
+      "worker": {
+        "import": "./esm/chargebee.esm.worker.js",
+        "require": "./cjs/chargebee.cjs.worker.js"
+      },
+      "workerd": {
+        "import": "./esm/chargebee.esm.worker.js",
+        "require": "./cjs/chargebee.cjs.worker.js"
+      },
+      "deno": {
+        "import": "./esm/chargebee.esm.worker.js",
+        "require": "./cjs/chargebee.cjs.worker.js"
+      },
+      "bun": {
+        "import": "./esm/chargebee.esm.worker.js",
+        "require": "./cjs/chargebee.cjs.worker.js"
+      },
+      "default": {
+        "import": "./esm/chargebee.esm.js",
+        "require": "./cjs/chargebee.cjs.js"
+      }
     },
-    "worker": {
-      "import": "./esm/chargebee.esm.worker.js",
-      "require": "./cjs/chargebee.cjs.worker.js"
-    },
-    "workerd": {
-      "import": "./esm/chargebee.esm.worker.js",
-      "require": "./cjs/chargebee.cjs.worker.js"
-    },
-    "deno": {
-      "import": "./esm/chargebee.esm.worker.js",
-      "require": "./cjs/chargebee.cjs.worker.js"
-    },
-    "bun": {
-      "import": "./esm/chargebee.esm.worker.js",
-      "require": "./cjs/chargebee.cjs.worker.js"
-    },
-    "default": {
-      "import": "./esm/chargebee.esm.js",
-      "require": "./cjs/chargebee.cjs.js"
+    "./telemetry/otel": {
+      "types": "./types/telemetry/otel.d.ts",
+      "import": "./esm/telemetry/otel.js",
+      "require": "./cjs/telemetry/otel.js"
+    }
+  },
+  "peerDependencies": {
+    "@opentelemetry/api": "^1.9.0"
+  },
+  "peerDependenciesMeta": {
+    "@opentelemetry/api": {
+      "optional": true
     }
   },
   "devDependencies": {
+    "@opentelemetry/api": "^1.9.0",
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.12.0",

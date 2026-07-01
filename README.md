@@ -602,6 +602,98 @@ const chargebee = new Chargebee({
 
 These examples demonstrate how to implement and inject custom clients using `axios` and `ky`, respectively.
 
+### Telemetry (OpenTelemetry)
+
+Optional. Pass a `telemetryAdapter` when you want Chargebee API calls traced in your observability stack (Datadog, Splunk, Honeycomb, Jaeger, etc.). The SDK ships a ready-to-use OpenTelemetry adapter, so for most setups you only need to add `@opentelemetry/api` and wire the adapter on the client.
+
+`@opentelemetry/api` is an **optional peer dependency** — it is not bundled with `chargebee` and is only loaded when you import the adapter, so a plain `import 'chargebee'` stays dependency-free.
+
+The SDK builds standardized span attributes (`ctx.startAttributes`, `result.endAttributes`) following the stable [OpenTelemetry HTTP semantic conventions](https://opentelemetry.io/docs/specs/semconv/http/http-spans/) (`url.full`, `http.request.method`, `http.response.status_code`, `server.address`, `error.type`) plus Chargebee-specific `chargebee.*` attributes — use them as-is so spans render correctly in your APM and stay consistent across SDKs.
+
+Spans are named `chargebee.{resource}.{operation}` (e.g. `chargebee.subscription.create`).
+
+#### Quick start (built-in adapter)
+
+```bash
+npm install chargebee @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/exporter-trace-otlp-http
+```
+
+Configure OpenTelemetry once at app startup. Exporting (endpoint, service name, credentials) is driven entirely by your OpenTelemetry runtime and the standard `OTEL_*` environment variables — the adapter just uses the globally registered tracer:
+
+```typescript
+// instrumentation.ts — node --require ./instrumentation.js app.js
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+
+new NodeSDK({
+  serviceName: process.env.OTEL_SERVICE_NAME ?? 'billing-service',
+  traceExporter: new OTLPTraceExporter({
+    url: process.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT ?? 'http://localhost:4318/v1/traces',
+  }),
+}).start();
+```
+
+Then import the ready-to-use adapter and pass it on client initialization:
+
+```typescript
+import Chargebee from 'chargebee';
+import otelDefaultAdapter from 'chargebee/telemetry/otel';
+
+const chargebee = new Chargebee({
+  site: '{{site}}',
+  apiKey: '{{api-key}}',
+  telemetryAdapter: otelDefaultAdapter,
+});
+```
+
+That's it — every SDK call now emits a `chargebee.<resource>.<operation>` CLIENT span that attaches to the active OpenTelemetry context (or starts a root span), with W3C trace context propagated to Chargebee. Spans are exported by your own OpenTelemetry setup, so they flow to whatever backend you've configured (Datadog, Splunk, Honeycomb, Jaeger, etc.) — refer to your APM vendor's OpenTelemetry/OTLP documentation for exporter endpoints.
+
+#### Custom adapter (advanced)
+
+To customize behavior (different tracer name, extra attributes, a non-OpenTelemetry backend, etc.), implement `TelemetryAdapter` yourself instead of importing the built-in adapter:
+
+```typescript
+import Chargebee, {
+  type TelemetryAdapter,
+  type RequestTelemetryContext,
+  type RequestTelemetryResult,
+} from 'chargebee';
+import { context, propagation, trace, SpanKind, SpanStatusCode, type Span } from '@opentelemetry/api';
+
+class OtelTelemetryAdapter implements TelemetryAdapter<Span> {
+  private readonly tracer = trace.getTracer('chargebee-node');
+
+  onRequestStart(ctx: RequestTelemetryContext, requestHeaders: Record<string, string | number>): Span {
+    const span = this.tracer.startSpan(ctx.spanName, {
+      kind: SpanKind.CLIENT,
+      attributes: ctx.startAttributes,
+    });
+    propagation.inject(trace.setSpan(context.active(), span), requestHeaders);
+    return span;
+  }
+
+  onRequestEnd(span: Span | void, result: RequestTelemetryResult) {
+    if (!span) return;
+    for (const [key, value] of Object.entries(result.endAttributes)) {
+      span.setAttribute(key, value);
+    }
+    if (result.error) {
+      span.recordException(new Error(result.error.message));
+      span.setStatus({ code: SpanStatusCode.ERROR, message: result.error.message });
+    } else {
+      span.setStatus({ code: SpanStatusCode.OK });
+    }
+    span.end();
+  }
+}
+
+const chargebee = new Chargebee({
+  site: '{{site}}',
+  apiKey: '{{api-key}}',
+  telemetryAdapter: new OtelTelemetryAdapter(),
+});
+```
+
 ## Feedback
 
 If you find any bugs or have any questions / feedback, open an issue in this repository or reach out to us on dx@chargebee.com

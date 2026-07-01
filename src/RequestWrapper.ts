@@ -16,6 +16,14 @@ import {
   RequestHeaders,
   RetryConfig,
 } from './types.js';
+import {
+  buildRequestTelemetryContext,
+  buildRequestTelemetryResult,
+  extractHttpStatusCode,
+  extractRequestTelemetryError,
+  resolveChargebeeApiVersion,
+  type TelemetryAdapter,
+} from './telemetry/index.js';
 import { handleResponse } from './coreCommon.js';
 import { Buffer } from 'node:buffer';
 import type { ZodObject, ZodRawShape } from 'zod';
@@ -70,9 +78,43 @@ export class RequestWrapper {
     return null;
   }
 
+  private _buildRequestUrl(
+    env: EnvType,
+    urlIdParam: string,
+    params: JSONValue,
+  ): URL {
+    let path: string = getApiURL(
+      env,
+      this.apiCall.urlPrefix,
+      this.apiCall.urlSuffix,
+      urlIdParam,
+    );
+
+    if (this.apiCall.httpMethod === 'GET') {
+      let requestParams: JSONValue = params;
+      if (typeof requestParams === 'undefined' || requestParams === null) {
+        requestParams = {};
+      }
+      const queryParam = this.apiCall.isListReq
+        ? encodeListParams(serialize(requestParams))
+        : encodeParams(serialize(requestParams));
+      path += '?' + queryParam;
+    }
+
+    return new URL(
+      path,
+      `${env.protocol}://${getHost(env, this.apiCall.subDomain)}${env.port ? `:${env.port}` : ''}`,
+    );
+  }
+
   public async request(): Promise<any> {
     let _env: any = {};
     extend(true, _env, this.envArg);
+    // Class-based adapters (e.g. OpenTelemetry) keep methods on the prototype;
+    // deep extend only copies own enumerable properties, so preserve by reference.
+    if (this.envArg.telemetryAdapter !== undefined) {
+      _env.telemetryAdapter = this.envArg.telemetryAdapter;
+    }
 
     const env = _env as EnvType;
 
@@ -129,25 +171,47 @@ export class RequestWrapper {
       this.httpHeaders['chargebee-idempotency-key'] = uuidv4();
     }
 
-    const makeRequest = async (attempt: number = 0): Promise<any> => {
-      let path: string = getApiURL(
-        env,
-        this.apiCall.urlPrefix,
-        this.apiCall.urlSuffix,
-        urlIdParam,
-      );
+    const telemetryAdapter = env.telemetryAdapter;
+    const telemetryHeaders: RequestHeaders = {};
+    const requestStartTime = Date.now();
 
+    const requestUrl = this._buildRequestUrl(env, urlIdParam, params);
+    // No telemetry adapter configured => skip all telemetry work (zero overhead).
+    let telemetryHandle: unknown;
+    if (telemetryAdapter !== undefined) {
+      const telemetryContext = buildRequestTelemetryContext({
+        resource: this.apiCall.resource,
+        operation: this.apiCall.methodName,
+        httpMethod: this.apiCall.httpMethod,
+        httpUrl: `${requestUrl.origin}${requestUrl.pathname}`,
+        serverAddress: requestUrl.hostname,
+        chargebeeSite: env.site,
+        chargebeeApiVersion: resolveChargebeeApiVersion(env.apiPath),
+        sdkVersion: env.clientVersion,
+        requestHeaders: this.httpHeaders,
+      });
+      try {
+        telemetryHandle = telemetryAdapter.onRequestStart(
+          telemetryContext,
+          telemetryHeaders,
+        );
+      } catch (err) {
+        const message =
+          err instanceof Error
+            ? err.message
+            : 'Unknown telemetry adapter error';
+        log(env, {
+          level: 'ERROR',
+          message: `Telemetry adapter onRequestStart failed: ${message}. Continuing without telemetry.`,
+        });
+        telemetryHandle = undefined;
+      }
+    }
+
+    const makeRequest = async (attempt: number = 0): Promise<any> => {
       let requestParams: JSONValue = params;
 
       if (typeof requestParams === 'undefined' || requestParams === null) {
-        requestParams = {};
-      }
-
-      if (this.apiCall.httpMethod === 'GET') {
-        const queryParam = this.apiCall.isListReq
-          ? encodeListParams(serialize(requestParams))
-          : encodeParams(serialize(requestParams));
-        path += '?' + queryParam;
         requestParams = {};
       }
 
@@ -165,7 +229,10 @@ export class RequestWrapper {
             );
       }
 
-      const requestHeaders: RequestHeaders = { ...this.httpHeaders };
+      const requestHeaders: RequestHeaders = {
+        ...this.httpHeaders,
+        ...telemetryHeaders,
+      };
       if (data && data.length) {
         extend(true, requestHeaders, {
           'Content-Length': Buffer.byteLength(data, 'utf8'),
@@ -191,11 +258,7 @@ export class RequestWrapper {
         requestHeaders['X-CB-Retry-Attempt'] = attempt.toString();
       }
 
-      const url = new URL(
-        path,
-        `${env.protocol}://${getHost(env, this.apiCall.subDomain)}${env.port ? `:${env.port}` : ''}`,
-      );
-      const request: Request = new Request(url, {
+      const request: Request = new Request(requestUrl, {
         method: this.apiCall.httpMethod,
         body: data || undefined,
         headers: this._createHeaders(requestHeaders),
@@ -273,7 +336,64 @@ export class RequestWrapper {
       }
     };
 
-    const promise = withRetry(0, Date.now());
+    const runWithTelemetry = async (
+      adapter: TelemetryAdapter,
+    ): Promise<any> => {
+      try {
+        const result = await withRetry(0, requestStartTime);
+        const httpStatusCode =
+          typeof result?.httpStatusCode === 'number'
+            ? result.httpStatusCode
+            : 200;
+        try {
+          adapter.onRequestEnd(
+            telemetryHandle,
+            buildRequestTelemetryResult({
+              httpStatusCode,
+              durationMs: Date.now() - requestStartTime,
+            }),
+          );
+        } catch (err) {
+          const message =
+            err instanceof Error
+              ? err.message
+              : 'Unknown telemetry adapter error';
+          log(env, {
+            level: 'ERROR',
+            message: `Telemetry adapter onRequestEnd failed: ${message}.`,
+          });
+        }
+        return result;
+      } catch (err) {
+        const httpStatusCode = extractHttpStatusCode(err) ?? 500;
+        const telemetryError = extractRequestTelemetryError(err);
+        try {
+          adapter.onRequestEnd(
+            telemetryHandle,
+            buildRequestTelemetryResult({
+              httpStatusCode,
+              durationMs: Date.now() - requestStartTime,
+              error: telemetryError,
+            }),
+          );
+        } catch (telemetryErr) {
+          const message =
+            telemetryErr instanceof Error
+              ? telemetryErr.message
+              : 'Unknown telemetry adapter error';
+          log(env, {
+            level: 'ERROR',
+            message: `Telemetry adapter onRequestEnd failed: ${message}.`,
+          });
+        }
+        throw err;
+      }
+    };
+
+    const promise =
+      telemetryAdapter !== undefined
+        ? runWithTelemetry(telemetryAdapter)
+        : withRetry(0, requestStartTime);
     return callbackifyPromise(promise);
   }
 

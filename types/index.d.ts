@@ -170,6 +170,11 @@ declare module 'chargebee' {
     httpClient?: HttpClientInterface;
 
     /**
+     * @telemetryAdapter optional telemetry adapter for observability (e.g. OpenTelemetry)
+     */
+    telemetryAdapter?: TelemetryAdapter;
+
+    /**
      * @enableValidation When true, every request's parameters are validated against each endpoint's generated Zod schema before the HTTP request is sent. Violations throw `ChargebeeZodValidationError` with structured Zod issues. Calls with no params argument are validated as `{}`. Required resource ids in the URL path are still checked separately.
      */
     enableValidation?: boolean;
@@ -177,6 +182,70 @@ declare module 'chargebee' {
 
   export interface HttpClientInterface {
     makeApiRequest: (request: Request, timeout: number) => Promise<Response>;
+  }
+
+  export type RequestTelemetryHandle = unknown;
+
+  export const TelemetryAttributeKeys: {
+    readonly URL_FULL: 'url.full';
+    readonly HTTP_REQUEST_METHOD: 'http.request.method';
+    readonly HTTP_RESPONSE_STATUS_CODE: 'http.response.status_code';
+    readonly SERVER_ADDRESS: 'server.address';
+    readonly ERROR_TYPE: 'error.type';
+    readonly CHARGEBEE_SITE: 'chargebee.site';
+    readonly CHARGEBEE_API_VERSION: 'chargebee.api_version';
+    readonly CHARGEBEE_RESOURCE: 'chargebee.resource';
+    readonly CHARGEBEE_OPERATION: 'chargebee.operation';
+    readonly CHARGEBEE_SDK_NAME: 'chargebee.sdk.name';
+    readonly CHARGEBEE_SDK_VERSION: 'chargebee.sdk.version';
+    readonly CHARGEBEE_ERROR_CODE: 'chargebee.error.code';
+    readonly CHARGEBEE_ERROR_TYPE: 'chargebee.error.type';
+    readonly CHARGEBEE_ERROR_PARAM: 'chargebee.error.param';
+  };
+
+  export type RequestTelemetryContext = {
+    spanName: string;
+    resource: string;
+    operation: string;
+    httpMethod: string;
+    httpUrl: string;
+    serverAddress: string;
+    chargebeeSite: string;
+    chargebeeApiVersion: 'v1' | 'v2';
+    sdkName: string;
+    sdkVersion: string;
+    /**
+     * Prebuilt span attributes — pass these to your tracer. Captured `chargebee-*` request
+     * headers appear as `http.request.header.<name>` with string[] values per OTel semconv.
+     */
+    startAttributes: Record<string, string | string[]>;
+  };
+
+  export type RequestTelemetryError = {
+    message: string;
+    chargebeeErrorCode?: string;
+    chargebeeApiErrorType?: string;
+    chargebeeErrorParam?: string;
+  };
+
+  export type RequestTelemetryResult = {
+    httpStatusCode: number;
+    durationMs: number;
+    error?: RequestTelemetryError;
+    /** Prebuilt span attributes — pass these to your tracer. */
+    endAttributes: Record<string, string | number>;
+  };
+
+  /**
+   * Optional telemetry adapter. Implement as a class or plain object — the SDK
+   * keeps it by reference (never deep-cloned). Wire OpenTelemetry or other tools here.
+   */
+  export interface TelemetryAdapter<THandle = RequestTelemetryHandle> {
+    onRequestStart(
+      context: RequestTelemetryContext,
+      requestHeaders: Record<string, string | number>,
+    ): THandle | void;
+    onRequestEnd(handle: THandle | void, result: RequestTelemetryResult): void;
   }
 
   export type RetryConfig = {

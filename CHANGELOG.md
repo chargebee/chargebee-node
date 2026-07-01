@@ -1,5 +1,12 @@
-### v3.27.0 (2026-06-30)
+### v3.28.0 (2026-06-30)
 * * *
+
+### New Features
+* Added an optional `telemetryAdapter` config hook for tracing Chargebee API calls via OpenTelemetry (or any APM). When unconfigured, the SDK skips all telemetry work — no behavior change for existing integrations.
+* Each API call emits one CLIENT span (`chargebee.{resource}.{operation}`) with OpenTelemetry HTTP semantic-convention attributes plus `chargebee.*` attributes, and injects W3C trace context (`traceparent`) into outbound requests for distributed tracing.
+* Exposed `TelemetryAdapter`, `RequestTelemetryContext`, `RequestTelemetryResult`, `RequestTelemetryError`, `RequestTelemetryHandle` types and the `TelemetryAttributeKeys` constant from the CJS and ESM entry points.
+* Added a ready-to-use OpenTelemetry adapter via the `chargebee/telemetry/otel` subpath. `@opentelemetry/api` is an optional peer dependency and is not bundled — install it in your app to use this adapter.
+
 ### Enhancements:
 - **Zod-backed request validation** — Set `enableValidation: true` in the client configuration to validate outgoing request parameters against each endpoint's generated Zod schema before the API call is sent. Invalid payloads raise `ChargebeeZodValidationError`, which carries the offending `actionName` and the original `ZodError` (including `issues` and `flatten()`) for inspection.
 - **Runtime dependency** — Added [`zod`](https://www.npmjs.com/package/zod) (v4) as a runtime dependency to support request validation.
@@ -39,7 +46,6 @@
 - `created_at` has been added as a new value to enum query parameter `sort_by.desc` in [`list_ledger_operations`](https://apidocs.chargebee.com/docs/api/ledger_operations/list-ledger-operations) of [`LedgerOperation`](https://apidocs.chargebee.com/docs/api/ledger_operations).
 - `updated_at` and `created_at` have been added as new values to enum query parameter `sort_by.asc` in [`list_omnichannel_subscriptions`](https://apidocs.chargebee.com/docs/api/omnichannel_subscriptions/list-omnichannel-subscriptions) of [`OmnichannelSubscription`](https://apidocs.chargebee.com/docs/api/omnichannel_subscriptions).
 - `updated_at` and `created_at` have been added as new values to enum query parameter `sort_by.desc` in [`list_omnichannel_subscriptions`](https://apidocs.chargebee.com/docs/api/omnichannel_subscriptions/list-omnichannel-subscriptions) of [`OmnichannelSubscription`](https://apidocs.chargebee.com/docs/api/omnichannel_subscriptions).
-
 
 
 ### v3.25.0 (2026-06-08)

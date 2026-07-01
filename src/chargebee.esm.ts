@@ -18,6 +18,7 @@ export {
   WebhookPayloadValidationError,
   WebhookPayloadParseError,
 } from './resources/webhook/handler.js';
+export { TelemetryAttributeKeys } from './telemetry/index.js';
 
 // Export validation error class
 export { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
@@ -31,3 +32,12 @@ export type {
   RequestValidator,
 } from './resources/webhook/handler.js';
 export type { CredentialValidator } from './resources/webhook/auth.js';
+
+// Export telemetry types
+export type {
+  TelemetryAdapter,
+  RequestTelemetryContext,
+  RequestTelemetryResult,
+  RequestTelemetryError,
+  RequestTelemetryHandle,
+} from './telemetry/index.js';
