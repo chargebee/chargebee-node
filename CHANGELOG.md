@@ -1,3 +1,12 @@
+### v3.28.1 (2026-07-16)
+* * *
+### Bug Fixes:
+- Stopped setting the `Content-Length` header manually in `RequestWrapper`. `fetch`/undici already derives the correct value from the request `body`, so the manual header was redundant. When `FetchHttpClient` re-wraps the request (`new Request(request, { signal })`), some Node builds re-append the body-derived value, producing a comma-joined `"N, N"`. undici (>= 7.28) validates `Content-Length` with a strict all-digit check and rejects that value with `InvalidArgumentError: invalid content-length header`, failing the request before it reaches Chargebee. The header is now left to the platform. This is distinct from the value-correctness fix in v3.24.1 (issue #119). Verified on Node 18/20/22/24 and Cloudflare Workers (`workerd`), where the runtime emits the correct UTF-8 byte-length `Content-Length` on the wire.
+
+### Tests:
+- POST requests no longer set a `Content-Length` header on the outgoing `Request` (ASCII form-urlencoded and multi-byte JSON bodies), guarding against the duplicate-header regression while preserving body integrity.
+
+
 ### v3.28.0 (2026-06-30)
 * * *
 

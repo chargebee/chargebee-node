@@ -233,11 +233,11 @@ export class RequestWrapper {
         ...this.httpHeaders,
         ...telemetryHeaders,
       };
-      if (data && data.length) {
-        extend(true, requestHeaders, {
-          'Content-Length': Buffer.byteLength(data, 'utf8'),
-        });
-      }
+      // Intentionally do NOT set Content-Length here. fetch/undici derives it
+      // from `body` at dispatch time. Setting it manually is redundant and, when
+      // FetchHttpClient re-wraps the Request (`new Request(request, { signal })`),
+      // some Node builds re-append the body-derived value, producing a comma-joined
+      // "N, N" that undici (>= 7.28) rejects as an invalid content-length header.
 
       const contentType = this.apiCall.isJsonRequest
         ? 'application/json;charset=UTF-8'

@@ -191,7 +191,12 @@ describe('RequestWrapper - request headers', () => {
   });
 
   describe('Content-Length header', () => {
-    it('should set Content-Length to the UTF-8 byte length for ASCII form-urlencoded bodies', async () => {
+    // The SDK must NOT set Content-Length manually. fetch/undici derives it from
+    // `body` at dispatch time; a manual header is redundant and can be re-appended
+    // into a comma-joined "N, N" when FetchHttpClient re-wraps the Request, which
+    // undici (>= 7.28) rejects as an invalid content-length header.
+    // See: RequestWrapper#request and src/net/FetchClient.ts.
+    it('should NOT set Content-Length manually for ASCII form-urlencoded bodies', async () => {
       responseFactory = () =>
         new Response(JSON.stringify({ customer: { id: 'cust_123' } }), {
           status: 200,
@@ -202,13 +207,11 @@ describe('RequestWrapper - request headers', () => {
       await chargebee.customer.create({ first_name: 'John' });
 
       const body = await capturedRequests[0].text();
-      const expected = Buffer.byteLength(body, 'utf8');
-      expect(capturedRequests[0].headers.get('Content-Length')).to.equal(
-        String(expected),
-      );
+      expect(body).to.include('first_name=John');
+      expect(capturedRequests[0].headers.get('Content-Length')).to.be.null;
     });
 
-    it('should set Content-Length to the UTF-8 byte length (not character count) for multi-byte JSON bodies', async () => {
+    it('should NOT set Content-Length manually for multi-byte JSON bodies', async () => {
       responseFactory = () =>
         new Response(JSON.stringify({ personalized_offers: [] }), {
           status: 200,
@@ -225,10 +228,9 @@ describe('RequestWrapper - request headers', () => {
       const body = await capturedRequests[0].text();
       const byteLength = Buffer.byteLength(body, 'utf8');
       const charLength = body.length;
+      // Body integrity: multi-byte payload is preserved intact.
       expect(byteLength).to.be.greaterThan(charLength);
-      expect(capturedRequests[0].headers.get('Content-Length')).to.equal(
-        String(byteLength),
-      );
+      expect(capturedRequests[0].headers.get('Content-Length')).to.be.null;
     });
   });
 
