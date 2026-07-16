@@ -233,11 +233,6 @@ export class RequestWrapper {
         ...this.httpHeaders,
         ...telemetryHeaders,
       };
-      if (data && data.length) {
-        extend(true, requestHeaders, {
-          'Content-Length': Buffer.byteLength(data, 'utf8'),
-        });
-      }
 
       const contentType = this.apiCall.isJsonRequest
         ? 'application/json;charset=UTF-8'
