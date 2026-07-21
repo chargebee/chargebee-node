@@ -115,18 +115,16 @@ export function buildRequestEndSpanAttributes(
   };
 
   if (result.error) {
-    // error.type is the status code on failed requests
-    attributes[TelemetryAttributeKeys.ERROR_TYPE] = String(
-      result.httpStatusCode,
-    );
+    if (result.error.chargebeeApiErrorType) {
+      attributes[TelemetryAttributeKeys.ERROR_TYPE] =
+        result.error.chargebeeApiErrorType;
+      attributes[TelemetryAttributeKeys.CHARGEBEE_ERROR_TYPE] =
+        result.error.chargebeeApiErrorType;
+    }
 
     if (result.error.chargebeeErrorCode) {
       attributes[TelemetryAttributeKeys.CHARGEBEE_ERROR_CODE] =
         result.error.chargebeeErrorCode;
-    }
-    if (result.error.chargebeeApiErrorType) {
-      attributes[TelemetryAttributeKeys.CHARGEBEE_ERROR_TYPE] =
-        result.error.chargebeeApiErrorType;
     }
     if (result.error.chargebeeErrorParam) {
       attributes[TelemetryAttributeKeys.CHARGEBEE_ERROR_PARAM] =
@@ -168,6 +166,9 @@ export function extractRequestTelemetryError(
   err: unknown,
 ): RequestTelemetryError | undefined {
   if (err == null || typeof err !== 'object') {
+    if (err instanceof Error) {
+      return { message: err.message };
+    }
     return undefined;
   }
 
@@ -175,7 +176,9 @@ export function extractRequestTelemetryError(
   const message =
     typeof errorObj.message === 'string'
       ? errorObj.message
-      : 'Chargebee API request failed';
+      : err instanceof Error
+        ? err.message
+        : 'Chargebee API request failed';
 
   const result: RequestTelemetryError = { message };
 

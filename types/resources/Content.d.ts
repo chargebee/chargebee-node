@@ -8,6 +8,8 @@ declare module 'chargebee' {
     advance_invoice_schedule: AdvanceInvoiceSchedule;
     alert: Alert;
     alert_status: AlertStatus;
+    async_response: AsyncResponse;
+    async_response_list: AsyncResponseList;
     attached_item: AttachedItem;
     attribute: Attribute;
     billing_configuration: BillingConfiguration;
@@ -15,6 +17,7 @@ declare module 'chargebee' {
     business_entity: BusinessEntity;
     business_entity_transfer: BusinessEntityTransfer;
     card: Card;
+    column_definition: ColumnDefinition;
     comment: Comment;
     configuration: Configuration;
     contact: Contact;
@@ -58,6 +61,8 @@ declare module 'chargebee' {
     ledger_account_balance: LedgerAccountBalance;
     ledger_operation: LedgerOperation;
     metadata: Metadata;
+    meter: Meter;
+    metered_feature: MeteredFeature;
     non_subscription: NonSubscription;
     offer_event: OfferEvent;
     offer_fulfillment: OfferFulfillment;

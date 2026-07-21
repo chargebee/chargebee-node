@@ -1070,7 +1070,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1172,7 +1175,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1298,6 +1304,7 @@ declare module 'chargebee' {
       avalara_service_type?: number;
       date_from?: number;
       date_to?: number;
+      entity_description?: string;
     }
     export interface DiscountsCreateInvoiceForItemsInputParam {
       percentage?: number;
@@ -1325,6 +1332,8 @@ declare module 'chargebee' {
       unit_price_in_decimal?: string;
       date_from?: number;
       date_to?: number;
+      description?: string;
+      entity_description?: string;
     }
     export interface TaxProvidersFieldsCreateInvoiceForItemsInputParam {
       provider_name?: string;

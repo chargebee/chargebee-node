@@ -15,7 +15,6 @@ declare module 'chargebee' {
     voided_amount: string;
     origin_grant_block_id?: string;
     status: StatusEnum;
-    metadata?: string;
     grant_source:
       | 'subscription_created'
       | 'subscription_changed'
@@ -26,6 +25,7 @@ declare module 'chargebee' {
     account_type?: 'provisioned' | 'overdraft';
     unit_id?: string;
     unit_type?: 'credit_unit';
+    metadata?: any;
   }
 
   export namespace GrantBlock {

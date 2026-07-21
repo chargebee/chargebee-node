@@ -58,6 +58,7 @@ declare module 'chargebee' {
     deleted: boolean;
     tax_category?: string;
     local_currency_exchange_rate?: number;
+    exchange_rates?: CreditNote.ExchangeRate[];
     create_reason_code?: string;
     vat_number_prefix?: string;
     business_entity_id?: string;
@@ -261,6 +262,11 @@ declare module 'chargebee' {
         | 'tax_not_configured_external_provider';
       entity_id?: string;
       customer_id?: string;
+      proration_mode?:
+        | 'reset'
+        | 'delta'
+        | 'service_period_revision'
+        | 'adjusted_term';
     }
     export interface LineItemTier {
       line_item_id?: string;
@@ -387,6 +393,10 @@ declare module 'chargebee' {
         | 'voided'
         | 'pending';
       tax_application?: 'pre_tax' | 'post_tax';
+    }
+    export interface ExchangeRate {
+      currency_code: string;
+      rate: number;
     }
     export interface ShippingAddress {
       first_name?: string;
@@ -694,6 +704,11 @@ declare module 'chargebee' {
       tax9_amount?: number;
       tax10_name?: string;
       tax10_amount?: number;
+      proration_mode?:
+        | 'reset'
+        | 'delta'
+        | 'service_period_revision'
+        | 'adjusted_term';
     }
   }
 }

@@ -473,6 +473,7 @@ declare module 'chargebee' {
       offline_payment_method?: filter.Enum;
       auto_close_invoices?: filter.Boolean;
       channel?: filter.Enum;
+      decommissioned?: filter.Boolean;
       plan_id?: filter.String;
     }
 

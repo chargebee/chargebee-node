@@ -798,6 +798,12 @@ export interface PaymentSourceAddedContent {
   PaymentSource: import('chargebee').PaymentSource;
 }
 
+export interface PaymentSourceBusinessEntityChangedContent {
+  BusinessEntityTransfer: import('chargebee').BusinessEntityTransfer;
+
+  PaymentSource: import('chargebee').PaymentSource;
+}
+
 export interface PaymentSourceDeletedContent {
   Customer: import('chargebee').Customer;
 
@@ -1722,6 +1728,8 @@ export type WebhookContentMap = {
   [WebhookEventType.PaymentSchedulesUpdated]: PaymentSchedulesUpdatedContent;
 
   [WebhookEventType.PaymentSourceAdded]: PaymentSourceAddedContent;
+
+  [WebhookEventType.PaymentSourceBusinessEntityChanged]: PaymentSourceBusinessEntityChangedContent;
 
   [WebhookEventType.PaymentSourceDeleted]: PaymentSourceDeletedContent;
 

@@ -183,6 +183,7 @@ declare module 'chargebee' {
     OmnichannelSubscriptionItemGracePeriodStarted = 'omnichannel_subscription_item_grace_period_started',
     CardExpiryReminder = 'card_expiry_reminder',
     TokenCreated = 'token_created',
+    PaymentSourceBusinessEntityChanged = 'payment_source_business_entity_changed',
     PromotionalCreditsAdded = 'promotional_credits_added',
     SubscriptionRampUpdated = 'subscription_ramp_updated',
     CustomerEntitlementsUpdated = 'customer_entitlements_updated',
@@ -410,6 +411,7 @@ declare module 'chargebee' {
     [WebhookEventType.OmnichannelSubscriptionItemGracePeriodStarted]: OmnichannelSubscriptionItemGracePeriodStartedContent;
     [WebhookEventType.CardExpiryReminder]: CardExpiryReminderContent;
     [WebhookEventType.TokenCreated]: TokenCreatedContent;
+    [WebhookEventType.PaymentSourceBusinessEntityChanged]: PaymentSourceBusinessEntityChangedContent;
     [WebhookEventType.PromotionalCreditsAdded]: PromotionalCreditsAddedContent;
     [WebhookEventType.SubscriptionRampUpdated]: SubscriptionRampUpdatedContent;
     [WebhookEventType.CustomerEntitlementsUpdated]: CustomerEntitlementsUpdatedContent;
@@ -1503,6 +1505,11 @@ declare module 'chargebee' {
   };
   export type TokenCreatedContent = {
     token: Token;
+  };
+  export type PaymentSourceBusinessEntityChangedContent = {
+    business_entity_transfer: BusinessEntityTransfer;
+
+    payment_source: PaymentSource;
   };
   export type PromotionalCreditsAddedContent = {
     customer: Customer;

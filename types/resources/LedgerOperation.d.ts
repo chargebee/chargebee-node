@@ -15,8 +15,6 @@ declare module 'chargebee' {
       | 'rollover'
       | 'adjustment';
     amount: string;
-    start_balance: string;
-    end_balance: string;
     provisioned_start_balance: string;
     provisioned_end_balance: string;
     overdraft_start_balance: string;
@@ -24,12 +22,12 @@ declare module 'chargebee' {
     parent_ledger_operation_id?: string;
     ledger_operation_timestamp?: number;
     auto_release_timestamp?: number;
-    metadata?: string;
     created_at?: number;
     modified_at?: number;
     subscription_id?: string;
     unit_id?: string;
     unit_type?: 'credit_unit';
+    metadata?: any;
   }
 
   export namespace LedgerOperation {

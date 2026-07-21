@@ -267,6 +267,8 @@ export enum WebhookEventType {
 
   PaymentSourceAdded = 'payment_source_added',
 
+  PaymentSourceBusinessEntityChanged = 'payment_source_business_entity_changed',
+
   PaymentSourceDeleted = 'payment_source_deleted',
 
   PaymentSourceExpired = 'payment_source_expired',

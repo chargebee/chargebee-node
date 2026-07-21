@@ -43,6 +43,7 @@ declare module 'chargebee' {
     resource_version?: number;
     updated_at?: number;
     line_items_next_offset?: string;
+    exchange_rates?: Invoice.ExchangeRate[];
     first_invoice?: boolean;
     new_sales_amount?: number;
     has_advance_charges?: boolean;
@@ -499,6 +500,10 @@ declare module 'chargebee' {
       invoice: Invoice;
     }
 
+    export interface ExchangeRate {
+      currency_code: string;
+      rate: number;
+    }
     export interface LineItem {
       id?: string;
       subscription_id?: string;
@@ -547,6 +552,11 @@ declare module 'chargebee' {
         | 'tax_not_configured_external_provider';
       entity_id?: string;
       customer_id?: string;
+      proration_mode?:
+        | 'reset'
+        | 'delta'
+        | 'service_period_revision'
+        | 'adjusted_term';
     }
     export interface LineItemTier {
       line_item_id?: string;
@@ -688,7 +698,11 @@ declare module 'chargebee' {
     export interface DunningAttempt {
       attempt: number;
       transaction_id?: string;
-      dunning_type: 'auto_collect' | 'offline' | 'direct_debit';
+      dunning_type:
+        | 'auto_collect'
+        | 'offline'
+        | 'direct_debit'
+        | 'real_time_payments';
       created_at?: number;
       txn_status?:
         | 'in_progress'
@@ -911,6 +925,7 @@ declare module 'chargebee' {
       auto_collection?: AutoCollectionEnum;
       net_term_days?: number;
       invoice_date?: number;
+      create_pending_invoice?: boolean;
       token_id?: string;
       replace_primary_payment_source?: boolean;
       retain_payment_source?: boolean;
@@ -1022,6 +1037,7 @@ declare module 'chargebee' {
       net_term_days?: number;
       has_advance_charges?: boolean;
       use_for_proration?: boolean;
+      paid_at?: number;
       credit_note?: CreditNoteImportInvoiceInputParam;
       billing_address?: BillingAddressImportInvoiceInputParam;
       shipping_address?: ShippingAddressImportInvoiceInputParam;
@@ -1294,7 +1310,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1465,7 +1484,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1505,6 +1527,7 @@ declare module 'chargebee' {
     }
 
     export interface ChargesCreateForChargeItemsAndChargesInputParam {
+      entity_description?: string;
       amount?: number;
       amount_in_decimal?: string;
       description?: string;
@@ -1545,6 +1568,8 @@ declare module 'chargebee' {
       unit_price_in_decimal?: string;
       date_from?: number;
       date_to?: number;
+      description?: string;
+      entity_description?: string;
     }
     export interface TaxProvidersFieldsCreateForChargeItemsAndChargesInputParam {
       provider_name?: string;
@@ -1741,6 +1766,11 @@ declare module 'chargebee' {
       tax9_amount?: number;
       tax10_name?: string;
       tax10_amount?: number;
+      proration_mode?:
+        | 'reset'
+        | 'delta'
+        | 'service_period_revision'
+        | 'adjusted_term';
       created_at?: number;
     }
     export interface TransactionsApplyPaymentsInputParam {
