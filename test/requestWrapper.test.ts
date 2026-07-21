@@ -421,7 +421,9 @@ describe('RequestWrapper - telemetry adapter', () => {
     expect(capturedResult.endAttributes['http.response.status_code']).to.equal(
       404,
     );
-    expect(capturedResult.endAttributes['error.type']).to.equal('404');
+    expect(capturedResult.endAttributes['error.type']).to.equal(
+      'invalid_request',
+    );
     expect(capturedResult.endAttributes['chargebee.error.code']).to.equal(
       'resource_not_found',
     );
