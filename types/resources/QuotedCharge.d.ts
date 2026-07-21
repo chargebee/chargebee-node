@@ -16,6 +16,7 @@ declare module 'chargebee' {
       amount?: number;
       amount_in_decimal?: string;
       description?: string;
+      entity_description?: string;
       service_period_in_days?: number;
       avalara_sale_type?: 'wholesale' | 'retail' | 'consumed' | 'vendor_use';
       avalara_transaction_type?: number;
@@ -36,6 +37,8 @@ declare module 'chargebee' {
       quantity_in_decimal?: string;
       unit_price?: number;
       unit_price_in_decimal?: string;
+      description?: string;
+      entity_description?: string;
       service_period_days?: number;
     }
     export interface ItemTier {

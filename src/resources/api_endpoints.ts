@@ -13,6 +13,8 @@ type EndpointTuple = [
   },
 ];
 interface Endpoints {
+  asyncResponseList: EndpointTuple[];
+  asyncResponse: EndpointTuple[];
   subscription: EndpointTuple[];
   contractTerm: EndpointTuple[];
   discount: EndpointTuple[];
@@ -99,7 +101,9 @@ interface Endpoints {
   omnichannelOneTimeOrder: EndpointTuple[];
   omnichannelOneTimeOrderItem: EndpointTuple[];
   rule: EndpointTuple[];
+  meter: EndpointTuple[];
   usageEvent: EndpointTuple[];
+  meteredFeature: EndpointTuple[];
   usageFile: EndpointTuple[];
   personalizedOffer: EndpointTuple[];
   brand: EndpointTuple[];
@@ -120,6 +124,8 @@ interface Endpoints {
   subscriptionEntitlementsCreatedDetail: EndpointTuple[];
 }
 export const Endpoints: Endpoints = {
+  asyncResponseList: [],
+  asyncResponse: [],
   subscription: [
     [
       'create',
@@ -4918,6 +4924,7 @@ export const Endpoints: Endpoints = {
   ],
   omnichannelOneTimeOrderItem: [],
   rule: [['retrieve', 'GET', '/rules', null, true, null, false, {}, {}]],
+  meter: [['list', 'GET', '/meters', null, false, null, false, {}, {}]],
   usageEvent: [
     [
       'create',
@@ -4944,6 +4951,60 @@ export const Endpoints: Endpoints = {
         properties: 1,
       },
       {},
+    ],
+  ],
+  meteredFeature: [
+    [
+      'create',
+      'POST',
+      '/metered_features',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'archive',
+      'POST',
+      '/metered_features',
+      '/archive_command',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'reactivate',
+      'POST',
+      '/metered_features',
+      '/reactivate_command',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'delete',
+      'POST',
+      '/metered_features',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
     ],
   ],
   usageFile: [

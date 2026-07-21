@@ -1676,6 +1676,9 @@ const SubscriptionsExportChannelSchema = z.object({
   in: z.enum(['web', 'app_store', 'play_store']).optional(),
   not_in: z.enum(['web', 'app_store', 'play_store']).optional(),
 });
+const SubscriptionsExportDecommissionedSchema = z.object({
+  is: z.enum(['true', 'false']).optional(),
+});
 const SubscriptionsExportPlanIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
@@ -1701,6 +1704,7 @@ const SubscriptionsExportSubscriptionItemSchema = z.object({
     SubscriptionsExportOfflinePaymentMethodSchema.optional(),
   auto_close_invoices: SubscriptionsExportAutoCloseInvoicesSchema.optional(),
   channel: SubscriptionsExportChannelSchema.optional(),
+  decommissioned: SubscriptionsExportDecommissionedSchema.optional(),
   plan_id: SubscriptionsExportPlanIdSchema.optional(),
 });
 const SubscriptionsExportBodySchema = z.looseObject({
@@ -2175,6 +2179,9 @@ const TransactionsExportPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   is_not: z
@@ -2236,6 +2243,9 @@ const TransactionsExportPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   in: z
@@ -2297,6 +2307,9 @@ const TransactionsExportPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   not_in: z
@@ -2358,6 +2371,9 @@ const TransactionsExportPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
 });
@@ -2970,8 +2986,8 @@ export type OrdersExportBody = z.infer<typeof OrdersExportBodySchema>;
 //Export.itemFamilies
 
 const ItemFamiliesExportBusinessEntityIdSchema = z.object({
-  is: z.string().min(1).optional(),
   is_present: z.enum(['true', 'false']).optional(),
+  is: z.string().min(1).optional(),
 });
 const ItemFamiliesExportIncludeSiteLevelResourcesSchema = z.object({
   is: z.enum(['true', 'false']).optional(),
@@ -3015,8 +3031,8 @@ export type ItemFamiliesExportBody = z.infer<
 //Export.items
 
 const ItemsExportBusinessEntityIdSchema = z.object({
-  is: z.string().min(1).optional(),
   is_present: z.enum(['true', 'false']).optional(),
+  is: z.string().min(1).optional(),
 });
 const ItemsExportIncludeSiteLevelResourcesSchema = z.object({
   is: z.enum(['true', 'false']).optional(),
@@ -3135,8 +3151,8 @@ const ItemPricesExportCurrencyCodeSchema = z.object({
   not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ItemPricesExportBusinessEntityIdSchema = z.object({
-  is: z.string().min(1).optional(),
   is_present: z.enum(['true', 'false']).optional(),
+  is: z.string().min(1).optional(),
 });
 const ItemPricesExportIncludeSiteLevelResourcesSchema = z.object({
   is: z.enum(['true', 'false']).optional(),
@@ -3410,8 +3426,8 @@ export type DifferentialPricesExportBody = z.infer<
 //Export.priceVariants
 
 const PriceVariantsExportBusinessEntityIdSchema = z.object({
-  is: z.string().min(1).optional(),
   is_present: z.enum(['true', 'false']).optional(),
+  is: z.string().min(1).optional(),
 });
 const PriceVariantsExportIncludeSiteLevelResourcesSchema = z.object({
   is: z.enum(['true', 'false']).optional(),

@@ -59,6 +59,9 @@ const CreateUsingTempTokenPaymentSourceBodySchema = z.looseObject({
     'paypay',
     'gcash',
     'south_korean_cards',
+    'paynow',
+    'bizum',
+    'promptpay',
   ]),
   tmp_token: z.string().max(65000),
   issuing_country: z.string().max(50).optional(),
@@ -171,6 +174,9 @@ const CreateUsingPermanentTokenPaymentSourceBodySchema = z.looseObject({
     'paypay',
     'gcash',
     'south_korean_cards',
+    'paynow',
+    'bizum',
+    'promptpay',
   ]),
   gateway_account_id: z.string().max(50).optional(),
   reference_id: z.string().max(200).optional(),
@@ -262,6 +268,9 @@ const CreateUsingPaymentIntentPaymentSourcePaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -487,6 +496,9 @@ const ListPaymentSourceTypeSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   is_not: z
@@ -538,6 +550,9 @@ const ListPaymentSourceTypeSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   in: z
@@ -589,6 +604,9 @@ const ListPaymentSourceTypeSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   not_in: z
@@ -640,6 +658,9 @@ const ListPaymentSourceTypeSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
 });

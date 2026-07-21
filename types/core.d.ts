@@ -86,7 +86,11 @@ declare module 'chargebee' {
     | 'not_applicable';
   type DiscountTypeEnum = 'fixed_amount' | 'percentage' | 'price';
   type DispositionTypeEnum = 'attachment' | 'inline';
-  type DunningTypeEnum = 'auto_collect' | 'offline' | 'direct_debit';
+  type DunningTypeEnum =
+    | 'auto_collect'
+    | 'offline'
+    | 'direct_debit'
+    | 'real_time_payments';
   type DurationTypeEnum = 'one_time' | 'forever' | 'limited_period';
   type EcheckTypeEnum = 'web' | 'ppd' | 'ccd';
   type EinvoicingMethodEnum = 'automatic' | 'manual' | 'site_default';
@@ -319,6 +323,7 @@ declare module 'chargebee' {
     | 'business_entity_deleted'
     | 'customer_business_entity_changed'
     | 'subscription_business_entity_changed'
+    | 'payment_source_business_entity_changed'
     | 'purchase_created'
     | 'voucher_created'
     | 'voucher_expired'
@@ -539,7 +544,10 @@ declare module 'chargebee' {
     | 'alipay_hk'
     | 'paypay'
     | 'gcash'
-    | 'south_korean_cards';
+    | 'south_korean_cards'
+    | 'paynow'
+    | 'bizum'
+    | 'promptpay';
   type PaymentMethodSavePolicyEnum = 'always' | 'ask' | 'never';
   type PaymentMethodTypeEnum =
     | 'card'
@@ -588,7 +596,10 @@ declare module 'chargebee' {
     | 'alipay_hk'
     | 'paypay'
     | 'gcash'
-    | 'south_korean_cards';
+    | 'south_korean_cards'
+    | 'paynow'
+    | 'bizum'
+    | 'promptpay';
   type PaymentVoucherTypeEnum = 'boleto';
   type PeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
   type PriceTypeEnum = 'tax_exclusive' | 'tax_inclusive';
@@ -628,7 +639,14 @@ declare module 'chargebee' {
     | 'js_api'
     | 'migration'
     | 'external_service';
-  type StatusEnum = 'available' | 'exhausted' | 'scheduled' | 'in_grace_period';
+  type StatusEnum =
+    | 'active'
+    | 'archived'
+    | 'deleted'
+    | 'available'
+    | 'exhausted'
+    | 'scheduled'
+    | 'in_grace_period';
   type TaxExemptReasonEnum =
     | 'tax_not_configured'
     | 'region_non_taxable'
@@ -649,7 +667,16 @@ declare module 'chargebee' {
     | 'special'
     | 'unincorporated'
     | 'other';
-  type TaxOverrideReasonEnum = 'id_exempt' | 'customer_exempt' | 'export';
+  type TaxOverrideReasonEnum =
+    | 'zero_rated'
+    | 'id_exempt'
+    | 'customer_exempt'
+    | 'region_non_taxable'
+    | 'product_exempt'
+    | 'export'
+    | 'high_value_physical_goods'
+    | 'zero_value_item'
+    | 'tax_not_configured_external_provider';
   type TaxabilityEnum = 'taxable' | 'exempt';
   type TaxjarExemptionCategoryEnum = 'wholesale' | 'government' | 'other';
   type TrialEndActionEnum =
@@ -705,10 +732,16 @@ declare module 'chargebee' {
     | 'paypay'
     | 'gcash'
     | 'south_korean_cards'
+    | 'paynow'
+    | 'bizum'
+    | 'promptpay'
     | 'free_trial'
     | 'pay_up_front'
     | 'pay_as_you_go'
-    | 'usage_exceeded';
+    | 'simple'
+    | 'compound'
+    | 'usage_exceeded'
+    | 'spend_exceeded';
   type UnbilledChargesHandlingEnum = 'no_action' | 'invoice';
   type UnbilledChargesOptionEnum = 'invoice' | 'delete';
   type UnpaidInvoicesHandlingEnum = 'no_action' | 'schedule_payment_collection';
@@ -884,6 +917,7 @@ declare module 'chargebee' {
     | 'business_entity_deleted'
     | 'customer_business_entity_changed'
     | 'subscription_business_entity_changed'
+    | 'payment_source_business_entity_changed'
     | 'purchase_created'
     | 'voucher_created'
     | 'voucher_expired'

@@ -3,6 +3,8 @@
 ///<reference path='./resources/AdvanceInvoiceSchedule.d.ts' />
 ///<reference path='./resources/Alert.d.ts' />
 ///<reference path='./resources/AlertStatus.d.ts' />
+///<reference path='./resources/AsyncResponse.d.ts' />
+///<reference path='./resources/AsyncResponseList.d.ts' />
 ///<reference path='./resources/AttachedItem.d.ts' />
 ///<reference path='./resources/Attribute.d.ts' />
 ///<reference path='./resources/BillingConfiguration.d.ts' />
@@ -10,6 +12,7 @@
 ///<reference path='./resources/BusinessEntity.d.ts' />
 ///<reference path='./resources/BusinessEntityTransfer.d.ts' />
 ///<reference path='./resources/Card.d.ts' />
+///<reference path='./resources/ColumnDefinition.d.ts' />
 ///<reference path='./resources/Comment.d.ts' />
 ///<reference path='./resources/Configuration.d.ts' />
 ///<reference path='./resources/Contact.d.ts' />
@@ -53,6 +56,8 @@
 ///<reference path='./resources/LedgerAccountBalance.d.ts' />
 ///<reference path='./resources/LedgerOperation.d.ts' />
 ///<reference path='./resources/Metadata.d.ts' />
+///<reference path='./resources/Meter.d.ts' />
+///<reference path='./resources/MeteredFeature.d.ts' />
 ///<reference path='./resources/NonSubscription.d.ts' />
 ///<reference path='./resources/OfferEvent.d.ts' />
 ///<reference path='./resources/OfferFulfillment.d.ts' />
@@ -170,14 +175,14 @@ declare module 'chargebee' {
     httpClient?: HttpClientInterface;
 
     /**
-     * @telemetryAdapter optional telemetry adapter for observability (e.g. OpenTelemetry)
-     */
-    telemetryAdapter?: TelemetryAdapter;
-
-    /**
      * @enableValidation When true, every request's parameters are validated against each endpoint's generated Zod schema before the HTTP request is sent. Violations throw `ChargebeeZodValidationError` with structured Zod issues. Calls with no params argument are validated as `{}`. Required resource ids in the URL path are still checked separately.
      */
     enableValidation?: boolean;
+
+    /**
+     * @telemetryAdapter optional telemetry adapter for observability (e.g. OpenTelemetry)
+     */
+    telemetryAdapter?: TelemetryAdapter;
   };
 
   export interface HttpClientInterface {
@@ -214,10 +219,7 @@ declare module 'chargebee' {
     chargebeeApiVersion: 'v1' | 'v2';
     sdkName: string;
     sdkVersion: string;
-    /**
-     * Prebuilt span attributes — pass these to your tracer. Captured `chargebee-*` request
-     * headers appear as `http.request.header.<name>` with string[] values per OTel semconv.
-     */
+    /** Prebuilt span attributes — pass these to your tracer. */
     startAttributes: Record<string, string | string[]>;
   };
 
@@ -297,6 +299,8 @@ declare module 'chargebee' {
     itemPrice: ItemPrice.ItemPriceResource;
     ledgerAccountBalance: LedgerAccountBalance.LedgerAccountBalanceResource;
     ledgerOperation: LedgerOperation.LedgerOperationResource;
+    meter: Meter.MeterResource;
+    meteredFeature: MeteredFeature.MeteredFeatureResource;
     nonSubscription: NonSubscription.NonSubscriptionResource;
     offerEvent: OfferEvent.OfferEventResource;
     offerFulfillment: OfferFulfillment.OfferFulfillmentResource;

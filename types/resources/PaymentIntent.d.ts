@@ -55,7 +55,10 @@ declare module 'chargebee' {
       | 'alipay_hk'
       | 'paypay'
       | 'gcash'
-      | 'south_korean_cards';
+      | 'south_korean_cards'
+      | 'paynow'
+      | 'bizum'
+      | 'promptpay';
     success_url?: string;
     failure_url?: string;
     created_at: number;
@@ -66,6 +69,7 @@ declare module 'chargebee' {
     gateway?: string;
     active_payment_attempt?: PaymentIntent.PaymentAttempt;
     payment_attempts?: PaymentIntent.PaymentAttempt[];
+    payment_intent_metadata?: PaymentIntent.PaymentIntentMetadata;
     business_entity_id?: string;
   }
 
@@ -155,7 +159,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -219,7 +226,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -227,6 +237,22 @@ declare module 'chargebee' {
       created_at: number;
       modified_at: number;
       error_detail?: GatewayErrorDetail;
+    }
+    export interface PaymentIntentMetadata {
+      source:
+        | 'cb_js'
+        | 'components_fields'
+        | 'checkout_v3'
+        | 'paynow_v3'
+        | 'portal_v3'
+        | 'gift_v3'
+        | 'checkout_v4'
+        | 'payment_component'
+        | 'pc_inapp_v4'
+        | 'pc_fpc_v4';
+      client_ip_address?: string;
+      user_agent?: string;
+      created_at?: number;
     }
     // REQUEST PARAMS
     //---------------
@@ -284,7 +310,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       success_url?: string;
       failure_url?: string;
     }
@@ -337,7 +366,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       success_url?: string;
       failure_url?: string;
     }

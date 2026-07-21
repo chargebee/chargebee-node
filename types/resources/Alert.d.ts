@@ -7,12 +7,15 @@ declare module 'chargebee' {
     type: TypeEnum;
     name: string;
     description?: string;
-    metered_feature_id: string;
+    metered_feature_id?: string;
+    currency_code?: string;
     subscription_id?: string;
     status?: 'enabled' | 'disabled';
     meta?: string;
     created_at: number;
     updated_at: number;
+    threshold?: Alert.Threshold[];
+    filter_conditions?: Alert.FilterCondition[];
   }
 
   export namespace Alert {
@@ -76,6 +79,15 @@ declare module 'chargebee' {
       next_offset?: string;
     }
 
+    export interface Threshold {
+      mode: 'absolute' | 'percentage';
+      value: number;
+    }
+    export interface FilterCondition {
+      field: 'plan_price_id';
+      operator: 'equals' | 'not_equals';
+      value: string;
+    }
     // REQUEST PARAMS
     //---------------
 
@@ -83,7 +95,8 @@ declare module 'chargebee' {
       type: TypeEnum;
       name: string;
       description?: string;
-      metered_feature_id: string;
+      metered_feature_id?: string;
+      currency_code?: string;
       subscription_id?: string;
       meta?: string;
       threshold?: ThresholdCreateInputParam;
@@ -108,7 +121,7 @@ declare module 'chargebee' {
       type?: filter.Enum;
     }
     export interface ThresholdCreateInputParam {
-      mode: ModeEnum;
+      mode?: ModeEnum;
       value: number;
     }
 

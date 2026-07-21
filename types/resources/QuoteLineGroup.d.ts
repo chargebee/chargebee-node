@@ -74,6 +74,11 @@ declare module 'chargebee' {
         | 'tax_not_configured_external_provider';
       entity_id?: string;
       customer_id?: string;
+      proration_mode?:
+        | 'reset'
+        | 'delta'
+        | 'service_period_revision'
+        | 'adjusted_term';
     }
     export interface LineItemDiscount {
       line_item_id: string;

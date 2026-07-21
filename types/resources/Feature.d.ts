@@ -13,6 +13,7 @@ declare module 'chargebee' {
     resource_version?: number;
     updated_at?: number;
     created_at: number;
+    metered: boolean;
     levels?: Feature.Level[];
   }
 
@@ -109,6 +110,7 @@ declare module 'chargebee' {
       id?: filter.String;
       status?: filter.Enum;
       type?: filter.Enum;
+      metered?: filter.Boolean;
       [key: `cf_${string}`]: unknown;
     }
     export interface CreateInputParam {

@@ -200,6 +200,7 @@ declare module 'chargebee' {
       OmnichannelSubscriptionItemGracePeriodStartedContent &
       CardExpiryReminderContent &
       TokenCreatedContent &
+      PaymentSourceBusinessEntityChangedContent &
       PromotionalCreditsAddedContent &
       SubscriptionRampUpdatedContent &
       CustomerEntitlementsUpdatedContent &

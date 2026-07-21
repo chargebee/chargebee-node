@@ -126,9 +126,10 @@ declare module 'chargebee' {
     export interface DiscountsToAdd {
       id: string;
       invoice_name?: string;
-      type: 'fixed_amount' | 'percentage';
+      type: 'fixed_amount' | 'percentage' | 'offer_quantity';
       percentage?: number;
       amount?: number;
+      quantity?: number;
       duration_type: 'one_time' | 'forever' | 'limited_period';
       period?: number;
       period_unit?: 'day' | 'week' | 'month' | 'year';
@@ -248,6 +249,7 @@ declare module 'chargebee' {
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
+      quantity?: number;
       period?: number;
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
@@ -303,6 +305,7 @@ declare module 'chargebee' {
       duration_type: DurationTypeEnum;
       percentage?: number;
       amount?: number;
+      quantity?: number;
       period?: number;
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;

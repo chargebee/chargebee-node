@@ -165,6 +165,9 @@ const CreateCustomerPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   gateway: z
@@ -287,6 +290,9 @@ const CreateCustomerPaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -717,6 +723,9 @@ const UpdatePaymentMethodCustomerPaymentMethodSchema = z.object({
     'paypay',
     'gcash',
     'south_korean_cards',
+    'paynow',
+    'bizum',
+    'promptpay',
   ]),
   gateway: z
     .enum([
@@ -1056,6 +1065,9 @@ const CollectPaymentCustomerPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -1136,6 +1148,9 @@ const CollectPaymentCustomerPaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   gw_payment_method_id: z.string().max(65000).optional(),

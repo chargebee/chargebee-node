@@ -93,6 +93,7 @@ const CreateForSubscriptionRampDiscountsToAddSchema = z.object({
   ),
   percentage: z.array(z.number().min(0.01).max(100).optional()).optional(),
   amount: z.array(z.number().int().min(0).optional()).optional(),
+  quantity: z.array(z.number().int().min(1).optional()).optional(),
   period: z.array(z.number().int().min(1).optional()).optional(),
   period_unit: z
     .array(z.enum(['day', 'week', 'month', 'year']).optional())
@@ -207,6 +208,7 @@ const UpdateRampDiscountsToAddSchema = z.object({
   ),
   percentage: z.array(z.number().min(0.01).max(100).optional()).optional(),
   amount: z.array(z.number().int().min(0).optional()).optional(),
+  quantity: z.array(z.number().int().min(1).optional()).optional(),
   period: z.array(z.number().int().min(1).optional()).optional(),
   period_unit: z
     .array(z.enum(['day', 'week', 'month', 'year']).optional())

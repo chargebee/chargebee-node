@@ -9,8 +9,8 @@ import {
   WebhookPayloadParseError,
 } from './resources/webhook/handler.js';
 import { basicAuthValidator } from './resources/webhook/auth.js';
-import { TelemetryAttributeKeys } from './telemetry/index.js';
 import { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
+import { TelemetryAttributeKeys } from './telemetry/index.js';
 
 const httpClient = new FetchHttpClient();
 const Chargebee = CreateChargebee(httpClient);

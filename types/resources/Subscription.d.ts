@@ -882,6 +882,7 @@ declare module 'chargebee' {
       override_relationship?: filter.Boolean;
       business_entity_id?: filter.String;
       channel?: filter.Enum;
+      decommissioned?: filter.Boolean;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
       [key: `cf_${string}`]: unknown;
@@ -1431,7 +1432,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1583,7 +1587,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1702,7 +1709,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1876,7 +1886,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2064,7 +2077,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2208,7 +2224,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2658,7 +2677,10 @@ declare module 'chargebee' {
         | 'alipay_hk'
         | 'paypay'
         | 'gcash'
-        | 'south_korean_cards';
+        | 'south_korean_cards'
+        | 'paynow'
+        | 'bizum'
+        | 'promptpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

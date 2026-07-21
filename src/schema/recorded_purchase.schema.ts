@@ -8,6 +8,9 @@ import { z } from 'zod';
 
 const CreateRecordedPurchaseCustomerSchema = z.object({
   id: z.string().max(50),
+  email: z.string().email().max(70).optional(),
+  first_name: z.string().max(150).optional(),
+  last_name: z.string().max(150).optional(),
 });
 const CreateRecordedPurchaseAppleAppStoreSchema = z.object({
   transaction_id: z.string().max(100).optional(),

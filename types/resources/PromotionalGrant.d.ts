@@ -7,7 +7,7 @@ declare module 'chargebee' {
     unit_id: string;
     amount: string;
     expires_at: number;
-    metadata?: string;
+    metadata?: any;
   }
 
   export namespace PromotionalGrant {
