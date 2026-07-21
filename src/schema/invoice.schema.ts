@@ -185,6 +185,9 @@ const CreateInvoicePaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   gateway: z
@@ -307,6 +310,9 @@ const CreateInvoicePaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -573,6 +579,9 @@ const CreateForChargeItemsAndChargesInvoicePaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   gateway: z
@@ -696,6 +705,9 @@ const CreateForChargeItemsAndChargesInvoicePaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -711,6 +723,8 @@ const CreateForChargeItemsAndChargesInvoiceItemPricesSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
+  description: z.array(z.string().max(250).optional()).optional(),
+  entity_description: z.array(z.string().max(500).optional()).optional(),
 });
 const CreateForChargeItemsAndChargesInvoiceItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -726,6 +740,7 @@ const CreateForChargeItemsAndChargesInvoiceItemTiersSchema = z.object({
   package_size: z.array(z.number().int().min(1).optional()).optional(),
 });
 const CreateForChargeItemsAndChargesInvoiceChargesSchema = z.object({
+  entity_description: z.array(z.string().max(500).optional()).optional(),
   amount: z.array(z.number().int().min(1).optional()).optional(),
   amount_in_decimal: z.array(z.string().max(39).optional()).optional(),
   description: z.array(z.string().max(250).optional()).optional(),
@@ -787,6 +802,7 @@ const CreateForChargeItemsAndChargesInvoiceBodySchema = z.looseObject({
   auto_collection: z.enum(['on', 'off']).optional(),
   net_term_days: z.number().int().optional(),
   invoice_date: z.number().int().optional(),
+  create_pending_invoice: z.boolean().optional(),
   token_id: z.string().max(40).optional(),
   replace_primary_payment_source: z.boolean().default(false).optional(),
   retain_payment_source: z.boolean().default(true).optional(),
@@ -1043,6 +1059,13 @@ const ImportInvoiceInvoiceLineItemsSchema = z.object({
   tax9_amount: z.array(z.number().int().min(0).optional()).optional(),
   tax10_name: z.array(z.string().max(50).optional()).optional(),
   tax10_amount: z.array(z.number().int().min(0).optional()).optional(),
+  proration_mode: z
+    .array(
+      z
+        .enum(['reset', 'delta', 'service_period_revision', 'adjusted_term'])
+        .optional(),
+    )
+    .optional(),
   created_at: z.array(z.number().int().optional()).optional(),
 });
 const ImportInvoiceInvoicePaymentReferenceNumbersSchema = z.object({
@@ -1172,7 +1195,17 @@ const ImportInvoiceInvoiceBodySchema = z.looseObject({
   po_number: z.string().max(100).optional(),
   price_type: z.enum(['tax_exclusive', 'tax_inclusive']).optional(),
   tax_override_reason: z
-    .enum(['id_exempt', 'customer_exempt', 'export'])
+    .enum([
+      'zero_rated',
+      'id_exempt',
+      'customer_exempt',
+      'region_non_taxable',
+      'product_exempt',
+      'export',
+      'high_value_physical_goods',
+      'zero_value_item',
+      'tax_not_configured_external_provider',
+    ])
     .optional(),
   vat_number: z.string().max(20).optional(),
   vat_number_prefix: z.string().max(10).optional(),
@@ -1191,6 +1224,7 @@ const ImportInvoiceInvoiceBodySchema = z.looseObject({
   net_term_days: z.number().int().optional(),
   has_advance_charges: z.boolean().default(false).optional(),
   use_for_proration: z.boolean().default(false).optional(),
+  paid_at: z.number().int().optional(),
   credit_note: ImportInvoiceInvoiceCreditNoteSchema.optional(),
   billing_address: ImportInvoiceInvoiceBillingAddressSchema.optional(),
   shipping_address: ImportInvoiceInvoiceShippingAddressSchema.optional(),

@@ -61,7 +61,6 @@ const CreateFeatureBodySchema = z.looseObject({
   description: z.string().max(500).optional(),
   type: z.enum(['switch', 'custom', 'quantity', 'range']).optional(),
   unit: z.string().max(50).optional(),
-  metered: z.boolean().optional(),
   levels: CreateFeatureLevelsSchema.optional(),
 });
 export { CreateFeatureBodySchema };

@@ -70,6 +70,9 @@ const CreateGiftPaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -187,6 +190,9 @@ const CreateForItemsGiftPaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),

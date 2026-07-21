@@ -61,6 +61,9 @@ const CreatePaymentIntentBodySchema = z.looseObject({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   success_url: z.string().max(250).optional(),
@@ -124,6 +127,9 @@ const UpdatePaymentIntentBodySchema = z.looseObject({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   success_url: z.string().max(250).optional(),

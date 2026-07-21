@@ -1273,6 +1273,9 @@ const GiftSubscriptionEstimatePaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -1396,6 +1399,9 @@ const GiftSubscriptionForItemsEstimatePaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -1589,6 +1595,8 @@ const CreateInvoiceForItemsEstimateItemPricesSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
+  description: z.array(z.string().max(250).optional()).optional(),
+  entity_description: z.array(z.string().max(500).optional()).optional(),
 });
 const CreateInvoiceForItemsEstimateItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -1619,6 +1627,7 @@ const CreateInvoiceForItemsEstimateChargesSchema = z.object({
   avalara_service_type: z.array(z.number().int().optional()).optional(),
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
+  entity_description: z.array(z.string().max(500).optional()).optional(),
 });
 const CreateInvoiceForItemsEstimateNotesToRemoveSchema = z.object({
   entity_type: z

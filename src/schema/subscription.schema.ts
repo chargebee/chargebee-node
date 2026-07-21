@@ -236,6 +236,9 @@ const CreateSubscriptionPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   gateway: z
@@ -359,6 +362,9 @@ const CreateSubscriptionPaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -600,6 +606,9 @@ const CreateForCustomerSubscriptionPaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -804,6 +813,9 @@ const CreateWithItemsSubscriptionPaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -1226,6 +1238,9 @@ const ListSubscriptionChannelSchema = z.object({
   in: z.enum(['web', 'app_store', 'play_store']).optional(),
   not_in: z.enum(['web', 'app_store', 'play_store']).optional(),
 });
+const ListSubscriptionDecommissionedSchema = z.object({
+  is: z.enum(['true', 'false']).optional(),
+});
 const ListSubscriptionPlanIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
@@ -1258,6 +1273,7 @@ const ListSubscriptionBodySchema = z.looseObject({
   sort_by: ListSubscriptionSortBySchema.optional(),
   business_entity_id: ListSubscriptionBusinessEntityIdSchema.optional(),
   channel: ListSubscriptionChannelSchema.optional(),
+  decommissioned: ListSubscriptionDecommissionedSchema.optional(),
   plan_id: ListSubscriptionPlanIdSchema.optional(),
 });
 export { ListSubscriptionBodySchema };
@@ -1473,6 +1489,9 @@ const UpdateSubscriptionPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   gateway: z
@@ -1596,6 +1615,9 @@ const UpdateSubscriptionPaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -1925,6 +1947,9 @@ const UpdateForItemsSubscriptionPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   gateway: z
@@ -2048,6 +2073,9 @@ const UpdateForItemsSubscriptionPaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -2348,6 +2376,9 @@ const ReactivateSubscriptionPaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -2702,6 +2733,9 @@ const ImportSubscriptionSubscriptionPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   gateway: z
@@ -3527,6 +3561,9 @@ const ResumeSubscriptionPaymentIntentSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),

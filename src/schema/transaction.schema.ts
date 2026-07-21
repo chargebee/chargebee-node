@@ -155,6 +155,9 @@ const ListTransactionPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   is_not: z
@@ -216,6 +219,9 @@ const ListTransactionPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   in: z
@@ -277,6 +283,9 @@ const ListTransactionPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
   not_in: z
@@ -338,6 +347,9 @@ const ListTransactionPaymentMethodSchema = z.object({
       'paypay',
       'gcash',
       'south_korean_cards',
+      'paynow',
+      'bizum',
+      'promptpay',
     ])
     .optional(),
 });

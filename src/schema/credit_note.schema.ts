@@ -448,6 +448,13 @@ const ImportCreditNoteCreditNoteLineItemsSchema = z.object({
   tax9_amount: z.array(z.number().int().min(0).optional()).optional(),
   tax10_name: z.array(z.string().max(50).optional()).optional(),
   tax10_amount: z.array(z.number().int().min(0).optional()).optional(),
+  proration_mode: z
+    .array(
+      z
+        .enum(['reset', 'delta', 'service_period_revision', 'adjusted_term'])
+        .optional(),
+    )
+    .optional(),
 });
 const ImportCreditNoteCreditNoteLineItemTiersSchema = z.object({
   line_item_id: z.array(z.string().max(40).optional()),
