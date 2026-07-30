@@ -377,6 +377,10 @@ declare module 'chargebee' {
     | 'alert_status_changed'
     | 'omnichannel_subscription_item_updated'
     | 'omnichannel_subscription_item_recovered'
+    | 'ledger_account_balance_updated'
+    | 'grant_blocks_created'
+    | 'grant_blocks_updated'
+    | 'ledger_updated'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'
@@ -495,6 +499,10 @@ declare module 'chargebee' {
     | 'bank_transfer'
     | 'other'
     | 'custom'
+    | 'dana'
+    | 'touch_n_go'
+    | 'tamara'
+    | 'qpay'
     | 'chargeback'
     | 'card'
     | 'amazon_payments'
@@ -599,7 +607,11 @@ declare module 'chargebee' {
     | 'south_korean_cards'
     | 'paynow'
     | 'bizum'
-    | 'promptpay';
+    | 'promptpay'
+    | 'dana'
+    | 'touch_n_go'
+    | 'tamara'
+    | 'qpay';
   type PaymentVoucherTypeEnum = 'boleto';
   type PeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
   type PriceTypeEnum = 'tax_exclusive' | 'tax_inclusive';
@@ -735,13 +747,22 @@ declare module 'chargebee' {
     | 'paynow'
     | 'bizum'
     | 'promptpay'
+    | 'dana'
+    | 'touch_n_go'
+    | 'tamara'
+    | 'qpay'
     | 'free_trial'
     | 'pay_up_front'
     | 'pay_as_you_go'
     | 'simple'
     | 'compound'
     | 'usage_exceeded'
-    | 'spend_exceeded';
+    | 'spend_exceeded'
+    | 'credit_balance_dropped'
+    | 'credit'
+    | 'debit'
+    | 'hold'
+    | 'unhold';
   type UnbilledChargesHandlingEnum = 'no_action' | 'invoice';
   type UnbilledChargesOptionEnum = 'invoice' | 'delete';
   type UnpaidInvoicesHandlingEnum = 'no_action' | 'schedule_payment_collection';
@@ -971,6 +992,10 @@ declare module 'chargebee' {
     | 'alert_status_changed'
     | 'omnichannel_subscription_item_updated'
     | 'omnichannel_subscription_item_recovered'
+    | 'ledger_account_balance_updated'
+    | 'grant_blocks_created'
+    | 'grant_blocks_updated'
+    | 'ledger_updated'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'

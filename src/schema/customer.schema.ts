@@ -168,6 +168,10 @@ const CreateCustomerPaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   gateway: z
@@ -293,6 +297,10 @@ const CreateCustomerPaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -726,6 +734,10 @@ const UpdatePaymentMethodCustomerPaymentMethodSchema = z.object({
     'paynow',
     'bizum',
     'promptpay',
+    'dana',
+    'touch_n_go',
+    'tamara',
+    'qpay',
   ]),
   gateway: z
     .enum([
@@ -999,6 +1011,10 @@ const RecordExcessPaymentCustomerTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
+    'dana',
+    'touch_n_go',
+    'tamara',
+    'qpay',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),
@@ -1068,6 +1084,10 @@ const CollectPaymentCustomerPaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -1151,6 +1171,10 @@ const CollectPaymentCustomerPaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   gw_payment_method_id: z.string().max(65000).optional(),

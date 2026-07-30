@@ -1269,6 +1269,7 @@ declare module 'chargebee' {
       refundable_credits_handling?: RefundableCreditsHandlingEnum;
       contract_term_cancel_option?: ContractTermCancelOptionEnum;
       invoice_date?: number;
+      include_cancellation_day_in_billing?: boolean;
       cancel_reason_code?: string;
       decommissioned?: boolean;
       subscription_items?: SubscriptionItemsCancelForItemsInputParam[];
@@ -1435,7 +1436,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1590,7 +1595,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1712,7 +1721,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1889,7 +1902,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2080,7 +2097,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2227,7 +2248,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2680,7 +2705,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

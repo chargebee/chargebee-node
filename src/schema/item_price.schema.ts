@@ -262,8 +262,8 @@ const ListItemPriceUpdatedAtSchema = z.object({
   between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
 });
 const ListItemPriceBusinessEntityIdSchema = z.object({
-  is_present: z.enum(['true', 'false']).optional(),
   is: z.string().min(1).optional(),
+  is_present: z.enum(['true', 'false']).optional(),
 });
 const ListItemPriceIncludeSiteLevelResourcesSchema = z.object({
   is: z.enum(['true', 'false']).optional(),

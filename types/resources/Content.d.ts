@@ -28,6 +28,7 @@ declare module 'chargebee' {
     cpq_quote_signature: CpqQuoteSignature;
     credit_note: CreditNote;
     credit_note_estimate: CreditNoteEstimate;
+    credit_unit: CreditUnit;
     currency: Currency;
     customer: Customer;
     customer_entitlement: CustomerEntitlement;
@@ -59,6 +60,7 @@ declare module 'chargebee' {
     item_family: ItemFamily;
     item_price: ItemPrice;
     ledger_account_balance: LedgerAccountBalance;
+    ledger_entry: LedgerEntry;
     ledger_operation: LedgerOperation;
     metadata: Metadata;
     meter: Meter;

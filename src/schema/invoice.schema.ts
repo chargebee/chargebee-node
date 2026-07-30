@@ -188,6 +188,10 @@ const CreateInvoicePaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   gateway: z
@@ -313,6 +317,10 @@ const CreateInvoicePaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -582,6 +590,10 @@ const CreateForChargeItemsAndChargesInvoicePaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   gateway: z
@@ -708,6 +720,10 @@ const CreateForChargeItemsAndChargesInvoicePaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -1140,6 +1156,10 @@ const ImportInvoiceInvoicePaymentsSchema = z.object({
         'app_store',
         'play_store',
         'custom',
+        'dana',
+        'touch_n_go',
+        'tamara',
+        'qpay',
       ])
       .optional(),
   ),
@@ -1518,12 +1538,12 @@ export type PdfInvoiceBody = z.infer<typeof PdfInvoiceBodySchema>;
 //Invoice.listPaymentReferenceNumbers
 
 const ListPaymentReferenceNumbersInvoiceIdSchema = z.object({
-  is: z.string().min(1).optional(),
   in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is: z.string().min(1).optional(),
 });
 const ListPaymentReferenceNumbersInvoiceNumberSchema = z.object({
-  is: z.string().min(1).optional(),
   in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is: z.string().min(1).optional(),
 });
 const ListPaymentReferenceNumbersInvoicePaymentReferenceNumberItemSchema =
   z.object({
@@ -1680,6 +1700,10 @@ const RecordPaymentInvoiceTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
+    'dana',
+    'touch_n_go',
+    'tamara',
+    'qpay',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),
@@ -1764,6 +1788,10 @@ const RecordRefundInvoiceTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
+    'dana',
+    'touch_n_go',
+    'tamara',
+    'qpay',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),

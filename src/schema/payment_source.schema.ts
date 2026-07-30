@@ -62,6 +62,10 @@ const CreateUsingTempTokenPaymentSourceBodySchema = z.looseObject({
     'paynow',
     'bizum',
     'promptpay',
+    'dana',
+    'touch_n_go',
+    'tamara',
+    'qpay',
   ]),
   tmp_token: z.string().max(65000),
   issuing_country: z.string().max(50).optional(),
@@ -177,6 +181,10 @@ const CreateUsingPermanentTokenPaymentSourceBodySchema = z.looseObject({
     'paynow',
     'bizum',
     'promptpay',
+    'dana',
+    'touch_n_go',
+    'tamara',
+    'qpay',
   ]),
   gateway_account_id: z.string().max(50).optional(),
   reference_id: z.string().max(200).optional(),
@@ -271,6 +279,10 @@ const CreateUsingPaymentIntentPaymentSourcePaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -499,6 +511,10 @@ const ListPaymentSourceTypeSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   is_not: z
@@ -553,6 +569,10 @@ const ListPaymentSourceTypeSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   in: z
@@ -607,6 +627,10 @@ const ListPaymentSourceTypeSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   not_in: z
@@ -661,6 +685,10 @@ const ListPaymentSourceTypeSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
 });

@@ -293,6 +293,10 @@ const ListEventEventTypeSchema = z.object({
       'alert_status_changed',
       'omnichannel_subscription_item_updated',
       'omnichannel_subscription_item_recovered',
+      'ledger_account_balance_updated',
+      'grant_blocks_created',
+      'grant_blocks_updated',
+      'ledger_updated',
     ])
     .optional(),
   is_not: z
@@ -520,6 +524,10 @@ const ListEventEventTypeSchema = z.object({
       'alert_status_changed',
       'omnichannel_subscription_item_updated',
       'omnichannel_subscription_item_recovered',
+      'ledger_account_balance_updated',
+      'grant_blocks_created',
+      'grant_blocks_updated',
+      'ledger_updated',
     ])
     .optional(),
   in: z
@@ -747,6 +755,10 @@ const ListEventEventTypeSchema = z.object({
       'alert_status_changed',
       'omnichannel_subscription_item_updated',
       'omnichannel_subscription_item_recovered',
+      'ledger_account_balance_updated',
+      'grant_blocks_created',
+      'grant_blocks_updated',
+      'ledger_updated',
     ])
     .optional(),
   not_in: z
@@ -974,6 +986,10 @@ const ListEventEventTypeSchema = z.object({
       'alert_status_changed',
       'omnichannel_subscription_item_updated',
       'omnichannel_subscription_item_recovered',
+      'ledger_account_balance_updated',
+      'grant_blocks_created',
+      'grant_blocks_updated',
+      'ledger_updated',
     ])
     .optional(),
 });

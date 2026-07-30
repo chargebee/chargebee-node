@@ -1,5 +1,5 @@
 // Generated Zod schemas: LedgerOperation
-// Actions: listLedgerOperations, capture, authorize, captureAuthorization, releaseAuthorization
+// Actions: listLedgerOperations, capture, authorize, captureAuthorization, releaseAuthorization, allocate
 // Do not edit manually – regenerate via sdk-generator
 
 import { z } from 'zod';
@@ -19,7 +19,7 @@ const ListLedgerOperationsLedgerOperationCreatedAtSchema = z.object({
   between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
 });
 const ListLedgerOperationsLedgerOperationTypeSchema = z.object({
-  is: z
+  in: z
     .enum([
       'allocation',
       'capture',
@@ -32,7 +32,7 @@ const ListLedgerOperationsLedgerOperationTypeSchema = z.object({
       'adjustment',
     ])
     .optional(),
-  in: z
+  is: z
     .enum([
       'allocation',
       'capture',
@@ -124,4 +124,19 @@ const ReleaseAuthorizationLedgerOperationBodySchema = z.looseObject({
 export { ReleaseAuthorizationLedgerOperationBodySchema };
 export type ReleaseAuthorizationLedgerOperationBody = z.infer<
   typeof ReleaseAuthorizationLedgerOperationBodySchema
+>;
+
+//LedgerOperation.allocate
+
+const AllocateLedgerOperationMetadataSchema = z.looseObject({});
+const AllocateLedgerOperationBodySchema = z.looseObject({
+  subscription_id: z.string().max(50),
+  unit_id: z.string().max(50),
+  amount: z.string().max(36),
+  expires_at: z.number().int(),
+  metadata: AllocateLedgerOperationMetadataSchema.optional(),
+});
+export { AllocateLedgerOperationBodySchema };
+export type AllocateLedgerOperationBody = z.infer<
+  typeof AllocateLedgerOperationBodySchema
 >;

@@ -6,7 +6,9 @@ declare module 'chargebee' {
     subscription_id: string;
     unit_id: string;
     unit_type: 'credit_unit';
-    modified_at?: number;
+    created_at: number;
+    modified_at: number;
+    resource_version?: number;
     provisioned_balance?: LedgerAccountBalance.ProvisionedBalance;
     overdraft_balance?: LedgerAccountBalance.OverdraftBalance;
   }

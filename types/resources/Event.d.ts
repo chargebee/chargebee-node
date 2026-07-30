@@ -28,6 +28,7 @@ declare module 'chargebee' {
       TaxWithheldDeletedContent &
       UnbilledChargesDeletedContent &
       CouponUpdatedContent &
+      GrantBlocksCreatedContent &
       OmnichannelSubscriptionItemReactivatedContent &
       OmnichannelSubscriptionItemRenewedContent &
       UnbilledChargesCreatedContent &
@@ -169,6 +170,7 @@ declare module 'chargebee' {
       SubscriptionDeletedContent &
       PaymentSourceAddedContent &
       SubscriptionMovedInContent &
+      LedgerUpdatedContent &
       ItemPriceCreatedContent &
       SubscriptionScheduledCancellationRemovedContent &
       PaymentRefundedContent &
@@ -203,6 +205,7 @@ declare module 'chargebee' {
       PaymentSourceBusinessEntityChangedContent &
       PromotionalCreditsAddedContent &
       SubscriptionRampUpdatedContent &
+      LedgerAccountBalanceUpdatedContent &
       CustomerEntitlementsUpdatedContent &
       PaymentSourceExpiredContent &
       CustomerMovedOutContent &
@@ -233,6 +236,7 @@ declare module 'chargebee' {
       AttachedItemUpdatedContent &
       PaymentSourceUpdatedContent &
       BusinessEntityDeletedContent &
+      GrantBlocksUpdatedContent &
       AuthorizationVoidedContent &
       SubscriptionRampDeletedContent &
       PlanDeletedContent &

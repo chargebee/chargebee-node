@@ -23,6 +23,7 @@
 ///<reference path='./resources/CpqQuoteSignature.d.ts' />
 ///<reference path='./resources/CreditNote.d.ts' />
 ///<reference path='./resources/CreditNoteEstimate.d.ts' />
+///<reference path='./resources/CreditUnit.d.ts' />
 ///<reference path='./resources/Currency.d.ts' />
 ///<reference path='./resources/Customer.d.ts' />
 ///<reference path='./resources/CustomerEntitlement.d.ts' />
@@ -54,6 +55,7 @@
 ///<reference path='./resources/ItemFamily.d.ts' />
 ///<reference path='./resources/ItemPrice.d.ts' />
 ///<reference path='./resources/LedgerAccountBalance.d.ts' />
+///<reference path='./resources/LedgerEntry.d.ts' />
 ///<reference path='./resources/LedgerOperation.d.ts' />
 ///<reference path='./resources/Metadata.d.ts' />
 ///<reference path='./resources/Meter.d.ts' />
@@ -278,6 +280,7 @@ declare module 'chargebee' {
     couponCode: CouponCode.CouponCodeResource;
     couponSet: CouponSet.CouponSetResource;
     creditNote: CreditNote.CreditNoteResource;
+    creditUnit: CreditUnit.CreditUnitResource;
     currency: Currency.CurrencyResource;
     customer: Customer.CustomerResource;
     customerEntitlement: CustomerEntitlement.CustomerEntitlementResource;

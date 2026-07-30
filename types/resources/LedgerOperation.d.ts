@@ -4,6 +4,9 @@
 declare module 'chargebee' {
   export interface LedgerOperation {
     id: string;
+    subscription_id?: string;
+    unit_id?: string;
+    unit_type?: 'credit_unit';
     type:
       | 'allocation'
       | 'capture'
@@ -20,13 +23,10 @@ declare module 'chargebee' {
     overdraft_start_balance: string;
     overdraft_end_balance: string;
     parent_ledger_operation_id?: string;
-    ledger_operation_timestamp?: number;
+    ledger_operation_timestamp: number;
     auto_release_timestamp?: number;
-    created_at?: number;
-    modified_at?: number;
-    subscription_id?: string;
-    unit_id?: string;
-    unit_type?: 'credit_unit';
+    created_at: number;
+    modified_at: number;
     metadata?: any;
   }
 
@@ -61,6 +61,11 @@ declare module 'chargebee' {
         input: ReleaseAuthorizationInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ReleaseAuthorizationResponse>>;
+
+      allocate(
+        input: AllocateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<AllocateResponse>>;
     }
 
     export interface RetrieveLedgerOperationResponse {
@@ -75,21 +80,36 @@ declare module 'chargebee' {
     export interface CaptureResponse {
       ledger_operation: LedgerOperation;
       ledger_account_balance: LedgerAccountBalance;
+      grant_blocks: GrantBlock[];
+      ledger_entries: LedgerEntry[];
     }
 
     export interface AuthorizeResponse {
       ledger_operation: LedgerOperation;
       ledger_account_balance: LedgerAccountBalance;
+      grant_blocks: GrantBlock[];
+      ledger_entries: LedgerEntry[];
     }
 
     export interface CaptureAuthorizationResponse {
       ledger_operation: LedgerOperation;
       ledger_account_balance: LedgerAccountBalance;
+      grant_blocks: GrantBlock[];
+      ledger_entries: LedgerEntry[];
     }
 
     export interface ReleaseAuthorizationResponse {
       ledger_operation: LedgerOperation;
       ledger_account_balance: LedgerAccountBalance;
+      grant_blocks: GrantBlock[];
+      ledger_entries: LedgerEntry[];
+    }
+
+    export interface AllocateResponse {
+      ledger_account_balance: LedgerAccountBalance;
+      ledger_operations: LedgerOperation[];
+      grant_blocks: GrantBlock[];
+      ledger_entries: LedgerEntry[];
     }
 
     // REQUEST PARAMS
@@ -133,6 +153,13 @@ declare module 'chargebee' {
       authorization_id: string;
       id?: string;
       ledger_operation_timestamp: number;
+      metadata?: any;
+    }
+    export interface AllocateInputParam {
+      subscription_id: string;
+      unit_id: string;
+      amount: string;
+      expires_at: number;
       metadata?: any;
     }
   }

@@ -58,7 +58,11 @@ declare module 'chargebee' {
       | 'south_korean_cards'
       | 'paynow'
       | 'bizum'
-      | 'promptpay';
+      | 'promptpay'
+      | 'dana'
+      | 'touch_n_go'
+      | 'tamara'
+      | 'qpay';
     success_url?: string;
     failure_url?: string;
     created_at: number;
@@ -162,7 +166,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -229,7 +237,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -313,7 +325,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       success_url?: string;
       failure_url?: string;
     }
@@ -369,7 +385,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       success_url?: string;
       failure_url?: string;
     }

@@ -239,6 +239,10 @@ const CreateSubscriptionPaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   gateway: z
@@ -365,6 +369,10 @@ const CreateSubscriptionPaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -609,6 +617,10 @@ const CreateForCustomerSubscriptionPaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -816,6 +828,10 @@ const CreateWithItemsSubscriptionPaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -1492,6 +1508,10 @@ const UpdateSubscriptionPaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   gateway: z
@@ -1618,6 +1638,10 @@ const UpdateSubscriptionPaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -1950,6 +1974,10 @@ const UpdateForItemsSubscriptionPaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   gateway: z
@@ -2076,6 +2104,10 @@ const UpdateForItemsSubscriptionPaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -2379,6 +2411,10 @@ const ReactivateSubscriptionPaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -2736,6 +2772,10 @@ const ImportSubscriptionSubscriptionPaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   gateway: z
@@ -2854,6 +2894,10 @@ const ImportSubscriptionSubscriptionTransactionSchema = z.object({
       'app_store',
       'play_store',
       'custom',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_number: z.string().max(100).optional(),
@@ -2988,6 +3032,10 @@ const ImportForCustomerSubscriptionTransactionSchema = z.object({
       'app_store',
       'play_store',
       'custom',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_number: z.string().max(100).optional(),
@@ -3237,6 +3285,10 @@ const ImportForItemsSubscriptionTransactionSchema = z.object({
       'app_store',
       'play_store',
       'custom',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_number: z.string().max(100).optional(),
@@ -3497,6 +3549,7 @@ const CancelForItemsSubscriptionBodySchema = z.looseObject({
     ])
     .optional(),
   invoice_date: z.number().int().optional(),
+  include_cancellation_day_in_billing: z.boolean().optional(),
   cancel_reason_code: z.string().max(100).optional(),
   decommissioned: z.boolean().default(false).optional(),
   subscription_items:
@@ -3564,6 +3617,10 @@ const ResumeSubscriptionPaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),

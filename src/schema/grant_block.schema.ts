@@ -12,6 +12,9 @@ const ListGrantBlocksGrantBlockSubscriptionIdSchema = z.object({
 const ListGrantBlocksGrantBlockUnitIdSchema = z.object({
   is: z.string().min(1).optional(),
 });
+const ListGrantBlocksGrantBlockAccountTypeSchema = z.object({
+  is: z.enum(['provisioned', 'overdraft']).optional(),
+});
 const ListGrantBlocksGrantBlockEffectiveFromSchema = z.object({
   after: z.string().regex(RegExp('^\\d{10}$')).optional(),
   before: z.string().regex(RegExp('^\\d{10}$')).optional(),
@@ -39,6 +42,7 @@ const ListGrantBlocksGrantBlockBodySchema = z.looseObject({
   offset: z.string().max(1000).optional(),
   subscription_id: ListGrantBlocksGrantBlockSubscriptionIdSchema,
   unit_id: ListGrantBlocksGrantBlockUnitIdSchema.optional(),
+  account_type: ListGrantBlocksGrantBlockAccountTypeSchema.optional(),
   effective_from: ListGrantBlocksGrantBlockEffectiveFromSchema.optional(),
   expires_at: ListGrantBlocksGrantBlockExpiresAtSchema.optional(),
   created_at: ListGrantBlocksGrantBlockCreatedAtSchema.optional(),

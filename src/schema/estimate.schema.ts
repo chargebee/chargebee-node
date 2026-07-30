@@ -1156,6 +1156,7 @@ const CancelSubscriptionForItemsEstimateBodySchema = z.looseObject({
     ])
     .optional(),
   invoice_date: z.number().int().optional(),
+  include_cancellation_day_in_billing: z.boolean().optional(),
   cancel_reason_code: z.string().max(100).optional(),
   subscription_items:
     CancelSubscriptionForItemsEstimateSubscriptionItemsSchema.optional(),
@@ -1276,6 +1277,10 @@ const GiftSubscriptionEstimatePaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -1402,6 +1407,10 @@ const GiftSubscriptionForItemsEstimatePaymentIntentSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
