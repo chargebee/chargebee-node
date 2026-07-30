@@ -4,6 +4,10 @@
 declare module 'chargebee' {
   export interface GrantBlock {
     id: string;
+    subscription_id?: string;
+    account_type?: 'provisioned' | 'overdraft';
+    unit_id?: string;
+    unit_type?: 'credit_unit';
     granted_amount: string;
     effective_from: number;
     expires_at: number;
@@ -20,11 +24,12 @@ declare module 'chargebee' {
       | 'subscription_changed'
       | 'top_up'
       | 'promotional_grants'
-      | 'rollover';
-    created_at?: number;
-    account_type?: 'provisioned' | 'overdraft';
-    unit_id?: string;
-    unit_type?: 'credit_unit';
+      | 'rollover'
+      | 'grant_renewal'
+      | 'subscription_renewed';
+    created_at: number;
+    modified_at: number;
+    resource_version?: number;
     metadata?: any;
   }
 
@@ -49,6 +54,7 @@ declare module 'chargebee' {
       offset?: string;
       subscription_id: filter.String;
       unit_id?: filter.String;
+      account_type?: filter.Enum;
       effective_from?: filter.Timestamp;
       expires_at?: filter.Timestamp;
       created_at?: filter.Timestamp;

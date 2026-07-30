@@ -231,7 +231,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -330,7 +334,11 @@ declare module 'chargebee' {
         | 'south_korean_cards'
         | 'paynow'
         | 'bizum'
-        | 'promptpay';
+        | 'promptpay'
+        | 'dana'
+        | 'touch_n_go'
+        | 'tamara'
+        | 'qpay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

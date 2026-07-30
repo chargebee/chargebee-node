@@ -9,12 +9,13 @@ declare module 'chargebee' {
     description?: string;
     metered_feature_id?: string;
     currency_code?: string;
+    unit_id?: string;
     subscription_id?: string;
     status?: 'enabled' | 'disabled';
     meta?: string;
     created_at: number;
     updated_at: number;
-    threshold?: Alert.Threshold[];
+    threshold?: Alert.Threshold;
     filter_conditions?: Alert.FilterCondition[];
   }
 
@@ -80,7 +81,7 @@ declare module 'chargebee' {
     }
 
     export interface Threshold {
-      mode: 'absolute' | 'percentage';
+      mode: ModeEnum;
       value: number;
     }
     export interface FilterCondition {
@@ -97,6 +98,7 @@ declare module 'chargebee' {
       description?: string;
       metered_feature_id?: string;
       currency_code?: string;
+      unit_id?: string;
       subscription_id?: string;
       meta?: string;
       threshold?: ThresholdCreateInputParam;

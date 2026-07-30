@@ -324,6 +324,14 @@ export interface GiftUpdatedContent {
   Gift: import('chargebee').Gift;
 }
 
+export interface GrantBlocksCreatedContent {
+  GrantBlock: import('chargebee').GrantBlock[];
+}
+
+export interface GrantBlocksUpdatedContent {
+  GrantBlock: import('chargebee').GrantBlock[];
+}
+
 export interface HierarchyCreatedContent {
   Customer: import('chargebee').Customer;
 }
@@ -422,6 +430,20 @@ export interface ItemPriceUpdatedContent {
 
 export interface ItemUpdatedContent {
   Item: import('chargebee').Item;
+}
+
+export interface LedgerAccountBalanceUpdatedContent {
+  LedgerAccountBalance: import('chargebee').LedgerAccountBalance;
+}
+
+export interface LedgerUpdatedContent {
+  LedgerOperation: import('chargebee').LedgerOperation[];
+
+  LedgerAccountBalance: import('chargebee').LedgerAccountBalance;
+
+  GrantBlock: import('chargebee').GrantBlock[];
+
+  LedgerEntry: import('chargebee').LedgerEntry[];
 }
 
 export interface MrrUpdatedContent {
@@ -1589,6 +1611,10 @@ export type WebhookContentMap = {
 
   [WebhookEventType.GiftUpdated]: GiftUpdatedContent;
 
+  [WebhookEventType.GrantBlocksCreated]: GrantBlocksCreatedContent;
+
+  [WebhookEventType.GrantBlocksUpdated]: GrantBlocksUpdatedContent;
+
   [WebhookEventType.HierarchyCreated]: HierarchyCreatedContent;
 
   [WebhookEventType.HierarchyDeleted]: HierarchyDeletedContent;
@@ -1626,6 +1652,10 @@ export type WebhookContentMap = {
   [WebhookEventType.ItemPriceUpdated]: ItemPriceUpdatedContent;
 
   [WebhookEventType.ItemUpdated]: ItemUpdatedContent;
+
+  [WebhookEventType.LedgerAccountBalanceUpdated]: LedgerAccountBalanceUpdatedContent;
+
+  [WebhookEventType.LedgerUpdated]: LedgerUpdatedContent;
 
   [WebhookEventType.MrrUpdated]: MrrUpdatedContent;
 

@@ -164,8 +164,8 @@ const ListItemChannelSchema = z.object({
   not_in: z.enum(['web', 'app_store', 'play_store']).optional(),
 });
 const ListItemBusinessEntityIdSchema = z.object({
-  is_present: z.enum(['true', 'false']).optional(),
   is: z.string().min(1).optional(),
+  is_present: z.enum(['true', 'false']).optional(),
 });
 const ListItemIncludeSiteLevelResourcesSchema = z.object({
   is: z.enum(['true', 'false']).optional(),

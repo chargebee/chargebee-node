@@ -127,6 +127,10 @@ export enum WebhookEventType {
 
   GiftUpdated = 'gift_updated',
 
+  GrantBlocksCreated = 'grant_blocks_created',
+
+  GrantBlocksUpdated = 'grant_blocks_updated',
+
   HierarchyCreated = 'hierarchy_created',
 
   HierarchyDeleted = 'hierarchy_deleted',
@@ -164,6 +168,10 @@ export enum WebhookEventType {
   ItemPriceUpdated = 'item_price_updated',
 
   ItemUpdated = 'item_updated',
+
+  LedgerAccountBalanceUpdated = 'ledger_account_balance_updated',
+
+  LedgerUpdated = 'ledger_updated',
 
   MrrUpdated = 'mrr_updated',
 

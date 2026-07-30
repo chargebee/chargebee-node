@@ -79,6 +79,7 @@ interface Endpoints {
   impactedItem: EndpointTuple[];
   impactedItemPrice: EndpointTuple[];
   metadata: EndpointTuple[];
+  creditUnit: EndpointTuple[];
   subscriptionEntitlement: EndpointTuple[];
   customerEntitlement: EndpointTuple[];
   itemEntitlement: EndpointTuple[];
@@ -118,6 +119,7 @@ interface Endpoints {
   ledgerAccountBalance: EndpointTuple[];
   ledgerOperation: EndpointTuple[];
   grantBlock: EndpointTuple[];
+  ledgerEntry: EndpointTuple[];
   promotionalGrant: EndpointTuple[];
   impactedCustomer: EndpointTuple[];
   subscriptionEntitlementsUpdatedDetail: EndpointTuple[];
@@ -4354,6 +4356,61 @@ export const Endpoints: Endpoints = {
   impactedItem: [],
   impactedItemPrice: [],
   metadata: [],
+  creditUnit: [
+    ['list', 'GET', '/credit_units', null, false, null, false, {}, {}],
+    [
+      'create',
+      'POST',
+      '/credit_units',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'update',
+      'POST',
+      '/credit_units',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'archive',
+      'POST',
+      '/credit_units',
+      '/archive_command',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'reactivate',
+      'POST',
+      '/credit_units',
+      '/reactivate_command',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+  ],
   subscriptionEntitlement: [
     [
       'subscriptionEntitlementsForSubscription',
@@ -5321,6 +5378,19 @@ export const Endpoints: Endpoints = {
       },
       {},
     ],
+    [
+      'allocate',
+      'POST',
+      '/ledger_operations',
+      '/allocate',
+      false,
+      null,
+      true,
+      {
+        metadata: 0,
+      },
+      {},
+    ],
   ],
   grantBlock: [
     [
@@ -5335,6 +5405,7 @@ export const Endpoints: Endpoints = {
       {},
     ],
   ],
+  ledgerEntry: [],
   promotionalGrant: [
     [
       'promotionalGrants',

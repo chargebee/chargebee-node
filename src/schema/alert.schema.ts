@@ -16,11 +16,12 @@ const CreateAlertFilterConditionsSchema = z.object({
   value: z.array(z.string().max(50).optional()).optional(),
 });
 const CreateAlertBodySchema = z.looseObject({
-  type: z.enum(['usage_exceeded', 'spend_exceeded']),
+  type: z.enum(['usage_exceeded', 'spend_exceeded', 'credit_balance_dropped']),
   name: z.string().max(50),
   description: z.string().max(65000).optional(),
   metered_feature_id: z.string().max(50).optional(),
   currency_code: z.string().max(3).optional(),
+  unit_id: z.string().max(50).optional(),
   subscription_id: z.string().max(50).optional(),
   meta: z.string().max(65000).optional(),
   threshold: CreateAlertThresholdSchema.optional(),
@@ -35,7 +36,9 @@ const ListAlertIdSchema = z.object({
   in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListAlertTypeSchema = z.object({
-  is: z.enum(['usage_exceeded', 'spend_exceeded']).optional(),
+  is: z
+    .enum(['usage_exceeded', 'spend_exceeded', 'credit_balance_dropped'])
+    .optional(),
 });
 const ListAlertSubscriptionIdSchema = z.object({
   is: z.string().min(1).optional(),
@@ -73,7 +76,9 @@ const ApplicationAlertsforsubscriptionAlertStatusSchema = z.object({
   is: z.enum(['enabled', 'disabled']).optional(),
 });
 const ApplicationAlertsforsubscriptionAlertTypeSchema = z.object({
-  is: z.enum(['usage_exceeded', 'spend_exceeded']).optional(),
+  is: z
+    .enum(['usage_exceeded', 'spend_exceeded', 'credit_balance_dropped'])
+    .optional(),
 });
 const ApplicationAlertsforsubscriptionAlertBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

@@ -11,6 +11,7 @@ declare module 'chargebee' {
     TaxWithheldDeleted = 'tax_withheld_deleted',
     UnbilledChargesDeleted = 'unbilled_charges_deleted',
     CouponUpdated = 'coupon_updated',
+    GrantBlocksCreated = 'grant_blocks_created',
     OmnichannelSubscriptionItemReactivated = 'omnichannel_subscription_item_reactivated',
     OmnichannelSubscriptionItemRenewed = 'omnichannel_subscription_item_renewed',
     UnbilledChargesCreated = 'unbilled_charges_created',
@@ -152,6 +153,7 @@ declare module 'chargebee' {
     SubscriptionDeleted = 'subscription_deleted',
     PaymentSourceAdded = 'payment_source_added',
     SubscriptionMovedIn = 'subscription_moved_in',
+    LedgerUpdated = 'ledger_updated',
     ItemPriceCreated = 'item_price_created',
     SubscriptionScheduledCancellationRemoved = 'subscription_scheduled_cancellation_removed',
     PaymentRefunded = 'payment_refunded',
@@ -186,6 +188,7 @@ declare module 'chargebee' {
     PaymentSourceBusinessEntityChanged = 'payment_source_business_entity_changed',
     PromotionalCreditsAdded = 'promotional_credits_added',
     SubscriptionRampUpdated = 'subscription_ramp_updated',
+    LedgerAccountBalanceUpdated = 'ledger_account_balance_updated',
     CustomerEntitlementsUpdated = 'customer_entitlements_updated',
     PaymentSourceExpired = 'payment_source_expired',
     CustomerMovedOut = 'customer_moved_out',
@@ -216,6 +219,7 @@ declare module 'chargebee' {
     AttachedItemUpdated = 'attached_item_updated',
     PaymentSourceUpdated = 'payment_source_updated',
     BusinessEntityDeleted = 'business_entity_deleted',
+    GrantBlocksUpdated = 'grant_blocks_updated',
     AuthorizationVoided = 'authorization_voided',
     SubscriptionRampDeleted = 'subscription_ramp_deleted',
     PlanDeleted = 'plan_deleted',
@@ -239,6 +243,7 @@ declare module 'chargebee' {
     [WebhookEventType.TaxWithheldDeleted]: TaxWithheldDeletedContent;
     [WebhookEventType.UnbilledChargesDeleted]: UnbilledChargesDeletedContent;
     [WebhookEventType.CouponUpdated]: CouponUpdatedContent;
+    [WebhookEventType.GrantBlocksCreated]: GrantBlocksCreatedContent;
     [WebhookEventType.OmnichannelSubscriptionItemReactivated]: OmnichannelSubscriptionItemReactivatedContent;
     [WebhookEventType.OmnichannelSubscriptionItemRenewed]: OmnichannelSubscriptionItemRenewedContent;
     [WebhookEventType.UnbilledChargesCreated]: UnbilledChargesCreatedContent;
@@ -380,6 +385,7 @@ declare module 'chargebee' {
     [WebhookEventType.SubscriptionDeleted]: SubscriptionDeletedContent;
     [WebhookEventType.PaymentSourceAdded]: PaymentSourceAddedContent;
     [WebhookEventType.SubscriptionMovedIn]: SubscriptionMovedInContent;
+    [WebhookEventType.LedgerUpdated]: LedgerUpdatedContent;
     [WebhookEventType.ItemPriceCreated]: ItemPriceCreatedContent;
     [WebhookEventType.SubscriptionScheduledCancellationRemoved]: SubscriptionScheduledCancellationRemovedContent;
     [WebhookEventType.PaymentRefunded]: PaymentRefundedContent;
@@ -414,6 +420,7 @@ declare module 'chargebee' {
     [WebhookEventType.PaymentSourceBusinessEntityChanged]: PaymentSourceBusinessEntityChangedContent;
     [WebhookEventType.PromotionalCreditsAdded]: PromotionalCreditsAddedContent;
     [WebhookEventType.SubscriptionRampUpdated]: SubscriptionRampUpdatedContent;
+    [WebhookEventType.LedgerAccountBalanceUpdated]: LedgerAccountBalanceUpdatedContent;
     [WebhookEventType.CustomerEntitlementsUpdated]: CustomerEntitlementsUpdatedContent;
     [WebhookEventType.PaymentSourceExpired]: PaymentSourceExpiredContent;
     [WebhookEventType.CustomerMovedOut]: CustomerMovedOutContent;
@@ -444,6 +451,7 @@ declare module 'chargebee' {
     [WebhookEventType.AttachedItemUpdated]: AttachedItemUpdatedContent;
     [WebhookEventType.PaymentSourceUpdated]: PaymentSourceUpdatedContent;
     [WebhookEventType.BusinessEntityDeleted]: BusinessEntityDeletedContent;
+    [WebhookEventType.GrantBlocksUpdated]: GrantBlocksUpdatedContent;
     [WebhookEventType.AuthorizationVoided]: AuthorizationVoidedContent;
     [WebhookEventType.SubscriptionRampDeleted]: SubscriptionRampDeletedContent;
     [WebhookEventType.PlanDeleted]: PlanDeletedContent;
@@ -513,6 +521,9 @@ declare module 'chargebee' {
   };
   export type CouponUpdatedContent = {
     coupon: Coupon;
+  };
+  export type GrantBlocksCreatedContent = {
+    grant_block: GrantBlock[];
   };
   export type OmnichannelSubscriptionItemReactivatedContent = {
     omnichannel_subscription: OmnichannelSubscription;
@@ -1317,6 +1328,15 @@ declare module 'chargebee' {
   export type SubscriptionMovedInContent = {
     subscription: Subscription;
   };
+  export type LedgerUpdatedContent = {
+    ledger_operation: LedgerOperation[];
+
+    ledger_account_balance: LedgerAccountBalance;
+
+    grant_block: GrantBlock[];
+
+    ledger_entry: LedgerEntry[];
+  };
   export type ItemPriceCreatedContent = {
     item_price: ItemPrice;
   };
@@ -1519,6 +1539,9 @@ declare module 'chargebee' {
   export type SubscriptionRampUpdatedContent = {
     ramp: Ramp;
   };
+  export type LedgerAccountBalanceUpdatedContent = {
+    ledger_account_balance: LedgerAccountBalance;
+  };
   export type CustomerEntitlementsUpdatedContent = {
     impacted_customer: ImpactedCustomer;
   };
@@ -1658,6 +1681,9 @@ declare module 'chargebee' {
   };
   export type BusinessEntityDeletedContent = {
     business_entity: BusinessEntity;
+  };
+  export type GrantBlocksUpdatedContent = {
+    grant_block: GrantBlock[];
   };
   export type AuthorizationVoidedContent = {
     transaction: Transaction;

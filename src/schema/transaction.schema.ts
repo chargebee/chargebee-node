@@ -30,6 +30,10 @@ const RecordRefundTransactionBodySchema = z.looseObject({
     'app_store',
     'play_store',
     'custom',
+    'dana',
+    'touch_n_go',
+    'tamara',
+    'qpay',
   ]),
   date: z.number().int(),
   reference_number: z.string().max(100).optional(),
@@ -158,6 +162,10 @@ const ListTransactionPaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   is_not: z
@@ -222,6 +230,10 @@ const ListTransactionPaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   in: z
@@ -286,6 +298,10 @@ const ListTransactionPaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
   not_in: z
@@ -350,6 +366,10 @@ const ListTransactionPaymentMethodSchema = z.object({
       'paynow',
       'bizum',
       'promptpay',
+      'dana',
+      'touch_n_go',
+      'tamara',
+      'qpay',
     ])
     .optional(),
 });

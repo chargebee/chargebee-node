@@ -11,6 +11,7 @@ export * from './coupon.schema.js';
 export * from './coupon_code.schema.js';
 export * from './coupon_set.schema.js';
 export * from './credit_note.schema.js';
+export * from './credit_unit.schema.js';
 export * from './currency.schema.js';
 export * from './customer.schema.js';
 export * from './customer_entitlement.schema.js';

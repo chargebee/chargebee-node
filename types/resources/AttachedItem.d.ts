@@ -11,8 +11,8 @@ declare module 'chargebee' {
     quantity?: number;
     quantity_in_decimal?: string;
     billing_cycles?: number;
-    charge_on_event: ChargeOnEventEnum;
-    charge_once: boolean;
+    charge_on_event?: ChargeOnEventEnum;
+    charge_once?: boolean;
     created_at: number;
     resource_version?: number;
     updated_at?: number;
