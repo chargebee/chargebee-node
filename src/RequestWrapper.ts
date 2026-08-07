@@ -19,6 +19,7 @@ import {
 import {
   buildRequestTelemetryContext,
   buildRequestTelemetryResult,
+  extractResponseHeaders,
   extractHttpStatusCode,
   extractRequestTelemetryError,
   resolveChargebeeApiVersion,
@@ -346,6 +347,7 @@ export class RequestWrapper {
             buildRequestTelemetryResult({
               httpStatusCode,
               durationMs: Date.now() - requestStartTime,
+              responseHeaders: result?.headers,
             }),
           );
         } catch (err) {
@@ -369,6 +371,7 @@ export class RequestWrapper {
               httpStatusCode,
               durationMs: Date.now() - requestStartTime,
               error: telemetryError,
+              responseHeaders: extractResponseHeaders(err),
             }),
           );
         } catch (telemetryErr) {

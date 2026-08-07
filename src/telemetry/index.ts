@@ -10,14 +10,23 @@ export {
   CHARGEBEE_TELEMETRY_HEADER_EXCLUDE_PREFIX,
   CHARGEBEE_TELEMETRY_HEADER_PREFIX,
   HTTP_REQUEST_HEADER_ATTRIBUTE_PREFIX,
+  HTTP_RESPONSE_HEADER_ATTRIBUTE_PREFIX,
   TELEMETRY_SPAN_NAME_PREFIX,
   TelemetryAttributeKeys,
+  X_CHARGEBEE_TELEMETRY_HEADER,
   type BuildRequestTelemetryContextInput,
   type RequestTelemetryContext,
+  type RequestTelemetryEndAttributeValue,
   type RequestTelemetryError,
   type RequestTelemetryHandle,
   type RequestTelemetryResult,
+  type ResponseHeadersForTelemetry,
 } from './types.js';
+
+export {
+  parseChargebeeTelemetryHeaderToSpanAttributes,
+  type ChargebeeTelemetrySpanAttributes,
+} from './chargebeeTelemetryHeaderParser.js';
 
 export {
   NO_OP_TELEMETRY_ADAPTER,
@@ -29,8 +38,11 @@ export {
   buildRequestStartSpanAttributes,
   buildRequestTelemetryContext,
   buildRequestTelemetryResult,
+  buildResponseHeaderSpanAttributes,
   buildSpanName,
   extractHttpStatusCode,
   extractRequestTelemetryError,
+  extractResponseHeaders,
+  getResponseHeaderValueIgnoreCase,
   resolveChargebeeApiVersion,
 } from './TelemetryAdapter.js';
