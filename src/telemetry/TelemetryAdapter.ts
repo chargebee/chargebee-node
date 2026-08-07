@@ -11,6 +11,8 @@ import {
   CHARGEBEE_SDK_NAME,
   CHARGEBEE_TELEMETRY_HEADER_EXCLUDE_PREFIX,
   CHARGEBEE_TELEMETRY_HEADER_PREFIX,
+  CHARGEBEE_TELEMETRY_PREFER_HEADER,
+  CHARGEBEE_TELEMETRY_PREFER_VALUE,
   HTTP_REQUEST_HEADER_ATTRIBUTE_PREFIX,
   HTTP_RESPONSE_HEADER_ATTRIBUTE_PREFIX,
   RequestTelemetryContext,
@@ -57,6 +59,23 @@ export function buildSpanName(resource: string, operation: string): string {
 
 export function resolveChargebeeApiVersion(apiPath: string): 'v1' | 'v2' {
   return apiPath === '/api/v1' ? 'v1' : 'v2';
+}
+
+/**
+ * Adds {@code Prefer: chargebee-telemetry=include} when not already set.
+ * Chargebee returns {@code X-Chargebee-Telemetry} only when this header is present.
+ */
+export function applyResponseTelemetryPreferHeader(
+  requestHeaders: Record<string, string | number>,
+): void {
+  const preferHeader = CHARGEBEE_TELEMETRY_PREFER_HEADER.toLowerCase();
+  for (const name of Object.keys(requestHeaders)) {
+    if (name != null && name.toLowerCase() === preferHeader) {
+      return;
+    }
+  }
+  requestHeaders[CHARGEBEE_TELEMETRY_PREFER_HEADER] =
+    CHARGEBEE_TELEMETRY_PREFER_VALUE;
 }
 
 /**

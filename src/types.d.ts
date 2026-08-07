@@ -22,6 +22,11 @@ export type EnvType = {
   telemetryAdapter?: TelemetryAdapter;
   /** When true, request parameters are validated against Zod schemas before each HTTP call (where a schema exists). */
   enableValidation?: boolean;
+  /**
+   * When true, send `Prefer: chargebee-telemetry=include` on requests so Chargebee
+   * returns `X-Chargebee-Telemetry`. Requires `telemetryAdapter` to be configured.
+   */
+  preferChargebeeTelemetry?: boolean;
 };
 
 export type RetryConfig = {
@@ -49,6 +54,11 @@ export type Config = {
   telemetryAdapter?: TelemetryAdapter;
   /** When true, request parameters are validated against Zod schemas before each HTTP call (where a schema exists). */
   enableValidation?: boolean;
+  /**
+   * When true, send `Prefer: chargebee-telemetry=include` on requests so Chargebee
+   * returns `X-Chargebee-Telemetry`. Requires `telemetryAdapter` to be configured.
+   */
+  preferChargebeeTelemetry?: boolean;
 };
 
 export type Callback = (error: unknown, result: any | null) => void;

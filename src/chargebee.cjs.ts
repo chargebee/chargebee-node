@@ -10,7 +10,11 @@ import {
 } from './resources/webhook/handler.js';
 import { basicAuthValidator } from './resources/webhook/auth.js';
 import { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
-import { TelemetryAttributeKeys } from './telemetry/index.js';
+import {
+  CHARGEBEE_TELEMETRY_PREFER_HEADER,
+  CHARGEBEE_TELEMETRY_PREFER_VALUE,
+  TelemetryAttributeKeys,
+} from './telemetry/index.js';
 
 const httpClient = new FetchHttpClient();
 const Chargebee = CreateChargebee(httpClient);
@@ -29,6 +33,8 @@ module.exports.WebhookAuthenticationError = WebhookAuthenticationError;
 module.exports.WebhookPayloadValidationError = WebhookPayloadValidationError;
 module.exports.WebhookPayloadParseError = WebhookPayloadParseError;
 module.exports.TelemetryAttributeKeys = TelemetryAttributeKeys;
+module.exports.CHARGEBEE_TELEMETRY_PREFER_HEADER = CHARGEBEE_TELEMETRY_PREFER_HEADER;
+module.exports.CHARGEBEE_TELEMETRY_PREFER_VALUE = CHARGEBEE_TELEMETRY_PREFER_VALUE;
 
 // Export validation error class
 module.exports.ChargebeeZodValidationError = ChargebeeZodValidationError;

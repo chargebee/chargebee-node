@@ -192,6 +192,11 @@ function splitOnDelimiter(input: string, delimiter: string): string[] {
 
   for (let i = 0; i < input.length; i++) {
     const currentChar = input.charAt(i);
+    if (inQuotes && currentChar === '\\' && i + 1 < input.length) {
+      current += currentChar + input.charAt(i + 1);
+      i++;
+      continue;
+    }
     if (currentChar === '"') {
       inQuotes = !inQuotes;
       current += currentChar;
@@ -211,6 +216,10 @@ function indexOfParameterSeparator(item: string): number {
   let inQuotes = false;
   for (let i = 0; i < item.length; i++) {
     const current = item.charAt(i);
+    if (inQuotes && current === '\\' && i + 1 < item.length) {
+      i++;
+      continue;
+    }
     if (current === '"') {
       inQuotes = !inQuotes;
     } else if (current === ';' && !inQuotes) {
@@ -224,6 +233,10 @@ function indexOfEquals(parameter: string): number {
   let inQuotes = false;
   for (let i = 0; i < parameter.length; i++) {
     const current = parameter.charAt(i);
+    if (inQuotes && current === '\\' && i + 1 < parameter.length) {
+      i++;
+      continue;
+    }
     if (current === '"') {
       inQuotes = !inQuotes;
     } else if (current === '=' && !inQuotes) {

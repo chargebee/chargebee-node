@@ -81,6 +81,18 @@ describe('ChargebeeTelemetryHeaderParser', () => {
     expect(parseScalarValue('"hello \\"world\\""')).to.equal('hello "world"');
   });
 
+  it('should split list items after an sf-string with escaped quotes', () => {
+    const header =
+      'cb;desc="say \\"hi\\"", ft-account_hierarchy';
+
+    const attributes = parseChargebeeTelemetryHeaderToSpanAttributes(header);
+
+    expect(attributes['chargebee.telemetry.cb.desc']).to.equal('say "hi"');
+    expect(attributes['chargebee.telemetry.features']).to.deep.equal([
+      'account_hierarchy',
+    ]);
+  });
+
   it('should return empty map for blank or malformed headers', () => {
     expect(parseChargebeeTelemetryHeaderToSpanAttributes(null)).to.deep.equal(
       {},

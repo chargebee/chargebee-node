@@ -26,6 +26,15 @@ export const HTTP_RESPONSE_HEADER_ATTRIBUTE_PREFIX = 'http.response.header.';
 /** Lowercased name of the Chargebee response telemetry header. */
 export const X_CHARGEBEE_TELEMETRY_HEADER = 'x-chargebee-telemetry';
 
+/** HTTP {@code Prefer} header name used to opt in to response telemetry. */
+export const CHARGEBEE_TELEMETRY_PREFER_HEADER = 'Prefer';
+
+/**
+ * {@code Prefer} header value that requests {@code X-Chargebee-Telemetry} on the response.
+ * Chargebee only returns response telemetry when this header is sent.
+ */
+export const CHARGEBEE_TELEMETRY_PREFER_VALUE = 'chargebee-telemetry=include';
+
 /**
  * Request headers whose (lowercased) name starts with this prefix are captured as span
  * attributes. Using a prefix instead of a fixed list means any future `chargebee-*` header

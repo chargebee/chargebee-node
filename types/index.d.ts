@@ -185,6 +185,12 @@ declare module 'chargebee' {
      * @telemetryAdapter optional telemetry adapter for observability (e.g. OpenTelemetry)
      */
     telemetryAdapter?: TelemetryAdapter;
+
+    /**
+     * When true, send `Prefer: chargebee-telemetry=include` on requests so Chargebee
+     * returns `X-Chargebee-Telemetry`. Requires `telemetryAdapter` to be configured.
+     */
+    preferChargebeeTelemetry?: boolean;
   };
 
   export interface HttpClientInterface {

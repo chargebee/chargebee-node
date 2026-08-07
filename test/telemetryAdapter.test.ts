@@ -1,12 +1,46 @@
 import { expect } from 'chai';
 import {
+  applyResponseTelemetryPreferHeader,
   buildRequestEndSpanAttributes,
   buildRequestHeaderSpanAttributes,
   buildRequestTelemetryResult,
   buildResponseHeaderSpanAttributes,
   getResponseHeaderValueIgnoreCase,
 } from '../src/telemetry/TelemetryAdapter.js';
-import { TelemetryAttributeKeys } from '../src/telemetry/types.js';
+import {
+  CHARGEBEE_TELEMETRY_PREFER_HEADER,
+  CHARGEBEE_TELEMETRY_PREFER_VALUE,
+  TelemetryAttributeKeys,
+} from '../src/telemetry/types.js';
+
+describe('TelemetryAdapter response telemetry Prefer header', () => {
+  it('should add Prefer when missing', () => {
+    const headers: Record<string, string> = {};
+
+    applyResponseTelemetryPreferHeader(headers);
+
+    expect(headers[CHARGEBEE_TELEMETRY_PREFER_HEADER]).to.equal(
+      CHARGEBEE_TELEMETRY_PREFER_VALUE,
+    );
+  });
+
+  it('should not override an existing Prefer header', () => {
+    const headers = { Prefer: 'respond-async' };
+
+    applyResponseTelemetryPreferHeader(headers);
+
+    expect(headers.Prefer).to.equal('respond-async');
+  });
+
+  it('should treat Prefer as case-insensitive', () => {
+    const headers: Record<string, string> = { prefer: 'custom' };
+
+    applyResponseTelemetryPreferHeader(headers);
+
+    expect(headers.prefer).to.equal('custom');
+    expect(headers.Prefer).to.equal(undefined);
+  });
+});
 
 describe('TelemetryAdapter header helpers', () => {
   it('should ignore null header names when building request header span attributes', () => {

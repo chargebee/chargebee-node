@@ -589,6 +589,74 @@ describe('RequestWrapper - telemetry adapter', () => {
     expect(result).to.have.property('list');
     expect(capturedRequests.length).to.equal(1);
   });
+
+  it('should send Prefer: chargebee-telemetry=include when preferChargebeeTelemetry is true', async () => {
+    const chargebee = createChargebee({
+      preferChargebeeTelemetry: true,
+      telemetryAdapter: {
+        onRequestStart: () => ({ id: 'span-1' }),
+        onRequestEnd: () => {},
+      },
+    });
+
+    await chargebee.customer.list();
+
+    expect(capturedRequests[0].headers.get('Prefer')).to.equal(
+      'chargebee-telemetry=include',
+    );
+  });
+
+  it('should not override an existing Prefer request header', async () => {
+    const chargebee = createChargebee({
+      preferChargebeeTelemetry: true,
+      telemetryAdapter: {
+        onRequestStart: () => ({ id: 'span-1' }),
+        onRequestEnd: () => {},
+      },
+    });
+
+    await chargebee.customer.list(
+      { limit: 1 },
+      { Prefer: 'respond-async' },
+    );
+
+    expect(capturedRequests[0].headers.get('Prefer')).to.equal('respond-async');
+  });
+
+  it('should not send Prefer when preferChargebeeTelemetry is not enabled', async () => {
+    const chargebee = createChargebee({
+      telemetryAdapter: {
+        onRequestStart: () => ({ id: 'span-1' }),
+        onRequestEnd: () => {},
+      },
+    });
+
+    await chargebee.customer.list();
+
+    expect(capturedRequests[0].headers.get('Prefer')).to.be.null;
+  });
+
+  it('should not send Prefer when preferChargebeeTelemetry is false', async () => {
+    const chargebee = createChargebee({
+      preferChargebeeTelemetry: false,
+      telemetryAdapter: {
+        onRequestStart: () => ({ id: 'span-1' }),
+        onRequestEnd: () => {},
+      },
+    });
+
+    await chargebee.customer.list();
+
+    expect(capturedRequests[0].headers.get('Prefer')).to.be.null;
+  });
+
+  it('should not send Prefer when telemetryAdapter is not configured', async () => {
+    const chargebee = createChargebee();
+
+    await chargebee.customer.list();
+
+    expect(capturedRequests[0].headers.get('Prefer')).to.be.null;
+  });
 });
 
 describe('Chargebee telemetry exports', () => {
