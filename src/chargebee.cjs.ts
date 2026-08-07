@@ -33,8 +33,10 @@ module.exports.WebhookAuthenticationError = WebhookAuthenticationError;
 module.exports.WebhookPayloadValidationError = WebhookPayloadValidationError;
 module.exports.WebhookPayloadParseError = WebhookPayloadParseError;
 module.exports.TelemetryAttributeKeys = TelemetryAttributeKeys;
-module.exports.CHARGEBEE_TELEMETRY_PREFER_HEADER = CHARGEBEE_TELEMETRY_PREFER_HEADER;
-module.exports.CHARGEBEE_TELEMETRY_PREFER_VALUE = CHARGEBEE_TELEMETRY_PREFER_VALUE;
+module.exports.CHARGEBEE_TELEMETRY_PREFER_HEADER =
+  CHARGEBEE_TELEMETRY_PREFER_HEADER;
+module.exports.CHARGEBEE_TELEMETRY_PREFER_VALUE =
+  CHARGEBEE_TELEMETRY_PREFER_VALUE;
 
 // Export validation error class
 module.exports.ChargebeeZodValidationError = ChargebeeZodValidationError;

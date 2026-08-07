@@ -74,7 +74,11 @@ function parseListItem(
 
   const attributePrefix = segmentAttributePrefix(token);
   if (separator >= 0) {
-    parseParameters(trimmed.substring(separator + 1), attributePrefix, attributes);
+    parseParameters(
+      trimmed.substring(separator + 1),
+      attributePrefix,
+      attributes,
+    );
   }
 }
 
@@ -126,9 +130,7 @@ function parseParameter(
   attributes[attributePrefix + key] = parseScalarValue(rawValue);
 }
 
-export function parseScalarValue(
-  rawValue: string,
-): string | number | boolean {
+export function parseScalarValue(rawValue: string): string | number | boolean {
   if (rawValue == null || rawValue === '') {
     throw new Error('missing scalar value');
   }
@@ -142,7 +144,11 @@ export function parseScalarValue(
   if (rawValue === SF_BOOLEAN_FALSE) {
     return false;
   }
-  if (rawValue.startsWith(':') && rawValue.endsWith(':') && rawValue.length >= 2) {
+  if (
+    rawValue.startsWith(':') &&
+    rawValue.endsWith(':') &&
+    rawValue.length >= 2
+  ) {
     return rawValue.substring(1, rawValue.length - 1);
   }
   if (rawValue.startsWith('"')) {
