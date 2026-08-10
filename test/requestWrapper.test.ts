@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { CreateChargebee } from '../src/createChargebee.js';
 import { Environment } from '../src/environment.js';
-import { TelemetryAttributeKeys } from '../src/chargebee.esm.js';
+import { TelemetryAttributeKeys, SDK_TELEMETRY_HEADER_NAME } from '../src/chargebee.esm.js';
 
 let capturedRequests: Request[] = [];
 let responseFactory: ((attempt: number) => Response) | null = null;
@@ -588,6 +588,114 @@ describe('RequestWrapper - telemetry adapter', () => {
     const result = await chargebee.customer.list();
     expect(result).to.have.property('list');
     expect(capturedRequests.length).to.equal(1);
+  });
+});
+
+describe('RequestWrapper - SDK telemetry header', () => {
+  it('should omit header on first call and attach N+1 header on second call', async () => {
+    responseFactory = () =>
+      new Response(JSON.stringify({ list: [], next_offset: null }), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'chargebee-request-id': 'req_abc123',
+        },
+      });
+
+    const chargebee = createChargebee({
+      retryConfig: { enabled: false },
+    });
+    await chargebee.customer.list({ limit: 1 });
+    await chargebee.customer.list({ limit: 1 });
+
+    expect(capturedRequests.length).to.equal(2);
+    expect(
+      capturedRequests[0].headers.get(SDK_TELEMETRY_HEADER_NAME),
+    ).to.equal(null);
+
+    const header = capturedRequests[1].headers.get(SDK_TELEMETRY_HEADER_NAME);
+    expect(header).to.be.a('string');
+    expect(header).to.include('resource=customer;operation=list');
+    expect(header).to.include('start_time=@');
+    expect(header).to.include('http_status=200');
+    expect(header).to.include('request_id="req_abc123"');
+  });
+
+  it('should not attach header when sdk telemetry is disabled', async () => {
+    const chargebee = createChargebee({
+      sdkTelemetryEnabled: false,
+      retryConfig: { enabled: false },
+    });
+    await chargebee.customer.list({ limit: 1 });
+    await chargebee.customer.list({ limit: 1 });
+
+    expect(capturedRequests.length).to.equal(2);
+    expect(
+      capturedRequests[0].headers.get(SDK_TELEMETRY_HEADER_NAME),
+    ).to.equal(null);
+    expect(
+      capturedRequests[1].headers.get(SDK_TELEMETRY_HEADER_NAME),
+    ).to.equal(null);
+  });
+
+  it('should record failure details for the next header', async () => {
+    responseFactory = (attempt) => {
+      if (attempt === 0) {
+        return new Response(
+          JSON.stringify({
+            message: 'Not found',
+            type: 'invalid_request',
+            api_error_code: 'resource_not_found',
+          }),
+          {
+            status: 404,
+            headers: {
+              'Content-Type': 'application/json',
+              'chargebee-request-id': 'req_fail',
+            },
+          },
+        );
+      }
+      return new Response(JSON.stringify({ list: [], next_offset: null }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    };
+
+    const chargebee = createChargebee({
+      retryConfig: { enabled: false },
+    });
+
+    try {
+      await chargebee.customer.retrieve('cust_missing');
+    } catch (_err) {
+      // expected
+    }
+    await chargebee.customer.list({ limit: 1 });
+
+    const header = capturedRequests[1].headers.get(SDK_TELEMETRY_HEADER_NAME);
+    expect(header).to.include('operation=retrieve');
+    expect(header).to.include('http_status=404');
+    expect(header).to.include('error_code="resource_not_found"');
+  });
+
+  it('should emit feature tokens for retry config and telemetry adapter', async () => {
+    const chargebee = createChargebee({
+      httpClient: mockHttpClient,
+      retryConfig: { enabled: true, maxRetries: 1, delayMs: 0, retryOn: [500] },
+      telemetryAdapter: {
+        onRequestStart: () => ({}),
+        onRequestEnd: () => {},
+      },
+    });
+
+    await chargebee.customer.list({ limit: 1 });
+    await chargebee.customer.list({ limit: 1 });
+
+    const header = capturedRequests[1].headers.get(SDK_TELEMETRY_HEADER_NAME);
+    expect(header).to.include('ft-retry_config');
+    expect(header).to.include('ft-telemetry_adapter');
+    expect(header).to.include('ft-custom_transport');
   });
 });
 

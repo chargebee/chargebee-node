@@ -22,6 +22,9 @@ import {
   extractHttpStatusCode,
   extractRequestTelemetryError,
   resolveChargebeeApiVersion,
+  attachSdkTelemetryHeader,
+  recordSdkTelemetryFailure,
+  recordSdkTelemetrySuccess,
   type TelemetryAdapter,
 } from './telemetry/index.js';
 import { handleResponse } from './coreCommon.js';
@@ -114,6 +117,15 @@ export class RequestWrapper {
     // deep extend only copies own enumerable properties, so preserve by reference.
     if (this.envArg.telemetryAdapter !== undefined) {
       _env.telemetryAdapter = this.envArg.telemetryAdapter;
+    }
+    if (this.envArg.sdkTelemetryState !== undefined) {
+      _env.sdkTelemetryState = this.envArg.sdkTelemetryState;
+    }
+    if (this.envArg.sdkTelemetryEnabled !== undefined) {
+      _env.sdkTelemetryEnabled = this.envArg.sdkTelemetryEnabled;
+    }
+    if (this.envArg.httpClientIsCustom !== undefined) {
+      _env.httpClientIsCustom = this.envArg.httpClientIsCustom;
     }
 
     const env = _env as EnvType;
@@ -233,6 +245,7 @@ export class RequestWrapper {
         ...this.httpHeaders,
         ...telemetryHeaders,
       };
+      attachSdkTelemetryHeader(env, requestHeaders);
 
       const contentType = this.apiCall.isJsonRequest
         ? 'application/json;charset=UTF-8'
@@ -385,10 +398,33 @@ export class RequestWrapper {
       }
     };
 
-    const promise =
+    const callMetadata = {
+      resource: this.apiCall.resource,
+      operation: this.apiCall.methodName,
+    };
+
+    const executeCall = () =>
       telemetryAdapter !== undefined
         ? runWithTelemetry(telemetryAdapter)
         : withRetry(0, requestStartTime);
+
+    const promise = executeCall()
+      .then((result) => {
+        recordSdkTelemetrySuccess(
+          env,
+          callMetadata,
+          requestStartTime,
+          typeof result?.httpStatusCode === 'number'
+            ? result.httpStatusCode
+            : 200,
+          result?.headers,
+        );
+        return result;
+      })
+      .catch((err) => {
+        recordSdkTelemetryFailure(env, callMetadata, requestStartTime, err);
+        throw err;
+      });
     return callbackifyPromise(promise);
   }
 
