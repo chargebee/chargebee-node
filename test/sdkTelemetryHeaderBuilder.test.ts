@@ -55,4 +55,24 @@ describe('sdkTelemetryHeaderBuilder', () => {
 
     expect(header).to.equal(undefined);
   });
+
+  it('should skip invalid feature tokens while keeping valid ones', () => {
+    const header = buildSdkTelemetryHeader(
+      baseSnapshot({
+        featureTokens: [
+          'ft-retry_config',
+          'ft-bad\rinjected',
+          'ft-telemetry_adapter',
+          'ft-bad\0',
+          'ft-bad\n',
+        ],
+      }),
+    );
+
+    expect(header).to.be.a('string');
+    expect(header).to.include('ft-retry_config');
+    expect(header).to.include('ft-telemetry_adapter');
+    expect(header).to.not.include('ft-bad');
+    expect(header).to.not.match(/\r|\n/);
+  });
 });

@@ -70,8 +70,8 @@ export function buildSdkTelemetryHeader(
 
   const items = [segmentParts.join('')];
   for (const featureToken of snapshot.featureTokens) {
-    if (isNotBlank(featureToken)) {
-      items.push(featureToken);
+    if (isValidFeatureToken(featureToken)) {
+      items.push(featureToken!.trim());
     }
   }
 
@@ -211,6 +211,17 @@ function appendDateParam(
   epochSeconds: number,
 ): void {
   parts.push(`;${key}=@${epochSeconds}`);
+}
+
+function isValidFeatureToken(value: string | undefined): boolean {
+  if (!isNotBlank(value)) {
+    return false;
+  }
+  if (containsInvalidSfStringChar(value!)) {
+    return false;
+  }
+  const trimmed = value!.trim();
+  return isSfToken(trimmed);
 }
 
 function isNotBlank(value: string | undefined): boolean {

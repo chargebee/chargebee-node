@@ -697,6 +697,35 @@ describe('RequestWrapper - SDK telemetry header', () => {
     expect(header).to.include('ft-telemetry_adapter');
     expect(header).to.include('ft-custom_transport');
   });
+
+  it('should skip invalid feature tokens without failing the API request', async () => {
+    const chargebee = createChargebee({
+      retryConfig: { enabled: false },
+    });
+    await chargebee.customer.list({ limit: 1 });
+
+    const state = (chargebee as any)._env.sdkTelemetryState;
+    const previousCall = state.lastCall();
+    state.record({
+      ...previousCall,
+      featureTokens: [
+        'ft-retry_config',
+        'ft-bad\rinjected',
+        'ft-telemetry_adapter',
+      ],
+    });
+
+    const result = await chargebee.customer.list({ limit: 1 });
+
+    expect(result).to.have.property('list');
+    expect(capturedRequests.length).to.equal(2);
+    const header = capturedRequests[1].headers.get(SDK_TELEMETRY_HEADER_NAME);
+    expect(header).to.be.a('string');
+    expect(header).to.include('ft-retry_config');
+    expect(header).to.include('ft-telemetry_adapter');
+    expect(header).to.not.include('ft-bad');
+    expect(header).to.not.match(/\r|\n/);
+  });
 });
 
 describe('Chargebee telemetry exports', () => {
