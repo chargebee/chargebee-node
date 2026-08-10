@@ -22,11 +22,11 @@ export function buildSdkTelemetryHeader(
 
   const segmentParts: string[] = [SDK_TELEMETRY_SEGMENT];
   const segment = {
-    appendToken(key: string, value: string | undefined) {
-      appendTokenParam(segmentParts, key, value);
+    appendToken(key: string, value: string | undefined): boolean {
+      return appendTokenParam(segmentParts, key, value);
     },
-    appendBare(key: string, value: string | undefined) {
-      appendBareParam(segmentParts, key, value);
+    appendBare(key: string, value: string | undefined): boolean {
+      return appendBareParam(segmentParts, key, value);
     },
     appendString(key: string, value: string | undefined) {
       appendStringParam(segmentParts, key, value);
@@ -39,11 +39,21 @@ export function buildSdkTelemetryHeader(
     },
   };
 
-  segment.appendToken('name', snapshot.sdkName);
-  segment.appendBare('version', snapshot.sdkVersion);
-  segment.appendToken('runtime', SDK_TELEMETRY_RUNTIME);
-  segment.appendToken('resource', snapshot.resource);
-  segment.appendToken('operation', snapshot.operation);
+  if (!segment.appendToken('name', snapshot.sdkName)) {
+    return undefined;
+  }
+  if (!segment.appendBare('version', snapshot.sdkVersion)) {
+    return undefined;
+  }
+  if (!segment.appendToken('runtime', SDK_TELEMETRY_RUNTIME)) {
+    return undefined;
+  }
+  if (!segment.appendToken('resource', snapshot.resource)) {
+    return undefined;
+  }
+  if (!segment.appendToken('operation', snapshot.operation)) {
+    return undefined;
+  }
   if (snapshot.startTimeEpochSeconds > 0) {
     segment.appendDate('start_time', snapshot.startTimeEpochSeconds);
   }
@@ -75,7 +85,10 @@ export function buildSdkTelemetryHeader(
   return headerValue;
 }
 
-export function escapeSfString(value: string): string {
+export function escapeSfString(value: string): string | undefined {
+  if (containsInvalidSfStringChar(value)) {
+    return undefined;
+  }
   let escaped = '"';
   for (const ch of value) {
     if (ch === '\\' || ch === '"') {
@@ -87,17 +100,32 @@ export function escapeSfString(value: string): string {
   return escaped;
 }
 
+function containsInvalidSfStringChar(value: string): boolean {
+  for (const ch of value) {
+    const code = ch.charCodeAt(0);
+    if (code === 0 || code === 10 || code === 13) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function appendTokenParam(
   parts: string[],
   key: string,
   value: string | undefined,
-): void {
+): boolean {
   if (!isNotBlank(value)) {
-    return;
+    return false;
   }
   const trimmed = value!.trim();
+  const serialized = isSfToken(trimmed) ? trimmed : escapeSfString(trimmed);
+  if (serialized == null) {
+    return false;
+  }
   parts.push(`;${key}=`);
-  parts.push(isSfToken(trimmed) ? trimmed : escapeSfString(trimmed));
+  parts.push(serialized);
+  return true;
 }
 
 function isSfToken(value: string): boolean {
@@ -125,13 +153,21 @@ function appendBareParam(
   parts: string[],
   key: string,
   value: string | undefined,
-): void {
+): boolean {
   if (!isNotBlank(value)) {
-    return;
+    return false;
   }
   const trimmed = value!.trim();
+  const serialized =
+    isBareSafe(trimmed) && !containsInvalidSfStringChar(trimmed)
+      ? trimmed
+      : escapeSfString(trimmed);
+  if (serialized == null) {
+    return false;
+  }
   parts.push(`;${key}=`);
-  parts.push(isBareSafe(trimmed) ? trimmed : escapeSfString(trimmed));
+  parts.push(serialized);
+  return true;
 }
 
 function isBareSafe(value: string): boolean {
@@ -158,7 +194,11 @@ function appendStringParam(
   if (!isNotBlank(value)) {
     return;
   }
-  parts.push(`;${key}=${escapeSfString(value!.trim())}`);
+  const escaped = escapeSfString(value!.trim());
+  if (escaped == null) {
+    return;
+  }
+  parts.push(`;${key}=${escaped}`);
 }
 
 function appendIntegerParam(parts: string[], key: string, value: number): void {
