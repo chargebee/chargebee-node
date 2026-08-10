@@ -11,10 +11,20 @@ export const SDK_TELEMETRY_HEADER_NAME = 'x-chargebee-sdk-telemetry';
 /** Server drops larger values, so the SDK omits the header rather than sending a truncated one. */
 export const SDK_TELEMETRY_MAX_HEADER_BYTES = 4096;
 
+/** Response header that carries the Chargebee request id. */
 export const SDK_TELEMETRY_REQUEST_ID_HEADER = 'chargebee-request-id';
+
+/** Runtime token emitted in the sdk segment. */
 export const SDK_TELEMETRY_RUNTIME = 'nodejs';
+
+/** First item name in the RFC 9651 sf-list. */
 export const SDK_TELEMETRY_SEGMENT = 'sdk';
 
+/** Feature token: a TelemetryAdapter is configured. */
 export const SDK_TELEMETRY_FT_TELEMETRY_ADAPTER = 'ft-telemetry_adapter';
+
+/** Feature token: a custom HTTP client is configured. */
 export const SDK_TELEMETRY_FT_CUSTOM_TRANSPORT = 'ft-custom_transport';
+
+/** Feature token: retries are enabled. */
 export const SDK_TELEMETRY_FT_RETRY_CONFIG = 'ft-retry_config';

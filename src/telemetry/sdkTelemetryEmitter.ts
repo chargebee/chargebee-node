@@ -21,6 +21,7 @@ import {
 import type { SdkTelemetrySnapshot } from './sdkTelemetrySnapshot.js';
 import type { SdkTelemetryState } from './sdkTelemetryState.js';
 
+/** Client env fields needed to emit SDK telemetry. */
 export type SdkTelemetryEnv = {
   sdkTelemetryEnabled?: boolean;
   sdkTelemetryState?: SdkTelemetryState;
@@ -30,11 +31,13 @@ export type SdkTelemetryEnv = {
   retryConfig?: { enabled?: boolean };
 };
 
+/** Resource/operation metadata for the call being recorded. */
 export type SdkTelemetryCallMetadata = {
   resource: string;
   operation: string;
 };
 
+/** Mutable request-header map used when attaching the telemetry header. */
 export type RequestHeadersForSdkTelemetry = Record<string, string | number>;
 
 /**
@@ -68,6 +71,7 @@ export function attachSdkTelemetryHeader(
   }
 }
 
+/** Records a successful call for the next N+1 header. */
 export function recordSdkTelemetrySuccess(
   env: SdkTelemetryEnv,
   call: SdkTelemetryCallMetadata,
@@ -96,6 +100,7 @@ export function recordSdkTelemetrySuccess(
   }
 }
 
+/** Records a failed call for the next N+1 header. */
 export function recordSdkTelemetryFailure(
   env: SdkTelemetryEnv,
   call: SdkTelemetryCallMetadata,
@@ -137,10 +142,12 @@ export function recordSdkTelemetryFailure(
   }
 }
 
+/** Stores {@code snapshot} on the client. */
 function record(env: SdkTelemetryEnv, snapshot: SdkTelemetrySnapshot): void {
   env.sdkTelemetryState?.record(snapshot);
 }
 
+/** Builds an immutable snapshot of the completed call. */
 function buildSnapshot(
   env: SdkTelemetryEnv,
   call: SdkTelemetryCallMetadata,
@@ -163,6 +170,7 @@ function buildSnapshot(
   };
 }
 
+/** Collects {@code ft-*} tokens for the current client configuration. */
 function resolveFeatureTokens(env: SdkTelemetryEnv): string[] {
   const features: string[] = [];
   if (env.telemetryAdapter !== undefined) {
@@ -177,10 +185,12 @@ function resolveFeatureTokens(env: SdkTelemetryEnv): string[] {
   return features;
 }
 
+/** Whether retries are enabled on the client. */
 function isRetryConfigActive(env: SdkTelemetryEnv): boolean {
   return env.retryConfig?.enabled === true;
 }
 
+/** Reads {@code chargebee-request-id} from response headers, if present. */
 function extractRequestId(
   headers: Record<string, string | string[] | number> | undefined,
 ): string | undefined {
@@ -200,18 +210,22 @@ function extractRequestId(
   return undefined;
 }
 
+/** Whether the call has resource and operation metadata. */
 function hasTelemetryMetadata(call: SdkTelemetryCallMetadata): boolean {
   return isNotBlank(call.resource) && isNotBlank(call.operation);
 }
 
+/** Elapsed wall time of the call in milliseconds. */
 function elapsedMs(startTimeMs: number): number {
   return Math.max(0, Date.now() - startTimeMs);
 }
 
+/** Whether {@code value} is non-null and non-blank. */
 function isNotBlank(value: string | undefined): boolean {
   return value != null && value.trim().length > 0;
 }
 
+/** Logs a suppressed telemetry failure without affecting the API call. */
 function logSuppressed(step: string, err: unknown): void {
   const message = err instanceof Error ? err.message : String(err);
   console.warn(

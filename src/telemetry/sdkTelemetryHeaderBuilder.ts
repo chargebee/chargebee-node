@@ -85,6 +85,7 @@ export function buildSdkTelemetryHeader(
   return headerValue;
 }
 
+/** Quotes an sf-string; returns undefined for CR/LF/NUL. */
 export function escapeSfString(value: string): string | undefined {
   if (containsInvalidSfStringChar(value)) {
     return undefined;
@@ -100,6 +101,7 @@ export function escapeSfString(value: string): string | undefined {
   return escaped;
 }
 
+/** Whether {@code value} contains CR, LF, or NUL. */
 function containsInvalidSfStringChar(value: string): boolean {
   for (const ch of value) {
     const code = ch.charCodeAt(0);
@@ -110,6 +112,7 @@ function containsInvalidSfStringChar(value: string): boolean {
   return false;
 }
 
+/** Emits an sf-token, falling back to an sf-string. */
 function appendTokenParam(
   parts: string[],
   key: string,
@@ -128,6 +131,7 @@ function appendTokenParam(
   return true;
 }
 
+/** Whether {@code value} is a valid RFC 9651 sf-token. */
 function isSfToken(value: string): boolean {
   const first = value.charAt(0);
   if (!isAsciiLetter(first) && first !== '*') {
@@ -145,10 +149,12 @@ function isSfToken(value: string): boolean {
   return true;
 }
 
+/** Whether {@code ch} is an ASCII letter. */
 function isAsciiLetter(ch: string): boolean {
   return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
 }
 
+/** Emits a bare key=value, or a quoted sf-string when the value needs escaping. */
 function appendBareParam(
   parts: string[],
   key: string,
@@ -170,6 +176,7 @@ function appendBareParam(
   return true;
 }
 
+/** Whether {@code value} can be emitted unquoted without corrupting the sf-list. */
 function isBareSafe(value: string): boolean {
   for (const ch of value) {
     if (
@@ -186,6 +193,7 @@ function isBareSafe(value: string): boolean {
   return value.length > 0;
 }
 
+/** Emits a quoted sf-string parameter, skipping it when the value is invalid. */
 function appendStringParam(
   parts: string[],
   key: string,
@@ -201,10 +209,12 @@ function appendStringParam(
   parts.push(`;${key}=${escaped}`);
 }
 
+/** Emits an integer parameter. */
 function appendIntegerParam(parts: string[], key: string, value: number): void {
   parts.push(`;${key}=${value}`);
 }
 
+/** Emits an RFC 9651 sf-date parameter. */
 function appendDateParam(
   parts: string[],
   key: string,
@@ -213,6 +223,7 @@ function appendDateParam(
   parts.push(`;${key}=@${epochSeconds}`);
 }
 
+/** Whether {@code value} is a valid bare feature-token item. */
 function isValidFeatureToken(value: string | undefined): boolean {
   if (!isNotBlank(value)) {
     return false;
@@ -224,6 +235,7 @@ function isValidFeatureToken(value: string | undefined): boolean {
   return isSfToken(trimmed);
 }
 
+/** Whether {@code value} is non-null and non-blank. */
 function isNotBlank(value: string | undefined): boolean {
   return value != null && value.trim().length > 0;
 }

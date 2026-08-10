@@ -16,14 +16,17 @@ import type { SdkTelemetrySnapshot } from './sdkTelemetrySnapshot.js';
 export class SdkTelemetryState {
   private lastCallSnapshot: SdkTelemetrySnapshot | undefined;
 
+  /** Returns the last recorded call, or undefined if none. */
   lastCall(): SdkTelemetrySnapshot | undefined {
     return this.lastCallSnapshot;
   }
 
+  /** Stores {@code snapshot} as the last completed call. */
   record(snapshot: SdkTelemetrySnapshot): void {
     this.lastCallSnapshot = snapshot;
   }
 
+  /** Clears the last completed call. */
   clear(): void {
     this.lastCallSnapshot = undefined;
   }
