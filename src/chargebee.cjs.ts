@@ -10,7 +10,10 @@ import {
 } from './resources/webhook/handler.js';
 import { basicAuthValidator } from './resources/webhook/auth.js';
 import { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
-import { TelemetryAttributeKeys, SDK_TELEMETRY_HEADER_NAME } from './telemetry/index.js';
+import {
+  TelemetryAttributeKeys,
+  SDK_TELEMETRY_HEADER_NAME,
+} from './telemetry/index.js';
 
 const httpClient = new FetchHttpClient();
 const Chargebee = CreateChargebee(httpClient);
