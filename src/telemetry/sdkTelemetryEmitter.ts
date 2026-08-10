@@ -75,7 +75,7 @@ export function recordSdkTelemetrySuccess(
   httpStatus: number | undefined,
   responseHeaders: Record<string, string | string[] | number> | undefined,
 ): void {
-  if (!hasTelemetryMetadata(call)) {
+  if (env.sdkTelemetryEnabled === false || !hasTelemetryMetadata(call)) {
     return;
   }
 
@@ -102,7 +102,7 @@ export function recordSdkTelemetryFailure(
   startTimeMs: number,
   callError: unknown,
 ): void {
-  if (!hasTelemetryMetadata(call)) {
+  if (env.sdkTelemetryEnabled === false || !hasTelemetryMetadata(call)) {
     return;
   }
 

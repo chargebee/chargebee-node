@@ -636,6 +636,9 @@ describe('RequestWrapper - SDK telemetry header', () => {
     expect(
       capturedRequests[1].headers.get(SDK_TELEMETRY_HEADER_NAME),
     ).to.equal(null);
+    expect((chargebee as any)._env.sdkTelemetryState.lastCall()).to.equal(
+      undefined,
+    );
   });
 
   it('should record failure details for the next header', async () => {
