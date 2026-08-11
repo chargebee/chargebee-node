@@ -36,25 +36,15 @@ export {
 } from './TelemetryAdapter.js';
 
 export {
-  SDK_TELEMETRY_FT_CUSTOM_TRANSPORT,
-  SDK_TELEMETRY_FT_RETRY_CONFIG,
-  SDK_TELEMETRY_FT_TELEMETRY_ADAPTER,
+  SDK_TELEMETRY_FEATURES_KEY,
   SDK_TELEMETRY_HEADER_NAME,
   SDK_TELEMETRY_MAX_HEADER_BYTES,
-  SDK_TELEMETRY_REQUEST_ID_HEADER,
-  SDK_TELEMETRY_RUNTIME,
 } from './sdkTelemetryHeader.js';
 
-export type { SdkTelemetrySnapshot } from './sdkTelemetrySnapshot.js';
+export { SdkTelemetryFeature } from './sdkTelemetryFeature.js';
 export { SdkTelemetryState } from './sdkTelemetryState.js';
-export {
-  buildSdkTelemetryHeader,
-  escapeSfString,
-} from './sdkTelemetryHeaderBuilder.js';
+export { buildSdkTelemetryHeader } from './sdkTelemetryHeaderBuilder.js';
 export {
   attachSdkTelemetryHeader,
-  recordSdkTelemetryFailure,
-  recordSdkTelemetrySuccess,
-  type SdkTelemetryCallMetadata,
   type SdkTelemetryEnv,
 } from './sdkTelemetryEmitter.js';

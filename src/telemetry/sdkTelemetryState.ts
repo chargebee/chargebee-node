@@ -5,29 +5,33 @@
  * Copyright 2026 Chargebee Inc.
  */
 
-import type { SdkTelemetrySnapshot } from './sdkTelemetrySnapshot.js';
-
 /**
- * Per-client holder for the last completed call, used by the N+1 SDK telemetry header.
+ * Per-client gate so the SDK telemetry header is considered at most once per client instance.
  *
  * Internal SDK type: applications must not depend on it. It is public only so that the
  * Chargebee client can own one instance.
  */
 export class SdkTelemetryState {
-  private lastCallSnapshot: SdkTelemetrySnapshot | undefined;
+  private emitted = false;
 
-  /** Returns the last recorded call, or undefined if none. */
-  lastCall(): SdkTelemetrySnapshot | undefined {
-    return this.lastCallSnapshot;
+  /**
+   * Claims the single emission slot for this client. Returns true only for the first caller.
+   */
+  tryMarkEmitted(): boolean {
+    if (this.emitted) {
+      return false;
+    }
+    this.emitted = true;
+    return true;
   }
 
-  /** Stores {@code snapshot} as the last completed call. */
-  record(snapshot: SdkTelemetrySnapshot): void {
-    this.lastCallSnapshot = snapshot;
+  /** Whether this client has already considered emitting the telemetry header. */
+  hasEmitted(): boolean {
+    return this.emitted;
   }
 
-  /** Clears the last completed call. */
+  /** Clears the emission gate (tests only). */
   clear(): void {
-    this.lastCallSnapshot = undefined;
+    this.emitted = false;
   }
 }

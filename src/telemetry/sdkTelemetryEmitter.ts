@@ -5,36 +5,19 @@
  * Copyright 2026 Chargebee Inc.
  */
 
-import { CHARGEBEE_SDK_NAME } from './types.js';
-import {
-  extractHttpStatusCode,
-  type TelemetryAdapter,
-} from './TelemetryAdapter.js';
+import type { TelemetryAdapter } from './TelemetryAdapter.js';
 import { buildSdkTelemetryHeader } from './sdkTelemetryHeaderBuilder.js';
-import {
-  SDK_TELEMETRY_FT_CUSTOM_TRANSPORT,
-  SDK_TELEMETRY_FT_RETRY_CONFIG,
-  SDK_TELEMETRY_FT_TELEMETRY_ADAPTER,
-  SDK_TELEMETRY_HEADER_NAME,
-  SDK_TELEMETRY_REQUEST_ID_HEADER,
-} from './sdkTelemetryHeader.js';
-import type { SdkTelemetrySnapshot } from './sdkTelemetrySnapshot.js';
+import { SdkTelemetryFeature } from './sdkTelemetryFeature.js';
+import { SDK_TELEMETRY_HEADER_NAME } from './sdkTelemetryHeader.js';
 import type { SdkTelemetryState } from './sdkTelemetryState.js';
 
 /** Client env fields needed to emit SDK telemetry. */
 export type SdkTelemetryEnv = {
   sdkTelemetryEnabled?: boolean;
   sdkTelemetryState?: SdkTelemetryState;
-  clientVersion: string;
   telemetryAdapter?: TelemetryAdapter;
   httpClientIsCustom?: boolean;
   retryConfig?: { enabled?: boolean };
-};
-
-/** Resource/operation metadata for the call being recorded. */
-export type SdkTelemetryCallMetadata = {
-  resource: string;
-  operation: string;
 };
 
 /** Mutable request-header map used when attaching the telemetry header. */
@@ -44,9 +27,10 @@ export type RequestHeadersForSdkTelemetry = Record<string, string | number>;
  * Emits the anonymous SDK telemetry request header, independently of any customer telemetry
  * adapter.
  *
- * Uses an N+1 scheme: the header sent with a call describes the previous completed call on the
- * same client, so the first call of a client never carries the header. Every failure path is
- * swallowed and logged at WARNING: telemetry must never fail an API call.
+ * On the first API call of a client instance, attaches {@code f;…} with enabled feature codes when
+ * any are present; omits the header when none are enabled. Later calls on the same client never
+ * attach again. SDK identity is correlated via User-Agent. Every failure path is swallowed and
+ * logged at WARNING: telemetry must never fail an API call.
  */
 export function attachSdkTelemetryHeader(
   env: SdkTelemetryEnv,
@@ -57,11 +41,10 @@ export function attachSdkTelemetryHeader(
   }
 
   try {
-    const previousCall = env.sdkTelemetryState?.lastCall();
-    if (!previousCall) {
+    if (!env.sdkTelemetryState?.tryMarkEmitted()) {
       return;
     }
-    const headerValue = buildSdkTelemetryHeader(previousCall);
+    const headerValue = buildSdkTelemetryHeader(resolveFeatures(env));
     if (!headerValue) {
       return;
     }
@@ -71,116 +54,17 @@ export function attachSdkTelemetryHeader(
   }
 }
 
-/** Records a successful call for the next N+1 header. */
-export function recordSdkTelemetrySuccess(
-  env: SdkTelemetryEnv,
-  call: SdkTelemetryCallMetadata,
-  startTimeMs: number,
-  httpStatus: number | undefined,
-  responseHeaders: Record<string, string | string[] | number> | undefined,
-): void {
-  if (env.sdkTelemetryEnabled === false || !hasTelemetryMetadata(call)) {
-    return;
-  }
-
-  try {
-    record(
-      env,
-      buildSnapshot(
-        env,
-        call,
-        startTimeMs,
-        httpStatus,
-        undefined,
-        extractRequestId(responseHeaders),
-      ),
-    );
-  } catch (err) {
-    logSuppressed('record success', err);
-  }
-}
-
-/** Records a failed call for the next N+1 header. */
-export function recordSdkTelemetryFailure(
-  env: SdkTelemetryEnv,
-  call: SdkTelemetryCallMetadata,
-  startTimeMs: number,
-  callError: unknown,
-): void {
-  if (env.sdkTelemetryEnabled === false || !hasTelemetryMetadata(call)) {
-    return;
-  }
-
-  try {
-    const httpStatus = extractHttpStatusCode(callError);
-    const errorObj =
-      callError != null && typeof callError === 'object'
-        ? (callError as Record<string, unknown>)
-        : undefined;
-    const errorCode =
-      typeof errorObj?.api_error_code === 'string'
-        ? errorObj.api_error_code
-        : undefined;
-    const responseHeaders =
-      errorObj?.headers != null && typeof errorObj.headers === 'object'
-        ? (errorObj.headers as Record<string, string | string[] | number>)
-        : undefined;
-
-    record(
-      env,
-      buildSnapshot(
-        env,
-        call,
-        startTimeMs,
-        httpStatus,
-        errorCode,
-        extractRequestId(responseHeaders),
-      ),
-    );
-  } catch (err) {
-    logSuppressed('record failure', err);
-  }
-}
-
-/** Stores {@code snapshot} on the client. */
-function record(env: SdkTelemetryEnv, snapshot: SdkTelemetrySnapshot): void {
-  env.sdkTelemetryState?.record(snapshot);
-}
-
-/** Builds an immutable snapshot of the completed call. */
-function buildSnapshot(
-  env: SdkTelemetryEnv,
-  call: SdkTelemetryCallMetadata,
-  startTimeMs: number,
-  httpStatus: number | undefined,
-  errorCode: string | undefined,
-  requestId: string | undefined,
-): SdkTelemetrySnapshot {
-  return {
-    sdkName: CHARGEBEE_SDK_NAME,
-    sdkVersion: env.clientVersion,
-    resource: call.resource,
-    operation: call.operation,
-    startTimeEpochSeconds: Math.floor(startTimeMs / 1000),
-    timeMs: elapsedMs(startTimeMs),
-    httpStatus,
-    errorCode,
-    requestId,
-    featureTokens: resolveFeatureTokens(env),
-  };
-}
-
-/** Collects {@code ft-*} tokens for the current client configuration. */
-function resolveFeatureTokens(env: SdkTelemetryEnv): string[] {
-  const features: string[] = [];
+/** Collects enabled feature codes for the current client configuration. */
+function resolveFeatures(env: SdkTelemetryEnv): SdkTelemetryFeature[] {
+  const features: SdkTelemetryFeature[] = [];
   if (env.telemetryAdapter !== undefined) {
-    features.push(SDK_TELEMETRY_FT_TELEMETRY_ADAPTER);
+    features.push(SdkTelemetryFeature.TELEMETRY_ADAPTER);
   }
   if (env.httpClientIsCustom) {
-    features.push(SDK_TELEMETRY_FT_CUSTOM_TRANSPORT);
+    features.push(SdkTelemetryFeature.CUSTOM_TRANSPORT);
   }
   if (isRetryConfigActive(env)) {
-    features.push(SDK_TELEMETRY_FT_RETRY_CONFIG);
+    features.push(SdkTelemetryFeature.RETRY_CONFIG);
   }
   return features;
 }
@@ -188,41 +72,6 @@ function resolveFeatureTokens(env: SdkTelemetryEnv): string[] {
 /** Whether retries are enabled on the client. */
 function isRetryConfigActive(env: SdkTelemetryEnv): boolean {
   return env.retryConfig?.enabled === true;
-}
-
-/** Reads {@code chargebee-request-id} from response headers, if present. */
-function extractRequestId(
-  headers: Record<string, string | string[] | number> | undefined,
-): string | undefined {
-  if (!headers) {
-    return undefined;
-  }
-  const value = headers[SDK_TELEMETRY_REQUEST_ID_HEADER];
-  if (typeof value === 'string') {
-    return value;
-  }
-  if (Array.isArray(value) && value.length > 0) {
-    return String(value[0]);
-  }
-  if (typeof value === 'number') {
-    return String(value);
-  }
-  return undefined;
-}
-
-/** Whether the call has resource and operation metadata. */
-function hasTelemetryMetadata(call: SdkTelemetryCallMetadata): boolean {
-  return isNotBlank(call.resource) && isNotBlank(call.operation);
-}
-
-/** Elapsed wall time of the call in milliseconds. */
-function elapsedMs(startTimeMs: number): number {
-  return Math.max(0, Date.now() - startTimeMs);
-}
-
-/** Whether {@code value} is non-null and non-blank. */
-function isNotBlank(value: string | undefined): boolean {
-  return value != null && value.trim().length > 0;
 }
 
 /** Logs a suppressed telemetry failure without affecting the API call. */

@@ -5,237 +5,38 @@
  * Copyright 2026 Chargebee Inc.
  */
 
-import type { SdkTelemetrySnapshot } from './sdkTelemetrySnapshot.js';
+import { SdkTelemetryFeature } from './sdkTelemetryFeature.js';
 import {
+  SDK_TELEMETRY_FEATURES_KEY,
   SDK_TELEMETRY_MAX_HEADER_BYTES,
-  SDK_TELEMETRY_RUNTIME,
-  SDK_TELEMETRY_SEGMENT,
 } from './sdkTelemetryHeader.js';
 
-/** Builds RFC 9651 sf-list values for {@link SDK_TELEMETRY_HEADER_NAME}. */
+/**
+ * Builds RFC 9651 values for {@link SDK_TELEMETRY_HEADER_NAME}: a features segment keyed by
+ * {@link SDK_TELEMETRY_FEATURES_KEY} with enabled feature codes as boolean params
+ * (for example {@code f;ta;rc}). Correlate SDK identity via User-Agent.
+ */
 export function buildSdkTelemetryHeader(
-  snapshot: SdkTelemetrySnapshot | undefined,
+  features: ReadonlyArray<SdkTelemetryFeature> | undefined,
 ): string | undefined {
-  if (!snapshot) {
+  if (!features || features.length === 0) {
     return undefined;
   }
 
-  const segmentParts: string[] = [SDK_TELEMETRY_SEGMENT];
-  const segment = {
-    appendToken(key: string, value: string | undefined): boolean {
-      return appendTokenParam(segmentParts, key, value);
-    },
-    appendBare(key: string, value: string | undefined): boolean {
-      return appendBareParam(segmentParts, key, value);
-    },
-    appendString(key: string, value: string | undefined) {
-      appendStringParam(segmentParts, key, value);
-    },
-    appendInteger(key: string, value: number) {
-      appendIntegerParam(segmentParts, key, value);
-    },
-    appendDate(key: string, epochSeconds: number) {
-      appendDateParam(segmentParts, key, epochSeconds);
-    },
-  };
-
-  if (!segment.appendToken('name', snapshot.sdkName)) {
-    return undefined;
-  }
-  if (!segment.appendBare('version', snapshot.sdkVersion)) {
-    return undefined;
-  }
-  if (!segment.appendToken('runtime', SDK_TELEMETRY_RUNTIME)) {
-    return undefined;
-  }
-  if (!segment.appendToken('resource', snapshot.resource)) {
-    return undefined;
-  }
-  if (!segment.appendToken('operation', snapshot.operation)) {
-    return undefined;
-  }
-  if (snapshot.startTimeEpochSeconds > 0) {
-    segment.appendDate('start_time', snapshot.startTimeEpochSeconds);
-  }
-  segment.appendInteger('time_ms', snapshot.timeMs);
-  if (snapshot.httpStatus != null) {
-    segment.appendInteger('http_status', snapshot.httpStatus);
-  }
-  if (isNotBlank(snapshot.errorCode)) {
-    segment.appendString('error_code', snapshot.errorCode);
-  }
-  if (isNotBlank(snapshot.requestId)) {
-    segment.appendString('request_id', snapshot.requestId);
-  }
-
-  const items = [segmentParts.join('')];
-  for (const featureToken of snapshot.featureTokens) {
-    if (isValidFeatureToken(featureToken)) {
-      items.push(featureToken!.trim());
+  let value = SDK_TELEMETRY_FEATURES_KEY;
+  for (const feature of features) {
+    if (feature == null) {
+      continue;
     }
+    value += `;${feature}`;
   }
 
-  const headerValue = items.join(', ');
-  if (
-    new TextEncoder().encode(headerValue).length >
-    SDK_TELEMETRY_MAX_HEADER_BYTES
-  ) {
+  if (value.length === SDK_TELEMETRY_FEATURES_KEY.length) {
     return undefined;
   }
-  return headerValue;
-}
 
-/** Quotes an sf-string; returns undefined for CR/LF/NUL. */
-export function escapeSfString(value: string): string | undefined {
-  if (containsInvalidSfStringChar(value)) {
+  if (new TextEncoder().encode(value).length > SDK_TELEMETRY_MAX_HEADER_BYTES) {
     return undefined;
   }
-  let escaped = '"';
-  for (const ch of value) {
-    if (ch === '\\' || ch === '"') {
-      escaped += '\\';
-    }
-    escaped += ch;
-  }
-  escaped += '"';
-  return escaped;
-}
-
-/** Whether {@code value} contains CR, LF, or NUL. */
-function containsInvalidSfStringChar(value: string): boolean {
-  for (const ch of value) {
-    const code = ch.charCodeAt(0);
-    if (code === 0 || code === 10 || code === 13) {
-      return true;
-    }
-  }
-  return false;
-}
-
-/** Emits an sf-token, falling back to an sf-string. */
-function appendTokenParam(
-  parts: string[],
-  key: string,
-  value: string | undefined,
-): boolean {
-  if (!isNotBlank(value)) {
-    return false;
-  }
-  const trimmed = value!.trim();
-  const serialized = isSfToken(trimmed) ? trimmed : escapeSfString(trimmed);
-  if (serialized == null) {
-    return false;
-  }
-  parts.push(`;${key}=`);
-  parts.push(serialized);
-  return true;
-}
-
-/** Whether {@code value} is a valid RFC 9651 sf-token. */
-function isSfToken(value: string): boolean {
-  const first = value.charAt(0);
-  if (!isAsciiLetter(first) && first !== '*') {
-    return false;
-  }
-  for (const ch of value) {
-    const allowed =
-      isAsciiLetter(ch) ||
-      (ch >= '0' && ch <= '9') ||
-      "!#$%&'*+-.^_`|~:/".includes(ch);
-    if (!allowed) {
-      return false;
-    }
-  }
-  return true;
-}
-
-/** Whether {@code ch} is an ASCII letter. */
-function isAsciiLetter(ch: string): boolean {
-  return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
-}
-
-/** Emits a bare key=value, or a quoted sf-string when the value needs escaping. */
-function appendBareParam(
-  parts: string[],
-  key: string,
-  value: string | undefined,
-): boolean {
-  if (!isNotBlank(value)) {
-    return false;
-  }
-  const trimmed = value!.trim();
-  const serialized =
-    isBareSafe(trimmed) && !containsInvalidSfStringChar(trimmed)
-      ? trimmed
-      : escapeSfString(trimmed);
-  if (serialized == null) {
-    return false;
-  }
-  parts.push(`;${key}=`);
-  parts.push(serialized);
-  return true;
-}
-
-/** Whether {@code value} can be emitted unquoted without corrupting the sf-list. */
-function isBareSafe(value: string): boolean {
-  for (const ch of value) {
-    if (
-      ch === '"' ||
-      ch === '\\' ||
-      ch === ',' ||
-      ch === ';' ||
-      ch === '=' ||
-      /\s/.test(ch)
-    ) {
-      return false;
-    }
-  }
-  return value.length > 0;
-}
-
-/** Emits a quoted sf-string parameter, skipping it when the value is invalid. */
-function appendStringParam(
-  parts: string[],
-  key: string,
-  value: string | undefined,
-): void {
-  if (!isNotBlank(value)) {
-    return;
-  }
-  const escaped = escapeSfString(value!.trim());
-  if (escaped == null) {
-    return;
-  }
-  parts.push(`;${key}=${escaped}`);
-}
-
-/** Emits an integer parameter. */
-function appendIntegerParam(parts: string[], key: string, value: number): void {
-  parts.push(`;${key}=${value}`);
-}
-
-/** Emits an RFC 9651 sf-date parameter. */
-function appendDateParam(
-  parts: string[],
-  key: string,
-  epochSeconds: number,
-): void {
-  parts.push(`;${key}=@${epochSeconds}`);
-}
-
-/** Whether {@code value} is a valid bare feature-token item. */
-function isValidFeatureToken(value: string | undefined): boolean {
-  if (!isNotBlank(value)) {
-    return false;
-  }
-  if (containsInvalidSfStringChar(value!)) {
-    return false;
-  }
-  const trimmed = value!.trim();
-  return isSfToken(trimmed);
-}
-
-/** Whether {@code value} is non-null and non-blank. */
-function isNotBlank(value: string | undefined): boolean {
-  return value != null && value.trim().length > 0;
+  return value;
 }

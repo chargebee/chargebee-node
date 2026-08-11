@@ -23,8 +23,6 @@ import {
   extractRequestTelemetryError,
   resolveChargebeeApiVersion,
   attachSdkTelemetryHeader,
-  recordSdkTelemetryFailure,
-  recordSdkTelemetrySuccess,
   type TelemetryAdapter,
 } from './telemetry/index.js';
 import { handleResponse } from './coreCommon.js';
@@ -398,33 +396,12 @@ export class RequestWrapper {
       }
     };
 
-    const callMetadata = {
-      resource: this.apiCall.resource,
-      operation: this.apiCall.methodName,
-    };
-
     const executeCall = () =>
       telemetryAdapter !== undefined
         ? runWithTelemetry(telemetryAdapter)
         : withRetry(0, requestStartTime);
 
-    const promise = executeCall()
-      .then((result) => {
-        recordSdkTelemetrySuccess(
-          env,
-          callMetadata,
-          requestStartTime,
-          typeof result?.httpStatusCode === 'number'
-            ? result.httpStatusCode
-            : 200,
-          result?.headers,
-        );
-        return result;
-      })
-      .catch((err) => {
-        recordSdkTelemetryFailure(env, callMetadata, requestStartTime, err);
-        throw err;
-      });
+    const promise = executeCall();
     return callbackifyPromise(promise);
   }
 
