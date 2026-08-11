@@ -185,6 +185,9 @@ declare module 'chargebee' {
      * @telemetryAdapter optional telemetry adapter for observability (e.g. OpenTelemetry)
      */
     telemetryAdapter?: TelemetryAdapter;
+
+    /** @preferChargebeeTelemetry when true, sends `Prefer: chargebee-telemetry=include` so Chargebee returns `X-Chargebee-Telemetry`. Requires `telemetryAdapter`. */
+    preferChargebeeTelemetry?: boolean;
   };
 
   export interface HttpClientInterface {
@@ -192,6 +195,12 @@ declare module 'chargebee' {
   }
 
   export type RequestTelemetryHandle = unknown;
+
+  /** HTTP `Prefer` header name used to opt in to response telemetry. */
+  export const CHARGEBEE_TELEMETRY_PREFER_HEADER: 'Prefer';
+
+  /** `Prefer` value that requests `X-Chargebee-Telemetry` on the response. */
+  export const CHARGEBEE_TELEMETRY_PREFER_VALUE: 'chargebee-telemetry=include';
 
   export const TelemetryAttributeKeys: {
     readonly URL_FULL: 'url.full';
@@ -236,8 +245,10 @@ declare module 'chargebee' {
     httpStatusCode: number;
     durationMs: number;
     error?: RequestTelemetryError;
+    /** Raw HTTP response headers from the Chargebee API response. */
+    responseHeaders?: Record<string, string | string[] | number | undefined>;
     /** Prebuilt span attributes — pass these to your tracer. */
-    endAttributes: Record<string, string | number>;
+    endAttributes: Record<string, string | number | boolean | string[]>;
   };
 
   /**
