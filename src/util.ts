@@ -138,9 +138,12 @@ export function getApiURL(
     (urlSuffix !== null ? urlSuffix : '')
   );
 }
+// Filter operators whose value is the whole array, sent as a single field
+// (e.g. updated_at[between]=[1704067200,1717199999]).
+const arrayOperators: string[] = ['in', 'not_in', 'between'];
+
 export function serialize(paramObj: any) {
   let key: string, value: string | Object;
-  let array_ops: string[] = ['in', 'not_in', 'between'];
   for (key in paramObj) {
     value = paramObj[key];
     if (typeof value === 'object' && isObject(value)) {
@@ -149,7 +152,7 @@ export function serialize(paramObj: any) {
       for (child_key in value) {
         key = key + '[' + child_key + ']';
         paramObj[key] = (value as any)[child_key];
-        if (array_ops.includes(child_key)) {
+        if (arrayOperators.includes(child_key)) {
           paramObj[key] = JSON.stringify((value as any)[child_key]);
         }
       }
@@ -211,6 +214,12 @@ export function encodeParams(
         );
       }
       serialized.push(encodeURIComponent(key) + '=' + attrVal);
+    } else if (isArray(value) && arrayOperators.includes(originalKey)) {
+      serialized.push(
+        encodeURIComponent(key) +
+          '=' +
+          encodeURIComponent(JSON.stringify(value)),
+      );
     } else if (
       isArray(value) &&
       !(jsonKeys && jsonKeys[originalKey] === level)
