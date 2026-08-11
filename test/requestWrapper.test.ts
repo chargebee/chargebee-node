@@ -88,6 +88,29 @@ describe('RequestWrapper - request body', () => {
       expect(body).to.not.equal('');
       expect(body).to.include('first_name=John');
     });
+
+    it('should send filter array operators as a single field, not indexed entries', async () => {
+      responseFactory = () =>
+        new Response(JSON.stringify({ export: { id: 'export_123' } }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+      const chargebee = createChargebee();
+      await chargebee.export.subscriptions({
+        subscription: {
+          updated_at: { between: [1704067200, 1717199999] },
+          id: { in: ['sub_1', 'sub_2'] },
+        },
+      });
+
+      const body = decodeURIComponent(await capturedRequests[0].text());
+      expect(body).to.include(
+        'subscription[updated_at][between]=[1704067200,1717199999]',
+      );
+      expect(body).to.include('subscription[id][in]=["sub_1","sub_2"]');
+      expect(body).to.not.include('[between][0]');
+    });
   });
 });
 
