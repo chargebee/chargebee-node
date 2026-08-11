@@ -54,8 +54,8 @@ describe('encodeParams - nested objects', () => {
     );
   });
 
-  it('should drop empty objects', () => {
-    expect(encoded({ meta_data: {}, a: 'x' })).to.equal('a=x');
+  it('should contribute nothing for a sub-resource with no fields', () => {
+    expect(encoded({ card: {}, a: 'x' })).to.equal('a=x');
   });
 });
 
@@ -107,6 +107,23 @@ describe('encodeParams - jsonKeys', () => {
     expect(encoded({ meta_data: '{"plan":"pro"}' }, { meta_data: 0 })).to.equal(
       'meta_data={"plan":"pro"}',
     );
+  });
+
+  // meta_data is a json key on every endpoint that accepts it, so sending an
+  // empty object is how a caller wipes the stored document.
+  it('should send an empty object so the field can be cleared', () => {
+    expect(encoded({ meta_data: {}, id: 'cust_1' }, { meta_data: 0 })).to.equal(
+      'meta_data={}&id=cust_1',
+    );
+  });
+
+  it('should send an empty object for a nested json key too', () => {
+    expect(
+      encoded(
+        { subscription_items: [{ billing_address: {} }] },
+        { billing_address: 1 },
+      ),
+    ).to.equal('subscription_items[billing_address][0]={}');
   });
 
   it('should JSON-encode a nested key registered at its own level', () => {
