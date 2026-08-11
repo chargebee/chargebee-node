@@ -215,11 +215,14 @@ export function encodeParams(
       }
       serialized.push(encodeURIComponent(key) + '=' + attrVal);
     } else if (isArray(value) && arrayOperators.includes(originalKey)) {
-      serialized.push(
-        encodeURIComponent(key) +
-          '=' +
-          encodeURIComponent(JSON.stringify(value)),
-      );
+      // An empty filter is not a filter, so leave it out of the request.
+      if (value.length > 0) {
+        serialized.push(
+          encodeURIComponent(key) +
+            '=' +
+            encodeURIComponent(JSON.stringify(value)),
+        );
+      }
     } else if (
       isArray(value) &&
       !(jsonKeys && jsonKeys[originalKey] === level)
