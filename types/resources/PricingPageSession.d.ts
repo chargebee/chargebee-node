@@ -71,7 +71,7 @@ declare module 'chargebee' {
       validation_status?: ValidationStatusEnum;
     }
     export interface PricingPageCreateForNewSubscriptionInputParam {
-      id: string;
+      id?: string;
     }
     export interface CustomerCreateForNewSubscriptionInputParam {
       id?: string;

@@ -590,6 +590,14 @@ export interface OmnichannelSubscriptionItemGracePeriodStartedContent {
   Customer: import('chargebee').Customer;
 }
 
+export interface OmnichannelSubscriptionItemMrrUpdatedContent {
+  OmnichannelSubscriptionItem: import('chargebee').OmnichannelSubscriptionItem;
+
+  OmnichannelSubscription: import('chargebee').OmnichannelSubscription;
+
+  OmnichannelSubscriptionItemMetric: import('chargebee').OmnichannelSubscriptionItemMetric;
+}
+
 export interface OmnichannelSubscriptionItemPauseScheduledContent {
   OmnichannelSubscriptionItem: import('chargebee').OmnichannelSubscriptionItem;
 
@@ -1450,6 +1458,18 @@ export interface VariantDeletedContent {}
 
 export interface VariantUpdatedContent {}
 
+export interface VaultTokenCreatedContent {
+  VaultedPaymentMethod: import('chargebee').VaultedPaymentMethod;
+}
+
+export interface VaultTokenDeletedContent {
+  VaultedPaymentMethod: import('chargebee').VaultedPaymentMethod;
+}
+
+export interface VaultTokenUpdatedContent {
+  VaultedPaymentMethod: import('chargebee').VaultedPaymentMethod;
+}
+
 export interface VirtualBankAccountAddedContent {
   Customer: import('chargebee').Customer;
 
@@ -1690,6 +1710,8 @@ export type WebhookContentMap = {
   [WebhookEventType.OmnichannelSubscriptionItemGracePeriodExpired]: OmnichannelSubscriptionItemGracePeriodExpiredContent;
 
   [WebhookEventType.OmnichannelSubscriptionItemGracePeriodStarted]: OmnichannelSubscriptionItemGracePeriodStartedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemMrrUpdated]: OmnichannelSubscriptionItemMrrUpdatedContent;
 
   [WebhookEventType.OmnichannelSubscriptionItemPauseScheduled]: OmnichannelSubscriptionItemPauseScheduledContent;
 
@@ -1940,6 +1962,12 @@ export type WebhookContentMap = {
   [WebhookEventType.VariantDeleted]: VariantDeletedContent;
 
   [WebhookEventType.VariantUpdated]: VariantUpdatedContent;
+
+  [WebhookEventType.VaultTokenCreated]: VaultTokenCreatedContent;
+
+  [WebhookEventType.VaultTokenDeleted]: VaultTokenDeletedContent;
+
+  [WebhookEventType.VaultTokenUpdated]: VaultTokenUpdatedContent;
 
   [WebhookEventType.VirtualBankAccountAdded]: VirtualBankAccountAddedContent;
 

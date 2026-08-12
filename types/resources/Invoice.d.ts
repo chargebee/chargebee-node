@@ -689,7 +689,7 @@ declare module 'chargebee' {
       txn_date?: number;
       txn_amount?: number;
       txn_type: 'authorization' | 'payment' | 'refund' | 'payment_reversal';
-      amount_capturable: number;
+      amount_capturable?: number;
       authorization_reason?:
         | 'verification'
         | 'blocking_funds'

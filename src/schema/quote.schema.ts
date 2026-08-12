@@ -773,6 +773,7 @@ const CreateSubItemsForCustomerQuoteQuoteSubscriptionItemsSchema = z.object({
     .optional(),
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
+  description: z.array(z.string().max(2000).optional()).optional(),
   ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
 });
 const CreateSubItemsForCustomerQuoteQuoteDiscountsSchema = z.object({
@@ -953,6 +954,7 @@ const EditCreateSubCustomerQuoteForItemsQuoteSubscriptionItemsSchema = z.object(
       .optional(),
     start_date: z.array(z.number().int().optional()).optional(),
     end_date: z.array(z.number().int().optional()).optional(),
+    description: z.array(z.string().max(2000).optional()).optional(),
     ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
   },
 );
@@ -1134,6 +1136,7 @@ const UpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema = z.object({
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
+  description: z.array(z.string().max(2000).optional()).optional(),
   ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
 });
 const UpdateSubscriptionQuoteForItemsQuoteDiscountsSchema = z.object({
@@ -1327,6 +1330,7 @@ const EditUpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema =
       .optional(),
     start_date: z.array(z.number().int().optional()).optional(),
     end_date: z.array(z.number().int().optional()).optional(),
+    description: z.array(z.string().max(2000).optional()).optional(),
     ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
   });
 const EditUpdateSubscriptionQuoteForItemsQuoteDiscountsSchema = z.object({

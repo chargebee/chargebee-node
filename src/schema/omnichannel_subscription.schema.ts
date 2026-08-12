@@ -34,12 +34,16 @@ const ListOmnichannelSubscriptionIdAtSourceSchema = z.object({
   not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListOmnichannelSubscriptionUpdatedAtSchema = z.object({
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
   after: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
 });
 const ListOmnichannelSubscriptionPurchasedAtSchema = z.object({
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
   after: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
 });
 const ListOmnichannelSubscriptionSortBySchema = z.looseObject({
   asc: z.enum(['created_at', 'updated_at']).optional(),

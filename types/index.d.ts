@@ -39,6 +39,7 @@
 ///<reference path='./resources/Feature.d.ts' />
 ///<reference path='./resources/FilterCondition.d.ts' />
 ///<reference path='./resources/GatewayErrorDetail.d.ts' />
+///<reference path='./resources/GatewayPaymentMethodToken.d.ts' />
 ///<reference path='./resources/Gift.d.ts' />
 ///<reference path='./resources/GrantBlock.d.ts' />
 ///<reference path='./resources/Hierarchy.d.ts' />
@@ -67,6 +68,7 @@
 ///<reference path='./resources/OmnichannelOneTimeOrderItem.d.ts' />
 ///<reference path='./resources/OmnichannelSubscription.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItem.d.ts' />
+///<reference path='./resources/OmnichannelSubscriptionItemMetric.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItemOffer.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItemScheduledChange.d.ts' />
 ///<reference path='./resources/OmnichannelTransaction.d.ts' />
@@ -113,6 +115,7 @@
 ///<reference path='./resources/UsageEvent.d.ts' />
 ///<reference path='./resources/UsageFile.d.ts' />
 ///<reference path='./resources/UsageSummary.d.ts' />
+///<reference path='./resources/VaultedPaymentMethod.d.ts' />
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
 ///<reference path='./resources/WebhookEndpoint.d.ts' />
 ///<reference path='./resources/Content.d.ts' />
@@ -339,6 +342,7 @@ declare module 'chargebee' {
     usageEvent: UsageEvent.UsageEventResource;
     usageFile: UsageFile.UsageFileResource;
     usageSummary: UsageSummary.UsageSummaryResource;
+    vaultedPaymentMethod: VaultedPaymentMethod.VaultedPaymentMethodResource;
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
     webhookEndpoint: WebhookEndpoint.WebhookEndpointResource;
 

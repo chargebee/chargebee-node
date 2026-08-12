@@ -1538,12 +1538,12 @@ export type PdfInvoiceBody = z.infer<typeof PdfInvoiceBodySchema>;
 //Invoice.listPaymentReferenceNumbers
 
 const ListPaymentReferenceNumbersInvoiceIdSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
   is: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListPaymentReferenceNumbersInvoiceNumberSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
   is: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListPaymentReferenceNumbersInvoicePaymentReferenceNumberItemSchema =
   z.object({

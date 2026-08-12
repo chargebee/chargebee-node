@@ -1231,6 +1231,7 @@ declare module 'chargebee' {
       charge_on_option?: ChargeOnOptionEnum;
       start_date?: number;
       end_date?: number;
+      description?: string;
       ramp_tier_id?: string;
     }
     export interface DiscountsCreateSubItemsForCustomerQuoteInputParam {
@@ -1332,6 +1333,7 @@ declare module 'chargebee' {
       charge_on_option?: ChargeOnOptionEnum;
       start_date?: number;
       end_date?: number;
+      description?: string;
       ramp_tier_id?: string;
     }
     export interface DiscountsEditCreateSubCustomerQuoteForItemsInputParam {
@@ -1440,6 +1442,7 @@ declare module 'chargebee' {
       item_type?: ItemTypeEnum;
       start_date?: number;
       end_date?: number;
+      description?: string;
       ramp_tier_id?: string;
     }
     export interface DiscountsUpdateSubscriptionQuoteForItemsInputParam {
@@ -1549,6 +1552,7 @@ declare module 'chargebee' {
       item_type?: ItemTypeEnum;
       start_date?: number;
       end_date?: number;
+      description?: string;
       ramp_tier_id?: string;
     }
     export interface DiscountsEditUpdateSubscriptionQuoteForItemsInputParam {
