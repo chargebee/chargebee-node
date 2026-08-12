@@ -7,9 +7,6 @@
 
 /**
  * Per-client gate so the SDK telemetry header is considered at most once per client instance.
- *
- * Internal SDK type: applications must not depend on it. It is public only so that the
- * Chargebee client can own one instance.
  */
 export class SdkTelemetryState {
   private emitted = false;
