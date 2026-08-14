@@ -43,4 +43,4 @@ prepack:
 	npm run prepack
 
 install: 
-	npm install
+	npm ci
