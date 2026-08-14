@@ -185,13 +185,16 @@ declare module 'chargebee' {
      * @telemetryAdapter optional telemetry adapter for observability (e.g. OpenTelemetry)
      */
     telemetryAdapter?: TelemetryAdapter;
+
+    /**
+     * @sdkTelemetryEnabled when false, the SDK does not send the anonymous x-chargebee-sdk-telemetry header. Default true.
+     */
+    sdkTelemetryEnabled?: boolean;
   };
 
   export interface HttpClientInterface {
     makeApiRequest: (request: Request, timeout: number) => Promise<Response>;
   }
-
-  export type RequestTelemetryHandle = unknown;
 
   export const TelemetryAttributeKeys: {
     readonly URL_FULL: 'url.full';
@@ -209,6 +212,10 @@ declare module 'chargebee' {
     readonly CHARGEBEE_ERROR_TYPE: 'chargebee.error.type';
     readonly CHARGEBEE_ERROR_PARAM: 'chargebee.error.param';
   };
+
+  export const SDK_TELEMETRY_HEADER_NAME: 'x-chargebee-sdk-telemetry';
+
+  export type RequestTelemetryHandle = unknown;
 
   export type RequestTelemetryContext = {
     spanName: string;

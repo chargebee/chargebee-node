@@ -16,6 +16,7 @@ import {
   type WebhookHandlerOptions,
   createDefaultHandler,
 } from './resources/webhook/handler.js';
+import { SdkTelemetryState } from './telemetry/index.js';
 
 export const CreateChargebee = (httpClient: HttpClientInterface) => {
   const Chargebee = function (this: ChargebeeType, conf: Config) {
@@ -23,12 +24,16 @@ export const CreateChargebee = (httpClient: HttpClientInterface) => {
     const {
       telemetryAdapter,
       httpClient: configHttpClient,
+      sdkTelemetryEnabled,
       ...confToMerge
     } = conf;
     extend(true, this._env, confToMerge);
     // @ts-ignore
     this._env.httpClient =
       configHttpClient != null ? configHttpClient : httpClient;
+    this._env.sdkTelemetryState = new SdkTelemetryState();
+    this._env.sdkTelemetryEnabled = sdkTelemetryEnabled !== false;
+    this._env.httpClientIsCustom = configHttpClient != null;
     if (telemetryAdapter !== undefined) {
       this._env.telemetryAdapter = telemetryAdapter;
     }

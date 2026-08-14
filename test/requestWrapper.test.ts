@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { CreateChargebee } from '../src/createChargebee.js';
 import { Environment } from '../src/environment.js';
-import { TelemetryAttributeKeys } from '../src/chargebee.esm.js';
+import { TelemetryAttributeKeys, SDK_TELEMETRY_HEADER_NAME } from '../src/chargebee.esm.js';
 
 let capturedRequests: Request[] = [];
 let responseFactory: ((attempt: number) => Response) | null = null;
@@ -611,6 +611,83 @@ describe('RequestWrapper - telemetry adapter', () => {
     const result = await chargebee.customer.list();
     expect(result).to.have.property('list');
     expect(capturedRequests.length).to.equal(1);
+  });
+});
+
+describe('RequestWrapper - SDK telemetry header', () => {
+  it('should omit header when no features are enabled', async () => {
+    const chargebee = createChargebee({
+      retryConfig: { enabled: false },
+    });
+    await chargebee.customer.list({ limit: 1 });
+    await chargebee.customer.list({ limit: 1 });
+
+    expect(capturedRequests.length).to.equal(2);
+    expect(
+      capturedRequests[0].headers.get(SDK_TELEMETRY_HEADER_NAME),
+    ).to.equal(null);
+    expect(
+      capturedRequests[1].headers.get(SDK_TELEMETRY_HEADER_NAME),
+    ).to.equal(null);
+  });
+
+  it('should not attach header when sdk telemetry is disabled', async () => {
+    const chargebee = createChargebee({
+      sdkTelemetryEnabled: false,
+      httpClient: mockHttpClient,
+      retryConfig: { enabled: true, maxRetries: 1, delayMs: 0, retryOn: [500] },
+    });
+    await chargebee.customer.list({ limit: 1 });
+    await chargebee.customer.list({ limit: 1 });
+
+    expect(capturedRequests.length).to.equal(2);
+    expect(
+      capturedRequests[0].headers.get(SDK_TELEMETRY_HEADER_NAME),
+    ).to.equal(null);
+    expect(
+      capturedRequests[1].headers.get(SDK_TELEMETRY_HEADER_NAME),
+    ).to.equal(null);
+    expect((chargebee as any)._env.sdkTelemetryState.hasEmitted()).to.equal(
+      false,
+    );
+  });
+
+  it('should emit keyed feature codes once on the first call only', async () => {
+    const chargebee = createChargebee({
+      httpClient: mockHttpClient,
+      retryConfig: { enabled: true, maxRetries: 1, delayMs: 0, retryOn: [500] },
+      telemetryAdapter: {
+        onRequestStart: () => ({}),
+        onRequestEnd: () => {},
+      },
+    });
+
+    await chargebee.customer.list({ limit: 1 });
+    await chargebee.customer.list({ limit: 1 });
+
+    expect(capturedRequests[0].headers.get(SDK_TELEMETRY_HEADER_NAME)).to.equal(
+      'f;ta;ct;rc',
+    );
+    expect(
+      capturedRequests[1].headers.get(SDK_TELEMETRY_HEADER_NAME),
+    ).to.equal(null);
+  });
+
+  it('should emit ct and rc without telemetry adapter', async () => {
+    const chargebee = createChargebee({
+      httpClient: mockHttpClient,
+      retryConfig: { enabled: true, maxRetries: 1, delayMs: 0, retryOn: [500] },
+    });
+
+    await chargebee.customer.list({ limit: 1 });
+    await chargebee.customer.list({ limit: 1 });
+
+    expect(capturedRequests[0].headers.get(SDK_TELEMETRY_HEADER_NAME)).to.equal(
+      'f;ct;rc',
+    );
+    expect(
+      capturedRequests[1].headers.get(SDK_TELEMETRY_HEADER_NAME),
+    ).to.equal(null);
   });
 });
 
