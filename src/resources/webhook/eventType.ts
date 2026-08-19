@@ -207,6 +207,8 @@ export enum WebhookEventType {
 
   OmnichannelSubscriptionItemGracePeriodStarted = 'omnichannel_subscription_item_grace_period_started',
 
+  OmnichannelSubscriptionItemMrrUpdated = 'omnichannel_subscription_item_mrr_updated',
+
   OmnichannelSubscriptionItemPauseScheduled = 'omnichannel_subscription_item_pause_scheduled',
 
   OmnichannelSubscriptionItemPaused = 'omnichannel_subscription_item_paused',
@@ -456,6 +458,12 @@ export enum WebhookEventType {
   VariantDeleted = 'variant_deleted',
 
   VariantUpdated = 'variant_updated',
+
+  VaultTokenCreated = 'vault_token_created',
+
+  VaultTokenDeleted = 'vault_token_deleted',
+
+  VaultTokenUpdated = 'vault_token_updated',
 
   VirtualBankAccountAdded = 'virtual_bank_account_added',
 

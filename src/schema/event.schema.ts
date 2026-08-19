@@ -293,10 +293,14 @@ const ListEventEventTypeSchema = z.object({
       'alert_status_changed',
       'omnichannel_subscription_item_updated',
       'omnichannel_subscription_item_recovered',
+      'omnichannel_subscription_item_mrr_updated',
       'ledger_account_balance_updated',
       'grant_blocks_created',
       'grant_blocks_updated',
       'ledger_updated',
+      'vault_token_created',
+      'vault_token_updated',
+      'vault_token_deleted',
     ])
     .optional(),
   is_not: z
@@ -524,10 +528,14 @@ const ListEventEventTypeSchema = z.object({
       'alert_status_changed',
       'omnichannel_subscription_item_updated',
       'omnichannel_subscription_item_recovered',
+      'omnichannel_subscription_item_mrr_updated',
       'ledger_account_balance_updated',
       'grant_blocks_created',
       'grant_blocks_updated',
       'ledger_updated',
+      'vault_token_created',
+      'vault_token_updated',
+      'vault_token_deleted',
     ])
     .optional(),
   in: z
@@ -755,10 +763,14 @@ const ListEventEventTypeSchema = z.object({
       'alert_status_changed',
       'omnichannel_subscription_item_updated',
       'omnichannel_subscription_item_recovered',
+      'omnichannel_subscription_item_mrr_updated',
       'ledger_account_balance_updated',
       'grant_blocks_created',
       'grant_blocks_updated',
       'ledger_updated',
+      'vault_token_created',
+      'vault_token_updated',
+      'vault_token_deleted',
     ])
     .optional(),
   not_in: z
@@ -986,10 +998,14 @@ const ListEventEventTypeSchema = z.object({
       'alert_status_changed',
       'omnichannel_subscription_item_updated',
       'omnichannel_subscription_item_recovered',
+      'omnichannel_subscription_item_mrr_updated',
       'ledger_account_balance_updated',
       'grant_blocks_created',
       'grant_blocks_updated',
       'ledger_updated',
+      'vault_token_created',
+      'vault_token_updated',
+      'vault_token_deleted',
     ])
     .optional(),
 });

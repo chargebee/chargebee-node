@@ -1,5 +1,5 @@
 // Generated Zod schemas: CreditNote
-// Actions: create, retrieve, pdf, refund, recordRefund, voidCreditNote, list, creditNotesForCustomer, delete, removeTaxWithheldRefund, importCreditNote
+// Actions: create, retrieve, pdf, refund, recordRefund, voidCreditNote, list, creditNotesForCustomer, delete, update, removeTaxWithheldRefund, importCreditNote
 // Do not edit manually – regenerate via sdk-generator
 
 import { z } from 'zod';
@@ -375,6 +375,14 @@ const DeleteCreditNoteBodySchema = z.looseObject({
 });
 export { DeleteCreditNoteBodySchema };
 export type DeleteCreditNoteBody = z.infer<typeof DeleteCreditNoteBodySchema>;
+
+//CreditNote.update
+
+const UpdateCreditNoteBodySchema = z.looseObject({
+  comment: z.string().max(300).optional(),
+});
+export { UpdateCreditNoteBodySchema };
+export type UpdateCreditNoteBody = z.infer<typeof UpdateCreditNoteBodySchema>;
 
 //CreditNote.removeTaxWithheldRefund
 

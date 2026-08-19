@@ -282,8 +282,8 @@ const ListCouponCurrencyCodeSchema = z.object({
   not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListCouponApplicableItemPriceIdsSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
   is: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListCouponBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

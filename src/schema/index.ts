@@ -55,6 +55,7 @@ export * from './promotional_credit.schema.js';
 export * from './promotional_grant.schema.js';
 export * from './purchase.schema.js';
 export * from './quote.schema.js';
+export * from './quote_entitlement.schema.js';
 export * from './ramp.schema.js';
 export * from './recorded_purchase.schema.js';
 export * from './resource_migration.schema.js';

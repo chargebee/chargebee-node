@@ -46,6 +46,7 @@ declare module 'chargebee' {
       amount_per_billing_cycle_in_decimal?: string;
       net_amount_per_billing_cycle?: number;
       net_amount_per_billing_cycle_in_decimal?: string;
+      description?: string;
     }
     export interface Discount {
       id: string;

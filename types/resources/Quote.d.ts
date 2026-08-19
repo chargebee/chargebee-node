@@ -59,6 +59,7 @@ declare module 'chargebee' {
     deleted: boolean;
     total_contract_value?: number;
     total_discount?: number;
+    has_entitlements?: boolean;
   }
 
   export namespace Quote {
@@ -662,6 +663,7 @@ declare module 'chargebee' {
       discounts?: DiscountsCreateSubItemsForCustomerQuoteInputParam[];
       item_tiers?: ItemTiersCreateSubItemsForCustomerQuoteInputParam[];
       coupons?: CouponsCreateSubItemsForCustomerQuoteInputParam[];
+      entitlement_overrides?: EntitlementOverridesCreateSubItemsForCustomerQuoteInputParam[];
       [key: `cf_${string}`]: unknown;
     }
     export interface EditCreateSubCustomerQuoteForItemsInputParam {
@@ -682,6 +684,7 @@ declare module 'chargebee' {
       discounts?: DiscountsEditCreateSubCustomerQuoteForItemsInputParam[];
       item_tiers?: ItemTiersEditCreateSubCustomerQuoteForItemsInputParam[];
       coupons?: CouponsEditCreateSubCustomerQuoteForItemsInputParam[];
+      entitlement_overrides?: EntitlementOverridesEditCreateSubCustomerQuoteForItemsInputParam[];
       [key: `cf_${string}`]: unknown;
     }
     export interface UpdateSubscriptionQuoteForItemsInputParam {
@@ -710,6 +713,7 @@ declare module 'chargebee' {
       discounts?: DiscountsUpdateSubscriptionQuoteForItemsInputParam[];
       item_tiers?: ItemTiersUpdateSubscriptionQuoteForItemsInputParam[];
       coupons?: CouponsUpdateSubscriptionQuoteForItemsInputParam[];
+      entitlement_overrides?: EntitlementOverridesUpdateSubscriptionQuoteForItemsInputParam[];
       [key: `cf_${string}`]: unknown;
     }
     export interface EditUpdateSubscriptionQuoteForItemsInputParam {
@@ -737,6 +741,7 @@ declare module 'chargebee' {
       discounts?: DiscountsEditUpdateSubscriptionQuoteForItemsInputParam[];
       item_tiers?: ItemTiersEditUpdateSubscriptionQuoteForItemsInputParam[];
       coupons?: CouponsEditUpdateSubscriptionQuoteForItemsInputParam[];
+      entitlement_overrides?: EntitlementOverridesEditUpdateSubscriptionQuoteForItemsInputParam[];
       [key: `cf_${string}`]: unknown;
     }
     export interface CreateForChargeItemsAndChargesInputParam {
@@ -1231,6 +1236,7 @@ declare module 'chargebee' {
       charge_on_option?: ChargeOnOptionEnum;
       start_date?: number;
       end_date?: number;
+      description?: string;
       ramp_tier_id?: string;
     }
     export interface DiscountsCreateSubItemsForCustomerQuoteInputParam {
@@ -1248,6 +1254,15 @@ declare module 'chargebee' {
     }
     export interface CouponsCreateSubItemsForCustomerQuoteInputParam {
       id?: string;
+      start_date?: number;
+      end_date?: number;
+    }
+    export interface EntitlementOverridesCreateSubItemsForCustomerQuoteInputParam {
+      feature_id?: string;
+      entity_id?: string;
+      entity_type?: EntityTypeEnum;
+      value?: string;
+      is_enabled?: boolean;
       start_date?: number;
       end_date?: number;
     }
@@ -1332,6 +1347,7 @@ declare module 'chargebee' {
       charge_on_option?: ChargeOnOptionEnum;
       start_date?: number;
       end_date?: number;
+      description?: string;
       ramp_tier_id?: string;
     }
     export interface DiscountsEditCreateSubCustomerQuoteForItemsInputParam {
@@ -1349,6 +1365,15 @@ declare module 'chargebee' {
     }
     export interface CouponsEditCreateSubCustomerQuoteForItemsInputParam {
       id?: string;
+      start_date?: number;
+      end_date?: number;
+    }
+    export interface EntitlementOverridesEditCreateSubCustomerQuoteForItemsInputParam {
+      feature_id?: string;
+      entity_id?: string;
+      entity_type?: EntityTypeEnum;
+      value?: string;
+      is_enabled?: boolean;
       start_date?: number;
       end_date?: number;
     }
@@ -1440,6 +1465,7 @@ declare module 'chargebee' {
       item_type?: ItemTypeEnum;
       start_date?: number;
       end_date?: number;
+      description?: string;
       ramp_tier_id?: string;
     }
     export interface DiscountsUpdateSubscriptionQuoteForItemsInputParam {
@@ -1459,6 +1485,15 @@ declare module 'chargebee' {
     }
     export interface CouponsUpdateSubscriptionQuoteForItemsInputParam {
       id?: string;
+      start_date?: number;
+      end_date?: number;
+    }
+    export interface EntitlementOverridesUpdateSubscriptionQuoteForItemsInputParam {
+      feature_id?: string;
+      entity_id?: string;
+      entity_type?: EntityTypeEnum;
+      value?: string;
+      is_enabled?: boolean;
       start_date?: number;
       end_date?: number;
     }
@@ -1549,6 +1584,7 @@ declare module 'chargebee' {
       item_type?: ItemTypeEnum;
       start_date?: number;
       end_date?: number;
+      description?: string;
       ramp_tier_id?: string;
     }
     export interface DiscountsEditUpdateSubscriptionQuoteForItemsInputParam {
@@ -1568,6 +1604,15 @@ declare module 'chargebee' {
     }
     export interface CouponsEditUpdateSubscriptionQuoteForItemsInputParam {
       id?: string;
+      start_date?: number;
+      end_date?: number;
+    }
+    export interface EntitlementOverridesEditUpdateSubscriptionQuoteForItemsInputParam {
+      feature_id?: string;
+      entity_id?: string;
+      entity_type?: EntityTypeEnum;
+      value?: string;
+      is_enabled?: boolean;
       start_date?: number;
       end_date?: number;
     }
