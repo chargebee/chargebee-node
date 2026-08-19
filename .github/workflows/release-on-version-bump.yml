@@ -95,14 +95,33 @@ jobs:
         env:
           VERSION: ${{ needs.detect.outputs.version }}
         run: |
-          # The section runs from its own "### v<version> (date)" heading to the
-          # next version heading. Matched as a literal prefix so the dots in the
-          # version are not treated as wildcards.
+          # The section runs from this version's heading to the next version
+          # heading. Any heading whose first word is a version ends it: depth and
+          # spacing vary over the file's history ("### v3.30.1 (2026-08-11)" is
+          # the norm, older entries use "## v3.0.2 (2024-11-09)"), and treating
+          # only "### v" as a boundary would swallow the older entries whole.
+          # The version is compared as a whole word, so releasing 3.31.0 cannot
+          # pick up a "v3.31.0-beta.1" section.
           awk -v ver="$VERSION" '
-            BEGIN { head = "### v" ver " " }
-            substr($0, 1, length(head)) == head { found = 1; print; next }
-            found && /^### v/ { exit }
-            found { print }
+            function heading_version(line,   rest) {
+              if (line !~ /^##+[[:space:]]*v?[0-9]+\.[0-9]+/) return ""
+              rest = line
+              sub(/^##+[[:space:]]*/, "", rest)
+              sub(/[[:space:]].*$/, "", rest)
+              sub(/^v/, "", rest)
+              return rest
+            }
+            {
+              line = $0
+              sub(/\r$/, "", line)
+              this = heading_version(line)
+              if (this != "") {
+                if (this == ver) { found = 1; print line; next }
+                if (found) exit
+                next
+              }
+              if (found) print line
+            }
           ' CHANGELOG.md > /tmp/release-notes.md
 
           if [ ! -s /tmp/release-notes.md ]; then
