@@ -115,7 +115,13 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ needs.detect.outputs.version }}
           DRY_RUN: ${{ inputs.dry_run == true }}
+          REF: ${{ github.ref }}
         run: |
+          if [ "$REF" != "refs/heads/master" ]; then
+            echo "Releases are cut from master only, so $REF cannot publish one. Continuing as a dry run."
+            DRY_RUN=true
+          fi
+
           if [ "$DRY_RUN" = "true" ]; then
             echo "Dry run: would tag $GITHUB_SHA as v$VERSION and publish the release notes above. Nothing was created."
             exit 0
@@ -130,6 +136,6 @@ jobs:
   publish:
     name: Publish to NPM
     needs: [detect, github-release]
-    if: ${{ needs.detect.outputs.release == 'true' && inputs.dry_run != true }}
+    if: ${{ needs.detect.outputs.release == 'true' && inputs.dry_run != true && github.ref == 'refs/heads/master' }}
     uses: ./.github/workflows/release.yml
     secrets: inherit
