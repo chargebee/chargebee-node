@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - 'v3*' 
-  # Called by release-on-version-bump.yml once it has tagged the merge commit,
-  # because a tag created by GITHUB_TOKEN does not trigger the push event above.
   workflow_call:
 
 jobs:
