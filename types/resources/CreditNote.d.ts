@@ -131,6 +131,12 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteResponse>>;
 
+      update(
+        credit_note_id: string,
+        input?: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdateResponse>>;
+
       removeTaxWithheldRefund(
         credit_note_id: string,
         input: RemoveTaxWithheldRefundInputParam,
@@ -195,6 +201,10 @@ declare module 'chargebee' {
     }
 
     export interface DeleteResponse {
+      credit_note: CreditNote;
+    }
+
+    export interface UpdateResponse {
       credit_note: CreditNote;
     }
 
@@ -530,6 +540,10 @@ declare module 'chargebee' {
     }
     export interface DeleteInputParam {
       comment?: string;
+    }
+    export interface UpdateInputParam {
+      comment?: string;
+      [key: `cf_${string}`]: unknown;
     }
     export interface RemoveTaxWithheldRefundInputParam {
       tax_withheld?: TaxWithheldRemoveTaxWithheldRefundInputParam;

@@ -25,7 +25,9 @@ interface Endpoints {
   businessEntityTransfer: EndpointTuple[];
   token: EndpointTuple[];
   paymentSource: EndpointTuple[];
+  gatewayPaymentMethodToken: EndpointTuple[];
   thirdPartyPaymentMethod: EndpointTuple[];
+  vaultedPaymentMethod: EndpointTuple[];
   virtualBankAccount: EndpointTuple[];
   card: EndpointTuple[];
   promotionalCredit: EndpointTuple[];
@@ -48,6 +50,7 @@ interface Endpoints {
   quotedDeltaRamp: EndpointTuple[];
   billingConfiguration: EndpointTuple[];
   quoteLineGroup: EndpointTuple[];
+  quoteEntitlement: EndpointTuple[];
   cpqQuoteSignature: EndpointTuple[];
   plan: EndpointTuple[];
   addon: EndpointTuple[];
@@ -95,6 +98,7 @@ interface Endpoints {
   paymentScheduleScheme: EndpointTuple[];
   pricingPageSession: EndpointTuple[];
   omnichannelSubscriptionItemScheduledChange: EndpointTuple[];
+  omnichannelSubscriptionItemMetric: EndpointTuple[];
   omnichannelSubscription: EndpointTuple[];
   omnichannelTransaction: EndpointTuple[];
   omnichannelSubscriptionItem: EndpointTuple[];
@@ -1071,6 +1075,17 @@ export const Endpoints: Endpoints = {
         isIdempotent: true,
       },
     ],
+    [
+      'listGatewayTokensForPaymentSource',
+      'GET',
+      '/payment_sources',
+      '/gateway_payment_method_tokens',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
     ['retrieve', 'GET', '/payment_sources', null, true, null, false, {}, {}],
     ['list', 'GET', '/payment_sources', null, false, null, false, {}, {}],
     [
@@ -1126,7 +1141,21 @@ export const Endpoints: Endpoints = {
       },
     ],
   ],
+  gatewayPaymentMethodToken: [],
   thirdPartyPaymentMethod: [],
+  vaultedPaymentMethod: [
+    [
+      'retrieve',
+      'GET',
+      '/vaulted_payment_methods',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
   virtualBankAccount: [
     [
       'createUsingPermanentToken',
@@ -1719,6 +1748,19 @@ export const Endpoints: Endpoints = {
       },
     ],
     [
+      'voidBeforeCapture',
+      'POST',
+      '/invoices',
+      '/void_before_capture',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
       'delete',
       'POST',
       '/invoices',
@@ -1894,6 +1936,19 @@ export const Endpoints: Endpoints = {
       'POST',
       '/credit_notes',
       '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'update',
+      'POST',
+      '/credit_notes',
+      '/update',
       true,
       null,
       false,
@@ -3158,6 +3213,19 @@ export const Endpoints: Endpoints = {
   quotedDeltaRamp: [],
   billingConfiguration: [],
   quoteLineGroup: [],
+  quoteEntitlement: [
+    [
+      'listQuoteEntitlements',
+      'GET',
+      '/quotes',
+      '/quote_entitlements',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
   cpqQuoteSignature: [],
   plan: [
     [
@@ -3933,6 +4001,19 @@ export const Endpoints: Endpoints = {
         isIdempotent: true,
       },
     ],
+    [
+      'ramps',
+      'POST',
+      '/exports',
+      '/ramps',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   paymentIntent: [
     [
@@ -3943,7 +4024,9 @@ export const Endpoints: Endpoints = {
       false,
       null,
       false,
-      {},
+      {
+        payment_method_options: 0,
+      },
       {
         isIdempotent: true,
       },
@@ -3956,7 +4039,9 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
-      {},
+      {
+        payment_method_options: 0,
+      },
       {
         isIdempotent: true,
       },
@@ -4877,6 +4962,7 @@ export const Endpoints: Endpoints = {
     ],
   ],
   omnichannelSubscriptionItemScheduledChange: [],
+  omnichannelSubscriptionItemMetric: [],
   omnichannelSubscription: [
     [
       'retrieve',

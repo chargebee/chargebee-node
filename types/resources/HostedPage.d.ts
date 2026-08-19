@@ -469,6 +469,7 @@ declare module 'chargebee' {
       pass_thru_content?: string;
       cancel_url?: string;
       redirect_url?: string;
+      locale?: string;
       subscription?: SubscriptionPreCancelInputParam;
     }
     export interface EventsInputParam {

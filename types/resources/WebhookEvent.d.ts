@@ -61,11 +61,13 @@ declare module 'chargebee' {
     SubscriptionAdvanceInvoiceScheduleUpdated = 'subscription_advance_invoice_schedule_updated',
     ItemDeleted = 'item_deleted',
     SubscriptionRampDrafted = 'subscription_ramp_drafted',
+    VaultTokenUpdated = 'vault_token_updated',
     DunningUpdated = 'dunning_updated',
     OmnichannelSubscriptionItemRecovered = 'omnichannel_subscription_item_recovered',
     ItemEntitlementsUpdated = 'item_entitlements_updated',
     TokenConsumed = 'token_consumed',
     HierarchyDeleted = 'hierarchy_deleted',
+    VaultTokenDeleted = 'vault_token_deleted',
     SubscriptionCancellationScheduled = 'subscription_cancellation_scheduled',
     SubscriptionRenewed = 'subscription_renewed',
     FeatureUpdated = 'feature_updated',
@@ -110,6 +112,7 @@ declare module 'chargebee' {
     CardUpdated = 'card_updated',
     CustomerCreated = 'customer_created',
     SubscriptionRenewalReminder = 'subscription_renewal_reminder',
+    OmnichannelSubscriptionItemMrrUpdated = 'omnichannel_subscription_item_mrr_updated',
     PaymentDueReminder = 'payment_due_reminder',
     OrderDelivered = 'order_delivered',
     OmnichannelSubscriptionItemCancellationScheduled = 'omnichannel_subscription_item_cancellation_scheduled',
@@ -189,6 +192,7 @@ declare module 'chargebee' {
     PromotionalCreditsAdded = 'promotional_credits_added',
     SubscriptionRampUpdated = 'subscription_ramp_updated',
     LedgerAccountBalanceUpdated = 'ledger_account_balance_updated',
+    VaultTokenCreated = 'vault_token_created',
     CustomerEntitlementsUpdated = 'customer_entitlements_updated',
     PaymentSourceExpired = 'payment_source_expired',
     CustomerMovedOut = 'customer_moved_out',
@@ -293,11 +297,13 @@ declare module 'chargebee' {
     [WebhookEventType.SubscriptionAdvanceInvoiceScheduleUpdated]: SubscriptionAdvanceInvoiceScheduleUpdatedContent;
     [WebhookEventType.ItemDeleted]: ItemDeletedContent;
     [WebhookEventType.SubscriptionRampDrafted]: SubscriptionRampDraftedContent;
+    [WebhookEventType.VaultTokenUpdated]: VaultTokenUpdatedContent;
     [WebhookEventType.DunningUpdated]: DunningUpdatedContent;
     [WebhookEventType.OmnichannelSubscriptionItemRecovered]: OmnichannelSubscriptionItemRecoveredContent;
     [WebhookEventType.ItemEntitlementsUpdated]: ItemEntitlementsUpdatedContent;
     [WebhookEventType.TokenConsumed]: TokenConsumedContent;
     [WebhookEventType.HierarchyDeleted]: HierarchyDeletedContent;
+    [WebhookEventType.VaultTokenDeleted]: VaultTokenDeletedContent;
     [WebhookEventType.SubscriptionCancellationScheduled]: SubscriptionCancellationScheduledContent;
     [WebhookEventType.SubscriptionRenewed]: SubscriptionRenewedContent;
     [WebhookEventType.FeatureUpdated]: FeatureUpdatedContent;
@@ -342,6 +348,7 @@ declare module 'chargebee' {
     [WebhookEventType.CardUpdated]: CardUpdatedContent;
     [WebhookEventType.CustomerCreated]: CustomerCreatedContent;
     [WebhookEventType.SubscriptionRenewalReminder]: SubscriptionRenewalReminderContent;
+    [WebhookEventType.OmnichannelSubscriptionItemMrrUpdated]: OmnichannelSubscriptionItemMrrUpdatedContent;
     [WebhookEventType.PaymentDueReminder]: PaymentDueReminderContent;
     [WebhookEventType.OrderDelivered]: OrderDeliveredContent;
     [WebhookEventType.OmnichannelSubscriptionItemCancellationScheduled]: OmnichannelSubscriptionItemCancellationScheduledContent;
@@ -421,6 +428,7 @@ declare module 'chargebee' {
     [WebhookEventType.PromotionalCreditsAdded]: PromotionalCreditsAddedContent;
     [WebhookEventType.SubscriptionRampUpdated]: SubscriptionRampUpdatedContent;
     [WebhookEventType.LedgerAccountBalanceUpdated]: LedgerAccountBalanceUpdatedContent;
+    [WebhookEventType.VaultTokenCreated]: VaultTokenCreatedContent;
     [WebhookEventType.CustomerEntitlementsUpdated]: CustomerEntitlementsUpdatedContent;
     [WebhookEventType.PaymentSourceExpired]: PaymentSourceExpiredContent;
     [WebhookEventType.CustomerMovedOut]: CustomerMovedOutContent;
@@ -806,6 +814,9 @@ declare module 'chargebee' {
   export type SubscriptionRampDraftedContent = {
     ramp: Ramp;
   };
+  export type VaultTokenUpdatedContent = {
+    vaulted_payment_method: VaultedPaymentMethod;
+  };
   export type DunningUpdatedContent = {
     invoice: Invoice;
   };
@@ -832,6 +843,9 @@ declare module 'chargebee' {
   };
   export type HierarchyDeletedContent = {
     customer: Customer;
+  };
+  export type VaultTokenDeletedContent = {
+    vaulted_payment_method: VaultedPaymentMethod;
   };
   export type SubscriptionCancellationScheduledContent = {
     subscription: Subscription;
@@ -1088,6 +1102,13 @@ declare module 'chargebee' {
     card: Card;
 
     advance_invoice_schedule: AdvanceInvoiceSchedule;
+  };
+  export type OmnichannelSubscriptionItemMrrUpdatedContent = {
+    omnichannel_subscription_item: OmnichannelSubscriptionItem;
+
+    omnichannel_subscription: OmnichannelSubscription;
+
+    omnichannel_subscription_item_metric: OmnichannelSubscriptionItemMetric;
   };
   export type PaymentDueReminderContent = {
     customer: Customer;
@@ -1541,6 +1562,9 @@ declare module 'chargebee' {
   };
   export type LedgerAccountBalanceUpdatedContent = {
     ledger_account_balance: LedgerAccountBalance;
+  };
+  export type VaultTokenCreatedContent = {
+    vaulted_payment_method: VaultedPaymentMethod;
   };
   export type CustomerEntitlementsUpdatedContent = {
     impacted_customer: ImpactedCustomer;
