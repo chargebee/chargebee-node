@@ -15,25 +15,32 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   detect:
-    name: Detect version bump
+    name: Decide what needs releasing
     runs-on: ubuntu-latest
     outputs:
-      release: ${{ steps.check.outputs.release }}
       version: ${{ steps.check.outputs.version }}
+      create_release: ${{ steps.check.outputs.create_release }}
+      publish: ${{ steps.check.outputs.publish }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Compare version against the previous commit
+      - name: Check the version, the release and npm
         id: check
         env:
           BEFORE: ${{ github.event.before }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           NEW_VERSION=$(jq -r .version package.json)
+          PACKAGE=$(jq -r .name package.json)
 
           PREV="$BEFORE"
           if [ -z "$PREV" ] || [ "$PREV" = "0000000000000000000000000000000000000000" ] \
@@ -50,31 +57,46 @@ jobs:
           echo "version: ${OLD_VERSION:-<unknown>} -> $NEW_VERSION"
           echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
+          if gh release view "v$NEW_VERSION" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            CREATE_RELEASE=false
+          else
+            CREATE_RELEASE=true
+          fi
+
+          if npm view "$PACKAGE@$NEW_VERSION" version >/dev/null 2>&1; then
+            PUBLISH=false
+          else
+            PUBLISH=true
+          fi
+
+          echo "github release v$NEW_VERSION missing: $CREATE_RELEASE"
+          echo "$PACKAGE@$NEW_VERSION missing from npm: $PUBLISH"
+          echo "create_release=$CREATE_RELEASE" >> "$GITHUB_OUTPUT"
+          echo "publish=$PUBLISH" >> "$GITHUB_OUTPUT"
+
+          if [ "$CREATE_RELEASE" = "false" ] && [ "$PUBLISH" = "false" ]; then
+            echo "v$NEW_VERSION is already released and published; nothing to do."
+            exit 0
+          fi
+
           if [ "$NEW_VERSION" = "$OLD_VERSION" ]; then
-            echo "No version bump in this push; nothing to release."
-            echo "release=false" >> "$GITHUB_OUTPUT"
-            exit 0
+            echo "No version bump in this push, but v$NEW_VERSION is only half released; finishing it."
           fi
 
-          if [ -n "$(git ls-remote --tags origin "refs/tags/v$NEW_VERSION")" ]; then
-            echo "v$NEW_VERSION is already tagged; nothing to release."
-            echo "release=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          echo "Releasing v$NEW_VERSION."
-          echo "release=true" >> "$GITHUB_OUTPUT"
+          echo "Releasing v$NEW_VERSION: create github release=$CREATE_RELEASE, publish to npm=$PUBLISH."
 
   github-release:
     name: Tag and publish GitHub release
     needs: detect
-    if: ${{ needs.detect.outputs.release == 'true' }}
+    if: ${{ needs.detect.outputs.create_release == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Extract release notes from CHANGELOG
         env:
@@ -127,15 +149,35 @@ jobs:
             exit 0
           fi
 
-          gh release create "v$VERSION" \
-            --repo "$GITHUB_REPOSITORY" \
-            --target "$GITHUB_SHA" \
-            --title "v$VERSION" \
-            --notes-file /tmp/release-notes.md
+          git fetch --quiet origin master
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/master; then
+            echo "::error::$GITHUB_SHA is no longer reachable from master, so its history was rewritten. Refusing to tag it as v$VERSION."
+            exit 1
+          fi
+
+          if git ls-remote --exit-code --tags origin "refs/tags/v$VERSION" >/dev/null 2>&1; then
+            echo "Tag v$VERSION already exists; creating the missing release for it."
+            gh release create "v$VERSION" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "v$VERSION" \
+              --notes-file /tmp/release-notes.md
+          else
+            gh release create "v$VERSION" \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "v$VERSION" \
+              --notes-file /tmp/release-notes.md
+          fi
 
   publish:
     name: Publish to NPM
     needs: [detect, github-release]
-    if: ${{ needs.detect.outputs.release == 'true' && inputs.dry_run != true && github.ref == 'refs/heads/master' }}
+    if: >-
+      ${{ !cancelled()
+      && needs.detect.result == 'success'
+      && needs.detect.outputs.publish == 'true'
+      && inputs.dry_run != true
+      && github.ref == 'refs/heads/master'
+      && (needs.github-release.result == 'success' || needs.github-release.result == 'skipped') }}
     uses: ./.github/workflows/release.yml
     secrets: inherit
