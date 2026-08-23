@@ -1,6 +1,6 @@
 {
   "name": "chargebee",
-  "version": "3.31.0",
+  "version": "3.31.1",
   "description": "A library for integrating with Chargebee.",
   "scripts": {
     "prepack": "npm ci && npm run build",
@@ -93,6 +93,6 @@
     "parser": "typescript"
   },
   "dependencies": {
-    "zod": "^4.3.6"
+    "zod": "^4.4.3"
   }
 }

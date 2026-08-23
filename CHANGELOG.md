@@ -1,3 +1,8 @@
+### v3.31.1 (2026-08-23)
+* * *
+### Security:
+- Bumped the [`zod`](https://www.npmjs.com/package/zod) runtime dependency from `4.3.6` to `4.4.3`, which skips `__proto__` keys on object catchall paths ([zod#5898](https://github.com/colinhacks/zod/pull/5898)). The generated request schemas in this SDK are built on `z.looseObject`, so this is picked up as a precaution. Request validation remains opt-in through `enableValidation` and is off by default, and the SDK discards the parsed result rather than sending it, so earlier releases had no known exploitable path.
+
 ### v3.31.0 (2026-08-19)
 * * *
 ### New Resources:
