@@ -5,18 +5,25 @@
  * Copyright 2026 Chargebee Inc.
  */
 
+import { parseChargebeeTelemetryHeaderToSpanAttributes } from './chargebeeTelemetryHeaderParser.js';
 import {
   BuildRequestTelemetryContextInput,
   CHARGEBEE_SDK_NAME,
   CHARGEBEE_TELEMETRY_HEADER_EXCLUDE_PREFIX,
   CHARGEBEE_TELEMETRY_HEADER_PREFIX,
+  CHARGEBEE_TELEMETRY_PREFER_HEADER,
+  CHARGEBEE_TELEMETRY_PREFER_VALUE,
   HTTP_REQUEST_HEADER_ATTRIBUTE_PREFIX,
+  HTTP_RESPONSE_HEADER_ATTRIBUTE_PREFIX,
   RequestTelemetryContext,
+  RequestTelemetryEndAttributeValue,
   RequestTelemetryError,
   RequestTelemetryHandle,
   RequestTelemetryResult,
+  ResponseHeadersForTelemetry,
   TELEMETRY_SPAN_NAME_PREFIX,
   TelemetryAttributeKeys,
+  X_CHARGEBEE_TELEMETRY_HEADER,
 } from './types.js';
 
 export type RequestHeadersForTelemetry = Record<string, string | number>;
@@ -55,6 +62,23 @@ export function resolveChargebeeApiVersion(apiPath: string): 'v1' | 'v2' {
 }
 
 /**
+ * Adds {@code Prefer: chargebee-telemetry=include} when not already set.
+ * Chargebee returns {@code X-Chargebee-Telemetry} only when this header is present.
+ */
+export function applyResponseTelemetryPreferHeader(
+  requestHeaders: Record<string, string | number>,
+): void {
+  const preferHeader = CHARGEBEE_TELEMETRY_PREFER_HEADER.toLowerCase();
+  for (const name of Object.keys(requestHeaders)) {
+    if (name != null && name.toLowerCase() === preferHeader) {
+      return;
+    }
+  }
+  requestHeaders[CHARGEBEE_TELEMETRY_PREFER_HEADER] =
+    CHARGEBEE_TELEMETRY_PREFER_VALUE;
+}
+
+/**
  * Captures Chargebee custom request headers as OTel span attributes.
  *
  * Headers whose (lowercased) name starts with `chargebee-` are recorded as
@@ -72,7 +96,7 @@ export function buildRequestHeaderSpanAttributes(
   }
 
   for (const [name, value] of Object.entries(requestHeaders)) {
-    if (value === undefined || value === null) {
+    if (name == null || value === undefined || value === null) {
       continue;
     }
     const lowerName = name.toLowerCase();
@@ -85,6 +109,54 @@ export function buildRequestHeaderSpanAttributes(
     attributes[`${HTTP_REQUEST_HEADER_ATTRIBUTE_PREFIX}${lowerName}`] = [
       String(value),
     ];
+  }
+
+  return attributes;
+}
+
+/** Case-insensitive response header lookup; skips entries whose name is null/undefined. */
+export function getResponseHeaderValueIgnoreCase(
+  headers: Record<string, string | string[] | number | undefined> | undefined,
+  headerName: string,
+): string | undefined {
+  if (!headers) {
+    return undefined;
+  }
+  const target = headerName.toLowerCase();
+  for (const [name, value] of Object.entries(headers)) {
+    if (name == null || value === undefined || value === null) {
+      continue;
+    }
+    if (name.toLowerCase() === target) {
+      return Array.isArray(value) ? value.join(', ') : String(value);
+    }
+  }
+  return undefined;
+}
+
+/**
+ * Captures the {@code X-Chargebee-Telemetry} response header as OpenTelemetry span attributes.
+ */
+export function buildResponseHeaderSpanAttributes(
+  responseHeaders: ResponseHeadersForTelemetry | undefined,
+): Record<string, RequestTelemetryEndAttributeValue> {
+  const attributes: Record<string, RequestTelemetryEndAttributeValue> = {};
+  if (!responseHeaders) {
+    return attributes;
+  }
+
+  const value = getResponseHeaderValueIgnoreCase(
+    responseHeaders,
+    X_CHARGEBEE_TELEMETRY_HEADER,
+  );
+  if (value != null) {
+    attributes[
+      `${HTTP_RESPONSE_HEADER_ATTRIBUTE_PREFIX}${X_CHARGEBEE_TELEMETRY_HEADER}`
+    ] = value;
+    Object.assign(
+      attributes,
+      parseChargebeeTelemetryHeaderToSpanAttributes(value),
+    );
   }
 
   return attributes;
@@ -109,9 +181,10 @@ export function buildRequestStartSpanAttributes(
 
 export function buildRequestEndSpanAttributes(
   result: Omit<RequestTelemetryResult, 'endAttributes'>,
-): Record<string, string | number> {
-  const attributes: Record<string, string | number> = {
+): Record<string, RequestTelemetryEndAttributeValue> {
+  const attributes: Record<string, RequestTelemetryEndAttributeValue> = {
     [TelemetryAttributeKeys.HTTP_RESPONSE_STATUS_CODE]: result.httpStatusCode,
+    ...buildResponseHeaderSpanAttributes(result.responseHeaders),
   };
 
   if (result.error) {
@@ -211,5 +284,29 @@ export function extractHttpStatusCode(err: unknown): number | undefined {
       return value;
     }
   }
+  return undefined;
+}
+
+export function extractResponseHeaders(
+  err: unknown,
+): ResponseHeadersForTelemetry | undefined {
+  if (err == null || typeof err !== 'object') {
+    return undefined;
+  }
+
+  const errorObj = err as Record<string, unknown>;
+  const response = errorObj.response;
+  if (response != null && typeof response === 'object') {
+    const headers = (response as Record<string, unknown>).headers;
+    if (headers != null && typeof headers === 'object') {
+      return headers as ResponseHeadersForTelemetry;
+    }
+  }
+
+  const headers = errorObj.headers;
+  if (headers != null && typeof headers === 'object') {
+    return headers as ResponseHeadersForTelemetry;
+  }
+
   return undefined;
 }

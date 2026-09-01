@@ -21,7 +21,9 @@ import {
   RequestTelemetryResult,
 } from './types.js';
 
-const tracer = trace.getTracer(CHARGEBEE_SDK_NAME);
+function getTracer() {
+  return trace.getTracer(CHARGEBEE_SDK_NAME);
+}
 
 function toRecordedException(error: RequestTelemetryError): Error {
   const exception = new Error(error.message);
@@ -49,7 +51,7 @@ export class OtelTelemetryAdapter implements TelemetryAdapter<Span> {
     requestHeaders: Record<string, string | number>,
   ): Span {
     // startSpan adopts the active context's span as parent (or starts a root span if none).
-    const span = tracer.startSpan(ctx.spanName, {
+    const span = getTracer().startSpan(ctx.spanName, {
       kind: SpanKind.CLIENT,
       attributes: ctx.startAttributes,
     });

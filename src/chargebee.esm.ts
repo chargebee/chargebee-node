@@ -19,6 +19,10 @@ export {
   WebhookPayloadParseError,
 } from './resources/webhook/handler.js';
 export { TelemetryAttributeKeys } from './telemetry/index.js';
+export {
+  CHARGEBEE_TELEMETRY_PREFER_HEADER,
+  CHARGEBEE_TELEMETRY_PREFER_VALUE,
+} from './telemetry/index.js';
 
 // Export validation error class
 export { ChargebeeZodValidationError } from './chargebeeZodValidationError.js';
