@@ -235,12 +235,12 @@ export type UpdateRampBody = z.infer<typeof UpdateRampBodySchema>;
 //Ramp.list
 
 const ListRampStatusSchema = z.object({
-  in: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
   is: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
+  in: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
 });
 const ListRampSubscriptionIdSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
   is: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListRampEffectiveFromSchema = z.object({
   after: z.string().regex(RegExp('^\\d{10}$')).optional(),

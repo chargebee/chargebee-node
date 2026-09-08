@@ -1860,6 +1860,7 @@ const PreCancelHostedPageBodySchema = z.looseObject({
   pass_thru_content: z.string().max(2048).optional(),
   cancel_url: z.string().max(250).optional(),
   redirect_url: z.string().max(250).optional(),
+  locale: z.string().max(50).optional(),
   subscription: PreCancelHostedPageSubscriptionSchema.optional(),
 });
 export { PreCancelHostedPageBodySchema };

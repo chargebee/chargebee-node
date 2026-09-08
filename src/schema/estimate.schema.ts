@@ -1087,7 +1087,7 @@ const CancelSubscriptionEstimateBodySchema = z.looseObject({
   end_of_term: z.boolean().default(false).optional(),
   cancel_at: z.number().int().optional(),
   credit_option_for_current_term_charges: z
-    .enum(['none', 'prorate', 'full'])
+    .enum(['none', 'prorate', 'full', 'consumption_based'])
     .optional(),
   unbilled_charges_option: z.enum(['invoice', 'delete']).optional(),
   account_receivables_handling: z
@@ -1138,7 +1138,7 @@ const CancelSubscriptionForItemsEstimateBodySchema = z.looseObject({
   end_of_term: z.boolean().default(false).optional(),
   cancel_at: z.number().int().optional(),
   credit_option_for_current_term_charges: z
-    .enum(['none', 'prorate', 'full'])
+    .enum(['none', 'prorate', 'full', 'consumption_based'])
     .optional(),
   unbilled_charges_option: z.enum(['invoice', 'delete']).optional(),
   account_receivables_handling: z

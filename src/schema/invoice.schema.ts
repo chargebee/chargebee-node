@@ -1,5 +1,5 @@
 // Generated Zod schemas: Invoice
-// Actions: create, createForChargeItemsAndCharges, charge, chargeAddon, createForChargeItem, stopDunning, pauseDunning, resumeDunning, importInvoice, applyPayments, deleteLineItems, applyCredits, list, invoicesForCustomer, invoicesForSubscription, retrieve, pdf, listPaymentReferenceNumbers, addCharge, addAddonCharge, addChargeItem, close, collectPayment, recordPayment, recordTaxWithheld, removeTaxWithheld, refund, recordRefund, removePayment, removeCreditNote, voidInvoice, writeOff, delete, updateDetails, applyPaymentScheduleScheme
+// Actions: create, createForChargeItemsAndCharges, charge, chargeAddon, createForChargeItem, stopDunning, pauseDunning, resumeDunning, importInvoice, applyPayments, deleteLineItems, applyCredits, list, invoicesForCustomer, invoicesForSubscription, retrieve, pdf, listPaymentReferenceNumbers, addCharge, addAddonCharge, addChargeItem, close, collectPayment, recordPayment, recordTaxWithheld, removeTaxWithheld, refund, recordRefund, removePayment, removeCreditNote, voidInvoice, writeOff, voidBeforeCapture, delete, updateDetails, applyPaymentScheduleScheme
 // Do not edit manually – regenerate via sdk-generator
 
 import { z } from 'zod';
@@ -1538,12 +1538,12 @@ export type PdfInvoiceBody = z.infer<typeof PdfInvoiceBodySchema>;
 //Invoice.listPaymentReferenceNumbers
 
 const ListPaymentReferenceNumbersInvoiceIdSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
   is: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListPaymentReferenceNumbersInvoiceNumberSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
   is: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListPaymentReferenceNumbersInvoicePaymentReferenceNumberItemSchema =
   z.object({
@@ -1866,6 +1866,18 @@ const WriteOffInvoiceBodySchema = z.looseObject({
 });
 export { WriteOffInvoiceBodySchema };
 export type WriteOffInvoiceBody = z.infer<typeof WriteOffInvoiceBodySchema>;
+
+//Invoice.voidBeforeCapture
+
+const VoidBeforeCaptureInvoiceBodySchema = z.looseObject({
+  comment: z.string().max(300).optional(),
+  void_reason_code: z.string().max(100).optional(),
+  invoice_action: z.enum(['void', 'write_off']).optional(),
+});
+export { VoidBeforeCaptureInvoiceBodySchema };
+export type VoidBeforeCaptureInvoiceBody = z.infer<
+  typeof VoidBeforeCaptureInvoiceBodySchema
+>;
 
 //Invoice.delete
 

@@ -7,20 +7,20 @@ import { z } from 'zod';
 //Entitlement.list
 
 const ListEntitlementFeatureIdSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
   is: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListEntitlementEntityTypeSchema = z.object({
-  in: z
+  is: z
     .enum(['plan', 'addon', 'charge', 'plan_price', 'addon_price'])
     .optional(),
-  is: z
+  in: z
     .enum(['plan', 'addon', 'charge', 'plan_price', 'addon_price'])
     .optional(),
 });
 const ListEntitlementEntityIdSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
   is: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListEntitlementBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

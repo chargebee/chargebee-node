@@ -6,6 +6,7 @@ import { z } from 'zod';
 
 //PaymentIntent.create
 
+const CreatePaymentIntentPaymentMethodOptionsSchema = z.looseObject({});
 const CreatePaymentIntentBodySchema = z.looseObject({
   business_entity_id: z.string().max(50).optional(),
   customer_id: z.string().max(50).optional(),
@@ -72,6 +73,8 @@ const CreatePaymentIntentBodySchema = z.looseObject({
     .optional(),
   success_url: z.string().max(250).optional(),
   failure_url: z.string().max(250).optional(),
+  payment_method_options:
+    CreatePaymentIntentPaymentMethodOptionsSchema.optional(),
 });
 export { CreatePaymentIntentBodySchema };
 export type CreatePaymentIntentBody = z.infer<
@@ -80,6 +83,7 @@ export type CreatePaymentIntentBody = z.infer<
 
 //PaymentIntent.update
 
+const UpdatePaymentIntentPaymentMethodOptionsSchema = z.looseObject({});
 const UpdatePaymentIntentBodySchema = z.looseObject({
   amount: z.number().int().min(0).optional(),
   currency_code: z.string().max(3).optional(),
@@ -142,6 +146,8 @@ const UpdatePaymentIntentBodySchema = z.looseObject({
     .optional(),
   success_url: z.string().max(250).optional(),
   failure_url: z.string().max(250).optional(),
+  payment_method_options:
+    UpdatePaymentIntentPaymentMethodOptionsSchema.optional(),
 });
 export { UpdatePaymentIntentBodySchema };
 export type UpdatePaymentIntentBody = z.infer<

@@ -10,7 +10,7 @@ const CreateForNewSubscriptionPricingPageSessionCustomSchema = z.looseObject(
   {},
 );
 const CreateForNewSubscriptionPricingPageSessionPricingPageSchema = z.object({
-  id: z.string().max(50),
+  id: z.string().max(50).optional(),
 });
 const CreateForNewSubscriptionPricingPageSessionSubscriptionSchema =
   z.looseObject({

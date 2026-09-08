@@ -30,6 +30,7 @@ declare module 'chargebee' {
     venmo?: PaymentSource.Venmo;
     klarna_pay_now?: PaymentSource.KlarnaPayNow;
     mandates?: PaymentSource.Mandate[];
+    vault_token?: any;
     deleted: boolean;
     business_entity_id?: string;
   }
@@ -88,6 +89,12 @@ declare module 'chargebee' {
         input: VerifyBankAccountInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<VerifyBankAccountResponse>>;
+
+      listGatewayTokensForPaymentSource(
+        cust_payment_source_id: string,
+        input?: ListGatewayTokensForPaymentSourceInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListGatewayTokensForPaymentSourceResponse>>;
 
       retrieve(
         cust_payment_source_id: string,
@@ -169,6 +176,11 @@ declare module 'chargebee' {
 
     export interface VerifyBankAccountResponse {
       payment_source: PaymentSource;
+    }
+
+    export interface ListGatewayTokensForPaymentSourceResponse {
+      list: { gateway_payment_method_token: GatewayPaymentMethodToken }[];
+      next_offset?: string;
     }
 
     export interface RetrieveResponse {
@@ -366,6 +378,11 @@ declare module 'chargebee' {
     export interface VerifyBankAccountInputParam {
       amount1: number;
       amount2: number;
+    }
+    export interface ListGatewayTokensForPaymentSourceInputParam {
+      limit?: number;
+      offset?: string;
+      include_deleted?: boolean;
     }
     export interface ListInputParam {
       limit?: number;

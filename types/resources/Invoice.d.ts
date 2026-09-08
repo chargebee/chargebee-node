@@ -291,6 +291,12 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<WriteOffResponse>>;
 
+      voidBeforeCapture(
+        invoice_id: string,
+        input?: VoidBeforeCaptureInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<VoidBeforeCaptureResponse>>;
+
       delete(
         invoice_id: string,
         input?: DeleteInputParam,
@@ -474,6 +480,11 @@ declare module 'chargebee' {
     export interface WriteOffResponse {
       invoice: Invoice;
       credit_note: CreditNote;
+    }
+
+    export interface VoidBeforeCaptureResponse {
+      invoice: Invoice;
+      credit_note?: CreditNote;
     }
 
     export interface DeleteResponse {
@@ -689,7 +700,7 @@ declare module 'chargebee' {
       txn_date?: number;
       txn_amount?: number;
       txn_type: 'authorization' | 'payment' | 'refund' | 'payment_reversal';
-      amount_capturable: number;
+      amount_capturable?: number;
       authorization_reason?:
         | 'verification'
         | 'blocking_funds'
@@ -1193,6 +1204,11 @@ declare module 'chargebee' {
     }
     export interface WriteOffInputParam {
       comment?: string;
+    }
+    export interface VoidBeforeCaptureInputParam {
+      comment?: string;
+      void_reason_code?: string;
+      invoice_action?: InvoiceActionEnum;
     }
     export interface DeleteInputParam {
       comment?: string;

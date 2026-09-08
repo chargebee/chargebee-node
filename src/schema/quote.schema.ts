@@ -773,6 +773,7 @@ const CreateSubItemsForCustomerQuoteQuoteSubscriptionItemsSchema = z.object({
     .optional(),
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
+  description: z.array(z.string().max(2000).optional()).optional(),
   ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
 });
 const CreateSubItemsForCustomerQuoteQuoteDiscountsSchema = z.object({
@@ -813,6 +814,21 @@ const CreateSubItemsForCustomerQuoteQuoteCouponsSchema = z.object({
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const CreateSubItemsForCustomerQuoteQuoteEntitlementOverridesSchema = z.object({
+  feature_id: z.array(z.string().max(50).optional()).optional(),
+  entity_id: z.array(z.string().max(100).optional()).optional(),
+  entity_type: z
+    .array(
+      z
+        .enum(['plan_price', 'addon_price', 'charge_price', 'charge'])
+        .optional(),
+    )
+    .optional(),
+  value: z.array(z.string().max(50).optional()).optional(),
+  is_enabled: z.array(z.boolean().optional()).optional(),
+  start_date: z.array(z.number().int().optional()).optional(),
+  end_date: z.array(z.number().int().optional()).optional(),
+});
 const CreateSubItemsForCustomerQuoteQuoteBodySchema = z.looseObject({
   name: z.string().max(100).optional(),
   notes: z.string().max(10000).optional(),
@@ -837,6 +853,8 @@ const CreateSubItemsForCustomerQuoteQuoteBodySchema = z.looseObject({
   discounts: CreateSubItemsForCustomerQuoteQuoteDiscountsSchema.optional(),
   item_tiers: CreateSubItemsForCustomerQuoteQuoteItemTiersSchema.optional(),
   coupons: CreateSubItemsForCustomerQuoteQuoteCouponsSchema.optional(),
+  entitlement_overrides:
+    CreateSubItemsForCustomerQuoteQuoteEntitlementOverridesSchema.optional(),
 });
 export { CreateSubItemsForCustomerQuoteQuoteBodySchema };
 export type CreateSubItemsForCustomerQuoteQuoteBody = z.infer<
@@ -953,6 +971,7 @@ const EditCreateSubCustomerQuoteForItemsQuoteSubscriptionItemsSchema = z.object(
       .optional(),
     start_date: z.array(z.number().int().optional()).optional(),
     end_date: z.array(z.number().int().optional()).optional(),
+    description: z.array(z.string().max(2000).optional()).optional(),
     ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
   },
 );
@@ -994,6 +1013,22 @@ const EditCreateSubCustomerQuoteForItemsQuoteCouponsSchema = z.object({
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const EditCreateSubCustomerQuoteForItemsQuoteEntitlementOverridesSchema =
+  z.object({
+    feature_id: z.array(z.string().max(50).optional()).optional(),
+    entity_id: z.array(z.string().max(100).optional()).optional(),
+    entity_type: z
+      .array(
+        z
+          .enum(['plan_price', 'addon_price', 'charge_price', 'charge'])
+          .optional(),
+      )
+      .optional(),
+    value: z.array(z.string().max(50).optional()).optional(),
+    is_enabled: z.array(z.boolean().optional()).optional(),
+    start_date: z.array(z.number().int().optional()).optional(),
+    end_date: z.array(z.number().int().optional()).optional(),
+  });
 const EditCreateSubCustomerQuoteForItemsQuoteBodySchema = z.looseObject({
   notes: z.string().max(10000).optional(),
   expires_at: z.number().int().optional(),
@@ -1017,6 +1052,8 @@ const EditCreateSubCustomerQuoteForItemsQuoteBodySchema = z.looseObject({
   discounts: EditCreateSubCustomerQuoteForItemsQuoteDiscountsSchema.optional(),
   item_tiers: EditCreateSubCustomerQuoteForItemsQuoteItemTiersSchema.optional(),
   coupons: EditCreateSubCustomerQuoteForItemsQuoteCouponsSchema.optional(),
+  entitlement_overrides:
+    EditCreateSubCustomerQuoteForItemsQuoteEntitlementOverridesSchema.optional(),
 });
 export { EditCreateSubCustomerQuoteForItemsQuoteBodySchema };
 export type EditCreateSubCustomerQuoteForItemsQuoteBody = z.infer<
@@ -1134,6 +1171,7 @@ const UpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema = z.object({
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
+  description: z.array(z.string().max(2000).optional()).optional(),
   ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
 });
 const UpdateSubscriptionQuoteForItemsQuoteDiscountsSchema = z.object({
@@ -1176,6 +1214,23 @@ const UpdateSubscriptionQuoteForItemsQuoteCouponsSchema = z.object({
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const UpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesSchema = z.object(
+  {
+    feature_id: z.array(z.string().max(50).optional()).optional(),
+    entity_id: z.array(z.string().max(100).optional()).optional(),
+    entity_type: z
+      .array(
+        z
+          .enum(['plan_price', 'addon_price', 'charge_price', 'charge'])
+          .optional(),
+      )
+      .optional(),
+    value: z.array(z.string().max(50).optional()).optional(),
+    is_enabled: z.array(z.boolean().optional()).optional(),
+    start_date: z.array(z.number().int().optional()).optional(),
+    end_date: z.array(z.number().int().optional()).optional(),
+  },
+);
 const UpdateSubscriptionQuoteForItemsQuoteBodySchema = z.looseObject({
   name: z.string().max(100).optional(),
   notes: z.string().max(10000).optional(),
@@ -1207,6 +1262,8 @@ const UpdateSubscriptionQuoteForItemsQuoteBodySchema = z.looseObject({
   discounts: UpdateSubscriptionQuoteForItemsQuoteDiscountsSchema.optional(),
   item_tiers: UpdateSubscriptionQuoteForItemsQuoteItemTiersSchema.optional(),
   coupons: UpdateSubscriptionQuoteForItemsQuoteCouponsSchema.optional(),
+  entitlement_overrides:
+    UpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesSchema.optional(),
 });
 export { UpdateSubscriptionQuoteForItemsQuoteBodySchema };
 export type UpdateSubscriptionQuoteForItemsQuoteBody = z.infer<
@@ -1327,6 +1384,7 @@ const EditUpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema =
       .optional(),
     start_date: z.array(z.number().int().optional()).optional(),
     end_date: z.array(z.number().int().optional()).optional(),
+    description: z.array(z.string().max(2000).optional()).optional(),
     ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
   });
 const EditUpdateSubscriptionQuoteForItemsQuoteDiscountsSchema = z.object({
@@ -1369,6 +1427,22 @@ const EditUpdateSubscriptionQuoteForItemsQuoteCouponsSchema = z.object({
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const EditUpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesSchema =
+  z.object({
+    feature_id: z.array(z.string().max(50).optional()).optional(),
+    entity_id: z.array(z.string().max(100).optional()).optional(),
+    entity_type: z
+      .array(
+        z
+          .enum(['plan_price', 'addon_price', 'charge_price', 'charge'])
+          .optional(),
+      )
+      .optional(),
+    value: z.array(z.string().max(50).optional()).optional(),
+    is_enabled: z.array(z.boolean().optional()).optional(),
+    start_date: z.array(z.number().int().optional()).optional(),
+    end_date: z.array(z.number().int().optional()).optional(),
+  });
 const EditUpdateSubscriptionQuoteForItemsQuoteBodySchema = z.looseObject({
   notes: z.string().max(10000).optional(),
   expires_at: z.number().int().optional(),
@@ -1400,6 +1474,8 @@ const EditUpdateSubscriptionQuoteForItemsQuoteBodySchema = z.looseObject({
   item_tiers:
     EditUpdateSubscriptionQuoteForItemsQuoteItemTiersSchema.optional(),
   coupons: EditUpdateSubscriptionQuoteForItemsQuoteCouponsSchema.optional(),
+  entitlement_overrides:
+    EditUpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesSchema.optional(),
 });
 export { EditUpdateSubscriptionQuoteForItemsQuoteBodySchema };
 export type EditUpdateSubscriptionQuoteForItemsQuoteBody = z.infer<

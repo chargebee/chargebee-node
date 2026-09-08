@@ -9,7 +9,7 @@ import { z } from 'zod';
 const AddEntitlementOverrideForSubscriptionEntitlementOverrideEntitlementOverridesSchema =
   z.object({
     feature_id: z.array(z.string().max(50).optional()),
-    entity_id: z.array(z.string().max(50).optional()).optional(),
+    entity_id: z.array(z.string().max(100).optional()).optional(),
     entity_type: z
       .array(
         z

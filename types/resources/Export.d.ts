@@ -102,6 +102,11 @@ declare module 'chargebee' {
         input?: PriceVariantsInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<PriceVariantsResponse>>;
+
+      ramps(
+        input?: RampsInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RampsResponse>>;
     }
 
     export interface RetrieveResponse {
@@ -173,6 +178,10 @@ declare module 'chargebee' {
     }
 
     export interface PriceVariantsResponse {
+      export: Export;
+    }
+
+    export interface RampsResponse {
       export: Export;
     }
 
@@ -290,6 +299,10 @@ declare module 'chargebee' {
       business_entity_id?: filter.String;
       include_site_level_resources?: filter.Boolean;
       price_variant?: PriceVariantPriceVariantsInputParam;
+    }
+    export interface RampsInputParam {
+      export_type?: ExportTypeEnum;
+      ramp?: RampRampsInputParam;
     }
     export interface InvoiceRevenueRecognitionInputParam {
       id?: filter.String;
@@ -612,6 +625,13 @@ declare module 'chargebee' {
       status?: filter.Enum;
       updated_at?: filter.Timestamp;
       created_at?: filter.Timestamp;
+    }
+
+    export interface RampRampsInputParam {
+      status?: filter.Enum;
+      subscription_id?: filter.String;
+      effective_from?: filter.Timestamp;
+      updated_at?: filter.Timestamp;
     }
   }
 }

@@ -19,7 +19,7 @@ const ListLedgerOperationsLedgerOperationCreatedAtSchema = z.object({
   between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
 });
 const ListLedgerOperationsLedgerOperationTypeSchema = z.object({
-  in: z
+  is: z
     .enum([
       'allocation',
       'capture',
@@ -32,7 +32,7 @@ const ListLedgerOperationsLedgerOperationTypeSchema = z.object({
       'adjustment',
     ])
     .optional(),
-  is: z
+  in: z
     .enum([
       'allocation',
       'capture',

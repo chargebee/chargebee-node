@@ -1,5 +1,5 @@
 // Generated Zod schemas: PaymentSource
-// Actions: createUsingTempToken, createUsingPermanentToken, createUsingToken, createUsingPaymentIntent, createVoucherPaymentSource, createCard, createBankAccount, updateCard, updateBankAccount, verifyBankAccount, list, switchGatewayAccount, exportPaymentSource
+// Actions: createUsingTempToken, createUsingPermanentToken, createUsingToken, createUsingPaymentIntent, createVoucherPaymentSource, createCard, createBankAccount, updateCard, updateBankAccount, verifyBankAccount, listGatewayTokensForPaymentSource, list, switchGatewayAccount, exportPaymentSource
 // Do not edit manually – regenerate via sdk-generator
 
 import { z } from 'zod';
@@ -447,6 +447,18 @@ const VerifyBankAccountPaymentSourceBodySchema = z.looseObject({
 export { VerifyBankAccountPaymentSourceBodySchema };
 export type VerifyBankAccountPaymentSourceBody = z.infer<
   typeof VerifyBankAccountPaymentSourceBodySchema
+>;
+
+//PaymentSource.listGatewayTokensForPaymentSource
+
+const ListGatewayTokensForPaymentSourcePaymentSourceBodySchema = z.looseObject({
+  limit: z.number().int().min(1).max(100).optional(),
+  offset: z.string().max(1000).optional(),
+  include_deleted: z.boolean().default(false).optional(),
+});
+export { ListGatewayTokensForPaymentSourcePaymentSourceBodySchema };
+export type ListGatewayTokensForPaymentSourcePaymentSourceBody = z.infer<
+  typeof ListGatewayTokensForPaymentSourcePaymentSourceBodySchema
 >;
 
 //PaymentSource.list

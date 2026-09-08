@@ -78,11 +78,13 @@ declare module 'chargebee' {
       SubscriptionAdvanceInvoiceScheduleUpdatedContent &
       ItemDeletedContent &
       SubscriptionRampDraftedContent &
+      VaultTokenUpdatedContent &
       DunningUpdatedContent &
       OmnichannelSubscriptionItemRecoveredContent &
       ItemEntitlementsUpdatedContent &
       TokenConsumedContent &
       HierarchyDeletedContent &
+      VaultTokenDeletedContent &
       SubscriptionCancellationScheduledContent &
       SubscriptionRenewedContent &
       FeatureUpdatedContent &
@@ -127,6 +129,7 @@ declare module 'chargebee' {
       CardUpdatedContent &
       CustomerCreatedContent &
       SubscriptionRenewalReminderContent &
+      OmnichannelSubscriptionItemMrrUpdatedContent &
       PaymentDueReminderContent &
       OrderDeliveredContent &
       OmnichannelSubscriptionItemCancellationScheduledContent &
@@ -206,6 +209,7 @@ declare module 'chargebee' {
       PromotionalCreditsAddedContent &
       SubscriptionRampUpdatedContent &
       LedgerAccountBalanceUpdatedContent &
+      VaultTokenCreatedContent &
       CustomerEntitlementsUpdatedContent &
       PaymentSourceExpiredContent &
       CustomerMovedOutContent &
