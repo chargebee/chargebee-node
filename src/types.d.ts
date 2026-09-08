@@ -1,4 +1,4 @@
-import type { TelemetryAdapter } from './telemetry/index.js';
+import type { TelemetryAdapter, SdkTelemetryState } from './telemetry/index.js';
 
 interface HttpClientInterface {
   makeApiRequest: (props: Request, timeout: number) => Promise<Response>;
@@ -20,6 +20,9 @@ export type EnvType = {
   enableDebugLogs?: boolean;
   userAgentSuffix?: string;
   telemetryAdapter?: TelemetryAdapter;
+  sdkTelemetryEnabled?: boolean;
+  sdkTelemetryState?: SdkTelemetryState;
+  httpClientIsCustom?: boolean;
   /** When true, request parameters are validated against Zod schemas before each HTTP call (where a schema exists). */
   enableValidation?: boolean;
 };
@@ -47,6 +50,8 @@ export type Config = {
   userAgentSuffix?: string;
   httpClient?: HttpClientInterface;
   telemetryAdapter?: TelemetryAdapter;
+  /** When false, the SDK does not send the anonymous x-chargebee-sdk-telemetry header. Default true. */
+  sdkTelemetryEnabled?: boolean;
   /** When true, request parameters are validated against Zod schemas before each HTTP call (where a schema exists). */
   enableValidation?: boolean;
 };

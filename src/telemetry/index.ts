@@ -34,3 +34,17 @@ export {
   extractRequestTelemetryError,
   resolveChargebeeApiVersion,
 } from './TelemetryAdapter.js';
+
+export {
+  SDK_TELEMETRY_FEATURES_KEY,
+  SDK_TELEMETRY_HEADER_NAME,
+  SDK_TELEMETRY_MAX_HEADER_BYTES,
+} from './sdkTelemetryHeader.js';
+
+export { SdkTelemetryFeature } from './sdkTelemetryFeature.js';
+export { SdkTelemetryState } from './sdkTelemetryState.js';
+export { buildSdkTelemetryHeader } from './sdkTelemetryHeaderBuilder.js';
+export {
+  attachSdkTelemetryHeader,
+  type SdkTelemetryEnv,
+} from './sdkTelemetryEmitter.js';

@@ -1,3 +1,11 @@
+### v3.32.0 (2026-09-08)
+* * *
+### New Features
+* Added anonymous SDK telemetry. On the first API call of a client instance, the SDK may attach an `x-chargebee-sdk-telemetry` header listing enabled feature codes (`telemetryAdapter`, custom HTTP client, retry config). Later calls on the same client do not send the header again. A default client with no optional features sends no telemetry header.
+* Disable SDK telemetry with `sdkTelemetryEnabled: false`.
+* Exported `SDK_TELEMETRY_HEADER_NAME` from the CJS and ESM entry points.
+
+
 ### v3.31.0 (2026-08-19)
 * * *
 ### New Resources:

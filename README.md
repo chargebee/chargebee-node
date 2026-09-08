@@ -602,6 +602,20 @@ const chargebee = new Chargebee({
 
 These examples demonstrate how to implement and inject custom clients using `axios` and `ky`, respectively.
 
+### SDK telemetry
+
+By default, the library sends anonymous usage telemetry to Chargebee. This helps us improve the SDK and API.
+
+You can disable this behavior if you prefer:
+
+```javascript
+const chargebee = new Chargebee({
+  site: 'your-site',
+  apiKey: 'your-api-key',
+  sdkTelemetryEnabled: false,
+});
+```
+
 ### Telemetry (OpenTelemetry)
 
 Optional. Pass a `telemetryAdapter` when you want Chargebee API calls traced in your observability stack (Datadog, Splunk, Honeycomb, Jaeger, etc.). The SDK ships a ready-to-use OpenTelemetry adapter, so for most setups you only need to add `@opentelemetry/api` and wire the adapter on the client.
