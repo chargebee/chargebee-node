@@ -9,7 +9,7 @@ import { z } from 'zod';
 const CreateSubForCustomerQuoteQuoteSubscriptionSchema = z.object({
   id: z.string().max(50).optional(),
   po_number: z.string().max(100).optional(),
-  plan_id: z.string().max(100),
+  plan_id: z.string().max(100).optional(),
   plan_quantity: z.number().int().min(1).optional(),
   plan_quantity_in_decimal: z.string().max(33).optional(),
   plan_unit_price: z.number().int().min(0).optional(),
@@ -126,7 +126,7 @@ export type CreateSubForCustomerQuoteQuoteBody = z.infer<
 const EditCreateSubForCustomerQuoteQuoteSubscriptionSchema = z.object({
   id: z.string().max(50).optional(),
   po_number: z.string().max(100).optional(),
-  plan_id: z.string().max(100),
+  plan_id: z.string().max(100).optional(),
   plan_quantity: z.number().int().min(1).optional(),
   plan_quantity_in_decimal: z.string().max(33).optional(),
   plan_unit_price: z.number().int().min(0).optional(),

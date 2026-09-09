@@ -1,3 +1,9 @@
+### v3.33.0 (2026-09-09)
+* * *
+### Bug Fixes
+* PC-V1 attributes (`plan_id`, `plan_quantity`, `plan_constraint`, `addon_constraint`, `embed`, etc.) are now typed as optional across all affected resources (`Subscription`, `Coupon`, `HostedPage`, `Quote`, `QuotedSubscription`, `Estimate`, `Gift`). PC-V1 and PC-V2 APIs coexist — these fields are absent in PC-V2 responses, so requiring them caused incorrect type errors for PC-V2 users.
+
+
 ### v3.32.0 (2026-09-08)
 * * *
 ### New Features

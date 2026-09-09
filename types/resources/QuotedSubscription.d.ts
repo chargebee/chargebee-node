@@ -4,8 +4,8 @@
 declare module 'chargebee' {
   export interface QuotedSubscription {
     id: string;
-    plan_id: string;
-    plan_quantity: number;
+    plan_id?: string;
+    plan_quantity?: number;
     plan_unit_price?: number;
     setup_fee?: number;
     billing_period?: number;

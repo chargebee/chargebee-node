@@ -8,7 +8,7 @@ import { z } from 'zod';
 
 const CheckoutNewHostedPageSubscriptionSchema = z.looseObject({
   id: z.string().max(50).optional(),
-  plan_id: z.string().max(100),
+  plan_id: z.string().max(100).optional(),
   plan_quantity: z.number().int().min(1).optional(),
   plan_quantity_in_decimal: z.string().max(33).optional(),
   plan_unit_price: z.number().int().min(0).optional(),
@@ -1635,7 +1635,7 @@ const CheckoutGiftHostedPageGifterSchema = z.object({
   customer_id: z.string().max(50).optional(),
 });
 const CheckoutGiftHostedPageSubscriptionSchema = z.looseObject({
-  plan_id: z.string().max(100),
+  plan_id: z.string().max(100).optional(),
   plan_quantity: z.number().int().min(1).optional(),
   plan_quantity_in_decimal: z.string().max(33).optional(),
   coupon: z.string().max(100).optional(),

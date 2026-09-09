@@ -506,7 +506,7 @@ declare module 'chargebee' {
     }
     export interface SubscriptionCreateSubscriptionInputParam {
       id?: string;
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
       plan_unit_price?: number;
@@ -667,7 +667,7 @@ declare module 'chargebee' {
     }
     export interface SubscriptionCreateSubForCustomerEstimateInputParam {
       id?: string;
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
       plan_unit_price?: number;
@@ -1087,7 +1087,7 @@ declare module 'chargebee' {
       additional_information?: any;
     }
     export interface SubscriptionGiftSubscriptionInputParam {
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
     }

@@ -6,8 +6,8 @@ declare module 'chargebee' {
     [key: string]: unknown;
     id: string;
     currency_code: string;
-    plan_id: string;
-    plan_quantity: number;
+    plan_id?: string;
+    plan_quantity?: number;
     plan_unit_price?: number;
     setup_fee?: number;
     billing_period?: number;
@@ -715,7 +715,7 @@ declare module 'chargebee' {
 
     export interface CreateInputParam {
       id?: string;
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
       plan_unit_price?: number;
@@ -769,7 +769,7 @@ declare module 'chargebee' {
     }
     export interface CreateForCustomerInputParam {
       id?: string;
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
       plan_unit_price?: number;
@@ -1087,7 +1087,7 @@ declare module 'chargebee' {
     export interface ImportSubscriptionInputParam {
       id?: string;
       client_profile_id?: string;
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
       plan_unit_price?: number;
@@ -1135,7 +1135,7 @@ declare module 'chargebee' {
     }
     export interface ImportForCustomerInputParam {
       id?: string;
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
       plan_unit_price?: number;

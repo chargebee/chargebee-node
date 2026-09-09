@@ -34,16 +34,16 @@ const ListOmnichannelSubscriptionIdAtSourceSchema = z.object({
   not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListOmnichannelSubscriptionUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
   before: z.string().regex(RegExp('^\\d{10}$')).optional(),
   between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
 });
 const ListOmnichannelSubscriptionPurchasedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
   before: z.string().regex(RegExp('^\\d{10}$')).optional(),
   between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
 });
 const ListOmnichannelSubscriptionSortBySchema = z.looseObject({
   asc: z.enum(['created_at', 'updated_at']).optional(),
@@ -125,7 +125,9 @@ const OmnichannelTransactionsforomnichannelsubscriptionOmnichannelSubscriptionBo
     limit: z.number().int().min(1).max(100).optional(),
     offset: z.string().max(1000).optional(),
   });
-export { OmnichannelTransactionsforomnichannelsubscriptionOmnichannelSubscriptionBodySchema };
+export {
+  OmnichannelTransactionsforomnichannelsubscriptionOmnichannelSubscriptionBodySchema,
+};
 export type OmnichannelTransactionsforomnichannelsubscriptionOmnichannelSubscriptionBody =
   z.infer<
     typeof OmnichannelTransactionsforomnichannelsubscriptionOmnichannelSubscriptionBodySchema
