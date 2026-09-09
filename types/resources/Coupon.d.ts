@@ -24,8 +24,8 @@ declare module 'chargebee' {
       | 'plans_with_quantity'
       | 'not_applicable';
     apply_on: 'invoice_amount' | 'each_specified_item';
-    plan_constraint: 'none' | 'all' | 'specific' | 'not_applicable';
-    addon_constraint: 'none' | 'all' | 'specific' | 'not_applicable';
+    plan_constraint?: 'none' | 'all' | 'specific' | 'not_applicable';
+    addon_constraint?: 'none' | 'all' | 'specific' | 'not_applicable';
     created_at: number;
     archived_at?: number;
     resource_version?: number;

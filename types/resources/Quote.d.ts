@@ -843,7 +843,7 @@ declare module 'chargebee' {
     export interface SubscriptionCreateSubForCustomerQuoteInputParam {
       id?: string;
       po_number?: string;
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
       plan_unit_price?: number;
@@ -898,7 +898,7 @@ declare module 'chargebee' {
     export interface SubscriptionEditCreateSubForCustomerQuoteInputParam {
       id?: string;
       po_number?: string;
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
       plan_unit_price?: number;

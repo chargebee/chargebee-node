@@ -456,7 +456,7 @@ const CreateSubscriptionCouponsSchema = z.object({
 });
 const CreateSubscriptionBodySchema = z.looseObject({
   id: z.string().max(50).optional(),
-  plan_id: z.string().max(100),
+  plan_id: z.string().max(100).optional(),
   plan_quantity: z.number().int().min(1).optional(),
   plan_quantity_in_decimal: z.string().max(33).optional(),
   plan_unit_price: z.number().int().min(0).optional(),
@@ -672,7 +672,7 @@ const CreateForCustomerSubscriptionCouponsSchema = z.object({
 });
 const CreateForCustomerSubscriptionBodySchema = z.looseObject({
   id: z.string().max(50).optional(),
-  plan_id: z.string().max(100),
+  plan_id: z.string().max(100).optional(),
   plan_quantity: z.number().int().min(1).optional(),
   plan_quantity_in_decimal: z.string().max(33).optional(),
   plan_unit_price: z.number().int().min(0).optional(),
@@ -2946,7 +2946,7 @@ const ImportSubscriptionSubscriptionCouponsSchema = z.object({
 const ImportSubscriptionSubscriptionBodySchema = z.looseObject({
   id: z.string().max(50).optional(),
   client_profile_id: z.string().max(50).optional(),
-  plan_id: z.string().max(100),
+  plan_id: z.string().max(100).optional(),
   plan_quantity: z.number().int().min(1).optional(),
   plan_quantity_in_decimal: z.string().max(33).optional(),
   plan_unit_price: z.number().int().min(0).optional(),
@@ -3101,7 +3101,7 @@ const ImportForCustomerSubscriptionCouponsSchema = z.object({
 });
 const ImportForCustomerSubscriptionBodySchema = z.looseObject({
   id: z.string().max(50).optional(),
-  plan_id: z.string().max(100),
+  plan_id: z.string().max(100).optional(),
   plan_quantity: z.number().int().min(1).optional(),
   plan_quantity_in_decimal: z.string().max(33).optional(),
   plan_unit_price: z.number().int().min(0).optional(),

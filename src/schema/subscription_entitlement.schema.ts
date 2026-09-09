@@ -14,7 +14,9 @@ const SubscriptionEntitlementsForSubscriptionSubscriptionEntitlementBodySchema =
     embed: z.string().max(1000).optional(),
     include_scheduled_overrides: z.boolean().default(false).optional(),
   });
-export { SubscriptionEntitlementsForSubscriptionSubscriptionEntitlementBodySchema };
+export {
+  SubscriptionEntitlementsForSubscriptionSubscriptionEntitlementBodySchema,
+};
 export type SubscriptionEntitlementsForSubscriptionSubscriptionEntitlementBody =
   z.infer<
     typeof SubscriptionEntitlementsForSubscriptionSubscriptionEntitlementBodySchema
@@ -32,7 +34,9 @@ const SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementBodySchema =
     subscription_entitlements:
       SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementSubscriptionEntitlementsSchema.optional(),
   });
-export { SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementBodySchema };
+export {
+  SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementBodySchema,
+};
 export type SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementBody =
   z.infer<
     typeof SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementBodySchema

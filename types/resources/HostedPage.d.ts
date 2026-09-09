@@ -25,7 +25,7 @@ declare module 'chargebee' {
       | 'acknowledged';
     failure_reason?: 'card_error' | 'server_error';
     pass_thru_content?: string;
-    embed: boolean;
+    embed?: boolean;
     created_at?: number;
     expires_at?: number;
     layout?: LayoutEnum;
@@ -532,7 +532,7 @@ declare module 'chargebee' {
     }
     export interface SubscriptionCheckoutNewInputParam {
       id?: string;
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
       plan_unit_price?: number;
@@ -1097,7 +1097,7 @@ declare module 'chargebee' {
       customer_id?: string;
     }
     export interface SubscriptionCheckoutGiftInputParam {
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
       /**

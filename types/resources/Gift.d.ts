@@ -244,7 +244,7 @@ declare module 'chargebee' {
       additional_information?: any;
     }
     export interface SubscriptionCreateInputParam {
-      plan_id: string;
+      plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
     }
