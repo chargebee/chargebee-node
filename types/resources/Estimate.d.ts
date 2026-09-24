@@ -622,6 +622,7 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       item_type?: ItemTypeEnum;
+      description?: string;
       charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsCreateSubItemEstimateInputParam {
@@ -764,6 +765,7 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       item_type?: ItemTypeEnum;
+      description?: string;
       charge_on_option?: ChargeOnOptionEnum;
     }
     export interface DiscountsCreateSubItemForCustomerEstimateInputParam {
@@ -927,6 +929,7 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       item_type?: ItemTypeEnum;
+      description?: string;
       proration_type?: ProrationTypeEnum;
     }
     export interface DiscountsUpdateSubscriptionForItemsInputParam {
@@ -1078,7 +1081,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1187,7 +1203,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

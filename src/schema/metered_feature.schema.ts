@@ -14,7 +14,7 @@ const CreateMeteredFeatureBodySchema = z.looseObject({
   name: z.string().max(50),
   description: z.string().max(250).optional(),
   feature_unit: z.string().max(50),
-  query: z.string().max(500),
+  query: z.string().max(1000),
   column_definitions: CreateMeteredFeatureColumnDefinitionsSchema.optional(),
 });
 export { CreateMeteredFeatureBodySchema };

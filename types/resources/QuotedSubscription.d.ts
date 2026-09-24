@@ -94,6 +94,7 @@ declare module 'chargebee' {
       usage_accumulation_reset_frequency?:
         | 'never'
         | 'subscription_billing_frequency';
+      description?: string;
     }
     export interface ItemTier {
       item_price_id: string;

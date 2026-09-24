@@ -1,6 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
-
+///<reference path='./filter.d.ts'/>
 declare module 'chargebee' {
   export interface PaymentScheduleScheme {
     id: string;
@@ -27,6 +27,11 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<RetrieveResponse>>;
 
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
+
       delete(
         payment_schedule_scheme_id: string,
         headers?: ChargebeeRequestHeader,
@@ -39,6 +44,11 @@ declare module 'chargebee' {
 
     export interface RetrieveResponse {
       payment_schedule_scheme: PaymentScheduleScheme;
+    }
+
+    export interface ListResponse {
+      list: { payment_schedule_scheme: PaymentScheduleScheme }[];
+      next_offset?: string;
     }
 
     export interface DeleteResponse {
@@ -58,6 +68,12 @@ declare module 'chargebee' {
       period?: number;
       name: string;
       flexible_schedules?: FlexibleSchedulesCreateInputParam[];
+    }
+    export interface ListInputParam {
+      limit?: number;
+      offset?: string;
+      id?: filter.String;
+      updated_at?: filter.Timestamp;
     }
     export interface FlexibleSchedulesCreateInputParam {
       period?: number;

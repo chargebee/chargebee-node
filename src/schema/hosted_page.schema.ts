@@ -52,7 +52,7 @@ const CheckoutNewHostedPageCustomerSchema = z.looseObject({
   company: z.string().max(250).optional(),
   phone: z.string().max(50).optional(),
   locale: z.string().max(50).optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   vat_number: z.string().max(20).optional(),
   vat_number_prefix: z.string().max(10).optional(),
   consolidated_invoicing: z.boolean().optional(),
@@ -119,6 +119,7 @@ const CheckoutNewHostedPageCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -234,7 +235,7 @@ const CheckoutOneTimeHostedPageCustomerSchema = z.looseObject({
   company: z.string().max(250).optional(),
   phone: z.string().max(50).optional(),
   locale: z.string().max(50).optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   vat_number: z.string().max(20).optional(),
   vat_number_prefix: z.string().max(10).optional(),
   consolidated_invoicing: z.boolean().optional(),
@@ -304,6 +305,7 @@ const CheckoutOneTimeHostedPageCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -403,7 +405,7 @@ const CheckoutOneTimeForItemsHostedPageCustomerSchema = z.looseObject({
   company: z.string().max(250).optional(),
   phone: z.string().max(50).optional(),
   locale: z.string().max(50).optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   vat_number: z.string().max(20).optional(),
   vat_number_prefix: z.string().max(10).optional(),
   einvoicing_method: z.enum(['automatic', 'manual', 'site_default']).optional(),
@@ -477,6 +479,7 @@ const CheckoutOneTimeForItemsHostedPageCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -576,6 +579,7 @@ const CheckoutOneTimeForItemsHostedPageEntityIdentifiersSchema = z.object({
 });
 const CheckoutOneTimeForItemsHostedPageBodySchema = z.looseObject({
   business_entity_id: z.string().max(50).optional(),
+  brand_id: z.string().max(50).optional(),
   layout: z.enum(['in_app', 'full_page']).optional(),
   invoice_note: z.string().max(2000).optional(),
   coupon: z.string().max(100).optional(),
@@ -646,7 +650,7 @@ const CheckoutNewForItemsHostedPageCustomerSchema = z.looseObject({
   company: z.string().max(250).optional(),
   phone: z.string().max(50).optional(),
   locale: z.string().max(50).optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   vat_number: z.string().max(20).optional(),
   vat_number_prefix: z.string().max(10).optional(),
   is_einvoice_enabled: z.boolean().optional(),
@@ -716,6 +720,7 @@ const CheckoutNewForItemsHostedPageCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -832,6 +837,7 @@ const CheckoutNewForItemsHostedPageEntityIdentifiersSchema = z.object({
 const CheckoutNewForItemsHostedPageBodySchema = z.looseObject({
   layout: z.enum(['in_app', 'full_page']).optional(),
   business_entity_id: z.string().max(50).optional(),
+  brand_id: z.string().max(50).optional(),
   billing_cycles: z.number().int().min(0).optional(),
   mandatory_items_to_remove: z.array(z.string().max(100).optional()).optional(),
   terms_to_charge: z.number().int().min(1).optional(),
@@ -965,6 +971,7 @@ const CheckoutExistingHostedPageCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -1142,6 +1149,7 @@ const CheckoutExistingForItemsHostedPageCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -1223,6 +1231,7 @@ const CheckoutExistingForItemsHostedPageEntityIdentifiersSchema = z.object({
 });
 const CheckoutExistingForItemsHostedPageBodySchema = z.looseObject({
   layout: z.enum(['in_app', 'full_page']).optional(),
+  brand_id: z.string().max(50).optional(),
   mandatory_items_to_remove: z.array(z.string().max(100).optional()).optional(),
   replace_items_list: z.boolean().default(false).optional(),
   invoice_date: z.number().int().optional(),
@@ -1329,6 +1338,7 @@ const UpdateCardHostedPageCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -1416,6 +1426,7 @@ const UpdatePaymentMethodHostedPageCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -1501,12 +1512,14 @@ const ManagePaymentSourcesHostedPageCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
 });
 const ManagePaymentSourcesHostedPageBodySchema = z.looseObject({
   business_entity_id: z.string().max(50).optional(),
+  brand_id: z.string().max(50).optional(),
   redirect_url: z.string().max(250).optional(),
   customer: ManagePaymentSourcesHostedPageCustomerSchema.optional(),
   card: ManagePaymentSourcesHostedPageCardSchema.optional(),
@@ -1583,11 +1596,13 @@ const CollectNowHostedPageCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
 });
 const CollectNowHostedPageBodySchema = z.looseObject({
+  brand_id: z.string().max(50).optional(),
   redirect_url: z.string().max(250).optional(),
   currency_code: z.string().max(3).optional(),
   payment_method_save_policy: z.enum(['always', 'ask', 'never']).optional(),
@@ -1605,6 +1620,7 @@ const AcceptQuoteHostedPageQuoteSchema = z.object({
   id: z.string().max(50),
 });
 const AcceptQuoteHostedPageBodySchema = z.looseObject({
+  brand_id: z.string().max(50).optional(),
   redirect_url: z.string().max(250).optional(),
   layout: z.enum(['in_app', 'full_page']).optional(),
   quote: AcceptQuoteHostedPageQuoteSchema.optional(),
@@ -1620,6 +1636,7 @@ const ExtendSubscriptionHostedPageSubscriptionSchema = z.object({
   id: z.string().max(50),
 });
 const ExtendSubscriptionHostedPageBodySchema = z.looseObject({
+  brand_id: z.string().max(50).optional(),
   expiry: z.number().int().min(1).max(500).optional(),
   billing_cycle: z.number().int().min(1).optional(),
   subscription: ExtendSubscriptionHostedPageSubscriptionSchema.optional(),
@@ -1681,6 +1698,7 @@ const CheckoutGiftForItemsHostedPageItemTiersSchema = z.object({
 const CheckoutGiftForItemsHostedPageBodySchema = z.looseObject({
   layout: z.enum(['in_app', 'full_page']).optional(),
   business_entity_id: z.string().max(50).optional(),
+  brand_id: z.string().max(50).optional(),
   redirect_url: z.string().max(250).optional(),
   coupon_ids: z.array(z.string().max(100).optional()).optional(),
   gifter: CheckoutGiftForItemsHostedPageGifterSchema.optional(),
@@ -1702,6 +1720,7 @@ const ClaimGiftHostedPageCustomerSchema = z.object({
   locale: z.string().max(50).optional(),
 });
 const ClaimGiftHostedPageBodySchema = z.looseObject({
+  brand_id: z.string().max(50).optional(),
   redirect_url: z.string().max(250).optional(),
   gift: ClaimGiftHostedPageGiftSchema.optional(),
   customer: ClaimGiftHostedPageCustomerSchema.optional(),
@@ -1857,6 +1876,7 @@ const PreCancelHostedPageSubscriptionSchema = z.object({
   id: z.string().max(50),
 });
 const PreCancelHostedPageBodySchema = z.looseObject({
+  brand_id: z.string().max(50).optional(),
   pass_thru_content: z.string().max(2048).optional(),
   cancel_url: z.string().max(250).optional(),
   redirect_url: z.string().max(250).optional(),

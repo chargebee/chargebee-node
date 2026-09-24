@@ -62,7 +62,20 @@ declare module 'chargebee' {
       | 'dana'
       | 'touch_n_go'
       | 'tamara'
-      | 'qpay';
+      | 'qpay'
+      | 'ovo'
+      | 'momo'
+      | 'mercado_pago'
+      | 'nequi'
+      | 'nupay'
+      | 'picpay'
+      | 'thai_qr'
+      | 'blik'
+      | 'fpx'
+      | 'wero'
+      | 'p24'
+      | 'affirm_pay'
+      | 'rakuten_pay';
     success_url?: string;
     failure_url?: string;
     created_at: number;
@@ -76,6 +89,7 @@ declare module 'chargebee' {
     payment_attempts?: PaymentIntent.PaymentAttempt[];
     payment_intent_metadata?: PaymentIntent.PaymentIntentMetadata;
     business_entity_id?: string;
+    brand_id?: string;
   }
 
   export namespace PaymentIntent {
@@ -171,7 +185,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -244,7 +271,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -272,6 +312,7 @@ declare module 'chargebee' {
 
     export interface CreateInputParam {
       business_entity_id?: string;
+      brand_id?: string;
       customer_id?: string;
       amount: number;
       currency_code: string;
@@ -330,7 +371,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       success_url?: string;
       failure_url?: string;
       payment_method_options?: any;
@@ -391,7 +445,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       success_url?: string;
       failure_url?: string;
       payment_method_options?: any;

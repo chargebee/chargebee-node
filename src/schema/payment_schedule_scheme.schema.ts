@@ -1,5 +1,5 @@
 // Generated Zod schemas: PaymentScheduleScheme
-// Actions: create
+// Actions: create, list
 // Do not edit manually – regenerate via sdk-generator
 
 import { z } from 'zod';
@@ -21,4 +21,30 @@ const CreatePaymentScheduleSchemeBodySchema = z.looseObject({
 export { CreatePaymentScheduleSchemeBodySchema };
 export type CreatePaymentScheduleSchemeBody = z.infer<
   typeof CreatePaymentScheduleSchemeBodySchema
+>;
+
+//PaymentScheduleScheme.list
+
+const ListPaymentScheduleSchemeIdSchema = z.object({
+  is: z.string().min(1).optional(),
+  is_not: z.string().min(1).optional(),
+  starts_with: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+});
+const ListPaymentScheduleSchemeUpdatedAtSchema = z.object({
+  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+});
+const ListPaymentScheduleSchemeBodySchema = z.looseObject({
+  limit: z.number().int().min(1).max(100).optional(),
+  offset: z.string().max(1000).optional(),
+  id: ListPaymentScheduleSchemeIdSchema.optional(),
+  updated_at: ListPaymentScheduleSchemeUpdatedAtSchema.optional(),
+});
+export { ListPaymentScheduleSchemeBodySchema };
+export type ListPaymentScheduleSchemeBody = z.infer<
+  typeof ListPaymentScheduleSchemeBodySchema
 >;

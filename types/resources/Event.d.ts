@@ -20,6 +20,7 @@ declare module 'chargebee' {
     webhook_failure_reason?: string;
     webhooks?: Event.Webhook[];
     event_type?: EventTypeEnum;
+    site_id?: string;
     api_version?: ApiVersionEnum;
     content: SubscriptionPauseScheduledContent &
       CustomerBusinessEntityChangedContent &
@@ -35,6 +36,7 @@ declare module 'chargebee' {
       SubscriptionResumedContent &
       OmnichannelOneTimeOrderItemCancelledContent &
       SubscriptionCancelledContent &
+      BusinessRuleDeletedContent &
       ItemEntitlementsRemovedContent &
       BusinessEntityCreatedContent &
       CouponSetUpdatedContent &
@@ -46,6 +48,7 @@ declare module 'chargebee' {
       SubscriptionShippingAddressUpdatedContent &
       VoucherCreateFailedContent &
       GiftClaimedContent &
+      BusinessRulesAppliedContent &
       CustomerDeletedContent &
       RefundInitiatedContent &
       InvoiceGeneratedWithBackdatingContent &
@@ -74,12 +77,15 @@ declare module 'chargebee' {
       PriceVariantDeletedContent &
       AlertStatusChangedContent &
       SubscriptionMovementFailedContent &
+      BusinessRulesetUpdatedContent &
       CustomerMovedInContent &
       SubscriptionAdvanceInvoiceScheduleUpdatedContent &
       ItemDeletedContent &
       SubscriptionRampDraftedContent &
+      BusinessRuleCreatedContent &
       VaultTokenUpdatedContent &
       DunningUpdatedContent &
+      EinvoiceCreatedContent &
       OmnichannelSubscriptionItemRecoveredContent &
       ItemEntitlementsUpdatedContent &
       TokenConsumedContent &
@@ -101,9 +107,11 @@ declare module 'chargebee' {
       CardExpiredContent &
       CreditNoteUpdatedContent &
       OmnichannelSubscriptionItemDowngradedContent &
+      BusinessRulesetDeactivatedContent &
       PriceVariantUpdatedContent &
       PromotionalCreditsDeductedContent &
       SubscriptionRampAppliedContent &
+      BusinessRulesetDeletedContent &
       SubscriptionPausedContent &
       OrderReadyToProcessContent &
       FeatureCreatedContent &
@@ -112,6 +120,7 @@ declare module 'chargebee' {
       OmnichannelSubscriptionItemResubscribedContent &
       RecordPurchaseFailedContent &
       ItemCreatedContent &
+      BusinessRulesetCreatedContent &
       TransactionUpdatedContent &
       MrrUpdatedContent &
       UnbilledChargesInvoicedContent &
@@ -141,6 +150,7 @@ declare module 'chargebee' {
       SubscriptionScheduledChangesRemovedContent &
       PendingInvoiceCreatedContent &
       EntitlementOverridesAutoRemovedContent &
+      BusinessRulesetActivatedContent &
       OmnichannelSubscriptionItemUpgradedContent &
       SubscriptionBusinessEntityChangedContent &
       OmnichannelOneTimeOrderCreatedContent &
@@ -208,11 +218,14 @@ declare module 'chargebee' {
       PaymentSourceBusinessEntityChangedContent &
       PromotionalCreditsAddedContent &
       SubscriptionRampUpdatedContent &
+      BusinessRuleDeactivatedContent &
       LedgerAccountBalanceUpdatedContent &
       VaultTokenCreatedContent &
+      EinvoiceUpdatedContent &
       CustomerEntitlementsUpdatedContent &
       PaymentSourceExpiredContent &
       CustomerMovedOutContent &
+      BusinessRuleReleasedContent &
       SubscriptionEntitlementsUpdatedContent &
       OmnichannelSubscriptionItemDunningExpiredContent &
       HierarchyCreatedContent &
@@ -226,11 +239,13 @@ declare module 'chargebee' {
       TaxWithheldRecordedContent &
       PriceVariantCreatedContent &
       DifferentialPriceDeletedContent &
+      BusinessRuleActivatedContent &
       SubscriptionItemsRenewedContent &
       RuleCreatedContent &
       ContractTermCancelledContent &
       ContractTermRenewedContent &
       InvoiceDeletedContent &
+      BusinessRuleUpdatedContent &
       ItemPriceEntitlementsRemovedContent &
       SalesOrderUpdatedContent &
       OmnichannelSubscriptionItemDunningStartedContent &

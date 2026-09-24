@@ -7,8 +7,8 @@ import { z } from 'zod';
 //Meter.list
 
 const ListMeterNameSchema = z.object({
-  is: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
+  is: z.string().min(1).optional(),
 });
 const ListMeterSortBySchema = z.looseObject({
   asc: z.enum(['id', 'name', 'created_at', 'updated_at']).optional(),

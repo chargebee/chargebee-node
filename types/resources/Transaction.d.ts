@@ -59,6 +59,7 @@ declare module 'chargebee' {
     payment_method_details?: string;
     error_detail?: Transaction.GatewayErrorDetail;
     custom_payment_method_name?: string;
+    network_transaction_details?: Transaction.NetworkTransactionDetail;
   }
 
   export namespace Transaction {
@@ -261,6 +262,10 @@ declare module 'chargebee' {
       processor_error_message?: string;
       error_cause_id?: string;
       processor_advice_code?: string;
+    }
+    export interface NetworkTransactionDetail {
+      network_transaction_id?: string;
+      original_network_transaction_id?: string;
     }
     // REQUEST PARAMS
     //---------------

@@ -15,7 +15,7 @@ const CreateSubscriptionCustomerSchema = z.looseObject({
   company: z.string().max(250).optional(),
   phone: z.string().max(50).optional(),
   locale: z.string().max(50).optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   entity_code: z
     .enum([
       'a',
@@ -140,6 +140,7 @@ const CreateSubscriptionCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -151,7 +152,7 @@ const CreateSubscriptionCardSchema = z.object({
   expiry_year: z.number().int().optional(),
   cvv: z.string().max(520).optional(),
   preferred_scheme: z
-    .enum(['cartes_bancaires', 'mastercard', 'visa'])
+    .enum(['cartes_bancaires', 'mastercard', 'visa', 'dankort'])
     .optional(),
   billing_addr1: z.string().max(150).optional(),
   billing_addr2: z.string().max(150).optional(),
@@ -243,6 +244,19 @@ const CreateSubscriptionPaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   gateway: z
@@ -306,6 +320,7 @@ const CreateSubscriptionPaymentMethodSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -373,6 +388,19 @@ const CreateSubscriptionPaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -456,6 +484,7 @@ const CreateSubscriptionCouponsSchema = z.object({
 });
 const CreateSubscriptionBodySchema = z.looseObject({
   id: z.string().max(50).optional(),
+  brand_id: z.string().max(50).optional(),
   plan_id: z.string().max(100).optional(),
   plan_quantity: z.number().int().min(1).optional(),
   plan_quantity_in_decimal: z.string().max(33).optional(),
@@ -621,6 +650,19 @@ const CreateForCustomerSubscriptionPaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -672,6 +714,7 @@ const CreateForCustomerSubscriptionCouponsSchema = z.object({
 });
 const CreateForCustomerSubscriptionBodySchema = z.looseObject({
   id: z.string().max(50).optional(),
+  brand_id: z.string().max(50).optional(),
   plan_id: z.string().max(100).optional(),
   plan_quantity: z.number().int().min(1).optional(),
   plan_quantity_in_decimal: z.string().max(33).optional(),
@@ -832,6 +875,19 @@ const CreateWithItemsSubscriptionPaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -874,6 +930,7 @@ const CreateWithItemsSubscriptionSubscriptionItemsSchema = z.object({
     .optional(),
   charge_once: z.array(z.boolean().optional()).optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
+  description: z.array(z.string().max(500).optional()).optional(),
   charge_on_option: z
     .array(z.enum(['immediately', 'on_event']).optional())
     .optional(),
@@ -918,6 +975,7 @@ const CreateWithItemsSubscriptionCouponsSchema = z.object({
 const CreateWithItemsSubscriptionBodySchema = z.looseObject({
   id: z.string().max(50).optional(),
   business_entity_id: z.string().max(50).optional(),
+  brand_id: z.string().max(50).optional(),
   trial_end: z.number().int().optional(),
   billing_cycles: z.number().int().min(0).optional(),
   setup_fee: z.number().int().min(0).optional(),
@@ -1431,6 +1489,7 @@ const UpdateSubscriptionCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -1442,7 +1501,7 @@ const UpdateSubscriptionCardSchema = z.object({
   expiry_year: z.number().int().optional(),
   cvv: z.string().max(520).optional(),
   preferred_scheme: z
-    .enum(['cartes_bancaires', 'mastercard', 'visa'])
+    .enum(['cartes_bancaires', 'mastercard', 'visa', 'dankort'])
     .optional(),
   billing_addr1: z.string().max(150).optional(),
   billing_addr2: z.string().max(150).optional(),
@@ -1512,6 +1571,19 @@ const UpdateSubscriptionPaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   gateway: z
@@ -1575,6 +1647,7 @@ const UpdateSubscriptionPaymentMethodSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -1642,6 +1715,19 @@ const UpdateSubscriptionPaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -1897,6 +1983,7 @@ const UpdateForItemsSubscriptionCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -1908,7 +1995,7 @@ const UpdateForItemsSubscriptionCardSchema = z.object({
   expiry_year: z.number().int().optional(),
   cvv: z.string().max(520).optional(),
   preferred_scheme: z
-    .enum(['cartes_bancaires', 'mastercard', 'visa'])
+    .enum(['cartes_bancaires', 'mastercard', 'visa', 'dankort'])
     .optional(),
   billing_addr1: z.string().max(150).optional(),
   billing_addr2: z.string().max(150).optional(),
@@ -1978,6 +2065,19 @@ const UpdateForItemsSubscriptionPaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   gateway: z
@@ -2041,6 +2141,7 @@ const UpdateForItemsSubscriptionPaymentMethodSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -2108,6 +2209,19 @@ const UpdateForItemsSubscriptionPaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -2204,6 +2318,7 @@ const UpdateForItemsSubscriptionSubscriptionItemsSchema = z.object({
     .array(z.enum(['immediately', 'on_event']).optional())
     .optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
+  description: z.array(z.string().max(500).optional()).optional(),
   proration_type: z
     .array(z.enum(['full_term', 'partial_term', 'none']).optional())
     .optional(),
@@ -2415,6 +2530,19 @@ const ReactivateSubscriptionPaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -2582,7 +2710,7 @@ const ImportSubscriptionSubscriptionCustomerSchema = z.looseObject({
   company: z.string().max(250).optional(),
   phone: z.string().max(50).optional(),
   locale: z.string().max(50).optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   entity_code: z
     .enum([
       'a',
@@ -2696,6 +2824,7 @@ const ImportSubscriptionSubscriptionCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -2707,7 +2836,7 @@ const ImportSubscriptionSubscriptionCardSchema = z.object({
   expiry_year: z.number().int().optional(),
   cvv: z.string().max(520).optional(),
   preferred_scheme: z
-    .enum(['cartes_bancaires', 'mastercard', 'visa'])
+    .enum(['cartes_bancaires', 'mastercard', 'visa', 'dankort'])
     .optional(),
   billing_addr1: z.string().max(150).optional(),
   billing_addr2: z.string().max(150).optional(),
@@ -2776,6 +2905,19 @@ const ImportSubscriptionSubscriptionPaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   gateway: z
@@ -2839,6 +2981,7 @@ const ImportSubscriptionSubscriptionPaymentMethodSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -2894,10 +3037,12 @@ const ImportSubscriptionSubscriptionTransactionSchema = z.object({
       'app_store',
       'play_store',
       'custom',
-      'dana',
-      'touch_n_go',
       'tamara',
       'qpay',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
     ])
     .optional(),
   reference_number: z.string().max(100).optional(),
@@ -3032,10 +3177,12 @@ const ImportForCustomerSubscriptionTransactionSchema = z.object({
       'app_store',
       'play_store',
       'custom',
-      'dana',
-      'touch_n_go',
       'tamara',
       'qpay',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
     ])
     .optional(),
   reference_number: z.string().max(100).optional(),
@@ -3285,10 +3432,12 @@ const ImportForItemsSubscriptionTransactionSchema = z.object({
       'app_store',
       'play_store',
       'custom',
-      'dana',
-      'touch_n_go',
       'tamara',
       'qpay',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
     ])
     .optional(),
   reference_number: z.string().max(100).optional(),
@@ -3338,6 +3487,7 @@ const ImportForItemsSubscriptionSubscriptionItemsSchema = z.object({
     .optional(),
   charge_once: z.array(z.boolean().optional()).optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
+  description: z.array(z.string().max(500).optional()).optional(),
 });
 const ImportForItemsSubscriptionDiscountsSchema = z.object({
   apply_on: z
@@ -3621,6 +3771,19 @@ const ResumeSubscriptionPaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),

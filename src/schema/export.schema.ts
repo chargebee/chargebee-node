@@ -391,10 +391,10 @@ const RevenueRecognitionExportAutoCollectionSchema = z.object({
   not_in: z.enum(['on', 'off']).optional(),
 });
 const RevenueRecognitionExportTaxabilitySchema = z.object({
-  is: z.enum(['taxable', 'exempt']).optional(),
-  is_not: z.enum(['taxable', 'exempt']).optional(),
-  in: z.enum(['taxable', 'exempt']).optional(),
-  not_in: z.enum(['taxable', 'exempt']).optional(),
+  is: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  is_not: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  in: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  not_in: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
 });
 const RevenueRecognitionExportCustomerItemSchema = z.object({
   id: RevenueRecognitionExportIdSchema.optional(),
@@ -848,10 +848,10 @@ const DeferredRevenueExportAutoCollectionSchema = z.object({
   not_in: z.enum(['on', 'off']).optional(),
 });
 const DeferredRevenueExportTaxabilitySchema = z.object({
-  is: z.enum(['taxable', 'exempt']).optional(),
-  is_not: z.enum(['taxable', 'exempt']).optional(),
-  in: z.enum(['taxable', 'exempt']).optional(),
-  not_in: z.enum(['taxable', 'exempt']).optional(),
+  is: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  is_not: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  in: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  not_in: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
 });
 const DeferredRevenueExportCustomerItemSchema = z.object({
   id: DeferredRevenueExportIdSchema.optional(),
@@ -1283,10 +1283,10 @@ const CustomersExportAutoCollectionSchema = z.object({
   not_in: z.enum(['on', 'off']).optional(),
 });
 const CustomersExportTaxabilitySchema = z.object({
-  is: z.enum(['taxable', 'exempt']).optional(),
-  is_not: z.enum(['taxable', 'exempt']).optional(),
-  in: z.enum(['taxable', 'exempt']).optional(),
-  not_in: z.enum(['taxable', 'exempt']).optional(),
+  is: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  is_not: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  in: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  not_in: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
 });
 const CustomersExportCreatedAtSchema = z.object({
   after: z.string().regex(RegExp('^\\d{10}$')).optional(),
@@ -2186,6 +2186,19 @@ const TransactionsExportPaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   is_not: z
@@ -2254,6 +2267,19 @@ const TransactionsExportPaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   in: z
@@ -2322,6 +2348,19 @@ const TransactionsExportPaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   not_in: z
@@ -2390,6 +2429,19 @@ const TransactionsExportPaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
 });
@@ -2456,6 +2508,7 @@ const TransactionsExportGatewaySchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
       'not_applicable',
     ])
     .optional(),
@@ -2521,6 +2574,7 @@ const TransactionsExportGatewaySchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
       'not_applicable',
     ])
     .optional(),
@@ -2586,6 +2640,7 @@ const TransactionsExportGatewaySchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
       'not_applicable',
     ])
     .optional(),
@@ -2651,6 +2706,7 @@ const TransactionsExportGatewaySchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
       'not_applicable',
     ])
     .optional(),

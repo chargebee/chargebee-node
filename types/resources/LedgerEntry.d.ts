@@ -4,10 +4,10 @@
 declare module 'chargebee' {
   export interface LedgerEntry {
     id: string;
-    subscription_id?: string;
-    account_type?: 'provisioned' | 'overdraft';
-    unit_id?: string;
-    unit_type?: 'credit_unit';
+    subscription_id: string;
+    unit_id: string;
+    unit_type: 'credit_unit';
+    account_type: 'provisioned' | 'overdraft';
     amount: string;
     grant_block_start_balance: string;
     grant_block_end_balance: string;

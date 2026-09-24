@@ -162,9 +162,10 @@ declare module 'chargebee' {
     | 'omnichannel_one_time_order_item'
     | 'usage_file'
     | 'business_rule'
-    | 'ruleset'
+    | 'business_ruleset'
     | 'alert_status'
-    | 'omnichannel_subscription_item_metric';
+    | 'omnichannel_subscription_item_metric'
+    | 'price_ramp';
   type EventNameEnum = 'cancellation_page_loaded';
   type EventTypeEnum =
     | 'coupon_created'
@@ -225,6 +226,8 @@ declare module 'chargebee' {
     | 'credit_note_created_with_backdating'
     | 'credit_note_updated'
     | 'credit_note_deleted'
+    | 'einvoice_created'
+    | 'einvoice_updated'
     | 'payment_schedules_created'
     | 'payment_schedules_updated'
     | 'payment_schedule_scheme_created'
@@ -386,9 +389,21 @@ declare module 'chargebee' {
     | 'grant_blocks_created'
     | 'grant_blocks_updated'
     | 'ledger_updated'
+    | 'business_rule_created'
+    | 'business_rule_updated'
+    | 'business_rule_activated'
+    | 'business_rule_deactivated'
+    | 'business_rule_deleted'
+    | 'business_rule_released'
     | 'vault_token_created'
     | 'vault_token_updated'
     | 'vault_token_deleted'
+    | 'business_rules_applied'
+    | 'business_ruleset_created'
+    | 'business_ruleset_updated'
+    | 'business_ruleset_activated'
+    | 'business_ruleset_deactivated'
+    | 'business_ruleset_deleted'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'
@@ -459,6 +474,7 @@ declare module 'chargebee' {
     | 'tempus'
     | 'moyasar'
     | 'payway'
+    | 'payu'
     | 'gocardless'
     | 'not_applicable';
   type GatewayNameEnum =
@@ -522,6 +538,7 @@ declare module 'chargebee' {
     | 'tempus'
     | 'moyasar'
     | 'payway'
+    | 'payu'
     | 'not_applicable';
   type HierarchyOperationTypeEnum =
     | 'complete_hierarchy'
@@ -570,10 +587,12 @@ declare module 'chargebee' {
     | 'bank_transfer'
     | 'other'
     | 'custom'
-    | 'dana'
-    | 'touch_n_go'
     | 'tamara'
     | 'qpay'
+    | 'blik'
+    | 'fpx'
+    | 'wero'
+    | 'p24'
     | 'chargeback'
     | 'card'
     | 'amazon_payments'
@@ -626,7 +645,18 @@ declare module 'chargebee' {
     | 'south_korean_cards'
     | 'paynow'
     | 'bizum'
-    | 'promptpay';
+    | 'promptpay'
+    | 'dana'
+    | 'touch_n_go'
+    | 'ovo'
+    | 'momo'
+    | 'mercado_pago'
+    | 'nequi'
+    | 'nupay'
+    | 'picpay'
+    | 'thai_qr'
+    | 'affirm_pay'
+    | 'rakuten_pay';
   type PaymentMethodSavePolicyEnum = 'always' | 'ask' | 'never';
   type PaymentMethodTypeEnum =
     | 'card'
@@ -682,7 +712,20 @@ declare module 'chargebee' {
     | 'dana'
     | 'touch_n_go'
     | 'tamara'
-    | 'qpay';
+    | 'qpay'
+    | 'ovo'
+    | 'momo'
+    | 'mercado_pago'
+    | 'nequi'
+    | 'nupay'
+    | 'picpay'
+    | 'thai_qr'
+    | 'blik'
+    | 'fpx'
+    | 'wero'
+    | 'p24'
+    | 'affirm_pay'
+    | 'rakuten_pay';
   type PaymentVoucherTypeEnum = 'boleto';
   type PeriodUnitEnum = 'day' | 'week' | 'month' | 'year';
   type PriceTypeEnum = 'tax_exclusive' | 'tax_inclusive';
@@ -723,12 +766,20 @@ declare module 'chargebee' {
     | 'migration'
     | 'external_service';
   type StatusEnum =
+    | 'scheduled'
+    | 'rescheduled'
+    | 'succeeded'
+    | 'failed'
+    | 'deferred'
+    | 'delivered'
+    | 'opened'
+    | 'bounced'
+    | 'dropped'
     | 'active'
     | 'archived'
     | 'deleted'
     | 'available'
     | 'exhausted'
-    | 'scheduled'
     | 'in_grace_period';
   type TaxExemptReasonEnum =
     | 'tax_not_configured'
@@ -760,7 +811,7 @@ declare module 'chargebee' {
     | 'high_value_physical_goods'
     | 'zero_value_item'
     | 'tax_not_configured_external_provider';
-  type TaxabilityEnum = 'taxable' | 'exempt';
+  type TaxabilityEnum = 'taxable' | 'exempt' | 'zero_rated';
   type TaxjarExemptionCategoryEnum = 'wholesale' | 'government' | 'other';
   type TrialEndActionEnum =
     | 'site_default'
@@ -822,6 +873,19 @@ declare module 'chargebee' {
     | 'touch_n_go'
     | 'tamara'
     | 'qpay'
+    | 'ovo'
+    | 'momo'
+    | 'mercado_pago'
+    | 'nequi'
+    | 'nupay'
+    | 'picpay'
+    | 'thai_qr'
+    | 'blik'
+    | 'fpx'
+    | 'wero'
+    | 'p24'
+    | 'affirm_pay'
+    | 'rakuten_pay'
     | 'free_trial'
     | 'pay_up_front'
     | 'pay_as_you_go'
@@ -907,6 +971,8 @@ declare module 'chargebee' {
     | 'credit_note_created_with_backdating'
     | 'credit_note_updated'
     | 'credit_note_deleted'
+    | 'einvoice_created'
+    | 'einvoice_updated'
     | 'payment_schedules_created'
     | 'payment_schedules_updated'
     | 'payment_schedule_scheme_created'
@@ -1068,9 +1134,21 @@ declare module 'chargebee' {
     | 'grant_blocks_created'
     | 'grant_blocks_updated'
     | 'ledger_updated'
+    | 'business_rule_created'
+    | 'business_rule_updated'
+    | 'business_rule_activated'
+    | 'business_rule_deactivated'
+    | 'business_rule_deleted'
+    | 'business_rule_released'
     | 'vault_token_created'
     | 'vault_token_updated'
     | 'vault_token_deleted'
+    | 'business_rules_applied'
+    | 'business_ruleset_created'
+    | 'business_ruleset_updated'
+    | 'business_ruleset_activated'
+    | 'business_ruleset_deactivated'
+    | 'business_ruleset_deleted'
     | 'plan_created'
     | 'plan_updated'
     | 'plan_deleted'

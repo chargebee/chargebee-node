@@ -111,10 +111,12 @@ const RecordRefundCreditNoteTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
-    'dana',
-    'touch_n_go',
     'tamara',
     'qpay',
+    'blik',
+    'fpx',
+    'wero',
+    'p24',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),
@@ -460,6 +462,8 @@ const ImportCreditNoteCreditNoteLineItemsSchema = z.object({
   tax9_amount: z.array(z.number().int().min(0).optional()).optional(),
   tax10_name: z.array(z.string().max(50).optional()).optional(),
   tax10_amount: z.array(z.number().int().min(0).optional()).optional(),
+  is_partial_tax_applied: z.array(z.boolean().optional()).optional(),
+  taxable_amount: z.array(z.number().int().min(0).optional()).optional(),
   proration_mode: z
     .array(
       z
@@ -538,10 +542,12 @@ const ImportCreditNoteCreditNoteLinkedRefundsSchema = z.object({
         'app_store',
         'play_store',
         'custom',
-        'dana',
-        'touch_n_go',
         'tamara',
         'qpay',
+        'blik',
+        'fpx',
+        'wero',
+        'p24',
       ])
       .optional(),
   ),

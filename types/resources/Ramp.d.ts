@@ -20,6 +20,7 @@ declare module 'chargebee' {
     coupons_to_remove?: string[];
     discounts_to_remove?: string[];
     contract_term?: Ramp.ContractTerm;
+    billing_configuration?: Ramp.BillingConfiguration;
     deleted: boolean;
     status_transition_reason?: Ramp.StatusTransitionReason;
   }
@@ -155,6 +156,9 @@ declare module 'chargebee' {
       renewal_billing_cycles?: number;
       action_at_term_end: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
     }
+    export interface BillingConfiguration {
+      po_number?: string;
+    }
     export interface StatusTransitionReason {
       code?: string;
       message?: string;
@@ -168,6 +172,7 @@ declare module 'chargebee' {
       coupons_to_remove?: string[];
       discounts_to_remove?: string[];
       items_to_remove?: string[];
+      billing_configuration?: BillingConfigurationCreateForSubscriptionInputParam;
       contract_term?: ContractTermCreateForSubscriptionInputParam;
       items_to_add?: ItemsToAddCreateForSubscriptionInputParam[];
       items_to_update?: ItemsToUpdateCreateForSubscriptionInputParam[];
@@ -181,6 +186,7 @@ declare module 'chargebee' {
       coupons_to_remove?: string[];
       discounts_to_remove?: string[];
       items_to_remove?: string[];
+      billing_configuration?: BillingConfigurationUpdateInputParam;
       contract_term?: ContractTermUpdateInputParam;
       items_to_add?: ItemsToAddUpdateInputParam[];
       items_to_update?: ItemsToUpdateUpdateInputParam[];
@@ -198,6 +204,9 @@ declare module 'chargebee' {
       updated_at?: filter.Timestamp;
       'sort_by[asc]'?: string;
       'sort_by[desc]'?: string;
+    }
+    export interface BillingConfigurationCreateForSubscriptionInputParam {
+      po_number?: string;
     }
     export interface ContractTermCreateForSubscriptionInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';
@@ -254,6 +263,9 @@ declare module 'chargebee' {
       period_unit?: PeriodUnitEnum;
       included_in_mrr?: boolean;
       item_price_id?: string;
+    }
+    export interface BillingConfigurationUpdateInputParam {
+      po_number?: string;
     }
     export interface ContractTermUpdateInputParam {
       action_at_term_end?: 'renew' | 'evergreen' | 'cancel' | 'renew_once';

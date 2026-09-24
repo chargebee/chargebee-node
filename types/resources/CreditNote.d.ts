@@ -62,6 +62,7 @@ declare module 'chargebee' {
     create_reason_code?: string;
     vat_number_prefix?: string;
     business_entity_id?: string;
+    brand_id?: string;
     shipping_address?: CreditNote.ShippingAddress;
     billing_address?: CreditNote.BillingAddress;
     einvoice?: CreditNote.Einvoice;
@@ -109,6 +110,11 @@ declare module 'chargebee' {
         input?: VoidCreditNoteInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<VoidCreditNoteResponse>>;
+
+      sendEmail(
+        credit_note_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<SendEmailResponse>>;
 
       list(
         input?: ListInputParam,
@@ -188,6 +194,10 @@ declare module 'chargebee' {
 
     export interface VoidCreditNoteResponse {
       credit_note: CreditNote;
+    }
+
+    export interface SendEmailResponse {
+      email_logs: EmailLog[];
     }
 
     export interface ListResponse {
@@ -718,6 +728,8 @@ declare module 'chargebee' {
       tax9_amount?: number;
       tax10_name?: string;
       tax10_amount?: number;
+      is_partial_tax_applied?: boolean;
+      taxable_amount?: number;
       proration_mode?:
         | 'reset'
         | 'delta'

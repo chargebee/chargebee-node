@@ -71,6 +71,7 @@ const UpdateCardForCustomerCardBodySchema = z.looseObject({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -82,7 +83,7 @@ const UpdateCardForCustomerCardBodySchema = z.looseObject({
   expiry_year: z.number().int(),
   cvv: z.string().max(520).optional(),
   preferred_scheme: z
-    .enum(['cartes_bancaires', 'mastercard', 'visa'])
+    .enum(['cartes_bancaires', 'mastercard', 'visa', 'dankort'])
     .optional(),
   billing_addr1: z.string().max(150).optional(),
   billing_addr2: z.string().max(150).optional(),
@@ -158,6 +159,7 @@ const SwitchGatewayForCustomerCardBodySchema = z.looseObject({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50),
