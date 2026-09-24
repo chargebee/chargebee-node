@@ -29,6 +29,30 @@ export enum WebhookEventType {
 
   BusinessEntityUpdated = 'business_entity_updated',
 
+  BusinessRuleActivated = 'business_rule_activated',
+
+  BusinessRuleCreated = 'business_rule_created',
+
+  BusinessRuleDeactivated = 'business_rule_deactivated',
+
+  BusinessRuleDeleted = 'business_rule_deleted',
+
+  BusinessRuleReleased = 'business_rule_released',
+
+  BusinessRuleUpdated = 'business_rule_updated',
+
+  BusinessRulesApplied = 'business_rules_applied',
+
+  BusinessRulesetActivated = 'business_ruleset_activated',
+
+  BusinessRulesetCreated = 'business_ruleset_created',
+
+  BusinessRulesetDeactivated = 'business_ruleset_deactivated',
+
+  BusinessRulesetDeleted = 'business_ruleset_deleted',
+
+  BusinessRulesetUpdated = 'business_ruleset_updated',
+
   CardAdded = 'card_added',
 
   CardDeleted = 'card_deleted',
@@ -96,6 +120,10 @@ export enum WebhookEventType {
   DifferentialPriceUpdated = 'differential_price_updated',
 
   DunningUpdated = 'dunning_updated',
+
+  EinvoiceCreated = 'einvoice_created',
+
+  EinvoiceUpdated = 'einvoice_updated',
 
   EntitlementOverridesAutoRemoved = 'entitlement_overrides_auto_removed',
 

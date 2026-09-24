@@ -17,6 +17,7 @@ declare module 'chargebee' {
       id: string;
       date: number;
       amount: number;
+      scheduled_amount: number;
       status: 'posted' | 'payment_due' | 'paid';
     }
     // REQUEST PARAMS

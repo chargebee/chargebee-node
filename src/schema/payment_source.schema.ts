@@ -66,9 +66,23 @@ const CreateUsingTempTokenPaymentSourceBodySchema = z.looseObject({
     'touch_n_go',
     'tamara',
     'qpay',
+    'ovo',
+    'momo',
+    'mercado_pago',
+    'nequi',
+    'nupay',
+    'picpay',
+    'thai_qr',
+    'blik',
+    'fpx',
+    'wero',
+    'p24',
+    'affirm_pay',
+    'rakuten_pay',
   ]),
   tmp_token: z.string().max(65000),
   issuing_country: z.string().max(50).optional(),
+  brand_id: z.string().max(50).optional(),
   replace_primary_payment_source: z.boolean().default(false).optional(),
   additional_information:
     CreateUsingTempTokenPaymentSourceAdditionalInformationSchema.optional(),
@@ -130,6 +144,7 @@ const CreateUsingPermanentTokenPaymentSourceBillingAddressSchema = z.object({
 });
 const CreateUsingPermanentTokenPaymentSourceBodySchema = z.looseObject({
   customer_id: z.string().max(50),
+  brand_id: z.string().max(50).optional(),
   type: z.enum([
     'card',
     'paypal_express_checkout',
@@ -185,6 +200,19 @@ const CreateUsingPermanentTokenPaymentSourceBodySchema = z.looseObject({
     'touch_n_go',
     'tamara',
     'qpay',
+    'ovo',
+    'momo',
+    'mercado_pago',
+    'nequi',
+    'nupay',
+    'picpay',
+    'thai_qr',
+    'blik',
+    'fpx',
+    'wero',
+    'p24',
+    'affirm_pay',
+    'rakuten_pay',
   ]),
   gateway_account_id: z.string().max(50).optional(),
   reference_id: z.string().max(200).optional(),
@@ -210,6 +238,7 @@ export type CreateUsingPermanentTokenPaymentSourceBody = z.infer<
 
 const CreateUsingTokenPaymentSourceBodySchema = z.looseObject({
   customer_id: z.string().max(50),
+  brand_id: z.string().max(50).optional(),
   replace_primary_payment_source: z.boolean().default(false).optional(),
   token_id: z.string().max(40),
 });
@@ -283,6 +312,19 @@ const CreateUsingPaymentIntentPaymentSourcePaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -294,6 +336,7 @@ const CreateUsingPaymentIntentPaymentSourcePaymentIntentSchema = z.object({
 });
 const CreateUsingPaymentIntentPaymentSourceBodySchema = z.looseObject({
   customer_id: z.string().max(50),
+  brand_id: z.string().max(50).optional(),
   replace_primary_payment_source: z.boolean().default(false).optional(),
   payment_intent:
     CreateUsingPaymentIntentPaymentSourcePaymentIntentSchema.optional(),
@@ -317,6 +360,7 @@ const CreateVoucherPaymentSourcePaymentSourceVoucherPaymentSourceSchema =
   });
 const CreateVoucherPaymentSourcePaymentSourceBodySchema = z.looseObject({
   customer_id: z.string().max(50),
+  brand_id: z.string().max(50).optional(),
   voucher_payment_source:
     CreateVoucherPaymentSourcePaymentSourceVoucherPaymentSourceSchema.optional(),
 });
@@ -337,7 +381,7 @@ const CreateCardPaymentSourceCardSchema = z.object({
   expiry_year: z.number().int(),
   cvv: z.string().max(520).optional(),
   preferred_scheme: z
-    .enum(['cartes_bancaires', 'mastercard', 'visa'])
+    .enum(['cartes_bancaires', 'mastercard', 'visa', 'dankort'])
     .optional(),
   billing_addr1: z.string().max(150).optional(),
   billing_addr2: z.string().max(150).optional(),
@@ -351,6 +395,7 @@ const CreateCardPaymentSourceCardSchema = z.object({
 });
 const CreateCardPaymentSourceBodySchema = z.looseObject({
   customer_id: z.string().max(50),
+  brand_id: z.string().max(50).optional(),
   replace_primary_payment_source: z.boolean().default(false).optional(),
   card: CreateCardPaymentSourceCardSchema.optional(),
 });
@@ -385,6 +430,7 @@ const CreateBankAccountPaymentSourceBankAccountSchema = z.object({
 });
 const CreateBankAccountPaymentSourceBodySchema = z.looseObject({
   customer_id: z.string().max(50),
+  brand_id: z.string().max(50).optional(),
   issuing_country: z.string().max(50).optional(),
   replace_primary_payment_source: z.boolean().default(false).optional(),
   bank_account: CreateBankAccountPaymentSourceBankAccountSchema.optional(),
@@ -413,10 +459,15 @@ const UpdateCardPaymentSourceCardSchema = z.object({
   additional_information:
     UpdateCardPaymentSourceAdditionalInformationSchema.optional(),
 });
+const UpdateCardPaymentSourceNetworkTransactionReferenceSchema = z.object({
+  original_network_transaction_id: z.string().max(100).optional(),
+});
 const UpdateCardPaymentSourceBodySchema = z.looseObject({
   gateway_meta_data: UpdateCardPaymentSourceGatewayMetaDataSchema.optional(),
   reference_transaction: z.string().max(50).optional(),
   card: UpdateCardPaymentSourceCardSchema.optional(),
+  network_transaction_reference:
+    UpdateCardPaymentSourceNetworkTransactionReferenceSchema.optional(),
 });
 export { UpdateCardPaymentSourceBodySchema };
 export type UpdateCardPaymentSourceBody = z.infer<
@@ -527,6 +578,19 @@ const ListPaymentSourceTypeSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   is_not: z
@@ -585,6 +649,19 @@ const ListPaymentSourceTypeSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   in: z
@@ -643,6 +720,19 @@ const ListPaymentSourceTypeSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   not_in: z
@@ -701,6 +791,19 @@ const ListPaymentSourceTypeSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
 });

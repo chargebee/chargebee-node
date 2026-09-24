@@ -79,7 +79,7 @@ const CreateSubscriptionEstimateCustomerSchema = z.object({
   vat_number: z.string().max(20).optional(),
   vat_number_prefix: z.string().max(10).optional(),
   registered_for_gst: z.boolean().optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   entity_code: z
     .enum([
       'a',
@@ -249,7 +249,7 @@ const CreateSubItemEstimateEstimateCustomerSchema = z.object({
   vat_number: z.string().max(20).optional(),
   vat_number_prefix: z.string().max(10).optional(),
   registered_for_gst: z.boolean().optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   entity_code: z
     .enum([
       'a',
@@ -310,6 +310,7 @@ const CreateSubItemEstimateEstimateSubscriptionItemsSchema = z.object({
     .optional(),
   charge_once: z.array(z.boolean().optional()).optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
+  description: z.array(z.string().max(500).optional()).optional(),
   charge_on_option: z
     .array(z.enum(['immediately', 'on_event']).optional())
     .optional(),
@@ -601,6 +602,7 @@ const CreateSubItemForCustomerEstimateEstimateSubscriptionItemsSchema =
     item_type: z
       .array(z.enum(['plan', 'addon', 'charge']).optional())
       .optional(),
+    description: z.array(z.string().max(500).optional()).optional(),
     charge_on_option: z
       .array(z.enum(['immediately', 'on_event']).optional())
       .optional(),
@@ -735,7 +737,7 @@ const UpdateSubscriptionEstimateCustomerSchema = z.object({
   vat_number: z.string().max(20).optional(),
   vat_number_prefix: z.string().max(10).optional(),
   registered_for_gst: z.boolean().optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
 });
 const UpdateSubscriptionEstimateAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -875,7 +877,7 @@ const UpdateSubscriptionForItemsEstimateCustomerSchema = z.object({
   vat_number: z.string().max(20).optional(),
   vat_number_prefix: z.string().max(10).optional(),
   registered_for_gst: z.boolean().optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
 });
 const UpdateSubscriptionForItemsEstimateBillingOverrideSchema = z.object({
   max_excess_payment_usage: z.number().int().min(-1).optional(),
@@ -910,6 +912,7 @@ const UpdateSubscriptionForItemsEstimateSubscriptionItemsSchema = z.object({
     .array(z.enum(['immediately', 'on_event']).optional())
     .optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
+  description: z.array(z.string().max(500).optional()).optional(),
   proration_type: z
     .array(z.enum(['full_term', 'partial_term', 'none']).optional())
     .optional(),
@@ -1281,6 +1284,19 @@ const GiftSubscriptionEstimatePaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -1411,6 +1427,19 @@ const GiftSubscriptionForItemsEstimatePaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -1605,7 +1634,7 @@ const CreateInvoiceForItemsEstimateItemPricesSchema = z.object({
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
   description: z.array(z.string().max(250).optional()).optional(),
-  entity_description: z.array(z.string().max(500).optional()).optional(),
+  entity_description: z.array(z.string().max(2000).optional()).optional(),
 });
 const CreateInvoiceForItemsEstimateItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -1636,7 +1665,7 @@ const CreateInvoiceForItemsEstimateChargesSchema = z.object({
   avalara_service_type: z.array(z.number().int().optional()).optional(),
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
-  entity_description: z.array(z.string().max(500).optional()).optional(),
+  entity_description: z.array(z.string().max(2000).optional()).optional(),
 });
 const CreateInvoiceForItemsEstimateNotesToRemoveSchema = z.object({
   entity_type: z

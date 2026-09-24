@@ -50,7 +50,7 @@ export type ListFeatureBody = z.infer<typeof ListFeatureBodySchema>;
 //Feature.create
 
 const CreateFeatureLevelsSchema = z.object({
-  name: z.array(z.string().max(50).optional()).optional(),
+  name: z.array(z.string().max(100).optional()).optional(),
   value: z.array(z.string().max(50).optional()).optional(),
   is_unlimited: z.array(z.boolean().optional()).optional(),
   level: z.array(z.number().int().optional()).optional(),
@@ -69,7 +69,7 @@ export type CreateFeatureBody = z.infer<typeof CreateFeatureBodySchema>;
 //Feature.update
 
 const UpdateFeatureLevelsSchema = z.object({
-  name: z.array(z.string().max(50).optional()).optional(),
+  name: z.array(z.string().max(100).optional()).optional(),
   value: z.array(z.string().max(50).optional()).optional(),
   is_unlimited: z.array(z.boolean().optional()).optional(),
   level: z.array(z.number().int().optional()).optional(),

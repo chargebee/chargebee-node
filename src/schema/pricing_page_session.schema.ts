@@ -91,6 +91,7 @@ const CreateForNewSubscriptionPricingPageSessionDiscountsSchema = z.object({
 const CreateForNewSubscriptionPricingPageSessionBodySchema = z.looseObject({
   redirect_url: z.string().max(250).optional(),
   business_entity_id: z.string().max(50).optional(),
+  brand_id: z.string().max(50).optional(),
   auto_select_local_currency: z.boolean().default(false).optional(),
   custom: CreateForNewSubscriptionPricingPageSessionCustomSchema.optional(),
   pricing_page:

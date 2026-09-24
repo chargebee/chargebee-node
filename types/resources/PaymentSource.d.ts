@@ -31,8 +31,10 @@ declare module 'chargebee' {
     klarna_pay_now?: PaymentSource.KlarnaPayNow;
     mandates?: PaymentSource.Mandate[];
     vault_token?: any;
+    network_transaction_reference?: PaymentSource.NetworkTransactionReference;
     deleted: boolean;
     business_entity_id?: string;
+    brand_id?: string;
   }
 
   export namespace PaymentSource {
@@ -314,6 +316,9 @@ declare module 'chargebee' {
       subscription_id: string;
       created_at: number;
     }
+    export interface NetworkTransactionReference {
+      original_network_transaction_id?: string;
+    }
     // REQUEST PARAMS
     //---------------
 
@@ -323,11 +328,13 @@ declare module 'chargebee' {
       type: TypeEnum;
       tmp_token: string;
       issuing_country?: string;
+      brand_id?: string;
       replace_primary_payment_source?: boolean;
       additional_information?: any;
     }
     export interface CreateUsingPermanentTokenInputParam {
       customer_id: string;
+      brand_id?: string;
       type: TypeEnum;
       gateway_account_id?: string;
       reference_id?: string;
@@ -344,25 +351,30 @@ declare module 'chargebee' {
     }
     export interface CreateUsingTokenInputParam {
       customer_id: string;
+      brand_id?: string;
       replace_primary_payment_source?: boolean;
       token_id: string;
     }
     export interface CreateUsingPaymentIntentInputParam {
       customer_id: string;
+      brand_id?: string;
       replace_primary_payment_source?: boolean;
       payment_intent?: PaymentIntentCreateUsingPaymentIntentInputParam;
     }
     export interface CreateVoucherPaymentSourceInputParam {
       customer_id: string;
+      brand_id?: string;
       voucher_payment_source?: VoucherPaymentSourceCreateVoucherPaymentSourceInputParam;
     }
     export interface CreateCardInputParam {
       customer_id: string;
+      brand_id?: string;
       replace_primary_payment_source?: boolean;
       card?: CardCreateCardInputParam;
     }
     export interface CreateBankAccountInputParam {
       customer_id: string;
+      brand_id?: string;
       issuing_country?: string;
       replace_primary_payment_source?: boolean;
       bank_account?: BankAccountCreateBankAccountInputParam;
@@ -371,6 +383,7 @@ declare module 'chargebee' {
       gateway_meta_data?: any;
       reference_transaction?: string;
       card?: CardUpdateCardInputParam;
+      network_transaction_reference?: NetworkTransactionReferenceUpdateCardInputParam;
     }
     export interface UpdateBankAccountInputParam {
       bank_account?: BankAccountUpdateBankAccountInputParam;
@@ -503,7 +516,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -528,7 +554,7 @@ declare module 'chargebee' {
       expiry_month: number;
       expiry_year: number;
       cvv?: string;
-      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa' | 'dankort';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -558,6 +584,9 @@ declare module 'chargebee' {
       billing_address?: any;
     }
 
+    export interface NetworkTransactionReferenceUpdateCardInputParam {
+      original_network_transaction_id?: string;
+    }
     export interface CardUpdateCardInputParam {
       first_name?: string;
       last_name?: string;

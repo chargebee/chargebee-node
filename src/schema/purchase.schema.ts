@@ -76,6 +76,19 @@ const CreatePurchasePaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -171,7 +184,7 @@ const EstimatePurchaseCustomerSchema = z.object({
   vat_number: z.string().max(20).optional(),
   vat_number_prefix: z.string().max(10).optional(),
   registered_for_gst: z.boolean().optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   entity_code: z
     .enum([
       'a',

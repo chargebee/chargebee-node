@@ -70,6 +70,7 @@ const CreateCustomerCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -81,7 +82,7 @@ const CreateCustomerCardSchema = z.object({
   expiry_year: z.number().int().optional(),
   cvv: z.string().max(520).optional(),
   preferred_scheme: z
-    .enum(['cartes_bancaires', 'mastercard', 'visa'])
+    .enum(['cartes_bancaires', 'mastercard', 'visa', 'dankort'])
     .optional(),
   billing_addr1: z.string().max(150).optional(),
   billing_addr2: z.string().max(150).optional(),
@@ -172,6 +173,19 @@ const CreateCustomerPaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   gateway: z
@@ -235,6 +249,7 @@ const CreateCustomerPaymentMethodSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -301,6 +316,19 @@ const CreateCustomerPaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -336,7 +364,7 @@ const CreateCustomerBodySchema = z.looseObject({
   registered_for_gst: z.boolean().optional(),
   is_einvoice_enabled: z.boolean().optional(),
   einvoicing_method: z.enum(['automatic', 'manual', 'site_default']).optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   exemption_details: z.array(z.string().optional()).optional(),
   customer_type: z
     .enum(['residential', 'business', 'senior_citizen', 'industrial'])
@@ -393,6 +421,7 @@ const CreateCustomerBodySchema = z.looseObject({
   consolidated_invoicing: z.boolean().optional(),
   token_id: z.string().max(40).optional(),
   business_entity_id: z.string().max(50).optional(),
+  brand_id: z.string().max(50).optional(),
   created_from_ip: z.string().max(50).optional(),
   invoice_notes: z.string().max(2000).optional(),
   card: CreateCustomerCardSchema.optional(),
@@ -452,10 +481,10 @@ const ListCustomerAutoCollectionSchema = z.object({
   not_in: z.enum(['on', 'off']).optional(),
 });
 const ListCustomerTaxabilitySchema = z.object({
-  is: z.enum(['taxable', 'exempt']).optional(),
-  is_not: z.enum(['taxable', 'exempt']).optional(),
-  in: z.enum(['taxable', 'exempt']).optional(),
-  not_in: z.enum(['taxable', 'exempt']).optional(),
+  is: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  is_not: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  in: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  not_in: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
 });
 const ListCustomerCreatedAtSchema = z.object({
   after: z.string().regex(RegExp('^\\d{10}$')).optional(),
@@ -617,7 +646,7 @@ const UpdateCustomerBodySchema = z.looseObject({
   auto_collection: z.enum(['on', 'off']).optional(),
   allow_direct_debit: z.boolean().default(false).optional(),
   net_term_days: z.number().int().optional(),
-  taxability: z.enum(['taxable', 'exempt']).optional(),
+  taxability: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   exemption_details: z.array(z.string().optional()).optional(),
   customer_type: z
     .enum(['residential', 'business', 'senior_citizen', 'industrial'])
@@ -738,6 +767,19 @@ const UpdatePaymentMethodCustomerPaymentMethodSchema = z.object({
     'touch_n_go',
     'tamara',
     'qpay',
+    'ovo',
+    'momo',
+    'mercado_pago',
+    'nequi',
+    'nupay',
+    'picpay',
+    'thai_qr',
+    'blik',
+    'fpx',
+    'wero',
+    'p24',
+    'affirm_pay',
+    'rakuten_pay',
   ]),
   gateway: z
     .enum([
@@ -800,6 +842,7 @@ const UpdatePaymentMethodCustomerPaymentMethodSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -1011,10 +1054,12 @@ const RecordExcessPaymentCustomerTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
-    'dana',
-    'touch_n_go',
     'tamara',
     'qpay',
+    'blik',
+    'fpx',
+    'wero',
+    'p24',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),
@@ -1088,6 +1133,19 @@ const CollectPaymentCustomerPaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -1105,7 +1163,7 @@ const CollectPaymentCustomerCardSchema = z.object({
   expiry_year: z.number().int().optional(),
   cvv: z.string().max(520).optional(),
   preferred_scheme: z
-    .enum(['cartes_bancaires', 'mastercard', 'visa'])
+    .enum(['cartes_bancaires', 'mastercard', 'visa', 'dankort'])
     .optional(),
   billing_addr1: z.string().max(150).optional(),
   billing_addr2: z.string().max(150).optional(),
@@ -1175,6 +1233,19 @@ const CollectPaymentCustomerPaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   gw_payment_method_id: z.string().max(65000).optional(),

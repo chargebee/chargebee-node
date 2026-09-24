@@ -7,5 +7,6 @@ declare module 'chargebee' {
     gateway: GatewayEnum;
     gateway_account_id?: string;
     reference_id: string;
+    network_transaction_reference?: any;
   }
 }

@@ -3,6 +3,9 @@
 ///<reference path='./resources/AdvanceInvoiceSchedule.d.ts' />
 ///<reference path='./resources/Alert.d.ts' />
 ///<reference path='./resources/AlertStatus.d.ts' />
+///<reference path='./resources/AppliedBusinessRule.d.ts' />
+///<reference path='./resources/AppliedRule.d.ts' />
+///<reference path='./resources/ApplyRule.d.ts' />
 ///<reference path='./resources/AsyncResponse.d.ts' />
 ///<reference path='./resources/AsyncResponseList.d.ts' />
 ///<reference path='./resources/AttachedItem.d.ts' />
@@ -11,6 +14,9 @@
 ///<reference path='./resources/Brand.d.ts' />
 ///<reference path='./resources/BusinessEntity.d.ts' />
 ///<reference path='./resources/BusinessEntityTransfer.d.ts' />
+///<reference path='./resources/BusinessRule.d.ts' />
+///<reference path='./resources/BusinessRuleset.d.ts' />
+///<reference path='./resources/BusinessRulesetRule.d.ts' />
 ///<reference path='./resources/Card.d.ts' />
 ///<reference path='./resources/ColumnDefinition.d.ts' />
 ///<reference path='./resources/Comment.d.ts' />
@@ -25,12 +31,15 @@
 ///<reference path='./resources/CreditNoteEstimate.d.ts' />
 ///<reference path='./resources/CreditUnit.d.ts' />
 ///<reference path='./resources/Currency.d.ts' />
+///<reference path='./resources/CustomDataSchema.d.ts' />
 ///<reference path='./resources/Customer.d.ts' />
 ///<reference path='./resources/CustomerEntitlement.d.ts' />
 ///<reference path='./resources/DifferentialPrice.d.ts' />
 ///<reference path='./resources/Discount.d.ts' />
+///<reference path='./resources/Dispute.d.ts' />
 ///<reference path='./resources/Download.d.ts' />
 ///<reference path='./resources/Einvoice.d.ts' />
+///<reference path='./resources/EmailLog.d.ts' />
 ///<reference path='./resources/Entitlement.d.ts' />
 ///<reference path='./resources/EntitlementOverride.d.ts' />
 ///<reference path='./resources/Estimate.d.ts' />
@@ -284,6 +293,8 @@ declare module 'chargebee' {
     alertStatu: AlertStatus.AlertStatusResource;
     attachedItem: AttachedItem.AttachedItemResource;
     businessEntity: BusinessEntity.BusinessEntityResource;
+    businessRule: BusinessRule.BusinessRuleResource;
+    businessRuleset: BusinessRuleset.BusinessRulesetResource;
     card: Card.CardResource;
     comment: Comment.CommentResource;
     configuration: Configuration.ConfigurationResource;
@@ -296,6 +307,9 @@ declare module 'chargebee' {
     customer: Customer.CustomerResource;
     customerEntitlement: CustomerEntitlement.CustomerEntitlementResource;
     differentialPrice: DifferentialPrice.DifferentialPriceResource;
+    dispute: Dispute.DisputeResource;
+    einvoice: Einvoice.EinvoiceResource;
+    emailLog: EmailLog.EmailLogResource;
     entitlement: Entitlement.EntitlementResource;
     entitlementOverride: EntitlementOverride.EntitlementOverrideResource;
     estimate: Estimate.EstimateResource;
@@ -323,6 +337,7 @@ declare module 'chargebee' {
     omnichannelSubscriptionItem: OmnichannelSubscriptionItem.OmnichannelSubscriptionItemResource;
     order: Order.OrderResource;
     paymentIntent: PaymentIntent.PaymentIntentResource;
+    paymentSchedule: PaymentSchedule.PaymentScheduleResource;
     paymentScheduleScheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;
     paymentSource: PaymentSource.PaymentSourceResource;
     paymentVoucher: PaymentVoucher.PaymentVoucherResource;

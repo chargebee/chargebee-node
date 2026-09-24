@@ -8,6 +8,9 @@ declare module 'chargebee' {
     advance_invoice_schedule: AdvanceInvoiceSchedule;
     alert: Alert;
     alert_status: AlertStatus;
+    applied_business_rule: AppliedBusinessRule;
+    applied_rule: AppliedRule;
+    apply_rule: ApplyRule;
     async_response: AsyncResponse;
     async_response_list: AsyncResponseList;
     attached_item: AttachedItem;
@@ -16,6 +19,9 @@ declare module 'chargebee' {
     brand: Brand;
     business_entity: BusinessEntity;
     business_entity_transfer: BusinessEntityTransfer;
+    business_rule: BusinessRule;
+    business_ruleset: BusinessRuleset;
+    business_ruleset_rule: BusinessRulesetRule;
     card: Card;
     column_definition: ColumnDefinition;
     comment: Comment;
@@ -30,12 +36,15 @@ declare module 'chargebee' {
     credit_note_estimate: CreditNoteEstimate;
     credit_unit: CreditUnit;
     currency: Currency;
+    custom_data_schema: CustomDataSchema;
     customer: Customer;
     customer_entitlement: CustomerEntitlement;
     differential_price: DifferentialPrice;
     discount: Discount;
+    dispute: Dispute;
     download: Download;
     einvoice: Einvoice;
+    email_log: EmailLog;
     entitlement: Entitlement;
     entitlement_override: EntitlementOverride;
     estimate: Estimate;

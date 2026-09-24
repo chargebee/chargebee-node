@@ -80,6 +80,7 @@ declare module 'chargebee' {
     vat_number_prefix?: string;
     channel?: ChannelEnum;
     business_entity_id?: string;
+    brand_id?: string;
     site_details_at_creation?: Invoice.SiteDetailsAtCreation;
   }
 
@@ -297,6 +298,11 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<VoidBeforeCaptureResponse>>;
 
+      sendEmail(
+        invoice_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<SendEmailResponse>>;
+
       delete(
         invoice_id: string,
         input?: DeleteInputParam,
@@ -485,6 +491,10 @@ declare module 'chargebee' {
     export interface VoidBeforeCaptureResponse {
       invoice: Invoice;
       credit_note?: CreditNote;
+    }
+
+    export interface SendEmailResponse {
+      email_logs: EmailLog[];
     }
 
     export interface DeleteResponse {
@@ -1333,7 +1343,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1357,7 +1380,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
-      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa' | 'dankort';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -1511,7 +1534,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1535,7 +1571,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
-      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa' | 'dankort';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -1790,6 +1826,8 @@ declare module 'chargebee' {
       tax9_amount?: number;
       tax10_name?: string;
       tax10_amount?: number;
+      is_partial_tax_applied?: boolean;
+      taxable_amount?: number;
       proration_mode?:
         | 'reset'
         | 'delta'

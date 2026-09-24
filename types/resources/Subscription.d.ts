@@ -97,6 +97,7 @@ declare module 'chargebee' {
     discounts?: Subscription.Discount[];
     business_entity_id?: string;
     decommissioned: boolean;
+    brand_id?: string;
   }
 
   export namespace Subscription {
@@ -586,6 +587,7 @@ declare module 'chargebee' {
       usage_accumulation_reset_frequency?:
         | 'never'
         | 'subscription_billing_frequency';
+      description?: string;
     }
     export interface ItemTier {
       item_price_id: string;
@@ -715,6 +717,7 @@ declare module 'chargebee' {
 
     export interface CreateInputParam {
       id?: string;
+      brand_id?: string;
       plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
@@ -769,6 +772,7 @@ declare module 'chargebee' {
     }
     export interface CreateForCustomerInputParam {
       id?: string;
+      brand_id?: string;
       plan_id?: string;
       plan_quantity?: number;
       plan_quantity_in_decimal?: string;
@@ -813,6 +817,7 @@ declare module 'chargebee' {
     export interface CreateWithItemsInputParam {
       id?: string;
       business_entity_id?: string;
+      brand_id?: string;
       trial_end?: number;
       billing_cycles?: number /**
        * @deprecated Please refer API docs to use other attributes
@@ -1440,7 +1445,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1464,7 +1482,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
-      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa' | 'dankort';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -1599,7 +1617,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1725,7 +1756,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1749,6 +1793,7 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       item_type?: ItemTypeEnum;
+      description?: string;
       charge_on_option?: ChargeOnOptionEnum;
       usage_accumulation_reset_frequency?: UsageAccumulationResetFrequencyEnum;
     }
@@ -1906,7 +1951,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -1930,7 +1988,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
-      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa' | 'dankort';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -2101,7 +2159,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2125,7 +2196,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
-      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa' | 'dankort';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -2156,6 +2227,7 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       item_type?: ItemTypeEnum;
+      description?: string;
       proration_type?: ProrationTypeEnum;
       usage_accumulation_reset_frequency?: UsageAccumulationResetFrequencyEnum;
     }
@@ -2252,7 +2324,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes
@@ -2385,7 +2470,7 @@ declare module 'chargebee' {
       expiry_month?: number;
       expiry_year?: number;
       cvv?: string;
-      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa';
+      preferred_scheme?: 'cartes_bancaires' | 'mastercard' | 'visa' | 'dankort';
       billing_addr1?: string;
       billing_addr2?: string;
       billing_city?: string;
@@ -2602,6 +2687,7 @@ declare module 'chargebee' {
        * @deprecated Please refer API docs to use other attributes
        */
       item_type?: ItemTypeEnum;
+      description?: string;
     }
     export interface DiscountsImportForItemsInputParam {
       apply_on?: ApplyOnEnum;
@@ -2709,7 +2795,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       reference_id?: string;
       /**
        * @deprecated Please refer API docs to use other attributes

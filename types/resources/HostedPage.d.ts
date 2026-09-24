@@ -34,6 +34,7 @@ declare module 'chargebee' {
     resource_version?: number;
     checkout_info?: any;
     business_entity_id?: string;
+    brand_id?: string;
   }
 
   export namespace HostedPage {
@@ -293,6 +294,7 @@ declare module 'chargebee' {
     }
     export interface CheckoutOneTimeForItemsInputParam {
       business_entity_id?: string;
+      brand_id?: string;
       layout?: LayoutEnum;
       invoice_note?: string /**
        * @deprecated Please refer API docs to use other attributes
@@ -318,6 +320,7 @@ declare module 'chargebee' {
     export interface CheckoutNewForItemsInputParam {
       layout?: LayoutEnum;
       business_entity_id?: string;
+      brand_id?: string;
       billing_cycles?: number;
       mandatory_items_to_remove?: string[];
       terms_to_charge?: number;
@@ -365,6 +368,7 @@ declare module 'chargebee' {
     }
     export interface CheckoutExistingForItemsInputParam {
       layout?: LayoutEnum;
+      brand_id?: string;
       mandatory_items_to_remove?: string[];
       replace_items_list?: boolean;
       invoice_date?: number;
@@ -412,11 +416,13 @@ declare module 'chargebee' {
     }
     export interface ManagePaymentSourcesInputParam {
       business_entity_id?: string;
+      brand_id?: string;
       redirect_url?: string;
       customer?: CustomerManagePaymentSourcesInputParam;
       card?: CardManagePaymentSourcesInputParam;
     }
     export interface CollectNowInputParam {
+      brand_id?: string;
       redirect_url?: string;
       currency_code?: string;
       payment_method_save_policy?: PaymentMethodSavePolicyEnum;
@@ -424,11 +430,13 @@ declare module 'chargebee' {
       card?: CardCollectNowInputParam;
     }
     export interface AcceptQuoteInputParam {
+      brand_id?: string;
       redirect_url?: string;
       layout?: LayoutEnum;
       quote?: QuoteAcceptQuoteInputParam;
     }
     export interface ExtendSubscriptionInputParam {
+      brand_id?: string;
       expiry?: number;
       billing_cycle?: number;
       subscription?: SubscriptionExtendSubscriptionInputParam;
@@ -443,6 +451,7 @@ declare module 'chargebee' {
     export interface CheckoutGiftForItemsInputParam {
       layout?: LayoutEnum;
       business_entity_id?: string;
+      brand_id?: string;
       redirect_url?: string;
       coupon_ids?: string[];
       gifter?: GifterCheckoutGiftForItemsInputParam;
@@ -450,6 +459,7 @@ declare module 'chargebee' {
       item_tiers?: ItemTiersCheckoutGiftForItemsInputParam[];
     }
     export interface ClaimGiftInputParam {
+      brand_id?: string;
       redirect_url?: string;
       gift?: GiftClaimGiftInputParam;
       customer?: CustomerClaimGiftInputParam;
@@ -466,6 +476,7 @@ declare module 'chargebee' {
       updated_at?: filter.Timestamp;
     }
     export interface PreCancelInputParam {
+      brand_id?: string;
       pass_thru_content?: string;
       cancel_url?: string;
       redirect_url?: string;

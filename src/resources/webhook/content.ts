@@ -56,6 +56,54 @@ export interface BusinessEntityUpdatedContent {
   BusinessEntity: import('chargebee').BusinessEntity;
 }
 
+export interface BusinessRuleActivatedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRuleCreatedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRuleDeactivatedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRuleDeletedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRuleReleasedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRuleUpdatedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRulesAppliedContent {
+  AppliedBusinessRule: import('chargebee').AppliedBusinessRule;
+}
+
+export interface BusinessRulesetActivatedContent {
+  BusinessRuleset: import('chargebee').BusinessRuleset;
+}
+
+export interface BusinessRulesetCreatedContent {
+  BusinessRuleset: import('chargebee').BusinessRuleset;
+}
+
+export interface BusinessRulesetDeactivatedContent {
+  BusinessRuleset: import('chargebee').BusinessRuleset;
+}
+
+export interface BusinessRulesetDeletedContent {
+  BusinessRuleset: import('chargebee').BusinessRuleset;
+}
+
+export interface BusinessRulesetUpdatedContent {
+  BusinessRuleset: import('chargebee').BusinessRuleset;
+}
+
 export interface CardAddedContent {
   Customer: import('chargebee').Customer;
 
@@ -228,6 +276,14 @@ export interface DifferentialPriceUpdatedContent {
 
 export interface DunningUpdatedContent {
   Invoice: import('chargebee').Invoice;
+}
+
+export interface EinvoiceCreatedContent {
+  Einvoice: import('chargebee').Einvoice;
+}
+
+export interface EinvoiceUpdatedContent {
+  Einvoice: import('chargebee').Einvoice;
 }
 
 export interface EntitlementOverridesAutoRemovedContent {
@@ -1533,6 +1589,30 @@ export type WebhookContentMap = {
 
   [WebhookEventType.BusinessEntityUpdated]: BusinessEntityUpdatedContent;
 
+  [WebhookEventType.BusinessRuleActivated]: BusinessRuleActivatedContent;
+
+  [WebhookEventType.BusinessRuleCreated]: BusinessRuleCreatedContent;
+
+  [WebhookEventType.BusinessRuleDeactivated]: BusinessRuleDeactivatedContent;
+
+  [WebhookEventType.BusinessRuleDeleted]: BusinessRuleDeletedContent;
+
+  [WebhookEventType.BusinessRuleReleased]: BusinessRuleReleasedContent;
+
+  [WebhookEventType.BusinessRuleUpdated]: BusinessRuleUpdatedContent;
+
+  [WebhookEventType.BusinessRulesApplied]: BusinessRulesAppliedContent;
+
+  [WebhookEventType.BusinessRulesetActivated]: BusinessRulesetActivatedContent;
+
+  [WebhookEventType.BusinessRulesetCreated]: BusinessRulesetCreatedContent;
+
+  [WebhookEventType.BusinessRulesetDeactivated]: BusinessRulesetDeactivatedContent;
+
+  [WebhookEventType.BusinessRulesetDeleted]: BusinessRulesetDeletedContent;
+
+  [WebhookEventType.BusinessRulesetUpdated]: BusinessRulesetUpdatedContent;
+
   [WebhookEventType.CardAdded]: CardAddedContent;
 
   [WebhookEventType.CardDeleted]: CardDeletedContent;
@@ -1600,6 +1680,10 @@ export type WebhookContentMap = {
   [WebhookEventType.DifferentialPriceUpdated]: DifferentialPriceUpdatedContent;
 
   [WebhookEventType.DunningUpdated]: DunningUpdatedContent;
+
+  [WebhookEventType.EinvoiceCreated]: EinvoiceCreatedContent;
+
+  [WebhookEventType.EinvoiceUpdated]: EinvoiceUpdatedContent;
 
   [WebhookEventType.EntitlementOverridesAutoRemoved]: EntitlementOverridesAutoRemovedContent;
 
