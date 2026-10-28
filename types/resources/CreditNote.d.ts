@@ -62,6 +62,7 @@ declare module 'chargebee' {
     create_reason_code?: string;
     vat_number_prefix?: string;
     business_entity_id?: string;
+    brand_id?: string;
     shipping_address?: CreditNote.ShippingAddress;
     billing_address?: CreditNote.BillingAddress;
     einvoice?: CreditNote.Einvoice;
@@ -110,6 +111,11 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<VoidCreditNoteResponse>>;
 
+      sendEmail(
+        credit_note_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<SendEmailResponse>>;
+
       list(
         input?: ListInputParam,
         headers?: ChargebeeRequestHeader,
@@ -130,6 +136,12 @@ declare module 'chargebee' {
         input?: DeleteInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<DeleteResponse>>;
+
+      update(
+        credit_note_id: string,
+        input?: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdateResponse>>;
 
       removeTaxWithheldRefund(
         credit_note_id: string,
@@ -184,6 +196,10 @@ declare module 'chargebee' {
       credit_note: CreditNote;
     }
 
+    export interface SendEmailResponse {
+      email_logs: EmailLog[];
+    }
+
     export interface ListResponse {
       list: { credit_note: CreditNote }[];
       next_offset?: string;
@@ -195,6 +211,10 @@ declare module 'chargebee' {
     }
 
     export interface DeleteResponse {
+      credit_note: CreditNote;
+    }
+
+    export interface UpdateResponse {
       credit_note: CreditNote;
     }
 
@@ -531,6 +551,10 @@ declare module 'chargebee' {
     export interface DeleteInputParam {
       comment?: string;
     }
+    export interface UpdateInputParam {
+      comment?: string;
+      [key: `cf_${string}`]: unknown;
+    }
     export interface RemoveTaxWithheldRefundInputParam {
       tax_withheld?: TaxWithheldRemoveTaxWithheldRefundInputParam;
     }
@@ -704,6 +728,8 @@ declare module 'chargebee' {
       tax9_amount?: number;
       tax10_name?: string;
       tax10_amount?: number;
+      is_partial_tax_applied?: boolean;
+      taxable_amount?: number;
       proration_mode?:
         | 'reset'
         | 'delta'

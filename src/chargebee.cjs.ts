@@ -14,6 +14,7 @@ import {
   CHARGEBEE_TELEMETRY_PREFER_HEADER,
   CHARGEBEE_TELEMETRY_PREFER_VALUE,
   TelemetryAttributeKeys,
+  SDK_TELEMETRY_HEADER_NAME,
 } from './telemetry/index.js';
 
 const httpClient = new FetchHttpClient();
@@ -37,6 +38,7 @@ module.exports.CHARGEBEE_TELEMETRY_PREFER_HEADER =
   CHARGEBEE_TELEMETRY_PREFER_HEADER;
 module.exports.CHARGEBEE_TELEMETRY_PREFER_VALUE =
   CHARGEBEE_TELEMETRY_PREFER_VALUE;
+module.exports.SDK_TELEMETRY_HEADER_NAME = SDK_TELEMETRY_HEADER_NAME;
 
 // Export validation error class
 module.exports.ChargebeeZodValidationError = ChargebeeZodValidationError;

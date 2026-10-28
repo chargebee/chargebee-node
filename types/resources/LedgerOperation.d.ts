@@ -4,9 +4,9 @@
 declare module 'chargebee' {
   export interface LedgerOperation {
     id: string;
-    subscription_id?: string;
-    unit_id?: string;
-    unit_type?: 'credit_unit';
+    subscription_id: string;
+    unit_id: string;
+    unit_type: 'credit_unit';
     type:
       | 'allocation'
       | 'capture'
@@ -16,7 +16,8 @@ declare module 'chargebee' {
       | 'expiry'
       | 'void'
       | 'rollover'
-      | 'adjustment';
+      | 'adjustment'
+      | 'overdraft_settlement';
     amount: string;
     provisioned_start_balance: string;
     provisioned_end_balance: string;
@@ -78,28 +79,32 @@ declare module 'chargebee' {
     }
 
     export interface CaptureResponse {
-      ledger_operation: LedgerOperation;
+      ledger_operation?: LedgerOperation;
+      ledger_operations: LedgerOperation[];
       ledger_account_balance: LedgerAccountBalance;
       grant_blocks: GrantBlock[];
       ledger_entries: LedgerEntry[];
     }
 
     export interface AuthorizeResponse {
-      ledger_operation: LedgerOperation;
+      ledger_operation?: LedgerOperation;
+      ledger_operations: LedgerOperation[];
       ledger_account_balance: LedgerAccountBalance;
       grant_blocks: GrantBlock[];
       ledger_entries: LedgerEntry[];
     }
 
     export interface CaptureAuthorizationResponse {
-      ledger_operation: LedgerOperation;
+      ledger_operation?: LedgerOperation;
+      ledger_operations: LedgerOperation[];
       ledger_account_balance: LedgerAccountBalance;
       grant_blocks: GrantBlock[];
       ledger_entries: LedgerEntry[];
     }
 
     export interface ReleaseAuthorizationResponse {
-      ledger_operation: LedgerOperation;
+      ledger_operation?: LedgerOperation;
+      ledger_operations: LedgerOperation[];
       ledger_account_balance: LedgerAccountBalance;
       grant_blocks: GrantBlock[];
       ledger_entries: LedgerEntry[];
@@ -158,7 +163,9 @@ declare module 'chargebee' {
     export interface AllocateInputParam {
       subscription_id: string;
       unit_id: string;
+      id?: string;
       amount: string;
+      effective_from?: number;
       expires_at: number;
       metadata?: any;
     }

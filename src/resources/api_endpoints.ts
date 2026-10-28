@@ -25,20 +25,23 @@ interface Endpoints {
   businessEntityTransfer: EndpointTuple[];
   token: EndpointTuple[];
   paymentSource: EndpointTuple[];
+  gatewayPaymentMethodToken: EndpointTuple[];
   thirdPartyPaymentMethod: EndpointTuple[];
+  vaultedPaymentMethod: EndpointTuple[];
   virtualBankAccount: EndpointTuple[];
   card: EndpointTuple[];
   promotionalCredit: EndpointTuple[];
+  emailLog: EndpointTuple[];
   invoice: EndpointTuple[];
   paymentReferenceNumber: EndpointTuple[];
   paymentSchedule: EndpointTuple[];
-  einvoice: EndpointTuple[];
   taxWithheld: EndpointTuple[];
   creditNote: EndpointTuple[];
   unbilledCharge: EndpointTuple[];
   order: EndpointTuple[];
   gift: EndpointTuple[];
   transaction: EndpointTuple[];
+  dispute: EndpointTuple[];
   hostedPage: EndpointTuple[];
   estimate: EndpointTuple[];
   quote: EndpointTuple[];
@@ -48,6 +51,7 @@ interface Endpoints {
   quotedDeltaRamp: EndpointTuple[];
   billingConfiguration: EndpointTuple[];
   quoteLineGroup: EndpointTuple[];
+  quoteEntitlement: EndpointTuple[];
   cpqQuoteSignature: EndpointTuple[];
   plan: EndpointTuple[];
   addon: EndpointTuple[];
@@ -95,6 +99,7 @@ interface Endpoints {
   paymentScheduleScheme: EndpointTuple[];
   pricingPageSession: EndpointTuple[];
   omnichannelSubscriptionItemScheduledChange: EndpointTuple[];
+  omnichannelSubscriptionItemMetric: EndpointTuple[];
   omnichannelSubscription: EndpointTuple[];
   omnichannelTransaction: EndpointTuple[];
   omnichannelSubscriptionItem: EndpointTuple[];
@@ -105,12 +110,20 @@ interface Endpoints {
   meter: EndpointTuple[];
   usageEvent: EndpointTuple[];
   meteredFeature: EndpointTuple[];
+  customDataSchema: EndpointTuple[];
   usageFile: EndpointTuple[];
+  einvoice: EndpointTuple[];
   personalizedOffer: EndpointTuple[];
   brand: EndpointTuple[];
   offerFulfillment: EndpointTuple[];
   offerEvent: EndpointTuple[];
   webhookEndpoint: EndpointTuple[];
+  businessRule: EndpointTuple[];
+  applyRule: EndpointTuple[];
+  appliedRule: EndpointTuple[];
+  appliedBusinessRule: EndpointTuple[];
+  businessRuleset: EndpointTuple[];
+  businessRulesetRule: EndpointTuple[];
   usageSummary: EndpointTuple[];
   usageCharge: EndpointTuple[];
   alert: EndpointTuple[];
@@ -804,6 +817,19 @@ export const Endpoints: Endpoints = {
       },
     ],
     [
+      'sendPaymentRequest',
+      'POST',
+      '/customers',
+      '/send_payment_request',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
       'delete',
       'POST',
       '/customers',
@@ -1071,6 +1097,17 @@ export const Endpoints: Endpoints = {
         isIdempotent: true,
       },
     ],
+    [
+      'listGatewayTokensForPaymentSource',
+      'GET',
+      '/payment_sources',
+      '/gateway_payment_method_tokens',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
     ['retrieve', 'GET', '/payment_sources', null, true, null, false, {}, {}],
     ['list', 'GET', '/payment_sources', null, false, null, false, {}, {}],
     [
@@ -1126,7 +1163,21 @@ export const Endpoints: Endpoints = {
       },
     ],
   ],
+  gatewayPaymentMethodToken: [],
   thirdPartyPaymentMethod: [],
+  vaultedPaymentMethod: [
+    [
+      'retrieve',
+      'GET',
+      '/vaulted_payment_methods',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
   virtualBankAccount: [
     [
       'createUsingPermanentToken',
@@ -1294,6 +1345,19 @@ export const Endpoints: Endpoints = {
       'GET',
       '/promotional_credits',
       null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
+  emailLog: [
+    [
+      'emailLogsForCustomer',
+      'GET',
+      '/customers',
+      '/email_logs',
       true,
       null,
       false,
@@ -1719,6 +1783,32 @@ export const Endpoints: Endpoints = {
       },
     ],
     [
+      'voidBeforeCapture',
+      'POST',
+      '/invoices',
+      '/void_before_capture',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'sendEmail',
+      'POST',
+      '/invoices',
+      '/send_email',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
       'delete',
       'POST',
       '/invoices',
@@ -1796,8 +1886,9 @@ export const Endpoints: Endpoints = {
     ],
   ],
   paymentReferenceNumber: [],
-  paymentSchedule: [],
-  einvoice: [],
+  paymentSchedule: [
+    ['list', 'GET', '/payment_schedules', null, false, null, false, {}, {}],
+  ],
   taxWithheld: [],
   creditNote: [
     [
@@ -1877,6 +1968,19 @@ export const Endpoints: Endpoints = {
         isIdempotent: true,
       },
     ],
+    [
+      'sendEmail',
+      'POST',
+      '/credit_notes',
+      '/send_email',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
     ['list', 'GET', '/credit_notes', null, false, null, false, {}, {}],
     [
       'creditNotesForCustomer',
@@ -1894,6 +1998,19 @@ export const Endpoints: Endpoints = {
       'POST',
       '/credit_notes',
       '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'update',
+      'POST',
+      '/credit_notes',
+      '/update',
       true,
       null,
       false,
@@ -2341,6 +2458,10 @@ export const Endpoints: Endpoints = {
         isIdempotent: true,
       },
     ],
+  ],
+  dispute: [
+    ['retrieve', 'GET', '/disputes', null, true, null, false, {}, {}],
+    ['list', 'GET', '/disputes', null, false, null, false, {}, {}],
   ],
   hostedPage: [
     [
@@ -3158,6 +3279,19 @@ export const Endpoints: Endpoints = {
   quotedDeltaRamp: [],
   billingConfiguration: [],
   quoteLineGroup: [],
+  quoteEntitlement: [
+    [
+      'listQuoteEntitlements',
+      'GET',
+      '/quotes',
+      '/quote_entitlements',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
   cpqQuoteSignature: [],
   plan: [
     [
@@ -3933,6 +4067,19 @@ export const Endpoints: Endpoints = {
         isIdempotent: true,
       },
     ],
+    [
+      'ramps',
+      'POST',
+      '/exports',
+      '/ramps',
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
   ],
   paymentIntent: [
     [
@@ -3943,7 +4090,9 @@ export const Endpoints: Endpoints = {
       false,
       null,
       false,
-      {},
+      {
+        payment_method_options: 0,
+      },
       {
         isIdempotent: true,
       },
@@ -3956,7 +4105,9 @@ export const Endpoints: Endpoints = {
       true,
       null,
       false,
-      {},
+      {
+        payment_method_options: 0,
+      },
       {
         isIdempotent: true,
       },
@@ -4831,6 +4982,17 @@ export const Endpoints: Endpoints = {
       {},
     ],
     [
+      'list',
+      'GET',
+      '/payment_schedule_schemes',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
       'delete',
       'POST',
       '/payment_schedule_schemes',
@@ -4877,6 +5039,7 @@ export const Endpoints: Endpoints = {
     ],
   ],
   omnichannelSubscriptionItemScheduledChange: [],
+  omnichannelSubscriptionItemMetric: [],
   omnichannelSubscription: [
     [
       'retrieve',
@@ -5064,6 +5227,7 @@ export const Endpoints: Endpoints = {
       },
     ],
   ],
+  customDataSchema: [],
   usageFile: [
     [
       'uploadUrl',
@@ -5087,6 +5251,10 @@ export const Endpoints: Endpoints = {
       {},
       {},
     ],
+  ],
+  einvoice: [
+    ['retrieve', 'GET', '/einvoices', null, true, null, false, {}, {}],
+    ['listEinvoices', 'GET', '/einvoices', null, false, null, false, {}, {}],
   ],
   personalizedOffer: [
     [
@@ -5185,6 +5353,254 @@ export const Endpoints: Endpoints = {
     ],
     ['list', 'GET', '/webhook_endpoints', null, false, null, false, {}, {}],
   ],
+  businessRule: [
+    [
+      'create',
+      'POST',
+      '/business_rules',
+      null,
+      false,
+      null,
+      false,
+      {
+        tags: 0,
+        structured_expression: 0,
+        actions_on_success: 0,
+      },
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'delete',
+      'POST',
+      '/business_rules',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'updateDraft',
+      'POST',
+      '/business_rules',
+      '/draft',
+      true,
+      null,
+      false,
+      {
+        tags: 0,
+        structured_expression: 0,
+        actions_on_success: 0,
+      },
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/business_rules', null, false, null, false, {}, {}],
+    ['retrieve', 'GET', '/business_rules', null, true, null, false, {}, {}],
+    [
+      'retrieveDraft',
+      'GET',
+      '/business_rules',
+      '/draft',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
+      'deleteDraft',
+      'POST',
+      '/business_rules',
+      '/delete_draft',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'activateRule',
+      'POST',
+      '/business_rules',
+      '/activate',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'deactivateRule',
+      'POST',
+      '/business_rules',
+      '/deactivate',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'releaseRule',
+      'POST',
+      '/business_rules',
+      '/release',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'applyRules',
+      'POST',
+      '/business_rules',
+      '/apply_rules',
+      false,
+      null,
+      false,
+      {
+        structured_expression: 0,
+        context: 0,
+      },
+      {
+        isIdempotent: true,
+      },
+    ],
+  ],
+  applyRule: [],
+  appliedRule: [],
+  appliedBusinessRule: [],
+  businessRuleset: [
+    [
+      'create',
+      'POST',
+      '/business_rulesets',
+      null,
+      false,
+      null,
+      false,
+      {
+        rules: 0,
+      },
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'update',
+      'POST',
+      '/business_rulesets',
+      null,
+      true,
+      null,
+      false,
+      {
+        rules: 0,
+      },
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'delete',
+      'POST',
+      '/business_rulesets',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'activate',
+      'POST',
+      '/business_rulesets',
+      '/activate',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'deactivate',
+      'POST',
+      '/business_rulesets',
+      '/deactivate',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'addRules',
+      'POST',
+      '/business_rulesets',
+      '/add_rules',
+      true,
+      null,
+      false,
+      {
+        rules: 0,
+      },
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'removeRules',
+      'POST',
+      '/business_rulesets',
+      '/remove_rules',
+      true,
+      null,
+      false,
+      {
+        rules: 0,
+      },
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'listRules',
+      'GET',
+      '/business_rulesets',
+      '/rules',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+    ['list', 'GET', '/business_rulesets', null, false, null, false, {}, {}],
+    ['retrieve', 'GET', '/business_rulesets', null, true, null, false, {}, {}],
+  ],
+  businessRulesetRule: [],
   usageSummary: [
     [
       'retrieveUsageSummaryForSubscription',

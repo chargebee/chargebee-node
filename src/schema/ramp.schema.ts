@@ -6,6 +6,9 @@ import { z } from 'zod';
 
 //Ramp.createForSubscription
 
+const CreateForSubscriptionRampBillingConfigurationSchema = z.object({
+  po_number: z.string().max(100).optional(),
+});
 const CreateForSubscriptionRampContractTermSchema = z.object({
   action_at_term_end: z
     .enum(['renew', 'evergreen', 'cancel', 'renew_once'])
@@ -107,6 +110,8 @@ const CreateForSubscriptionRampBodySchema = z.looseObject({
   coupons_to_remove: z.array(z.string().max(100).optional()).optional(),
   discounts_to_remove: z.array(z.string().max(100).optional()).optional(),
   items_to_remove: z.array(z.string().max(100).optional()).optional(),
+  billing_configuration:
+    CreateForSubscriptionRampBillingConfigurationSchema.optional(),
   contract_term: CreateForSubscriptionRampContractTermSchema.optional(),
   items_to_add: CreateForSubscriptionRampItemsToAddSchema.optional(),
   items_to_update: CreateForSubscriptionRampItemsToUpdateSchema.optional(),
@@ -121,6 +126,9 @@ export type CreateForSubscriptionRampBody = z.infer<
 
 //Ramp.update
 
+const UpdateRampBillingConfigurationSchema = z.object({
+  po_number: z.string().max(100).optional(),
+});
 const UpdateRampContractTermSchema = z.object({
   action_at_term_end: z
     .enum(['renew', 'evergreen', 'cancel', 'renew_once'])
@@ -222,6 +230,7 @@ const UpdateRampBodySchema = z.looseObject({
   coupons_to_remove: z.array(z.string().max(100).optional()).optional(),
   discounts_to_remove: z.array(z.string().max(100).optional()).optional(),
   items_to_remove: z.array(z.string().max(100).optional()).optional(),
+  billing_configuration: UpdateRampBillingConfigurationSchema.optional(),
   contract_term: UpdateRampContractTermSchema.optional(),
   items_to_add: UpdateRampItemsToAddSchema.optional(),
   items_to_update: UpdateRampItemsToUpdateSchema.optional(),
@@ -235,12 +244,12 @@ export type UpdateRampBody = z.infer<typeof UpdateRampBodySchema>;
 //Ramp.list
 
 const ListRampStatusSchema = z.object({
-  in: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
   is: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
+  in: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
 });
 const ListRampSubscriptionIdSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
   is: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListRampEffectiveFromSchema = z.object({
   after: z.string().regex(RegExp('^\\d{10}$')).optional(),

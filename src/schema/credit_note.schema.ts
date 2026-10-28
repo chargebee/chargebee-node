@@ -1,5 +1,5 @@
 // Generated Zod schemas: CreditNote
-// Actions: create, retrieve, pdf, refund, recordRefund, voidCreditNote, list, creditNotesForCustomer, delete, removeTaxWithheldRefund, importCreditNote
+// Actions: create, retrieve, pdf, refund, recordRefund, voidCreditNote, list, creditNotesForCustomer, delete, update, removeTaxWithheldRefund, importCreditNote
 // Do not edit manually – regenerate via sdk-generator
 
 import { z } from 'zod';
@@ -111,10 +111,12 @@ const RecordRefundCreditNoteTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
-    'dana',
-    'touch_n_go',
     'tamara',
     'qpay',
+    'blik',
+    'fpx',
+    'wero',
+    'p24',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),
@@ -376,6 +378,14 @@ const DeleteCreditNoteBodySchema = z.looseObject({
 export { DeleteCreditNoteBodySchema };
 export type DeleteCreditNoteBody = z.infer<typeof DeleteCreditNoteBodySchema>;
 
+//CreditNote.update
+
+const UpdateCreditNoteBodySchema = z.looseObject({
+  comment: z.string().max(300).optional(),
+});
+export { UpdateCreditNoteBodySchema };
+export type UpdateCreditNoteBody = z.infer<typeof UpdateCreditNoteBodySchema>;
+
 //CreditNote.removeTaxWithheldRefund
 
 const RemoveTaxWithheldRefundCreditNoteTaxWithheldSchema = z.object({
@@ -452,6 +462,8 @@ const ImportCreditNoteCreditNoteLineItemsSchema = z.object({
   tax9_amount: z.array(z.number().int().min(0).optional()).optional(),
   tax10_name: z.array(z.string().max(50).optional()).optional(),
   tax10_amount: z.array(z.number().int().min(0).optional()).optional(),
+  is_partial_tax_applied: z.array(z.boolean().optional()).optional(),
+  taxable_amount: z.array(z.number().int().min(0).optional()).optional(),
   proration_mode: z
     .array(
       z
@@ -530,10 +542,12 @@ const ImportCreditNoteCreditNoteLinkedRefundsSchema = z.object({
         'app_store',
         'play_store',
         'custom',
-        'dana',
-        'touch_n_go',
         'tamara',
         'qpay',
+        'blik',
+        'fpx',
+        'wero',
+        'p24',
       ])
       .optional(),
   ),

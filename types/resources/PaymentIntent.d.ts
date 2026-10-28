@@ -62,19 +62,34 @@ declare module 'chargebee' {
       | 'dana'
       | 'touch_n_go'
       | 'tamara'
-      | 'qpay';
+      | 'qpay'
+      | 'ovo'
+      | 'momo'
+      | 'mercado_pago'
+      | 'nequi'
+      | 'nupay'
+      | 'picpay'
+      | 'thai_qr'
+      | 'blik'
+      | 'fpx'
+      | 'wero'
+      | 'p24'
+      | 'affirm_pay'
+      | 'rakuten_pay';
     success_url?: string;
     failure_url?: string;
     created_at: number;
     modified_at: number;
     resource_version?: number;
     updated_at?: number;
-    customer_id: string;
+    payment_method_options?: any;
+    customer_id?: string;
     gateway?: string;
     active_payment_attempt?: PaymentIntent.PaymentAttempt;
     payment_attempts?: PaymentIntent.PaymentAttempt[];
     payment_intent_metadata?: PaymentIntent.PaymentIntentMetadata;
     business_entity_id?: string;
+    brand_id?: string;
   }
 
   export namespace PaymentIntent {
@@ -170,7 +185,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -178,6 +206,8 @@ declare module 'chargebee' {
       created_at: number;
       modified_at: number;
       error_detail?: GatewayErrorDetail;
+      routing_rule_id?: string;
+      payment_method_display_rule_id?: string;
     }
     export interface PaymentAttempt {
       id?: string;
@@ -241,7 +271,20 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       id_at_gateway?: string;
       error_code?: string;
       error_text?: string;
@@ -249,19 +292,17 @@ declare module 'chargebee' {
       created_at: number;
       modified_at: number;
       error_detail?: GatewayErrorDetail;
+      routing_rule_id?: string;
+      payment_method_display_rule_id?: string;
     }
     export interface PaymentIntentMetadata {
       source:
-        | 'cb_js'
-        | 'components_fields'
-        | 'checkout_v3'
-        | 'paynow_v3'
-        | 'portal_v3'
-        | 'gift_v3'
-        | 'checkout_v4'
-        | 'payment_component'
-        | 'pc_inapp_v4'
-        | 'pc_fpc_v4';
+        | 'payment_method_helper'
+        | 'card_components'
+        | 'checkout'
+        | 'collect_now'
+        | 'portal'
+        | 'payment_components';
       client_ip_address?: string;
       user_agent?: string;
       created_at?: number;
@@ -271,6 +312,7 @@ declare module 'chargebee' {
 
     export interface CreateInputParam {
       business_entity_id?: string;
+      brand_id?: string;
       customer_id?: string;
       amount: number;
       currency_code: string;
@@ -329,9 +371,23 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       success_url?: string;
       failure_url?: string;
+      payment_method_options?: any;
     }
     export interface UpdateInputParam {
       amount?: number;
@@ -389,9 +445,23 @@ declare module 'chargebee' {
         | 'dana'
         | 'touch_n_go'
         | 'tamara'
-        | 'qpay';
+        | 'qpay'
+        | 'ovo'
+        | 'momo'
+        | 'mercado_pago'
+        | 'nequi'
+        | 'nupay'
+        | 'picpay'
+        | 'thai_qr'
+        | 'blik'
+        | 'fpx'
+        | 'wero'
+        | 'p24'
+        | 'affirm_pay'
+        | 'rakuten_pay';
       success_url?: string;
       failure_url?: string;
+      payment_method_options?: any;
     }
   }
 }

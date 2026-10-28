@@ -34,7 +34,7 @@ test: install
 	npm test
 
 format:
-	npm run prettier
+	npm run format
 
 build: install 
 	npm run build
@@ -43,4 +43,4 @@ prepack:
 	npm run prepack
 
 install: 
-	npm install
+	npm ci

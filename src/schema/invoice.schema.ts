@@ -1,5 +1,5 @@
 // Generated Zod schemas: Invoice
-// Actions: create, createForChargeItemsAndCharges, charge, chargeAddon, createForChargeItem, stopDunning, pauseDunning, resumeDunning, importInvoice, applyPayments, deleteLineItems, applyCredits, list, invoicesForCustomer, invoicesForSubscription, retrieve, pdf, listPaymentReferenceNumbers, addCharge, addAddonCharge, addChargeItem, close, collectPayment, recordPayment, recordTaxWithheld, removeTaxWithheld, refund, recordRefund, removePayment, removeCreditNote, voidInvoice, writeOff, delete, updateDetails, applyPaymentScheduleScheme
+// Actions: create, createForChargeItemsAndCharges, charge, chargeAddon, createForChargeItem, stopDunning, pauseDunning, resumeDunning, importInvoice, applyPayments, deleteLineItems, applyCredits, list, invoicesForCustomer, invoicesForSubscription, retrieve, pdf, listPaymentReferenceNumbers, addCharge, addAddonCharge, addChargeItem, close, collectPayment, recordPayment, recordTaxWithheld, removeTaxWithheld, refund, recordRefund, removePayment, removeCreditNote, voidInvoice, writeOff, voidBeforeCapture, delete, updateDetails, applyPaymentScheduleScheme
 // Do not edit manually – regenerate via sdk-generator
 
 import { z } from 'zod';
@@ -90,6 +90,7 @@ const CreateInvoiceCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -101,7 +102,7 @@ const CreateInvoiceCardSchema = z.object({
   expiry_year: z.number().int().optional(),
   cvv: z.string().max(520).optional(),
   preferred_scheme: z
-    .enum(['cartes_bancaires', 'mastercard', 'visa'])
+    .enum(['cartes_bancaires', 'mastercard', 'visa', 'dankort'])
     .optional(),
   billing_addr1: z.string().max(150).optional(),
   billing_addr2: z.string().max(150).optional(),
@@ -192,6 +193,19 @@ const CreateInvoicePaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   gateway: z
@@ -255,6 +269,7 @@ const CreateInvoicePaymentMethodSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -321,6 +336,19 @@ const CreateInvoicePaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -488,6 +516,7 @@ const CreateForChargeItemsAndChargesInvoiceCardSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -499,7 +528,7 @@ const CreateForChargeItemsAndChargesInvoiceCardSchema = z.object({
   expiry_year: z.number().int().optional(),
   cvv: z.string().max(520).optional(),
   preferred_scheme: z
-    .enum(['cartes_bancaires', 'mastercard', 'visa'])
+    .enum(['cartes_bancaires', 'mastercard', 'visa', 'dankort'])
     .optional(),
   billing_addr1: z.string().max(150).optional(),
   billing_addr2: z.string().max(150).optional(),
@@ -594,6 +623,19 @@ const CreateForChargeItemsAndChargesInvoicePaymentMethodSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   gateway: z
@@ -657,6 +699,7 @@ const CreateForChargeItemsAndChargesInvoicePaymentMethodSchema = z.object({
       'tempus',
       'moyasar',
       'payway',
+      'payu',
     ])
     .optional(),
   gateway_account_id: z.string().max(50).optional(),
@@ -724,6 +767,19 @@ const CreateForChargeItemsAndChargesInvoicePaymentIntentSchema = z.object({
       'touch_n_go',
       'tamara',
       'qpay',
+      'ovo',
+      'momo',
+      'mercado_pago',
+      'nequi',
+      'nupay',
+      'picpay',
+      'thai_qr',
+      'blik',
+      'fpx',
+      'wero',
+      'p24',
+      'affirm_pay',
+      'rakuten_pay',
     ])
     .optional(),
   reference_id: z.string().max(65000).optional(),
@@ -740,7 +796,7 @@ const CreateForChargeItemsAndChargesInvoiceItemPricesSchema = z.object({
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
   description: z.array(z.string().max(250).optional()).optional(),
-  entity_description: z.array(z.string().max(500).optional()).optional(),
+  entity_description: z.array(z.string().max(2000).optional()).optional(),
 });
 const CreateForChargeItemsAndChargesInvoiceItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -756,7 +812,7 @@ const CreateForChargeItemsAndChargesInvoiceItemTiersSchema = z.object({
   package_size: z.array(z.number().int().min(1).optional()).optional(),
 });
 const CreateForChargeItemsAndChargesInvoiceChargesSchema = z.object({
-  entity_description: z.array(z.string().max(500).optional()).optional(),
+  entity_description: z.array(z.string().max(2000).optional()).optional(),
   amount: z.array(z.number().int().min(1).optional()).optional(),
   amount_in_decimal: z.array(z.string().max(39).optional()).optional(),
   description: z.array(z.string().max(250).optional()).optional(),
@@ -1075,6 +1131,8 @@ const ImportInvoiceInvoiceLineItemsSchema = z.object({
   tax9_amount: z.array(z.number().int().min(0).optional()).optional(),
   tax10_name: z.array(z.string().max(50).optional()).optional(),
   tax10_amount: z.array(z.number().int().min(0).optional()).optional(),
+  is_partial_tax_applied: z.array(z.boolean().optional()).optional(),
+  taxable_amount: z.array(z.number().int().min(0).optional()).optional(),
   proration_mode: z
     .array(
       z
@@ -1156,10 +1214,12 @@ const ImportInvoiceInvoicePaymentsSchema = z.object({
         'app_store',
         'play_store',
         'custom',
-        'dana',
-        'touch_n_go',
         'tamara',
         'qpay',
+        'blik',
+        'fpx',
+        'wero',
+        'p24',
       ])
       .optional(),
   ),
@@ -1538,12 +1598,12 @@ export type PdfInvoiceBody = z.infer<typeof PdfInvoiceBodySchema>;
 //Invoice.listPaymentReferenceNumbers
 
 const ListPaymentReferenceNumbersInvoiceIdSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
   is: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListPaymentReferenceNumbersInvoiceNumberSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
   is: z.string().min(1).optional(),
+  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListPaymentReferenceNumbersInvoicePaymentReferenceNumberItemSchema =
   z.object({
@@ -1700,10 +1760,12 @@ const RecordPaymentInvoiceTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
-    'dana',
-    'touch_n_go',
     'tamara',
     'qpay',
+    'blik',
+    'fpx',
+    'wero',
+    'p24',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),
@@ -1788,10 +1850,12 @@ const RecordRefundInvoiceTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
-    'dana',
-    'touch_n_go',
     'tamara',
     'qpay',
+    'blik',
+    'fpx',
+    'wero',
+    'p24',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),
@@ -1866,6 +1930,18 @@ const WriteOffInvoiceBodySchema = z.looseObject({
 });
 export { WriteOffInvoiceBodySchema };
 export type WriteOffInvoiceBody = z.infer<typeof WriteOffInvoiceBodySchema>;
+
+//Invoice.voidBeforeCapture
+
+const VoidBeforeCaptureInvoiceBodySchema = z.looseObject({
+  comment: z.string().max(300).optional(),
+  void_reason_code: z.string().max(100).optional(),
+  invoice_action: z.enum(['void', 'write_off']).optional(),
+});
+export { VoidBeforeCaptureInvoiceBodySchema };
+export type VoidBeforeCaptureInvoiceBody = z.infer<
+  typeof VoidBeforeCaptureInvoiceBodySchema
+>;
 
 //Invoice.delete
 

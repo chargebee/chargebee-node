@@ -8,6 +8,9 @@ declare module 'chargebee' {
     advance_invoice_schedule: AdvanceInvoiceSchedule;
     alert: Alert;
     alert_status: AlertStatus;
+    applied_business_rule: AppliedBusinessRule;
+    applied_rule: AppliedRule;
+    apply_rule: ApplyRule;
     async_response: AsyncResponse;
     async_response_list: AsyncResponseList;
     attached_item: AttachedItem;
@@ -16,6 +19,9 @@ declare module 'chargebee' {
     brand: Brand;
     business_entity: BusinessEntity;
     business_entity_transfer: BusinessEntityTransfer;
+    business_rule: BusinessRule;
+    business_ruleset: BusinessRuleset;
+    business_ruleset_rule: BusinessRulesetRule;
     card: Card;
     column_definition: ColumnDefinition;
     comment: Comment;
@@ -30,12 +36,15 @@ declare module 'chargebee' {
     credit_note_estimate: CreditNoteEstimate;
     credit_unit: CreditUnit;
     currency: Currency;
+    custom_data_schema: CustomDataSchema;
     customer: Customer;
     customer_entitlement: CustomerEntitlement;
     differential_price: DifferentialPrice;
     discount: Discount;
+    dispute: Dispute;
     download: Download;
     einvoice: Einvoice;
+    email_log: EmailLog;
     entitlement: Entitlement;
     entitlement_override: EntitlementOverride;
     estimate: Estimate;
@@ -44,6 +53,7 @@ declare module 'chargebee' {
     feature: Feature;
     filter_condition: FilterCondition;
     gateway_error_detail: GatewayErrorDetail;
+    gateway_payment_method_token: GatewayPaymentMethodToken;
     gift: Gift;
     grant_block: GrantBlock;
     hierarchy: Hierarchy;
@@ -72,6 +82,7 @@ declare module 'chargebee' {
     omnichannel_one_time_order_item: OmnichannelOneTimeOrderItem;
     omnichannel_subscription: OmnichannelSubscription;
     omnichannel_subscription_item: OmnichannelSubscriptionItem;
+    omnichannel_subscription_item_metric: OmnichannelSubscriptionItemMetric;
     omnichannel_subscription_item_offer: OmnichannelSubscriptionItemOffer;
     omnichannel_subscription_item_scheduled_change: OmnichannelSubscriptionItemScheduledChange;
     omnichannel_transaction: OmnichannelTransaction;
@@ -92,6 +103,7 @@ declare module 'chargebee' {
     promotional_grant: PromotionalGrant;
     purchase: Purchase;
     quote: Quote;
+    quote_entitlement: QuoteEntitlement;
     quote_line_group: QuoteLineGroup;
     quoted_charge: QuotedCharge;
     quoted_delta_ramp: QuotedDeltaRamp;
@@ -118,6 +130,7 @@ declare module 'chargebee' {
     usage_event: UsageEvent;
     usage_file: UsageFile;
     usage_summary: UsageSummary;
+    vaulted_payment_method: VaultedPaymentMethod;
     virtual_bank_account: VirtualBankAccount;
     webhook_endpoint: WebhookEndpoint;
   }

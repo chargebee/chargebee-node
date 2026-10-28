@@ -29,6 +29,30 @@ export enum WebhookEventType {
 
   BusinessEntityUpdated = 'business_entity_updated',
 
+  BusinessRuleActivated = 'business_rule_activated',
+
+  BusinessRuleCreated = 'business_rule_created',
+
+  BusinessRuleDeactivated = 'business_rule_deactivated',
+
+  BusinessRuleDeleted = 'business_rule_deleted',
+
+  BusinessRuleReleased = 'business_rule_released',
+
+  BusinessRuleUpdated = 'business_rule_updated',
+
+  BusinessRulesApplied = 'business_rules_applied',
+
+  BusinessRulesetActivated = 'business_ruleset_activated',
+
+  BusinessRulesetCreated = 'business_ruleset_created',
+
+  BusinessRulesetDeactivated = 'business_ruleset_deactivated',
+
+  BusinessRulesetDeleted = 'business_ruleset_deleted',
+
+  BusinessRulesetUpdated = 'business_ruleset_updated',
+
   CardAdded = 'card_added',
 
   CardDeleted = 'card_deleted',
@@ -96,6 +120,10 @@ export enum WebhookEventType {
   DifferentialPriceUpdated = 'differential_price_updated',
 
   DunningUpdated = 'dunning_updated',
+
+  EinvoiceCreated = 'einvoice_created',
+
+  EinvoiceUpdated = 'einvoice_updated',
 
   EntitlementOverridesAutoRemoved = 'entitlement_overrides_auto_removed',
 
@@ -206,6 +234,8 @@ export enum WebhookEventType {
   OmnichannelSubscriptionItemGracePeriodExpired = 'omnichannel_subscription_item_grace_period_expired',
 
   OmnichannelSubscriptionItemGracePeriodStarted = 'omnichannel_subscription_item_grace_period_started',
+
+  OmnichannelSubscriptionItemMrrUpdated = 'omnichannel_subscription_item_mrr_updated',
 
   OmnichannelSubscriptionItemPauseScheduled = 'omnichannel_subscription_item_pause_scheduled',
 
@@ -456,6 +486,12 @@ export enum WebhookEventType {
   VariantDeleted = 'variant_deleted',
 
   VariantUpdated = 'variant_updated',
+
+  VaultTokenCreated = 'vault_token_created',
+
+  VaultTokenDeleted = 'vault_token_deleted',
+
+  VaultTokenUpdated = 'vault_token_updated',
 
   VirtualBankAccountAdded = 'virtual_bank_account_added',
 

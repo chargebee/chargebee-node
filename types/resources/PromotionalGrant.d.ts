@@ -29,7 +29,9 @@ declare module 'chargebee' {
     export interface PromotionalGrantsInputParam {
       subscription_id: string;
       unit_id: string;
+      id?: string;
       amount: string;
+      effective_from?: number;
       expires_at: number;
       metadata?: any;
     }

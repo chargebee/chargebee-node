@@ -3,6 +3,9 @@
 ///<reference path='./resources/AdvanceInvoiceSchedule.d.ts' />
 ///<reference path='./resources/Alert.d.ts' />
 ///<reference path='./resources/AlertStatus.d.ts' />
+///<reference path='./resources/AppliedBusinessRule.d.ts' />
+///<reference path='./resources/AppliedRule.d.ts' />
+///<reference path='./resources/ApplyRule.d.ts' />
 ///<reference path='./resources/AsyncResponse.d.ts' />
 ///<reference path='./resources/AsyncResponseList.d.ts' />
 ///<reference path='./resources/AttachedItem.d.ts' />
@@ -11,6 +14,9 @@
 ///<reference path='./resources/Brand.d.ts' />
 ///<reference path='./resources/BusinessEntity.d.ts' />
 ///<reference path='./resources/BusinessEntityTransfer.d.ts' />
+///<reference path='./resources/BusinessRule.d.ts' />
+///<reference path='./resources/BusinessRuleset.d.ts' />
+///<reference path='./resources/BusinessRulesetRule.d.ts' />
 ///<reference path='./resources/Card.d.ts' />
 ///<reference path='./resources/ColumnDefinition.d.ts' />
 ///<reference path='./resources/Comment.d.ts' />
@@ -25,12 +31,15 @@
 ///<reference path='./resources/CreditNoteEstimate.d.ts' />
 ///<reference path='./resources/CreditUnit.d.ts' />
 ///<reference path='./resources/Currency.d.ts' />
+///<reference path='./resources/CustomDataSchema.d.ts' />
 ///<reference path='./resources/Customer.d.ts' />
 ///<reference path='./resources/CustomerEntitlement.d.ts' />
 ///<reference path='./resources/DifferentialPrice.d.ts' />
 ///<reference path='./resources/Discount.d.ts' />
+///<reference path='./resources/Dispute.d.ts' />
 ///<reference path='./resources/Download.d.ts' />
 ///<reference path='./resources/Einvoice.d.ts' />
+///<reference path='./resources/EmailLog.d.ts' />
 ///<reference path='./resources/Entitlement.d.ts' />
 ///<reference path='./resources/EntitlementOverride.d.ts' />
 ///<reference path='./resources/Estimate.d.ts' />
@@ -39,6 +48,7 @@
 ///<reference path='./resources/Feature.d.ts' />
 ///<reference path='./resources/FilterCondition.d.ts' />
 ///<reference path='./resources/GatewayErrorDetail.d.ts' />
+///<reference path='./resources/GatewayPaymentMethodToken.d.ts' />
 ///<reference path='./resources/Gift.d.ts' />
 ///<reference path='./resources/GrantBlock.d.ts' />
 ///<reference path='./resources/Hierarchy.d.ts' />
@@ -67,6 +77,7 @@
 ///<reference path='./resources/OmnichannelOneTimeOrderItem.d.ts' />
 ///<reference path='./resources/OmnichannelSubscription.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItem.d.ts' />
+///<reference path='./resources/OmnichannelSubscriptionItemMetric.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItemOffer.d.ts' />
 ///<reference path='./resources/OmnichannelSubscriptionItemScheduledChange.d.ts' />
 ///<reference path='./resources/OmnichannelTransaction.d.ts' />
@@ -87,6 +98,7 @@
 ///<reference path='./resources/PromotionalGrant.d.ts' />
 ///<reference path='./resources/Purchase.d.ts' />
 ///<reference path='./resources/Quote.d.ts' />
+///<reference path='./resources/QuoteEntitlement.d.ts' />
 ///<reference path='./resources/QuoteLineGroup.d.ts' />
 ///<reference path='./resources/QuotedCharge.d.ts' />
 ///<reference path='./resources/QuotedDeltaRamp.d.ts' />
@@ -113,6 +125,7 @@
 ///<reference path='./resources/UsageEvent.d.ts' />
 ///<reference path='./resources/UsageFile.d.ts' />
 ///<reference path='./resources/UsageSummary.d.ts' />
+///<reference path='./resources/VaultedPaymentMethod.d.ts' />
 ///<reference path='./resources/VirtualBankAccount.d.ts' />
 ///<reference path='./resources/WebhookEndpoint.d.ts' />
 ///<reference path='./resources/Content.d.ts' />
@@ -188,13 +201,16 @@ declare module 'chargebee' {
 
     /** @preferChargebeeTelemetry when true, sends `Prefer: chargebee-telemetry=include` so Chargebee returns `X-Chargebee-Telemetry`. Requires `telemetryAdapter`. */
     preferChargebeeTelemetry?: boolean;
+
+    /**
+     * @sdkTelemetryEnabled when false, the SDK does not send the anonymous x-chargebee-sdk-telemetry header. Default true.
+     */
+    sdkTelemetryEnabled?: boolean;
   };
 
   export interface HttpClientInterface {
     makeApiRequest: (request: Request, timeout: number) => Promise<Response>;
   }
-
-  export type RequestTelemetryHandle = unknown;
 
   /** HTTP `Prefer` header name used to opt in to response telemetry. */
   export const CHARGEBEE_TELEMETRY_PREFER_HEADER: 'Prefer';
@@ -218,6 +234,10 @@ declare module 'chargebee' {
     readonly CHARGEBEE_ERROR_TYPE: 'chargebee.error.type';
     readonly CHARGEBEE_ERROR_PARAM: 'chargebee.error.param';
   };
+
+  export const SDK_TELEMETRY_HEADER_NAME: 'x-chargebee-sdk-telemetry';
+
+  export type RequestTelemetryHandle = unknown;
 
   export type RequestTelemetryContext = {
     spanName: string;
@@ -284,6 +304,8 @@ declare module 'chargebee' {
     alertStatu: AlertStatus.AlertStatusResource;
     attachedItem: AttachedItem.AttachedItemResource;
     businessEntity: BusinessEntity.BusinessEntityResource;
+    businessRule: BusinessRule.BusinessRuleResource;
+    businessRuleset: BusinessRuleset.BusinessRulesetResource;
     card: Card.CardResource;
     comment: Comment.CommentResource;
     configuration: Configuration.ConfigurationResource;
@@ -296,6 +318,9 @@ declare module 'chargebee' {
     customer: Customer.CustomerResource;
     customerEntitlement: CustomerEntitlement.CustomerEntitlementResource;
     differentialPrice: DifferentialPrice.DifferentialPriceResource;
+    dispute: Dispute.DisputeResource;
+    einvoice: Einvoice.EinvoiceResource;
+    emailLog: EmailLog.EmailLogResource;
     entitlement: Entitlement.EntitlementResource;
     entitlementOverride: EntitlementOverride.EntitlementOverrideResource;
     estimate: Estimate.EstimateResource;
@@ -323,6 +348,7 @@ declare module 'chargebee' {
     omnichannelSubscriptionItem: OmnichannelSubscriptionItem.OmnichannelSubscriptionItemResource;
     order: Order.OrderResource;
     paymentIntent: PaymentIntent.PaymentIntentResource;
+    paymentSchedule: PaymentSchedule.PaymentScheduleResource;
     paymentScheduleScheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;
     paymentSource: PaymentSource.PaymentSourceResource;
     paymentVoucher: PaymentVoucher.PaymentVoucherResource;
@@ -335,6 +361,7 @@ declare module 'chargebee' {
     promotionalGrant: PromotionalGrant.PromotionalGrantResource;
     purchase: Purchase.PurchaseResource;
     quote: Quote.QuoteResource;
+    quoteEntitlement: QuoteEntitlement.QuoteEntitlementResource;
     ramp: Ramp.RampResource;
     recordedPurchase: RecordedPurchase.RecordedPurchaseResource;
     resourceMigration: ResourceMigration.ResourceMigrationResource;
@@ -350,6 +377,7 @@ declare module 'chargebee' {
     usageEvent: UsageEvent.UsageEventResource;
     usageFile: UsageFile.UsageFileResource;
     usageSummary: UsageSummary.UsageSummaryResource;
+    vaultedPaymentMethod: VaultedPaymentMethod.VaultedPaymentMethodResource;
     virtualBankAccount: VirtualBankAccount.VirtualBankAccountResource;
     webhookEndpoint: WebhookEndpoint.WebhookEndpointResource;
 

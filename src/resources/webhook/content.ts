@@ -56,6 +56,54 @@ export interface BusinessEntityUpdatedContent {
   BusinessEntity: import('chargebee').BusinessEntity;
 }
 
+export interface BusinessRuleActivatedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRuleCreatedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRuleDeactivatedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRuleDeletedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRuleReleasedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRuleUpdatedContent {
+  BusinessRule: import('chargebee').BusinessRule;
+}
+
+export interface BusinessRulesAppliedContent {
+  AppliedBusinessRule: import('chargebee').AppliedBusinessRule;
+}
+
+export interface BusinessRulesetActivatedContent {
+  BusinessRuleset: import('chargebee').BusinessRuleset;
+}
+
+export interface BusinessRulesetCreatedContent {
+  BusinessRuleset: import('chargebee').BusinessRuleset;
+}
+
+export interface BusinessRulesetDeactivatedContent {
+  BusinessRuleset: import('chargebee').BusinessRuleset;
+}
+
+export interface BusinessRulesetDeletedContent {
+  BusinessRuleset: import('chargebee').BusinessRuleset;
+}
+
+export interface BusinessRulesetUpdatedContent {
+  BusinessRuleset: import('chargebee').BusinessRuleset;
+}
+
 export interface CardAddedContent {
   Customer: import('chargebee').Customer;
 
@@ -228,6 +276,14 @@ export interface DifferentialPriceUpdatedContent {
 
 export interface DunningUpdatedContent {
   Invoice: import('chargebee').Invoice;
+}
+
+export interface EinvoiceCreatedContent {
+  Einvoice: import('chargebee').Einvoice;
+}
+
+export interface EinvoiceUpdatedContent {
+  Einvoice: import('chargebee').Einvoice;
 }
 
 export interface EntitlementOverridesAutoRemovedContent {
@@ -588,6 +644,14 @@ export interface OmnichannelSubscriptionItemGracePeriodStartedContent {
   OmnichannelSubscriptionItem: import('chargebee').OmnichannelSubscriptionItem;
 
   Customer: import('chargebee').Customer;
+}
+
+export interface OmnichannelSubscriptionItemMrrUpdatedContent {
+  OmnichannelSubscriptionItem: import('chargebee').OmnichannelSubscriptionItem;
+
+  OmnichannelSubscription: import('chargebee').OmnichannelSubscription;
+
+  OmnichannelSubscriptionItemMetric: import('chargebee').OmnichannelSubscriptionItemMetric;
 }
 
 export interface OmnichannelSubscriptionItemPauseScheduledContent {
@@ -1450,6 +1514,18 @@ export interface VariantDeletedContent {}
 
 export interface VariantUpdatedContent {}
 
+export interface VaultTokenCreatedContent {
+  VaultedPaymentMethod: import('chargebee').VaultedPaymentMethod;
+}
+
+export interface VaultTokenDeletedContent {
+  VaultedPaymentMethod: import('chargebee').VaultedPaymentMethod;
+}
+
+export interface VaultTokenUpdatedContent {
+  VaultedPaymentMethod: import('chargebee').VaultedPaymentMethod;
+}
+
 export interface VirtualBankAccountAddedContent {
   Customer: import('chargebee').Customer;
 
@@ -1512,6 +1588,30 @@ export type WebhookContentMap = {
   [WebhookEventType.BusinessEntityDeleted]: BusinessEntityDeletedContent;
 
   [WebhookEventType.BusinessEntityUpdated]: BusinessEntityUpdatedContent;
+
+  [WebhookEventType.BusinessRuleActivated]: BusinessRuleActivatedContent;
+
+  [WebhookEventType.BusinessRuleCreated]: BusinessRuleCreatedContent;
+
+  [WebhookEventType.BusinessRuleDeactivated]: BusinessRuleDeactivatedContent;
+
+  [WebhookEventType.BusinessRuleDeleted]: BusinessRuleDeletedContent;
+
+  [WebhookEventType.BusinessRuleReleased]: BusinessRuleReleasedContent;
+
+  [WebhookEventType.BusinessRuleUpdated]: BusinessRuleUpdatedContent;
+
+  [WebhookEventType.BusinessRulesApplied]: BusinessRulesAppliedContent;
+
+  [WebhookEventType.BusinessRulesetActivated]: BusinessRulesetActivatedContent;
+
+  [WebhookEventType.BusinessRulesetCreated]: BusinessRulesetCreatedContent;
+
+  [WebhookEventType.BusinessRulesetDeactivated]: BusinessRulesetDeactivatedContent;
+
+  [WebhookEventType.BusinessRulesetDeleted]: BusinessRulesetDeletedContent;
+
+  [WebhookEventType.BusinessRulesetUpdated]: BusinessRulesetUpdatedContent;
 
   [WebhookEventType.CardAdded]: CardAddedContent;
 
@@ -1580,6 +1680,10 @@ export type WebhookContentMap = {
   [WebhookEventType.DifferentialPriceUpdated]: DifferentialPriceUpdatedContent;
 
   [WebhookEventType.DunningUpdated]: DunningUpdatedContent;
+
+  [WebhookEventType.EinvoiceCreated]: EinvoiceCreatedContent;
+
+  [WebhookEventType.EinvoiceUpdated]: EinvoiceUpdatedContent;
 
   [WebhookEventType.EntitlementOverridesAutoRemoved]: EntitlementOverridesAutoRemovedContent;
 
@@ -1690,6 +1794,8 @@ export type WebhookContentMap = {
   [WebhookEventType.OmnichannelSubscriptionItemGracePeriodExpired]: OmnichannelSubscriptionItemGracePeriodExpiredContent;
 
   [WebhookEventType.OmnichannelSubscriptionItemGracePeriodStarted]: OmnichannelSubscriptionItemGracePeriodStartedContent;
+
+  [WebhookEventType.OmnichannelSubscriptionItemMrrUpdated]: OmnichannelSubscriptionItemMrrUpdatedContent;
 
   [WebhookEventType.OmnichannelSubscriptionItemPauseScheduled]: OmnichannelSubscriptionItemPauseScheduledContent;
 
@@ -1940,6 +2046,12 @@ export type WebhookContentMap = {
   [WebhookEventType.VariantDeleted]: VariantDeletedContent;
 
   [WebhookEventType.VariantUpdated]: VariantUpdatedContent;
+
+  [WebhookEventType.VaultTokenCreated]: VaultTokenCreatedContent;
+
+  [WebhookEventType.VaultTokenDeleted]: VaultTokenDeletedContent;
+
+  [WebhookEventType.VaultTokenUpdated]: VaultTokenUpdatedContent;
 
   [WebhookEventType.VirtualBankAccountAdded]: VirtualBankAccountAddedContent;
 

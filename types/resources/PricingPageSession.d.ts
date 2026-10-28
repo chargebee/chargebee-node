@@ -36,6 +36,7 @@ declare module 'chargebee' {
     export interface CreateForNewSubscriptionInputParam {
       redirect_url?: string;
       business_entity_id?: string;
+      brand_id?: string;
       auto_select_local_currency?: boolean;
       custom?: any;
       pricing_page?: PricingPageCreateForNewSubscriptionInputParam;
@@ -71,7 +72,7 @@ declare module 'chargebee' {
       validation_status?: ValidationStatusEnum;
     }
     export interface PricingPageCreateForNewSubscriptionInputParam {
-      id: string;
+      id?: string;
     }
     export interface CustomerCreateForNewSubscriptionInputParam {
       id?: string;

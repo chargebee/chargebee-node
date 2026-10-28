@@ -17,7 +17,11 @@ declare module 'chargebee' {
     current_term_start?: number;
     current_term_end?: number;
     expired_at?: number;
-    expiration_reason?: 'billing_error' | 'product_not_available' | 'other';
+    expiration_reason?:
+      | 'billing_error'
+      | 'product_not_available'
+      | 'other'
+      | 'subscription_not_found_in_source';
     cancelled_at?: number;
     cancellation_reason?:
       | 'customer_cancelled'

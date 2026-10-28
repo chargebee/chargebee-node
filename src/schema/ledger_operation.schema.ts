@@ -19,19 +19,6 @@ const ListLedgerOperationsLedgerOperationCreatedAtSchema = z.object({
   between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
 });
 const ListLedgerOperationsLedgerOperationTypeSchema = z.object({
-  in: z
-    .enum([
-      'allocation',
-      'capture',
-      'authorize',
-      'release_authorization',
-      'capture_authorization',
-      'expiry',
-      'void',
-      'rollover',
-      'adjustment',
-    ])
-    .optional(),
   is: z
     .enum([
       'allocation',
@@ -43,6 +30,21 @@ const ListLedgerOperationsLedgerOperationTypeSchema = z.object({
       'void',
       'rollover',
       'adjustment',
+      'overdraft_settlement',
+    ])
+    .optional(),
+  in: z
+    .enum([
+      'allocation',
+      'capture',
+      'authorize',
+      'release_authorization',
+      'capture_authorization',
+      'expiry',
+      'void',
+      'rollover',
+      'adjustment',
+      'overdraft_settlement',
     ])
     .optional(),
 });
@@ -132,7 +134,9 @@ const AllocateLedgerOperationMetadataSchema = z.looseObject({});
 const AllocateLedgerOperationBodySchema = z.looseObject({
   subscription_id: z.string().max(50),
   unit_id: z.string().max(50),
+  id: z.string().max(50).optional(),
   amount: z.string().max(36),
+  effective_from: z.number().int().optional(),
   expires_at: z.number().int(),
   metadata: AllocateLedgerOperationMetadataSchema.optional(),
 });
