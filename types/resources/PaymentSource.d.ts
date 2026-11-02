@@ -318,6 +318,7 @@ declare module 'chargebee' {
     }
     export interface NetworkTransactionReference {
       original_network_transaction_id?: string;
+      transaction_link_id?: string;
     }
     // REQUEST PARAMS
     //---------------
@@ -347,6 +348,7 @@ declare module 'chargebee' {
       skip_retrieval?: boolean;
       additional_information?: any;
       card?: CardCreateUsingPermanentTokenInputParam;
+      bank_account?: BankAccountCreateUsingPermanentTokenInputParam;
       billing_address?: BillingAddressCreateUsingPermanentTokenInputParam;
     }
     export interface CreateUsingTokenInputParam {
@@ -428,6 +430,23 @@ declare module 'chargebee' {
       state?: string;
       zip?: string;
       country?: string;
+    }
+    export interface BankAccountCreateUsingPermanentTokenInputParam {
+      account_type?: AccountTypeEnum;
+      account_holder_type?: AccountHolderTypeEnum;
+      first_name?: string;
+      last_name?: string;
+      company?: string;
+      scheme?:
+        | 'ach'
+        | 'bacs'
+        | 'sepa_core'
+        | 'autogiro'
+        | 'becs'
+        | 'becs_nz'
+        | 'pad';
+      last4?: string;
+      echeck_type?: EcheckTypeEnum;
     }
     export interface CardCreateUsingPermanentTokenInputParam {
       last4?: string;

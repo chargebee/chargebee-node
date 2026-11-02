@@ -1,5 +1,5 @@
 // Generated Zod schemas: Invoice
-// Actions: create, createForChargeItemsAndCharges, charge, chargeAddon, createForChargeItem, stopDunning, pauseDunning, resumeDunning, importInvoice, applyPayments, deleteLineItems, applyCredits, list, invoicesForCustomer, invoicesForSubscription, retrieve, pdf, listPaymentReferenceNumbers, addCharge, addAddonCharge, addChargeItem, close, collectPayment, recordPayment, recordTaxWithheld, removeTaxWithheld, refund, recordRefund, removePayment, removeCreditNote, voidInvoice, writeOff, voidBeforeCapture, delete, updateDetails, applyPaymentScheduleScheme
+// Actions: create, createForChargeItemsAndCharges, charge, chargeAddon, createForChargeItem, stopDunning, pauseDunning, resumeDunning, importInvoice, applyPayments, deleteLineItems, applyCredits, list, invoicesForCustomer, invoicesForSubscription, retrieve, pdf, listPaymentReferenceNumbers, addCharge, addAddonCharge, addChargeItem, close, collectPayment, recordPayment, recordTaxWithheld, removeTaxWithheld, refund, recordRefund, removePayment, removeCreditNote, voidInvoice, writeOff, voidBeforeCapture, delete, updateDetails, applyPaymentScheduleScheme, removePaymentScheduleScheme
 // Do not edit manually – regenerate via sdk-generator
 
 import { z } from 'zod';
@@ -1133,6 +1133,23 @@ const ImportInvoiceInvoiceLineItemsSchema = z.object({
   tax10_amount: z.array(z.number().int().min(0).optional()).optional(),
   is_partial_tax_applied: z.array(z.boolean().optional()).optional(),
   taxable_amount: z.array(z.number().int().min(0).optional()).optional(),
+  tax_exempt_reason: z
+    .array(
+      z
+        .enum([
+          'region_non_taxable',
+          'export',
+          'customer_exempt',
+          'product_exempt',
+          'zero_rated',
+          'reverse_charge',
+          'high_value_physical_goods',
+          'zero_value_item',
+          'tax_not_configured_external_provider',
+        ])
+        .optional(),
+    )
+    .optional(),
   proration_mode: z
     .array(
       z
@@ -1598,12 +1615,12 @@ export type PdfInvoiceBody = z.infer<typeof PdfInvoiceBodySchema>;
 //Invoice.listPaymentReferenceNumbers
 
 const ListPaymentReferenceNumbersInvoiceIdSchema = z.object({
-  is: z.string().min(1).optional(),
   in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is: z.string().min(1).optional(),
 });
 const ListPaymentReferenceNumbersInvoiceNumberSchema = z.object({
-  is: z.string().min(1).optional(),
   in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is: z.string().min(1).optional(),
 });
 const ListPaymentReferenceNumbersInvoicePaymentReferenceNumberItemSchema =
   z.object({
@@ -2016,4 +2033,14 @@ const ApplyPaymentScheduleSchemeInvoiceBodySchema = z.looseObject({
 export { ApplyPaymentScheduleSchemeInvoiceBodySchema };
 export type ApplyPaymentScheduleSchemeInvoiceBody = z.infer<
   typeof ApplyPaymentScheduleSchemeInvoiceBodySchema
+>;
+
+//Invoice.removePaymentScheduleScheme
+
+const RemovePaymentScheduleSchemeInvoiceBodySchema = z.looseObject({
+  comment: z.string().max(300).optional(),
+});
+export { RemovePaymentScheduleSchemeInvoiceBodySchema };
+export type RemovePaymentScheduleSchemeInvoiceBody = z.infer<
+  typeof RemovePaymentScheduleSchemeInvoiceBodySchema
 >;

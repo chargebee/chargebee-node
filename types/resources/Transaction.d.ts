@@ -57,6 +57,7 @@ declare module 'chargebee' {
     merchant_reference_id?: string;
     business_entity_id?: string;
     payment_method_details?: string;
+    gateway_metadata?: Transaction.GatewayMetadata;
     error_detail?: Transaction.GatewayErrorDetail;
     custom_payment_method_name?: string;
     network_transaction_details?: Transaction.NetworkTransactionDetail;
@@ -245,6 +246,9 @@ declare module 'chargebee' {
         | 'late_failure';
       amount?: number;
       date?: number;
+    }
+    export interface GatewayMetadata {
+      acquirer_reference_id?: string;
     }
     export interface GatewayErrorDetail {
       request_id?: string;

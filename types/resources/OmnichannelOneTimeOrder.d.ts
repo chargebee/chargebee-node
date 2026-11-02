@@ -8,7 +8,11 @@ declare module 'chargebee' {
     customer_id?: string;
     id_at_source: string;
     origin?: string;
-    source: 'apple_app_store' | 'google_play_store';
+    source:
+      | 'apple_app_store'
+      | 'google_play_store'
+      | 'roku'
+      | 'amazon_app_store';
     created_at: number;
     resource_version?: number;
     omnichannel_one_time_order_items: OmnichannelOneTimeOrderItem[];

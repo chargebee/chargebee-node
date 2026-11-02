@@ -1,5 +1,5 @@
 // Generated Zod schemas: LedgerAccountBalance
-// Actions: listLedgerAccountBalances
+// Actions: listLedgerAccountBalances, updateOverdraftLimit
 // Do not edit manually – regenerate via sdk-generator
 
 import { z } from 'zod';
@@ -23,4 +23,18 @@ const ListLedgerAccountBalancesLedgerAccountBalanceBodySchema = z.looseObject({
 export { ListLedgerAccountBalancesLedgerAccountBalanceBodySchema };
 export type ListLedgerAccountBalancesLedgerAccountBalanceBody = z.infer<
   typeof ListLedgerAccountBalancesLedgerAccountBalanceBodySchema
+>;
+
+//LedgerAccountBalance.updateOverdraftLimit
+
+const UpdateOverdraftLimitLedgerAccountBalanceBodySchema = z.looseObject({
+  subscription_id: z.string().max(50),
+  unit_id: z.string().max(50),
+  is_unlimited: z.boolean(),
+  limit: z.string().max(36).optional(),
+  change_reason: z.string().max(255).optional(),
+});
+export { UpdateOverdraftLimitLedgerAccountBalanceBodySchema };
+export type UpdateOverdraftLimitLedgerAccountBalanceBody = z.infer<
+  typeof UpdateOverdraftLimitLedgerAccountBalanceBodySchema
 >;

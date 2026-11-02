@@ -19,11 +19,23 @@ declare module 'chargebee' {
         input: ListLedgerAccountBalancesInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ListLedgerAccountBalancesResponse>>;
+
+      updateOverdraftLimit(
+        input: UpdateOverdraftLimitInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdateOverdraftLimitResponse>>;
     }
 
     export interface ListLedgerAccountBalancesResponse {
       list: { ledger_account_balance: LedgerAccountBalance }[];
       next_offset?: string;
+    }
+
+    export interface UpdateOverdraftLimitResponse {
+      subscription_id: string;
+      unit_id: string;
+      change_reason?: string;
+      overdraft_balance: object;
     }
 
     export interface ProvisionedBalance {
@@ -47,6 +59,13 @@ declare module 'chargebee' {
       offset?: string;
       subscription_id: filter.String;
       unit_id?: filter.String;
+    }
+    export interface UpdateOverdraftLimitInputParam {
+      subscription_id: string;
+      unit_id: string;
+      is_unlimited: boolean;
+      limit?: string;
+      change_reason?: string;
     }
   }
 }

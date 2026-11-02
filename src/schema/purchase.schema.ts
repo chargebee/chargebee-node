@@ -102,6 +102,7 @@ const CreatePurchasePurchaseItemsSchema = z.object({
   unit_amount: z.array(z.number().int().min(0).optional()).optional(),
   unit_amount_in_decimal: z.array(z.string().max(39).optional()).optional(),
   quantity_in_decimal: z.array(z.string().max(33).optional()).optional(),
+  trial_end: z.array(z.number().int().optional()).optional(),
 });
 const CreatePurchaseItemTiersSchema = z.object({
   index: z.array(z.number().int().min(0).optional()),
@@ -151,6 +152,8 @@ const CreatePurchaseSubscriptionInfoSchema = z.object({
   contract_term_billing_cycle_on_renewal: z
     .array(z.number().int().min(1).max(100).optional())
     .optional(),
+  trial_end: z.array(z.number().int().optional()).optional(),
+  start_date: z.array(z.number().int().optional()).optional(),
   meta_data: z.array(CreatePurchaseMetaDataItemSchema.optional()).optional(),
 });
 const CreatePurchaseContractTermsSchema = z.object({
@@ -233,6 +236,7 @@ const EstimatePurchasePurchaseItemsSchema = z.object({
   unit_amount: z.array(z.number().int().min(0).optional()).optional(),
   unit_amount_in_decimal: z.array(z.string().max(39).optional()).optional(),
   quantity_in_decimal: z.array(z.string().max(33).optional()).optional(),
+  trial_end: z.array(z.number().int().optional()).optional(),
 });
 const EstimatePurchaseItemTiersSchema = z.object({
   index: z.array(z.number().int().min(0).optional()),
@@ -281,6 +285,8 @@ const EstimatePurchaseSubscriptionInfoSchema = z.object({
   contract_term_billing_cycle_on_renewal: z
     .array(z.number().int().min(1).max(100).optional())
     .optional(),
+  trial_end: z.array(z.number().int().optional()).optional(),
+  start_date: z.array(z.number().int().optional()).optional(),
 });
 const EstimatePurchaseContractTermsSchema = z.object({
   index: z.array(z.number().int().min(0).optional()),

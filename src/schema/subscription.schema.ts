@@ -913,7 +913,7 @@ const CreateWithItemsSubscriptionSubscriptionItemsSchema = z.object({
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
   charge_on_event: z
     .array(
@@ -2298,7 +2298,7 @@ const UpdateForItemsSubscriptionSubscriptionItemsSchema = z.object({
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
   charge_on_event: z
     .array(
@@ -3470,7 +3470,7 @@ const ImportForItemsSubscriptionSubscriptionItemsSchema = z.object({
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
   charge_on_event: z
     .array(
@@ -3666,7 +3666,7 @@ const CancelForItemsSubscriptionSubscriptionItemsSchema = z.object({
   unit_price: z.array(z.number().int().min(0).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
 });
 const CancelForItemsSubscriptionBodySchema = z.looseObject({

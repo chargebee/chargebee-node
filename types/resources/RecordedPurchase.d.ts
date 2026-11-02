@@ -6,7 +6,11 @@ declare module 'chargebee' {
     id: string;
     customer_id: string;
     app_id: string;
-    source: 'apple_app_store' | 'google_play_store';
+    source:
+      | 'apple_app_store'
+      | 'google_play_store'
+      | 'roku'
+      | 'amazon_app_store';
     status: 'in_process' | 'completed' | 'failed' | 'ignored';
     omnichannel_transaction_id?: string;
     created_at: number;

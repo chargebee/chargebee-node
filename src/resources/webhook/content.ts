@@ -80,10 +80,6 @@ export interface BusinessRuleUpdatedContent {
   BusinessRule: import('chargebee').BusinessRule;
 }
 
-export interface BusinessRulesAppliedContent {
-  AppliedBusinessRule: import('chargebee').AppliedBusinessRule;
-}
-
 export interface BusinessRulesetActivatedContent {
   BusinessRuleset: import('chargebee').BusinessRuleset;
 }
@@ -132,6 +128,88 @@ export interface CardUpdatedContent {
   Customer: import('chargebee').Customer;
 
   Card: import('chargebee').Card;
+}
+
+export interface ChargebackInitiatedContent {
+  Dispute: import('chargebee').Dispute;
+
+  Transaction: import('chargebee').Transaction;
+
+  Customer: import('chargebee').Customer;
+
+  Subscription: import('chargebee').Subscription;
+}
+
+export interface ChargebackLostContent {
+  Dispute: import('chargebee').Dispute;
+
+  Transaction: import('chargebee').Transaction;
+
+  Customer: import('chargebee').Customer;
+
+  Subscription: import('chargebee').Subscription;
+}
+
+export interface ChargebackWonContent {
+  Dispute: import('chargebee').Dispute;
+
+  Transaction: import('chargebee').Transaction;
+
+  Customer: import('chargebee').Customer;
+
+  Subscription: import('chargebee').Subscription;
+}
+
+export interface CollectionsDisputeCreatedContent {
+  CollectionsDispute: import('chargebee').CollectionsDispute;
+}
+
+export interface CollectionsDisputeResolvedContent {
+  CollectionsDispute: import('chargebee').CollectionsDispute;
+}
+
+export interface CollectionsDisputeUpdatedContent {
+  CollectionsDispute: import('chargebee').CollectionsDispute;
+}
+
+export interface CollectionsDisputeWithdrawnContent {
+  CollectionsDispute: import('chargebee').CollectionsDispute;
+}
+
+export interface CollectionsPaymentPromiseBrokenContent {
+  CollectionsPaymentPromise: import('chargebee').CollectionsPaymentPromise;
+}
+
+export interface CollectionsPaymentPromiseCancelledContent {
+  CollectionsPaymentPromise: import('chargebee').CollectionsPaymentPromise;
+}
+
+export interface CollectionsPaymentPromiseCreatedContent {
+  CollectionsPaymentPromise: import('chargebee').CollectionsPaymentPromise;
+}
+
+export interface CollectionsPaymentPromiseFulfilledContent {
+  CollectionsPaymentPromise: import('chargebee').CollectionsPaymentPromise;
+}
+
+export interface CollectionsPaymentPromiseUpdatedContent {
+  CollectionsPaymentPromise: import('chargebee').CollectionsPaymentPromise;
+}
+
+export interface CollectionsReminderSequenceCompletedContent {
+  CollectionsReminderSequence: import('chargebee').CollectionsReminderSequence;
+}
+
+export interface CollectionsReminderSequenceCreatedContent {
+  CollectionsReminderSequence: import('chargebee').CollectionsReminderSequence;
+}
+
+export interface CollectionsReminderSequencePausedContent {
+  CollectionsReminderSequence: import('chargebee').CollectionsReminderSequence;
+}
+
+export interface CollectionsReminderSequenceResumedContent {
+  CollectionsReminderSequence: import('chargebee').CollectionsReminderSequence;
 }
 
 export interface ContractTermCancelledContent {
@@ -284,6 +362,10 @@ export interface EinvoiceCreatedContent {
 
 export interface EinvoiceUpdatedContent {
   Einvoice: import('chargebee').Einvoice;
+}
+
+export interface EmailMessageReceivedContent {
+  EmailMessage: import('chargebee').EmailMessage;
 }
 
 export interface EntitlementOverridesAutoRemovedContent {
@@ -870,6 +952,10 @@ export interface PaymentScheduleSchemeDeletedContent {
   PaymentScheduleScheme: import('chargebee').PaymentScheduleScheme;
 }
 
+export interface PaymentSchedulesCancelledContent {
+  PaymentSchedule: import('chargebee').PaymentSchedule;
+}
+
 export interface PaymentSchedulesCreatedContent {
   PaymentSchedule: import('chargebee').PaymentSchedule;
 }
@@ -952,6 +1038,24 @@ export interface PlanUpdatedContent {
   Plan: import('chargebee').Plan;
 }
 
+export interface PriceRampCreatedContent {
+  PriceRamp: import('chargebee').PriceRamp;
+
+  RampInterval: import('chargebee').RampInterval;
+}
+
+export interface PriceRampDeletedContent {
+  PriceRamp: import('chargebee').PriceRamp;
+
+  RampInterval: import('chargebee').RampInterval;
+}
+
+export interface PriceRampUpdatedContent {
+  PriceRamp: import('chargebee').PriceRamp;
+
+  RampInterval: import('chargebee').RampInterval;
+}
+
 export interface PriceVariantCreatedContent {
   PriceVariant: import('chargebee').PriceVariant;
 
@@ -968,6 +1072,10 @@ export interface PriceVariantUpdatedContent {
   PriceVariant: import('chargebee').PriceVariant;
 
   Attribute: import('chargebee').Attribute;
+}
+
+export interface PrivateNoteAddedContent {
+  PrivateNote: import('chargebee').PrivateNote;
 }
 
 export interface ProductCreatedContent {}
@@ -1008,6 +1116,20 @@ export interface RecordPurchaseFailedContent {
   RecordedPurchase: import('chargebee').RecordedPurchase;
 
   Customer: import('chargebee').Customer;
+}
+
+export interface RefundFailedContent {
+  Transaction: import('chargebee').Transaction;
+
+  Invoice: import('chargebee').Invoice;
+
+  CreditNote: import('chargebee').CreditNote;
+
+  Customer: import('chargebee').Customer;
+
+  Subscription: import('chargebee').Subscription;
+
+  Card: import('chargebee').Card;
 }
 
 export interface RefundInitiatedContent {
@@ -1601,8 +1723,6 @@ export type WebhookContentMap = {
 
   [WebhookEventType.BusinessRuleUpdated]: BusinessRuleUpdatedContent;
 
-  [WebhookEventType.BusinessRulesApplied]: BusinessRulesAppliedContent;
-
   [WebhookEventType.BusinessRulesetActivated]: BusinessRulesetActivatedContent;
 
   [WebhookEventType.BusinessRulesetCreated]: BusinessRulesetCreatedContent;
@@ -1622,6 +1742,38 @@ export type WebhookContentMap = {
   [WebhookEventType.CardExpiryReminder]: CardExpiryReminderContent;
 
   [WebhookEventType.CardUpdated]: CardUpdatedContent;
+
+  [WebhookEventType.ChargebackInitiated]: ChargebackInitiatedContent;
+
+  [WebhookEventType.ChargebackLost]: ChargebackLostContent;
+
+  [WebhookEventType.ChargebackWon]: ChargebackWonContent;
+
+  [WebhookEventType.CollectionsDisputeCreated]: CollectionsDisputeCreatedContent;
+
+  [WebhookEventType.CollectionsDisputeResolved]: CollectionsDisputeResolvedContent;
+
+  [WebhookEventType.CollectionsDisputeUpdated]: CollectionsDisputeUpdatedContent;
+
+  [WebhookEventType.CollectionsDisputeWithdrawn]: CollectionsDisputeWithdrawnContent;
+
+  [WebhookEventType.CollectionsPaymentPromiseBroken]: CollectionsPaymentPromiseBrokenContent;
+
+  [WebhookEventType.CollectionsPaymentPromiseCancelled]: CollectionsPaymentPromiseCancelledContent;
+
+  [WebhookEventType.CollectionsPaymentPromiseCreated]: CollectionsPaymentPromiseCreatedContent;
+
+  [WebhookEventType.CollectionsPaymentPromiseFulfilled]: CollectionsPaymentPromiseFulfilledContent;
+
+  [WebhookEventType.CollectionsPaymentPromiseUpdated]: CollectionsPaymentPromiseUpdatedContent;
+
+  [WebhookEventType.CollectionsReminderSequenceCompleted]: CollectionsReminderSequenceCompletedContent;
+
+  [WebhookEventType.CollectionsReminderSequenceCreated]: CollectionsReminderSequenceCreatedContent;
+
+  [WebhookEventType.CollectionsReminderSequencePaused]: CollectionsReminderSequencePausedContent;
+
+  [WebhookEventType.CollectionsReminderSequenceResumed]: CollectionsReminderSequenceResumedContent;
 
   [WebhookEventType.ContractTermCancelled]: ContractTermCancelledContent;
 
@@ -1684,6 +1836,8 @@ export type WebhookContentMap = {
   [WebhookEventType.EinvoiceCreated]: EinvoiceCreatedContent;
 
   [WebhookEventType.EinvoiceUpdated]: EinvoiceUpdatedContent;
+
+  [WebhookEventType.EmailMessageReceived]: EmailMessageReceivedContent;
 
   [WebhookEventType.EntitlementOverridesAutoRemoved]: EntitlementOverridesAutoRemovedContent;
 
@@ -1859,6 +2013,8 @@ export type WebhookContentMap = {
 
   [WebhookEventType.PaymentScheduleSchemeDeleted]: PaymentScheduleSchemeDeletedContent;
 
+  [WebhookEventType.PaymentSchedulesCancelled]: PaymentSchedulesCancelledContent;
+
   [WebhookEventType.PaymentSchedulesCreated]: PaymentSchedulesCreatedContent;
 
   [WebhookEventType.PaymentSchedulesUpdated]: PaymentSchedulesUpdatedContent;
@@ -1889,11 +2045,19 @@ export type WebhookContentMap = {
 
   [WebhookEventType.PlanUpdated]: PlanUpdatedContent;
 
+  [WebhookEventType.PriceRampCreated]: PriceRampCreatedContent;
+
+  [WebhookEventType.PriceRampDeleted]: PriceRampDeletedContent;
+
+  [WebhookEventType.PriceRampUpdated]: PriceRampUpdatedContent;
+
   [WebhookEventType.PriceVariantCreated]: PriceVariantCreatedContent;
 
   [WebhookEventType.PriceVariantDeleted]: PriceVariantDeletedContent;
 
   [WebhookEventType.PriceVariantUpdated]: PriceVariantUpdatedContent;
+
+  [WebhookEventType.PrivateNoteAdded]: PrivateNoteAddedContent;
 
   [WebhookEventType.ProductCreated]: ProductCreatedContent;
 
@@ -1914,6 +2078,8 @@ export type WebhookContentMap = {
   [WebhookEventType.QuoteUpdated]: QuoteUpdatedContent;
 
   [WebhookEventType.RecordPurchaseFailed]: RecordPurchaseFailedContent;
+
+  [WebhookEventType.RefundFailed]: RefundFailedContent;
 
   [WebhookEventType.RefundInitiated]: RefundInitiatedContent;
 

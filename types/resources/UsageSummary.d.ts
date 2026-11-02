@@ -8,6 +8,7 @@ declare module 'chargebee' {
     aggregated_value: string;
     aggregated_from: number;
     aggregated_to: number;
+    attributes?: any;
   }
 
   export namespace UsageSummary {
@@ -36,6 +37,7 @@ declare module 'chargebee' {
       window_size?: 'month' | 'week' | 'day' | 'hour' | 'minute';
       timeframe_start?: number;
       timeframe_end?: number;
+      group_by?: string[];
     }
   }
 }

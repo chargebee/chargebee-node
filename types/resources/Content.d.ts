@@ -8,7 +8,6 @@ declare module 'chargebee' {
     advance_invoice_schedule: AdvanceInvoiceSchedule;
     alert: Alert;
     alert_status: AlertStatus;
-    applied_business_rule: AppliedBusinessRule;
     applied_rule: AppliedRule;
     apply_rule: ApplyRule;
     async_response: AsyncResponse;
@@ -23,6 +22,10 @@ declare module 'chargebee' {
     business_ruleset: BusinessRuleset;
     business_ruleset_rule: BusinessRulesetRule;
     card: Card;
+    citation: Citation;
+    collections_dispute: CollectionsDispute;
+    collections_payment_promise: CollectionsPaymentPromise;
+    collections_reminder_sequence: CollectionsReminderSequence;
     column_definition: ColumnDefinition;
     comment: Comment;
     configuration: Configuration;
@@ -36,6 +39,7 @@ declare module 'chargebee' {
     credit_note_estimate: CreditNoteEstimate;
     credit_unit: CreditUnit;
     currency: Currency;
+    custom_data: CustomData;
     custom_data_schema: CustomDataSchema;
     customer: Customer;
     customer_entitlement: CustomerEntitlement;
@@ -43,12 +47,18 @@ declare module 'chargebee' {
     discount: Discount;
     dispute: Dispute;
     download: Download;
+    draft_estimate: DraftEstimate;
+    draft_request: DraftRequest;
     einvoice: Einvoice;
+    email_attachment: EmailAttachment;
+    email_conversation: EmailConversation;
     email_log: EmailLog;
+    email_message: EmailMessage;
     entitlement: Entitlement;
     entitlement_override: EntitlementOverride;
     estimate: Estimate;
     event: Event;
+    execution: Execution;
     export: Export;
     feature: Feature;
     filter_condition: FilterCondition;
@@ -56,6 +66,8 @@ declare module 'chargebee' {
     gateway_payment_method_token: GatewayPaymentMethodToken;
     gift: Gift;
     grant_block: GrantBlock;
+    group_by_attribute: GroupByAttribute;
+    group_by_recommendation: GroupByRecommendation;
     hierarchy: Hierarchy;
     hosted_page: HostedPage;
     impacted_customer: ImpactedCustomer;
@@ -97,8 +109,11 @@ declare module 'chargebee' {
     personalized_offer: PersonalizedOffer;
     plan: Plan;
     portal_session: PortalSession;
+    preference_variant: PreferenceVariant;
+    price_ramp: PriceRamp;
     price_variant: PriceVariant;
     pricing_page_session: PricingPageSession;
+    private_note: PrivateNote;
     promotional_credit: PromotionalCredit;
     promotional_grant: PromotionalGrant;
     purchase: Purchase;
@@ -110,8 +125,10 @@ declare module 'chargebee' {
     quoted_ramp: QuotedRamp;
     quoted_subscription: QuotedSubscription;
     ramp: Ramp;
+    ramp_interval: RampInterval;
     recorded_purchase: RecordedPurchase;
     resource_migration: ResourceMigration;
+    retry_segment: RetrySegment;
     rule: Rule;
     site_migration_detail: SiteMigrationDetail;
     subscription: Subscription;

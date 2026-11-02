@@ -1128,8 +1128,8 @@ const CouponsExportCurrencyCodeSchema = z.object({
   not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const CouponsExportApplicableItemPriceIdsSchema = z.object({
-  is: z.string().min(1).optional(),
   in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is: z.string().min(1).optional(),
 });
 const CouponsExportIdSchema = z.object({
   is: z.string().min(1).optional(),
@@ -3058,8 +3058,8 @@ export type OrdersExportBody = z.infer<typeof OrdersExportBodySchema>;
 //Export.itemFamilies
 
 const ItemFamiliesExportBusinessEntityIdSchema = z.object({
-  is: z.string().min(1).optional(),
   is_present: z.enum(['true', 'false']).optional(),
+  is: z.string().min(1).optional(),
 });
 const ItemFamiliesExportIncludeSiteLevelResourcesSchema = z.object({
   is: z.enum(['true', 'false']).optional(),
@@ -3103,8 +3103,8 @@ export type ItemFamiliesExportBody = z.infer<
 //Export.items
 
 const ItemsExportBusinessEntityIdSchema = z.object({
-  is: z.string().min(1).optional(),
   is_present: z.enum(['true', 'false']).optional(),
+  is: z.string().min(1).optional(),
 });
 const ItemsExportIncludeSiteLevelResourcesSchema = z.object({
   is: z.enum(['true', 'false']).optional(),
@@ -3223,8 +3223,8 @@ const ItemPricesExportCurrencyCodeSchema = z.object({
   not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ItemPricesExportBusinessEntityIdSchema = z.object({
-  is: z.string().min(1).optional(),
   is_present: z.enum(['true', 'false']).optional(),
+  is: z.string().min(1).optional(),
 });
 const ItemPricesExportIncludeSiteLevelResourcesSchema = z.object({
   is: z.enum(['true', 'false']).optional(),
@@ -3498,8 +3498,8 @@ export type DifferentialPricesExportBody = z.infer<
 //Export.priceVariants
 
 const PriceVariantsExportBusinessEntityIdSchema = z.object({
-  is: z.string().min(1).optional(),
   is_present: z.enum(['true', 'false']).optional(),
+  is: z.string().min(1).optional(),
 });
 const PriceVariantsExportIncludeSiteLevelResourcesSchema = z.object({
   is: z.enum(['true', 'false']).optional(),
@@ -3559,12 +3559,12 @@ export type PriceVariantsExportBody = z.infer<
 //Export.ramps
 
 const RampsExportStatusSchema = z.object({
-  is: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
   in: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
+  is: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
 });
 const RampsExportSubscriptionIdSchema = z.object({
-  is: z.string().min(1).optional(),
   in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is: z.string().min(1).optional(),
 });
 const RampsExportEffectiveFromSchema = z.object({
   after: z.string().regex(RegExp('^\\d{10}$')).optional(),

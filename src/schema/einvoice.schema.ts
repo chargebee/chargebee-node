@@ -7,12 +7,12 @@ import { z } from 'zod';
 //Einvoice.listEinvoices
 
 const ListEinvoicesEinvoiceIdSchema = z.object({
-  is: z.string().min(1).optional(),
   in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is: z.string().min(1).optional(),
 });
 const ListEinvoicesEinvoiceReferenceIdSchema = z.object({
-  is: z.string().min(1).optional(),
   in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is: z.string().min(1).optional(),
 });
 const ListEinvoicesEinvoiceUpdatedAtSchema = z.object({
   after: z.string().regex(RegExp('^\\d{10}$')).optional(),

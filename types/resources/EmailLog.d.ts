@@ -11,6 +11,7 @@ declare module 'chargebee' {
     status: StatusEnum;
     sent_on?: number;
     customer_id?: string;
+    email_conversation_id?: string;
     site_id?: string;
     business_entity_id?: string;
     brand_id?: string;

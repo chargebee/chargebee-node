@@ -24,7 +24,7 @@ const CreateForSubscriptionRampItemsToAddSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
   charge_on_event: z
     .array(
@@ -42,6 +42,7 @@ const CreateForSubscriptionRampItemsToAddSchema = z.object({
   charge_on_option: z
     .array(z.enum(['immediately', 'on_event']).optional())
     .optional(),
+  description: z.array(z.string().max(500).optional()).optional(),
 });
 const CreateForSubscriptionRampItemsToUpdateSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()),
@@ -51,7 +52,7 @@ const CreateForSubscriptionRampItemsToUpdateSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
   charge_on_event: z
     .array(
@@ -69,6 +70,7 @@ const CreateForSubscriptionRampItemsToUpdateSchema = z.object({
   charge_on_option: z
     .array(z.enum(['immediately', 'on_event']).optional())
     .optional(),
+  description: z.array(z.string().max(500).optional()).optional(),
 });
 const CreateForSubscriptionRampItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -144,7 +146,7 @@ const UpdateRampItemsToAddSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
   charge_on_event: z
     .array(
@@ -162,6 +164,7 @@ const UpdateRampItemsToAddSchema = z.object({
   charge_on_option: z
     .array(z.enum(['immediately', 'on_event']).optional())
     .optional(),
+  description: z.array(z.string().max(500).optional()).optional(),
 });
 const UpdateRampItemsToUpdateSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()),
@@ -171,7 +174,7 @@ const UpdateRampItemsToUpdateSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
   charge_on_event: z
     .array(
@@ -189,6 +192,7 @@ const UpdateRampItemsToUpdateSchema = z.object({
   charge_on_option: z
     .array(z.enum(['immediately', 'on_event']).optional())
     .optional(),
+  description: z.array(z.string().max(500).optional()).optional(),
 });
 const UpdateRampItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -244,12 +248,12 @@ export type UpdateRampBody = z.infer<typeof UpdateRampBodySchema>;
 //Ramp.list
 
 const ListRampStatusSchema = z.object({
-  is: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
   in: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
+  is: z.enum(['scheduled', 'succeeded', 'failed', 'draft']).optional(),
 });
 const ListRampSubscriptionIdSchema = z.object({
-  is: z.string().min(1).optional(),
   in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is: z.string().min(1).optional(),
 });
 const ListRampEffectiveFromSchema = z.object({
   after: z.string().regex(RegExp('^\\d{10}$')).optional(),
