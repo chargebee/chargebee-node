@@ -563,6 +563,7 @@ const ImportCreditNoteCreditNoteBodySchema = z.looseObject({
   currency_code: z.string().max(3).optional(),
   create_reason_code: z.string().max(100),
   date: z.number().int(),
+  customer_notes: z.string().max(2000).optional(),
   status: z.enum(['adjusted', 'refunded', 'refund_due', 'voided']).optional(),
   total: z.number().int().min(0).optional(),
   refunded_at: z.number().int().optional(),

@@ -3,7 +3,6 @@
 ///<reference path='./resources/AdvanceInvoiceSchedule.d.ts' />
 ///<reference path='./resources/Alert.d.ts' />
 ///<reference path='./resources/AlertStatus.d.ts' />
-///<reference path='./resources/AppliedBusinessRule.d.ts' />
 ///<reference path='./resources/AppliedRule.d.ts' />
 ///<reference path='./resources/ApplyRule.d.ts' />
 ///<reference path='./resources/AsyncResponse.d.ts' />
@@ -18,6 +17,10 @@
 ///<reference path='./resources/BusinessRuleset.d.ts' />
 ///<reference path='./resources/BusinessRulesetRule.d.ts' />
 ///<reference path='./resources/Card.d.ts' />
+///<reference path='./resources/Citation.d.ts' />
+///<reference path='./resources/CollectionsDispute.d.ts' />
+///<reference path='./resources/CollectionsPaymentPromise.d.ts' />
+///<reference path='./resources/CollectionsReminderSequence.d.ts' />
 ///<reference path='./resources/ColumnDefinition.d.ts' />
 ///<reference path='./resources/Comment.d.ts' />
 ///<reference path='./resources/Configuration.d.ts' />
@@ -31,6 +34,7 @@
 ///<reference path='./resources/CreditNoteEstimate.d.ts' />
 ///<reference path='./resources/CreditUnit.d.ts' />
 ///<reference path='./resources/Currency.d.ts' />
+///<reference path='./resources/CustomData.d.ts' />
 ///<reference path='./resources/CustomDataSchema.d.ts' />
 ///<reference path='./resources/Customer.d.ts' />
 ///<reference path='./resources/CustomerEntitlement.d.ts' />
@@ -38,12 +42,18 @@
 ///<reference path='./resources/Discount.d.ts' />
 ///<reference path='./resources/Dispute.d.ts' />
 ///<reference path='./resources/Download.d.ts' />
+///<reference path='./resources/DraftEstimate.d.ts' />
+///<reference path='./resources/DraftRequest.d.ts' />
 ///<reference path='./resources/Einvoice.d.ts' />
+///<reference path='./resources/EmailAttachment.d.ts' />
+///<reference path='./resources/EmailConversation.d.ts' />
 ///<reference path='./resources/EmailLog.d.ts' />
+///<reference path='./resources/EmailMessage.d.ts' />
 ///<reference path='./resources/Entitlement.d.ts' />
 ///<reference path='./resources/EntitlementOverride.d.ts' />
 ///<reference path='./resources/Estimate.d.ts' />
 ///<reference path='./resources/Event.d.ts' />
+///<reference path='./resources/Execution.d.ts' />
 ///<reference path='./resources/Export.d.ts' />
 ///<reference path='./resources/Feature.d.ts' />
 ///<reference path='./resources/FilterCondition.d.ts' />
@@ -51,6 +61,8 @@
 ///<reference path='./resources/GatewayPaymentMethodToken.d.ts' />
 ///<reference path='./resources/Gift.d.ts' />
 ///<reference path='./resources/GrantBlock.d.ts' />
+///<reference path='./resources/GroupByAttribute.d.ts' />
+///<reference path='./resources/GroupByRecommendation.d.ts' />
 ///<reference path='./resources/Hierarchy.d.ts' />
 ///<reference path='./resources/HostedPage.d.ts' />
 ///<reference path='./resources/ImpactedCustomer.d.ts' />
@@ -92,8 +104,11 @@
 ///<reference path='./resources/PersonalizedOffer.d.ts' />
 ///<reference path='./resources/Plan.d.ts' />
 ///<reference path='./resources/PortalSession.d.ts' />
+///<reference path='./resources/PreferenceVariant.d.ts' />
+///<reference path='./resources/PriceRamp.d.ts' />
 ///<reference path='./resources/PriceVariant.d.ts' />
 ///<reference path='./resources/PricingPageSession.d.ts' />
+///<reference path='./resources/PrivateNote.d.ts' />
 ///<reference path='./resources/PromotionalCredit.d.ts' />
 ///<reference path='./resources/PromotionalGrant.d.ts' />
 ///<reference path='./resources/Purchase.d.ts' />
@@ -105,8 +120,10 @@
 ///<reference path='./resources/QuotedRamp.d.ts' />
 ///<reference path='./resources/QuotedSubscription.d.ts' />
 ///<reference path='./resources/Ramp.d.ts' />
+///<reference path='./resources/RampInterval.d.ts' />
 ///<reference path='./resources/RecordedPurchase.d.ts' />
 ///<reference path='./resources/ResourceMigration.d.ts' />
+///<reference path='./resources/RetrySegment.d.ts' />
 ///<reference path='./resources/Rule.d.ts' />
 ///<reference path='./resources/SiteMigrationDetail.d.ts' />
 ///<reference path='./resources/Subscription.d.ts' />
@@ -296,6 +313,7 @@ declare module 'chargebee' {
     businessRule: BusinessRule.BusinessRuleResource;
     businessRuleset: BusinessRuleset.BusinessRulesetResource;
     card: Card.CardResource;
+    collectionsPaymentPromise: CollectionsPaymentPromise.CollectionsPaymentPromiseResource;
     comment: Comment.CommentResource;
     configuration: Configuration.ConfigurationResource;
     coupon: Coupon.CouponResource;
@@ -308,6 +326,7 @@ declare module 'chargebee' {
     customerEntitlement: CustomerEntitlement.CustomerEntitlementResource;
     differentialPrice: DifferentialPrice.DifferentialPriceResource;
     dispute: Dispute.DisputeResource;
+    draftRequest: DraftRequest.DraftRequestResource;
     einvoice: Einvoice.EinvoiceResource;
     emailLog: EmailLog.EmailLogResource;
     entitlement: Entitlement.EntitlementResource;
@@ -344,6 +363,7 @@ declare module 'chargebee' {
     personalizedOffer: PersonalizedOffer.PersonalizedOfferResource;
     plan: Plan.PlanResource;
     portalSession: PortalSession.PortalSessionResource;
+    priceRamp: PriceRamp.PriceRampResource;
     priceVariant: PriceVariant.PriceVariantResource;
     pricingPageSession: PricingPageSession.PricingPageSessionResource;
     promotionalCredit: PromotionalCredit.PromotionalCreditResource;
@@ -354,6 +374,7 @@ declare module 'chargebee' {
     ramp: Ramp.RampResource;
     recordedPurchase: RecordedPurchase.RecordedPurchaseResource;
     resourceMigration: ResourceMigration.ResourceMigrationResource;
+    retrySegment: RetrySegment.RetrySegmentResource;
     rule: Rule.RuleResource;
     siteMigrationDetail: SiteMigrationDetail.SiteMigrationDetailResource;
     subscription: Subscription.SubscriptionResource;

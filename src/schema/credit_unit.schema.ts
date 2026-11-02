@@ -7,12 +7,12 @@ import { z } from 'zod';
 //CreditUnit.list
 
 const ListCreditUnitStatusSchema = z.object({
-  is: z.enum(['active', 'archived']).optional(),
   in: z.enum(['active', 'archived']).optional(),
+  is: z.enum(['active', 'archived']).optional(),
 });
 const ListCreditUnitIdSchema = z.object({
-  is: z.string().min(1).optional(),
   in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is: z.string().min(1).optional(),
 });
 const ListCreditUnitBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

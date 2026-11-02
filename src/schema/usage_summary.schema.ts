@@ -14,6 +14,7 @@ const RetrieveUsageSummaryForSubscriptionUsageSummaryBodySchema = z.looseObject(
     window_size: z.enum(['month', 'week', 'day', 'hour', 'minute']).optional(),
     timeframe_start: z.number().int().optional(),
     timeframe_end: z.number().int().optional(),
+    group_by: z.array(z.string().max(100).optional()).optional(),
   },
 );
 export { RetrieveUsageSummaryForSubscriptionUsageSummaryBodySchema };

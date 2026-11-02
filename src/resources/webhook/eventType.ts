@@ -41,8 +41,6 @@ export enum WebhookEventType {
 
   BusinessRuleUpdated = 'business_rule_updated',
 
-  BusinessRulesApplied = 'business_rules_applied',
-
   BusinessRulesetActivated = 'business_ruleset_activated',
 
   BusinessRulesetCreated = 'business_ruleset_created',
@@ -62,6 +60,38 @@ export enum WebhookEventType {
   CardExpiryReminder = 'card_expiry_reminder',
 
   CardUpdated = 'card_updated',
+
+  ChargebackInitiated = 'chargeback_initiated',
+
+  ChargebackLost = 'chargeback_lost',
+
+  ChargebackWon = 'chargeback_won',
+
+  CollectionsDisputeCreated = 'collections_dispute_created',
+
+  CollectionsDisputeResolved = 'collections_dispute_resolved',
+
+  CollectionsDisputeUpdated = 'collections_dispute_updated',
+
+  CollectionsDisputeWithdrawn = 'collections_dispute_withdrawn',
+
+  CollectionsPaymentPromiseBroken = 'collections_payment_promise_broken',
+
+  CollectionsPaymentPromiseCancelled = 'collections_payment_promise_cancelled',
+
+  CollectionsPaymentPromiseCreated = 'collections_payment_promise_created',
+
+  CollectionsPaymentPromiseFulfilled = 'collections_payment_promise_fulfilled',
+
+  CollectionsPaymentPromiseUpdated = 'collections_payment_promise_updated',
+
+  CollectionsReminderSequenceCompleted = 'collections_reminder_sequence_completed',
+
+  CollectionsReminderSequenceCreated = 'collections_reminder_sequence_created',
+
+  CollectionsReminderSequencePaused = 'collections_reminder_sequence_paused',
+
+  CollectionsReminderSequenceResumed = 'collections_reminder_sequence_resumed',
 
   ContractTermCancelled = 'contract_term_cancelled',
 
@@ -124,6 +154,8 @@ export enum WebhookEventType {
   EinvoiceCreated = 'einvoice_created',
 
   EinvoiceUpdated = 'einvoice_updated',
+
+  EmailMessageReceived = 'email_message_received',
 
   EntitlementOverridesAutoRemoved = 'entitlement_overrides_auto_removed',
 
@@ -299,6 +331,8 @@ export enum WebhookEventType {
 
   PaymentScheduleSchemeDeleted = 'payment_schedule_scheme_deleted',
 
+  PaymentSchedulesCancelled = 'payment_schedules_cancelled',
+
   PaymentSchedulesCreated = 'payment_schedules_created',
 
   PaymentSchedulesUpdated = 'payment_schedules_updated',
@@ -329,11 +363,19 @@ export enum WebhookEventType {
 
   PlanUpdated = 'plan_updated',
 
+  PriceRampCreated = 'price_ramp_created',
+
+  PriceRampDeleted = 'price_ramp_deleted',
+
+  PriceRampUpdated = 'price_ramp_updated',
+
   PriceVariantCreated = 'price_variant_created',
 
   PriceVariantDeleted = 'price_variant_deleted',
 
   PriceVariantUpdated = 'price_variant_updated',
+
+  PrivateNoteAdded = 'private_note_added',
 
   ProductCreated = 'product_created',
 
@@ -354,6 +396,8 @@ export enum WebhookEventType {
   QuoteUpdated = 'quote_updated',
 
   RecordPurchaseFailed = 'record_purchase_failed',
+
+  RefundFailed = 'refund_failed',
 
   RefundInitiated = 'refund_initiated',
 

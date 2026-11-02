@@ -5,10 +5,10 @@ declare module 'chargebee' {
   export interface GatewayPaymentMethodToken {
     id: string;
     gateway_account_id: string;
-    gateway_name: GatewayNameEnum;
+    gateway: GatewayEnum;
     gateway_customer_id?: string;
     gateway_token: string;
-    status: 'active' | 'inactive' | 'pending_verification';
+    status: 'valid' | 'invalid' | 'pending_verification';
     created_at: number;
     updated_at?: number;
   }

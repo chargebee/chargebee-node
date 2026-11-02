@@ -14,6 +14,27 @@ declare module 'chargebee' {
 
   export namespace BusinessEntity {
     export class BusinessEntityResource {
+      create(
+        input: CreateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<CreateResponse>>;
+
+      list(
+        input?: ListInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<ListResponse>>;
+
+      retrieve(
+        business_entity_id: string,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RetrieveResponse>>;
+
+      update(
+        business_entity_id: string,
+        input?: UpdateInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<UpdateResponse>>;
+
       createTransfers(
         input: CreateTransfersInputParam,
         headers?: ChargebeeRequestHeader,
@@ -23,6 +44,23 @@ declare module 'chargebee' {
         input?: GetTransfersInputParam,
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<GetTransfersResponse>>;
+    }
+
+    export interface CreateResponse {
+      business_entity: BusinessEntity;
+    }
+
+    export interface ListResponse {
+      list: { business_entity: BusinessEntity }[];
+      next_offset?: string;
+    }
+
+    export interface RetrieveResponse {
+      business_entity: BusinessEntity;
+    }
+
+    export interface UpdateResponse {
+      business_entity: BusinessEntity;
     }
 
     export interface CreateTransfersResponse {
@@ -37,6 +75,20 @@ declare module 'chargebee' {
     // REQUEST PARAMS
     //---------------
 
+    export interface CreateInputParam {
+      name: string;
+      status: 'active' | 'inactive';
+    }
+    export interface ListInputParam {
+      limit?: number;
+      offset?: string;
+      include_deleted?: boolean;
+      name?: filter.String;
+    }
+    export interface UpdateInputParam {
+      name?: string;
+      status?: 'active' | 'inactive';
+    }
     export interface CreateTransfersInputParam {
       active_resource_ids: string[];
       destination_business_entity_ids: string[] /**

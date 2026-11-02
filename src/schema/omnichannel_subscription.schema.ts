@@ -7,10 +7,18 @@ import { z } from 'zod';
 //OmnichannelSubscription.list
 
 const ListOmnichannelSubscriptionSourceSchema = z.object({
-  is: z.enum(['apple_app_store', 'google_play_store']).optional(),
-  is_not: z.enum(['apple_app_store', 'google_play_store']).optional(),
-  in: z.enum(['apple_app_store', 'google_play_store']).optional(),
-  not_in: z.enum(['apple_app_store', 'google_play_store']).optional(),
+  is: z
+    .enum(['apple_app_store', 'google_play_store', 'roku', 'amazon_app_store'])
+    .optional(),
+  is_not: z
+    .enum(['apple_app_store', 'google_play_store', 'roku', 'amazon_app_store'])
+    .optional(),
+  in: z
+    .enum(['apple_app_store', 'google_play_store', 'roku', 'amazon_app_store'])
+    .optional(),
+  not_in: z
+    .enum(['apple_app_store', 'google_play_store', 'roku', 'amazon_app_store'])
+    .optional(),
 });
 const ListOmnichannelSubscriptionCustomerIdSchema = z.object({
   is: z.string().min(1).optional(),
@@ -34,16 +42,16 @@ const ListOmnichannelSubscriptionIdAtSourceSchema = z.object({
   not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListOmnichannelSubscriptionUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
   between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
 });
 const ListOmnichannelSubscriptionPurchasedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
   between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
+  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
 });
 const ListOmnichannelSubscriptionSortBySchema = z.looseObject({
   asc: z.enum(['created_at', 'updated_at']).optional(),

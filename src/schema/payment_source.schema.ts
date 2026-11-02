@@ -129,6 +129,20 @@ const CreateUsingPermanentTokenPaymentSourceCardSchema = z.object({
     .optional(),
   funding_type: z.enum(['credit', 'debit', 'prepaid', 'not_known']).optional(),
 });
+const CreateUsingPermanentTokenPaymentSourceBankAccountSchema = z.object({
+  account_type: z
+    .enum(['checking', 'savings', 'business_checking', 'current'])
+    .optional(),
+  account_holder_type: z.enum(['individual', 'company']).optional(),
+  first_name: z.string().max(150).optional(),
+  last_name: z.string().max(150).optional(),
+  company: z.string().max(250).optional(),
+  scheme: z
+    .enum(['ach', 'bacs', 'sepa_core', 'autogiro', 'becs', 'becs_nz', 'pad'])
+    .optional(),
+  last4: z.string().max(4).min(4).optional(),
+  echeck_type: z.enum(['web', 'ppd', 'ccd']).optional(),
+});
 const CreateUsingPermanentTokenPaymentSourceBillingAddressSchema = z.object({
   first_name: z.string().max(150).optional(),
   last_name: z.string().max(150).optional(),
@@ -226,6 +240,8 @@ const CreateUsingPermanentTokenPaymentSourceBodySchema = z.looseObject({
   additional_information:
     CreateUsingPermanentTokenPaymentSourceAdditionalInformationSchema.optional(),
   card: CreateUsingPermanentTokenPaymentSourceCardSchema.optional(),
+  bank_account:
+    CreateUsingPermanentTokenPaymentSourceBankAccountSchema.optional(),
   billing_address:
     CreateUsingPermanentTokenPaymentSourceBillingAddressSchema.optional(),
 });

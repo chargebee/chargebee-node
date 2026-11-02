@@ -64,6 +64,7 @@ declare module 'chargebee' {
     tax_origin?: Invoice.TaxOrigin;
     linked_payments?: Invoice.LinkedPayment[];
     reference_transactions?: Invoice.ReferenceTransaction[];
+    retry_segment_id?: string;
     dunning_attempts?: Invoice.DunningAttempt[];
     applied_credits?: Invoice.AppliedCredit[];
     adjustment_credit_notes?: Invoice.AdjustmentCreditNote[];
@@ -321,6 +322,12 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ApplyPaymentScheduleSchemeResponse>>;
 
+      removePaymentScheduleScheme(
+        invoice_id: string,
+        input?: RemovePaymentScheduleSchemeInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RemovePaymentScheduleSchemeResponse>>;
+
       paymentSchedules(
         invoice_id: string,
         headers?: ChargebeeRequestHeader,
@@ -506,6 +513,10 @@ declare module 'chargebee' {
     }
 
     export interface ApplyPaymentScheduleSchemeResponse {
+      invoice: Invoice;
+    }
+
+    export interface RemovePaymentScheduleSchemeResponse {
       invoice: Invoice;
     }
 
@@ -1237,6 +1248,9 @@ declare module 'chargebee' {
       scheme_id: string;
       amount?: number;
     }
+    export interface RemovePaymentScheduleSchemeInputParam {
+      comment?: string;
+    }
     export interface StatementDescriptorCreateInputParam {
       descriptor?: string;
     }
@@ -1828,6 +1842,7 @@ declare module 'chargebee' {
       tax10_amount?: number;
       is_partial_tax_applied?: boolean;
       taxable_amount?: number;
+      tax_exempt_reason?: TaxExemptReasonEnum;
       proration_mode?:
         | 'reset'
         | 'delta'

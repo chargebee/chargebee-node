@@ -92,6 +92,7 @@ declare module 'chargebee' {
       metered_quantity?: string;
       charge_once?: boolean;
       charge_on_option?: 'immediately' | 'on_event';
+      description?: string;
       charge_on_event?:
         | 'subscription_trial_start'
         | 'plan_activation'
@@ -114,6 +115,7 @@ declare module 'chargebee' {
       metered_quantity?: string;
       charge_once?: boolean;
       charge_on_option?: 'immediately' | 'on_event';
+      description?: string;
       charge_on_event?:
         | 'subscription_trial_start'
         | 'plan_activation'
@@ -225,6 +227,7 @@ declare module 'chargebee' {
       charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
       charge_on_option?: ChargeOnOptionEnum;
+      description?: string;
     }
     export interface CouponsToAddCreateForSubscriptionInputParam {
       coupon_id?: string;
@@ -252,6 +255,7 @@ declare module 'chargebee' {
       charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
       charge_on_option?: ChargeOnOptionEnum;
+      description?: string;
     }
     export interface DiscountsToAddCreateForSubscriptionInputParam {
       apply_on: ApplyOnEnum;
@@ -284,6 +288,7 @@ declare module 'chargebee' {
       charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
       charge_on_option?: ChargeOnOptionEnum;
+      description?: string;
     }
     export interface CouponsToAddUpdateInputParam {
       coupon_id?: string;
@@ -311,6 +316,7 @@ declare module 'chargebee' {
       charge_on_event?: ChargeOnEventEnum;
       charge_once?: boolean;
       charge_on_option?: ChargeOnOptionEnum;
+      description?: string;
     }
     export interface DiscountsToAddUpdateInputParam {
       apply_on: ApplyOnEnum;

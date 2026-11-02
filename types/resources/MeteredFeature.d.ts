@@ -10,6 +10,7 @@ declare module 'chargebee' {
     status?: StatusEnum;
     query?: string;
     column_definitions?: ColumnDefinition[];
+    group_by?: string[];
     features?: Feature[];
   }
 

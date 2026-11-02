@@ -98,9 +98,14 @@ export type ListUsageBody = z.infer<typeof ListUsageBodySchema>;
 const PdfUsageInvoiceSchema = z.object({
   id: z.string().max(50),
 });
+const PdfUsageGroupBySchema = z.object({
+  feature_id: z.array(z.string().max(100).optional()).optional(),
+  attributes: z.array(z.array(z.string().optional()).optional()).optional(),
+});
 const PdfUsageBodySchema = z.looseObject({
   disposition_type: z.enum(['attachment', 'inline']).optional(),
   invoice: PdfUsageInvoiceSchema.optional(),
+  group_by: PdfUsageGroupBySchema.optional(),
 });
 export { PdfUsageBodySchema };
 export type PdfUsageBody = z.infer<typeof PdfUsageBodySchema>;

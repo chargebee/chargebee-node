@@ -23,6 +23,7 @@ const CreateCommentBodySchema = z.looseObject({
     'item',
     'item_price',
     'price_variant',
+    'task',
   ]),
   entity_id: z.string().max(100),
   notes: z.string().max(1000),
@@ -63,6 +64,7 @@ const ListCommentBodySchema = z.looseObject({
       'item',
       'item_price',
       'price_variant',
+      'task',
     ])
     .optional(),
   entity_id: z.string().max(100).optional(),

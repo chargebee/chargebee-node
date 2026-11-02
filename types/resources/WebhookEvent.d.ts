@@ -12,6 +12,8 @@ declare module 'chargebee' {
     UnbilledChargesDeleted = 'unbilled_charges_deleted',
     CouponUpdated = 'coupon_updated',
     GrantBlocksCreated = 'grant_blocks_created',
+    ChargebackLost = 'chargeback_lost',
+    PriceRampUpdated = 'price_ramp_updated',
     OmnichannelSubscriptionItemReactivated = 'omnichannel_subscription_item_reactivated',
     OmnichannelSubscriptionItemRenewed = 'omnichannel_subscription_item_renewed',
     UnbilledChargesCreated = 'unbilled_charges_created',
@@ -30,7 +32,6 @@ declare module 'chargebee' {
     SubscriptionShippingAddressUpdated = 'subscription_shipping_address_updated',
     VoucherCreateFailed = 'voucher_create_failed',
     GiftClaimed = 'gift_claimed',
-    BusinessRulesApplied = 'business_rules_applied',
     CustomerDeleted = 'customer_deleted',
     RefundInitiated = 'refund_initiated',
     InvoiceGeneratedWithBackdating = 'invoice_generated_with_backdating',
@@ -56,6 +57,7 @@ declare module 'chargebee' {
     ContractTermTerminated = 'contract_term_terminated',
     ItemFamilyUpdated = 'item_family_updated',
     OrderCreated = 'order_created',
+    RefundFailed = 'refund_failed',
     PriceVariantDeleted = 'price_variant_deleted',
     AlertStatusChanged = 'alert_status_changed',
     SubscriptionMovementFailed = 'subscription_movement_failed',
@@ -64,6 +66,7 @@ declare module 'chargebee' {
     SubscriptionAdvanceInvoiceScheduleUpdated = 'subscription_advance_invoice_schedule_updated',
     ItemDeleted = 'item_deleted',
     SubscriptionRampDrafted = 'subscription_ramp_drafted',
+    ChargebackInitiated = 'chargeback_initiated',
     BusinessRuleCreated = 'business_rule_created',
     VaultTokenUpdated = 'vault_token_updated',
     DunningUpdated = 'dunning_updated',
@@ -76,10 +79,12 @@ declare module 'chargebee' {
     SubscriptionCancellationScheduled = 'subscription_cancellation_scheduled',
     SubscriptionRenewed = 'subscription_renewed',
     FeatureUpdated = 'feature_updated',
+    CollectionsPaymentPromiseFulfilled = 'collections_payment_promise_fulfilled',
     FeatureDeleted = 'feature_deleted',
     ItemFamilyCreated = 'item_family_created',
     OmnichannelSubscriptionItemScheduledChangeRemoved = 'omnichannel_subscription_item_scheduled_change_removed',
     OmnichannelSubscriptionItemResumed = 'omnichannel_subscription_item_resumed',
+    CollectionsDisputeResolved = 'collections_dispute_resolved',
     PurchaseCreated = 'purchase_created',
     EntitlementOverridesUpdated = 'entitlement_overrides_updated',
     ItemFamilyDeleted = 'item_family_deleted',
@@ -91,6 +96,7 @@ declare module 'chargebee' {
     OmnichannelSubscriptionItemDowngraded = 'omnichannel_subscription_item_downgraded',
     BusinessRulesetDeactivated = 'business_ruleset_deactivated',
     PriceVariantUpdated = 'price_variant_updated',
+    CollectionsDisputeUpdated = 'collections_dispute_updated',
     PromotionalCreditsDeducted = 'promotional_credits_deducted',
     SubscriptionRampApplied = 'subscription_ramp_applied',
     BusinessRulesetDeleted = 'business_ruleset_deleted',
@@ -104,8 +110,10 @@ declare module 'chargebee' {
     ItemCreated = 'item_created',
     BusinessRulesetCreated = 'business_ruleset_created',
     TransactionUpdated = 'transaction_updated',
+    CollectionsPaymentPromiseUpdated = 'collections_payment_promise_updated',
     MrrUpdated = 'mrr_updated',
     UnbilledChargesInvoiced = 'unbilled_charges_invoiced',
+    ChargebackWon = 'chargeback_won',
     ItemPriceUpdated = 'item_price_updated',
     CouponCodesUpdated = 'coupon_codes_updated',
     VirtualBankAccountUpdated = 'virtual_bank_account_updated',
@@ -118,6 +126,8 @@ declare module 'chargebee' {
     PaymentSchedulesUpdated = 'payment_schedules_updated',
     OmnichannelSubscriptionItemExpired = 'omnichannel_subscription_item_expired',
     CardUpdated = 'card_updated',
+    PriceRampCreated = 'price_ramp_created',
+    CollectionsReminderSequenceCreated = 'collections_reminder_sequence_created',
     CustomerCreated = 'customer_created',
     SubscriptionRenewalReminder = 'subscription_renewal_reminder',
     OmnichannelSubscriptionItemMrrUpdated = 'omnichannel_subscription_item_mrr_updated',
@@ -126,20 +136,25 @@ declare module 'chargebee' {
     OmnichannelSubscriptionItemCancellationScheduled = 'omnichannel_subscription_item_cancellation_scheduled',
     OmnichannelSubscriptionItemGracePeriodExpired = 'omnichannel_subscription_item_grace_period_expired',
     CouponCodesAdded = 'coupon_codes_added',
+    EmailMessageReceived = 'email_message_received',
     GiftCancelled = 'gift_cancelled',
     OrderCancelled = 'order_cancelled',
     CouponDeleted = 'coupon_deleted',
     SubscriptionScheduledChangesRemoved = 'subscription_scheduled_changes_removed',
     PendingInvoiceCreated = 'pending_invoice_created',
+    CollectionsPaymentPromiseBroken = 'collections_payment_promise_broken',
     EntitlementOverridesAutoRemoved = 'entitlement_overrides_auto_removed',
+    PriceRampDeleted = 'price_ramp_deleted',
     BusinessRulesetActivated = 'business_ruleset_activated',
     OmnichannelSubscriptionItemUpgraded = 'omnichannel_subscription_item_upgraded',
     SubscriptionBusinessEntityChanged = 'subscription_business_entity_changed',
     OmnichannelOneTimeOrderCreated = 'omnichannel_one_time_order_created',
+    CollectionsPaymentPromiseCreated = 'collections_payment_promise_created',
     PaymentSourceDeleted = 'payment_source_deleted',
     OmnichannelSubscriptionItemCancelled = 'omnichannel_subscription_item_cancelled',
     QuoteDeleted = 'quote_deleted',
     InvoiceUpdated = 'invoice_updated',
+    PrivateNoteAdded = 'private_note_added',
     SubscriptionAdvanceInvoiceScheduleRemoved = 'subscription_advance_invoice_schedule_removed',
     CardDeleted = 'card_deleted',
     OrderReadyToShip = 'order_ready_to_ship',
@@ -155,6 +170,7 @@ declare module 'chargebee' {
     CardAdded = 'card_added',
     CouponCreated = 'coupon_created',
     RuleDeleted = 'rule_deleted',
+    CollectionsDisputeCreated = 'collections_dispute_created',
     ItemPriceEntitlementsUpdated = 'item_price_entitlements_updated',
     ItemPriceDeleted = 'item_price_deleted',
     VirtualBankAccountDeleted = 'virtual_bank_account_deleted',
@@ -166,6 +182,7 @@ declare module 'chargebee' {
     PaymentSourceAdded = 'payment_source_added',
     SubscriptionMovedIn = 'subscription_moved_in',
     LedgerUpdated = 'ledger_updated',
+    CollectionsPaymentPromiseCancelled = 'collections_payment_promise_cancelled',
     ItemPriceCreated = 'item_price_created',
     SubscriptionScheduledCancellationRemoved = 'subscription_scheduled_cancellation_removed',
     PaymentRefunded = 'payment_refunded',
@@ -186,6 +203,7 @@ declare module 'chargebee' {
     PaymentSourceExpiring = 'payment_source_expiring',
     SubscriptionReactivated = 'subscription_reactivated',
     OrderUpdated = 'order_updated',
+    CollectionsDisputeWithdrawn = 'collections_dispute_withdrawn',
     SubscriptionScheduledPauseRemoved = 'subscription_scheduled_pause_removed',
     SubscriptionCancellationReminder = 'subscription_cancellation_reminder',
     SubscriptionCreatedWithBackdating = 'subscription_created_with_backdating',
@@ -197,6 +215,7 @@ declare module 'chargebee' {
     OmnichannelSubscriptionItemGracePeriodStarted = 'omnichannel_subscription_item_grace_period_started',
     CardExpiryReminder = 'card_expiry_reminder',
     TokenCreated = 'token_created',
+    CollectionsReminderSequencePaused = 'collections_reminder_sequence_paused',
     PaymentSourceBusinessEntityChanged = 'payment_source_business_entity_changed',
     PromotionalCreditsAdded = 'promotional_credits_added',
     SubscriptionRampUpdated = 'subscription_ramp_updated',
@@ -214,6 +233,7 @@ declare module 'chargebee' {
     AttachedItemDeleted = 'attached_item_deleted',
     OmnichannelSubscriptionItemScheduledCancellationRemoved = 'omnichannel_subscription_item_scheduled_cancellation_removed',
     ItemUpdated = 'item_updated',
+    CollectionsReminderSequenceResumed = 'collections_reminder_sequence_resumed',
     CouponSetCreated = 'coupon_set_created',
     PaymentIntentUpdated = 'payment_intent_updated',
     OrderResent = 'order_resent',
@@ -223,6 +243,7 @@ declare module 'chargebee' {
     DifferentialPriceDeleted = 'differential_price_deleted',
     BusinessRuleActivated = 'business_rule_activated',
     SubscriptionItemsRenewed = 'subscription_items_renewed',
+    PaymentSchedulesCancelled = 'payment_schedules_cancelled',
     RuleCreated = 'rule_created',
     ContractTermCancelled = 'contract_term_cancelled',
     ContractTermRenewed = 'contract_term_renewed',
@@ -239,6 +260,7 @@ declare module 'chargebee' {
     BusinessEntityDeleted = 'business_entity_deleted',
     GrantBlocksUpdated = 'grant_blocks_updated',
     AuthorizationVoided = 'authorization_voided',
+    CollectionsReminderSequenceCompleted = 'collections_reminder_sequence_completed',
     SubscriptionRampDeleted = 'subscription_ramp_deleted',
     PlanDeleted = 'plan_deleted',
     AddonDeleted = 'addon_deleted',
@@ -262,6 +284,8 @@ declare module 'chargebee' {
     [WebhookEventType.UnbilledChargesDeleted]: UnbilledChargesDeletedContent;
     [WebhookEventType.CouponUpdated]: CouponUpdatedContent;
     [WebhookEventType.GrantBlocksCreated]: GrantBlocksCreatedContent;
+    [WebhookEventType.ChargebackLost]: ChargebackLostContent;
+    [WebhookEventType.PriceRampUpdated]: PriceRampUpdatedContent;
     [WebhookEventType.OmnichannelSubscriptionItemReactivated]: OmnichannelSubscriptionItemReactivatedContent;
     [WebhookEventType.OmnichannelSubscriptionItemRenewed]: OmnichannelSubscriptionItemRenewedContent;
     [WebhookEventType.UnbilledChargesCreated]: UnbilledChargesCreatedContent;
@@ -280,7 +304,6 @@ declare module 'chargebee' {
     [WebhookEventType.SubscriptionShippingAddressUpdated]: SubscriptionShippingAddressUpdatedContent;
     [WebhookEventType.VoucherCreateFailed]: VoucherCreateFailedContent;
     [WebhookEventType.GiftClaimed]: GiftClaimedContent;
-    [WebhookEventType.BusinessRulesApplied]: BusinessRulesAppliedContent;
     [WebhookEventType.CustomerDeleted]: CustomerDeletedContent;
     [WebhookEventType.RefundInitiated]: RefundInitiatedContent;
     [WebhookEventType.InvoiceGeneratedWithBackdating]: InvoiceGeneratedWithBackdatingContent;
@@ -306,6 +329,7 @@ declare module 'chargebee' {
     [WebhookEventType.ContractTermTerminated]: ContractTermTerminatedContent;
     [WebhookEventType.ItemFamilyUpdated]: ItemFamilyUpdatedContent;
     [WebhookEventType.OrderCreated]: OrderCreatedContent;
+    [WebhookEventType.RefundFailed]: RefundFailedContent;
     [WebhookEventType.PriceVariantDeleted]: PriceVariantDeletedContent;
     [WebhookEventType.AlertStatusChanged]: AlertStatusChangedContent;
     [WebhookEventType.SubscriptionMovementFailed]: SubscriptionMovementFailedContent;
@@ -314,6 +338,7 @@ declare module 'chargebee' {
     [WebhookEventType.SubscriptionAdvanceInvoiceScheduleUpdated]: SubscriptionAdvanceInvoiceScheduleUpdatedContent;
     [WebhookEventType.ItemDeleted]: ItemDeletedContent;
     [WebhookEventType.SubscriptionRampDrafted]: SubscriptionRampDraftedContent;
+    [WebhookEventType.ChargebackInitiated]: ChargebackInitiatedContent;
     [WebhookEventType.BusinessRuleCreated]: BusinessRuleCreatedContent;
     [WebhookEventType.VaultTokenUpdated]: VaultTokenUpdatedContent;
     [WebhookEventType.DunningUpdated]: DunningUpdatedContent;
@@ -326,10 +351,12 @@ declare module 'chargebee' {
     [WebhookEventType.SubscriptionCancellationScheduled]: SubscriptionCancellationScheduledContent;
     [WebhookEventType.SubscriptionRenewed]: SubscriptionRenewedContent;
     [WebhookEventType.FeatureUpdated]: FeatureUpdatedContent;
+    [WebhookEventType.CollectionsPaymentPromiseFulfilled]: CollectionsPaymentPromiseFulfilledContent;
     [WebhookEventType.FeatureDeleted]: FeatureDeletedContent;
     [WebhookEventType.ItemFamilyCreated]: ItemFamilyCreatedContent;
     [WebhookEventType.OmnichannelSubscriptionItemScheduledChangeRemoved]: OmnichannelSubscriptionItemScheduledChangeRemovedContent;
     [WebhookEventType.OmnichannelSubscriptionItemResumed]: OmnichannelSubscriptionItemResumedContent;
+    [WebhookEventType.CollectionsDisputeResolved]: CollectionsDisputeResolvedContent;
     [WebhookEventType.PurchaseCreated]: PurchaseCreatedContent;
     [WebhookEventType.EntitlementOverridesUpdated]: EntitlementOverridesUpdatedContent;
     [WebhookEventType.ItemFamilyDeleted]: ItemFamilyDeletedContent;
@@ -341,6 +368,7 @@ declare module 'chargebee' {
     [WebhookEventType.OmnichannelSubscriptionItemDowngraded]: OmnichannelSubscriptionItemDowngradedContent;
     [WebhookEventType.BusinessRulesetDeactivated]: BusinessRulesetDeactivatedContent;
     [WebhookEventType.PriceVariantUpdated]: PriceVariantUpdatedContent;
+    [WebhookEventType.CollectionsDisputeUpdated]: CollectionsDisputeUpdatedContent;
     [WebhookEventType.PromotionalCreditsDeducted]: PromotionalCreditsDeductedContent;
     [WebhookEventType.SubscriptionRampApplied]: SubscriptionRampAppliedContent;
     [WebhookEventType.BusinessRulesetDeleted]: BusinessRulesetDeletedContent;
@@ -354,8 +382,10 @@ declare module 'chargebee' {
     [WebhookEventType.ItemCreated]: ItemCreatedContent;
     [WebhookEventType.BusinessRulesetCreated]: BusinessRulesetCreatedContent;
     [WebhookEventType.TransactionUpdated]: TransactionUpdatedContent;
+    [WebhookEventType.CollectionsPaymentPromiseUpdated]: CollectionsPaymentPromiseUpdatedContent;
     [WebhookEventType.MrrUpdated]: MrrUpdatedContent;
     [WebhookEventType.UnbilledChargesInvoiced]: UnbilledChargesInvoicedContent;
+    [WebhookEventType.ChargebackWon]: ChargebackWonContent;
     [WebhookEventType.ItemPriceUpdated]: ItemPriceUpdatedContent;
     [WebhookEventType.CouponCodesUpdated]: CouponCodesUpdatedContent;
     [WebhookEventType.VirtualBankAccountUpdated]: VirtualBankAccountUpdatedContent;
@@ -368,6 +398,8 @@ declare module 'chargebee' {
     [WebhookEventType.PaymentSchedulesUpdated]: PaymentSchedulesUpdatedContent;
     [WebhookEventType.OmnichannelSubscriptionItemExpired]: OmnichannelSubscriptionItemExpiredContent;
     [WebhookEventType.CardUpdated]: CardUpdatedContent;
+    [WebhookEventType.PriceRampCreated]: PriceRampCreatedContent;
+    [WebhookEventType.CollectionsReminderSequenceCreated]: CollectionsReminderSequenceCreatedContent;
     [WebhookEventType.CustomerCreated]: CustomerCreatedContent;
     [WebhookEventType.SubscriptionRenewalReminder]: SubscriptionRenewalReminderContent;
     [WebhookEventType.OmnichannelSubscriptionItemMrrUpdated]: OmnichannelSubscriptionItemMrrUpdatedContent;
@@ -376,20 +408,25 @@ declare module 'chargebee' {
     [WebhookEventType.OmnichannelSubscriptionItemCancellationScheduled]: OmnichannelSubscriptionItemCancellationScheduledContent;
     [WebhookEventType.OmnichannelSubscriptionItemGracePeriodExpired]: OmnichannelSubscriptionItemGracePeriodExpiredContent;
     [WebhookEventType.CouponCodesAdded]: CouponCodesAddedContent;
+    [WebhookEventType.EmailMessageReceived]: EmailMessageReceivedContent;
     [WebhookEventType.GiftCancelled]: GiftCancelledContent;
     [WebhookEventType.OrderCancelled]: OrderCancelledContent;
     [WebhookEventType.CouponDeleted]: CouponDeletedContent;
     [WebhookEventType.SubscriptionScheduledChangesRemoved]: SubscriptionScheduledChangesRemovedContent;
     [WebhookEventType.PendingInvoiceCreated]: PendingInvoiceCreatedContent;
+    [WebhookEventType.CollectionsPaymentPromiseBroken]: CollectionsPaymentPromiseBrokenContent;
     [WebhookEventType.EntitlementOverridesAutoRemoved]: EntitlementOverridesAutoRemovedContent;
+    [WebhookEventType.PriceRampDeleted]: PriceRampDeletedContent;
     [WebhookEventType.BusinessRulesetActivated]: BusinessRulesetActivatedContent;
     [WebhookEventType.OmnichannelSubscriptionItemUpgraded]: OmnichannelSubscriptionItemUpgradedContent;
     [WebhookEventType.SubscriptionBusinessEntityChanged]: SubscriptionBusinessEntityChangedContent;
     [WebhookEventType.OmnichannelOneTimeOrderCreated]: OmnichannelOneTimeOrderCreatedContent;
+    [WebhookEventType.CollectionsPaymentPromiseCreated]: CollectionsPaymentPromiseCreatedContent;
     [WebhookEventType.PaymentSourceDeleted]: PaymentSourceDeletedContent;
     [WebhookEventType.OmnichannelSubscriptionItemCancelled]: OmnichannelSubscriptionItemCancelledContent;
     [WebhookEventType.QuoteDeleted]: QuoteDeletedContent;
     [WebhookEventType.InvoiceUpdated]: InvoiceUpdatedContent;
+    [WebhookEventType.PrivateNoteAdded]: PrivateNoteAddedContent;
     [WebhookEventType.SubscriptionAdvanceInvoiceScheduleRemoved]: SubscriptionAdvanceInvoiceScheduleRemovedContent;
     [WebhookEventType.CardDeleted]: CardDeletedContent;
     [WebhookEventType.OrderReadyToShip]: OrderReadyToShipContent;
@@ -405,6 +442,7 @@ declare module 'chargebee' {
     [WebhookEventType.CardAdded]: CardAddedContent;
     [WebhookEventType.CouponCreated]: CouponCreatedContent;
     [WebhookEventType.RuleDeleted]: RuleDeletedContent;
+    [WebhookEventType.CollectionsDisputeCreated]: CollectionsDisputeCreatedContent;
     [WebhookEventType.ItemPriceEntitlementsUpdated]: ItemPriceEntitlementsUpdatedContent;
     [WebhookEventType.ItemPriceDeleted]: ItemPriceDeletedContent;
     [WebhookEventType.VirtualBankAccountDeleted]: VirtualBankAccountDeletedContent;
@@ -416,6 +454,7 @@ declare module 'chargebee' {
     [WebhookEventType.PaymentSourceAdded]: PaymentSourceAddedContent;
     [WebhookEventType.SubscriptionMovedIn]: SubscriptionMovedInContent;
     [WebhookEventType.LedgerUpdated]: LedgerUpdatedContent;
+    [WebhookEventType.CollectionsPaymentPromiseCancelled]: CollectionsPaymentPromiseCancelledContent;
     [WebhookEventType.ItemPriceCreated]: ItemPriceCreatedContent;
     [WebhookEventType.SubscriptionScheduledCancellationRemoved]: SubscriptionScheduledCancellationRemovedContent;
     [WebhookEventType.PaymentRefunded]: PaymentRefundedContent;
@@ -436,6 +475,7 @@ declare module 'chargebee' {
     [WebhookEventType.PaymentSourceExpiring]: PaymentSourceExpiringContent;
     [WebhookEventType.SubscriptionReactivated]: SubscriptionReactivatedContent;
     [WebhookEventType.OrderUpdated]: OrderUpdatedContent;
+    [WebhookEventType.CollectionsDisputeWithdrawn]: CollectionsDisputeWithdrawnContent;
     [WebhookEventType.SubscriptionScheduledPauseRemoved]: SubscriptionScheduledPauseRemovedContent;
     [WebhookEventType.SubscriptionCancellationReminder]: SubscriptionCancellationReminderContent;
     [WebhookEventType.SubscriptionCreatedWithBackdating]: SubscriptionCreatedWithBackdatingContent;
@@ -447,6 +487,7 @@ declare module 'chargebee' {
     [WebhookEventType.OmnichannelSubscriptionItemGracePeriodStarted]: OmnichannelSubscriptionItemGracePeriodStartedContent;
     [WebhookEventType.CardExpiryReminder]: CardExpiryReminderContent;
     [WebhookEventType.TokenCreated]: TokenCreatedContent;
+    [WebhookEventType.CollectionsReminderSequencePaused]: CollectionsReminderSequencePausedContent;
     [WebhookEventType.PaymentSourceBusinessEntityChanged]: PaymentSourceBusinessEntityChangedContent;
     [WebhookEventType.PromotionalCreditsAdded]: PromotionalCreditsAddedContent;
     [WebhookEventType.SubscriptionRampUpdated]: SubscriptionRampUpdatedContent;
@@ -464,6 +505,7 @@ declare module 'chargebee' {
     [WebhookEventType.AttachedItemDeleted]: AttachedItemDeletedContent;
     [WebhookEventType.OmnichannelSubscriptionItemScheduledCancellationRemoved]: OmnichannelSubscriptionItemScheduledCancellationRemovedContent;
     [WebhookEventType.ItemUpdated]: ItemUpdatedContent;
+    [WebhookEventType.CollectionsReminderSequenceResumed]: CollectionsReminderSequenceResumedContent;
     [WebhookEventType.CouponSetCreated]: CouponSetCreatedContent;
     [WebhookEventType.PaymentIntentUpdated]: PaymentIntentUpdatedContent;
     [WebhookEventType.OrderResent]: OrderResentContent;
@@ -473,6 +515,7 @@ declare module 'chargebee' {
     [WebhookEventType.DifferentialPriceDeleted]: DifferentialPriceDeletedContent;
     [WebhookEventType.BusinessRuleActivated]: BusinessRuleActivatedContent;
     [WebhookEventType.SubscriptionItemsRenewed]: SubscriptionItemsRenewedContent;
+    [WebhookEventType.PaymentSchedulesCancelled]: PaymentSchedulesCancelledContent;
     [WebhookEventType.RuleCreated]: RuleCreatedContent;
     [WebhookEventType.ContractTermCancelled]: ContractTermCancelledContent;
     [WebhookEventType.ContractTermRenewed]: ContractTermRenewedContent;
@@ -489,6 +532,7 @@ declare module 'chargebee' {
     [WebhookEventType.BusinessEntityDeleted]: BusinessEntityDeletedContent;
     [WebhookEventType.GrantBlocksUpdated]: GrantBlocksUpdatedContent;
     [WebhookEventType.AuthorizationVoided]: AuthorizationVoidedContent;
+    [WebhookEventType.CollectionsReminderSequenceCompleted]: CollectionsReminderSequenceCompletedContent;
     [WebhookEventType.SubscriptionRampDeleted]: SubscriptionRampDeletedContent;
     [WebhookEventType.PlanDeleted]: PlanDeletedContent;
     [WebhookEventType.AddonDeleted]: AddonDeletedContent;
@@ -560,6 +604,20 @@ declare module 'chargebee' {
   };
   export type GrantBlocksCreatedContent = {
     grant_block: GrantBlock[];
+  };
+  export type ChargebackLostContent = {
+    dispute: Dispute;
+
+    transaction: Transaction;
+
+    customer: Customer;
+
+    subscription: Subscription;
+  };
+  export type PriceRampUpdatedContent = {
+    price_ramp: PriceRamp;
+
+    ramp_interval: RampInterval;
   };
   export type OmnichannelSubscriptionItemReactivatedContent = {
     omnichannel_subscription: OmnichannelSubscription;
@@ -682,9 +740,6 @@ declare module 'chargebee' {
   };
   export type GiftClaimedContent = {
     gift: Gift;
-  };
-  export type BusinessRulesAppliedContent = {
-    applied_business_rule: AppliedBusinessRule;
   };
   export type CustomerDeletedContent = {
     customer: Customer;
@@ -817,6 +872,19 @@ declare module 'chargebee' {
   export type OrderCreatedContent = {
     order: Order;
   };
+  export type RefundFailedContent = {
+    transaction: Transaction;
+
+    invoice: Invoice;
+
+    credit_note: CreditNote;
+
+    customer: Customer;
+
+    subscription: Subscription;
+
+    card: Card;
+  };
   export type PriceVariantDeletedContent = {
     price_variant: PriceVariant;
 
@@ -850,6 +918,15 @@ declare module 'chargebee' {
   };
   export type SubscriptionRampDraftedContent = {
     ramp: Ramp;
+  };
+  export type ChargebackInitiatedContent = {
+    dispute: Dispute;
+
+    transaction: Transaction;
+
+    customer: Customer;
+
+    subscription: Subscription;
   };
   export type BusinessRuleCreatedContent = {
     business_rule: BusinessRule;
@@ -915,6 +992,9 @@ declare module 'chargebee' {
 
     metadata: Metadata;
   };
+  export type CollectionsPaymentPromiseFulfilledContent = {
+    collections_payment_promise: CollectionsPaymentPromise;
+  };
   export type FeatureDeletedContent = {
     feature: Feature;
 
@@ -940,6 +1020,9 @@ declare module 'chargebee' {
     omnichannel_subscription_item: OmnichannelSubscriptionItem;
 
     customer: Customer;
+  };
+  export type CollectionsDisputeResolvedContent = {
+    collections_dispute: CollectionsDispute;
   };
   export type PurchaseCreatedContent = {
     purchase: Purchase;
@@ -997,6 +1080,9 @@ declare module 'chargebee' {
     price_variant: PriceVariant;
 
     attribute: Attribute;
+  };
+  export type CollectionsDisputeUpdatedContent = {
+    collections_dispute: CollectionsDispute;
   };
   export type PromotionalCreditsDeductedContent = {
     customer: Customer;
@@ -1065,6 +1151,9 @@ declare module 'chargebee' {
   export type TransactionUpdatedContent = {
     transaction: Transaction;
   };
+  export type CollectionsPaymentPromiseUpdatedContent = {
+    collections_payment_promise: CollectionsPaymentPromise;
+  };
   export type MrrUpdatedContent = {
     subscription: Subscription;
   };
@@ -1072,6 +1161,15 @@ declare module 'chargebee' {
     unbilled_charge: UnbilledCharge[];
 
     invoice: Invoice;
+  };
+  export type ChargebackWonContent = {
+    dispute: Dispute;
+
+    transaction: Transaction;
+
+    customer: Customer;
+
+    subscription: Subscription;
   };
   export type ItemPriceUpdatedContent = {
     item_price: ItemPrice;
@@ -1141,6 +1239,14 @@ declare module 'chargebee' {
 
     card: Card;
   };
+  export type PriceRampCreatedContent = {
+    price_ramp: PriceRamp;
+
+    ramp_interval: RampInterval;
+  };
+  export type CollectionsReminderSequenceCreatedContent = {
+    collections_reminder_sequence: CollectionsReminderSequence;
+  };
   export type CustomerCreatedContent = {
     customer: Customer;
 
@@ -1189,6 +1295,9 @@ declare module 'chargebee' {
 
     coupon_set: CouponSet;
   };
+  export type EmailMessageReceivedContent = {
+    email_message: EmailMessage;
+  };
   export type GiftCancelledContent = {
     gift: Gift;
   };
@@ -1210,6 +1319,9 @@ declare module 'chargebee' {
   export type PendingInvoiceCreatedContent = {
     invoice: Invoice;
   };
+  export type CollectionsPaymentPromiseBrokenContent = {
+    collections_payment_promise: CollectionsPaymentPromise;
+  };
   export type EntitlementOverridesAutoRemovedContent = {
     feature: Feature;
 
@@ -1218,6 +1330,11 @@ declare module 'chargebee' {
     impacted_item: ImpactedItem;
 
     impacted_subscription: ImpactedSubscription;
+  };
+  export type PriceRampDeletedContent = {
+    price_ramp: PriceRamp;
+
+    ramp_interval: RampInterval;
   };
   export type BusinessRulesetActivatedContent = {
     business_ruleset: BusinessRuleset;
@@ -1247,6 +1364,9 @@ declare module 'chargebee' {
 
     customer: Customer;
   };
+  export type CollectionsPaymentPromiseCreatedContent = {
+    collections_payment_promise: CollectionsPaymentPromise;
+  };
   export type PaymentSourceDeletedContent = {
     customer: Customer;
 
@@ -1264,6 +1384,9 @@ declare module 'chargebee' {
   };
   export type InvoiceUpdatedContent = {
     invoice: Invoice;
+  };
+  export type PrivateNoteAddedContent = {
+    private_note: PrivateNote;
   };
   export type SubscriptionAdvanceInvoiceScheduleRemovedContent = {
     subscription: Subscription;
@@ -1350,6 +1473,9 @@ declare module 'chargebee' {
   export type RuleDeletedContent = {
     rule: Rule;
   };
+  export type CollectionsDisputeCreatedContent = {
+    collections_dispute: CollectionsDispute;
+  };
   export type ItemPriceEntitlementsUpdatedContent = {
     feature: Feature;
 
@@ -1412,6 +1538,9 @@ declare module 'chargebee' {
     grant_block: GrantBlock[];
 
     ledger_entry: LedgerEntry[];
+  };
+  export type CollectionsPaymentPromiseCancelledContent = {
+    collections_payment_promise: CollectionsPaymentPromise;
   };
   export type ItemPriceCreatedContent = {
     item_price: ItemPrice;
@@ -1533,6 +1662,9 @@ declare module 'chargebee' {
   export type OrderUpdatedContent = {
     order: Order;
   };
+  export type CollectionsDisputeWithdrawnContent = {
+    collections_dispute: CollectionsDispute;
+  };
   export type SubscriptionScheduledPauseRemovedContent = {
     subscription: Subscription;
 
@@ -1602,6 +1734,9 @@ declare module 'chargebee' {
   export type TokenCreatedContent = {
     token: Token;
   };
+  export type CollectionsReminderSequencePausedContent = {
+    collections_reminder_sequence: CollectionsReminderSequence;
+  };
   export type PaymentSourceBusinessEntityChangedContent = {
     business_entity_transfer: BusinessEntityTransfer;
 
@@ -1669,6 +1804,9 @@ declare module 'chargebee' {
   export type ItemUpdatedContent = {
     item: Item;
   };
+  export type CollectionsReminderSequenceResumedContent = {
+    collections_reminder_sequence: CollectionsReminderSequence;
+  };
   export type CouponSetCreatedContent = {
     coupon: Coupon;
 
@@ -1719,6 +1857,9 @@ declare module 'chargebee' {
     credit_note: CreditNote[];
 
     unbilled_charge: UnbilledCharge[];
+  };
+  export type PaymentSchedulesCancelledContent = {
+    payment_schedule: PaymentSchedule;
   };
   export type RuleCreatedContent = {
     rule: Rule;
@@ -1781,6 +1922,9 @@ declare module 'chargebee' {
   };
   export type AuthorizationVoidedContent = {
     transaction: Transaction;
+  };
+  export type CollectionsReminderSequenceCompletedContent = {
+    collections_reminder_sequence: CollectionsReminderSequence;
   };
   export type SubscriptionRampDeletedContent = {
     ramp: Ramp;
