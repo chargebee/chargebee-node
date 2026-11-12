@@ -10,6 +10,11 @@ const CreateAlertThresholdSchema = z.object({
   mode: z.enum(['absolute', 'percentage']).optional(),
   value: z.number(),
 });
+const CreateAlertFilterConditionsItemSchema = z.object({
+  field: z.enum(['plan_price_id']).optional(),
+  operator: z.enum(['equals', 'not_equals']).optional(),
+  value: z.string().max(50).optional(),
+});
 const CreateAlertFilterConditionsSchema = z.object({
   field: z.array(z.enum(['plan_price_id']).optional()).optional(),
   operator: z.array(z.enum(['equals', 'not_equals']).optional()).optional(),
@@ -25,7 +30,12 @@ const CreateAlertBodySchema = z.looseObject({
   subscription_id: z.string().max(50).optional(),
   meta: z.string().max(65000).optional(),
   threshold: CreateAlertThresholdSchema.optional(),
-  filter_conditions: CreateAlertFilterConditionsSchema.optional(),
+  filter_conditions: z
+    .union([
+      z.array(CreateAlertFilterConditionsItemSchema.optional()),
+      CreateAlertFilterConditionsSchema,
+    ])
+    .optional(),
 });
 export { CreateAlertBodySchema };
 export type CreateAlertBody = z.infer<typeof CreateAlertBodySchema>;
@@ -33,7 +43,12 @@ export type CreateAlertBody = z.infer<typeof CreateAlertBodySchema>;
 //Alert.list
 
 const ListAlertIdSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListAlertTypeSchema = z.object({
   is: z

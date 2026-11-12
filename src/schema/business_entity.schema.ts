@@ -21,7 +21,7 @@ const ListBusinessEntityNameSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListBusinessEntityBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),
@@ -71,10 +71,21 @@ const GetTransfersBusinessEntityActiveResourceIdSchema = z.object({
   is: z.string().min(1).optional(),
 });
 const GetTransfersBusinessEntityCreatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const GetTransfersBusinessEntitySortBySchema = z.looseObject({
   asc: z.enum(['created_at']).optional(),

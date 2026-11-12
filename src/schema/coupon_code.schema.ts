@@ -20,15 +20,35 @@ const ListCouponCodeCodeSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListCouponCodeCouponIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListCouponCodeCouponSetNameSchema = z.object({
   is: z.string().min(1).optional(),
@@ -38,8 +58,18 @@ const ListCouponCodeCouponSetNameSchema = z.object({
 const ListCouponCodeStatusSchema = z.object({
   is: z.enum(['not_redeemed', 'redeemed', 'archived']).optional(),
   is_not: z.enum(['not_redeemed', 'redeemed', 'archived']).optional(),
-  in: z.enum(['not_redeemed', 'redeemed', 'archived']).optional(),
-  not_in: z.enum(['not_redeemed', 'redeemed', 'archived']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['not_redeemed', 'redeemed', 'archived']).optional()),
+      z.enum(['not_redeemed', 'redeemed', 'archived']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['not_redeemed', 'redeemed', 'archived']).optional()),
+      z.enum(['not_redeemed', 'redeemed', 'archived']),
+    ])
+    .optional(),
 });
 const ListCouponCodeBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

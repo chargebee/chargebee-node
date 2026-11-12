@@ -24,6 +24,10 @@ export type SubscriptionEntitlementsForSubscriptionSubscriptionEntitlementBody =
 
 //SubscriptionEntitlement.setSubscriptionEntitlementAvailability
 
+const SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementSubscriptionEntitlementsItemSchema =
+  z.object({
+    feature_id: z.string().max(50),
+  });
 const SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementSubscriptionEntitlementsSchema =
   z.object({
     feature_id: z.array(z.string().max(50).optional()),
@@ -31,8 +35,14 @@ const SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementSubscriptionE
 const SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementBodySchema =
   z.looseObject({
     is_enabled: z.boolean(),
-    subscription_entitlements:
-      SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementSubscriptionEntitlementsSchema.optional(),
+    subscription_entitlements: z
+      .union([
+        z.array(
+          SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementSubscriptionEntitlementsItemSchema.optional(),
+        ),
+        SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementSubscriptionEntitlementsSchema,
+      ])
+      .optional(),
   });
 export {
   SetSubscriptionEntitlementAvailabilitySubscriptionEntitlementBodySchema,

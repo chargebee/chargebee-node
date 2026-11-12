@@ -315,6 +315,10 @@ export enum WebhookEventType {
 
   OrderUpdated = 'order_updated',
 
+  OrganizationDetailsCreated = 'organization_details_created',
+
+  OrganizationDetailsUpdated = 'organization_details_updated',
+
   PaymentDueReminder = 'payment_due_reminder',
 
   PaymentFailed = 'payment_failed',

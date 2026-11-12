@@ -45,12 +45,23 @@ export type CreateCouponBody = z.infer<typeof CreateCouponBodySchema>;
 //Coupon.createForItems
 
 const CreateForItemsCouponMetaDataSchema = z.looseObject({});
+const CreateForItemsCouponItemConstraintsItemSchema = z.object({
+  constraint: z.enum(['none', 'all', 'specific', 'criteria']),
+  item_type: z.enum(['plan', 'addon', 'charge']),
+  item_price_ids: z.array(z.string().optional()).optional(),
+});
 const CreateForItemsCouponItemConstraintsSchema = z.object({
   constraint: z.array(
     z.enum(['none', 'all', 'specific', 'criteria']).optional(),
   ),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()),
   item_price_ids: z.array(z.array(z.string().optional()).optional()).optional(),
+});
+const CreateForItemsCouponItemConstraintCriteriaItemSchema = z.object({
+  item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+  item_family_ids: z.array(z.string().optional()).optional(),
+  currencies: z.array(z.string().optional()).optional(),
+  item_price_periods: z.array(z.string().optional()).optional(),
 });
 const CreateForItemsCouponItemConstraintCriteriaSchema = z.object({
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
@@ -61,6 +72,16 @@ const CreateForItemsCouponItemConstraintCriteriaSchema = z.object({
   item_price_periods: z
     .array(z.array(z.string().optional()).optional())
     .optional(),
+});
+const CreateForItemsCouponCouponConstraintsItemSchema = z.object({
+  entity_type: z.enum(['customer']),
+  type: z.enum([
+    'max_redemptions',
+    'unique_by',
+    'existing_customer',
+    'new_customer',
+  ]),
+  value: z.string().max(65000).optional(),
 });
 const CreateForItemsCouponCouponConstraintsSchema = z.object({
   entity_type: z.array(z.enum(['customer']).optional()),
@@ -104,10 +125,24 @@ const CreateForItemsCouponBodySchema = z.looseObject({
   period: z.number().int().min(1).optional(),
   period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
   status: z.enum(['active', 'archived']).optional(),
-  item_constraints: CreateForItemsCouponItemConstraintsSchema.optional(),
-  item_constraint_criteria:
-    CreateForItemsCouponItemConstraintCriteriaSchema.optional(),
-  coupon_constraints: CreateForItemsCouponCouponConstraintsSchema.optional(),
+  item_constraints: z
+    .union([
+      z.array(CreateForItemsCouponItemConstraintsItemSchema.optional()),
+      CreateForItemsCouponItemConstraintsSchema,
+    ])
+    .optional(),
+  item_constraint_criteria: z
+    .union([
+      z.array(CreateForItemsCouponItemConstraintCriteriaItemSchema.optional()),
+      CreateForItemsCouponItemConstraintCriteriaSchema,
+    ])
+    .optional(),
+  coupon_constraints: z
+    .union([
+      z.array(CreateForItemsCouponCouponConstraintsItemSchema.optional()),
+      CreateForItemsCouponCouponConstraintsSchema,
+    ])
+    .optional(),
 });
 export { CreateForItemsCouponBodySchema };
 export type CreateForItemsCouponBody = z.infer<
@@ -117,12 +152,23 @@ export type CreateForItemsCouponBody = z.infer<
 //Coupon.updateForItems
 
 const UpdateForItemsCouponMetaDataSchema = z.looseObject({});
+const UpdateForItemsCouponItemConstraintsItemSchema = z.object({
+  constraint: z.enum(['none', 'all', 'specific', 'criteria']),
+  item_type: z.enum(['plan', 'addon', 'charge']),
+  item_price_ids: z.array(z.string().optional()).optional(),
+});
 const UpdateForItemsCouponItemConstraintsSchema = z.object({
   constraint: z.array(
     z.enum(['none', 'all', 'specific', 'criteria']).optional(),
   ),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()),
   item_price_ids: z.array(z.array(z.string().optional()).optional()).optional(),
+});
+const UpdateForItemsCouponItemConstraintCriteriaItemSchema = z.object({
+  item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+  item_family_ids: z.array(z.string().optional()).optional(),
+  currencies: z.array(z.string().optional()).optional(),
+  item_price_periods: z.array(z.string().optional()).optional(),
 });
 const UpdateForItemsCouponItemConstraintCriteriaSchema = z.object({
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
@@ -133,6 +179,16 @@ const UpdateForItemsCouponItemConstraintCriteriaSchema = z.object({
   item_price_periods: z
     .array(z.array(z.string().optional()).optional())
     .optional(),
+});
+const UpdateForItemsCouponCouponConstraintsItemSchema = z.object({
+  entity_type: z.enum(['customer']),
+  type: z.enum([
+    'max_redemptions',
+    'unique_by',
+    'existing_customer',
+    'new_customer',
+  ]),
+  value: z.string().max(65000).optional(),
 });
 const UpdateForItemsCouponCouponConstraintsSchema = z.object({
   entity_type: z.array(z.enum(['customer']).optional()),
@@ -176,10 +232,24 @@ const UpdateForItemsCouponBodySchema = z.looseObject({
   included_in_mrr: z.boolean().optional(),
   period: z.number().int().min(1).optional(),
   period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
-  item_constraints: UpdateForItemsCouponItemConstraintsSchema.optional(),
-  item_constraint_criteria:
-    UpdateForItemsCouponItemConstraintCriteriaSchema.optional(),
-  coupon_constraints: UpdateForItemsCouponCouponConstraintsSchema.optional(),
+  item_constraints: z
+    .union([
+      z.array(UpdateForItemsCouponItemConstraintsItemSchema.optional()),
+      UpdateForItemsCouponItemConstraintsSchema,
+    ])
+    .optional(),
+  item_constraint_criteria: z
+    .union([
+      z.array(UpdateForItemsCouponItemConstraintCriteriaItemSchema.optional()),
+      UpdateForItemsCouponItemConstraintCriteriaSchema,
+    ])
+    .optional(),
+  coupon_constraints: z
+    .union([
+      z.array(UpdateForItemsCouponCouponConstraintsItemSchema.optional()),
+      UpdateForItemsCouponCouponConstraintsSchema,
+    ])
+    .optional(),
 });
 export { UpdateForItemsCouponBodySchema };
 export type UpdateForItemsCouponBody = z.infer<
@@ -192,36 +262,96 @@ const ListCouponIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListCouponNameSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListCouponDiscountTypeSchema = z.object({
   is: z.enum(['fixed_amount', 'percentage', 'offer_quantity']).optional(),
   is_not: z.enum(['fixed_amount', 'percentage', 'offer_quantity']).optional(),
-  in: z.enum(['fixed_amount', 'percentage', 'offer_quantity']).optional(),
-  not_in: z.enum(['fixed_amount', 'percentage', 'offer_quantity']).optional(),
+  in: z
+    .union([
+      z.array(
+        z.enum(['fixed_amount', 'percentage', 'offer_quantity']).optional(),
+      ),
+      z.enum(['fixed_amount', 'percentage', 'offer_quantity']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(
+        z.enum(['fixed_amount', 'percentage', 'offer_quantity']).optional(),
+      ),
+      z.enum(['fixed_amount', 'percentage', 'offer_quantity']),
+    ])
+    .optional(),
 });
 const ListCouponDurationTypeSchema = z.object({
   is: z.enum(['one_time', 'forever', 'limited_period']).optional(),
   is_not: z.enum(['one_time', 'forever', 'limited_period']).optional(),
-  in: z.enum(['one_time', 'forever', 'limited_period']).optional(),
-  not_in: z.enum(['one_time', 'forever', 'limited_period']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['one_time', 'forever', 'limited_period']).optional()),
+      z.enum(['one_time', 'forever', 'limited_period']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['one_time', 'forever', 'limited_period']).optional()),
+      z.enum(['one_time', 'forever', 'limited_period']),
+    ])
+    .optional(),
 });
 const ListCouponStatusSchema = z.object({
   is: z.enum(['active', 'expired', 'archived', 'deleted', 'future']).optional(),
   is_not: z
     .enum(['active', 'expired', 'archived', 'deleted', 'future'])
     .optional(),
-  in: z.enum(['active', 'expired', 'archived', 'deleted', 'future']).optional(),
+  in: z
+    .union([
+      z.array(
+        z
+          .enum(['active', 'expired', 'archived', 'deleted', 'future'])
+          .optional(),
+      ),
+      z.enum(['active', 'expired', 'archived', 'deleted', 'future']),
+    ])
+    .optional(),
   not_in: z
-    .enum(['active', 'expired', 'archived', 'deleted', 'future'])
+    .union([
+      z.array(
+        z
+          .enum(['active', 'expired', 'archived', 'deleted', 'future'])
+          .optional(),
+      ),
+      z.enum(['active', 'expired', 'archived', 'deleted', 'future']),
+    ])
     .optional(),
 });
 const ListCouponApplyOnSchema = z.object({
@@ -242,33 +372,79 @@ const ListCouponApplyOnSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'invoice_amount',
-      'specified_items_total',
-      'each_specified_item',
-      'each_unit_of_specified_items',
+    .union([
+      z.array(
+        z
+          .enum([
+            'invoice_amount',
+            'specified_items_total',
+            'each_specified_item',
+            'each_unit_of_specified_items',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'invoice_amount',
+        'specified_items_total',
+        'each_specified_item',
+        'each_unit_of_specified_items',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'invoice_amount',
-      'specified_items_total',
-      'each_specified_item',
-      'each_unit_of_specified_items',
+    .union([
+      z.array(
+        z
+          .enum([
+            'invoice_amount',
+            'specified_items_total',
+            'each_specified_item',
+            'each_unit_of_specified_items',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'invoice_amount',
+        'specified_items_total',
+        'each_specified_item',
+        'each_unit_of_specified_items',
+      ]),
     ])
     .optional(),
 });
 const ListCouponCreatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListCouponUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListCouponSortBySchema = z.looseObject({
   asc: z.enum(['created_at']).optional(),
@@ -278,11 +454,26 @@ const ListCouponCurrencyCodeSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListCouponApplicableItemPriceIdsSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
   is: z.string().min(1).optional(),
 });
 const ListCouponBodySchema = z.looseObject({

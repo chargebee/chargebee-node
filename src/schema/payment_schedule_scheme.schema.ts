@@ -6,6 +6,10 @@ import { z } from 'zod';
 
 //PaymentScheduleScheme.create
 
+const CreatePaymentScheduleSchemeFlexibleSchedulesItemSchema = z.object({
+  period: z.number().int().min(0).max(52).optional(),
+  amount_percentage: z.number().min(1).max(100).optional(),
+});
 const CreatePaymentScheduleSchemeFlexibleSchedulesSchema = z.object({
   period: z.array(z.number().int().min(0).max(52).optional()).optional(),
   amount_percentage: z.array(z.number().min(1).max(100).optional()).optional(),
@@ -15,8 +19,14 @@ const CreatePaymentScheduleSchemeBodySchema = z.looseObject({
   period_unit: z.enum(['day', 'week', 'month']),
   period: z.number().int().min(1).max(30).optional(),
   name: z.string().max(100),
-  flexible_schedules:
-    CreatePaymentScheduleSchemeFlexibleSchedulesSchema.optional(),
+  flexible_schedules: z
+    .union([
+      z.array(
+        CreatePaymentScheduleSchemeFlexibleSchedulesItemSchema.optional(),
+      ),
+      CreatePaymentScheduleSchemeFlexibleSchedulesSchema,
+    ])
+    .optional(),
 });
 export { CreatePaymentScheduleSchemeBodySchema };
 export type CreatePaymentScheduleSchemeBody = z.infer<
@@ -29,14 +39,35 @@ const ListPaymentScheduleSchemeIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListPaymentScheduleSchemeUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListPaymentScheduleSchemeBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

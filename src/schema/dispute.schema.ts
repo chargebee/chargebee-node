@@ -10,8 +10,18 @@ const ListDisputeIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListDisputeStatusSchema = z.object({
   is: z
@@ -35,60 +45,146 @@ const ListDisputeStatusSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'initiated',
-      'funds_withdrawn',
-      'in_review',
-      'cancelled',
-      'lost',
-      'won',
+    .union([
+      z.array(
+        z
+          .enum([
+            'initiated',
+            'funds_withdrawn',
+            'in_review',
+            'cancelled',
+            'lost',
+            'won',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'initiated',
+        'funds_withdrawn',
+        'in_review',
+        'cancelled',
+        'lost',
+        'won',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'initiated',
-      'funds_withdrawn',
-      'in_review',
-      'cancelled',
-      'lost',
-      'won',
+    .union([
+      z.array(
+        z
+          .enum([
+            'initiated',
+            'funds_withdrawn',
+            'in_review',
+            'cancelled',
+            'lost',
+            'won',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'initiated',
+        'funds_withdrawn',
+        'in_review',
+        'cancelled',
+        'lost',
+        'won',
+      ]),
     ])
     .optional(),
 });
 const ListDisputeTypeSchema = z.object({
   is: z.enum(['chargeback', 'inquiry']).optional(),
   is_not: z.enum(['chargeback', 'inquiry']).optional(),
-  in: z.enum(['chargeback', 'inquiry']).optional(),
-  not_in: z.enum(['chargeback', 'inquiry']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['chargeback', 'inquiry']).optional()),
+      z.enum(['chargeback', 'inquiry']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['chargeback', 'inquiry']).optional()),
+      z.enum(['chargeback', 'inquiry']),
+    ])
+    .optional(),
 });
 const ListDisputeCustomerIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListDisputeTransactionIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListDisputeAmountSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListDisputeCreatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListDisputeBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

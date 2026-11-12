@@ -31,6 +31,13 @@ export type ItemEntitlementsForFeatureItemEntitlementBody = z.infer<
 
 //ItemEntitlement.addItemEntitlements
 
+const AddItemEntitlementsItemEntitlementItemEntitlementsItemSchema = z.object({
+  item_id: z.string().max(100),
+  item_type: z
+    .enum(['plan', 'addon', 'charge', 'subscription', 'item'])
+    .optional(),
+  value: z.string().max(50).optional(),
+});
 const AddItemEntitlementsItemEntitlementItemEntitlementsSchema = z.object({
   item_id: z.array(z.string().max(100).optional()),
   item_type: z
@@ -42,8 +49,14 @@ const AddItemEntitlementsItemEntitlementItemEntitlementsSchema = z.object({
 });
 const AddItemEntitlementsItemEntitlementBodySchema = z.looseObject({
   action: z.enum(['upsert', 'remove']),
-  item_entitlements:
-    AddItemEntitlementsItemEntitlementItemEntitlementsSchema.optional(),
+  item_entitlements: z
+    .union([
+      z.array(
+        AddItemEntitlementsItemEntitlementItemEntitlementsItemSchema.optional(),
+      ),
+      AddItemEntitlementsItemEntitlementItemEntitlementsSchema,
+    ])
+    .optional(),
 });
 export { AddItemEntitlementsItemEntitlementBodySchema };
 export type AddItemEntitlementsItemEntitlementBody = z.infer<
@@ -52,6 +65,11 @@ export type AddItemEntitlementsItemEntitlementBody = z.infer<
 
 //ItemEntitlement.upsertOrRemoveItemEntitlementsForItem
 
+const UpsertOrRemoveItemEntitlementsForItemItemEntitlementItemEntitlementsItemSchema =
+  z.object({
+    feature_id: z.string().max(50),
+    value: z.string().max(50).optional(),
+  });
 const UpsertOrRemoveItemEntitlementsForItemItemEntitlementItemEntitlementsSchema =
   z.object({
     feature_id: z.array(z.string().max(50).optional()),
@@ -60,8 +78,14 @@ const UpsertOrRemoveItemEntitlementsForItemItemEntitlementItemEntitlementsSchema
 const UpsertOrRemoveItemEntitlementsForItemItemEntitlementBodySchema =
   z.looseObject({
     action: z.enum(['upsert', 'remove']),
-    item_entitlements:
-      UpsertOrRemoveItemEntitlementsForItemItemEntitlementItemEntitlementsSchema.optional(),
+    item_entitlements: z
+      .union([
+        z.array(
+          UpsertOrRemoveItemEntitlementsForItemItemEntitlementItemEntitlementsItemSchema.optional(),
+        ),
+        UpsertOrRemoveItemEntitlementsForItemItemEntitlementItemEntitlementsSchema,
+      ])
+      .optional(),
   });
 export { UpsertOrRemoveItemEntitlementsForItemItemEntitlementBodySchema };
 export type UpsertOrRemoveItemEntitlementsForItemItemEntitlementBody = z.infer<

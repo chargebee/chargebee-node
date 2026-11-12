@@ -1,6 +1,6 @@
 ///<reference path='./../core.d.ts'/>
 ///<reference path='./../index.d.ts'/>
-///<reference path='./filter.d.ts'/>
+
 declare module 'chargebee' {
   export interface DraftRequest {
     id: string;

@@ -38,10 +38,10 @@ export type UpdateDraftBusinessRuleBody = z.infer<
 //BusinessRule.list
 
 const ListBusinessRuleDraftSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListBusinessRuleActiveSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListBusinessRuleBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

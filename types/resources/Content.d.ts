@@ -15,6 +15,8 @@ declare module 'chargebee' {
     attached_item: AttachedItem;
     attribute: Attribute;
     billing_configuration: BillingConfiguration;
+    billing_line_item: BillingLineItem;
+    billing_metadata: BillingMetadata;
     brand: Brand;
     business_entity: BusinessEntity;
     business_entity_transfer: BusinessEntityTransfer;
@@ -64,6 +66,8 @@ declare module 'chargebee' {
     filter_condition: FilterCondition;
     gateway_error_detail: GatewayErrorDetail;
     gateway_payment_method_token: GatewayPaymentMethodToken;
+    gateway_request_log: GatewayRequestLog;
+    gateway_webhook_log: GatewayWebhookLog;
     gift: Gift;
     grant_block: GrantBlock;
     group_by_attribute: GroupByAttribute;
@@ -99,6 +103,7 @@ declare module 'chargebee' {
     omnichannel_subscription_item_scheduled_change: OmnichannelSubscriptionItemScheduledChange;
     omnichannel_transaction: OmnichannelTransaction;
     order: Order;
+    organization_detail: OrganizationDetail;
     payment_intent: PaymentIntent;
     payment_reference_number: PaymentReferenceNumber;
     payment_schedule: PaymentSchedule;

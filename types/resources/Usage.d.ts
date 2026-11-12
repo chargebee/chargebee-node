@@ -114,6 +114,7 @@ declare module 'chargebee' {
     export interface GroupByPdfInputParam {
       feature_id?: string;
       attributes?: any;
+      window_size?: 'day' | 'none';
     }
   }
 }

@@ -32,6 +32,8 @@ interface Endpoints {
   card: EndpointTuple[];
   promotionalCredit: EndpointTuple[];
   emailLog: EndpointTuple[];
+  gatewayRequestLog: EndpointTuple[];
+  gatewayWebhookLog: EndpointTuple[];
   invoice: EndpointTuple[];
   paymentReferenceNumber: EndpointTuple[];
   paymentSchedule: EndpointTuple[];
@@ -96,6 +98,7 @@ interface Endpoints {
   businessEntity: EndpointTuple[];
   purchase: EndpointTuple[];
   paymentVoucher: EndpointTuple[];
+  organizationDetail: EndpointTuple[];
   currency: EndpointTuple[];
   ramp: EndpointTuple[];
   paymentScheduleScheme: EndpointTuple[];
@@ -147,6 +150,7 @@ interface Endpoints {
   emailAttachment: EndpointTuple[];
   ledgerAccountBalance: EndpointTuple[];
   ledgerOperation: EndpointTuple[];
+  billingMetadata: EndpointTuple[];
   grantBlock: EndpointTuple[];
   ledgerEntry: EndpointTuple[];
   promotionalGrant: EndpointTuple[];
@@ -1374,6 +1378,34 @@ export const Endpoints: Endpoints = {
       'GET',
       '/customers',
       '/email_logs',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
+  gatewayRequestLog: [
+    ['list', 'GET', '/gateway_request_logs', null, false, null, false, {}, {}],
+    [
+      'retrieve',
+      'GET',
+      '/gateway_request_logs',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
+  gatewayWebhookLog: [
+    ['list', 'GET', '/gateway_webhook_logs', null, false, null, false, {}, {}],
+    [
+      'retrieve',
+      'GET',
+      '/gateway_webhook_logs',
+      null,
       true,
       null,
       false,
@@ -4960,6 +4992,33 @@ export const Endpoints: Endpoints = {
       {},
     ],
   ],
+  organizationDetail: [
+    [
+      'create',
+      'POST',
+      '/organization_details',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'retrieve',
+      'GET',
+      '/organization_details',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+    ['list', 'GET', '/organization_details', null, false, null, false, {}, {}],
+  ],
   currency: [
     ['list', 'GET', '/currencies', '/list', false, null, false, {}, {}],
     ['retrieve', 'GET', '/currencies', null, true, null, false, {}, {}],
@@ -5996,6 +6055,7 @@ export const Endpoints: Endpoints = {
       {},
     ],
   ],
+  billingMetadata: [],
   grantBlock: [
     [
       'listGrantBlocks',

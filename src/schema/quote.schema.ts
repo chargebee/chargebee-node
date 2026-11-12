@@ -63,6 +63,15 @@ const CreateSubForCustomerQuoteQuoteContractTermSchema = z.object({
   action_at_term_end: z.enum(['renew', 'evergreen', 'cancel']).optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const CreateSubForCustomerQuoteQuoteAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  trial_end: z.number().int().optional(),
+});
 const CreateSubForCustomerQuoteQuoteAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -71,6 +80,25 @@ const CreateSubForCustomerQuoteQuoteAddonsSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
+});
+const CreateSubForCustomerQuoteQuoteEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+  on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().default(true).optional(),
+  charge_on: z.enum(['immediately', 'on_event']).optional(),
 });
 const CreateSubForCustomerQuoteQuoteEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -112,9 +140,20 @@ const CreateSubForCustomerQuoteQuoteBodySchema = z.looseObject({
   shipping_address:
     CreateSubForCustomerQuoteQuoteShippingAddressSchema.optional(),
   contract_term: CreateSubForCustomerQuoteQuoteContractTermSchema.optional(),
-  addons: CreateSubForCustomerQuoteQuoteAddonsSchema.optional(),
-  event_based_addons:
-    CreateSubForCustomerQuoteQuoteEventBasedAddonsSchema.optional(),
+  addons: z
+    .union([
+      z.array(CreateSubForCustomerQuoteQuoteAddonsItemSchema.optional()),
+      CreateSubForCustomerQuoteQuoteAddonsSchema,
+    ])
+    .optional(),
+  event_based_addons: z
+    .union([
+      z.array(
+        CreateSubForCustomerQuoteQuoteEventBasedAddonsItemSchema.optional(),
+      ),
+      CreateSubForCustomerQuoteQuoteEventBasedAddonsSchema,
+    ])
+    .optional(),
 });
 export { CreateSubForCustomerQuoteQuoteBodySchema };
 export type CreateSubForCustomerQuoteQuoteBody = z.infer<
@@ -180,6 +219,15 @@ const EditCreateSubForCustomerQuoteQuoteContractTermSchema = z.object({
   action_at_term_end: z.enum(['renew', 'evergreen', 'cancel']).optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const EditCreateSubForCustomerQuoteQuoteAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  trial_end: z.number().int().optional(),
+});
 const EditCreateSubForCustomerQuoteQuoteAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -188,6 +236,25 @@ const EditCreateSubForCustomerQuoteQuoteAddonsSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
+});
+const EditCreateSubForCustomerQuoteQuoteEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+  on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().default(true).optional(),
+  charge_on: z.enum(['immediately', 'on_event']).optional(),
 });
 const EditCreateSubForCustomerQuoteQuoteEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -229,9 +296,20 @@ const EditCreateSubForCustomerQuoteQuoteBodySchema = z.looseObject({
     EditCreateSubForCustomerQuoteQuoteShippingAddressSchema.optional(),
   contract_term:
     EditCreateSubForCustomerQuoteQuoteContractTermSchema.optional(),
-  addons: EditCreateSubForCustomerQuoteQuoteAddonsSchema.optional(),
-  event_based_addons:
-    EditCreateSubForCustomerQuoteQuoteEventBasedAddonsSchema.optional(),
+  addons: z
+    .union([
+      z.array(EditCreateSubForCustomerQuoteQuoteAddonsItemSchema.optional()),
+      EditCreateSubForCustomerQuoteQuoteAddonsSchema,
+    ])
+    .optional(),
+  event_based_addons: z
+    .union([
+      z.array(
+        EditCreateSubForCustomerQuoteQuoteEventBasedAddonsItemSchema.optional(),
+      ),
+      EditCreateSubForCustomerQuoteQuoteEventBasedAddonsSchema,
+    ])
+    .optional(),
 });
 export { EditCreateSubForCustomerQuoteQuoteBodySchema };
 export type EditCreateSubForCustomerQuoteQuoteBody = z.infer<
@@ -323,6 +401,15 @@ const UpdateSubscriptionQuoteQuoteContractTermSchema = z.object({
     .optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const UpdateSubscriptionQuoteQuoteAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  trial_end: z.number().int().optional(),
+});
 const UpdateSubscriptionQuoteQuoteAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -331,6 +418,25 @@ const UpdateSubscriptionQuoteQuoteAddonsSchema = z.object({
   quantity_in_decimal: z.array(z.string().max(33).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
+});
+const UpdateSubscriptionQuoteQuoteEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+  charge_on: z.enum(['immediately', 'on_event']).optional(),
+  on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().default(true).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
 });
 const UpdateSubscriptionQuoteQuoteEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -381,9 +487,20 @@ const UpdateSubscriptionQuoteQuoteBodySchema = z.looseObject({
     UpdateSubscriptionQuoteQuoteShippingAddressSchema.optional(),
   customer: UpdateSubscriptionQuoteQuoteCustomerSchema.optional(),
   contract_term: UpdateSubscriptionQuoteQuoteContractTermSchema.optional(),
-  addons: UpdateSubscriptionQuoteQuoteAddonsSchema.optional(),
-  event_based_addons:
-    UpdateSubscriptionQuoteQuoteEventBasedAddonsSchema.optional(),
+  addons: z
+    .union([
+      z.array(UpdateSubscriptionQuoteQuoteAddonsItemSchema.optional()),
+      UpdateSubscriptionQuoteQuoteAddonsSchema,
+    ])
+    .optional(),
+  event_based_addons: z
+    .union([
+      z.array(
+        UpdateSubscriptionQuoteQuoteEventBasedAddonsItemSchema.optional(),
+      ),
+      UpdateSubscriptionQuoteQuoteEventBasedAddonsSchema,
+    ])
+    .optional(),
 });
 export { UpdateSubscriptionQuoteQuoteBodySchema };
 export type UpdateSubscriptionQuoteQuoteBody = z.infer<
@@ -474,6 +591,15 @@ const EditUpdateSubscriptionQuoteQuoteContractTermSchema = z.object({
     .optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const EditUpdateSubscriptionQuoteQuoteAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  trial_end: z.number().int().optional(),
+});
 const EditUpdateSubscriptionQuoteQuoteAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -482,6 +608,25 @@ const EditUpdateSubscriptionQuoteQuoteAddonsSchema = z.object({
   quantity_in_decimal: z.array(z.string().max(33).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
+});
+const EditUpdateSubscriptionQuoteQuoteEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+  charge_on: z.enum(['immediately', 'on_event']).optional(),
+  on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().default(true).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
 });
 const EditUpdateSubscriptionQuoteQuoteEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -532,9 +677,20 @@ const EditUpdateSubscriptionQuoteQuoteBodySchema = z.looseObject({
     EditUpdateSubscriptionQuoteQuoteShippingAddressSchema.optional(),
   customer: EditUpdateSubscriptionQuoteQuoteCustomerSchema.optional(),
   contract_term: EditUpdateSubscriptionQuoteQuoteContractTermSchema.optional(),
-  addons: EditUpdateSubscriptionQuoteQuoteAddonsSchema.optional(),
-  event_based_addons:
-    EditUpdateSubscriptionQuoteQuoteEventBasedAddonsSchema.optional(),
+  addons: z
+    .union([
+      z.array(EditUpdateSubscriptionQuoteQuoteAddonsItemSchema.optional()),
+      EditUpdateSubscriptionQuoteQuoteAddonsSchema,
+    ])
+    .optional(),
+  event_based_addons: z
+    .union([
+      z.array(
+        EditUpdateSubscriptionQuoteQuoteEventBasedAddonsItemSchema.optional(),
+      ),
+      EditUpdateSubscriptionQuoteQuoteEventBasedAddonsSchema,
+    ])
+    .optional(),
 });
 export { EditUpdateSubscriptionQuoteQuoteBodySchema };
 export type EditUpdateSubscriptionQuoteQuoteBody = z.infer<
@@ -561,6 +717,14 @@ const CreateForOnetimeChargesQuoteShippingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const CreateForOnetimeChargesQuoteAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period: z.number().int().optional(),
+});
 const CreateForOnetimeChargesQuoteAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -568,6 +732,17 @@ const CreateForOnetimeChargesQuoteAddonsSchema = z.object({
   unit_price: z.array(z.number().int().min(0).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   service_period: z.array(z.number().int().optional()).optional(),
+});
+const CreateForOnetimeChargesQuoteChargesItemSchema = z.object({
+  amount: z.number().int().min(1).optional(),
+  amount_in_decimal: z.string().max(39).optional(),
+  description: z.string().max(250).optional(),
+  avalara_sale_type: z
+    .enum(['wholesale', 'retail', 'consumed', 'vendor_use'])
+    .optional(),
+  avalara_transaction_type: z.number().int().optional(),
+  avalara_service_type: z.number().int().optional(),
+  service_period: z.number().int().optional(),
 });
 const CreateForOnetimeChargesQuoteChargesSchema = z.object({
   amount: z.array(z.number().int().min(1).optional()).optional(),
@@ -579,6 +754,11 @@ const CreateForOnetimeChargesQuoteChargesSchema = z.object({
   avalara_transaction_type: z.array(z.number().int().optional()).optional(),
   avalara_service_type: z.array(z.number().int().optional()).optional(),
   service_period: z.array(z.number().int().optional()).optional(),
+});
+const CreateForOnetimeChargesQuoteTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50).optional(),
+  field_id: z.string().max(50).optional(),
+  field_value: z.string().max(50).optional(),
 });
 const CreateForOnetimeChargesQuoteTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()).optional(),
@@ -596,10 +776,26 @@ const CreateForOnetimeChargesQuoteBodySchema = z.looseObject({
   coupon_ids: z.array(z.string().max(100).optional()).optional(),
   shipping_address:
     CreateForOnetimeChargesQuoteShippingAddressSchema.optional(),
-  addons: CreateForOnetimeChargesQuoteAddonsSchema.optional(),
-  charges: CreateForOnetimeChargesQuoteChargesSchema.optional(),
-  tax_providers_fields:
-    CreateForOnetimeChargesQuoteTaxProvidersFieldsSchema.optional(),
+  addons: z
+    .union([
+      z.array(CreateForOnetimeChargesQuoteAddonsItemSchema.optional()),
+      CreateForOnetimeChargesQuoteAddonsSchema,
+    ])
+    .optional(),
+  charges: z
+    .union([
+      z.array(CreateForOnetimeChargesQuoteChargesItemSchema.optional()),
+      CreateForOnetimeChargesQuoteChargesSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(
+        CreateForOnetimeChargesQuoteTaxProvidersFieldsItemSchema.optional(),
+      ),
+      CreateForOnetimeChargesQuoteTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { CreateForOnetimeChargesQuoteBodySchema };
 export type CreateForOnetimeChargesQuoteBody = z.infer<
@@ -626,6 +822,14 @@ const EditOneTimeQuoteQuoteShippingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const EditOneTimeQuoteQuoteAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period: z.number().int().optional(),
+});
 const EditOneTimeQuoteQuoteAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -633,6 +837,17 @@ const EditOneTimeQuoteQuoteAddonsSchema = z.object({
   unit_price: z.array(z.number().int().min(0).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   service_period: z.array(z.number().int().optional()).optional(),
+});
+const EditOneTimeQuoteQuoteChargesItemSchema = z.object({
+  amount: z.number().int().min(1).optional(),
+  amount_in_decimal: z.string().max(39).optional(),
+  description: z.string().max(250).optional(),
+  avalara_sale_type: z
+    .enum(['wholesale', 'retail', 'consumed', 'vendor_use'])
+    .optional(),
+  avalara_transaction_type: z.number().int().optional(),
+  avalara_service_type: z.number().int().optional(),
+  service_period: z.number().int().optional(),
 });
 const EditOneTimeQuoteQuoteChargesSchema = z.object({
   amount: z.array(z.number().int().min(1).optional()).optional(),
@@ -644,6 +859,11 @@ const EditOneTimeQuoteQuoteChargesSchema = z.object({
   avalara_transaction_type: z.array(z.number().int().optional()).optional(),
   avalara_service_type: z.array(z.number().int().optional()).optional(),
   service_period: z.array(z.number().int().optional()).optional(),
+});
+const EditOneTimeQuoteQuoteTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50).optional(),
+  field_id: z.string().max(50).optional(),
+  field_value: z.string().max(50).optional(),
 });
 const EditOneTimeQuoteQuoteTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()).optional(),
@@ -658,10 +878,24 @@ const EditOneTimeQuoteQuoteBodySchema = z.looseObject({
   coupon: z.string().max(100).optional(),
   coupon_ids: z.array(z.string().max(100).optional()).optional(),
   shipping_address: EditOneTimeQuoteQuoteShippingAddressSchema.optional(),
-  addons: EditOneTimeQuoteQuoteAddonsSchema.optional(),
-  charges: EditOneTimeQuoteQuoteChargesSchema.optional(),
-  tax_providers_fields:
-    EditOneTimeQuoteQuoteTaxProvidersFieldsSchema.optional(),
+  addons: z
+    .union([
+      z.array(EditOneTimeQuoteQuoteAddonsItemSchema.optional()),
+      EditOneTimeQuoteQuoteAddonsSchema,
+    ])
+    .optional(),
+  charges: z
+    .union([
+      z.array(EditOneTimeQuoteQuoteChargesItemSchema.optional()),
+      EditOneTimeQuoteQuoteChargesSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(EditOneTimeQuoteQuoteTaxProvidersFieldsItemSchema.optional()),
+      EditOneTimeQuoteQuoteTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { EditOneTimeQuoteQuoteBodySchema };
 export type EditOneTimeQuoteQuoteBody = z.infer<
@@ -742,6 +976,34 @@ const CreateSubItemsForCustomerQuoteQuoteBillingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const CreateSubItemsForCustomerQuoteQuoteSubscriptionItemsItemSchema = z.object(
+  {
+    item_price_id: z.string().max(100),
+    quantity: z.number().int().min(1).optional(),
+    quantity_in_decimal: z.string().max(33).optional(),
+    unit_price: z.number().int().min(0).optional(),
+    unit_price_in_decimal: z.string().max(39).optional(),
+    billing_cycles: z.number().int().min(0).optional(),
+    trial_end: z.number().int().optional(),
+    service_period_days: z.number().int().min(1).max(4000).optional(),
+    charge_on_event: z
+      .enum([
+        'subscription_creation',
+        'subscription_trial_start',
+        'plan_activation',
+        'subscription_activation',
+        'contract_termination',
+      ])
+      .optional(),
+    charge_once: z.boolean().optional(),
+    item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+    charge_on_option: z.enum(['immediately', 'on_event']).optional(),
+    start_date: z.number().int().optional(),
+    end_date: z.number().int().optional(),
+    description: z.string().max(2000).optional(),
+    ramp_tier_id: z.string().max(105).optional(),
+  },
+);
 const CreateSubItemsForCustomerQuoteQuoteSubscriptionItemsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -776,6 +1038,19 @@ const CreateSubItemsForCustomerQuoteQuoteSubscriptionItemsSchema = z.object({
   description: z.array(z.string().max(2000).optional()).optional(),
   ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
 });
+const CreateSubItemsForCustomerQuoteQuoteDiscountsItemSchema = z.object({
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']).optional(),
+  duration_type: z.enum(['one_time', 'forever', 'limited_period']),
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  period: z.number().int().min(1).optional(),
+  period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  included_in_mrr: z.boolean().optional(),
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  start_date: z.number().int().optional(),
+  end_date: z.number().int().optional(),
+});
 const CreateSubItemsForCustomerQuoteQuoteDiscountsSchema = z.object({
   apply_on: z
     .array(z.enum(['invoice_amount', 'specific_item_price']).optional())
@@ -795,6 +1070,18 @@ const CreateSubItemsForCustomerQuoteQuoteDiscountsSchema = z.object({
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const CreateSubItemsForCustomerQuoteQuoteItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
+  ramp_tier_id: z.string().max(105).optional(),
+});
 const CreateSubItemsForCustomerQuoteQuoteItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
@@ -809,11 +1096,28 @@ const CreateSubItemsForCustomerQuoteQuoteItemTiersSchema = z.object({
   package_size: z.array(z.number().int().min(1).optional()).optional(),
   ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
 });
+const CreateSubItemsForCustomerQuoteQuoteCouponsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  start_date: z.number().int().optional(),
+  end_date: z.number().int().optional(),
+});
 const CreateSubItemsForCustomerQuoteQuoteCouponsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const CreateSubItemsForCustomerQuoteQuoteEntitlementOverridesItemSchema =
+  z.object({
+    feature_id: z.string().max(50).optional(),
+    entity_id: z.string().max(100).optional(),
+    entity_type: z
+      .enum(['plan_price', 'addon_price', 'charge_price', 'charge'])
+      .optional(),
+    value: z.string().max(50).optional(),
+    is_enabled: z.boolean().optional(),
+    start_date: z.number().int().optional(),
+    end_date: z.number().int().optional(),
+  });
 const CreateSubItemsForCustomerQuoteQuoteEntitlementOverridesSchema = z.object({
   feature_id: z.array(z.string().max(50).optional()).optional(),
   entity_id: z.array(z.string().max(100).optional()).optional(),
@@ -848,13 +1152,44 @@ const CreateSubItemsForCustomerQuoteQuoteBodySchema = z.looseObject({
     CreateSubItemsForCustomerQuoteQuoteContractTermSchema.optional(),
   billing_address:
     CreateSubItemsForCustomerQuoteQuoteBillingAddressSchema.optional(),
-  subscription_items:
-    CreateSubItemsForCustomerQuoteQuoteSubscriptionItemsSchema.optional(),
-  discounts: CreateSubItemsForCustomerQuoteQuoteDiscountsSchema.optional(),
-  item_tiers: CreateSubItemsForCustomerQuoteQuoteItemTiersSchema.optional(),
-  coupons: CreateSubItemsForCustomerQuoteQuoteCouponsSchema.optional(),
-  entitlement_overrides:
-    CreateSubItemsForCustomerQuoteQuoteEntitlementOverridesSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(
+        CreateSubItemsForCustomerQuoteQuoteSubscriptionItemsItemSchema.optional(),
+      ),
+      CreateSubItemsForCustomerQuoteQuoteSubscriptionItemsSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(
+        CreateSubItemsForCustomerQuoteQuoteDiscountsItemSchema.optional(),
+      ),
+      CreateSubItemsForCustomerQuoteQuoteDiscountsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(
+        CreateSubItemsForCustomerQuoteQuoteItemTiersItemSchema.optional(),
+      ),
+      CreateSubItemsForCustomerQuoteQuoteItemTiersSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(CreateSubItemsForCustomerQuoteQuoteCouponsItemSchema.optional()),
+      CreateSubItemsForCustomerQuoteQuoteCouponsSchema,
+    ])
+    .optional(),
+  entitlement_overrides: z
+    .union([
+      z.array(
+        CreateSubItemsForCustomerQuoteQuoteEntitlementOverridesItemSchema.optional(),
+      ),
+      CreateSubItemsForCustomerQuoteQuoteEntitlementOverridesSchema,
+    ])
+    .optional(),
 });
 export { CreateSubItemsForCustomerQuoteQuoteBodySchema };
 export type CreateSubItemsForCustomerQuoteQuoteBody = z.infer<
@@ -937,6 +1272,33 @@ const EditCreateSubCustomerQuoteForItemsQuoteBillingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const EditCreateSubCustomerQuoteForItemsQuoteSubscriptionItemsItemSchema =
+  z.object({
+    item_price_id: z.string().max(100),
+    quantity: z.number().int().min(1).optional(),
+    quantity_in_decimal: z.string().max(33).optional(),
+    unit_price: z.number().int().min(0).optional(),
+    unit_price_in_decimal: z.string().max(39).optional(),
+    billing_cycles: z.number().int().min(0).optional(),
+    trial_end: z.number().int().optional(),
+    service_period_days: z.number().int().min(1).max(4000).optional(),
+    charge_on_event: z
+      .enum([
+        'subscription_creation',
+        'subscription_trial_start',
+        'plan_activation',
+        'subscription_activation',
+        'contract_termination',
+      ])
+      .optional(),
+    charge_once: z.boolean().optional(),
+    item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+    charge_on_option: z.enum(['immediately', 'on_event']).optional(),
+    start_date: z.number().int().optional(),
+    end_date: z.number().int().optional(),
+    description: z.string().max(2000).optional(),
+    ramp_tier_id: z.string().max(105).optional(),
+  });
 const EditCreateSubCustomerQuoteForItemsQuoteSubscriptionItemsSchema = z.object(
   {
     item_price_id: z.array(z.string().max(100).optional()),
@@ -975,6 +1337,19 @@ const EditCreateSubCustomerQuoteForItemsQuoteSubscriptionItemsSchema = z.object(
     ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
   },
 );
+const EditCreateSubCustomerQuoteForItemsQuoteDiscountsItemSchema = z.object({
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']).optional(),
+  duration_type: z.enum(['one_time', 'forever', 'limited_period']),
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  period: z.number().int().min(1).optional(),
+  period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  included_in_mrr: z.boolean().optional(),
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  start_date: z.number().int().optional(),
+  end_date: z.number().int().optional(),
+});
 const EditCreateSubCustomerQuoteForItemsQuoteDiscountsSchema = z.object({
   apply_on: z
     .array(z.enum(['invoice_amount', 'specific_item_price']).optional())
@@ -994,6 +1369,18 @@ const EditCreateSubCustomerQuoteForItemsQuoteDiscountsSchema = z.object({
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const EditCreateSubCustomerQuoteForItemsQuoteItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
+  ramp_tier_id: z.string().max(105).optional(),
+});
 const EditCreateSubCustomerQuoteForItemsQuoteItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
@@ -1008,11 +1395,28 @@ const EditCreateSubCustomerQuoteForItemsQuoteItemTiersSchema = z.object({
   package_size: z.array(z.number().int().min(1).optional()).optional(),
   ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
 });
+const EditCreateSubCustomerQuoteForItemsQuoteCouponsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  start_date: z.number().int().optional(),
+  end_date: z.number().int().optional(),
+});
 const EditCreateSubCustomerQuoteForItemsQuoteCouponsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const EditCreateSubCustomerQuoteForItemsQuoteEntitlementOverridesItemSchema =
+  z.object({
+    feature_id: z.string().max(50).optional(),
+    entity_id: z.string().max(100).optional(),
+    entity_type: z
+      .enum(['plan_price', 'addon_price', 'charge_price', 'charge'])
+      .optional(),
+    value: z.string().max(50).optional(),
+    is_enabled: z.boolean().optional(),
+    start_date: z.number().int().optional(),
+    end_date: z.number().int().optional(),
+  });
 const EditCreateSubCustomerQuoteForItemsQuoteEntitlementOverridesSchema =
   z.object({
     feature_id: z.array(z.string().max(50).optional()).optional(),
@@ -1047,13 +1451,46 @@ const EditCreateSubCustomerQuoteForItemsQuoteBodySchema = z.looseObject({
     EditCreateSubCustomerQuoteForItemsQuoteContractTermSchema.optional(),
   billing_address:
     EditCreateSubCustomerQuoteForItemsQuoteBillingAddressSchema.optional(),
-  subscription_items:
-    EditCreateSubCustomerQuoteForItemsQuoteSubscriptionItemsSchema.optional(),
-  discounts: EditCreateSubCustomerQuoteForItemsQuoteDiscountsSchema.optional(),
-  item_tiers: EditCreateSubCustomerQuoteForItemsQuoteItemTiersSchema.optional(),
-  coupons: EditCreateSubCustomerQuoteForItemsQuoteCouponsSchema.optional(),
-  entitlement_overrides:
-    EditCreateSubCustomerQuoteForItemsQuoteEntitlementOverridesSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(
+        EditCreateSubCustomerQuoteForItemsQuoteSubscriptionItemsItemSchema.optional(),
+      ),
+      EditCreateSubCustomerQuoteForItemsQuoteSubscriptionItemsSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(
+        EditCreateSubCustomerQuoteForItemsQuoteDiscountsItemSchema.optional(),
+      ),
+      EditCreateSubCustomerQuoteForItemsQuoteDiscountsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(
+        EditCreateSubCustomerQuoteForItemsQuoteItemTiersItemSchema.optional(),
+      ),
+      EditCreateSubCustomerQuoteForItemsQuoteItemTiersSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(
+        EditCreateSubCustomerQuoteForItemsQuoteCouponsItemSchema.optional(),
+      ),
+      EditCreateSubCustomerQuoteForItemsQuoteCouponsSchema,
+    ])
+    .optional(),
+  entitlement_overrides: z
+    .union([
+      z.array(
+        EditCreateSubCustomerQuoteForItemsQuoteEntitlementOverridesItemSchema.optional(),
+      ),
+      EditCreateSubCustomerQuoteForItemsQuoteEntitlementOverridesSchema,
+    ])
+    .optional(),
 });
 export { EditCreateSubCustomerQuoteForItemsQuoteBodySchema };
 export type EditCreateSubCustomerQuoteForItemsQuoteBody = z.infer<
@@ -1140,6 +1577,33 @@ const UpdateSubscriptionQuoteForItemsQuoteContractTermSchema = z.object({
     .optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const UpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsItemSchema =
+  z.object({
+    item_price_id: z.string().max(100),
+    quantity: z.number().int().min(1).optional(),
+    quantity_in_decimal: z.string().max(33).optional(),
+    unit_price: z.number().int().min(0).optional(),
+    unit_price_in_decimal: z.string().max(39).optional(),
+    billing_cycles: z.number().int().min(0).optional(),
+    trial_end: z.number().int().optional(),
+    service_period_days: z.number().int().min(1).max(4000).optional(),
+    charge_on_event: z
+      .enum([
+        'subscription_creation',
+        'subscription_trial_start',
+        'plan_activation',
+        'subscription_activation',
+        'contract_termination',
+      ])
+      .optional(),
+    charge_once: z.boolean().optional(),
+    charge_on_option: z.enum(['immediately', 'on_event']).optional(),
+    item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+    start_date: z.number().int().optional(),
+    end_date: z.number().int().optional(),
+    description: z.string().max(2000).optional(),
+    ramp_tier_id: z.string().max(105).optional(),
+  });
 const UpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -1174,6 +1638,21 @@ const UpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema = z.object({
   description: z.array(z.string().max(2000).optional()).optional(),
   ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
 });
+const UpdateSubscriptionQuoteForItemsQuoteDiscountsItemSchema = z.object({
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']).optional(),
+  duration_type: z.enum(['one_time', 'forever', 'limited_period']),
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  period: z.number().int().min(1).optional(),
+  period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  included_in_mrr: z.boolean().optional(),
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  operation_type: z.enum(['add', 'remove']),
+  id: z.string().max(50).optional(),
+  start_date: z.number().int().optional(),
+  end_date: z.number().int().optional(),
+});
 const UpdateSubscriptionQuoteForItemsQuoteDiscountsSchema = z.object({
   apply_on: z
     .array(z.enum(['invoice_amount', 'specific_item_price']).optional())
@@ -1195,6 +1674,18 @@ const UpdateSubscriptionQuoteForItemsQuoteDiscountsSchema = z.object({
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const UpdateSubscriptionQuoteForItemsQuoteItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
+  ramp_tier_id: z.string().max(105).optional(),
+});
 const UpdateSubscriptionQuoteForItemsQuoteItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
@@ -1209,11 +1700,28 @@ const UpdateSubscriptionQuoteForItemsQuoteItemTiersSchema = z.object({
   package_size: z.array(z.number().int().min(1).optional()).optional(),
   ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
 });
+const UpdateSubscriptionQuoteForItemsQuoteCouponsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  start_date: z.number().int().optional(),
+  end_date: z.number().int().optional(),
+});
 const UpdateSubscriptionQuoteForItemsQuoteCouponsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const UpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesItemSchema =
+  z.object({
+    feature_id: z.string().max(50).optional(),
+    entity_id: z.string().max(100).optional(),
+    entity_type: z
+      .enum(['plan_price', 'addon_price', 'charge_price', 'charge'])
+      .optional(),
+    value: z.string().max(50).optional(),
+    is_enabled: z.boolean().optional(),
+    start_date: z.number().int().optional(),
+    end_date: z.number().int().optional(),
+  });
 const UpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesSchema = z.object(
   {
     feature_id: z.array(z.string().max(50).optional()).optional(),
@@ -1257,13 +1765,44 @@ const UpdateSubscriptionQuoteForItemsQuoteBodySchema = z.looseObject({
   customer: UpdateSubscriptionQuoteForItemsQuoteCustomerSchema.optional(),
   contract_term:
     UpdateSubscriptionQuoteForItemsQuoteContractTermSchema.optional(),
-  subscription_items:
-    UpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema.optional(),
-  discounts: UpdateSubscriptionQuoteForItemsQuoteDiscountsSchema.optional(),
-  item_tiers: UpdateSubscriptionQuoteForItemsQuoteItemTiersSchema.optional(),
-  coupons: UpdateSubscriptionQuoteForItemsQuoteCouponsSchema.optional(),
-  entitlement_overrides:
-    UpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(
+        UpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsItemSchema.optional(),
+      ),
+      UpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(
+        UpdateSubscriptionQuoteForItemsQuoteDiscountsItemSchema.optional(),
+      ),
+      UpdateSubscriptionQuoteForItemsQuoteDiscountsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(
+        UpdateSubscriptionQuoteForItemsQuoteItemTiersItemSchema.optional(),
+      ),
+      UpdateSubscriptionQuoteForItemsQuoteItemTiersSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(UpdateSubscriptionQuoteForItemsQuoteCouponsItemSchema.optional()),
+      UpdateSubscriptionQuoteForItemsQuoteCouponsSchema,
+    ])
+    .optional(),
+  entitlement_overrides: z
+    .union([
+      z.array(
+        UpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesItemSchema.optional(),
+      ),
+      UpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesSchema,
+    ])
+    .optional(),
 });
 export { UpdateSubscriptionQuoteForItemsQuoteBodySchema };
 export type UpdateSubscriptionQuoteForItemsQuoteBody = z.infer<
@@ -1350,6 +1889,33 @@ const EditUpdateSubscriptionQuoteForItemsQuoteContractTermSchema = z.object({
     .optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const EditUpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsItemSchema =
+  z.object({
+    item_price_id: z.string().max(100),
+    quantity: z.number().int().min(1).optional(),
+    quantity_in_decimal: z.string().max(33).optional(),
+    unit_price: z.number().int().min(0).optional(),
+    unit_price_in_decimal: z.string().max(39).optional(),
+    billing_cycles: z.number().int().min(0).optional(),
+    trial_end: z.number().int().optional(),
+    service_period_days: z.number().int().min(1).max(4000).optional(),
+    charge_on_event: z
+      .enum([
+        'subscription_creation',
+        'subscription_trial_start',
+        'plan_activation',
+        'subscription_activation',
+        'contract_termination',
+      ])
+      .optional(),
+    charge_once: z.boolean().optional(),
+    charge_on_option: z.enum(['immediately', 'on_event']).optional(),
+    item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+    start_date: z.number().int().optional(),
+    end_date: z.number().int().optional(),
+    description: z.string().max(2000).optional(),
+    ramp_tier_id: z.string().max(105).optional(),
+  });
 const EditUpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema =
   z.object({
     item_price_id: z.array(z.string().max(100).optional()),
@@ -1387,6 +1953,21 @@ const EditUpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema =
     description: z.array(z.string().max(2000).optional()).optional(),
     ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
   });
+const EditUpdateSubscriptionQuoteForItemsQuoteDiscountsItemSchema = z.object({
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']).optional(),
+  duration_type: z.enum(['one_time', 'forever', 'limited_period']),
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  period: z.number().int().min(1).optional(),
+  period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  included_in_mrr: z.boolean().optional(),
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  operation_type: z.enum(['add', 'remove']),
+  id: z.string().max(50).optional(),
+  start_date: z.number().int().optional(),
+  end_date: z.number().int().optional(),
+});
 const EditUpdateSubscriptionQuoteForItemsQuoteDiscountsSchema = z.object({
   apply_on: z
     .array(z.enum(['invoice_amount', 'specific_item_price']).optional())
@@ -1408,6 +1989,18 @@ const EditUpdateSubscriptionQuoteForItemsQuoteDiscountsSchema = z.object({
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const EditUpdateSubscriptionQuoteForItemsQuoteItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
+  ramp_tier_id: z.string().max(105).optional(),
+});
 const EditUpdateSubscriptionQuoteForItemsQuoteItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
@@ -1422,11 +2015,28 @@ const EditUpdateSubscriptionQuoteForItemsQuoteItemTiersSchema = z.object({
   package_size: z.array(z.number().int().min(1).optional()).optional(),
   ramp_tier_id: z.array(z.string().max(105).optional()).optional(),
 });
+const EditUpdateSubscriptionQuoteForItemsQuoteCouponsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  start_date: z.number().int().optional(),
+  end_date: z.number().int().optional(),
+});
 const EditUpdateSubscriptionQuoteForItemsQuoteCouponsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   start_date: z.array(z.number().int().optional()).optional(),
   end_date: z.array(z.number().int().optional()).optional(),
 });
+const EditUpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesItemSchema =
+  z.object({
+    feature_id: z.string().max(50).optional(),
+    entity_id: z.string().max(100).optional(),
+    entity_type: z
+      .enum(['plan_price', 'addon_price', 'charge_price', 'charge'])
+      .optional(),
+    value: z.string().max(50).optional(),
+    is_enabled: z.boolean().optional(),
+    start_date: z.number().int().optional(),
+    end_date: z.number().int().optional(),
+  });
 const EditUpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesSchema =
   z.object({
     feature_id: z.array(z.string().max(50).optional()).optional(),
@@ -1468,14 +2078,46 @@ const EditUpdateSubscriptionQuoteForItemsQuoteBodySchema = z.looseObject({
   customer: EditUpdateSubscriptionQuoteForItemsQuoteCustomerSchema.optional(),
   contract_term:
     EditUpdateSubscriptionQuoteForItemsQuoteContractTermSchema.optional(),
-  subscription_items:
-    EditUpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema.optional(),
-  discounts: EditUpdateSubscriptionQuoteForItemsQuoteDiscountsSchema.optional(),
-  item_tiers:
-    EditUpdateSubscriptionQuoteForItemsQuoteItemTiersSchema.optional(),
-  coupons: EditUpdateSubscriptionQuoteForItemsQuoteCouponsSchema.optional(),
-  entitlement_overrides:
-    EditUpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(
+        EditUpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsItemSchema.optional(),
+      ),
+      EditUpdateSubscriptionQuoteForItemsQuoteSubscriptionItemsSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(
+        EditUpdateSubscriptionQuoteForItemsQuoteDiscountsItemSchema.optional(),
+      ),
+      EditUpdateSubscriptionQuoteForItemsQuoteDiscountsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(
+        EditUpdateSubscriptionQuoteForItemsQuoteItemTiersItemSchema.optional(),
+      ),
+      EditUpdateSubscriptionQuoteForItemsQuoteItemTiersSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(
+        EditUpdateSubscriptionQuoteForItemsQuoteCouponsItemSchema.optional(),
+      ),
+      EditUpdateSubscriptionQuoteForItemsQuoteCouponsSchema,
+    ])
+    .optional(),
+  entitlement_overrides: z
+    .union([
+      z.array(
+        EditUpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesItemSchema.optional(),
+      ),
+      EditUpdateSubscriptionQuoteForItemsQuoteEntitlementOverridesSchema,
+    ])
+    .optional(),
 });
 export { EditUpdateSubscriptionQuoteForItemsQuoteBodySchema };
 export type EditUpdateSubscriptionQuoteForItemsQuoteBody = z.infer<
@@ -1520,6 +2162,14 @@ const CreateForChargeItemsAndChargesQuoteShippingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const CreateForChargeItemsAndChargesQuoteItemPricesItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period_days: z.number().int().min(1).max(4000).optional(),
+});
 const CreateForChargeItemsAndChargesQuoteItemPricesSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -1529,6 +2179,17 @@ const CreateForChargeItemsAndChargesQuoteItemPricesSchema = z.object({
   service_period_days: z
     .array(z.number().int().min(1).max(4000).optional())
     .optional(),
+});
+const CreateForChargeItemsAndChargesQuoteItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
 });
 const CreateForChargeItemsAndChargesQuoteItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -1543,6 +2204,17 @@ const CreateForChargeItemsAndChargesQuoteItemTiersSchema = z.object({
     .optional(),
   package_size: z.array(z.number().int().min(1).optional()).optional(),
 });
+const CreateForChargeItemsAndChargesQuoteChargesItemSchema = z.object({
+  amount: z.number().int().min(1).optional(),
+  amount_in_decimal: z.string().max(39).optional(),
+  description: z.string().max(250).optional(),
+  avalara_sale_type: z
+    .enum(['wholesale', 'retail', 'consumed', 'vendor_use'])
+    .optional(),
+  avalara_transaction_type: z.number().int().optional(),
+  avalara_service_type: z.number().int().optional(),
+  service_period: z.number().int().optional(),
+});
 const CreateForChargeItemsAndChargesQuoteChargesSchema = z.object({
   amount: z.array(z.number().int().min(1).optional()).optional(),
   amount_in_decimal: z.array(z.string().max(39).optional()).optional(),
@@ -1554,6 +2226,13 @@ const CreateForChargeItemsAndChargesQuoteChargesSchema = z.object({
   avalara_service_type: z.array(z.number().int().optional()).optional(),
   service_period: z.array(z.number().int().optional()).optional(),
 });
+const CreateForChargeItemsAndChargesQuoteDiscountsItemSchema = z.object({
+  percentage: z.number().min(0.01).max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  amount: z.number().int().min(0).optional(),
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']),
+  item_price_id: z.string().max(100).optional(),
+});
 const CreateForChargeItemsAndChargesQuoteDiscountsSchema = z.object({
   percentage: z.array(z.number().min(0.01).max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -1563,6 +2242,12 @@ const CreateForChargeItemsAndChargesQuoteDiscountsSchema = z.object({
   ),
   item_price_id: z.array(z.string().max(100).optional()).optional(),
 });
+const CreateForChargeItemsAndChargesQuoteTaxProvidersFieldsItemSchema =
+  z.object({
+    provider_name: z.string().max(50).optional(),
+    field_id: z.string().max(50).optional(),
+    field_value: z.string().max(50).optional(),
+  });
 const CreateForChargeItemsAndChargesQuoteTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()).optional(),
   field_id: z.array(z.string().max(50).optional()).optional(),
@@ -1582,12 +2267,44 @@ const CreateForChargeItemsAndChargesQuoteBodySchema = z.looseObject({
     CreateForChargeItemsAndChargesQuoteBillingAddressSchema.optional(),
   shipping_address:
     CreateForChargeItemsAndChargesQuoteShippingAddressSchema.optional(),
-  item_prices: CreateForChargeItemsAndChargesQuoteItemPricesSchema.optional(),
-  item_tiers: CreateForChargeItemsAndChargesQuoteItemTiersSchema.optional(),
-  charges: CreateForChargeItemsAndChargesQuoteChargesSchema.optional(),
-  discounts: CreateForChargeItemsAndChargesQuoteDiscountsSchema.optional(),
-  tax_providers_fields:
-    CreateForChargeItemsAndChargesQuoteTaxProvidersFieldsSchema.optional(),
+  item_prices: z
+    .union([
+      z.array(
+        CreateForChargeItemsAndChargesQuoteItemPricesItemSchema.optional(),
+      ),
+      CreateForChargeItemsAndChargesQuoteItemPricesSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(
+        CreateForChargeItemsAndChargesQuoteItemTiersItemSchema.optional(),
+      ),
+      CreateForChargeItemsAndChargesQuoteItemTiersSchema,
+    ])
+    .optional(),
+  charges: z
+    .union([
+      z.array(CreateForChargeItemsAndChargesQuoteChargesItemSchema.optional()),
+      CreateForChargeItemsAndChargesQuoteChargesSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(
+        CreateForChargeItemsAndChargesQuoteDiscountsItemSchema.optional(),
+      ),
+      CreateForChargeItemsAndChargesQuoteDiscountsSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(
+        CreateForChargeItemsAndChargesQuoteTaxProvidersFieldsItemSchema.optional(),
+      ),
+      CreateForChargeItemsAndChargesQuoteTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { CreateForChargeItemsAndChargesQuoteBodySchema };
 export type CreateForChargeItemsAndChargesQuoteBody = z.infer<
@@ -1632,6 +2349,14 @@ const EditForChargeItemsAndChargesQuoteShippingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const EditForChargeItemsAndChargesQuoteItemPricesItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period_days: z.number().int().min(1).max(4000).optional(),
+});
 const EditForChargeItemsAndChargesQuoteItemPricesSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -1641,6 +2366,17 @@ const EditForChargeItemsAndChargesQuoteItemPricesSchema = z.object({
   service_period_days: z
     .array(z.number().int().min(1).max(4000).optional())
     .optional(),
+});
+const EditForChargeItemsAndChargesQuoteItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
 });
 const EditForChargeItemsAndChargesQuoteItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -1655,6 +2391,17 @@ const EditForChargeItemsAndChargesQuoteItemTiersSchema = z.object({
     .optional(),
   package_size: z.array(z.number().int().min(1).optional()).optional(),
 });
+const EditForChargeItemsAndChargesQuoteChargesItemSchema = z.object({
+  amount: z.number().int().min(1).optional(),
+  amount_in_decimal: z.string().max(39).optional(),
+  description: z.string().max(250).optional(),
+  avalara_sale_type: z
+    .enum(['wholesale', 'retail', 'consumed', 'vendor_use'])
+    .optional(),
+  avalara_transaction_type: z.number().int().optional(),
+  avalara_service_type: z.number().int().optional(),
+  service_period: z.number().int().optional(),
+});
 const EditForChargeItemsAndChargesQuoteChargesSchema = z.object({
   amount: z.array(z.number().int().min(1).optional()).optional(),
   amount_in_decimal: z.array(z.string().max(39).optional()).optional(),
@@ -1666,6 +2413,13 @@ const EditForChargeItemsAndChargesQuoteChargesSchema = z.object({
   avalara_service_type: z.array(z.number().int().optional()).optional(),
   service_period: z.array(z.number().int().optional()).optional(),
 });
+const EditForChargeItemsAndChargesQuoteDiscountsItemSchema = z.object({
+  percentage: z.number().min(0.01).max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  amount: z.number().int().min(0).optional(),
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']),
+  item_price_id: z.string().max(100).optional(),
+});
 const EditForChargeItemsAndChargesQuoteDiscountsSchema = z.object({
   percentage: z.array(z.number().min(0.01).max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -1674,6 +2428,11 @@ const EditForChargeItemsAndChargesQuoteDiscountsSchema = z.object({
     z.enum(['invoice_amount', 'specific_item_price']).optional(),
   ),
   item_price_id: z.array(z.string().max(100).optional()).optional(),
+});
+const EditForChargeItemsAndChargesQuoteTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50).optional(),
+  field_id: z.string().max(50).optional(),
+  field_value: z.string().max(50).optional(),
 });
 const EditForChargeItemsAndChargesQuoteTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()).optional(),
@@ -1692,12 +2451,38 @@ const EditForChargeItemsAndChargesQuoteBodySchema = z.looseObject({
     EditForChargeItemsAndChargesQuoteBillingAddressSchema.optional(),
   shipping_address:
     EditForChargeItemsAndChargesQuoteShippingAddressSchema.optional(),
-  item_prices: EditForChargeItemsAndChargesQuoteItemPricesSchema.optional(),
-  item_tiers: EditForChargeItemsAndChargesQuoteItemTiersSchema.optional(),
-  charges: EditForChargeItemsAndChargesQuoteChargesSchema.optional(),
-  discounts: EditForChargeItemsAndChargesQuoteDiscountsSchema.optional(),
-  tax_providers_fields:
-    EditForChargeItemsAndChargesQuoteTaxProvidersFieldsSchema.optional(),
+  item_prices: z
+    .union([
+      z.array(EditForChargeItemsAndChargesQuoteItemPricesItemSchema.optional()),
+      EditForChargeItemsAndChargesQuoteItemPricesSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(EditForChargeItemsAndChargesQuoteItemTiersItemSchema.optional()),
+      EditForChargeItemsAndChargesQuoteItemTiersSchema,
+    ])
+    .optional(),
+  charges: z
+    .union([
+      z.array(EditForChargeItemsAndChargesQuoteChargesItemSchema.optional()),
+      EditForChargeItemsAndChargesQuoteChargesSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(EditForChargeItemsAndChargesQuoteDiscountsItemSchema.optional()),
+      EditForChargeItemsAndChargesQuoteDiscountsSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(
+        EditForChargeItemsAndChargesQuoteTaxProvidersFieldsItemSchema.optional(),
+      ),
+      EditForChargeItemsAndChargesQuoteTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { EditForChargeItemsAndChargesQuoteBodySchema };
 export type EditForChargeItemsAndChargesQuoteBody = z.infer<
@@ -1710,23 +2495,53 @@ const ListQuoteIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListQuoteCustomerIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListQuoteSubscriptionIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListQuoteStatusSchema = z.object({
   is: z
@@ -1758,45 +2573,103 @@ const ListQuoteStatusSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'open',
-      'accepted',
-      'declined',
-      'invoiced',
-      'closed',
-      'pending_approval',
-      'approval_rejected',
-      'proposed',
-      'voided',
-      'expired',
+    .union([
+      z.array(
+        z
+          .enum([
+            'open',
+            'accepted',
+            'declined',
+            'invoiced',
+            'closed',
+            'pending_approval',
+            'approval_rejected',
+            'proposed',
+            'voided',
+            'expired',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'open',
+        'accepted',
+        'declined',
+        'invoiced',
+        'closed',
+        'pending_approval',
+        'approval_rejected',
+        'proposed',
+        'voided',
+        'expired',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'open',
-      'accepted',
-      'declined',
-      'invoiced',
-      'closed',
-      'pending_approval',
-      'approval_rejected',
-      'proposed',
-      'voided',
-      'expired',
+    .union([
+      z.array(
+        z
+          .enum([
+            'open',
+            'accepted',
+            'declined',
+            'invoiced',
+            'closed',
+            'pending_approval',
+            'approval_rejected',
+            'proposed',
+            'voided',
+            'expired',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'open',
+        'accepted',
+        'declined',
+        'invoiced',
+        'closed',
+        'pending_approval',
+        'approval_rejected',
+        'proposed',
+        'voided',
+        'expired',
+      ]),
     ])
     .optional(),
 });
 const ListQuoteDateSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListQuoteUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListQuoteSortBySchema = z.looseObject({
   asc: z.enum(['date']).optional(),
