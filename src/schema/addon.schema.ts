@@ -7,6 +7,14 @@ import { z } from 'zod';
 //Addon.create
 
 const CreateAddonMetaDataSchema = z.looseObject({});
+const CreateAddonTiersItemSchema = z.object({
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+});
 const CreateAddonTiersSchema = z.object({
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
   ending_unit: z.array(z.number().int().optional()).optional(),
@@ -14,6 +22,11 @@ const CreateAddonTiersSchema = z.object({
   starting_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
   ending_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
   price_in_decimal: z.array(z.string().max(39).optional()).optional(),
+});
+const CreateAddonTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50),
+  field_id: z.string().max(50),
+  field_value: z.string().max(50),
 });
 const CreateAddonTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()),
@@ -71,8 +84,18 @@ const CreateAddonBodySchema = z.looseObject({
     .enum(['site_default', 'partial_term', 'full_term'])
     .optional(),
   status: z.enum(['active', 'archived']).optional(),
-  tiers: CreateAddonTiersSchema.optional(),
-  tax_providers_fields: CreateAddonTaxProvidersFieldsSchema.optional(),
+  tiers: z
+    .union([
+      z.array(CreateAddonTiersItemSchema.optional()),
+      CreateAddonTiersSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(CreateAddonTaxProvidersFieldsItemSchema.optional()),
+      CreateAddonTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { CreateAddonBodySchema };
 export type CreateAddonBody = z.infer<typeof CreateAddonBodySchema>;
@@ -80,6 +103,14 @@ export type CreateAddonBody = z.infer<typeof CreateAddonBodySchema>;
 //Addon.update
 
 const UpdateAddonMetaDataSchema = z.looseObject({});
+const UpdateAddonTiersItemSchema = z.object({
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+});
 const UpdateAddonTiersSchema = z.object({
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
   ending_unit: z.array(z.number().int().optional()).optional(),
@@ -87,6 +118,11 @@ const UpdateAddonTiersSchema = z.object({
   starting_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
   ending_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
   price_in_decimal: z.array(z.string().max(39).optional()).optional(),
+});
+const UpdateAddonTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50),
+  field_id: z.string().max(50),
+  field_value: z.string().max(50),
 });
 const UpdateAddonTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()),
@@ -142,8 +178,18 @@ const UpdateAddonBodySchema = z.looseObject({
   proration_type: z
     .enum(['site_default', 'partial_term', 'full_term'])
     .optional(),
-  tiers: UpdateAddonTiersSchema.optional(),
-  tax_providers_fields: UpdateAddonTaxProvidersFieldsSchema.optional(),
+  tiers: z
+    .union([
+      z.array(UpdateAddonTiersItemSchema.optional()),
+      UpdateAddonTiersSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(UpdateAddonTaxProvidersFieldsItemSchema.optional()),
+      UpdateAddonTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { UpdateAddonBodySchema };
 export type UpdateAddonBody = z.infer<typeof UpdateAddonBodySchema>;
@@ -154,15 +200,35 @@ const ListAddonIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListAddonNameSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListAddonPricingModelSchema = z.object({
   is: z
@@ -172,10 +238,24 @@ const ListAddonPricingModelSchema = z.object({
     .enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep'])
     .optional(),
   in: z
-    .enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep'])
+    .union([
+      z.array(
+        z
+          .enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep'])
+          .optional(),
+      ),
+      z.enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep']),
+    ])
     .optional(),
   not_in: z
-    .enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep'])
+    .union([
+      z.array(
+        z
+          .enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep'])
+          .optional(),
+      ),
+      z.enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep']),
+    ])
     .optional(),
 });
 const ListAddonTypeSchema = z.object({
@@ -186,66 +266,179 @@ const ListAddonTypeSchema = z.object({
     .enum(['on_off', 'quantity', 'tiered', 'volume', 'stairstep'])
     .optional(),
   in: z
-    .enum(['on_off', 'quantity', 'tiered', 'volume', 'stairstep'])
+    .union([
+      z.array(
+        z
+          .enum(['on_off', 'quantity', 'tiered', 'volume', 'stairstep'])
+          .optional(),
+      ),
+      z.enum(['on_off', 'quantity', 'tiered', 'volume', 'stairstep']),
+    ])
     .optional(),
   not_in: z
-    .enum(['on_off', 'quantity', 'tiered', 'volume', 'stairstep'])
+    .union([
+      z.array(
+        z
+          .enum(['on_off', 'quantity', 'tiered', 'volume', 'stairstep'])
+          .optional(),
+      ),
+      z.enum(['on_off', 'quantity', 'tiered', 'volume', 'stairstep']),
+    ])
     .optional(),
 });
 const ListAddonChargeTypeSchema = z.object({
   is: z.enum(['recurring', 'non_recurring']).optional(),
   is_not: z.enum(['recurring', 'non_recurring']).optional(),
-  in: z.enum(['recurring', 'non_recurring']).optional(),
-  not_in: z.enum(['recurring', 'non_recurring']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['recurring', 'non_recurring']).optional()),
+      z.enum(['recurring', 'non_recurring']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['recurring', 'non_recurring']).optional()),
+      z.enum(['recurring', 'non_recurring']),
+    ])
+    .optional(),
 });
 const ListAddonPriceSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListAddonPeriodSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListAddonPeriodUnitSchema = z.object({
   is: z.enum(['day', 'week', 'month', 'year', 'not_applicable']).optional(),
   is_not: z.enum(['day', 'week', 'month', 'year', 'not_applicable']).optional(),
-  in: z.enum(['day', 'week', 'month', 'year', 'not_applicable']).optional(),
-  not_in: z.enum(['day', 'week', 'month', 'year', 'not_applicable']).optional(),
+  in: z
+    .union([
+      z.array(
+        z.enum(['day', 'week', 'month', 'year', 'not_applicable']).optional(),
+      ),
+      z.enum(['day', 'week', 'month', 'year', 'not_applicable']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(
+        z.enum(['day', 'week', 'month', 'year', 'not_applicable']).optional(),
+      ),
+      z.enum(['day', 'week', 'month', 'year', 'not_applicable']),
+    ])
+    .optional(),
 });
 const ListAddonStatusSchema = z.object({
   is: z.enum(['active', 'archived', 'deleted']).optional(),
   is_not: z.enum(['active', 'archived', 'deleted']).optional(),
-  in: z.enum(['active', 'archived', 'deleted']).optional(),
-  not_in: z.enum(['active', 'archived', 'deleted']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['active', 'archived', 'deleted']).optional()),
+      z.enum(['active', 'archived', 'deleted']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['active', 'archived', 'deleted']).optional()),
+      z.enum(['active', 'archived', 'deleted']),
+    ])
+    .optional(),
 });
 const ListAddonUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListAddonCurrencyCodeSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListAddonChannelSchema = z.object({
   is: z.enum(['web', 'app_store', 'play_store']).optional(),
   is_not: z.enum(['web', 'app_store', 'play_store']).optional(),
-  in: z.enum(['web', 'app_store', 'play_store']).optional(),
-  not_in: z.enum(['web', 'app_store', 'play_store']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
 });
 const ListAddonBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

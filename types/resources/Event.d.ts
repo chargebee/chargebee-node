@@ -217,6 +217,7 @@ declare module 'chargebee' {
       SalesOrderCreatedContent &
       CustomerChangedContent &
       SubscriptionStartedContent &
+      OrganizationDetailsUpdatedContent &
       SubscriptionActivatedContent &
       PaymentSourceExpiringContent &
       SubscriptionReactivatedContent &
@@ -258,6 +259,7 @@ declare module 'chargebee' {
       OmnichannelSubscriptionCreatedContent &
       TaxWithheldRecordedContent &
       PriceVariantCreatedContent &
+      OrganizationDetailsCreatedContent &
       DifferentialPriceDeletedContent &
       BusinessRuleActivatedContent &
       SubscriptionItemsRenewedContent &

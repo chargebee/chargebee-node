@@ -6,6 +6,18 @@ import { z } from 'zod';
 
 //EntitlementOverride.addEntitlementOverrideForSubscription
 
+const AddEntitlementOverrideForSubscriptionEntitlementOverrideEntitlementOverridesItemSchema =
+  z.object({
+    feature_id: z.string().max(50),
+    entity_id: z.string().max(100).optional(),
+    entity_type: z
+      .enum(['plan_price', 'addon_price', 'charge', 'charge_price'])
+      .optional(),
+    value: z.string().max(50).optional(),
+    expires_at: z.number().int().optional(),
+    effective_from: z.number().int().optional(),
+    is_enabled: z.boolean().optional(),
+  });
 const AddEntitlementOverrideForSubscriptionEntitlementOverrideEntitlementOverridesSchema =
   z.object({
     feature_id: z.array(z.string().max(50).optional()),
@@ -25,8 +37,14 @@ const AddEntitlementOverrideForSubscriptionEntitlementOverrideEntitlementOverrid
 const AddEntitlementOverrideForSubscriptionEntitlementOverrideBodySchema =
   z.looseObject({
     action: z.enum(['upsert', 'remove']).optional(),
-    entitlement_overrides:
-      AddEntitlementOverrideForSubscriptionEntitlementOverrideEntitlementOverridesSchema.optional(),
+    entitlement_overrides: z
+      .union([
+        z.array(
+          AddEntitlementOverrideForSubscriptionEntitlementOverrideEntitlementOverridesItemSchema.optional(),
+        ),
+        AddEntitlementOverrideForSubscriptionEntitlementOverrideEntitlementOverridesSchema,
+      ])
+      .optional(),
   });
 export { AddEntitlementOverrideForSubscriptionEntitlementOverrideBodySchema };
 export type AddEntitlementOverrideForSubscriptionEntitlementOverrideBody =

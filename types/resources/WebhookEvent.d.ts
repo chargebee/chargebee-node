@@ -199,6 +199,7 @@ declare module 'chargebee' {
     SalesOrderCreated = 'sales_order_created',
     CustomerChanged = 'customer_changed',
     SubscriptionStarted = 'subscription_started',
+    OrganizationDetailsUpdated = 'organization_details_updated',
     SubscriptionActivated = 'subscription_activated',
     PaymentSourceExpiring = 'payment_source_expiring',
     SubscriptionReactivated = 'subscription_reactivated',
@@ -240,6 +241,7 @@ declare module 'chargebee' {
     OmnichannelSubscriptionCreated = 'omnichannel_subscription_created',
     TaxWithheldRecorded = 'tax_withheld_recorded',
     PriceVariantCreated = 'price_variant_created',
+    OrganizationDetailsCreated = 'organization_details_created',
     DifferentialPriceDeleted = 'differential_price_deleted',
     BusinessRuleActivated = 'business_rule_activated',
     SubscriptionItemsRenewed = 'subscription_items_renewed',
@@ -471,6 +473,7 @@ declare module 'chargebee' {
     [WebhookEventType.SalesOrderCreated]: SalesOrderCreatedContent;
     [WebhookEventType.CustomerChanged]: CustomerChangedContent;
     [WebhookEventType.SubscriptionStarted]: SubscriptionStartedContent;
+    [WebhookEventType.OrganizationDetailsUpdated]: OrganizationDetailsUpdatedContent;
     [WebhookEventType.SubscriptionActivated]: SubscriptionActivatedContent;
     [WebhookEventType.PaymentSourceExpiring]: PaymentSourceExpiringContent;
     [WebhookEventType.SubscriptionReactivated]: SubscriptionReactivatedContent;
@@ -512,6 +515,7 @@ declare module 'chargebee' {
     [WebhookEventType.OmnichannelSubscriptionCreated]: OmnichannelSubscriptionCreatedContent;
     [WebhookEventType.TaxWithheldRecorded]: TaxWithheldRecordedContent;
     [WebhookEventType.PriceVariantCreated]: PriceVariantCreatedContent;
+    [WebhookEventType.OrganizationDetailsCreated]: OrganizationDetailsCreatedContent;
     [WebhookEventType.DifferentialPriceDeleted]: DifferentialPriceDeletedContent;
     [WebhookEventType.BusinessRuleActivated]: BusinessRuleActivatedContent;
     [WebhookEventType.SubscriptionItemsRenewed]: SubscriptionItemsRenewedContent;
@@ -1634,6 +1638,9 @@ declare module 'chargebee' {
 
     invoice: Invoice;
   };
+  export type OrganizationDetailsUpdatedContent = {
+    organization_detail: OrganizationDetail;
+  };
   export type SubscriptionActivatedContent = {
     subscription: Subscription;
 
@@ -1838,6 +1845,9 @@ declare module 'chargebee' {
     price_variant: PriceVariant;
 
     attribute: Attribute;
+  };
+  export type OrganizationDetailsCreatedContent = {
+    organization_detail: OrganizationDetail;
   };
   export type DifferentialPriceDeletedContent = {
     differential_price: DifferentialPrice;

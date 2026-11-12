@@ -335,11 +335,22 @@ const CreateCustomerPaymentIntentSchema = z.object({
   gw_payment_method_id: z.string().max(65000).optional(),
   additional_information: CreateCustomerAdditionalInformationSchema.optional(),
 });
+const CreateCustomerEntityIdentifiersItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  scheme: z.string().max(50).optional(),
+  value: z.string().max(50).optional(),
+  standard: z.string().max(50).optional(),
+});
 const CreateCustomerEntityIdentifiersSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   scheme: z.array(z.string().max(50).optional()).optional(),
   value: z.array(z.string().max(50).optional()).optional(),
   standard: z.array(z.string().max(50).optional()).optional(),
+});
+const CreateCustomerTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50).optional(),
+  field_id: z.string().max(50).optional(),
+  field_value: z.string().max(50).optional(),
 });
 const CreateCustomerTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()).optional(),
@@ -429,8 +440,18 @@ const CreateCustomerBodySchema = z.looseObject({
   payment_method: CreateCustomerPaymentMethodSchema.optional(),
   payment_intent: CreateCustomerPaymentIntentSchema.optional(),
   billing_address: CreateCustomerBillingAddressSchema.optional(),
-  entity_identifiers: CreateCustomerEntityIdentifiersSchema.optional(),
-  tax_providers_fields: CreateCustomerTaxProvidersFieldsSchema.optional(),
+  entity_identifiers: z
+    .union([
+      z.array(CreateCustomerEntityIdentifiersItemSchema.optional()),
+      CreateCustomerEntityIdentifiersSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(CreateCustomerTaxProvidersFieldsItemSchema.optional()),
+      CreateCustomerTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { CreateCustomerBodySchema };
 export type CreateCustomerBody = z.infer<typeof CreateCustomerBodySchema>;
@@ -441,62 +462,108 @@ const ListCustomerIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListCustomerFirstNameSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListCustomerLastNameSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListCustomerEmailSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListCustomerCompanySchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListCustomerPhoneSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListCustomerAutoCollectionSchema = z.object({
   is: z.enum(['on', 'off']).optional(),
   is_not: z.enum(['on', 'off']).optional(),
-  in: z.enum(['on', 'off']).optional(),
-  not_in: z.enum(['on', 'off']).optional(),
+  in: z
+    .union([z.array(z.enum(['on', 'off']).optional()), z.enum(['on', 'off'])])
+    .optional(),
+  not_in: z
+    .union([z.array(z.enum(['on', 'off']).optional()), z.enum(['on', 'off'])])
+    .optional(),
 });
 const ListCustomerTaxabilitySchema = z.object({
   is: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
   is_not: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
-  in: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
-  not_in: z.enum(['taxable', 'exempt', 'zero_rated']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['taxable', 'exempt', 'zero_rated']).optional()),
+      z.enum(['taxable', 'exempt', 'zero_rated']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['taxable', 'exempt', 'zero_rated']).optional()),
+      z.enum(['taxable', 'exempt', 'zero_rated']),
+    ])
+    .optional(),
 });
 const ListCustomerCreatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListCustomerUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListCustomerOfflinePaymentMethodSchema = z.object({
   is: z
@@ -534,48 +601,100 @@ const ListCustomerOfflinePaymentMethodSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'no_preference',
-      'cash',
-      'check',
-      'bank_transfer',
-      'ach_credit',
-      'sepa_credit',
-      'boleto',
-      'us_automated_bank_transfer',
-      'eu_automated_bank_transfer',
-      'uk_automated_bank_transfer',
-      'jp_automated_bank_transfer',
-      'mx_automated_bank_transfer',
-      'custom',
+    .union([
+      z.array(
+        z
+          .enum([
+            'no_preference',
+            'cash',
+            'check',
+            'bank_transfer',
+            'ach_credit',
+            'sepa_credit',
+            'boleto',
+            'us_automated_bank_transfer',
+            'eu_automated_bank_transfer',
+            'uk_automated_bank_transfer',
+            'jp_automated_bank_transfer',
+            'mx_automated_bank_transfer',
+            'custom',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'no_preference',
+        'cash',
+        'check',
+        'bank_transfer',
+        'ach_credit',
+        'sepa_credit',
+        'boleto',
+        'us_automated_bank_transfer',
+        'eu_automated_bank_transfer',
+        'uk_automated_bank_transfer',
+        'jp_automated_bank_transfer',
+        'mx_automated_bank_transfer',
+        'custom',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'no_preference',
-      'cash',
-      'check',
-      'bank_transfer',
-      'ach_credit',
-      'sepa_credit',
-      'boleto',
-      'us_automated_bank_transfer',
-      'eu_automated_bank_transfer',
-      'uk_automated_bank_transfer',
-      'jp_automated_bank_transfer',
-      'mx_automated_bank_transfer',
-      'custom',
+    .union([
+      z.array(
+        z
+          .enum([
+            'no_preference',
+            'cash',
+            'check',
+            'bank_transfer',
+            'ach_credit',
+            'sepa_credit',
+            'boleto',
+            'us_automated_bank_transfer',
+            'eu_automated_bank_transfer',
+            'uk_automated_bank_transfer',
+            'jp_automated_bank_transfer',
+            'mx_automated_bank_transfer',
+            'custom',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'no_preference',
+        'cash',
+        'check',
+        'bank_transfer',
+        'ach_credit',
+        'sepa_credit',
+        'boleto',
+        'us_automated_bank_transfer',
+        'eu_automated_bank_transfer',
+        'uk_automated_bank_transfer',
+        'jp_automated_bank_transfer',
+        'mx_automated_bank_transfer',
+        'custom',
+      ]),
     ])
     .optional(),
 });
 const ListCustomerAutoCloseInvoicesSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListCustomerChannelSchema = z.object({
   is: z.enum(['web', 'app_store', 'play_store']).optional(),
   is_not: z.enum(['web', 'app_store', 'play_store']).optional(),
-  in: z.enum(['web', 'app_store', 'play_store']).optional(),
-  not_in: z.enum(['web', 'app_store', 'play_store']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
 });
 const ListCustomerBusinessEntityIdSchema = z.object({
   is: z.string().min(1).optional(),
@@ -631,6 +750,11 @@ export type ListCustomerBody = z.infer<typeof ListCustomerBodySchema>;
 //Customer.update
 
 const UpdateCustomerMetaDataSchema = z.looseObject({});
+const UpdateCustomerTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50).optional(),
+  field_id: z.string().max(50).optional(),
+  field_value: z.string().max(50).optional(),
+});
 const UpdateCustomerTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()).optional(),
   field_id: z.array(z.string().max(50).optional()).optional(),
@@ -702,7 +826,12 @@ const UpdateCustomerBodySchema = z.looseObject({
   meta_data: UpdateCustomerMetaDataSchema.optional(),
   fraud_flag: z.enum(['safe', 'fraudulent']).optional(),
   consolidated_invoicing: z.boolean().optional(),
-  tax_providers_fields: UpdateCustomerTaxProvidersFieldsSchema.optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(UpdateCustomerTaxProvidersFieldsItemSchema.optional()),
+      UpdateCustomerTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { UpdateCustomerBodySchema };
 export type UpdateCustomerBody = z.infer<typeof UpdateCustomerBodySchema>;
@@ -880,6 +1009,13 @@ const UpdateBillingInfoCustomerBillingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const UpdateBillingInfoCustomerEntityIdentifiersItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  scheme: z.string().max(50).optional(),
+  value: z.string().max(50).optional(),
+  operation: z.enum(['create', 'update', 'delete']).optional(),
+  standard: z.string().max(50).optional(),
+});
 const UpdateBillingInfoCustomerEntityIdentifiersSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   scheme: z.array(z.string().max(50).optional()).optional(),
@@ -888,6 +1024,11 @@ const UpdateBillingInfoCustomerEntityIdentifiersSchema = z.object({
     .array(z.enum(['create', 'update', 'delete']).optional())
     .optional(),
   standard: z.array(z.string().max(50).optional()).optional(),
+});
+const UpdateBillingInfoCustomerTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50).optional(),
+  field_id: z.string().max(50).optional(),
+  field_value: z.string().max(50).optional(),
 });
 const UpdateBillingInfoCustomerTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()).optional(),
@@ -904,10 +1045,18 @@ const UpdateBillingInfoCustomerBodySchema = z.looseObject({
   is_einvoice_enabled: z.boolean().optional(),
   einvoicing_method: z.enum(['automatic', 'manual', 'site_default']).optional(),
   billing_address: UpdateBillingInfoCustomerBillingAddressSchema.optional(),
-  entity_identifiers:
-    UpdateBillingInfoCustomerEntityIdentifiersSchema.optional(),
-  tax_providers_fields:
-    UpdateBillingInfoCustomerTaxProvidersFieldsSchema.optional(),
+  entity_identifiers: z
+    .union([
+      z.array(UpdateBillingInfoCustomerEntityIdentifiersItemSchema.optional()),
+      UpdateBillingInfoCustomerEntityIdentifiersSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(UpdateBillingInfoCustomerTaxProvidersFieldsItemSchema.optional()),
+      UpdateBillingInfoCustomerTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { UpdateBillingInfoCustomerBodySchema };
 export type UpdateBillingInfoCustomerBody = z.infer<
@@ -1054,12 +1203,6 @@ const RecordExcessPaymentCustomerTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
-    'tamara',
-    'qpay',
-    'blik',
-    'fpx',
-    'wero',
-    'p24',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),
@@ -1253,6 +1396,10 @@ const CollectPaymentCustomerPaymentIntentSchema = z.object({
   additional_information:
     CollectPaymentCustomerAdditionalInformationSchema.optional(),
 });
+const CollectPaymentCustomerInvoiceAllocationsItemSchema = z.object({
+  invoice_id: z.string().max(50),
+  allocation_amount: z.number().int().min(0).optional(),
+});
 const CollectPaymentCustomerInvoiceAllocationsSchema = z.object({
   invoice_id: z.array(z.string().max(50).optional()),
   allocation_amount: z.array(z.number().int().min(0).optional()).optional(),
@@ -1267,8 +1414,12 @@ const CollectPaymentCustomerBodySchema = z.looseObject({
   payment_method: CollectPaymentCustomerPaymentMethodSchema.optional(),
   card: CollectPaymentCustomerCardSchema.optional(),
   payment_intent: CollectPaymentCustomerPaymentIntentSchema.optional(),
-  invoice_allocations:
-    CollectPaymentCustomerInvoiceAllocationsSchema.optional(),
+  invoice_allocations: z
+    .union([
+      z.array(CollectPaymentCustomerInvoiceAllocationsItemSchema.optional()),
+      CollectPaymentCustomerInvoiceAllocationsSchema,
+    ])
+    .optional(),
 });
 export { CollectPaymentCustomerBodySchema };
 export type CollectPaymentCustomerBody = z.infer<

@@ -10,6 +10,8 @@
 ///<reference path='./resources/AttachedItem.d.ts' />
 ///<reference path='./resources/Attribute.d.ts' />
 ///<reference path='./resources/BillingConfiguration.d.ts' />
+///<reference path='./resources/BillingLineItem.d.ts' />
+///<reference path='./resources/BillingMetadata.d.ts' />
 ///<reference path='./resources/Brand.d.ts' />
 ///<reference path='./resources/BusinessEntity.d.ts' />
 ///<reference path='./resources/BusinessEntityTransfer.d.ts' />
@@ -59,6 +61,8 @@
 ///<reference path='./resources/FilterCondition.d.ts' />
 ///<reference path='./resources/GatewayErrorDetail.d.ts' />
 ///<reference path='./resources/GatewayPaymentMethodToken.d.ts' />
+///<reference path='./resources/GatewayRequestLog.d.ts' />
+///<reference path='./resources/GatewayWebhookLog.d.ts' />
 ///<reference path='./resources/Gift.d.ts' />
 ///<reference path='./resources/GrantBlock.d.ts' />
 ///<reference path='./resources/GroupByAttribute.d.ts' />
@@ -94,6 +98,7 @@
 ///<reference path='./resources/OmnichannelSubscriptionItemScheduledChange.d.ts' />
 ///<reference path='./resources/OmnichannelTransaction.d.ts' />
 ///<reference path='./resources/Order.d.ts' />
+///<reference path='./resources/OrganizationDetail.d.ts' />
 ///<reference path='./resources/PaymentIntent.d.ts' />
 ///<reference path='./resources/PaymentReferenceNumber.d.ts' />
 ///<reference path='./resources/PaymentSchedule.d.ts' />
@@ -326,7 +331,6 @@ declare module 'chargebee' {
     customerEntitlement: CustomerEntitlement.CustomerEntitlementResource;
     differentialPrice: DifferentialPrice.DifferentialPriceResource;
     dispute: Dispute.DisputeResource;
-    draftRequest: DraftRequest.DraftRequestResource;
     einvoice: Einvoice.EinvoiceResource;
     emailLog: EmailLog.EmailLogResource;
     entitlement: Entitlement.EntitlementResource;
@@ -335,6 +339,8 @@ declare module 'chargebee' {
     event: Event.EventResource;
     export: Export.ExportResource;
     feature: Feature.FeatureResource;
+    gatewayRequestLog: GatewayRequestLog.GatewayRequestLogResource;
+    gatewayWebhookLog: GatewayWebhookLog.GatewayWebhookLogResource;
     gift: Gift.GiftResource;
     grantBlock: GrantBlock.GrantBlockResource;
     hostedPage: HostedPage.HostedPageResource;
@@ -355,6 +361,7 @@ declare module 'chargebee' {
     omnichannelSubscription: OmnichannelSubscription.OmnichannelSubscriptionResource;
     omnichannelSubscriptionItem: OmnichannelSubscriptionItem.OmnichannelSubscriptionItemResource;
     order: Order.OrderResource;
+    organizationDetail: OrganizationDetail.OrganizationDetailResource;
     paymentIntent: PaymentIntent.PaymentIntentResource;
     paymentSchedule: PaymentSchedule.PaymentScheduleResource;
     paymentScheduleScheme: PaymentScheduleScheme.PaymentScheduleSchemeResource;

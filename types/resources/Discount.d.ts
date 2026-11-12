@@ -5,6 +5,7 @@ declare module 'chargebee' {
   export interface Discount {
     id: string;
     invoice_name?: string;
+    description?: string;
     type: 'fixed_amount' | 'percentage' | 'offer_quantity';
     percentage?: number;
     amount?: number;

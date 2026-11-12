@@ -10,7 +10,12 @@ const AlertStatusesforsubscriptionAlertStatusAlarmStatusSchema = z.object({
   is: z.enum(['within_limit', 'in_alarm']).optional(),
 });
 const AlertStatusesforsubscriptionAlertStatusAlertIdSchema = z.object({
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const AlertStatusesforsubscriptionAlertStatusBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

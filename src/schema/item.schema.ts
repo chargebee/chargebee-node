@@ -10,6 +10,12 @@ const CreateItemMetadataSchema = z.looseObject({});
 const CreateItemBundleConfigurationSchema = z.object({
   type: z.enum(['fixed']).optional(),
 });
+const CreateItemBundleItemsToAddItemSchema = z.object({
+  item_id: z.string().max(100).optional(),
+  item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+  quantity: z.number().int().min(1).optional(),
+  price_allocation: z.number().min(0).max(100).optional(),
+});
 const CreateItemBundleItemsToAddSchema = z.object({
   item_id: z.array(z.string().max(100).optional()).optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
@@ -41,7 +47,12 @@ const CreateItemBodySchema = z.looseObject({
   metadata: CreateItemMetadataSchema.optional(),
   business_entity_id: z.string().max(50).optional(),
   bundle_configuration: CreateItemBundleConfigurationSchema.optional(),
-  bundle_items_to_add: CreateItemBundleItemsToAddSchema.optional(),
+  bundle_items_to_add: z
+    .union([
+      z.array(CreateItemBundleItemsToAddItemSchema.optional()),
+      CreateItemBundleItemsToAddSchema,
+    ])
+    .optional(),
 });
 export { CreateItemBodySchema };
 export type CreateItemBody = z.infer<typeof CreateItemBodySchema>;
@@ -52,17 +63,33 @@ const UpdateItemMetadataSchema = z.looseObject({});
 const UpdateItemBundleConfigurationSchema = z.object({
   type: z.enum(['fixed']).optional(),
 });
+const UpdateItemBundleItemsToAddItemSchema = z.object({
+  item_id: z.string().max(100).optional(),
+  item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+  quantity: z.number().int().min(1).optional(),
+  price_allocation: z.number().min(0).max(100).optional(),
+});
 const UpdateItemBundleItemsToAddSchema = z.object({
   item_id: z.array(z.string().max(100).optional()).optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
   price_allocation: z.array(z.number().min(0).max(100).optional()).optional(),
 });
+const UpdateItemBundleItemsToUpdateItemSchema = z.object({
+  item_id: z.string().max(100).optional(),
+  item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+  quantity: z.number().int().min(1).optional(),
+  price_allocation: z.number().min(0).max(100).optional(),
+});
 const UpdateItemBundleItemsToUpdateSchema = z.object({
   item_id: z.array(z.string().max(100).optional()).optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
   price_allocation: z.array(z.number().min(0).max(100).optional()).optional(),
+});
+const UpdateItemBundleItemsToRemoveItemSchema = z.object({
+  item_id: z.string().max(100).optional(),
+  item_type: z.enum(['plan', 'addon', 'charge']).optional(),
 });
 const UpdateItemBundleItemsToRemoveSchema = z.object({
   item_id: z.array(z.string().max(100).optional()).optional(),
@@ -87,9 +114,24 @@ const UpdateItemBodySchema = z.looseObject({
   status: z.enum(['active', 'archived']).optional(),
   is_percentage_pricing: z.boolean().default(false).optional(),
   bundle_configuration: UpdateItemBundleConfigurationSchema.optional(),
-  bundle_items_to_add: UpdateItemBundleItemsToAddSchema.optional(),
-  bundle_items_to_update: UpdateItemBundleItemsToUpdateSchema.optional(),
-  bundle_items_to_remove: UpdateItemBundleItemsToRemoveSchema.optional(),
+  bundle_items_to_add: z
+    .union([
+      z.array(UpdateItemBundleItemsToAddItemSchema.optional()),
+      UpdateItemBundleItemsToAddSchema,
+    ])
+    .optional(),
+  bundle_items_to_update: z
+    .union([
+      z.array(UpdateItemBundleItemsToUpdateItemSchema.optional()),
+      UpdateItemBundleItemsToUpdateSchema,
+    ])
+    .optional(),
+  bundle_items_to_remove: z
+    .union([
+      z.array(UpdateItemBundleItemsToRemoveItemSchema.optional()),
+      UpdateItemBundleItemsToRemoveSchema,
+    ])
+    .optional(),
 });
 export { UpdateItemBodySchema };
 export type UpdateItemBody = z.infer<typeof UpdateItemBodySchema>;
@@ -100,21 +142,51 @@ const ListItemIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListItemItemFamilyIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListItemTypeSchema = z.object({
   is: z.enum(['plan', 'addon', 'charge']).optional(),
   is_not: z.enum(['plan', 'addon', 'charge']).optional(),
-  in: z.enum(['plan', 'addon', 'charge']).optional(),
-  not_in: z.enum(['plan', 'addon', 'charge']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['plan', 'addon', 'charge']).optional()),
+      z.enum(['plan', 'addon', 'charge']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['plan', 'addon', 'charge']).optional()),
+      z.enum(['plan', 'addon', 'charge']),
+    ])
+    .optional(),
 });
 const ListItemNameSchema = z.object({
   is: z.string().min(1).optional(),
@@ -124,51 +196,102 @@ const ListItemNameSchema = z.object({
 const ListItemItemApplicabilitySchema = z.object({
   is: z.enum(['all', 'restricted']).optional(),
   is_not: z.enum(['all', 'restricted']).optional(),
-  in: z.enum(['all', 'restricted']).optional(),
-  not_in: z.enum(['all', 'restricted']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['all', 'restricted']).optional()),
+      z.enum(['all', 'restricted']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['all', 'restricted']).optional()),
+      z.enum(['all', 'restricted']),
+    ])
+    .optional(),
 });
 const ListItemStatusSchema = z.object({
   is: z.enum(['active', 'archived', 'deleted']).optional(),
   is_not: z.enum(['active', 'archived', 'deleted']).optional(),
-  in: z.enum(['active', 'archived', 'deleted']).optional(),
-  not_in: z.enum(['active', 'archived', 'deleted']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['active', 'archived', 'deleted']).optional()),
+      z.enum(['active', 'archived', 'deleted']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['active', 'archived', 'deleted']).optional()),
+      z.enum(['active', 'archived', 'deleted']),
+    ])
+    .optional(),
 });
 const ListItemIsGiftableSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListItemUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListItemEnabledForCheckoutSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListItemEnabledInPortalSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListItemMeteredSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListItemUsageCalculationSchema = z.object({
   is: z.enum(['sum_of_usages', 'last_usage', 'max_usage']).optional(),
   is_not: z.enum(['sum_of_usages', 'last_usage', 'max_usage']).optional(),
-  in: z.enum(['sum_of_usages', 'last_usage', 'max_usage']).optional(),
-  not_in: z.enum(['sum_of_usages', 'last_usage', 'max_usage']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['sum_of_usages', 'last_usage', 'max_usage']).optional()),
+      z.enum(['sum_of_usages', 'last_usage', 'max_usage']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['sum_of_usages', 'last_usage', 'max_usage']).optional()),
+      z.enum(['sum_of_usages', 'last_usage', 'max_usage']),
+    ])
+    .optional(),
 });
 const ListItemChannelSchema = z.object({
   is: z.enum(['web', 'app_store', 'play_store']).optional(),
   is_not: z.enum(['web', 'app_store', 'play_store']).optional(),
-  in: z.enum(['web', 'app_store', 'play_store']).optional(),
-  not_in: z.enum(['web', 'app_store', 'play_store']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
 });
 const ListItemBusinessEntityIdSchema = z.object({
-  is_present: z.enum(['true', 'false']).optional(),
   is: z.string().min(1).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListItemIncludeSiteLevelResourcesSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListItemSortBySchema = z.looseObject({
   asc: z.enum(['name', 'id', 'updated_at']).optional(),

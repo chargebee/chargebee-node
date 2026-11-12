@@ -47,6 +47,7 @@ declare module 'chargebee' {
     first_invoice?: boolean;
     new_sales_amount?: number;
     has_advance_charges?: boolean;
+    offline_payment_method?: OfflinePaymentMethodEnum;
     term_finalized: boolean;
     is_gifted: boolean;
     generated_at?: number;
@@ -956,6 +957,7 @@ declare module 'chargebee' {
       payment_source_id?: string;
       auto_collection?: AutoCollectionEnum;
       net_term_days?: number;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       invoice_date?: number;
       create_pending_invoice?: boolean;
       token_id?: string;
@@ -1859,6 +1861,8 @@ declare module 'chargebee' {
     }
     export interface CreditNotesApplyCreditsInputParam {
       id?: string;
+      amount?: number;
+      applied_at?: number;
     }
     export interface EinvoiceInvoiceListInputParam {
       status?: filter.Enum;

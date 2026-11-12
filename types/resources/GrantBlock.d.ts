@@ -32,6 +32,7 @@ declare module 'chargebee' {
     resource_version?: number;
     provisioned_block_balance?: GrantBlock.ProvisionedBlockBalance;
     overdraft_block_balance?: GrantBlock.OverdraftBlockBalance;
+    billing_metadata?: GrantBlock.BillingMetadata;
     metadata?: any;
   }
 
@@ -64,6 +65,10 @@ declare module 'chargebee' {
       total_balance?: string;
       usable_balance?: string;
       used_amount?: string;
+    }
+    export interface BillingMetadata {
+      item_price_id?: string;
+      line_items?: BillingLineItem[];
     }
     // REQUEST PARAMS
     //---------------

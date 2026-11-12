@@ -164,6 +164,14 @@ const CheckoutNewHostedPageContractTermSchema = z.object({
   action_at_term_end: z.enum(['renew', 'evergreen', 'cancel']).optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const CheckoutNewHostedPageAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+});
 const CheckoutNewHostedPageAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -171,6 +179,25 @@ const CheckoutNewHostedPageAddonsSchema = z.object({
   unit_price: z.array(z.number().int().min(0).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
+});
+const CheckoutNewHostedPageEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+  on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().default(true).optional(),
+  charge_on: z.enum(['immediately', 'on_event']).optional(),
 });
 const CheckoutNewHostedPageEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -217,8 +244,18 @@ const CheckoutNewHostedPageBodySchema = z.looseObject({
   billing_address: CheckoutNewHostedPageBillingAddressSchema.optional(),
   shipping_address: CheckoutNewHostedPageShippingAddressSchema.optional(),
   contract_term: CheckoutNewHostedPageContractTermSchema.optional(),
-  addons: CheckoutNewHostedPageAddonsSchema.optional(),
-  event_based_addons: CheckoutNewHostedPageEventBasedAddonsSchema.optional(),
+  addons: z
+    .union([
+      z.array(CheckoutNewHostedPageAddonsItemSchema.optional()),
+      CheckoutNewHostedPageAddonsSchema,
+    ])
+    .optional(),
+  event_based_addons: z
+    .union([
+      z.array(CheckoutNewHostedPageEventBasedAddonsItemSchema.optional()),
+      CheckoutNewHostedPageEventBasedAddonsSchema,
+    ])
+    .optional(),
 });
 export { CheckoutNewHostedPageBodySchema };
 export type CheckoutNewHostedPageBody = z.infer<
@@ -346,6 +383,15 @@ const CheckoutOneTimeHostedPageShippingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const CheckoutOneTimeHostedPageAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  date_from: z.number().int().optional(),
+  date_to: z.number().int().optional(),
+});
 const CheckoutOneTimeHostedPageAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -354,6 +400,23 @@ const CheckoutOneTimeHostedPageAddonsSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
+});
+const CheckoutOneTimeHostedPageChargesItemSchema = z.object({
+  amount: z.number().int().min(1).optional(),
+  amount_in_decimal: z.string().max(39).optional(),
+  description: z.string().max(250).optional(),
+  taxable: z.boolean().default(true).optional(),
+  tax_profile_id: z.string().max(50).optional(),
+  avalara_tax_code: z.string().max(50).optional(),
+  hsn_code: z.string().max(50).optional(),
+  taxjar_product_code: z.string().max(50).optional(),
+  avalara_sale_type: z
+    .enum(['wholesale', 'retail', 'consumed', 'vendor_use'])
+    .optional(),
+  avalara_transaction_type: z.number().int().optional(),
+  avalara_service_type: z.number().int().optional(),
+  date_from: z.number().int().optional(),
+  date_to: z.number().int().optional(),
 });
 const CheckoutOneTimeHostedPageChargesSchema = z.object({
   amount: z.array(z.number().int().min(1).optional()).optional(),
@@ -387,8 +450,18 @@ const CheckoutOneTimeHostedPageBodySchema = z.looseObject({
   card: CheckoutOneTimeHostedPageCardSchema.optional(),
   billing_address: CheckoutOneTimeHostedPageBillingAddressSchema.optional(),
   shipping_address: CheckoutOneTimeHostedPageShippingAddressSchema.optional(),
-  addons: CheckoutOneTimeHostedPageAddonsSchema.optional(),
-  charges: CheckoutOneTimeHostedPageChargesSchema.optional(),
+  addons: z
+    .union([
+      z.array(CheckoutOneTimeHostedPageAddonsItemSchema.optional()),
+      CheckoutOneTimeHostedPageAddonsSchema,
+    ])
+    .optional(),
+  charges: z
+    .union([
+      z.array(CheckoutOneTimeHostedPageChargesItemSchema.optional()),
+      CheckoutOneTimeHostedPageChargesSchema,
+    ])
+    .optional(),
 });
 export { CheckoutOneTimeHostedPageBodySchema };
 export type CheckoutOneTimeHostedPageBody = z.infer<
@@ -520,6 +593,15 @@ const CheckoutOneTimeForItemsHostedPageShippingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const CheckoutOneTimeForItemsHostedPageItemPricesItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  date_from: z.number().int().optional(),
+  date_to: z.number().int().optional(),
+});
 const CheckoutOneTimeForItemsHostedPageItemPricesSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -528,6 +610,17 @@ const CheckoutOneTimeForItemsHostedPageItemPricesSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
+});
+const CheckoutOneTimeForItemsHostedPageItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
 });
 const CheckoutOneTimeForItemsHostedPageItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -541,6 +634,23 @@ const CheckoutOneTimeForItemsHostedPageItemTiersSchema = z.object({
     .array(z.enum(['per_unit', 'flat_fee', 'package']).optional())
     .optional(),
   package_size: z.array(z.number().int().min(1).optional()).optional(),
+});
+const CheckoutOneTimeForItemsHostedPageChargesItemSchema = z.object({
+  amount: z.number().int().min(1).optional(),
+  amount_in_decimal: z.string().max(39).optional(),
+  description: z.string().max(250).optional(),
+  taxable: z.boolean().default(true).optional(),
+  tax_profile_id: z.string().max(50).optional(),
+  avalara_tax_code: z.string().max(50).optional(),
+  hsn_code: z.string().max(50).optional(),
+  taxjar_product_code: z.string().max(50).optional(),
+  avalara_sale_type: z
+    .enum(['wholesale', 'retail', 'consumed', 'vendor_use'])
+    .optional(),
+  avalara_transaction_type: z.number().int().optional(),
+  avalara_service_type: z.number().int().optional(),
+  date_from: z.number().int().optional(),
+  date_to: z.number().int().optional(),
 });
 const CheckoutOneTimeForItemsHostedPageChargesSchema = z.object({
   amount: z.array(z.number().int().min(1).optional()).optional(),
@@ -559,6 +669,13 @@ const CheckoutOneTimeForItemsHostedPageChargesSchema = z.object({
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
 });
+const CheckoutOneTimeForItemsHostedPageDiscountsItemSchema = z.object({
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  quantity: z.number().int().min(1).optional(),
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']),
+  item_price_id: z.string().max(100).optional(),
+});
 const CheckoutOneTimeForItemsHostedPageDiscountsSchema = z.object({
   percentage: z.array(z.number().min(0.01).max(100).optional()).optional(),
   amount: z.array(z.number().int().min(0).optional()).optional(),
@@ -567,6 +684,13 @@ const CheckoutOneTimeForItemsHostedPageDiscountsSchema = z.object({
     z.enum(['invoice_amount', 'specific_item_price']).optional(),
   ),
   item_price_id: z.array(z.string().max(100).optional()).optional(),
+});
+const CheckoutOneTimeForItemsHostedPageEntityIdentifiersItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  scheme: z.string().max(50).optional(),
+  value: z.string().max(50).optional(),
+  operation: z.enum(['create', 'update', 'delete']).optional(),
+  standard: z.string().max(50).optional(),
 });
 const CheckoutOneTimeForItemsHostedPageEntityIdentifiersSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
@@ -595,12 +719,38 @@ const CheckoutOneTimeForItemsHostedPageBodySchema = z.looseObject({
     CheckoutOneTimeForItemsHostedPageBillingAddressSchema.optional(),
   shipping_address:
     CheckoutOneTimeForItemsHostedPageShippingAddressSchema.optional(),
-  item_prices: CheckoutOneTimeForItemsHostedPageItemPricesSchema.optional(),
-  item_tiers: CheckoutOneTimeForItemsHostedPageItemTiersSchema.optional(),
-  charges: CheckoutOneTimeForItemsHostedPageChargesSchema.optional(),
-  discounts: CheckoutOneTimeForItemsHostedPageDiscountsSchema.optional(),
-  entity_identifiers:
-    CheckoutOneTimeForItemsHostedPageEntityIdentifiersSchema.optional(),
+  item_prices: z
+    .union([
+      z.array(CheckoutOneTimeForItemsHostedPageItemPricesItemSchema.optional()),
+      CheckoutOneTimeForItemsHostedPageItemPricesSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(CheckoutOneTimeForItemsHostedPageItemTiersItemSchema.optional()),
+      CheckoutOneTimeForItemsHostedPageItemTiersSchema,
+    ])
+    .optional(),
+  charges: z
+    .union([
+      z.array(CheckoutOneTimeForItemsHostedPageChargesItemSchema.optional()),
+      CheckoutOneTimeForItemsHostedPageChargesSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(CheckoutOneTimeForItemsHostedPageDiscountsItemSchema.optional()),
+      CheckoutOneTimeForItemsHostedPageDiscountsSchema,
+    ])
+    .optional(),
+  entity_identifiers: z
+    .union([
+      z.array(
+        CheckoutOneTimeForItemsHostedPageEntityIdentifiersItemSchema.optional(),
+      ),
+      CheckoutOneTimeForItemsHostedPageEntityIdentifiersSchema,
+    ])
+    .optional(),
 });
 export { CheckoutOneTimeForItemsHostedPageBodySchema };
 export type CheckoutOneTimeForItemsHostedPageBody = z.infer<
@@ -765,6 +915,28 @@ const CheckoutNewForItemsHostedPageContractTermSchema = z.object({
   action_at_term_end: z.enum(['renew', 'evergreen', 'cancel']).optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const CheckoutNewForItemsHostedPageSubscriptionItemsItemSchema = z.object({
+  item_price_id: z.string().max(100),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  trial_end: z.number().int().optional(),
+  service_period_days: z.number().int().min(1).max(4000).optional(),
+  charge_on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().optional(),
+  item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+  charge_on_option: z.enum(['immediately', 'on_event']).optional(),
+});
 const CheckoutNewForItemsHostedPageSubscriptionItemsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -795,6 +967,17 @@ const CheckoutNewForItemsHostedPageSubscriptionItemsSchema = z.object({
     .array(z.enum(['immediately', 'on_event']).optional())
     .optional(),
 });
+const CheckoutNewForItemsHostedPageDiscountsItemSchema = z.object({
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']).optional(),
+  duration_type: z.enum(['one_time', 'forever', 'limited_period']),
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  period: z.number().int().min(1).optional(),
+  period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  included_in_mrr: z.boolean().optional(),
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+});
 const CheckoutNewForItemsHostedPageDiscountsSchema = z.object({
   apply_on: z
     .array(z.enum(['invoice_amount', 'specific_item_price']).optional())
@@ -812,6 +995,17 @@ const CheckoutNewForItemsHostedPageDiscountsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
 });
+const CheckoutNewForItemsHostedPageItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
+});
 const CheckoutNewForItemsHostedPageItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
@@ -825,6 +1019,13 @@ const CheckoutNewForItemsHostedPageItemTiersSchema = z.object({
     .optional(),
   package_size: z.array(z.number().int().min(1).optional()).optional(),
 });
+const CheckoutNewForItemsHostedPageEntityIdentifiersItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  scheme: z.string().max(50).optional(),
+  value: z.string().max(50).optional(),
+  operation: z.enum(['create', 'update', 'delete']).optional(),
+  standard: z.string().max(50).optional(),
+});
 const CheckoutNewForItemsHostedPageEntityIdentifiersSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   scheme: z.array(z.string().max(50).optional()).optional(),
@@ -833,6 +1034,17 @@ const CheckoutNewForItemsHostedPageEntityIdentifiersSchema = z.object({
     .array(z.enum(['create', 'update', 'delete']).optional())
     .optional(),
   standard: z.array(z.string().max(50).optional()).optional(),
+});
+const CheckoutNewForItemsHostedPageAllowedBillingFrequenciesItemSchema =
+  z.object({
+    period: z.number().int().min(1).optional(),
+    period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  });
+const CheckoutNewForItemsHostedPageAllowedBillingFrequenciesSchema = z.object({
+  period: z.array(z.number().int().min(1).optional()).optional(),
+  period_unit: z
+    .array(z.enum(['day', 'week', 'month', 'year']).optional())
+    .optional(),
 });
 const CheckoutNewForItemsHostedPageBodySchema = z.looseObject({
   layout: z.enum(['in_app', 'full_page']).optional(),
@@ -846,6 +1058,7 @@ const CheckoutNewForItemsHostedPageBodySchema = z.looseObject({
   redirect_url: z.string().max(250).optional(),
   cancel_url: z.string().max(250).optional(),
   pass_thru_content: z.string().max(2048).optional(),
+  show_billing_frequency_selector: z.boolean().optional(),
   allow_offline_payment_methods: z.boolean().optional(),
   subscription: CheckoutNewForItemsHostedPageSubscriptionSchema.optional(),
   customer: CheckoutNewForItemsHostedPageCustomerSchema.optional(),
@@ -854,12 +1067,42 @@ const CheckoutNewForItemsHostedPageBodySchema = z.looseObject({
   shipping_address:
     CheckoutNewForItemsHostedPageShippingAddressSchema.optional(),
   contract_term: CheckoutNewForItemsHostedPageContractTermSchema.optional(),
-  subscription_items:
-    CheckoutNewForItemsHostedPageSubscriptionItemsSchema.optional(),
-  discounts: CheckoutNewForItemsHostedPageDiscountsSchema.optional(),
-  item_tiers: CheckoutNewForItemsHostedPageItemTiersSchema.optional(),
-  entity_identifiers:
-    CheckoutNewForItemsHostedPageEntityIdentifiersSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(
+        CheckoutNewForItemsHostedPageSubscriptionItemsItemSchema.optional(),
+      ),
+      CheckoutNewForItemsHostedPageSubscriptionItemsSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(CheckoutNewForItemsHostedPageDiscountsItemSchema.optional()),
+      CheckoutNewForItemsHostedPageDiscountsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(CheckoutNewForItemsHostedPageItemTiersItemSchema.optional()),
+      CheckoutNewForItemsHostedPageItemTiersSchema,
+    ])
+    .optional(),
+  entity_identifiers: z
+    .union([
+      z.array(
+        CheckoutNewForItemsHostedPageEntityIdentifiersItemSchema.optional(),
+      ),
+      CheckoutNewForItemsHostedPageEntityIdentifiersSchema,
+    ])
+    .optional(),
+  allowed_billing_frequencies: z
+    .union([
+      z.array(
+        CheckoutNewForItemsHostedPageAllowedBillingFrequenciesItemSchema.optional(),
+      ),
+      CheckoutNewForItemsHostedPageAllowedBillingFrequenciesSchema,
+    ])
+    .optional(),
 });
 export { CheckoutNewForItemsHostedPageBodySchema };
 export type CheckoutNewForItemsHostedPageBody = z.infer<
@@ -980,6 +1223,14 @@ const CheckoutExistingHostedPageContractTermSchema = z.object({
   action_at_term_end: z.enum(['renew', 'evergreen', 'cancel']).optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const CheckoutExistingHostedPageAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+});
 const CheckoutExistingHostedPageAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -987,6 +1238,25 @@ const CheckoutExistingHostedPageAddonsSchema = z.object({
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   quantity_in_decimal: z.array(z.string().max(33).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
+});
+const CheckoutExistingHostedPageEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+  charge_on: z.enum(['immediately', 'on_event']).optional(),
+  on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().default(true).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
 });
 const CheckoutExistingHostedPageEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -1037,9 +1307,18 @@ const CheckoutExistingHostedPageBodySchema = z.looseObject({
   customer: CheckoutExistingHostedPageCustomerSchema.optional(),
   card: CheckoutExistingHostedPageCardSchema.optional(),
   contract_term: CheckoutExistingHostedPageContractTermSchema.optional(),
-  addons: CheckoutExistingHostedPageAddonsSchema.optional(),
-  event_based_addons:
-    CheckoutExistingHostedPageEventBasedAddonsSchema.optional(),
+  addons: z
+    .union([
+      z.array(CheckoutExistingHostedPageAddonsItemSchema.optional()),
+      CheckoutExistingHostedPageAddonsSchema,
+    ])
+    .optional(),
+  event_based_addons: z
+    .union([
+      z.array(CheckoutExistingHostedPageEventBasedAddonsItemSchema.optional()),
+      CheckoutExistingHostedPageEventBasedAddonsSchema,
+    ])
+    .optional(),
 });
 export { CheckoutExistingHostedPageBodySchema };
 export type CheckoutExistingHostedPageBody = z.infer<
@@ -1158,6 +1437,28 @@ const CheckoutExistingForItemsHostedPageContractTermSchema = z.object({
   action_at_term_end: z.enum(['renew', 'evergreen', 'cancel']).optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const CheckoutExistingForItemsHostedPageSubscriptionItemsItemSchema = z.object({
+  item_price_id: z.string().max(100),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  trial_end: z.number().int().optional(),
+  service_period_days: z.number().int().min(1).max(4000).optional(),
+  charge_on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().optional(),
+  charge_on_option: z.enum(['immediately', 'on_event']).optional(),
+  item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+});
 const CheckoutExistingForItemsHostedPageSubscriptionItemsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -1188,6 +1489,19 @@ const CheckoutExistingForItemsHostedPageSubscriptionItemsSchema = z.object({
     .optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
 });
+const CheckoutExistingForItemsHostedPageDiscountsItemSchema = z.object({
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']).optional(),
+  duration_type: z.enum(['one_time', 'forever', 'limited_period']),
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  period: z.number().int().min(1).optional(),
+  period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  included_in_mrr: z.boolean().optional(),
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  operation_type: z.enum(['add', 'remove']),
+  id: z.string().max(50).optional(),
+});
 const CheckoutExistingForItemsHostedPageDiscountsSchema = z.object({
   apply_on: z
     .array(z.enum(['invoice_amount', 'specific_item_price']).optional())
@@ -1207,6 +1521,17 @@ const CheckoutExistingForItemsHostedPageDiscountsSchema = z.object({
   operation_type: z.array(z.enum(['add', 'remove']).optional()),
   id: z.array(z.string().max(50).optional()).optional(),
 });
+const CheckoutExistingForItemsHostedPageItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
+});
 const CheckoutExistingForItemsHostedPageItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
@@ -1220,6 +1545,13 @@ const CheckoutExistingForItemsHostedPageItemTiersSchema = z.object({
     .optional(),
   package_size: z.array(z.number().int().min(1).optional()).optional(),
 });
+const CheckoutExistingForItemsHostedPageEntityIdentifiersItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  scheme: z.string().max(50).optional(),
+  value: z.string().max(50).optional(),
+  operation: z.enum(['create', 'update', 'delete']).optional(),
+  standard: z.string().max(50).optional(),
+});
 const CheckoutExistingForItemsHostedPageEntityIdentifiersSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   scheme: z.array(z.string().max(50).optional()).optional(),
@@ -1229,6 +1561,18 @@ const CheckoutExistingForItemsHostedPageEntityIdentifiersSchema = z.object({
     .optional(),
   standard: z.array(z.string().max(50).optional()).optional(),
 });
+const CheckoutExistingForItemsHostedPageAllowedBillingFrequenciesItemSchema =
+  z.object({
+    period: z.number().int().min(1).optional(),
+    period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  });
+const CheckoutExistingForItemsHostedPageAllowedBillingFrequenciesSchema =
+  z.object({
+    period: z.array(z.number().int().min(1).optional()).optional(),
+    period_unit: z
+      .array(z.enum(['day', 'week', 'month', 'year']).optional())
+      .optional(),
+  });
 const CheckoutExistingForItemsHostedPageBodySchema = z.looseObject({
   layout: z.enum(['in_app', 'full_page']).optional(),
   brand_id: z.string().max(50).optional(),
@@ -1251,18 +1595,49 @@ const CheckoutExistingForItemsHostedPageBodySchema = z.looseObject({
   redirect_url: z.string().max(250).optional(),
   cancel_url: z.string().max(250).optional(),
   pass_thru_content: z.string().max(2048).optional(),
+  show_billing_frequency_selector: z.boolean().optional(),
   allow_offline_payment_methods: z.boolean().optional(),
   subscription: CheckoutExistingForItemsHostedPageSubscriptionSchema.optional(),
   customer: CheckoutExistingForItemsHostedPageCustomerSchema.optional(),
   card: CheckoutExistingForItemsHostedPageCardSchema.optional(),
   contract_term:
     CheckoutExistingForItemsHostedPageContractTermSchema.optional(),
-  subscription_items:
-    CheckoutExistingForItemsHostedPageSubscriptionItemsSchema.optional(),
-  discounts: CheckoutExistingForItemsHostedPageDiscountsSchema.optional(),
-  item_tiers: CheckoutExistingForItemsHostedPageItemTiersSchema.optional(),
-  entity_identifiers:
-    CheckoutExistingForItemsHostedPageEntityIdentifiersSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(
+        CheckoutExistingForItemsHostedPageSubscriptionItemsItemSchema.optional(),
+      ),
+      CheckoutExistingForItemsHostedPageSubscriptionItemsSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(CheckoutExistingForItemsHostedPageDiscountsItemSchema.optional()),
+      CheckoutExistingForItemsHostedPageDiscountsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(CheckoutExistingForItemsHostedPageItemTiersItemSchema.optional()),
+      CheckoutExistingForItemsHostedPageItemTiersSchema,
+    ])
+    .optional(),
+  entity_identifiers: z
+    .union([
+      z.array(
+        CheckoutExistingForItemsHostedPageEntityIdentifiersItemSchema.optional(),
+      ),
+      CheckoutExistingForItemsHostedPageEntityIdentifiersSchema,
+    ])
+    .optional(),
+  allowed_billing_frequencies: z
+    .union([
+      z.array(
+        CheckoutExistingForItemsHostedPageAllowedBillingFrequenciesItemSchema.optional(),
+      ),
+      CheckoutExistingForItemsHostedPageAllowedBillingFrequenciesSchema,
+    ])
+    .optional(),
 });
 export { CheckoutExistingForItemsHostedPageBodySchema };
 export type CheckoutExistingForItemsHostedPageBody = z.infer<
@@ -1657,6 +2032,11 @@ const CheckoutGiftHostedPageSubscriptionSchema = z.looseObject({
   plan_quantity_in_decimal: z.string().max(33).optional(),
   coupon: z.string().max(100).optional(),
 });
+const CheckoutGiftHostedPageAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+});
 const CheckoutGiftHostedPageAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -1667,7 +2047,12 @@ const CheckoutGiftHostedPageBodySchema = z.looseObject({
   coupon_ids: z.array(z.string().max(100).optional()).optional(),
   gifter: CheckoutGiftHostedPageGifterSchema.optional(),
   subscription: CheckoutGiftHostedPageSubscriptionSchema.optional(),
-  addons: CheckoutGiftHostedPageAddonsSchema.optional(),
+  addons: z
+    .union([
+      z.array(CheckoutGiftHostedPageAddonsItemSchema.optional()),
+      CheckoutGiftHostedPageAddonsSchema,
+    ])
+    .optional(),
 });
 export { CheckoutGiftHostedPageBodySchema };
 export type CheckoutGiftHostedPageBody = z.infer<
@@ -1679,12 +2064,28 @@ export type CheckoutGiftHostedPageBody = z.infer<
 const CheckoutGiftForItemsHostedPageGifterSchema = z.object({
   customer_id: z.string().max(50).optional(),
 });
+const CheckoutGiftForItemsHostedPageSubscriptionItemsItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+});
 const CheckoutGiftForItemsHostedPageSubscriptionItemsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
   quantity_in_decimal: z.array(z.string().max(33).optional()).optional(),
   unit_price: z.array(z.number().int().min(0).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
+});
+const CheckoutGiftForItemsHostedPageItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
 });
 const CheckoutGiftForItemsHostedPageItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -1695,16 +2096,47 @@ const CheckoutGiftForItemsHostedPageItemTiersSchema = z.object({
   ending_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
   price_in_decimal: z.array(z.string().max(39).optional()).optional(),
 });
+const CheckoutGiftForItemsHostedPageAllowedBillingFrequenciesItemSchema =
+  z.object({
+    period: z.number().int().min(1).optional(),
+    period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  });
+const CheckoutGiftForItemsHostedPageAllowedBillingFrequenciesSchema = z.object({
+  period: z.array(z.number().int().min(1).optional()).optional(),
+  period_unit: z
+    .array(z.enum(['day', 'week', 'month', 'year']).optional())
+    .optional(),
+});
 const CheckoutGiftForItemsHostedPageBodySchema = z.looseObject({
   layout: z.enum(['in_app', 'full_page']).optional(),
   business_entity_id: z.string().max(50).optional(),
   brand_id: z.string().max(50).optional(),
   redirect_url: z.string().max(250).optional(),
   coupon_ids: z.array(z.string().max(100).optional()).optional(),
+  show_billing_frequency_selector: z.boolean().optional(),
   gifter: CheckoutGiftForItemsHostedPageGifterSchema.optional(),
-  subscription_items:
-    CheckoutGiftForItemsHostedPageSubscriptionItemsSchema.optional(),
-  item_tiers: CheckoutGiftForItemsHostedPageItemTiersSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(
+        CheckoutGiftForItemsHostedPageSubscriptionItemsItemSchema.optional(),
+      ),
+      CheckoutGiftForItemsHostedPageSubscriptionItemsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(CheckoutGiftForItemsHostedPageItemTiersItemSchema.optional()),
+      CheckoutGiftForItemsHostedPageItemTiersSchema,
+    ])
+    .optional(),
+  allowed_billing_frequencies: z
+    .union([
+      z.array(
+        CheckoutGiftForItemsHostedPageAllowedBillingFrequenciesItemSchema.optional(),
+      ),
+      CheckoutGiftForItemsHostedPageAllowedBillingFrequenciesSchema,
+    ])
+    .optional(),
 });
 export { CheckoutGiftForItemsHostedPageBodySchema };
 export type CheckoutGiftForItemsHostedPageBody = z.infer<
@@ -1746,8 +2178,18 @@ const ListHostedPageIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListHostedPageTypeSchema = z.object({
   is: z
@@ -1781,33 +2223,71 @@ const ListHostedPageTypeSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'checkout_new',
-      'checkout_existing',
-      'update_card',
-      'update_payment_method',
-      'manage_payment_sources',
-      'collect_now',
-      'extend_subscription',
-      'checkout_one_time',
-      'pre_cancel',
-      'view_voucher',
-      'accept_quote',
+    .union([
+      z.array(
+        z
+          .enum([
+            'checkout_new',
+            'checkout_existing',
+            'update_card',
+            'update_payment_method',
+            'manage_payment_sources',
+            'collect_now',
+            'extend_subscription',
+            'checkout_one_time',
+            'pre_cancel',
+            'view_voucher',
+            'accept_quote',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'checkout_new',
+        'checkout_existing',
+        'update_card',
+        'update_payment_method',
+        'manage_payment_sources',
+        'collect_now',
+        'extend_subscription',
+        'checkout_one_time',
+        'pre_cancel',
+        'view_voucher',
+        'accept_quote',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'checkout_new',
-      'checkout_existing',
-      'update_card',
-      'update_payment_method',
-      'manage_payment_sources',
-      'collect_now',
-      'extend_subscription',
-      'checkout_one_time',
-      'pre_cancel',
-      'view_voucher',
-      'accept_quote',
+    .union([
+      z.array(
+        z
+          .enum([
+            'checkout_new',
+            'checkout_existing',
+            'update_card',
+            'update_payment_method',
+            'manage_payment_sources',
+            'collect_now',
+            'extend_subscription',
+            'checkout_one_time',
+            'pre_cancel',
+            'view_voucher',
+            'accept_quote',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'checkout_new',
+        'checkout_existing',
+        'update_card',
+        'update_payment_method',
+        'manage_payment_sources',
+        'collect_now',
+        'extend_subscription',
+        'checkout_one_time',
+        'pre_cancel',
+        'view_voucher',
+        'accept_quote',
+      ]),
     ])
     .optional(),
 });
@@ -1833,31 +2313,70 @@ const ListHostedPageStateSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'created',
-      'requested',
-      'succeeded',
-      'cancelled',
-      'failed',
-      'acknowledged',
+    .union([
+      z.array(
+        z
+          .enum([
+            'created',
+            'requested',
+            'succeeded',
+            'cancelled',
+            'failed',
+            'acknowledged',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'created',
+        'requested',
+        'succeeded',
+        'cancelled',
+        'failed',
+        'acknowledged',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'created',
-      'requested',
-      'succeeded',
-      'cancelled',
-      'failed',
-      'acknowledged',
+    .union([
+      z.array(
+        z
+          .enum([
+            'created',
+            'requested',
+            'succeeded',
+            'cancelled',
+            'failed',
+            'acknowledged',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'created',
+        'requested',
+        'succeeded',
+        'cancelled',
+        'failed',
+        'acknowledged',
+      ]),
     ])
     .optional(),
 });
 const ListHostedPageUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListHostedPageBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

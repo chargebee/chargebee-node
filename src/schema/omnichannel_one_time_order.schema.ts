@@ -14,10 +14,44 @@ const ListOmnichannelOneTimeOrderSourceSchema = z.object({
     .enum(['apple_app_store', 'google_play_store', 'roku', 'amazon_app_store'])
     .optional(),
   in: z
-    .enum(['apple_app_store', 'google_play_store', 'roku', 'amazon_app_store'])
+    .union([
+      z.array(
+        z
+          .enum([
+            'apple_app_store',
+            'google_play_store',
+            'roku',
+            'amazon_app_store',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'apple_app_store',
+        'google_play_store',
+        'roku',
+        'amazon_app_store',
+      ]),
+    ])
     .optional(),
   not_in: z
-    .enum(['apple_app_store', 'google_play_store', 'roku', 'amazon_app_store'])
+    .union([
+      z.array(
+        z
+          .enum([
+            'apple_app_store',
+            'google_play_store',
+            'roku',
+            'amazon_app_store',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'apple_app_store',
+        'google_play_store',
+        'roku',
+        'amazon_app_store',
+      ]),
+    ])
     .optional(),
 });
 const ListOmnichannelOneTimeOrderCustomerIdSchema = z.object({

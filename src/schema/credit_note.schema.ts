@@ -6,6 +6,28 @@ import { z } from 'zod';
 
 //CreditNote.create
 
+const CreateCreditNoteLineItemsItemSchema = z.object({
+  reference_line_item_id: z.string().max(40).optional(),
+  unit_amount: z.number().int().optional(),
+  unit_amount_in_decimal: z.string().max(39).optional(),
+  quantity: z.number().int().optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  amount: z.number().int().optional(),
+  date_from: z.number().int().optional(),
+  date_to: z.number().int().optional(),
+  description: z.string().max(250).optional(),
+  entity_type: z
+    .enum([
+      'adhoc',
+      'plan_item_price',
+      'addon_item_price',
+      'charge_item_price',
+      'plan',
+      'addon',
+    ])
+    .optional(),
+  entity_id: z.string().max(100).optional(),
+});
 const CreateCreditNoteLineItemsSchema = z.object({
   reference_line_item_id: z.array(z.string().max(40).optional()).optional(),
   unit_amount: z.array(z.number().int().optional()).optional(),
@@ -52,7 +74,12 @@ const CreateCreditNoteBodySchema = z.looseObject({
   customer_notes: z.string().max(2000).optional(),
   currency_code: z.string().max(3).optional(),
   comment: z.string().max(300).optional(),
-  line_items: CreateCreditNoteLineItemsSchema.optional(),
+  line_items: z
+    .union([
+      z.array(CreateCreditNoteLineItemsItemSchema.optional()),
+      CreateCreditNoteLineItemsSchema,
+    ])
+    .optional(),
 });
 export { CreateCreditNoteBodySchema };
 export type CreateCreditNoteBody = z.infer<typeof CreateCreditNoteBodySchema>;
@@ -111,12 +138,6 @@ const RecordRefundCreditNoteTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
-    'tamara',
-    'qpay',
-    'blik',
-    'fpx',
-    'wero',
-    'p24',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),
@@ -148,37 +169,87 @@ const ListCreditNoteIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNoteCustomerIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNoteSubscriptionIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNoteReferenceInvoiceIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNoteTypeSchema = z.object({
   is: z.enum(['adjustment', 'refundable', 'store']).optional(),
   is_not: z.enum(['adjustment', 'refundable', 'store']).optional(),
-  in: z.enum(['adjustment', 'refundable', 'store']).optional(),
-  not_in: z.enum(['adjustment', 'refundable', 'store']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['adjustment', 'refundable', 'store']).optional()),
+      z.enum(['adjustment', 'refundable', 'store']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['adjustment', 'refundable', 'store']).optional()),
+      z.enum(['adjustment', 'refundable', 'store']),
+    ])
+    .optional(),
 });
 const ListCreditNoteReasonCodeSchema = z.object({
   is: z
@@ -214,35 +285,75 @@ const ListCreditNoteReasonCodeSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'write_off',
-      'subscription_change',
-      'subscription_cancellation',
-      'subscription_pause',
-      'chargeback',
-      'product_unsatisfactory',
-      'service_unsatisfactory',
-      'order_change',
-      'order_cancellation',
-      'waiver',
-      'other',
-      'fraudulent',
+    .union([
+      z.array(
+        z
+          .enum([
+            'write_off',
+            'subscription_change',
+            'subscription_cancellation',
+            'subscription_pause',
+            'chargeback',
+            'product_unsatisfactory',
+            'service_unsatisfactory',
+            'order_change',
+            'order_cancellation',
+            'waiver',
+            'other',
+            'fraudulent',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'write_off',
+        'subscription_change',
+        'subscription_cancellation',
+        'subscription_pause',
+        'chargeback',
+        'product_unsatisfactory',
+        'service_unsatisfactory',
+        'order_change',
+        'order_cancellation',
+        'waiver',
+        'other',
+        'fraudulent',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'write_off',
-      'subscription_change',
-      'subscription_cancellation',
-      'subscription_pause',
-      'chargeback',
-      'product_unsatisfactory',
-      'service_unsatisfactory',
-      'order_change',
-      'order_cancellation',
-      'waiver',
-      'other',
-      'fraudulent',
+    .union([
+      z.array(
+        z
+          .enum([
+            'write_off',
+            'subscription_change',
+            'subscription_cancellation',
+            'subscription_pause',
+            'chargeback',
+            'product_unsatisfactory',
+            'service_unsatisfactory',
+            'order_change',
+            'order_cancellation',
+            'waiver',
+            'other',
+            'fraudulent',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'write_off',
+        'subscription_change',
+        'subscription_cancellation',
+        'subscription_pause',
+        'chargeback',
+        'product_unsatisfactory',
+        'service_unsatisfactory',
+        'order_change',
+        'order_cancellation',
+        'waiver',
+        'other',
+        'fraudulent',
+      ]),
     ])
     .optional(),
 });
@@ -250,74 +361,209 @@ const ListCreditNoteCreateReasonCodeSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNoteStatusSchema = z.object({
   is: z.enum(['adjusted', 'refunded', 'refund_due', 'voided']).optional(),
   is_not: z.enum(['adjusted', 'refunded', 'refund_due', 'voided']).optional(),
-  in: z.enum(['adjusted', 'refunded', 'refund_due', 'voided']).optional(),
-  not_in: z.enum(['adjusted', 'refunded', 'refund_due', 'voided']).optional(),
+  in: z
+    .union([
+      z.array(
+        z.enum(['adjusted', 'refunded', 'refund_due', 'voided']).optional(),
+      ),
+      z.enum(['adjusted', 'refunded', 'refund_due', 'voided']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(
+        z.enum(['adjusted', 'refunded', 'refund_due', 'voided']).optional(),
+      ),
+      z.enum(['adjusted', 'refunded', 'refund_due', 'voided']),
+    ])
+    .optional(),
 });
 const ListCreditNoteDateSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNoteTotalSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNotePriceTypeSchema = z.object({
   is: z.enum(['tax_exclusive', 'tax_inclusive']).optional(),
   is_not: z.enum(['tax_exclusive', 'tax_inclusive']).optional(),
-  in: z.enum(['tax_exclusive', 'tax_inclusive']).optional(),
-  not_in: z.enum(['tax_exclusive', 'tax_inclusive']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['tax_exclusive', 'tax_inclusive']).optional()),
+      z.enum(['tax_exclusive', 'tax_inclusive']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['tax_exclusive', 'tax_inclusive']).optional()),
+      z.enum(['tax_exclusive', 'tax_inclusive']),
+    ])
+    .optional(),
 });
 const ListCreditNoteAmountAllocatedSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNoteAmountRefundedSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNoteAmountAvailableSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNoteVoidedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNoteUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListCreditNoteSortBySchema = z.looseObject({
   asc: z.enum(['date']).optional(),
@@ -326,8 +572,18 @@ const ListCreditNoteSortBySchema = z.looseObject({
 const ListCreditNoteChannelSchema = z.object({
   is: z.enum(['web', 'app_store', 'play_store']).optional(),
   is_not: z.enum(['web', 'app_store', 'play_store']).optional(),
-  in: z.enum(['web', 'app_store', 'play_store']).optional(),
-  not_in: z.enum(['web', 'app_store', 'play_store']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
 });
 const ListCreditNoteEinvoiceSchema = z.object({
   status: ListCreditNoteStatusSchema.optional(),
@@ -401,6 +657,61 @@ export type RemoveTaxWithheldRefundCreditNoteBody = z.infer<
 
 //CreditNote.importCreditNote
 
+const ImportCreditNoteCreditNoteLineItemsItemSchema = z.object({
+  reference_line_item_id: z.string().max(40).optional(),
+  id: z.string().max(40).optional(),
+  date_from: z.number().int().optional(),
+  date_to: z.number().int().optional(),
+  subscription_id: z.string().max(50).optional(),
+  description: z.string().max(250),
+  unit_amount: z.number().int().optional(),
+  quantity: z.number().int().optional(),
+  amount: z.number().int().optional(),
+  unit_amount_in_decimal: z.string().max(39).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  amount_in_decimal: z.string().max(39).optional(),
+  entity_type: z
+    .enum([
+      'adhoc',
+      'plan_item_price',
+      'addon_item_price',
+      'charge_item_price',
+      'plan_setup',
+      'plan',
+      'addon',
+    ])
+    .optional(),
+  entity_id: z.string().max(100).optional(),
+  item_level_discount1_entity_id: z.string().max(100).optional(),
+  item_level_discount1_amount: z.number().int().min(0).optional(),
+  item_level_discount2_entity_id: z.string().max(100).optional(),
+  item_level_discount2_amount: z.number().int().min(0).optional(),
+  tax1_name: z.string().max(50).optional(),
+  tax1_amount: z.number().int().min(0).optional(),
+  tax2_name: z.string().max(50).optional(),
+  tax2_amount: z.number().int().min(0).optional(),
+  tax3_name: z.string().max(50).optional(),
+  tax3_amount: z.number().int().min(0).optional(),
+  tax4_name: z.string().max(50).optional(),
+  tax4_amount: z.number().int().min(0).optional(),
+  tax5_name: z.string().max(50).optional(),
+  tax5_amount: z.number().int().min(0).optional(),
+  tax6_name: z.string().max(50).optional(),
+  tax6_amount: z.number().int().min(0).optional(),
+  tax7_name: z.string().max(50).optional(),
+  tax7_amount: z.number().int().min(0).optional(),
+  tax8_name: z.string().max(50).optional(),
+  tax8_amount: z.number().int().min(0).optional(),
+  tax9_name: z.string().max(50).optional(),
+  tax9_amount: z.number().int().min(0).optional(),
+  tax10_name: z.string().max(50).optional(),
+  tax10_amount: z.number().int().min(0).optional(),
+  is_partial_tax_applied: z.boolean().optional(),
+  taxable_amount: z.number().int().min(0).optional(),
+  proration_mode: z
+    .enum(['reset', 'delta', 'service_period_revision', 'adjusted_term'])
+    .optional(),
+});
 const ImportCreditNoteCreditNoteLineItemsSchema = z.object({
   reference_line_item_id: z.array(z.string().max(40).optional()).optional(),
   id: z.array(z.string().max(40).optional()).optional(),
@@ -472,6 +783,17 @@ const ImportCreditNoteCreditNoteLineItemsSchema = z.object({
     )
     .optional(),
 });
+const ImportCreditNoteCreditNoteLineItemTiersItemSchema = z.object({
+  line_item_id: z.string().max(40),
+  starting_unit: z.number().int().min(0).optional(),
+  ending_unit: z.number().int().optional(),
+  quantity_used: z.number().int().min(0).optional(),
+  unit_amount: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  quantity_used_in_decimal: z.string().max(33).optional(),
+  unit_amount_in_decimal: z.string().max(40).optional(),
+});
 const ImportCreditNoteCreditNoteLineItemTiersSchema = z.object({
   line_item_id: z.array(z.string().max(40).optional()),
   starting_unit: z.array(z.number().int().min(0).optional()).optional(),
@@ -482,6 +804,19 @@ const ImportCreditNoteCreditNoteLineItemTiersSchema = z.object({
   ending_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
   quantity_used_in_decimal: z.array(z.string().max(33).optional()).optional(),
   unit_amount_in_decimal: z.array(z.string().max(40).optional()).optional(),
+});
+const ImportCreditNoteCreditNoteDiscountsItemSchema = z.object({
+  line_item_id: z.string().max(40).optional(),
+  entity_type: z.enum([
+    'item_level_coupon',
+    'document_level_coupon',
+    'promotional_credits',
+    'item_level_discount',
+    'document_level_discount',
+  ]),
+  entity_id: z.string().max(100).optional(),
+  description: z.string().max(250).optional(),
+  amount: z.number().int().min(0),
 });
 const ImportCreditNoteCreditNoteDiscountsSchema = z.object({
   line_item_id: z.array(z.string().max(40).optional()).optional(),
@@ -499,6 +834,26 @@ const ImportCreditNoteCreditNoteDiscountsSchema = z.object({
   entity_id: z.array(z.string().max(100).optional()).optional(),
   description: z.array(z.string().max(250).optional()).optional(),
   amount: z.array(z.number().int().min(0).optional()),
+});
+const ImportCreditNoteCreditNoteTaxesItemSchema = z.object({
+  name: z.string().max(100),
+  rate: z.number().min(0).max(100),
+  amount: z.number().int().min(0).optional(),
+  description: z.string().max(50).optional(),
+  juris_type: z
+    .enum([
+      'country',
+      'federal',
+      'state',
+      'county',
+      'city',
+      'special',
+      'unincorporated',
+      'other',
+    ])
+    .optional(),
+  juris_name: z.string().max(250).optional(),
+  juris_code: z.string().max(250).optional(),
 });
 const ImportCreditNoteCreditNoteTaxesSchema = z.object({
   name: z.array(z.string().max(100).optional()),
@@ -524,10 +879,30 @@ const ImportCreditNoteCreditNoteTaxesSchema = z.object({
   juris_name: z.array(z.string().max(250).optional()).optional(),
   juris_code: z.array(z.string().max(250).optional()).optional(),
 });
+const ImportCreditNoteCreditNoteAllocationsItemSchema = z.object({
+  invoice_id: z.string().max(50),
+  allocated_amount: z.number().int().min(1),
+  allocated_at: z.number().int(),
+});
 const ImportCreditNoteCreditNoteAllocationsSchema = z.object({
   invoice_id: z.array(z.string().max(50).optional()),
   allocated_amount: z.array(z.number().int().min(1).optional()),
   allocated_at: z.array(z.number().int().optional()),
+});
+const ImportCreditNoteCreditNoteLinkedRefundsItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  amount: z.number().int().min(1),
+  payment_method: z.enum([
+    'cash',
+    'check',
+    'bank_transfer',
+    'other',
+    'app_store',
+    'play_store',
+    'custom',
+  ]),
+  date: z.number().int(),
+  reference_number: z.string().max(100).min(1).optional(),
 });
 const ImportCreditNoteCreditNoteLinkedRefundsSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
@@ -542,12 +917,6 @@ const ImportCreditNoteCreditNoteLinkedRefundsSchema = z.object({
         'app_store',
         'play_store',
         'custom',
-        'tamara',
-        'qpay',
-        'blik',
-        'fpx',
-        'wero',
-        'p24',
       ])
       .optional(),
   ),
@@ -572,12 +941,42 @@ const ImportCreditNoteCreditNoteBodySchema = z.looseObject({
   round_off_amount: z.number().int().min(-99).max(99).optional(),
   fractional_correction: z.number().int().min(-50000).max(50000).optional(),
   vat_number_prefix: z.string().max(10).optional(),
-  line_items: ImportCreditNoteCreditNoteLineItemsSchema.optional(),
-  line_item_tiers: ImportCreditNoteCreditNoteLineItemTiersSchema.optional(),
-  discounts: ImportCreditNoteCreditNoteDiscountsSchema.optional(),
-  taxes: ImportCreditNoteCreditNoteTaxesSchema.optional(),
-  allocations: ImportCreditNoteCreditNoteAllocationsSchema.optional(),
-  linked_refunds: ImportCreditNoteCreditNoteLinkedRefundsSchema.optional(),
+  line_items: z
+    .union([
+      z.array(ImportCreditNoteCreditNoteLineItemsItemSchema.optional()),
+      ImportCreditNoteCreditNoteLineItemsSchema,
+    ])
+    .optional(),
+  line_item_tiers: z
+    .union([
+      z.array(ImportCreditNoteCreditNoteLineItemTiersItemSchema.optional()),
+      ImportCreditNoteCreditNoteLineItemTiersSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(ImportCreditNoteCreditNoteDiscountsItemSchema.optional()),
+      ImportCreditNoteCreditNoteDiscountsSchema,
+    ])
+    .optional(),
+  taxes: z
+    .union([
+      z.array(ImportCreditNoteCreditNoteTaxesItemSchema.optional()),
+      ImportCreditNoteCreditNoteTaxesSchema,
+    ])
+    .optional(),
+  allocations: z
+    .union([
+      z.array(ImportCreditNoteCreditNoteAllocationsItemSchema.optional()),
+      ImportCreditNoteCreditNoteAllocationsSchema,
+    ])
+    .optional(),
+  linked_refunds: z
+    .union([
+      z.array(ImportCreditNoteCreditNoteLinkedRefundsItemSchema.optional()),
+      ImportCreditNoteCreditNoteLinkedRefundsSchema,
+    ])
+    .optional(),
 });
 export { ImportCreditNoteCreditNoteBodySchema };
 export type ImportCreditNoteCreditNoteBody = z.infer<

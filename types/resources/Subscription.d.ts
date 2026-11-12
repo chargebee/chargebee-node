@@ -695,6 +695,7 @@ declare module 'chargebee' {
     export interface Discount {
       id: string;
       invoice_name?: string;
+      description?: string;
       type: 'fixed_amount' | 'percentage' | 'offer_quantity';
       percentage?: number;
       amount?: number;
@@ -1807,6 +1808,7 @@ declare module 'chargebee' {
       included_in_mrr?: boolean;
       item_price_id?: string;
       quantity?: number;
+      description?: string;
     }
     export interface CouponsCreateWithItemsInputParam {
       /**
@@ -2243,6 +2245,7 @@ declare module 'chargebee' {
       quantity?: number;
       operation_type: OperationTypeEnum;
       id?: string;
+      description?: string;
     }
     export interface CouponsUpdateForItemsInputParam {
       /**

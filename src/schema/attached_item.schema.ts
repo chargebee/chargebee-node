@@ -81,27 +81,67 @@ const ListAttachedItemIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListAttachedItemItemIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListAttachedItemTypeSchema = z.object({
   is: z.enum(['recommended', 'mandatory', 'optional']).optional(),
   is_not: z.enum(['recommended', 'mandatory', 'optional']).optional(),
-  in: z.enum(['recommended', 'mandatory', 'optional']).optional(),
-  not_in: z.enum(['recommended', 'mandatory', 'optional']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['recommended', 'mandatory', 'optional']).optional()),
+      z.enum(['recommended', 'mandatory', 'optional']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['recommended', 'mandatory', 'optional']).optional()),
+      z.enum(['recommended', 'mandatory', 'optional']),
+    ])
+    .optional(),
 });
 const ListAttachedItemItemTypeSchema = z.object({
   is: z.enum(['plan', 'addon', 'charge']).optional(),
   is_not: z.enum(['plan', 'addon', 'charge']).optional(),
-  in: z.enum(['plan', 'addon', 'charge']).optional(),
-  not_in: z.enum(['plan', 'addon', 'charge']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['plan', 'addon', 'charge']).optional()),
+      z.enum(['plan', 'addon', 'charge']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['plan', 'addon', 'charge']).optional()),
+      z.enum(['plan', 'addon', 'charge']),
+    ])
+    .optional(),
 });
 const ListAttachedItemChargeOnEventSchema = z.object({
   is: z
@@ -125,31 +165,70 @@ const ListAttachedItemChargeOnEventSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'subscription_creation',
-      'subscription_trial_start',
-      'plan_activation',
-      'subscription_activation',
-      'contract_termination',
-      'on_demand',
+    .union([
+      z.array(
+        z
+          .enum([
+            'subscription_creation',
+            'subscription_trial_start',
+            'plan_activation',
+            'subscription_activation',
+            'contract_termination',
+            'on_demand',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'subscription_creation',
+        'subscription_trial_start',
+        'plan_activation',
+        'subscription_activation',
+        'contract_termination',
+        'on_demand',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'subscription_creation',
-      'subscription_trial_start',
-      'plan_activation',
-      'subscription_activation',
-      'contract_termination',
-      'on_demand',
+    .union([
+      z.array(
+        z
+          .enum([
+            'subscription_creation',
+            'subscription_trial_start',
+            'plan_activation',
+            'subscription_activation',
+            'contract_termination',
+            'on_demand',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'subscription_creation',
+        'subscription_trial_start',
+        'plan_activation',
+        'subscription_activation',
+        'contract_termination',
+        'on_demand',
+      ]),
     ])
     .optional(),
 });
 const ListAttachedItemUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListAttachedItemBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

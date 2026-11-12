@@ -43,31 +43,69 @@ const ListSiteMigrationDetailEntityTypeSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'customer',
-      'subscription',
-      'invoice',
-      'credit_note',
-      'transaction',
-      'order',
+    .union([
+      z.array(
+        z
+          .enum([
+            'customer',
+            'subscription',
+            'invoice',
+            'credit_note',
+            'transaction',
+            'order',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'customer',
+        'subscription',
+        'invoice',
+        'credit_note',
+        'transaction',
+        'order',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'customer',
-      'subscription',
-      'invoice',
-      'credit_note',
-      'transaction',
-      'order',
+    .union([
+      z.array(
+        z
+          .enum([
+            'customer',
+            'subscription',
+            'invoice',
+            'credit_note',
+            'transaction',
+            'order',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'customer',
+        'subscription',
+        'invoice',
+        'credit_note',
+        'transaction',
+        'order',
+      ]),
     ])
     .optional(),
 });
 const ListSiteMigrationDetailStatusSchema = z.object({
   is: z.enum(['moved_in', 'moved_out', 'moving_out']).optional(),
   is_not: z.enum(['moved_in', 'moved_out', 'moving_out']).optional(),
-  in: z.enum(['moved_in', 'moved_out', 'moving_out']).optional(),
-  not_in: z.enum(['moved_in', 'moved_out', 'moving_out']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['moved_in', 'moved_out', 'moving_out']).optional()),
+      z.enum(['moved_in', 'moved_out', 'moving_out']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['moved_in', 'moved_out', 'moving_out']).optional()),
+      z.enum(['moved_in', 'moved_out', 'moving_out']),
+    ])
+    .optional(),
 });
 const ListSiteMigrationDetailBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

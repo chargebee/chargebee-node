@@ -18,6 +18,13 @@ export type CreateUsageEventBody = z.infer<typeof CreateUsageEventBodySchema>;
 
 //UsageEvent.batchIngest
 
+const BatchIngestUsageEventPropertiesSchema = z.looseObject({});
+const BatchIngestUsageEventEventsItemSchema = z.object({
+  deduplication_id: z.string().max(36),
+  subscription_id: z.string().max(50),
+  usage_timestamp: z.number().int(),
+  properties: BatchIngestUsageEventPropertiesSchema,
+});
 const BatchIngestUsageEventPropertiesItemSchema = z.looseObject({});
 const BatchIngestUsageEventEventsSchema = z.object({
   deduplication_id: z.array(z.string().max(36).optional()),
@@ -26,7 +33,12 @@ const BatchIngestUsageEventEventsSchema = z.object({
   properties: z.array(BatchIngestUsageEventPropertiesItemSchema.optional()),
 });
 const BatchIngestUsageEventBodySchema = z.looseObject({
-  events: BatchIngestUsageEventEventsSchema.optional(),
+  events: z
+    .union([
+      z.array(BatchIngestUsageEventEventsItemSchema.optional()),
+      BatchIngestUsageEventEventsSchema,
+    ])
+    .optional(),
 });
 export { BatchIngestUsageEventBodySchema };
 export type BatchIngestUsageEventBody = z.infer<

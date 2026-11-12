@@ -892,6 +892,14 @@ export interface OrderUpdatedContent {
   Order: import('chargebee').Order;
 }
 
+export interface OrganizationDetailsCreatedContent {
+  OrganizationDetail: import('chargebee').OrganizationDetail;
+}
+
+export interface OrganizationDetailsUpdatedContent {
+  OrganizationDetail: import('chargebee').OrganizationDetail;
+}
+
 export interface PaymentDueReminderContent {
   Customer: import('chargebee').Customer;
 
@@ -1996,6 +2004,10 @@ export type WebhookContentMap = {
   [WebhookEventType.OrderReturned]: OrderReturnedContent;
 
   [WebhookEventType.OrderUpdated]: OrderUpdatedContent;
+
+  [WebhookEventType.OrganizationDetailsCreated]: OrganizationDetailsCreatedContent;
+
+  [WebhookEventType.OrganizationDetailsUpdated]: OrganizationDetailsUpdatedContent;
 
   [WebhookEventType.PaymentDueReminder]: PaymentDueReminderContent;
 
