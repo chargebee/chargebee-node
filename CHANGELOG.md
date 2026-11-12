@@ -58,6 +58,10 @@
 - `none` and `day` have been added as new values to enum request body parameter `group_by.window_size` in `retrieve_usages_for_an_invoice_as_pdf` of `Usage`.
 
 
+### Bug Fixes:
+- Fixed `enableValidation` rejecting correctly typed params: filter operators now accept arrays, numbers and booleans (e.g. `status: { in: ['active'] }`), and composite array params (e.g. `subscription_items`) accept an array of objects. Resolves https://github.com/chargebee/chargebee-node/issues/140.
+
+
 
 ### v3.35.0 (2026-11-02)
 * * *
