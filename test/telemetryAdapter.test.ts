@@ -132,7 +132,7 @@ describe('TelemetryAdapter response telemetry', () => {
     expect(attributes).to.not.have.property('chargebee.telemetry.cb.time_ms');
   });
 
-  it('should merge response telemetry into buildRequestEndSpanAttributes', () => {
+  it('should keep response telemetry out of buildRequestEndSpanAttributes', () => {
     const attributes = buildRequestEndSpanAttributes({
       httpStatusCode: 200,
       durationMs: 10,
@@ -144,10 +144,9 @@ describe('TelemetryAdapter response telemetry', () => {
     expect(attributes[TelemetryAttributeKeys.HTTP_RESPONSE_STATUS_CODE]).to.equal(
       200,
     );
-    expect(attributes['http.response.header.x-chargebee-telemetry']).to.equal(
-      telemetryHeader,
-    );
-    expect(attributes['chargebee.telemetry.cb.time_ms']).to.equal(3800);
+    expect(attributes).to.deep.equal({
+      [TelemetryAttributeKeys.HTTP_RESPONSE_STATUS_CODE]: 200,
+    });
   });
 
   it('should build request telemetry result with parsed response attributes', () => {
@@ -159,9 +158,25 @@ describe('TelemetryAdapter response telemetry', () => {
       },
     });
 
-    expect(result.endAttributes['chargebee.telemetry.cb.time_ms']).to.equal(99);
-    expect(result.endAttributes[TelemetryAttributeKeys.HTTP_RESPONSE_STATUS_CODE]).to.equal(
-      200,
-    );
+    expect(result.responseTelemetryAttributes).to.deep.equal({
+      'http.response.header.x-chargebee-telemetry': 'cb;time_ms=99',
+      'chargebee.telemetry.cb.time_ms': 99,
+    });
+    expect(result.endAttributes).to.deep.equal({
+      [TelemetryAttributeKeys.HTTP_RESPONSE_STATUS_CODE]: 200,
+    });
+  });
+
+  it('should omit responseTelemetryAttributes when the header is absent', () => {
+    const result = buildRequestTelemetryResult({
+      httpStatusCode: 200,
+      durationMs: 42,
+      responseHeaders: { 'content-type': 'application/json' },
+    });
+
+    expect(result).to.not.have.property('responseTelemetryAttributes');
+    expect(result.endAttributes).to.deep.equal({
+      [TelemetryAttributeKeys.HTTP_RESPONSE_STATUS_CODE]: 200,
+    });
   });
 });

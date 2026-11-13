@@ -16,7 +16,7 @@ import {
   HTTP_REQUEST_HEADER_ATTRIBUTE_PREFIX,
   HTTP_RESPONSE_HEADER_ATTRIBUTE_PREFIX,
   RequestTelemetryContext,
-  RequestTelemetryEndAttributeValue,
+  ResponseTelemetryAttributeValue,
   RequestTelemetryError,
   RequestTelemetryHandle,
   RequestTelemetryResult,
@@ -139,8 +139,8 @@ export function getResponseHeaderValueIgnoreCase(
  */
 export function buildResponseHeaderSpanAttributes(
   responseHeaders: ResponseHeadersForTelemetry | undefined,
-): Record<string, RequestTelemetryEndAttributeValue> {
-  const attributes: Record<string, RequestTelemetryEndAttributeValue> = {};
+): Record<string, ResponseTelemetryAttributeValue> {
+  const attributes: Record<string, ResponseTelemetryAttributeValue> = {};
   if (!responseHeaders) {
     return attributes;
   }
@@ -180,11 +180,13 @@ export function buildRequestStartSpanAttributes(
 }
 
 export function buildRequestEndSpanAttributes(
-  result: Omit<RequestTelemetryResult, 'endAttributes'>,
-): Record<string, RequestTelemetryEndAttributeValue> {
-  const attributes: Record<string, RequestTelemetryEndAttributeValue> = {
+  result: Omit<
+    RequestTelemetryResult,
+    'endAttributes' | 'responseTelemetryAttributes'
+  >,
+): Record<string, string | number> {
+  const attributes: Record<string, string | number> = {
     [TelemetryAttributeKeys.HTTP_RESPONSE_STATUS_CODE]: result.httpStatusCode,
-    ...buildResponseHeaderSpanAttributes(result.responseHeaders),
   };
 
   if (result.error) {
@@ -227,12 +229,22 @@ export function buildRequestTelemetryContext(
 }
 
 export function buildRequestTelemetryResult(
-  result: Omit<RequestTelemetryResult, 'endAttributes'>,
+  result: Omit<
+    RequestTelemetryResult,
+    'endAttributes' | 'responseTelemetryAttributes'
+  >,
 ): RequestTelemetryResult {
-  return {
+  const telemetryResult: RequestTelemetryResult = {
     ...result,
     endAttributes: buildRequestEndSpanAttributes(result),
   };
+  const responseTelemetryAttributes = buildResponseHeaderSpanAttributes(
+    result.responseHeaders,
+  );
+  if (Object.keys(responseTelemetryAttributes).length > 0) {
+    telemetryResult.responseTelemetryAttributes = responseTelemetryAttributes;
+  }
+  return telemetryResult;
 }
 
 export function extractRequestTelemetryError(

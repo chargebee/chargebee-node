@@ -18,7 +18,7 @@ export {
   X_CHARGEBEE_TELEMETRY_HEADER,
   type BuildRequestTelemetryContextInput,
   type RequestTelemetryContext,
-  type RequestTelemetryEndAttributeValue,
+  type ResponseTelemetryAttributeValue,
   type RequestTelemetryError,
   type RequestTelemetryHandle,
   type RequestTelemetryResult,

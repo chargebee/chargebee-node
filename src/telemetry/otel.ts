@@ -68,6 +68,11 @@ export class OtelTelemetryAdapter implements TelemetryAdapter<Span> {
     for (const [key, value] of Object.entries(result.endAttributes)) {
       span.setAttribute(key, value);
     }
+    for (const [key, value] of Object.entries(
+      result.responseTelemetryAttributes ?? {},
+    )) {
+      span.setAttribute(key, value);
+    }
 
     if (result.error) {
       span.recordException(toRecordedException(result.error));

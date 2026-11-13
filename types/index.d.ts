@@ -290,7 +290,9 @@ declare module 'chargebee' {
     /** Raw HTTP response headers from the Chargebee API response. */
     responseHeaders?: Record<string, string | string[] | number | undefined>;
     /** Prebuilt span attributes — pass these to your tracer. */
-    endAttributes: Record<string, string | number | boolean | string[]>;
+    endAttributes: Record<string, string | number>;
+    /** Span attributes from the `X-Chargebee-Telemetry` response header (Beta): raw value under `http.response.header.x-chargebee-telemetry`, parsed values under `chargebee.telemetry.*`. Present only when the header was returned. */
+    responseTelemetryAttributes?: Record<string, string | number | boolean | string[]>;
   };
 
   /**

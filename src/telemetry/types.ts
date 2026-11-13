@@ -100,7 +100,7 @@ export type ResponseHeadersForTelemetry = Record<
   string | string[] | number | undefined
 >;
 
-export type RequestTelemetryEndAttributeValue =
+export type ResponseTelemetryAttributeValue =
   | string
   | number
   | boolean
@@ -113,7 +113,14 @@ export type RequestTelemetryResult = {
   /** Raw HTTP response headers from the Chargebee API response. */
   responseHeaders?: ResponseHeadersForTelemetry;
   /** Prebuilt span attributes — pass these to your tracer. */
-  endAttributes: Record<string, RequestTelemetryEndAttributeValue>;
+  endAttributes: Record<string, string | number>;
+  /**
+   * Span attributes from the `X-Chargebee-Telemetry` response header (Beta): the raw value under
+   * `http.response.header.x-chargebee-telemetry` and parsed values under `chargebee.telemetry.*`.
+   * Present only when the header was returned. Kept separate from `endAttributes` so existing
+   * adapters are unaffected.
+   */
+  responseTelemetryAttributes?: Record<string, ResponseTelemetryAttributeValue>;
 };
 
 export type BuildRequestTelemetryContextInput = {

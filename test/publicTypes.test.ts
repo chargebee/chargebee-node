@@ -118,7 +118,8 @@ describe('Chargebee public type declarations', () => {
     const result: import('chargebee').RequestTelemetryResult = {
       httpStatusCode: 200,
       durationMs: 12,
-      endAttributes: {
+      endAttributes: { 'http.response.status_code': 200 },
+      responseTelemetryAttributes: {
         'chargebee.telemetry.cb.time_ms': 3800,
         'chargebee.telemetry.tp.stripe.pm': 'card',
         'chargebee.telemetry.cb.enabled': true,
@@ -126,7 +127,12 @@ describe('Chargebee public type declarations', () => {
       },
     };
 
-    expect(result.endAttributes['chargebee.telemetry.features']).to.deep.equal([
+    // endAttributes keeps its original value type for existing adapters.
+    const legacy: Record<string, string | number> = result.endAttributes;
+    expect(legacy['http.response.status_code']).to.equal(200);
+    expect(
+      result.responseTelemetryAttributes?.['chargebee.telemetry.features'],
+    ).to.deep.equal([
       'account_hierarchy',
     ]);
   });
