@@ -17,6 +17,8 @@ const SF_DATE_PREFIX = '@';
 const SF_BOOLEAN_TRUE = '?1';
 const SF_BOOLEAN_FALSE = '?0';
 const INTEGER_PATTERN = /^-?\d+$/;
+// RFC 9651 sf-integer: at most 15 digits, so values are always exact JS numbers.
+const SF_INTEGER_PATTERN = /^-?\d{1,15}$/;
 const DECIMAL_PATTERN = /^-?\d+\.\d+$/;
 
 export type ChargebeeTelemetrySpanAttributes = Record<
@@ -127,16 +129,25 @@ function parseParameter(
     throw new Error('missing parameter key');
   }
 
-  attributes[attributePrefix + key] = parseScalarValue(rawValue);
+  const value = parseScalarValue(rawValue);
+  if (value !== undefined) {
+    attributes[attributePrefix + key] = value;
+  }
 }
 
-export function parseScalarValue(rawValue: string): string | number | boolean {
+/**
+ * Parses one RFC 9651 bare item. Returns `undefined` for a malformed sf-integer or
+ * sf-date, so the caller skips only that parameter and keeps the rest of the header.
+ */
+export function parseScalarValue(
+  rawValue: string,
+): string | number | boolean | undefined {
   if (rawValue == null || rawValue === '') {
     throw new Error('missing scalar value');
   }
 
   if (rawValue.startsWith(SF_DATE_PREFIX)) {
-    return Number.parseInt(rawValue.substring(SF_DATE_PREFIX.length), 10);
+    return parseSfInteger(rawValue.substring(SF_DATE_PREFIX.length));
   }
   if (rawValue === SF_BOOLEAN_TRUE) {
     return true;
@@ -155,12 +166,18 @@ export function parseScalarValue(rawValue: string): string | number | boolean {
     return parseStringValue(rawValue);
   }
   if (INTEGER_PATTERN.test(rawValue)) {
-    return Number.parseInt(rawValue, 10);
+    return parseSfInteger(rawValue);
   }
   if (DECIMAL_PATTERN.test(rawValue)) {
     return Number.parseFloat(rawValue);
   }
   return rawValue;
+}
+
+function parseSfInteger(value: string): number | undefined {
+  return SF_INTEGER_PATTERN.test(value)
+    ? Number.parseInt(value, 10)
+    : undefined;
 }
 
 function parseStringValue(rawValue: string): string {

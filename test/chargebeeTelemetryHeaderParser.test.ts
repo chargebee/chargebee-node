@@ -102,4 +102,25 @@ describe('ChargebeeTelemetryHeaderParser', () => {
       {},
     );
   });
+
+  it('should skip only malformed sf-integer and sf-date parameters', () => {
+    const header =
+      'cb;start_time=@abc;frac=@1.5;big=12345678901234567890;time_ms=3800, tp-stripe;time_ms=620';
+
+    const attributes = parseChargebeeTelemetryHeaderToSpanAttributes(header);
+
+    expect(attributes).to.not.have.property('chargebee.telemetry.cb.start_time');
+    expect(attributes).to.not.have.property('chargebee.telemetry.cb.frac');
+    expect(attributes).to.not.have.property('chargebee.telemetry.cb.big');
+    expect(attributes['chargebee.telemetry.cb.time_ms']).to.equal(3800);
+    expect(attributes['chargebee.telemetry.tp.stripe.time_ms']).to.equal(620);
+  });
+
+  it('should accept sf-integer values up to 15 digits', () => {
+    expect(parseScalarValue('999999999999999')).to.equal(999999999999999);
+    expect(parseScalarValue('-999999999999999')).to.equal(-999999999999999);
+    expect(parseScalarValue('1000000000000000')).to.equal(undefined);
+    expect(parseScalarValue('@1781280400')).to.equal(1781280400);
+    expect(parseScalarValue('@')).to.equal(undefined);
+  });
 });
