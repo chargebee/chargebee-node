@@ -1,3 +1,11 @@
+### v3.37.0 (2026-11-13)
+* * *
+### New Features
+* Added [response telemetry](https://apidocs.chargebee.com/docs/api/response-telemetry) support (Beta). Set `preferChargebeeTelemetry: true` alongside a `telemetryAdapter` to have the SDK send `Prefer: chargebee-telemetry=include` on each request. The SDK parses the `X-Chargebee-Telemetry` response header on both successful and failed responses and passes it to your adapter as span attributes: the raw value under `http.response.header.x-chargebee-telemetry` and parsed values under `chargebee.telemetry.*`. A malformed header never fails the API call. Setting `preferChargebeeTelemetry` without a `telemetryAdapter` has no effect, and a `Prefer` header you set yourself is left unchanged.
+* Exported `CHARGEBEE_TELEMETRY_PREFER_HEADER` and `CHARGEBEE_TELEMETRY_PREFER_VALUE` from the CJS and ESM entry points.
+* `RequestTelemetryResult.endAttributes` values are now typed `string | number | boolean | string[]` (previously `string | number`) to carry parsed telemetry values. Custom adapters that narrow these values may need a type update.
+
+
 ### v3.36.0 (2026-11-12)
 * * *
 ### New Resources:

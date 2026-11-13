@@ -632,6 +632,8 @@ Spans are named `chargebee.{resource}.{operation}` (e.g. `chargebee.subscription
 
 Chargebee returns `X-Chargebee-Telemetry` only when the client opts in with `Prefer: chargebee-telemetry=include`. Set `preferChargebeeTelemetry: true` on the client to have the SDK add that header on each request when a `telemetryAdapter` is configured (parsed into `chargebee.telemetry.*` span attributes). You can also set the `Prefer` header yourself on individual requests.
 
+For the header format and the meaning of each field, see [Response telemetry](https://apidocs.chargebee.com/docs/api/response-telemetry) in the API docs.
+
 #### Quick start (built-in adapter)
 
 ```bash
