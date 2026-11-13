@@ -18,6 +18,24 @@ export const TELEMETRY_SPAN_NAME_PREFIX = 'chargebee';
 export const HTTP_REQUEST_HEADER_ATTRIBUTE_PREFIX = 'http.request.header.';
 
 /**
+ * OTel HTTP semantic-convention prefix for response-header attributes:
+ * `http.response.header.<lowercased-name>`.
+ */
+export const HTTP_RESPONSE_HEADER_ATTRIBUTE_PREFIX = 'http.response.header.';
+
+/** Lowercased name of the Chargebee response telemetry header. */
+export const X_CHARGEBEE_TELEMETRY_HEADER = 'x-chargebee-telemetry';
+
+/** HTTP {@code Prefer} header name used to opt in to response telemetry. */
+export const CHARGEBEE_TELEMETRY_PREFER_HEADER = 'Prefer';
+
+/**
+ * {@code Prefer} header value that requests {@code X-Chargebee-Telemetry} on the response.
+ * Chargebee only returns response telemetry when this header is sent.
+ */
+export const CHARGEBEE_TELEMETRY_PREFER_VALUE = 'chargebee-telemetry=include';
+
+/**
  * Request headers whose (lowercased) name starts with this prefix are captured as span
  * attributes. Using a prefix instead of a fixed list means any future `chargebee-*` header
  * is picked up automatically, with no SDK upgrade required.
@@ -77,12 +95,32 @@ export type RequestTelemetryError = {
   chargebeeErrorParam?: string;
 };
 
+export type ResponseHeadersForTelemetry = Record<
+  string,
+  string | string[] | number | undefined
+>;
+
+export type ResponseTelemetryAttributeValue =
+  | string
+  | number
+  | boolean
+  | string[];
+
 export type RequestTelemetryResult = {
   httpStatusCode: number;
   durationMs: number;
   error?: RequestTelemetryError;
+  /** Raw HTTP response headers from the Chargebee API response. */
+  responseHeaders?: ResponseHeadersForTelemetry;
   /** Prebuilt span attributes — pass these to your tracer. */
   endAttributes: Record<string, string | number>;
+  /**
+   * Span attributes from the `X-Chargebee-Telemetry` response header (Beta): the raw value under
+   * `http.response.header.x-chargebee-telemetry` and parsed values under `chargebee.telemetry.*`.
+   * Present only when the header was returned. Kept separate from `endAttributes` so existing
+   * adapters are unaffected.
+   */
+  responseTelemetryAttributes?: Record<string, ResponseTelemetryAttributeValue>;
 };
 
 export type BuildRequestTelemetryContextInput = {

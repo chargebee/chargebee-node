@@ -19,6 +19,8 @@ export {
   WebhookPayloadParseError,
 } from './resources/webhook/handler.js';
 export {
+  CHARGEBEE_TELEMETRY_PREFER_HEADER,
+  CHARGEBEE_TELEMETRY_PREFER_VALUE,
   TelemetryAttributeKeys,
   SDK_TELEMETRY_HEADER_NAME,
 } from './telemetry/index.js';
