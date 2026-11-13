@@ -66,7 +66,7 @@ function parseListItem(
   const token =
     separator < 0 ? trimmed : trimmed.substring(0, separator).trim();
   if (token === '') {
-    throw new Error('missing sf-item token');
+    return; // skip only this member
   }
 
   if (token.startsWith(CHARGEBEE_TELEMETRY_FT_PREFIX)) {
@@ -118,18 +118,26 @@ function parseParameter(
     return;
   }
 
+  // Malformed parameters are skipped individually so the rest of the header is kept.
   const equalsIndex = indexOfEquals(trimmed);
-  if (equalsIndex <= 0) {
-    throw new Error(`invalid parameter: ${trimmed}`);
+  if (equalsIndex < 0) {
+    // RFC 9651: a parameter without a value is boolean true (e.g. "cb;cached").
+    attributes[attributePrefix + trimmed] = true;
+    return;
   }
 
   const key = trimmed.substring(0, equalsIndex).trim();
   const rawValue = trimmed.substring(equalsIndex + 1).trim();
   if (key === '') {
-    throw new Error('missing parameter key');
+    return;
   }
 
-  const value = parseScalarValue(rawValue);
+  let value: string | number | boolean | undefined;
+  try {
+    value = parseScalarValue(rawValue);
+  } catch {
+    return;
+  }
   if (value !== undefined) {
     attributes[attributePrefix + key] = value;
   }

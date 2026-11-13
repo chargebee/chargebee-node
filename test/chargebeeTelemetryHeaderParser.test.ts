@@ -123,4 +123,17 @@ describe('ChargebeeTelemetryHeaderParser', () => {
     expect(parseScalarValue('@1781280400')).to.equal(1781280400);
     expect(parseScalarValue('@')).to.equal(undefined);
   });
+
+  it('should treat bare parameters as true and skip only malformed parameters or members', () => {
+    const header = 'cb;time_ms=12;cached;=5;empty=, ;orphan=1, tp-stripe;pm=card;time_ms=620';
+
+    const attributes = parseChargebeeTelemetryHeaderToSpanAttributes(header);
+
+    expect(attributes).to.deep.equal({
+      'chargebee.telemetry.cb.time_ms': 12,
+      'chargebee.telemetry.cb.cached': true,
+      'chargebee.telemetry.tp.stripe.pm': 'card',
+      'chargebee.telemetry.tp.stripe.time_ms': 620,
+    });
+  });
 });
