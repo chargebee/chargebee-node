@@ -119,6 +119,11 @@ const CreateGiftSubscriptionSchema = z.looseObject({
   plan_quantity: z.number().int().min(1).optional(),
   plan_quantity_in_decimal: z.string().max(33).optional(),
 });
+const CreateGiftAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+});
 const CreateGiftAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -135,7 +140,12 @@ const CreateGiftBodySchema = z.looseObject({
   payment_intent: CreateGiftPaymentIntentSchema.optional(),
   shipping_address: CreateGiftShippingAddressSchema.optional(),
   subscription: CreateGiftSubscriptionSchema.optional(),
-  addons: CreateGiftAddonsSchema.optional(),
+  addons: z
+    .union([
+      z.array(CreateGiftAddonsItemSchema.optional()),
+      CreateGiftAddonsSchema,
+    ])
+    .optional(),
 });
 export { CreateGiftBodySchema };
 export type CreateGiftBody = z.infer<typeof CreateGiftBodySchema>;
@@ -252,12 +262,28 @@ const CreateForItemsGiftShippingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const CreateForItemsGiftSubscriptionItemsItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+});
 const CreateForItemsGiftSubscriptionItemsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
   quantity_in_decimal: z.array(z.string().max(33).optional()).optional(),
   unit_price: z.array(z.number().int().min(0).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
+});
+const CreateForItemsGiftItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
 });
 const CreateForItemsGiftItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -279,8 +305,18 @@ const CreateForItemsGiftBodySchema = z.looseObject({
   gift_receiver: CreateForItemsGiftGiftReceiverSchema.optional(),
   payment_intent: CreateForItemsGiftPaymentIntentSchema.optional(),
   shipping_address: CreateForItemsGiftShippingAddressSchema.optional(),
-  subscription_items: CreateForItemsGiftSubscriptionItemsSchema.optional(),
-  item_tiers: CreateForItemsGiftItemTiersSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(CreateForItemsGiftSubscriptionItemsItemSchema.optional()),
+      CreateForItemsGiftSubscriptionItemsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(CreateForItemsGiftItemTiersItemSchema.optional()),
+      CreateForItemsGiftItemTiersSchema,
+    ])
+    .optional(),
 });
 export { CreateForItemsGiftBodySchema };
 export type CreateForItemsGiftBody = z.infer<
@@ -297,10 +333,24 @@ const ListGiftStatusSchema = z.object({
     .enum(['scheduled', 'unclaimed', 'claimed', 'cancelled', 'expired'])
     .optional(),
   in: z
-    .enum(['scheduled', 'unclaimed', 'claimed', 'cancelled', 'expired'])
+    .union([
+      z.array(
+        z
+          .enum(['scheduled', 'unclaimed', 'claimed', 'cancelled', 'expired'])
+          .optional(),
+      ),
+      z.enum(['scheduled', 'unclaimed', 'claimed', 'cancelled', 'expired']),
+    ])
     .optional(),
   not_in: z
-    .enum(['scheduled', 'unclaimed', 'claimed', 'cancelled', 'expired'])
+    .union([
+      z.array(
+        z
+          .enum(['scheduled', 'unclaimed', 'claimed', 'cancelled', 'expired'])
+          .optional(),
+      ),
+      z.enum(['scheduled', 'unclaimed', 'claimed', 'cancelled', 'expired']),
+    ])
     .optional(),
 });
 const ListGiftEmailSchema = z.object({

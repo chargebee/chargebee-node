@@ -26,6 +26,16 @@ const CreateItemPriceAccountingDetailSchema = z.object({
   accounting_category3: z.string().max(100).optional(),
   accounting_category4: z.string().max(100).optional(),
 });
+const CreateItemPriceTiersItemSchema = z.object({
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
+});
 const CreateItemPriceTiersSchema = z.object({
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
   ending_unit: z.array(z.number().int().optional()).optional(),
@@ -37,6 +47,11 @@ const CreateItemPriceTiersSchema = z.object({
     .array(z.enum(['per_unit', 'flat_fee', 'package']).optional())
     .optional(),
   package_size: z.array(z.number().int().min(1).optional()).optional(),
+});
+const CreateItemPriceTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50),
+  field_id: z.string().max(50),
+  field_value: z.string().max(50),
 });
 const CreateItemPriceTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()),
@@ -82,8 +97,18 @@ const CreateItemPriceBodySchema = z.looseObject({
     .optional(),
   tax_detail: CreateItemPriceTaxDetailSchema.optional(),
   accounting_detail: CreateItemPriceAccountingDetailSchema.optional(),
-  tiers: CreateItemPriceTiersSchema.optional(),
-  tax_providers_fields: CreateItemPriceTaxProvidersFieldsSchema.optional(),
+  tiers: z
+    .union([
+      z.array(CreateItemPriceTiersItemSchema.optional()),
+      CreateItemPriceTiersSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(CreateItemPriceTaxProvidersFieldsItemSchema.optional()),
+      CreateItemPriceTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { CreateItemPriceBodySchema };
 export type CreateItemPriceBody = z.infer<typeof CreateItemPriceBodySchema>;
@@ -110,6 +135,16 @@ const UpdateItemPriceAccountingDetailSchema = z.object({
   accounting_category3: z.string().max(100).optional(),
   accounting_category4: z.string().max(100).optional(),
 });
+const UpdateItemPriceTiersItemSchema = z.object({
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
+});
 const UpdateItemPriceTiersSchema = z.object({
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
   ending_unit: z.array(z.number().int().optional()).optional(),
@@ -121,6 +156,11 @@ const UpdateItemPriceTiersSchema = z.object({
     .array(z.enum(['per_unit', 'flat_fee', 'package']).optional())
     .optional(),
   package_size: z.array(z.number().int().min(1).optional()).optional(),
+});
+const UpdateItemPriceTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50),
+  field_id: z.string().max(50),
+  field_value: z.string().max(50),
 });
 const UpdateItemPriceTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()),
@@ -164,8 +204,18 @@ const UpdateItemPriceBodySchema = z.looseObject({
   show_description_in_quotes: z.boolean().optional(),
   tax_detail: UpdateItemPriceTaxDetailSchema.optional(),
   accounting_detail: UpdateItemPriceAccountingDetailSchema.optional(),
-  tiers: UpdateItemPriceTiersSchema.optional(),
-  tax_providers_fields: UpdateItemPriceTaxProvidersFieldsSchema.optional(),
+  tiers: z
+    .union([
+      z.array(UpdateItemPriceTiersItemSchema.optional()),
+      UpdateItemPriceTiersSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(UpdateItemPriceTaxProvidersFieldsItemSchema.optional()),
+      UpdateItemPriceTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { UpdateItemPriceBodySchema };
 export type UpdateItemPriceBody = z.infer<typeof UpdateItemPriceBodySchema>;
@@ -176,15 +226,35 @@ const ListItemPriceIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListItemPriceNameSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListItemPricePricingModelSchema = z.object({
   is: z
@@ -194,100 +264,249 @@ const ListItemPricePricingModelSchema = z.object({
     .enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep'])
     .optional(),
   in: z
-    .enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep'])
+    .union([
+      z.array(
+        z
+          .enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep'])
+          .optional(),
+      ),
+      z.enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep']),
+    ])
     .optional(),
   not_in: z
-    .enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep'])
+    .union([
+      z.array(
+        z
+          .enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep'])
+          .optional(),
+      ),
+      z.enum(['flat_fee', 'per_unit', 'tiered', 'volume', 'stairstep']),
+    ])
     .optional(),
 });
 const ListItemPriceItemIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListItemPriceItemFamilyIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListItemPriceItemTypeSchema = z.object({
   is: z.enum(['plan', 'addon', 'charge']).optional(),
   is_not: z.enum(['plan', 'addon', 'charge']).optional(),
-  in: z.enum(['plan', 'addon', 'charge']).optional(),
-  not_in: z.enum(['plan', 'addon', 'charge']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['plan', 'addon', 'charge']).optional()),
+      z.enum(['plan', 'addon', 'charge']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['plan', 'addon', 'charge']).optional()),
+      z.enum(['plan', 'addon', 'charge']),
+    ])
+    .optional(),
 });
 const ListItemPriceCurrencyCodeSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListItemPricePriceVariantIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListItemPriceTrialPeriodSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListItemPriceTrialPeriodUnitSchema = z.object({
   is: z.enum(['day', 'month']).optional(),
   is_not: z.enum(['day', 'month']).optional(),
-  in: z.enum(['day', 'month']).optional(),
-  not_in: z.enum(['day', 'month']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['day', 'month']).optional()),
+      z.enum(['day', 'month']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['day', 'month']).optional()),
+      z.enum(['day', 'month']),
+    ])
+    .optional(),
 });
 const ListItemPriceStatusSchema = z.object({
   is: z.enum(['active', 'archived', 'deleted']).optional(),
   is_not: z.enum(['active', 'archived', 'deleted']).optional(),
-  in: z.enum(['active', 'archived', 'deleted']).optional(),
-  not_in: z.enum(['active', 'archived', 'deleted']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['active', 'archived', 'deleted']).optional()),
+      z.enum(['active', 'archived', 'deleted']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['active', 'archived', 'deleted']).optional()),
+      z.enum(['active', 'archived', 'deleted']),
+    ])
+    .optional(),
 });
 const ListItemPriceUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListItemPriceBusinessEntityIdSchema = z.object({
   is: z.string().min(1).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListItemPriceIncludeSiteLevelResourcesSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListItemPricePeriodUnitSchema = z.object({
   is: z.enum(['day', 'week', 'month', 'year']).optional(),
   is_not: z.enum(['day', 'week', 'month', 'year']).optional(),
-  in: z.enum(['day', 'week', 'month', 'year']).optional(),
-  not_in: z.enum(['day', 'week', 'month', 'year']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['day', 'week', 'month', 'year']).optional()),
+      z.enum(['day', 'week', 'month', 'year']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['day', 'week', 'month', 'year']).optional()),
+      z.enum(['day', 'week', 'month', 'year']),
+    ])
+    .optional(),
 });
 const ListItemPricePeriodSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListItemPriceChannelSchema = z.object({
   is: z.enum(['web', 'app_store', 'play_store']).optional(),
   is_not: z.enum(['web', 'app_store', 'play_store']).optional(),
-  in: z.enum(['web', 'app_store', 'play_store']).optional(),
-  not_in: z.enum(['web', 'app_store', 'play_store']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
 });
 const ListItemPriceSortBySchema = z.looseObject({
   asc: z.enum(['name', 'id', 'updated_at']).optional(),

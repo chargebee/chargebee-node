@@ -329,6 +329,7 @@ declare module 'chargebee' {
       redirect_url?: string;
       cancel_url?: string;
       pass_thru_content?: string;
+      show_billing_frequency_selector?: boolean;
       allow_offline_payment_methods?: boolean;
       subscription?: SubscriptionCheckoutNewForItemsInputParam;
       customer?: CustomerCheckoutNewForItemsInputParam;
@@ -340,6 +341,7 @@ declare module 'chargebee' {
       discounts?: DiscountsCheckoutNewForItemsInputParam[];
       item_tiers?: ItemTiersCheckoutNewForItemsInputParam[];
       entity_identifiers?: EntityIdentifiersCheckoutNewForItemsInputParam[];
+      allowed_billing_frequencies?: AllowedBillingFrequenciesCheckoutNewForItemsInputParam[];
     }
     export interface CheckoutExistingInputParam {
       replace_addon_list?: boolean;
@@ -386,6 +388,7 @@ declare module 'chargebee' {
       redirect_url?: string;
       cancel_url?: string;
       pass_thru_content?: string;
+      show_billing_frequency_selector?: boolean;
       allow_offline_payment_methods?: boolean;
       subscription?: SubscriptionCheckoutExistingForItemsInputParam;
       customer?: CustomerCheckoutExistingForItemsInputParam;
@@ -395,6 +398,7 @@ declare module 'chargebee' {
       discounts?: DiscountsCheckoutExistingForItemsInputParam[];
       item_tiers?: ItemTiersCheckoutExistingForItemsInputParam[];
       entity_identifiers?: EntityIdentifiersCheckoutExistingForItemsInputParam[];
+      allowed_billing_frequencies?: AllowedBillingFrequenciesCheckoutExistingForItemsInputParam[];
     }
     export interface UpdateCardInputParam {
       redirect_url?: string;
@@ -454,9 +458,11 @@ declare module 'chargebee' {
       brand_id?: string;
       redirect_url?: string;
       coupon_ids?: string[];
+      show_billing_frequency_selector?: boolean;
       gifter?: GifterCheckoutGiftForItemsInputParam;
       subscription_items?: SubscriptionItemsCheckoutGiftForItemsInputParam[];
       item_tiers?: ItemTiersCheckoutGiftForItemsInputParam[];
+      allowed_billing_frequencies?: AllowedBillingFrequenciesCheckoutGiftForItemsInputParam[];
     }
     export interface ClaimGiftInputParam {
       brand_id?: string;
@@ -869,6 +875,10 @@ declare module 'chargebee' {
       item_type?: ItemTypeEnum;
       charge_on_option?: ChargeOnOptionEnum;
     }
+    export interface AllowedBillingFrequenciesCheckoutNewForItemsInputParam {
+      period?: number;
+      period_unit?: PeriodUnitEnum;
+    }
     export interface DiscountsCheckoutNewForItemsInputParam {
       apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
@@ -1005,6 +1015,10 @@ declare module 'chargebee' {
        */
       item_type?: ItemTypeEnum;
     }
+    export interface AllowedBillingFrequenciesCheckoutExistingForItemsInputParam {
+      period?: number;
+      period_unit?: PeriodUnitEnum;
+    }
     export interface DiscountsCheckoutExistingForItemsInputParam {
       apply_on?: ApplyOnEnum;
       duration_type: DurationTypeEnum;
@@ -1132,6 +1146,10 @@ declare module 'chargebee' {
       quantity_in_decimal?: string;
       unit_price?: number;
       unit_price_in_decimal?: string;
+    }
+    export interface AllowedBillingFrequenciesCheckoutGiftForItemsInputParam {
+      period?: number;
+      period_unit?: PeriodUnitEnum;
     }
     export interface ItemTiersCheckoutGiftForItemsInputParam {
       item_price_id?: string;

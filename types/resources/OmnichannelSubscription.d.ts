@@ -6,8 +6,13 @@ declare module 'chargebee' {
     id: string;
     id_at_source: string;
     app_id: string;
-    source: 'apple_app_store' | 'google_play_store';
+    source:
+      | 'apple_app_store'
+      | 'google_play_store'
+      | 'roku'
+      | 'amazon_app_store';
     customer_id?: string;
+    origin?: string;
     created_at: number;
     purchased_at?: number;
     updated_at: number;

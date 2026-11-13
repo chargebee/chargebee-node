@@ -68,7 +68,7 @@ export type RemoveRulesBusinessRulesetBody = z.infer<
 //BusinessRuleset.listRules
 
 const ListRulesBusinessRulesetActiveSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListRulesBusinessRulesetBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),
@@ -83,7 +83,7 @@ export type ListRulesBusinessRulesetBody = z.infer<
 //BusinessRuleset.list
 
 const ListBusinessRulesetActiveSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListBusinessRulesetBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),

@@ -13,6 +13,7 @@ declare module 'chargebee' {
     updated_at?: number;
     column_definitions?: ColumnDefinition[];
     features?: Feature[];
+    group_by?: string[];
   }
 
   export namespace Meter {

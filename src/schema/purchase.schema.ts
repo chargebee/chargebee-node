@@ -95,6 +95,15 @@ const CreatePurchasePaymentIntentSchema = z.object({
   gw_payment_method_id: z.string().max(65000).optional(),
   additional_information: CreatePurchaseAdditionalInformationSchema.optional(),
 });
+const CreatePurchasePurchaseItemsItemSchema = z.object({
+  index: z.number().int().min(0),
+  item_price_id: z.string().max(100),
+  quantity: z.number().int().min(1).optional(),
+  unit_amount: z.number().int().min(0).optional(),
+  unit_amount_in_decimal: z.string().max(39).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  trial_end: z.number().int().optional(),
+});
 const CreatePurchasePurchaseItemsSchema = z.object({
   index: z.array(z.number().int().min(0).optional()),
   item_price_id: z.array(z.string().max(100).optional()),
@@ -102,6 +111,17 @@ const CreatePurchasePurchaseItemsSchema = z.object({
   unit_amount: z.array(z.number().int().min(0).optional()).optional(),
   unit_amount_in_decimal: z.array(z.string().max(39).optional()).optional(),
   quantity_in_decimal: z.array(z.string().max(33).optional()).optional(),
+  trial_end: z.array(z.number().int().optional()).optional(),
+});
+const CreatePurchaseItemTiersItemSchema = z.object({
+  index: z.number().int().min(0),
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
 });
 const CreatePurchaseItemTiersSchema = z.object({
   index: z.array(z.number().int().min(0).optional()),
@@ -112,6 +132,24 @@ const CreatePurchaseItemTiersSchema = z.object({
   starting_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
   ending_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
   price_in_decimal: z.array(z.string().max(39).optional()).optional(),
+});
+const CreatePurchaseShippingAddressesItemSchema = z.object({
+  first_name: z.string().max(150).optional(),
+  last_name: z.string().max(150).optional(),
+  email: z.string().email().max(70).optional(),
+  company: z.string().max(250).optional(),
+  phone: z.string().max(50).optional(),
+  line1: z.string().max(150).optional(),
+  line2: z.string().max(150).optional(),
+  line3: z.string().max(150).optional(),
+  city: z.string().max(50).optional(),
+  state: z.string().max(50).optional(),
+  state_code: z.string().max(50).optional(),
+  country: z.string().max(50).optional(),
+  zip: z.string().max(20).optional(),
+  validation_status: z
+    .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
+    .optional(),
 });
 const CreatePurchaseShippingAddressesSchema = z.object({
   first_name: z.array(z.string().max(150).optional()).optional(),
@@ -135,6 +173,14 @@ const CreatePurchaseShippingAddressesSchema = z.object({
     )
     .optional(),
 });
+const CreatePurchaseDiscountsItemSchema = z.object({
+  index: z.number().int().min(0).optional(),
+  coupon_id: z.string().max(100).optional(),
+  percentage: z.number().min(0.01).max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  amount: z.number().int().min(0).optional(),
+  included_in_mrr: z.boolean().optional(),
+});
 const CreatePurchaseDiscountsSchema = z.object({
   index: z.array(z.number().int().min(0).optional()).optional(),
   coupon_id: z.array(z.string().max(100).optional()).optional(),
@@ -142,6 +188,21 @@ const CreatePurchaseDiscountsSchema = z.object({
   quantity: z.array(z.number().int().min(1).optional()).optional(),
   amount: z.array(z.number().int().min(0).optional()).optional(),
   included_in_mrr: z.array(z.boolean().optional()).optional(),
+});
+const CreatePurchaseMetaDataSchema = z.looseObject({});
+const CreatePurchaseSubscriptionInfoItemSchema = z.object({
+  index: z.number().int().min(0),
+  subscription_id: z.string().max(50).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  contract_term_billing_cycle_on_renewal: z
+    .number()
+    .int()
+    .min(1)
+    .max(100)
+    .optional(),
+  trial_end: z.number().int().optional(),
+  start_date: z.number().int().optional(),
+  meta_data: CreatePurchaseMetaDataSchema.optional(),
 });
 const CreatePurchaseMetaDataItemSchema = z.looseObject({});
 const CreatePurchaseSubscriptionInfoSchema = z.object({
@@ -151,7 +212,16 @@ const CreatePurchaseSubscriptionInfoSchema = z.object({
   contract_term_billing_cycle_on_renewal: z
     .array(z.number().int().min(1).max(100).optional())
     .optional(),
+  trial_end: z.array(z.number().int().optional()).optional(),
+  start_date: z.array(z.number().int().optional()).optional(),
   meta_data: z.array(CreatePurchaseMetaDataItemSchema.optional()).optional(),
+});
+const CreatePurchaseContractTermsItemSchema = z.object({
+  index: z.number().int().min(0),
+  action_at_term_end: z
+    .enum(['renew', 'evergreen', 'cancel', 'renew_once'])
+    .optional(),
+  cancellation_cutoff_period: z.number().int().optional(),
 });
 const CreatePurchaseContractTermsSchema = z.object({
   index: z.array(z.number().int().min(0).optional()),
@@ -168,12 +238,42 @@ const CreatePurchaseBodySchema = z.looseObject({
   payment_schedule: CreatePurchasePaymentScheduleSchema.optional(),
   statement_descriptor: CreatePurchaseStatementDescriptorSchema.optional(),
   payment_intent: CreatePurchasePaymentIntentSchema.optional(),
-  purchase_items: CreatePurchasePurchaseItemsSchema.optional(),
-  item_tiers: CreatePurchaseItemTiersSchema.optional(),
-  shipping_addresses: CreatePurchaseShippingAddressesSchema.optional(),
-  discounts: CreatePurchaseDiscountsSchema.optional(),
-  subscription_info: CreatePurchaseSubscriptionInfoSchema.optional(),
-  contract_terms: CreatePurchaseContractTermsSchema.optional(),
+  purchase_items: z
+    .union([
+      z.array(CreatePurchasePurchaseItemsItemSchema.optional()),
+      CreatePurchasePurchaseItemsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(CreatePurchaseItemTiersItemSchema.optional()),
+      CreatePurchaseItemTiersSchema,
+    ])
+    .optional(),
+  shipping_addresses: z
+    .union([
+      z.array(CreatePurchaseShippingAddressesItemSchema.optional()),
+      CreatePurchaseShippingAddressesSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(CreatePurchaseDiscountsItemSchema.optional()),
+      CreatePurchaseDiscountsSchema,
+    ])
+    .optional(),
+  subscription_info: z
+    .union([
+      z.array(CreatePurchaseSubscriptionInfoItemSchema.optional()),
+      CreatePurchaseSubscriptionInfoSchema,
+    ])
+    .optional(),
+  contract_terms: z
+    .union([
+      z.array(CreatePurchaseContractTermsItemSchema.optional()),
+      CreatePurchaseContractTermsSchema,
+    ])
+    .optional(),
 });
 export { CreatePurchaseBodySchema };
 export type CreatePurchaseBody = z.infer<typeof CreatePurchaseBodySchema>;
@@ -226,6 +326,15 @@ const EstimatePurchaseBillingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const EstimatePurchasePurchaseItemsItemSchema = z.object({
+  index: z.number().int().min(0),
+  item_price_id: z.string().max(100),
+  quantity: z.number().int().min(1).optional(),
+  unit_amount: z.number().int().min(0).optional(),
+  unit_amount_in_decimal: z.string().max(39).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  trial_end: z.number().int().optional(),
+});
 const EstimatePurchasePurchaseItemsSchema = z.object({
   index: z.array(z.number().int().min(0).optional()),
   item_price_id: z.array(z.string().max(100).optional()),
@@ -233,6 +342,17 @@ const EstimatePurchasePurchaseItemsSchema = z.object({
   unit_amount: z.array(z.number().int().min(0).optional()).optional(),
   unit_amount_in_decimal: z.array(z.string().max(39).optional()).optional(),
   quantity_in_decimal: z.array(z.string().max(33).optional()).optional(),
+  trial_end: z.array(z.number().int().optional()).optional(),
+});
+const EstimatePurchaseItemTiersItemSchema = z.object({
+  index: z.number().int().min(0),
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
 });
 const EstimatePurchaseItemTiersSchema = z.object({
   index: z.array(z.number().int().min(0).optional()),
@@ -243,6 +363,24 @@ const EstimatePurchaseItemTiersSchema = z.object({
   starting_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
   ending_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
   price_in_decimal: z.array(z.string().max(39).optional()).optional(),
+});
+const EstimatePurchaseShippingAddressesItemSchema = z.object({
+  first_name: z.string().max(150).optional(),
+  last_name: z.string().max(150).optional(),
+  email: z.string().email().max(70).optional(),
+  company: z.string().max(250).optional(),
+  phone: z.string().max(50).optional(),
+  line1: z.string().max(150).optional(),
+  line2: z.string().max(150).optional(),
+  line3: z.string().max(150).optional(),
+  city: z.string().max(50).optional(),
+  state: z.string().max(50).optional(),
+  state_code: z.string().max(50).optional(),
+  country: z.string().max(50).optional(),
+  zip: z.string().max(20).optional(),
+  validation_status: z
+    .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
+    .optional(),
 });
 const EstimatePurchaseShippingAddressesSchema = z.object({
   first_name: z.array(z.string().max(150).optional()).optional(),
@@ -266,6 +404,14 @@ const EstimatePurchaseShippingAddressesSchema = z.object({
     )
     .optional(),
 });
+const EstimatePurchaseDiscountsItemSchema = z.object({
+  index: z.number().int().min(0).optional(),
+  coupon_id: z.string().max(100).optional(),
+  percentage: z.number().min(0.01).max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  amount: z.number().int().min(0).optional(),
+  included_in_mrr: z.boolean().optional(),
+});
 const EstimatePurchaseDiscountsSchema = z.object({
   index: z.array(z.number().int().min(0).optional()).optional(),
   coupon_id: z.array(z.string().max(100).optional()).optional(),
@@ -274,6 +420,19 @@ const EstimatePurchaseDiscountsSchema = z.object({
   amount: z.array(z.number().int().min(0).optional()).optional(),
   included_in_mrr: z.array(z.boolean().optional()).optional(),
 });
+const EstimatePurchaseSubscriptionInfoItemSchema = z.object({
+  index: z.number().int().min(0),
+  subscription_id: z.string().max(50).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  contract_term_billing_cycle_on_renewal: z
+    .number()
+    .int()
+    .min(1)
+    .max(100)
+    .optional(),
+  trial_end: z.number().int().optional(),
+  start_date: z.number().int().optional(),
+});
 const EstimatePurchaseSubscriptionInfoSchema = z.object({
   index: z.array(z.number().int().min(0).optional()),
   subscription_id: z.array(z.string().max(50).optional()).optional(),
@@ -281,6 +440,15 @@ const EstimatePurchaseSubscriptionInfoSchema = z.object({
   contract_term_billing_cycle_on_renewal: z
     .array(z.number().int().min(1).max(100).optional())
     .optional(),
+  trial_end: z.array(z.number().int().optional()).optional(),
+  start_date: z.array(z.number().int().optional()).optional(),
+});
+const EstimatePurchaseContractTermsItemSchema = z.object({
+  index: z.number().int().min(0),
+  action_at_term_end: z
+    .enum(['renew', 'evergreen', 'cancel', 'renew_once'])
+    .optional(),
+  cancellation_cutoff_period: z.number().int().optional(),
 });
 const EstimatePurchaseContractTermsSchema = z.object({
   index: z.array(z.number().int().min(0).optional()),
@@ -294,12 +462,42 @@ const EstimatePurchaseBodySchema = z.looseObject({
   customer_id: z.string().max(50).optional(),
   customer: EstimatePurchaseCustomerSchema.optional(),
   billing_address: EstimatePurchaseBillingAddressSchema.optional(),
-  purchase_items: EstimatePurchasePurchaseItemsSchema.optional(),
-  item_tiers: EstimatePurchaseItemTiersSchema.optional(),
-  shipping_addresses: EstimatePurchaseShippingAddressesSchema.optional(),
-  discounts: EstimatePurchaseDiscountsSchema.optional(),
-  subscription_info: EstimatePurchaseSubscriptionInfoSchema.optional(),
-  contract_terms: EstimatePurchaseContractTermsSchema.optional(),
+  purchase_items: z
+    .union([
+      z.array(EstimatePurchasePurchaseItemsItemSchema.optional()),
+      EstimatePurchasePurchaseItemsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(EstimatePurchaseItemTiersItemSchema.optional()),
+      EstimatePurchaseItemTiersSchema,
+    ])
+    .optional(),
+  shipping_addresses: z
+    .union([
+      z.array(EstimatePurchaseShippingAddressesItemSchema.optional()),
+      EstimatePurchaseShippingAddressesSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(EstimatePurchaseDiscountsItemSchema.optional()),
+      EstimatePurchaseDiscountsSchema,
+    ])
+    .optional(),
+  subscription_info: z
+    .union([
+      z.array(EstimatePurchaseSubscriptionInfoItemSchema.optional()),
+      EstimatePurchaseSubscriptionInfoSchema,
+    ])
+    .optional(),
+  contract_terms: z
+    .union([
+      z.array(EstimatePurchaseContractTermsItemSchema.optional()),
+      EstimatePurchaseContractTermsSchema,
+    ])
+    .optional(),
 });
 export { EstimatePurchaseBodySchema };
 export type EstimatePurchaseBody = z.infer<typeof EstimatePurchaseBodySchema>;

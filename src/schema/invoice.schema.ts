@@ -1,5 +1,5 @@
 // Generated Zod schemas: Invoice
-// Actions: create, createForChargeItemsAndCharges, charge, chargeAddon, createForChargeItem, stopDunning, pauseDunning, resumeDunning, importInvoice, applyPayments, deleteLineItems, applyCredits, list, invoicesForCustomer, invoicesForSubscription, retrieve, pdf, listPaymentReferenceNumbers, addCharge, addAddonCharge, addChargeItem, close, collectPayment, recordPayment, recordTaxWithheld, removeTaxWithheld, refund, recordRefund, removePayment, removeCreditNote, voidInvoice, writeOff, voidBeforeCapture, delete, updateDetails, applyPaymentScheduleScheme
+// Actions: create, createForChargeItemsAndCharges, charge, chargeAddon, createForChargeItem, stopDunning, pauseDunning, resumeDunning, importInvoice, applyPayments, deleteLineItems, applyCredits, list, invoicesForCustomer, invoicesForSubscription, retrieve, pdf, listPaymentReferenceNumbers, addCharge, addAddonCharge, addChargeItem, close, collectPayment, recordPayment, recordTaxWithheld, removeTaxWithheld, refund, recordRefund, removePayment, removeCreditNote, voidInvoice, writeOff, voidBeforeCapture, delete, updateDetails, applyPaymentScheduleScheme, removePaymentScheduleScheme
 // Do not edit manually – regenerate via sdk-generator
 
 import { z } from 'zod';
@@ -355,6 +355,15 @@ const CreateInvoicePaymentIntentSchema = z.object({
   gw_payment_method_id: z.string().max(65000).optional(),
   additional_information: CreateInvoiceAdditionalInformationSchema.optional(),
 });
+const CreateInvoiceAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  date_from: z.number().int().optional(),
+  date_to: z.number().int().optional(),
+});
 const CreateInvoiceAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -363,6 +372,23 @@ const CreateInvoiceAddonsSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
+});
+const CreateInvoiceChargesItemSchema = z.object({
+  amount: z.number().int().min(1).optional(),
+  amount_in_decimal: z.string().max(39).optional(),
+  description: z.string().max(250).optional(),
+  taxable: z.boolean().default(true).optional(),
+  tax_profile_id: z.string().max(50).optional(),
+  avalara_tax_code: z.string().max(50).optional(),
+  hsn_code: z.string().max(50).optional(),
+  taxjar_product_code: z.string().max(50).optional(),
+  avalara_sale_type: z
+    .enum(['wholesale', 'retail', 'consumed', 'vendor_use'])
+    .optional(),
+  avalara_transaction_type: z.number().int().optional(),
+  avalara_service_type: z.number().int().optional(),
+  date_from: z.number().int().optional(),
+  date_to: z.number().int().optional(),
 });
 const CreateInvoiceChargesSchema = z.object({
   amount: z.array(z.number().int().min(1).optional()).optional(),
@@ -381,10 +407,21 @@ const CreateInvoiceChargesSchema = z.object({
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
 });
+const CreateInvoiceTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50).optional(),
+  field_id: z.string().max(50).optional(),
+  field_value: z.string().max(50).optional(),
+});
 const CreateInvoiceTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()).optional(),
   field_id: z.array(z.string().max(50).optional()).optional(),
   field_value: z.array(z.string().max(50).optional()).optional(),
+});
+const CreateInvoiceNotesToRemoveItemSchema = z.object({
+  entity_type: z
+    .enum(['plan', 'addon', 'customer', 'subscription', 'coupon'])
+    .optional(),
+  entity_id: z.string().max(100).optional(),
 });
 const CreateInvoiceNotesToRemoveSchema = z.object({
   entity_type: z
@@ -419,10 +456,30 @@ const CreateInvoiceBodySchema = z.looseObject({
   bank_account: CreateInvoiceBankAccountSchema.optional(),
   payment_method: CreateInvoicePaymentMethodSchema.optional(),
   payment_intent: CreateInvoicePaymentIntentSchema.optional(),
-  addons: CreateInvoiceAddonsSchema.optional(),
-  charges: CreateInvoiceChargesSchema.optional(),
-  tax_providers_fields: CreateInvoiceTaxProvidersFieldsSchema.optional(),
-  notes_to_remove: CreateInvoiceNotesToRemoveSchema.optional(),
+  addons: z
+    .union([
+      z.array(CreateInvoiceAddonsItemSchema.optional()),
+      CreateInvoiceAddonsSchema,
+    ])
+    .optional(),
+  charges: z
+    .union([
+      z.array(CreateInvoiceChargesItemSchema.optional()),
+      CreateInvoiceChargesSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(CreateInvoiceTaxProvidersFieldsItemSchema.optional()),
+      CreateInvoiceTaxProvidersFieldsSchema,
+    ])
+    .optional(),
+  notes_to_remove: z
+    .union([
+      z.array(CreateInvoiceNotesToRemoveItemSchema.optional()),
+      CreateInvoiceNotesToRemoveSchema,
+    ])
+    .optional(),
 });
 export { CreateInvoiceBodySchema };
 export type CreateInvoiceBody = z.infer<typeof CreateInvoiceBodySchema>;
@@ -787,6 +844,17 @@ const CreateForChargeItemsAndChargesInvoicePaymentIntentSchema = z.object({
   additional_information:
     CreateForChargeItemsAndChargesInvoiceAdditionalInformationSchema.optional(),
 });
+const CreateForChargeItemsAndChargesInvoiceItemPricesItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  date_from: z.number().int().optional(),
+  date_to: z.number().int().optional(),
+  description: z.string().max(250).optional(),
+  entity_description: z.string().max(2000).optional(),
+});
 const CreateForChargeItemsAndChargesInvoiceItemPricesSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -797,6 +865,17 @@ const CreateForChargeItemsAndChargesInvoiceItemPricesSchema = z.object({
   date_to: z.array(z.number().int().optional()).optional(),
   description: z.array(z.string().max(250).optional()).optional(),
   entity_description: z.array(z.string().max(2000).optional()).optional(),
+});
+const CreateForChargeItemsAndChargesInvoiceItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
 });
 const CreateForChargeItemsAndChargesInvoiceItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -810,6 +889,24 @@ const CreateForChargeItemsAndChargesInvoiceItemTiersSchema = z.object({
     .array(z.enum(['per_unit', 'flat_fee', 'package']).optional())
     .optional(),
   package_size: z.array(z.number().int().min(1).optional()).optional(),
+});
+const CreateForChargeItemsAndChargesInvoiceChargesItemSchema = z.object({
+  entity_description: z.string().max(2000).optional(),
+  amount: z.number().int().min(1).optional(),
+  amount_in_decimal: z.string().max(39).optional(),
+  description: z.string().max(250).optional(),
+  taxable: z.boolean().default(true).optional(),
+  tax_profile_id: z.string().max(50).optional(),
+  avalara_tax_code: z.string().max(50).optional(),
+  hsn_code: z.string().max(50).optional(),
+  taxjar_product_code: z.string().max(50).optional(),
+  avalara_sale_type: z
+    .enum(['wholesale', 'retail', 'consumed', 'vendor_use'])
+    .optional(),
+  avalara_transaction_type: z.number().int().optional(),
+  avalara_service_type: z.number().int().optional(),
+  date_from: z.number().int().optional(),
+  date_to: z.number().int().optional(),
 });
 const CreateForChargeItemsAndChargesInvoiceChargesSchema = z.object({
   entity_description: z.array(z.string().max(2000).optional()).optional(),
@@ -829,6 +926,19 @@ const CreateForChargeItemsAndChargesInvoiceChargesSchema = z.object({
   date_from: z.array(z.number().int().optional()).optional(),
   date_to: z.array(z.number().int().optional()).optional(),
 });
+const CreateForChargeItemsAndChargesInvoiceNotesToRemoveItemSchema = z.object({
+  entity_type: z
+    .enum([
+      'customer',
+      'subscription',
+      'coupon',
+      'plan_item_price',
+      'addon_item_price',
+      'charge_item_price',
+    ])
+    .optional(),
+  entity_id: z.string().max(100).optional(),
+});
 const CreateForChargeItemsAndChargesInvoiceNotesToRemoveSchema = z.object({
   entity_type: z
     .array(
@@ -846,10 +956,23 @@ const CreateForChargeItemsAndChargesInvoiceNotesToRemoveSchema = z.object({
     .optional(),
   entity_id: z.array(z.string().max(100).optional()).optional(),
 });
+const CreateForChargeItemsAndChargesInvoiceTaxProvidersFieldsItemSchema =
+  z.object({
+    provider_name: z.string().max(50).optional(),
+    field_id: z.string().max(50).optional(),
+    field_value: z.string().max(50).optional(),
+  });
 const CreateForChargeItemsAndChargesInvoiceTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()).optional(),
   field_id: z.array(z.string().max(50).optional()).optional(),
   field_value: z.array(z.string().max(50).optional()).optional(),
+});
+const CreateForChargeItemsAndChargesInvoiceDiscountsItemSchema = z.object({
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  quantity: z.number().int().min(1).optional(),
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']),
+  item_price_id: z.string().max(100).optional(),
 });
 const CreateForChargeItemsAndChargesInvoiceDiscountsSchema = z.object({
   percentage: z.array(z.number().min(0.01).max(100).optional()).optional(),
@@ -873,6 +996,23 @@ const CreateForChargeItemsAndChargesInvoiceBodySchema = z.looseObject({
   payment_source_id: z.string().max(40).optional(),
   auto_collection: z.enum(['on', 'off']).optional(),
   net_term_days: z.number().int().optional(),
+  offline_payment_method: z
+    .enum([
+      'no_preference',
+      'cash',
+      'check',
+      'bank_transfer',
+      'ach_credit',
+      'sepa_credit',
+      'boleto',
+      'us_automated_bank_transfer',
+      'eu_automated_bank_transfer',
+      'uk_automated_bank_transfer',
+      'jp_automated_bank_transfer',
+      'mx_automated_bank_transfer',
+      'custom',
+    ])
+    .optional(),
   invoice_date: z.number().int().optional(),
   create_pending_invoice: z.boolean().optional(),
   token_id: z.string().max(40).optional(),
@@ -890,14 +1030,54 @@ const CreateForChargeItemsAndChargesInvoiceBodySchema = z.looseObject({
     CreateForChargeItemsAndChargesInvoicePaymentMethodSchema.optional(),
   payment_intent:
     CreateForChargeItemsAndChargesInvoicePaymentIntentSchema.optional(),
-  item_prices: CreateForChargeItemsAndChargesInvoiceItemPricesSchema.optional(),
-  item_tiers: CreateForChargeItemsAndChargesInvoiceItemTiersSchema.optional(),
-  charges: CreateForChargeItemsAndChargesInvoiceChargesSchema.optional(),
-  notes_to_remove:
-    CreateForChargeItemsAndChargesInvoiceNotesToRemoveSchema.optional(),
-  tax_providers_fields:
-    CreateForChargeItemsAndChargesInvoiceTaxProvidersFieldsSchema.optional(),
-  discounts: CreateForChargeItemsAndChargesInvoiceDiscountsSchema.optional(),
+  item_prices: z
+    .union([
+      z.array(
+        CreateForChargeItemsAndChargesInvoiceItemPricesItemSchema.optional(),
+      ),
+      CreateForChargeItemsAndChargesInvoiceItemPricesSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(
+        CreateForChargeItemsAndChargesInvoiceItemTiersItemSchema.optional(),
+      ),
+      CreateForChargeItemsAndChargesInvoiceItemTiersSchema,
+    ])
+    .optional(),
+  charges: z
+    .union([
+      z.array(
+        CreateForChargeItemsAndChargesInvoiceChargesItemSchema.optional(),
+      ),
+      CreateForChargeItemsAndChargesInvoiceChargesSchema,
+    ])
+    .optional(),
+  notes_to_remove: z
+    .union([
+      z.array(
+        CreateForChargeItemsAndChargesInvoiceNotesToRemoveItemSchema.optional(),
+      ),
+      CreateForChargeItemsAndChargesInvoiceNotesToRemoveSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(
+        CreateForChargeItemsAndChargesInvoiceTaxProvidersFieldsItemSchema.optional(),
+      ),
+      CreateForChargeItemsAndChargesInvoiceTaxProvidersFieldsSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(
+        CreateForChargeItemsAndChargesInvoiceDiscountsItemSchema.optional(),
+      ),
+      CreateForChargeItemsAndChargesInvoiceDiscountsSchema,
+    ])
+    .optional(),
 });
 export { CreateForChargeItemsAndChargesInvoiceBodySchema };
 export type CreateForChargeItemsAndChargesInvoiceBody = z.infer<
@@ -906,6 +1086,11 @@ export type CreateForChargeItemsAndChargesInvoiceBody = z.infer<
 
 //Invoice.charge
 
+const ChargeInvoiceTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50).optional(),
+  field_id: z.string().max(50).optional(),
+  field_value: z.string().max(50).optional(),
+});
 const ChargeInvoiceTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()).optional(),
   field_id: z.array(z.string().max(50).optional()).optional(),
@@ -931,7 +1116,12 @@ const ChargeInvoiceBodySchema = z.looseObject({
   invoice_date: z.number().int().optional(),
   payment_source_id: z.string().max(40).optional(),
   payment_initiator: z.enum(['customer', 'merchant']).optional(),
-  tax_providers_fields: ChargeInvoiceTaxProvidersFieldsSchema.optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(ChargeInvoiceTaxProvidersFieldsItemSchema.optional()),
+      ChargeInvoiceTaxProvidersFieldsSchema,
+    ])
+    .optional(),
 });
 export { ChargeInvoiceBodySchema };
 export type ChargeInvoiceBody = z.infer<typeof ChargeInvoiceBodySchema>;
@@ -971,6 +1161,16 @@ const CreateForChargeItemInvoiceItemPriceSchema = z.object({
   date_from: z.number().int().optional(),
   date_to: z.number().int().optional(),
 });
+const CreateForChargeItemInvoiceItemTiersItemSchema = z.object({
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
+});
 const CreateForChargeItemInvoiceItemTiersSchema = z.object({
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
   ending_unit: z.array(z.number().int().optional()).optional(),
@@ -992,7 +1192,12 @@ const CreateForChargeItemInvoiceBodySchema = z.looseObject({
   payment_initiator: z.enum(['customer', 'merchant']).optional(),
   invoice_date: z.number().int().optional(),
   item_price: CreateForChargeItemInvoiceItemPriceSchema.optional(),
-  item_tiers: CreateForChargeItemInvoiceItemTiersSchema.optional(),
+  item_tiers: z
+    .union([
+      z.array(CreateForChargeItemInvoiceItemTiersItemSchema.optional()),
+      CreateForChargeItemInvoiceItemTiersSchema,
+    ])
+    .optional(),
 });
 export { CreateForChargeItemInvoiceBodySchema };
 export type CreateForChargeItemInvoiceBody = z.infer<
@@ -1071,6 +1276,74 @@ const ImportInvoiceInvoiceShippingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const ImportInvoiceInvoiceLineItemsItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  date_from: z.number().int().optional(),
+  date_to: z.number().int().optional(),
+  subscription_id: z.string().max(50).optional(),
+  description: z.string().max(250),
+  unit_amount: z.number().int().optional(),
+  quantity: z.number().int().optional(),
+  amount: z.number().int().optional(),
+  unit_amount_in_decimal: z.string().max(39).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  amount_in_decimal: z.string().max(39).optional(),
+  entity_type: z
+    .enum([
+      'adhoc',
+      'plan_item_price',
+      'addon_item_price',
+      'charge_item_price',
+      'plan_setup',
+      'plan',
+      'addon',
+    ])
+    .optional(),
+  entity_id: z.string().max(100).optional(),
+  item_level_discount1_entity_id: z.string().max(100).optional(),
+  item_level_discount1_amount: z.number().int().min(0).optional(),
+  item_level_discount2_entity_id: z.string().max(100).optional(),
+  item_level_discount2_amount: z.number().int().min(0).optional(),
+  tax1_name: z.string().max(50).optional(),
+  tax1_amount: z.number().int().min(0).optional(),
+  tax2_name: z.string().max(50).optional(),
+  tax2_amount: z.number().int().min(0).optional(),
+  tax3_name: z.string().max(50).optional(),
+  tax3_amount: z.number().int().min(0).optional(),
+  tax4_name: z.string().max(50).optional(),
+  tax4_amount: z.number().int().min(0).optional(),
+  tax5_name: z.string().max(50).optional(),
+  tax5_amount: z.number().int().min(0).optional(),
+  tax6_name: z.string().max(50).optional(),
+  tax6_amount: z.number().int().min(0).optional(),
+  tax7_name: z.string().max(50).optional(),
+  tax7_amount: z.number().int().min(0).optional(),
+  tax8_name: z.string().max(50).optional(),
+  tax8_amount: z.number().int().min(0).optional(),
+  tax9_name: z.string().max(50).optional(),
+  tax9_amount: z.number().int().min(0).optional(),
+  tax10_name: z.string().max(50).optional(),
+  tax10_amount: z.number().int().min(0).optional(),
+  is_partial_tax_applied: z.boolean().optional(),
+  taxable_amount: z.number().int().min(0).optional(),
+  tax_exempt_reason: z
+    .enum([
+      'region_non_taxable',
+      'export',
+      'customer_exempt',
+      'product_exempt',
+      'zero_rated',
+      'reverse_charge',
+      'high_value_physical_goods',
+      'zero_value_item',
+      'tax_not_configured_external_provider',
+    ])
+    .optional(),
+  proration_mode: z
+    .enum(['reset', 'delta', 'service_period_revision', 'adjusted_term'])
+    .optional(),
+  created_at: z.number().int().optional(),
+});
 const ImportInvoiceInvoiceLineItemsSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   date_from: z.array(z.number().int().optional()).optional(),
@@ -1133,6 +1406,23 @@ const ImportInvoiceInvoiceLineItemsSchema = z.object({
   tax10_amount: z.array(z.number().int().min(0).optional()).optional(),
   is_partial_tax_applied: z.array(z.boolean().optional()).optional(),
   taxable_amount: z.array(z.number().int().min(0).optional()).optional(),
+  tax_exempt_reason: z
+    .array(
+      z
+        .enum([
+          'region_non_taxable',
+          'export',
+          'customer_exempt',
+          'product_exempt',
+          'zero_rated',
+          'reverse_charge',
+          'high_value_physical_goods',
+          'zero_value_item',
+          'tax_not_configured_external_provider',
+        ])
+        .optional(),
+    )
+    .optional(),
   proration_mode: z
     .array(
       z
@@ -1142,12 +1432,28 @@ const ImportInvoiceInvoiceLineItemsSchema = z.object({
     .optional(),
   created_at: z.array(z.number().int().optional()).optional(),
 });
+const ImportInvoiceInvoicePaymentReferenceNumbersItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  type: z.enum(['kid', 'ocr', 'frn', 'fik', 'swiss_reference']),
+  number: z.string().max(100),
+});
 const ImportInvoiceInvoicePaymentReferenceNumbersSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   type: z.array(
     z.enum(['kid', 'ocr', 'frn', 'fik', 'swiss_reference']).optional(),
   ),
   number: z.array(z.string().max(100).optional()),
+});
+const ImportInvoiceInvoiceLineItemTiersItemSchema = z.object({
+  line_item_id: z.string().max(40),
+  starting_unit: z.number().int().min(0).optional(),
+  ending_unit: z.number().int().optional(),
+  quantity_used: z.number().int().min(0).optional(),
+  unit_amount: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  quantity_used_in_decimal: z.string().max(33).optional(),
+  unit_amount_in_decimal: z.string().max(40).optional(),
 });
 const ImportInvoiceInvoiceLineItemTiersSchema = z.object({
   line_item_id: z.array(z.string().max(40).optional()),
@@ -1159,6 +1465,19 @@ const ImportInvoiceInvoiceLineItemTiersSchema = z.object({
   ending_unit_in_decimal: z.array(z.string().max(33).optional()).optional(),
   quantity_used_in_decimal: z.array(z.string().max(33).optional()).optional(),
   unit_amount_in_decimal: z.array(z.string().max(40).optional()).optional(),
+});
+const ImportInvoiceInvoiceDiscountsItemSchema = z.object({
+  line_item_id: z.string().max(40).optional(),
+  entity_type: z.enum([
+    'item_level_coupon',
+    'document_level_coupon',
+    'promotional_credits',
+    'item_level_discount',
+    'document_level_discount',
+  ]),
+  entity_id: z.string().max(100).optional(),
+  description: z.string().max(250).optional(),
+  amount: z.number().int().min(0),
 });
 const ImportInvoiceInvoiceDiscountsSchema = z.object({
   line_item_id: z.array(z.string().max(40).optional()).optional(),
@@ -1176,6 +1495,26 @@ const ImportInvoiceInvoiceDiscountsSchema = z.object({
   entity_id: z.array(z.string().max(100).optional()).optional(),
   description: z.array(z.string().max(250).optional()).optional(),
   amount: z.array(z.number().int().min(0).optional()),
+});
+const ImportInvoiceInvoiceTaxesItemSchema = z.object({
+  name: z.string().max(100),
+  rate: z.number().min(0).max(100),
+  amount: z.number().int().min(0).optional(),
+  description: z.string().max(50).optional(),
+  juris_type: z
+    .enum([
+      'country',
+      'federal',
+      'state',
+      'county',
+      'city',
+      'special',
+      'unincorporated',
+      'other',
+    ])
+    .optional(),
+  juris_name: z.string().max(250).optional(),
+  juris_code: z.string().max(250).optional(),
 });
 const ImportInvoiceInvoiceTaxesSchema = z.object({
   name: z.array(z.string().max(100).optional()),
@@ -1201,6 +1540,21 @@ const ImportInvoiceInvoiceTaxesSchema = z.object({
   juris_name: z.array(z.string().max(250).optional()).optional(),
   juris_code: z.array(z.string().max(250).optional()).optional(),
 });
+const ImportInvoiceInvoicePaymentsItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  amount: z.number().int().min(1),
+  payment_method: z.enum([
+    'cash',
+    'check',
+    'bank_transfer',
+    'other',
+    'app_store',
+    'play_store',
+    'custom',
+  ]),
+  date: z.number().int().optional(),
+  reference_number: z.string().max(100).min(1).optional(),
+});
 const ImportInvoiceInvoicePaymentsSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   amount: z.array(z.number().int().min(1).optional()),
@@ -1214,17 +1568,25 @@ const ImportInvoiceInvoicePaymentsSchema = z.object({
         'app_store',
         'play_store',
         'custom',
-        'tamara',
-        'qpay',
-        'blik',
-        'fpx',
-        'wero',
-        'p24',
       ])
       .optional(),
   ),
   date: z.array(z.number().int().optional()).optional(),
   reference_number: z.array(z.string().max(100).min(1).optional()).optional(),
+});
+const ImportInvoiceInvoiceNotesItemSchema = z.object({
+  entity_type: z
+    .enum([
+      'coupon',
+      'plan_item_price',
+      'addon_item_price',
+      'charge_item_price',
+      'plan',
+      'addon',
+    ])
+    .optional(),
+  entity_id: z.string().max(50).optional(),
+  note: z.string().max(65000).optional(),
 });
 const ImportInvoiceInvoiceNotesSchema = z.object({
   entity_type: z
@@ -1243,6 +1605,25 @@ const ImportInvoiceInvoiceNotesSchema = z.object({
     .optional(),
   entity_id: z.array(z.string().max(50).optional()).optional(),
   note: z.array(z.string().max(65000).optional()).optional(),
+});
+const ImportInvoiceInvoiceLineItemAddressesItemSchema = z.object({
+  line_item_id: z.string().max(40).optional(),
+  first_name: z.string().max(150).optional(),
+  last_name: z.string().max(150).optional(),
+  email: z.string().email().max(70).optional(),
+  company: z.string().max(250).optional(),
+  phone: z.string().max(50).optional(),
+  line1: z.string().max(150).optional(),
+  line2: z.string().max(150).optional(),
+  line3: z.string().max(150).optional(),
+  city: z.string().max(50).optional(),
+  state_code: z.string().max(50).optional(),
+  state: z.string().max(50).optional(),
+  zip: z.string().max(20).optional(),
+  country: z.string().max(50).optional(),
+  validation_status: z
+    .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
+    .optional(),
 });
 const ImportInvoiceInvoiceLineItemAddressesSchema = z.object({
   line_item_id: z.array(z.string().max(40).optional()).optional(),
@@ -1308,15 +1689,54 @@ const ImportInvoiceInvoiceBodySchema = z.looseObject({
   credit_note: ImportInvoiceInvoiceCreditNoteSchema.optional(),
   billing_address: ImportInvoiceInvoiceBillingAddressSchema.optional(),
   shipping_address: ImportInvoiceInvoiceShippingAddressSchema.optional(),
-  line_items: ImportInvoiceInvoiceLineItemsSchema.optional(),
-  payment_reference_numbers:
-    ImportInvoiceInvoicePaymentReferenceNumbersSchema.optional(),
-  line_item_tiers: ImportInvoiceInvoiceLineItemTiersSchema.optional(),
-  discounts: ImportInvoiceInvoiceDiscountsSchema.optional(),
-  taxes: ImportInvoiceInvoiceTaxesSchema.optional(),
-  payments: ImportInvoiceInvoicePaymentsSchema.optional(),
-  notes: ImportInvoiceInvoiceNotesSchema.optional(),
-  line_item_addresses: ImportInvoiceInvoiceLineItemAddressesSchema.optional(),
+  line_items: z
+    .union([
+      z.array(ImportInvoiceInvoiceLineItemsItemSchema.optional()),
+      ImportInvoiceInvoiceLineItemsSchema,
+    ])
+    .optional(),
+  payment_reference_numbers: z
+    .union([
+      z.array(ImportInvoiceInvoicePaymentReferenceNumbersItemSchema.optional()),
+      ImportInvoiceInvoicePaymentReferenceNumbersSchema,
+    ])
+    .optional(),
+  line_item_tiers: z
+    .union([
+      z.array(ImportInvoiceInvoiceLineItemTiersItemSchema.optional()),
+      ImportInvoiceInvoiceLineItemTiersSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(ImportInvoiceInvoiceDiscountsItemSchema.optional()),
+      ImportInvoiceInvoiceDiscountsSchema,
+    ])
+    .optional(),
+  taxes: z
+    .union([
+      z.array(ImportInvoiceInvoiceTaxesItemSchema.optional()),
+      ImportInvoiceInvoiceTaxesSchema,
+    ])
+    .optional(),
+  payments: z
+    .union([
+      z.array(ImportInvoiceInvoicePaymentsItemSchema.optional()),
+      ImportInvoiceInvoicePaymentsSchema,
+    ])
+    .optional(),
+  notes: z
+    .union([
+      z.array(ImportInvoiceInvoiceNotesItemSchema.optional()),
+      ImportInvoiceInvoiceNotesSchema,
+    ])
+    .optional(),
+  line_item_addresses: z
+    .union([
+      z.array(ImportInvoiceInvoiceLineItemAddressesItemSchema.optional()),
+      ImportInvoiceInvoiceLineItemAddressesSchema,
+    ])
+    .optional(),
 });
 export { ImportInvoiceInvoiceBodySchema };
 export type ImportInvoiceInvoiceBody = z.infer<
@@ -1325,13 +1745,22 @@ export type ImportInvoiceInvoiceBody = z.infer<
 
 //Invoice.applyPayments
 
+const ApplyPaymentsInvoiceTransactionsItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  amount: z.number().int().min(0).optional(),
+});
 const ApplyPaymentsInvoiceTransactionsSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   amount: z.array(z.number().int().min(0).optional()).optional(),
 });
 const ApplyPaymentsInvoiceBodySchema = z.looseObject({
   comment: z.string().max(300).optional(),
-  transactions: ApplyPaymentsInvoiceTransactionsSchema.optional(),
+  transactions: z
+    .union([
+      z.array(ApplyPaymentsInvoiceTransactionsItemSchema.optional()),
+      ApplyPaymentsInvoiceTransactionsSchema,
+    ])
+    .optional(),
 });
 export { ApplyPaymentsInvoiceBodySchema };
 export type ApplyPaymentsInvoiceBody = z.infer<
@@ -1340,11 +1769,19 @@ export type ApplyPaymentsInvoiceBody = z.infer<
 
 //Invoice.deleteLineItems
 
+const DeleteLineItemsInvoiceLineItemsItemSchema = z.object({
+  id: z.string().max(40).optional(),
+});
 const DeleteLineItemsInvoiceLineItemsSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
 });
 const DeleteLineItemsInvoiceBodySchema = z.looseObject({
-  line_items: DeleteLineItemsInvoiceLineItemsSchema.optional(),
+  line_items: z
+    .union([
+      z.array(DeleteLineItemsInvoiceLineItemsItemSchema.optional()),
+      DeleteLineItemsInvoiceLineItemsSchema,
+    ])
+    .optional(),
 });
 export { DeleteLineItemsInvoiceBodySchema };
 export type DeleteLineItemsInvoiceBody = z.infer<
@@ -1353,12 +1790,24 @@ export type DeleteLineItemsInvoiceBody = z.infer<
 
 //Invoice.applyCredits
 
+const ApplyCreditsInvoiceCreditNotesItemSchema = z.object({
+  id: z.string().max(50).optional(),
+  amount: z.number().int().min(1).optional(),
+  applied_at: z.number().int().optional(),
+});
 const ApplyCreditsInvoiceCreditNotesSchema = z.object({
   id: z.array(z.string().max(50).optional()).optional(),
+  amount: z.array(z.number().int().min(1).optional()).optional(),
+  applied_at: z.array(z.number().int().optional()).optional(),
 });
 const ApplyCreditsInvoiceBodySchema = z.looseObject({
   comment: z.string().max(300).optional(),
-  credit_notes: ApplyCreditsInvoiceCreditNotesSchema.optional(),
+  credit_notes: z
+    .union([
+      z.array(ApplyCreditsInvoiceCreditNotesItemSchema.optional()),
+      ApplyCreditsInvoiceCreditNotesSchema,
+    ])
+    .optional(),
 });
 export { ApplyCreditsInvoiceBodySchema };
 export type ApplyCreditsInvoiceBody = z.infer<
@@ -1371,26 +1820,56 @@ const ListInvoiceIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceSubscriptionIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceCustomerIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceRecurringSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListInvoiceStatusSchema = z.object({
   is: z
@@ -1400,113 +1879,338 @@ const ListInvoiceStatusSchema = z.object({
     .enum(['paid', 'posted', 'payment_due', 'not_paid', 'voided', 'pending'])
     .optional(),
   in: z
-    .enum(['paid', 'posted', 'payment_due', 'not_paid', 'voided', 'pending'])
+    .union([
+      z.array(
+        z
+          .enum([
+            'paid',
+            'posted',
+            'payment_due',
+            'not_paid',
+            'voided',
+            'pending',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'paid',
+        'posted',
+        'payment_due',
+        'not_paid',
+        'voided',
+        'pending',
+      ]),
+    ])
     .optional(),
   not_in: z
-    .enum(['paid', 'posted', 'payment_due', 'not_paid', 'voided', 'pending'])
+    .union([
+      z.array(
+        z
+          .enum([
+            'paid',
+            'posted',
+            'payment_due',
+            'not_paid',
+            'voided',
+            'pending',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'paid',
+        'posted',
+        'payment_due',
+        'not_paid',
+        'voided',
+        'pending',
+      ]),
+    ])
     .optional(),
 });
 const ListInvoicePriceTypeSchema = z.object({
   is: z.enum(['tax_exclusive', 'tax_inclusive']).optional(),
   is_not: z.enum(['tax_exclusive', 'tax_inclusive']).optional(),
-  in: z.enum(['tax_exclusive', 'tax_inclusive']).optional(),
-  not_in: z.enum(['tax_exclusive', 'tax_inclusive']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['tax_exclusive', 'tax_inclusive']).optional()),
+      z.enum(['tax_exclusive', 'tax_inclusive']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['tax_exclusive', 'tax_inclusive']).optional()),
+      z.enum(['tax_exclusive', 'tax_inclusive']),
+    ])
+    .optional(),
 });
 const ListInvoiceDateSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoicePaidAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceTotalSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceAmountPaidSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceAmountAdjustedSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceCreditsAppliedSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceAmountDueSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceDunningStatusSchema = z.object({
   is: z.enum(['in_progress', 'exhausted', 'stopped', 'success']).optional(),
   is_not: z.enum(['in_progress', 'exhausted', 'stopped', 'success']).optional(),
-  in: z.enum(['in_progress', 'exhausted', 'stopped', 'success']).optional(),
-  not_in: z.enum(['in_progress', 'exhausted', 'stopped', 'success']).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
+  in: z
+    .union([
+      z.array(
+        z.enum(['in_progress', 'exhausted', 'stopped', 'success']).optional(),
+      ),
+      z.enum(['in_progress', 'exhausted', 'stopped', 'success']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(
+        z.enum(['in_progress', 'exhausted', 'stopped', 'success']).optional(),
+      ),
+      z.enum(['in_progress', 'exhausted', 'stopped', 'success']),
+    ])
+    .optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListInvoicePaymentOwnerSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceChannelSchema = z.object({
   is: z.enum(['web', 'app_store', 'play_store']).optional(),
   is_not: z.enum(['web', 'app_store', 'play_store']).optional(),
-  in: z.enum(['web', 'app_store', 'play_store']).optional(),
-  not_in: z.enum(['web', 'app_store', 'play_store']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
 });
 const ListInvoiceVoidedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceVoidReasonCodeSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListInvoiceSortBySchema = z.looseObject({
   asc: z.enum(['date', 'updated_at']).optional(),
@@ -1598,26 +2302,34 @@ export type PdfInvoiceBody = z.infer<typeof PdfInvoiceBodySchema>;
 //Invoice.listPaymentReferenceNumbers
 
 const ListPaymentReferenceNumbersInvoiceIdSchema = z.object({
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
   is: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListPaymentReferenceNumbersInvoiceNumberSchema = z.object({
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
   is: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
-const ListPaymentReferenceNumbersInvoicePaymentReferenceNumberItemSchema =
-  z.object({
+const ListPaymentReferenceNumbersInvoicePaymentReferenceNumberSchema = z.object(
+  {
     number: ListPaymentReferenceNumbersInvoiceNumberSchema.optional(),
-  });
+  },
+);
 const ListPaymentReferenceNumbersInvoiceBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),
   offset: z.string().max(1000).optional(),
   id: ListPaymentReferenceNumbersInvoiceIdSchema.optional(),
-  payment_reference_number: z
-    .array(
-      ListPaymentReferenceNumbersInvoicePaymentReferenceNumberItemSchema.optional(),
-    )
-    .optional(),
+  payment_reference_number:
+    ListPaymentReferenceNumbersInvoicePaymentReferenceNumberSchema.optional(),
 });
 export { ListPaymentReferenceNumbersInvoiceBodySchema };
 export type ListPaymentReferenceNumbersInvoiceBody = z.infer<
@@ -1680,6 +2392,16 @@ const AddChargeItemInvoiceItemPriceSchema = z.object({
   date_from: z.number().int().optional(),
   date_to: z.number().int().optional(),
 });
+const AddChargeItemInvoiceItemTiersItemSchema = z.object({
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
+});
 const AddChargeItemInvoiceItemTiersSchema = z.object({
   starting_unit: z.array(z.number().int().min(1).optional()).optional(),
   ending_unit: z.array(z.number().int().optional()).optional(),
@@ -1696,7 +2418,12 @@ const AddChargeItemInvoiceBodySchema = z.looseObject({
   comment: z.string().max(300).optional(),
   subscription_id: z.string().max(50).optional(),
   item_price: AddChargeItemInvoiceItemPriceSchema.optional(),
-  item_tiers: AddChargeItemInvoiceItemTiersSchema.optional(),
+  item_tiers: z
+    .union([
+      z.array(AddChargeItemInvoiceItemTiersItemSchema.optional()),
+      AddChargeItemInvoiceItemTiersSchema,
+    ])
+    .optional(),
 });
 export { AddChargeItemInvoiceBodySchema };
 export type AddChargeItemInvoiceBody = z.infer<
@@ -1705,6 +2432,21 @@ export type AddChargeItemInvoiceBody = z.infer<
 
 //Invoice.close
 
+const CloseInvoiceNotesToRemoveItemSchema = z.object({
+  entity_type: z
+    .enum([
+      'customer',
+      'subscription',
+      'coupon',
+      'plan_item_price',
+      'addon_item_price',
+      'charge_item_price',
+      'plan',
+      'addon',
+    ])
+    .optional(),
+  entity_id: z.string().max(100).optional(),
+});
 const CloseInvoiceNotesToRemoveSchema = z.object({
   entity_type: z
     .array(
@@ -1729,7 +2471,12 @@ const CloseInvoiceBodySchema = z.looseObject({
   invoice_note: z.string().max(2000).optional(),
   remove_general_note: z.boolean().default(false).optional(),
   invoice_date: z.number().int().optional(),
-  notes_to_remove: CloseInvoiceNotesToRemoveSchema.optional(),
+  notes_to_remove: z
+    .union([
+      z.array(CloseInvoiceNotesToRemoveItemSchema.optional()),
+      CloseInvoiceNotesToRemoveSchema,
+    ])
+    .optional(),
 });
 export { CloseInvoiceBodySchema };
 export type CloseInvoiceBody = z.infer<typeof CloseInvoiceBodySchema>;
@@ -1760,12 +2507,6 @@ const RecordPaymentInvoiceTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
-    'tamara',
-    'qpay',
-    'blik',
-    'fpx',
-    'wero',
-    'p24',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),
@@ -1850,12 +2591,6 @@ const RecordRefundInvoiceTransactionSchema = z.object({
     'app_store',
     'play_store',
     'custom',
-    'tamara',
-    'qpay',
-    'blik',
-    'fpx',
-    'wero',
-    'p24',
   ]),
   reference_number: z.string().max(100).optional(),
   custom_payment_method_id: z.string().max(50).optional(),
@@ -2016,4 +2751,14 @@ const ApplyPaymentScheduleSchemeInvoiceBodySchema = z.looseObject({
 export { ApplyPaymentScheduleSchemeInvoiceBodySchema };
 export type ApplyPaymentScheduleSchemeInvoiceBody = z.infer<
   typeof ApplyPaymentScheduleSchemeInvoiceBodySchema
+>;
+
+//Invoice.removePaymentScheduleScheme
+
+const RemovePaymentScheduleSchemeInvoiceBodySchema = z.looseObject({
+  comment: z.string().max(300).optional(),
+});
+export { RemovePaymentScheduleSchemeInvoiceBodySchema };
+export type RemovePaymentScheduleSchemeInvoiceBody = z.infer<
+  typeof RemovePaymentScheduleSchemeInvoiceBodySchema
 >;

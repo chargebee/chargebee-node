@@ -7,20 +7,37 @@ import { z } from 'zod';
 //Entitlement.list
 
 const ListEntitlementFeatureIdSchema = z.object({
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
   is: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListEntitlementEntityTypeSchema = z.object({
-  is: z
-    .enum(['plan', 'addon', 'charge', 'plan_price', 'addon_price'])
-    .optional(),
   in: z
+    .union([
+      z.array(
+        z
+          .enum(['plan', 'addon', 'charge', 'plan_price', 'addon_price'])
+          .optional(),
+      ),
+      z.enum(['plan', 'addon', 'charge', 'plan_price', 'addon_price']),
+    ])
+    .optional(),
+  is: z
     .enum(['plan', 'addon', 'charge', 'plan_price', 'addon_price'])
     .optional(),
 });
 const ListEntitlementEntityIdSchema = z.object({
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
   is: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListEntitlementBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),
@@ -36,6 +53,15 @@ export type ListEntitlementBody = z.infer<typeof ListEntitlementBodySchema>;
 
 //Entitlement.create
 
+const CreateEntitlementEntitlementsItemSchema = z.object({
+  entity_id: z.string().max(100),
+  feature_id: z.string().max(50),
+  entity_type: z
+    .enum(['plan', 'addon', 'charge', 'plan_price', 'addon_price'])
+    .optional(),
+  value: z.string().max(50).optional(),
+  apply_grandfathering: z.boolean().default(false).optional(),
+});
 const CreateEntitlementEntitlementsSchema = z.object({
   entity_id: z.array(z.string().max(100).optional()),
   feature_id: z.array(z.string().max(50).optional()),
@@ -54,7 +80,12 @@ const CreateEntitlementEntitlementsSchema = z.object({
 const CreateEntitlementBodySchema = z.looseObject({
   action: z.enum(['upsert', 'remove']),
   change_reason: z.string().max(100).optional(),
-  entitlements: CreateEntitlementEntitlementsSchema.optional(),
+  entitlements: z
+    .union([
+      z.array(CreateEntitlementEntitlementsItemSchema.optional()),
+      CreateEntitlementEntitlementsSchema,
+    ])
+    .optional(),
 });
 export { CreateEntitlementBodySchema };
 export type CreateEntitlementBody = z.infer<typeof CreateEntitlementBodySchema>;

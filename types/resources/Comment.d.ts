@@ -80,7 +80,8 @@ declare module 'chargebee' {
         | 'item_family'
         | 'item'
         | 'item_price'
-        | 'price_variant';
+        | 'price_variant'
+        | 'task';
       entity_id?: string;
       created_at?: filter.Timestamp;
       'sort_by[asc]'?: string;

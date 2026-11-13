@@ -635,6 +635,7 @@ declare module 'chargebee' {
       included_in_mrr?: boolean;
       item_price_id?: string;
       quantity?: number;
+      description?: string;
     }
     export interface ItemTiersCreateSubItemEstimateInputParam {
       item_price_id?: string;
@@ -778,6 +779,7 @@ declare module 'chargebee' {
       included_in_mrr?: boolean;
       item_price_id?: string;
       quantity?: number;
+      description?: string;
     }
     export interface ItemTiersCreateSubItemForCustomerEstimateInputParam {
       item_price_id?: string;
@@ -944,6 +946,7 @@ declare module 'chargebee' {
       quantity?: number;
       operation_type: OperationTypeEnum;
       id?: string;
+      description?: string;
     }
     export interface ItemTiersUpdateSubscriptionForItemsInputParam {
       item_price_id?: string;

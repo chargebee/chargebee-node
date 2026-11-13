@@ -47,6 +47,7 @@ declare module 'chargebee' {
     first_invoice?: boolean;
     new_sales_amount?: number;
     has_advance_charges?: boolean;
+    offline_payment_method?: OfflinePaymentMethodEnum;
     term_finalized: boolean;
     is_gifted: boolean;
     generated_at?: number;
@@ -64,6 +65,7 @@ declare module 'chargebee' {
     tax_origin?: Invoice.TaxOrigin;
     linked_payments?: Invoice.LinkedPayment[];
     reference_transactions?: Invoice.ReferenceTransaction[];
+    retry_segment_id?: string;
     dunning_attempts?: Invoice.DunningAttempt[];
     applied_credits?: Invoice.AppliedCredit[];
     adjustment_credit_notes?: Invoice.AdjustmentCreditNote[];
@@ -321,6 +323,12 @@ declare module 'chargebee' {
         headers?: ChargebeeRequestHeader,
       ): Promise<ChargebeeResponse<ApplyPaymentScheduleSchemeResponse>>;
 
+      removePaymentScheduleScheme(
+        invoice_id: string,
+        input?: RemovePaymentScheduleSchemeInputParam,
+        headers?: ChargebeeRequestHeader,
+      ): Promise<ChargebeeResponse<RemovePaymentScheduleSchemeResponse>>;
+
       paymentSchedules(
         invoice_id: string,
         headers?: ChargebeeRequestHeader,
@@ -506,6 +514,10 @@ declare module 'chargebee' {
     }
 
     export interface ApplyPaymentScheduleSchemeResponse {
+      invoice: Invoice;
+    }
+
+    export interface RemovePaymentScheduleSchemeResponse {
       invoice: Invoice;
     }
 
@@ -945,6 +957,7 @@ declare module 'chargebee' {
       payment_source_id?: string;
       auto_collection?: AutoCollectionEnum;
       net_term_days?: number;
+      offline_payment_method?: OfflinePaymentMethodEnum;
       invoice_date?: number;
       create_pending_invoice?: boolean;
       token_id?: string;
@@ -1236,6 +1249,9 @@ declare module 'chargebee' {
     export interface ApplyPaymentScheduleSchemeInputParam {
       scheme_id: string;
       amount?: number;
+    }
+    export interface RemovePaymentScheduleSchemeInputParam {
+      comment?: string;
     }
     export interface StatementDescriptorCreateInputParam {
       descriptor?: string;
@@ -1828,6 +1844,7 @@ declare module 'chargebee' {
       tax10_amount?: number;
       is_partial_tax_applied?: boolean;
       taxable_amount?: number;
+      tax_exempt_reason?: TaxExemptReasonEnum;
       proration_mode?:
         | 'reset'
         | 'delta'
@@ -1844,6 +1861,8 @@ declare module 'chargebee' {
     }
     export interface CreditNotesApplyCreditsInputParam {
       id?: string;
+      amount?: number;
+      applied_at?: number;
     }
     export interface EinvoiceInvoiceListInputParam {
       status?: filter.Enum;

@@ -42,6 +42,22 @@ const UpdateOrderShippingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const UpdateOrderOrderLineItemsItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  status: z
+    .enum([
+      'queued',
+      'awaiting_shipment',
+      'on_hold',
+      'delivered',
+      'shipped',
+      'partially_delivered',
+      'returned',
+      'cancelled',
+    ])
+    .optional(),
+  sku: z.string().max(250).optional(),
+});
 const UpdateOrderOrderLineItemsSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   status: z
@@ -110,7 +126,12 @@ const UpdateOrderBodySchema = z.looseObject({
     ])
     .optional(),
   shipping_address: UpdateOrderShippingAddressSchema.optional(),
-  order_line_items: UpdateOrderOrderLineItemsSchema.optional(),
+  order_line_items: z
+    .union([
+      z.array(UpdateOrderOrderLineItemsItemSchema.optional()),
+      UpdateOrderOrderLineItemsSchema,
+    ])
+    .optional(),
 });
 export { UpdateOrderBodySchema };
 export type UpdateOrderBody = z.infer<typeof UpdateOrderBodySchema>;
@@ -281,15 +302,35 @@ const ListOrderIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListOrderInvoiceIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListOrderSubscriptionIdSchema = z.object({
   is: z.string().min(1).optional(),
@@ -330,88 +371,214 @@ const ListOrderStatusSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'new',
-      'processing',
-      'complete',
-      'cancelled',
-      'voided',
-      'queued',
-      'awaiting_shipment',
-      'on_hold',
-      'delivered',
-      'shipped',
-      'partially_delivered',
-      'returned',
+    .union([
+      z.array(
+        z
+          .enum([
+            'new',
+            'processing',
+            'complete',
+            'cancelled',
+            'voided',
+            'queued',
+            'awaiting_shipment',
+            'on_hold',
+            'delivered',
+            'shipped',
+            'partially_delivered',
+            'returned',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'new',
+        'processing',
+        'complete',
+        'cancelled',
+        'voided',
+        'queued',
+        'awaiting_shipment',
+        'on_hold',
+        'delivered',
+        'shipped',
+        'partially_delivered',
+        'returned',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'new',
-      'processing',
-      'complete',
-      'cancelled',
-      'voided',
-      'queued',
-      'awaiting_shipment',
-      'on_hold',
-      'delivered',
-      'shipped',
-      'partially_delivered',
-      'returned',
+    .union([
+      z.array(
+        z
+          .enum([
+            'new',
+            'processing',
+            'complete',
+            'cancelled',
+            'voided',
+            'queued',
+            'awaiting_shipment',
+            'on_hold',
+            'delivered',
+            'shipped',
+            'partially_delivered',
+            'returned',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'new',
+        'processing',
+        'complete',
+        'cancelled',
+        'voided',
+        'queued',
+        'awaiting_shipment',
+        'on_hold',
+        'delivered',
+        'shipped',
+        'partially_delivered',
+        'returned',
+      ]),
     ])
     .optional(),
 });
 const ListOrderShippingDateSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListOrderShippedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListOrderOrderTypeSchema = z.object({
   is: z.enum(['manual', 'system_generated']).optional(),
   is_not: z.enum(['manual', 'system_generated']).optional(),
-  in: z.enum(['manual', 'system_generated']).optional(),
-  not_in: z.enum(['manual', 'system_generated']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['manual', 'system_generated']).optional()),
+      z.enum(['manual', 'system_generated']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['manual', 'system_generated']).optional()),
+      z.enum(['manual', 'system_generated']),
+    ])
+    .optional(),
 });
 const ListOrderOrderDateSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListOrderPaidOnSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListOrderUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListOrderCreatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListOrderResentStatusSchema = z.object({
   is: z.enum(['fully_resent', 'partially_resent']).optional(),
   is_not: z.enum(['fully_resent', 'partially_resent']).optional(),
-  in: z.enum(['fully_resent', 'partially_resent']).optional(),
-  not_in: z.enum(['fully_resent', 'partially_resent']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['fully_resent', 'partially_resent']).optional()),
+      z.enum(['fully_resent', 'partially_resent']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['fully_resent', 'partially_resent']).optional()),
+      z.enum(['fully_resent', 'partially_resent']),
+    ])
+    .optional(),
 });
 const ListOrderIsResentSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListOrderOriginalOrderIdSchema = z.object({
   is: z.string().min(1).optional(),
@@ -459,6 +626,10 @@ export type OrdersForInvoiceOrderBody = z.infer<
 
 //Order.resend
 
+const ResendOrderOrderLineItemsItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  fulfillment_quantity: z.number().int().min(0).optional(),
+});
 const ResendOrderOrderLineItemsSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   fulfillment_quantity: z.array(z.number().int().min(0).optional()).optional(),
@@ -466,7 +637,12 @@ const ResendOrderOrderLineItemsSchema = z.object({
 const ResendOrderBodySchema = z.looseObject({
   shipping_date: z.number().int().optional(),
   resend_reason: z.string().max(100).optional(),
-  order_line_items: ResendOrderOrderLineItemsSchema.optional(),
+  order_line_items: z
+    .union([
+      z.array(ResendOrderOrderLineItemsItemSchema.optional()),
+      ResendOrderOrderLineItemsSchema,
+    ])
+    .optional(),
 });
 export { ResendOrderBodySchema };
 export type ResendOrderBody = z.infer<typeof ResendOrderBodySchema>;

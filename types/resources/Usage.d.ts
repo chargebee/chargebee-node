@@ -105,9 +105,16 @@ declare module 'chargebee' {
     export interface PdfInputParam {
       disposition_type?: DispositionTypeEnum;
       invoice?: InvoicePdfInputParam;
+      group_by?: GroupByPdfInputParam[];
     }
     export interface InvoicePdfInputParam {
       id: string;
+    }
+
+    export interface GroupByPdfInputParam {
+      feature_id?: string;
+      attributes?: any;
+      window_size?: 'day' | 'none';
     }
   }
 }

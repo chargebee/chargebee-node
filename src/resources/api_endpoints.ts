@@ -32,6 +32,8 @@ interface Endpoints {
   card: EndpointTuple[];
   promotionalCredit: EndpointTuple[];
   emailLog: EndpointTuple[];
+  gatewayRequestLog: EndpointTuple[];
+  gatewayWebhookLog: EndpointTuple[];
   invoice: EndpointTuple[];
   paymentReferenceNumber: EndpointTuple[];
   paymentSchedule: EndpointTuple[];
@@ -77,6 +79,8 @@ interface Endpoints {
   itemPrice: EndpointTuple[];
   attachedItem: EndpointTuple[];
   differentialPrice: EndpointTuple[];
+  priceRamp: EndpointTuple[];
+  rampInterval: EndpointTuple[];
   configuration: EndpointTuple[];
   feature: EndpointTuple[];
   impactedSubscription: EndpointTuple[];
@@ -94,6 +98,7 @@ interface Endpoints {
   businessEntity: EndpointTuple[];
   purchase: EndpointTuple[];
   paymentVoucher: EndpointTuple[];
+  organizationDetail: EndpointTuple[];
   currency: EndpointTuple[];
   ramp: EndpointTuple[];
   paymentScheduleScheme: EndpointTuple[];
@@ -107,10 +112,14 @@ interface Endpoints {
   omnichannelOneTimeOrder: EndpointTuple[];
   omnichannelOneTimeOrderItem: EndpointTuple[];
   rule: EndpointTuple[];
+  retrySegment: EndpointTuple[];
   meter: EndpointTuple[];
+  groupByAttribute: EndpointTuple[];
+  groupByRecommendation: EndpointTuple[];
   usageEvent: EndpointTuple[];
   meteredFeature: EndpointTuple[];
   customDataSchema: EndpointTuple[];
+  customData: EndpointTuple[];
   usageFile: EndpointTuple[];
   einvoice: EndpointTuple[];
   personalizedOffer: EndpointTuple[];
@@ -121,16 +130,27 @@ interface Endpoints {
   businessRule: EndpointTuple[];
   applyRule: EndpointTuple[];
   appliedRule: EndpointTuple[];
-  appliedBusinessRule: EndpointTuple[];
   businessRuleset: EndpointTuple[];
   businessRulesetRule: EndpointTuple[];
+  draftRequest: EndpointTuple[];
+  citation: EndpointTuple[];
+  execution: EndpointTuple[];
+  draftEstimate: EndpointTuple[];
   usageSummary: EndpointTuple[];
   usageCharge: EndpointTuple[];
   alert: EndpointTuple[];
   filterCondition: EndpointTuple[];
   alertStatus: EndpointTuple[];
+  collectionsPaymentPromise: EndpointTuple[];
+  collectionsDispute: EndpointTuple[];
+  collectionsReminderSequence: EndpointTuple[];
+  emailConversation: EndpointTuple[];
+  emailMessage: EndpointTuple[];
+  privateNote: EndpointTuple[];
+  emailAttachment: EndpointTuple[];
   ledgerAccountBalance: EndpointTuple[];
   ledgerOperation: EndpointTuple[];
+  billingMetadata: EndpointTuple[];
   grantBlock: EndpointTuple[];
   ledgerEntry: EndpointTuple[];
   promotionalGrant: EndpointTuple[];
@@ -1365,6 +1385,34 @@ export const Endpoints: Endpoints = {
       {},
     ],
   ],
+  gatewayRequestLog: [
+    ['list', 'GET', '/gateway_request_logs', null, false, null, false, {}, {}],
+    [
+      'retrieve',
+      'GET',
+      '/gateway_request_logs',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
+  gatewayWebhookLog: [
+    ['list', 'GET', '/gateway_webhook_logs', null, false, null, false, {}, {}],
+    [
+      'retrieve',
+      'GET',
+      '/gateway_webhook_logs',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
   invoice: [
     [
       'create',
@@ -1839,6 +1887,19 @@ export const Endpoints: Endpoints = {
       'POST',
       '/invoices',
       '/apply_payment_schedule_scheme',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'removePaymentScheduleScheme',
+      'POST',
+      '/invoices',
+      '/remove_payment_schedule_scheme',
       true,
       null,
       false,
@@ -3706,7 +3767,9 @@ export const Endpoints: Endpoints = {
       false,
       null,
       false,
-      {},
+      {
+        attributes: 1,
+      },
       {
         isIdempotent: true,
       },
@@ -4418,6 +4481,50 @@ export const Endpoints: Endpoints = {
     ],
     ['list', 'GET', '/differential_prices', null, false, null, false, {}, {}],
   ],
+  priceRamp: [
+    [
+      'create',
+      'POST',
+      '/price_ramps',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['retrieve', 'GET', '/price_ramps', null, true, null, false, {}, {}],
+    [
+      'update',
+      'POST',
+      '/price_ramps',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'delete',
+      'POST',
+      '/price_ramps',
+      '/delete',
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/price_ramps', null, false, null, false, {}, {}],
+  ],
+  rampInterval: [],
   configuration: [
     ['list', 'GET', '/configurations', null, false, null, false, {}, {}],
   ],
@@ -4764,6 +4871,34 @@ export const Endpoints: Endpoints = {
   ],
   businessEntity: [
     [
+      'create',
+      'POST',
+      '/business_entities',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    ['list', 'GET', '/business_entities', null, false, null, false, {}, {}],
+    ['retrieve', 'GET', '/business_entities', null, true, null, false, {}, {}],
+    [
+      'update',
+      'POST',
+      '/business_entities',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
       'createTransfers',
       'POST',
       '/business_entities',
@@ -4856,6 +4991,33 @@ export const Endpoints: Endpoints = {
       {},
       {},
     ],
+  ],
+  organizationDetail: [
+    [
+      'create',
+      'POST',
+      '/organization_details',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'retrieve',
+      'GET',
+      '/organization_details',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+    ['list', 'GET', '/organization_details', null, false, null, false, {}, {}],
   ],
   currency: [
     ['list', 'GET', '/currencies', '/list', false, null, false, {}, {}],
@@ -5144,7 +5306,12 @@ export const Endpoints: Endpoints = {
   ],
   omnichannelOneTimeOrderItem: [],
   rule: [['retrieve', 'GET', '/rules', null, true, null, false, {}, {}]],
+  retrySegment: [
+    ['retrieve', 'GET', '/retry_segments', null, true, null, false, {}, {}],
+  ],
   meter: [['list', 'GET', '/meters', null, false, null, false, {}, {}]],
+  groupByAttribute: [],
+  groupByRecommendation: [],
   usageEvent: [
     [
       'create',
@@ -5228,6 +5395,7 @@ export const Endpoints: Endpoints = {
     ],
   ],
   customDataSchema: [],
+  customData: [],
   usageFile: [
     [
       'uploadUrl',
@@ -5485,7 +5653,6 @@ export const Endpoints: Endpoints = {
   ],
   applyRule: [],
   appliedRule: [],
-  appliedBusinessRule: [],
   businessRuleset: [
     [
       'create',
@@ -5601,6 +5768,10 @@ export const Endpoints: Endpoints = {
     ['retrieve', 'GET', '/business_rulesets', null, true, null, false, {}, {}],
   ],
   businessRulesetRule: [],
+  draftRequest: [],
+  citation: [],
+  execution: [],
+  draftEstimate: [],
   usageSummary: [
     [
       'retrieveUsageSummaryForSubscription',
@@ -5706,12 +5877,88 @@ export const Endpoints: Endpoints = {
       {},
     ],
   ],
+  collectionsPaymentPromise: [
+    [
+      'retrieve',
+      'GET',
+      '/collections_payment_promises',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
+      'listCollectionsPaymentPromises',
+      'GET',
+      '/collections_payment_promises',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
+      'createCollectionsPaymentPromise',
+      'POST',
+      '/collections_payment_promises',
+      null,
+      false,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
+      'updateCollectionsPaymentPromise',
+      'POST',
+      '/collections_payment_promises',
+      null,
+      true,
+      null,
+      false,
+      {},
+      {
+        isIdempotent: true,
+      },
+    ],
+    [
+      'cancel',
+      'POST',
+      '/collections_payment_promises',
+      '/cancel',
+      true,
+      null,
+      false,
+      {},
+      {},
+    ],
+  ],
+  collectionsDispute: [],
+  collectionsReminderSequence: [],
+  emailConversation: [],
+  emailMessage: [],
+  privateNote: [],
+  emailAttachment: [],
   ledgerAccountBalance: [
     [
       'listLedgerAccountBalances',
       'GET',
       '/ledger_account_balances',
       null,
+      false,
+      null,
+      false,
+      {},
+      {},
+    ],
+    [
+      'updateOverdraftLimit',
+      'POST',
+      '/ledger_account_balances',
+      '/update_overdraft_limit',
       false,
       null,
       false,
@@ -5808,6 +6055,7 @@ export const Endpoints: Endpoints = {
       {},
     ],
   ],
+  billingMetadata: [],
   grantBlock: [
     [
       'listGrantBlocks',

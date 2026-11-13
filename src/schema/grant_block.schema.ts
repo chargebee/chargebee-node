@@ -16,22 +16,55 @@ const ListGrantBlocksGrantBlockAccountTypeSchema = z.object({
   is: z.enum(['provisioned', 'overdraft']).optional(),
 });
 const ListGrantBlocksGrantBlockEffectiveFromSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListGrantBlocksGrantBlockExpiresAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListGrantBlocksGrantBlockCreatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListGrantBlocksGrantBlockSortBySchema = z.looseObject({
   asc: z.enum(['effective_from', 'expires_at', 'created_at']).optional(),

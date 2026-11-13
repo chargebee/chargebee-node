@@ -7,10 +7,52 @@ import { z } from 'zod';
 //OmnichannelOneTimeOrder.list
 
 const ListOmnichannelOneTimeOrderSourceSchema = z.object({
-  is: z.enum(['apple_app_store', 'google_play_store']).optional(),
-  is_not: z.enum(['apple_app_store', 'google_play_store']).optional(),
-  in: z.enum(['apple_app_store', 'google_play_store']).optional(),
-  not_in: z.enum(['apple_app_store', 'google_play_store']).optional(),
+  is: z
+    .enum(['apple_app_store', 'google_play_store', 'roku', 'amazon_app_store'])
+    .optional(),
+  is_not: z
+    .enum(['apple_app_store', 'google_play_store', 'roku', 'amazon_app_store'])
+    .optional(),
+  in: z
+    .union([
+      z.array(
+        z
+          .enum([
+            'apple_app_store',
+            'google_play_store',
+            'roku',
+            'amazon_app_store',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'apple_app_store',
+        'google_play_store',
+        'roku',
+        'amazon_app_store',
+      ]),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(
+        z
+          .enum([
+            'apple_app_store',
+            'google_play_store',
+            'roku',
+            'amazon_app_store',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'apple_app_store',
+        'google_play_store',
+        'roku',
+        'amazon_app_store',
+      ]),
+    ])
+    .optional(),
 });
 const ListOmnichannelOneTimeOrderCustomerIdSchema = z.object({
   is: z.string().min(1).optional(),

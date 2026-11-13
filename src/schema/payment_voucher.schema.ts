@@ -9,6 +9,9 @@ import { z } from 'zod';
 const CreatePaymentVoucherVoucherPaymentSourceSchema = z.object({
   voucher_type: z.enum(['boleto']),
 });
+const CreatePaymentVoucherInvoiceAllocationsItemSchema = z.object({
+  invoice_id: z.string().max(50),
+});
 const CreatePaymentVoucherInvoiceAllocationsSchema = z.object({
   invoice_id: z.array(z.string().max(50).optional()),
 });
@@ -17,7 +20,12 @@ const CreatePaymentVoucherBodySchema = z.looseObject({
   payment_source_id: z.string().max(40).optional(),
   voucher_payment_source:
     CreatePaymentVoucherVoucherPaymentSourceSchema.optional(),
-  invoice_allocations: CreatePaymentVoucherInvoiceAllocationsSchema.optional(),
+  invoice_allocations: z
+    .union([
+      z.array(CreatePaymentVoucherInvoiceAllocationsItemSchema.optional()),
+      CreatePaymentVoucherInvoiceAllocationsSchema,
+    ])
+    .optional(),
 });
 export { CreatePaymentVoucherBodySchema };
 export type CreatePaymentVoucherBody = z.infer<
@@ -29,8 +37,18 @@ export type CreatePaymentVoucherBody = z.infer<
 const PaymentVouchersforinvoicePaymentVoucherStatusSchema = z.object({
   is: z.enum(['active', 'consumed', 'expired', 'failure']).optional(),
   is_not: z.enum(['active', 'consumed', 'expired', 'failure']).optional(),
-  in: z.enum(['active', 'consumed', 'expired', 'failure']).optional(),
-  not_in: z.enum(['active', 'consumed', 'expired', 'failure']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['active', 'consumed', 'expired', 'failure']).optional()),
+      z.enum(['active', 'consumed', 'expired', 'failure']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['active', 'consumed', 'expired', 'failure']).optional()),
+      z.enum(['active', 'consumed', 'expired', 'failure']),
+    ])
+    .optional(),
 });
 const PaymentVouchersforinvoicePaymentVoucherSortBySchema = z.looseObject({
   asc: z.enum(['date', 'updated_at']).optional(),
@@ -52,8 +70,18 @@ export type PaymentVouchersforinvoicePaymentVoucherBody = z.infer<
 const PaymentVouchersforcustomerPaymentVoucherStatusSchema = z.object({
   is: z.enum(['active', 'consumed', 'expired', 'failure']).optional(),
   is_not: z.enum(['active', 'consumed', 'expired', 'failure']).optional(),
-  in: z.enum(['active', 'consumed', 'expired', 'failure']).optional(),
-  not_in: z.enum(['active', 'consumed', 'expired', 'failure']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['active', 'consumed', 'expired', 'failure']).optional()),
+      z.enum(['active', 'consumed', 'expired', 'failure']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['active', 'consumed', 'expired', 'failure']).optional()),
+      z.enum(['active', 'consumed', 'expired', 'failure']),
+    ])
+    .optional(),
 });
 const PaymentVouchersforcustomerPaymentVoucherSortBySchema = z.looseObject({
   asc: z.enum(['date', 'updated_at']).optional(),

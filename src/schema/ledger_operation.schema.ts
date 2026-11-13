@@ -13,27 +13,56 @@ const ListLedgerOperationsLedgerOperationUnitIdSchema = z.object({
   is: z.string().min(1).optional(),
 });
 const ListLedgerOperationsLedgerOperationCreatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
-});
-const ListLedgerOperationsLedgerOperationTypeSchema = z.object({
-  is: z
-    .enum([
-      'allocation',
-      'capture',
-      'authorize',
-      'release_authorization',
-      'capture_authorization',
-      'expiry',
-      'void',
-      'rollover',
-      'adjustment',
-      'overdraft_settlement',
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
     ])
     .optional(),
+});
+const ListLedgerOperationsLedgerOperationTypeSchema = z.object({
   in: z
+    .union([
+      z.array(
+        z
+          .enum([
+            'allocation',
+            'capture',
+            'authorize',
+            'release_authorization',
+            'capture_authorization',
+            'expiry',
+            'void',
+            'rollover',
+            'adjustment',
+            'overdraft_settlement',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'allocation',
+        'capture',
+        'authorize',
+        'release_authorization',
+        'capture_authorization',
+        'expiry',
+        'void',
+        'rollover',
+        'adjustment',
+        'overdraft_settlement',
+      ]),
+    ])
+    .optional(),
+  is: z
     .enum([
       'allocation',
       'capture',

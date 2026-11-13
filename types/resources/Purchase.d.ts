@@ -156,6 +156,8 @@ declare module 'chargebee' {
       subscription_id?: string;
       billing_cycles?: number;
       contract_term_billing_cycle_on_renewal?: number;
+      trial_end?: number;
+      start_date?: number;
       meta_data?: any;
     }
     export interface PurchaseItemsCreateInputParam {
@@ -165,6 +167,7 @@ declare module 'chargebee' {
       unit_amount?: number;
       unit_amount_in_decimal?: string;
       quantity_in_decimal?: string;
+      trial_end?: number;
     }
     export interface DiscountsCreateInputParam {
       index?: number;
@@ -231,6 +234,8 @@ declare module 'chargebee' {
       subscription_id?: string;
       billing_cycles?: number;
       contract_term_billing_cycle_on_renewal?: number;
+      trial_end?: number;
+      start_date?: number;
     }
     export interface PurchaseItemsEstimateInputParam {
       index: number;
@@ -239,6 +244,7 @@ declare module 'chargebee' {
       unit_amount?: number;
       unit_amount_in_decimal?: string;
       quantity_in_decimal?: string;
+      trial_end?: number;
     }
     export interface DiscountsEstimateInputParam {
       index?: number;

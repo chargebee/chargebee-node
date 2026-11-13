@@ -23,6 +23,7 @@ const CreateCommentBodySchema = z.looseObject({
     'item',
     'item_price',
     'price_variant',
+    'task',
   ]),
   entity_id: z.string().max(100),
   notes: z.string().max(1000),
@@ -34,10 +35,21 @@ export type CreateCommentBody = z.infer<typeof CreateCommentBodySchema>;
 //Comment.list
 
 const ListCommentCreatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListCommentSortBySchema = z.looseObject({
   asc: z.enum(['created_at']).optional(),
@@ -63,6 +75,7 @@ const ListCommentBodySchema = z.looseObject({
       'item',
       'item_price',
       'price_variant',
+      'task',
     ])
     .optional(),
   entity_id: z.string().max(100).optional(),

@@ -567,6 +567,7 @@ declare module 'chargebee' {
       currency_code?: string;
       create_reason_code: string;
       date: number;
+      customer_notes?: string;
       status?: 'adjusted' | 'refunded' | 'refund_due' | 'voided';
       total?: number;
       refunded_at?: number;

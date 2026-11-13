@@ -7,18 +7,39 @@ import { z } from 'zod';
 //Einvoice.listEinvoices
 
 const ListEinvoicesEinvoiceIdSchema = z.object({
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
   is: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListEinvoicesEinvoiceReferenceIdSchema = z.object({
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
   is: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
 });
 const ListEinvoicesEinvoiceUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListEinvoicesEinvoiceSortBySchema = z.looseObject({
   asc: z.enum(['updated_at']).optional(),

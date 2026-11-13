@@ -70,6 +70,18 @@ const CreateForNewSubscriptionPricingPageSessionContractTermSchema = z.object({
     .optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const CreateForNewSubscriptionPricingPageSessionDiscountsItemSchema = z.object({
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']).optional(),
+  duration_type: z.enum(['one_time', 'forever', 'limited_period']),
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  period: z.number().int().min(1).optional(),
+  period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  included_in_mrr: z.boolean().optional(),
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  label: z.string().max(100).optional(),
+});
 const CreateForNewSubscriptionPricingPageSessionDiscountsSchema = z.object({
   apply_on: z
     .array(z.enum(['invoice_amount', 'specific_item_price']).optional())
@@ -105,8 +117,14 @@ const CreateForNewSubscriptionPricingPageSessionBodySchema = z.looseObject({
     CreateForNewSubscriptionPricingPageSessionShippingAddressSchema.optional(),
   contract_term:
     CreateForNewSubscriptionPricingPageSessionContractTermSchema.optional(),
-  discounts:
-    CreateForNewSubscriptionPricingPageSessionDiscountsSchema.optional(),
+  discounts: z
+    .union([
+      z.array(
+        CreateForNewSubscriptionPricingPageSessionDiscountsItemSchema.optional(),
+      ),
+      CreateForNewSubscriptionPricingPageSessionDiscountsSchema,
+    ])
+    .optional(),
 });
 export { CreateForNewSubscriptionPricingPageSessionBodySchema };
 export type CreateForNewSubscriptionPricingPageSessionBody = z.infer<
@@ -131,6 +149,19 @@ const CreateForExistingSubscriptionPricingPageSessionContractTermSchema =
       .enum(['renew', 'evergreen', 'cancel', 'renew_once'])
       .optional(),
     cancellation_cutoff_period: z.number().int().optional(),
+  });
+const CreateForExistingSubscriptionPricingPageSessionDiscountsItemSchema =
+  z.object({
+    apply_on: z.enum(['invoice_amount', 'specific_item_price']).optional(),
+    duration_type: z.enum(['one_time', 'forever', 'limited_period']),
+    percentage: z.number().min(0.01).max(100).optional(),
+    amount: z.number().int().min(0).optional(),
+    period: z.number().int().min(1).optional(),
+    period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+    included_in_mrr: z.boolean().optional(),
+    item_price_id: z.string().max(100).optional(),
+    quantity: z.number().int().min(1).optional(),
+    label: z.string().max(100).optional(),
   });
 const CreateForExistingSubscriptionPricingPageSessionDiscountsSchema = z.object(
   {
@@ -163,8 +194,14 @@ const CreateForExistingSubscriptionPricingPageSessionBodySchema = z.looseObject(
       CreateForExistingSubscriptionPricingPageSessionSubscriptionSchema.optional(),
     contract_term:
       CreateForExistingSubscriptionPricingPageSessionContractTermSchema.optional(),
-    discounts:
-      CreateForExistingSubscriptionPricingPageSessionDiscountsSchema.optional(),
+    discounts: z
+      .union([
+        z.array(
+          CreateForExistingSubscriptionPricingPageSessionDiscountsItemSchema.optional(),
+        ),
+        CreateForExistingSubscriptionPricingPageSessionDiscountsSchema,
+      ])
+      .optional(),
   },
 );
 export { CreateForExistingSubscriptionPricingPageSessionBodySchema };

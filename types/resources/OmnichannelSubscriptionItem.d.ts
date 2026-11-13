@@ -22,13 +22,16 @@ declare module 'chargebee' {
       | 'product_not_available'
       | 'other'
       | 'subscription_not_found_in_source';
+    expiration_reason_at_source?: string;
     cancelled_at?: number;
     cancellation_reason?:
       | 'customer_cancelled'
       | 'customer_did_not_consent_to_price_increase'
       | 'refunded_due_to_app_issue'
       | 'refunded_for_other_reason'
-      | 'merchant_revoked';
+      | 'merchant_revoked'
+      | 'other';
+    cancellation_reason_at_source?: string;
     grace_period_expires_at?: number;
     resumes_at?: number;
     has_scheduled_changes: boolean;

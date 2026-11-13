@@ -6,6 +6,10 @@ import { z } from 'zod';
 
 //MeteredFeature.create
 
+const CreateMeteredFeatureColumnDefinitionsItemSchema = z.object({
+  column_name: z.string().max(100),
+  data_type: z.enum(['number', 'string']),
+});
 const CreateMeteredFeatureColumnDefinitionsSchema = z.object({
   column_name: z.array(z.string().max(100).optional()),
   data_type: z.array(z.enum(['number', 'string']).optional()),
@@ -15,7 +19,12 @@ const CreateMeteredFeatureBodySchema = z.looseObject({
   description: z.string().max(250).optional(),
   feature_unit: z.string().max(50),
   query: z.string().max(1000),
-  column_definitions: CreateMeteredFeatureColumnDefinitionsSchema.optional(),
+  column_definitions: z
+    .union([
+      z.array(CreateMeteredFeatureColumnDefinitionsItemSchema.optional()),
+      CreateMeteredFeatureColumnDefinitionsSchema,
+    ])
+    .optional(),
 });
 export { CreateMeteredFeatureBodySchema };
 export type CreateMeteredFeatureBody = z.infer<

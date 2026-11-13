@@ -12,6 +12,7 @@ declare module 'chargebee' {
     status?: 'active' | 'archived' | 'deleted';
     external_name?: string;
     price_variant_id?: string;
+    price_ramp_id?: string;
     proration_type?: 'site_default' | 'partial_term' | 'full_term';
     pricing_model: PricingModelEnum;
     price?: number;

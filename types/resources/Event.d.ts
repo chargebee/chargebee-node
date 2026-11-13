@@ -30,6 +30,8 @@ declare module 'chargebee' {
       UnbilledChargesDeletedContent &
       CouponUpdatedContent &
       GrantBlocksCreatedContent &
+      ChargebackLostContent &
+      PriceRampUpdatedContent &
       OmnichannelSubscriptionItemReactivatedContent &
       OmnichannelSubscriptionItemRenewedContent &
       UnbilledChargesCreatedContent &
@@ -48,7 +50,6 @@ declare module 'chargebee' {
       SubscriptionShippingAddressUpdatedContent &
       VoucherCreateFailedContent &
       GiftClaimedContent &
-      BusinessRulesAppliedContent &
       CustomerDeletedContent &
       RefundInitiatedContent &
       InvoiceGeneratedWithBackdatingContent &
@@ -74,6 +75,7 @@ declare module 'chargebee' {
       ContractTermTerminatedContent &
       ItemFamilyUpdatedContent &
       OrderCreatedContent &
+      RefundFailedContent &
       PriceVariantDeletedContent &
       AlertStatusChangedContent &
       SubscriptionMovementFailedContent &
@@ -82,6 +84,7 @@ declare module 'chargebee' {
       SubscriptionAdvanceInvoiceScheduleUpdatedContent &
       ItemDeletedContent &
       SubscriptionRampDraftedContent &
+      ChargebackInitiatedContent &
       BusinessRuleCreatedContent &
       VaultTokenUpdatedContent &
       DunningUpdatedContent &
@@ -94,10 +97,12 @@ declare module 'chargebee' {
       SubscriptionCancellationScheduledContent &
       SubscriptionRenewedContent &
       FeatureUpdatedContent &
+      CollectionsPaymentPromiseFulfilledContent &
       FeatureDeletedContent &
       ItemFamilyCreatedContent &
       OmnichannelSubscriptionItemScheduledChangeRemovedContent &
       OmnichannelSubscriptionItemResumedContent &
+      CollectionsDisputeResolvedContent &
       PurchaseCreatedContent &
       EntitlementOverridesUpdatedContent &
       ItemFamilyDeletedContent &
@@ -109,6 +114,7 @@ declare module 'chargebee' {
       OmnichannelSubscriptionItemDowngradedContent &
       BusinessRulesetDeactivatedContent &
       PriceVariantUpdatedContent &
+      CollectionsDisputeUpdatedContent &
       PromotionalCreditsDeductedContent &
       SubscriptionRampAppliedContent &
       BusinessRulesetDeletedContent &
@@ -122,8 +128,10 @@ declare module 'chargebee' {
       ItemCreatedContent &
       BusinessRulesetCreatedContent &
       TransactionUpdatedContent &
+      CollectionsPaymentPromiseUpdatedContent &
       MrrUpdatedContent &
       UnbilledChargesInvoicedContent &
+      ChargebackWonContent &
       ItemPriceUpdatedContent &
       CouponCodesUpdatedContent &
       VirtualBankAccountUpdatedContent &
@@ -136,6 +144,8 @@ declare module 'chargebee' {
       PaymentSchedulesUpdatedContent &
       OmnichannelSubscriptionItemExpiredContent &
       CardUpdatedContent &
+      PriceRampCreatedContent &
+      CollectionsReminderSequenceCreatedContent &
       CustomerCreatedContent &
       SubscriptionRenewalReminderContent &
       OmnichannelSubscriptionItemMrrUpdatedContent &
@@ -144,20 +154,25 @@ declare module 'chargebee' {
       OmnichannelSubscriptionItemCancellationScheduledContent &
       OmnichannelSubscriptionItemGracePeriodExpiredContent &
       CouponCodesAddedContent &
+      EmailMessageReceivedContent &
       GiftCancelledContent &
       OrderCancelledContent &
       CouponDeletedContent &
       SubscriptionScheduledChangesRemovedContent &
       PendingInvoiceCreatedContent &
+      CollectionsPaymentPromiseBrokenContent &
       EntitlementOverridesAutoRemovedContent &
+      PriceRampDeletedContent &
       BusinessRulesetActivatedContent &
       OmnichannelSubscriptionItemUpgradedContent &
       SubscriptionBusinessEntityChangedContent &
       OmnichannelOneTimeOrderCreatedContent &
+      CollectionsPaymentPromiseCreatedContent &
       PaymentSourceDeletedContent &
       OmnichannelSubscriptionItemCancelledContent &
       QuoteDeletedContent &
       InvoiceUpdatedContent &
+      PrivateNoteAddedContent &
       SubscriptionAdvanceInvoiceScheduleRemovedContent &
       CardDeletedContent &
       OrderReadyToShipContent &
@@ -173,6 +188,7 @@ declare module 'chargebee' {
       CardAddedContent &
       CouponCreatedContent &
       RuleDeletedContent &
+      CollectionsDisputeCreatedContent &
       ItemPriceEntitlementsUpdatedContent &
       ItemPriceDeletedContent &
       VirtualBankAccountDeletedContent &
@@ -184,6 +200,7 @@ declare module 'chargebee' {
       PaymentSourceAddedContent &
       SubscriptionMovedInContent &
       LedgerUpdatedContent &
+      CollectionsPaymentPromiseCancelledContent &
       ItemPriceCreatedContent &
       SubscriptionScheduledCancellationRemovedContent &
       PaymentRefundedContent &
@@ -200,10 +217,12 @@ declare module 'chargebee' {
       SalesOrderCreatedContent &
       CustomerChangedContent &
       SubscriptionStartedContent &
+      OrganizationDetailsUpdatedContent &
       SubscriptionActivatedContent &
       PaymentSourceExpiringContent &
       SubscriptionReactivatedContent &
       OrderUpdatedContent &
+      CollectionsDisputeWithdrawnContent &
       SubscriptionScheduledPauseRemovedContent &
       SubscriptionCancellationReminderContent &
       SubscriptionCreatedWithBackdatingContent &
@@ -215,6 +234,7 @@ declare module 'chargebee' {
       OmnichannelSubscriptionItemGracePeriodStartedContent &
       CardExpiryReminderContent &
       TokenCreatedContent &
+      CollectionsReminderSequencePausedContent &
       PaymentSourceBusinessEntityChangedContent &
       PromotionalCreditsAddedContent &
       SubscriptionRampUpdatedContent &
@@ -232,15 +252,18 @@ declare module 'chargebee' {
       AttachedItemDeletedContent &
       OmnichannelSubscriptionItemScheduledCancellationRemovedContent &
       ItemUpdatedContent &
+      CollectionsReminderSequenceResumedContent &
       CouponSetCreatedContent &
       PaymentIntentUpdatedContent &
       OrderResentContent &
       OmnichannelSubscriptionCreatedContent &
       TaxWithheldRecordedContent &
       PriceVariantCreatedContent &
+      OrganizationDetailsCreatedContent &
       DifferentialPriceDeletedContent &
       BusinessRuleActivatedContent &
       SubscriptionItemsRenewedContent &
+      PaymentSchedulesCancelledContent &
       RuleCreatedContent &
       ContractTermCancelledContent &
       ContractTermRenewedContent &
@@ -257,6 +280,7 @@ declare module 'chargebee' {
       BusinessEntityDeletedContent &
       GrantBlocksUpdatedContent &
       AuthorizationVoidedContent &
+      CollectionsReminderSequenceCompletedContent &
       SubscriptionRampDeletedContent &
       PlanDeletedContent &
       AddonDeletedContent &

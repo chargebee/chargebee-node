@@ -433,16 +433,36 @@ const CreateSubscriptionContractTermSchema = z.object({
   action_at_term_end: z.enum(['renew', 'evergreen', 'cancel']).optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const CreateSubscriptionEntityIdentifiersItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  scheme: z.string().max(50).optional(),
+  value: z.string().max(50).optional(),
+  standard: z.string().max(50).optional(),
+});
 const CreateSubscriptionEntityIdentifiersSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   scheme: z.array(z.string().max(50).optional()).optional(),
   value: z.array(z.string().max(50).optional()).optional(),
   standard: z.array(z.string().max(50).optional()).optional(),
 });
+const CreateSubscriptionTaxProvidersFieldsItemSchema = z.object({
+  provider_name: z.string().max(50).optional(),
+  field_id: z.string().max(50).optional(),
+  field_value: z.string().max(50).optional(),
+});
 const CreateSubscriptionTaxProvidersFieldsSchema = z.object({
   provider_name: z.array(z.string().max(50).optional()).optional(),
   field_id: z.array(z.string().max(50).optional()).optional(),
   field_value: z.array(z.string().max(50).optional()).optional(),
+});
+const CreateSubscriptionAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  trial_end: z.number().int().optional(),
 });
 const CreateSubscriptionAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -452,6 +472,25 @@ const CreateSubscriptionAddonsSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
+});
+const CreateSubscriptionEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+  on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().default(true).optional(),
+  charge_on: z.enum(['immediately', 'on_event']).optional(),
 });
 const CreateSubscriptionEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -477,6 +516,10 @@ const CreateSubscriptionEventBasedAddonsSchema = z.object({
     .optional(),
   charge_once: z.array(z.boolean().default(true).optional()).optional(),
   charge_on: z.array(z.enum(['immediately', 'on_event']).optional()).optional(),
+});
+const CreateSubscriptionCouponsItemSchema = z.object({
+  coupon_id: z.string().max(100).optional(),
+  apply_till: z.number().int().optional(),
 });
 const CreateSubscriptionCouponsSchema = z.object({
   coupon_id: z.array(z.string().max(100).optional()).optional(),
@@ -554,11 +597,36 @@ const CreateSubscriptionBodySchema = z.looseObject({
   shipping_address: CreateSubscriptionShippingAddressSchema.optional(),
   statement_descriptor: CreateSubscriptionStatementDescriptorSchema.optional(),
   contract_term: CreateSubscriptionContractTermSchema.optional(),
-  entity_identifiers: CreateSubscriptionEntityIdentifiersSchema.optional(),
-  tax_providers_fields: CreateSubscriptionTaxProvidersFieldsSchema.optional(),
-  addons: CreateSubscriptionAddonsSchema.optional(),
-  event_based_addons: CreateSubscriptionEventBasedAddonsSchema.optional(),
-  coupons: CreateSubscriptionCouponsSchema.optional(),
+  entity_identifiers: z
+    .union([
+      z.array(CreateSubscriptionEntityIdentifiersItemSchema.optional()),
+      CreateSubscriptionEntityIdentifiersSchema,
+    ])
+    .optional(),
+  tax_providers_fields: z
+    .union([
+      z.array(CreateSubscriptionTaxProvidersFieldsItemSchema.optional()),
+      CreateSubscriptionTaxProvidersFieldsSchema,
+    ])
+    .optional(),
+  addons: z
+    .union([
+      z.array(CreateSubscriptionAddonsItemSchema.optional()),
+      CreateSubscriptionAddonsSchema,
+    ])
+    .optional(),
+  event_based_addons: z
+    .union([
+      z.array(CreateSubscriptionEventBasedAddonsItemSchema.optional()),
+      CreateSubscriptionEventBasedAddonsSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(CreateSubscriptionCouponsItemSchema.optional()),
+      CreateSubscriptionCouponsSchema,
+    ])
+    .optional(),
 });
 export { CreateSubscriptionBodySchema };
 export type CreateSubscriptionBody = z.infer<
@@ -674,6 +742,15 @@ const CreateForCustomerSubscriptionContractTermSchema = z.object({
   action_at_term_end: z.enum(['renew', 'evergreen', 'cancel']).optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const CreateForCustomerSubscriptionAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  trial_end: z.number().int().optional(),
+});
 const CreateForCustomerSubscriptionAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -682,6 +759,25 @@ const CreateForCustomerSubscriptionAddonsSchema = z.object({
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
+});
+const CreateForCustomerSubscriptionEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+  on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().default(true).optional(),
+  charge_on: z.enum(['immediately', 'on_event']).optional(),
 });
 const CreateForCustomerSubscriptionEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -707,6 +803,10 @@ const CreateForCustomerSubscriptionEventBasedAddonsSchema = z.object({
     .optional(),
   charge_once: z.array(z.boolean().default(true).optional()).optional(),
   charge_on: z.array(z.enum(['immediately', 'on_event']).optional()).optional(),
+});
+const CreateForCustomerSubscriptionCouponsItemSchema = z.object({
+  coupon_id: z.string().max(100).optional(),
+  apply_till: z.number().int().optional(),
 });
 const CreateForCustomerSubscriptionCouponsSchema = z.object({
   coupon_id: z.array(z.string().max(100).optional()).optional(),
@@ -780,10 +880,26 @@ const CreateForCustomerSubscriptionBodySchema = z.looseObject({
     CreateForCustomerSubscriptionStatementDescriptorSchema.optional(),
   payment_intent: CreateForCustomerSubscriptionPaymentIntentSchema.optional(),
   contract_term: CreateForCustomerSubscriptionContractTermSchema.optional(),
-  addons: CreateForCustomerSubscriptionAddonsSchema.optional(),
-  event_based_addons:
-    CreateForCustomerSubscriptionEventBasedAddonsSchema.optional(),
-  coupons: CreateForCustomerSubscriptionCouponsSchema.optional(),
+  addons: z
+    .union([
+      z.array(CreateForCustomerSubscriptionAddonsItemSchema.optional()),
+      CreateForCustomerSubscriptionAddonsSchema,
+    ])
+    .optional(),
+  event_based_addons: z
+    .union([
+      z.array(
+        CreateForCustomerSubscriptionEventBasedAddonsItemSchema.optional(),
+      ),
+      CreateForCustomerSubscriptionEventBasedAddonsSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(CreateForCustomerSubscriptionCouponsItemSchema.optional()),
+      CreateForCustomerSubscriptionCouponsSchema,
+    ])
+    .optional(),
 });
 export { CreateForCustomerSubscriptionBodySchema };
 export type CreateForCustomerSubscriptionBody = z.infer<
@@ -904,6 +1020,32 @@ const CreateWithItemsSubscriptionBillingOverrideSchema = z.object({
   max_excess_payment_usage: z.number().int().min(-1).optional(),
   max_refundable_credits_usage: z.number().int().min(-1).optional(),
 });
+const CreateWithItemsSubscriptionSubscriptionItemsItemSchema = z.object({
+  item_price_id: z.string().max(100),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  trial_end: z.number().int().optional(),
+  service_period_days: z.number().int().min(1).max(4000).optional(),
+  charge_on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().optional(),
+  item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+  description: z.string().max(2000).optional(),
+  charge_on_option: z.enum(['immediately', 'on_event']).optional(),
+  usage_accumulation_reset_frequency: z
+    .enum(['never', 'subscription_billing_frequency'])
+    .optional(),
+});
 const CreateWithItemsSubscriptionSubscriptionItemsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -913,7 +1055,7 @@ const CreateWithItemsSubscriptionSubscriptionItemsSchema = z.object({
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
   charge_on_event: z
     .array(
@@ -930,13 +1072,25 @@ const CreateWithItemsSubscriptionSubscriptionItemsSchema = z.object({
     .optional(),
   charge_once: z.array(z.boolean().optional()).optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
-  description: z.array(z.string().max(500).optional()).optional(),
+  description: z.array(z.string().max(2000).optional()).optional(),
   charge_on_option: z
     .array(z.enum(['immediately', 'on_event']).optional())
     .optional(),
   usage_accumulation_reset_frequency: z
     .array(z.enum(['never', 'subscription_billing_frequency']).optional())
     .optional(),
+});
+const CreateWithItemsSubscriptionDiscountsItemSchema = z.object({
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']).optional(),
+  duration_type: z.enum(['one_time', 'forever', 'limited_period']),
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  period: z.number().int().min(1).optional(),
+  period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  included_in_mrr: z.boolean().optional(),
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  description: z.string().max(100).optional(),
 });
 const CreateWithItemsSubscriptionDiscountsSchema = z.object({
   apply_on: z
@@ -954,6 +1108,18 @@ const CreateWithItemsSubscriptionDiscountsSchema = z.object({
   included_in_mrr: z.array(z.boolean().optional()).optional(),
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
+  description: z.array(z.string().max(100).optional()).optional(),
+});
+const CreateWithItemsSubscriptionItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
 });
 const CreateWithItemsSubscriptionItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -967,6 +1133,10 @@ const CreateWithItemsSubscriptionItemTiersSchema = z.object({
     .array(z.enum(['per_unit', 'flat_fee', 'package']).optional())
     .optional(),
   package_size: z.array(z.number().int().min(1).optional()).optional(),
+});
+const CreateWithItemsSubscriptionCouponsItemSchema = z.object({
+  coupon_id: z.string().max(100).optional(),
+  apply_till: z.number().int().optional(),
 });
 const CreateWithItemsSubscriptionCouponsSchema = z.object({
   coupon_id: z.array(z.string().max(100).optional()).optional(),
@@ -1038,11 +1208,32 @@ const CreateWithItemsSubscriptionBodySchema = z.looseObject({
   payment_intent: CreateWithItemsSubscriptionPaymentIntentSchema.optional(),
   contract_term: CreateWithItemsSubscriptionContractTermSchema.optional(),
   billing_override: CreateWithItemsSubscriptionBillingOverrideSchema.optional(),
-  subscription_items:
-    CreateWithItemsSubscriptionSubscriptionItemsSchema.optional(),
-  discounts: CreateWithItemsSubscriptionDiscountsSchema.optional(),
-  item_tiers: CreateWithItemsSubscriptionItemTiersSchema.optional(),
-  coupons: CreateWithItemsSubscriptionCouponsSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(
+        CreateWithItemsSubscriptionSubscriptionItemsItemSchema.optional(),
+      ),
+      CreateWithItemsSubscriptionSubscriptionItemsSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(CreateWithItemsSubscriptionDiscountsItemSchema.optional()),
+      CreateWithItemsSubscriptionDiscountsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(CreateWithItemsSubscriptionItemTiersItemSchema.optional()),
+      CreateWithItemsSubscriptionItemTiersSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(CreateWithItemsSubscriptionCouponsItemSchema.optional()),
+      CreateWithItemsSubscriptionCouponsSchema,
+    ])
+    .optional(),
 });
 export { CreateWithItemsSubscriptionBodySchema };
 export type CreateWithItemsSubscriptionBody = z.infer<
@@ -1055,29 +1246,69 @@ const ListSubscriptionIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListSubscriptionCustomerIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListSubscriptionItemIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListSubscriptionItemPriceIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListSubscriptionStatusSchema = z.object({
   is: z
@@ -1103,25 +1334,55 @@ const ListSubscriptionStatusSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'future',
-      'in_trial',
-      'active',
-      'non_renewing',
-      'paused',
-      'cancelled',
-      'transferred',
+    .union([
+      z.array(
+        z
+          .enum([
+            'future',
+            'in_trial',
+            'active',
+            'non_renewing',
+            'paused',
+            'cancelled',
+            'transferred',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'future',
+        'in_trial',
+        'active',
+        'non_renewing',
+        'paused',
+        'cancelled',
+        'transferred',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'future',
-      'in_trial',
-      'active',
-      'non_renewing',
-      'paused',
-      'cancelled',
-      'transferred',
+    .union([
+      z.array(
+        z
+          .enum([
+            'future',
+            'in_trial',
+            'active',
+            'non_renewing',
+            'paused',
+            'cancelled',
+            'transferred',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'future',
+        'in_trial',
+        'active',
+        'non_renewing',
+        'paused',
+        'cancelled',
+        'transferred',
+      ]),
     ])
     .optional(),
 });
@@ -1149,79 +1410,191 @@ const ListSubscriptionCancelReasonSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'not_paid',
-      'no_card',
-      'fraud_review_failed',
-      'non_compliant_eu_customer',
-      'tax_calculation_failed',
-      'currency_incompatible_with_gateway',
-      'non_compliant_customer',
+    .union([
+      z.array(
+        z
+          .enum([
+            'not_paid',
+            'no_card',
+            'fraud_review_failed',
+            'non_compliant_eu_customer',
+            'tax_calculation_failed',
+            'currency_incompatible_with_gateway',
+            'non_compliant_customer',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'not_paid',
+        'no_card',
+        'fraud_review_failed',
+        'non_compliant_eu_customer',
+        'tax_calculation_failed',
+        'currency_incompatible_with_gateway',
+        'non_compliant_customer',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'not_paid',
-      'no_card',
-      'fraud_review_failed',
-      'non_compliant_eu_customer',
-      'tax_calculation_failed',
-      'currency_incompatible_with_gateway',
-      'non_compliant_customer',
+    .union([
+      z.array(
+        z
+          .enum([
+            'not_paid',
+            'no_card',
+            'fraud_review_failed',
+            'non_compliant_eu_customer',
+            'tax_calculation_failed',
+            'currency_incompatible_with_gateway',
+            'non_compliant_customer',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'not_paid',
+        'no_card',
+        'fraud_review_failed',
+        'non_compliant_eu_customer',
+        'tax_calculation_failed',
+        'currency_incompatible_with_gateway',
+        'non_compliant_customer',
+      ]),
     ])
     .optional(),
-  is_present: z.enum(['true', 'false']).optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListSubscriptionCancelReasonCodeSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListSubscriptionRemainingBillingCyclesSchema = z.object({
-  is: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  is_not: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  lte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gt: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  gte: z.string().regex(RegExp('^-?\\d+$')).optional(),
-  between: z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
+  is: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  is_not: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  lte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gt: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  gte: z
+    .union([z.number().int(), z.string().regex(RegExp('^-?\\d+$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[-?\\d+,-?\\d+\\]$')),
+    ])
+    .optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListSubscriptionCreatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListSubscriptionActivatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
-  is_present: z.enum(['true', 'false']).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
+  is_present: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListSubscriptionNextBillingAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListSubscriptionCancelledAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListSubscriptionHasScheduledChangesSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListSubscriptionUpdatedAtSchema = z.object({
-  after: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  before: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  on: z.string().regex(RegExp('^\\d{10}$')).optional(),
-  between: z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')).optional(),
+  after: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  before: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  on: z
+    .union([z.number().int(), z.string().regex(RegExp('^\\d{10}$'))])
+    .optional(),
+  between: z
+    .union([
+      z.array(z.number().int().optional()).min(2).max(2),
+      z.string().regex(RegExp('^\\[\\d{10},\\d{10}\\]$')),
+    ])
+    .optional(),
 });
 const ListSubscriptionOfflinePaymentMethodSchema = z.object({
   is: z
@@ -1259,45 +1632,87 @@ const ListSubscriptionOfflinePaymentMethodSchema = z.object({
     ])
     .optional(),
   in: z
-    .enum([
-      'no_preference',
-      'cash',
-      'check',
-      'bank_transfer',
-      'ach_credit',
-      'sepa_credit',
-      'boleto',
-      'us_automated_bank_transfer',
-      'eu_automated_bank_transfer',
-      'uk_automated_bank_transfer',
-      'jp_automated_bank_transfer',
-      'mx_automated_bank_transfer',
-      'custom',
+    .union([
+      z.array(
+        z
+          .enum([
+            'no_preference',
+            'cash',
+            'check',
+            'bank_transfer',
+            'ach_credit',
+            'sepa_credit',
+            'boleto',
+            'us_automated_bank_transfer',
+            'eu_automated_bank_transfer',
+            'uk_automated_bank_transfer',
+            'jp_automated_bank_transfer',
+            'mx_automated_bank_transfer',
+            'custom',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'no_preference',
+        'cash',
+        'check',
+        'bank_transfer',
+        'ach_credit',
+        'sepa_credit',
+        'boleto',
+        'us_automated_bank_transfer',
+        'eu_automated_bank_transfer',
+        'uk_automated_bank_transfer',
+        'jp_automated_bank_transfer',
+        'mx_automated_bank_transfer',
+        'custom',
+      ]),
     ])
     .optional(),
   not_in: z
-    .enum([
-      'no_preference',
-      'cash',
-      'check',
-      'bank_transfer',
-      'ach_credit',
-      'sepa_credit',
-      'boleto',
-      'us_automated_bank_transfer',
-      'eu_automated_bank_transfer',
-      'uk_automated_bank_transfer',
-      'jp_automated_bank_transfer',
-      'mx_automated_bank_transfer',
-      'custom',
+    .union([
+      z.array(
+        z
+          .enum([
+            'no_preference',
+            'cash',
+            'check',
+            'bank_transfer',
+            'ach_credit',
+            'sepa_credit',
+            'boleto',
+            'us_automated_bank_transfer',
+            'eu_automated_bank_transfer',
+            'uk_automated_bank_transfer',
+            'jp_automated_bank_transfer',
+            'mx_automated_bank_transfer',
+            'custom',
+          ])
+          .optional(),
+      ),
+      z.enum([
+        'no_preference',
+        'cash',
+        'check',
+        'bank_transfer',
+        'ach_credit',
+        'sepa_credit',
+        'boleto',
+        'us_automated_bank_transfer',
+        'eu_automated_bank_transfer',
+        'uk_automated_bank_transfer',
+        'jp_automated_bank_transfer',
+        'mx_automated_bank_transfer',
+        'custom',
+      ]),
     ])
     .optional(),
 });
 const ListSubscriptionAutoCloseInvoicesSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListSubscriptionOverrideRelationshipSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListSubscriptionSortBySchema = z.looseObject({
   asc: z.enum(['created_at', 'updated_at']).optional(),
@@ -1309,18 +1724,38 @@ const ListSubscriptionBusinessEntityIdSchema = z.object({
 const ListSubscriptionChannelSchema = z.object({
   is: z.enum(['web', 'app_store', 'play_store']).optional(),
   is_not: z.enum(['web', 'app_store', 'play_store']).optional(),
-  in: z.enum(['web', 'app_store', 'play_store']).optional(),
-  not_in: z.enum(['web', 'app_store', 'play_store']).optional(),
+  in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.enum(['web', 'app_store', 'play_store']).optional()),
+      z.enum(['web', 'app_store', 'play_store']),
+    ])
+    .optional(),
 });
 const ListSubscriptionDecommissionedSchema = z.object({
-  is: z.enum(['true', 'false']).optional(),
+  is: z.union([z.boolean(), z.enum(['true', 'false'])]).optional(),
 });
 const ListSubscriptionPlanIdSchema = z.object({
   is: z.string().min(1).optional(),
   is_not: z.string().min(1).optional(),
   starts_with: z.string().min(1).optional(),
-  in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
-  not_in: z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')).optional(),
+  in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
+  not_in: z
+    .union([
+      z.array(z.string().optional()),
+      z.string().regex(RegExp('^\\[(.*)(,.*)*\\]$')),
+    ])
+    .optional(),
 });
 const ListSubscriptionBodySchema = z.looseObject({
   limit: z.number().int().min(1).max(100).optional(),
@@ -1790,6 +2225,16 @@ const UpdateSubscriptionContractTermSchema = z.object({
     .optional(),
   cancellation_cutoff_period: z.number().int().optional(),
 });
+const UpdateSubscriptionAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  trial_end: z.number().int().optional(),
+  proration_type: z.enum(['full_term', 'partial_term', 'none']).optional(),
+});
 const UpdateSubscriptionAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -1801,6 +2246,25 @@ const UpdateSubscriptionAddonsSchema = z.object({
   proration_type: z
     .array(z.enum(['full_term', 'partial_term', 'none']).optional())
     .optional(),
+});
+const UpdateSubscriptionEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+  charge_on: z.enum(['immediately', 'on_event']).optional(),
+  on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().default(true).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
 });
 const UpdateSubscriptionEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -1826,6 +2290,10 @@ const UpdateSubscriptionEventBasedAddonsSchema = z.object({
   charge_once: z.array(z.boolean().default(true).optional()).optional(),
   quantity_in_decimal: z.array(z.string().max(33).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
+});
+const UpdateSubscriptionCouponsItemSchema = z.object({
+  coupon_id: z.string().max(100).optional(),
+  apply_till: z.number().int().optional(),
 });
 const UpdateSubscriptionCouponsSchema = z.object({
   coupon_id: z.array(z.string().max(100).optional()).optional(),
@@ -1908,9 +2376,24 @@ const UpdateSubscriptionBodySchema = z.looseObject({
   statement_descriptor: UpdateSubscriptionStatementDescriptorSchema.optional(),
   customer: UpdateSubscriptionCustomerSchema.optional(),
   contract_term: UpdateSubscriptionContractTermSchema.optional(),
-  addons: UpdateSubscriptionAddonsSchema.optional(),
-  event_based_addons: UpdateSubscriptionEventBasedAddonsSchema.optional(),
-  coupons: UpdateSubscriptionCouponsSchema.optional(),
+  addons: z
+    .union([
+      z.array(UpdateSubscriptionAddonsItemSchema.optional()),
+      UpdateSubscriptionAddonsSchema,
+    ])
+    .optional(),
+  event_based_addons: z
+    .union([
+      z.array(UpdateSubscriptionEventBasedAddonsItemSchema.optional()),
+      UpdateSubscriptionEventBasedAddonsSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(UpdateSubscriptionCouponsItemSchema.optional()),
+      UpdateSubscriptionCouponsSchema,
+    ])
+    .optional(),
 });
 export { UpdateSubscriptionBodySchema };
 export type UpdateSubscriptionBody = z.infer<
@@ -2289,6 +2772,33 @@ const UpdateForItemsSubscriptionBillingOverrideSchema = z.object({
   max_excess_payment_usage: z.number().int().min(-1).optional(),
   max_refundable_credits_usage: z.number().int().min(-1).optional(),
 });
+const UpdateForItemsSubscriptionSubscriptionItemsItemSchema = z.object({
+  item_price_id: z.string().max(100),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  trial_end: z.number().int().optional(),
+  service_period_days: z.number().int().min(1).max(4000).optional(),
+  charge_on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().optional(),
+  charge_on_option: z.enum(['immediately', 'on_event']).optional(),
+  item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+  description: z.string().max(2000).optional(),
+  proration_type: z.enum(['full_term', 'partial_term', 'none']).optional(),
+  usage_accumulation_reset_frequency: z
+    .enum(['never', 'subscription_billing_frequency'])
+    .optional(),
+});
 const UpdateForItemsSubscriptionSubscriptionItemsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -2298,7 +2808,7 @@ const UpdateForItemsSubscriptionSubscriptionItemsSchema = z.object({
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
   charge_on_event: z
     .array(
@@ -2318,13 +2828,27 @@ const UpdateForItemsSubscriptionSubscriptionItemsSchema = z.object({
     .array(z.enum(['immediately', 'on_event']).optional())
     .optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
-  description: z.array(z.string().max(500).optional()).optional(),
+  description: z.array(z.string().max(2000).optional()).optional(),
   proration_type: z
     .array(z.enum(['full_term', 'partial_term', 'none']).optional())
     .optional(),
   usage_accumulation_reset_frequency: z
     .array(z.enum(['never', 'subscription_billing_frequency']).optional())
     .optional(),
+});
+const UpdateForItemsSubscriptionDiscountsItemSchema = z.object({
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']).optional(),
+  duration_type: z.enum(['one_time', 'forever', 'limited_period']),
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  period: z.number().int().min(1).optional(),
+  period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  included_in_mrr: z.boolean().optional(),
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  operation_type: z.enum(['add', 'remove']),
+  id: z.string().max(50).optional(),
+  description: z.string().max(100).optional(),
 });
 const UpdateForItemsSubscriptionDiscountsSchema = z.object({
   apply_on: z
@@ -2344,6 +2868,18 @@ const UpdateForItemsSubscriptionDiscountsSchema = z.object({
   quantity: z.array(z.number().int().min(1).optional()).optional(),
   operation_type: z.array(z.enum(['add', 'remove']).optional()),
   id: z.array(z.string().max(50).optional()).optional(),
+  description: z.array(z.string().max(100).optional()).optional(),
+});
+const UpdateForItemsSubscriptionItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
 });
 const UpdateForItemsSubscriptionItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -2357,6 +2893,10 @@ const UpdateForItemsSubscriptionItemTiersSchema = z.object({
     .array(z.enum(['per_unit', 'flat_fee', 'package']).optional())
     .optional(),
   package_size: z.array(z.number().int().min(1).optional()).optional(),
+});
+const UpdateForItemsSubscriptionCouponsItemSchema = z.object({
+  coupon_id: z.string().max(100).optional(),
+  apply_till: z.number().int().optional(),
 });
 const UpdateForItemsSubscriptionCouponsSchema = z.object({
   coupon_id: z.array(z.string().max(100).optional()).optional(),
@@ -2439,11 +2979,30 @@ const UpdateForItemsSubscriptionBodySchema = z.looseObject({
   customer: UpdateForItemsSubscriptionCustomerSchema.optional(),
   contract_term: UpdateForItemsSubscriptionContractTermSchema.optional(),
   billing_override: UpdateForItemsSubscriptionBillingOverrideSchema.optional(),
-  subscription_items:
-    UpdateForItemsSubscriptionSubscriptionItemsSchema.optional(),
-  discounts: UpdateForItemsSubscriptionDiscountsSchema.optional(),
-  item_tiers: UpdateForItemsSubscriptionItemTiersSchema.optional(),
-  coupons: UpdateForItemsSubscriptionCouponsSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(UpdateForItemsSubscriptionSubscriptionItemsItemSchema.optional()),
+      UpdateForItemsSubscriptionSubscriptionItemsSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(UpdateForItemsSubscriptionDiscountsItemSchema.optional()),
+      UpdateForItemsSubscriptionDiscountsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(UpdateForItemsSubscriptionItemTiersItemSchema.optional()),
+      UpdateForItemsSubscriptionItemTiersSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(UpdateForItemsSubscriptionCouponsItemSchema.optional()),
+      UpdateForItemsSubscriptionCouponsSchema,
+    ])
+    .optional(),
 });
 export { UpdateForItemsSubscriptionBodySchema };
 export type UpdateForItemsSubscriptionBody = z.infer<
@@ -2621,6 +3180,11 @@ const ChargeFutureRenewalsSubscriptionFixedIntervalScheduleSchema = z.object({
     .optional(),
   end_date: z.number().int().optional(),
 });
+const ChargeFutureRenewalsSubscriptionSpecificDatesScheduleItemSchema =
+  z.object({
+    terms_to_charge: z.number().int().optional(),
+    date: z.number().int().optional(),
+  });
 const ChargeFutureRenewalsSubscriptionSpecificDatesScheduleSchema = z.object({
   terms_to_charge: z.array(z.number().int().optional()).optional(),
   date: z.array(z.number().int().optional()).optional(),
@@ -2633,8 +3197,14 @@ const ChargeFutureRenewalsSubscriptionBodySchema = z.looseObject({
     .optional(),
   fixed_interval_schedule:
     ChargeFutureRenewalsSubscriptionFixedIntervalScheduleSchema.optional(),
-  specific_dates_schedule:
-    ChargeFutureRenewalsSubscriptionSpecificDatesScheduleSchema.optional(),
+  specific_dates_schedule: z
+    .union([
+      z.array(
+        ChargeFutureRenewalsSubscriptionSpecificDatesScheduleItemSchema.optional(),
+      ),
+      ChargeFutureRenewalsSubscriptionSpecificDatesScheduleSchema,
+    ])
+    .optional(),
 });
 export { ChargeFutureRenewalsSubscriptionBodySchema };
 export type ChargeFutureRenewalsSubscriptionBody = z.infer<
@@ -2652,6 +3222,12 @@ const EditAdvanceInvoiceScheduleSubscriptionFixedIntervalScheduleSchema =
       .optional(),
     end_date: z.number().int().optional(),
   });
+const EditAdvanceInvoiceScheduleSubscriptionSpecificDatesScheduleItemSchema =
+  z.object({
+    id: z.string().max(50).optional(),
+    terms_to_charge: z.number().int().optional(),
+    date: z.number().int().optional(),
+  });
 const EditAdvanceInvoiceScheduleSubscriptionSpecificDatesScheduleSchema =
   z.object({
     id: z.array(z.string().max(50).optional()).optional(),
@@ -2663,8 +3239,14 @@ const EditAdvanceInvoiceScheduleSubscriptionBodySchema = z.looseObject({
   schedule_type: z.enum(['specific_dates', 'fixed_intervals']).optional(),
   fixed_interval_schedule:
     EditAdvanceInvoiceScheduleSubscriptionFixedIntervalScheduleSchema.optional(),
-  specific_dates_schedule:
-    EditAdvanceInvoiceScheduleSubscriptionSpecificDatesScheduleSchema.optional(),
+  specific_dates_schedule: z
+    .union([
+      z.array(
+        EditAdvanceInvoiceScheduleSubscriptionSpecificDatesScheduleItemSchema.optional(),
+      ),
+      EditAdvanceInvoiceScheduleSubscriptionSpecificDatesScheduleSchema,
+    ])
+    .optional(),
 });
 export { EditAdvanceInvoiceScheduleSubscriptionBodySchema };
 export type EditAdvanceInvoiceScheduleSubscriptionBody = z.infer<
@@ -2673,13 +3255,23 @@ export type EditAdvanceInvoiceScheduleSubscriptionBody = z.infer<
 
 //Subscription.removeAdvanceInvoiceSchedule
 
+const RemoveAdvanceInvoiceScheduleSubscriptionSpecificDatesScheduleItemSchema =
+  z.object({
+    id: z.string().max(50).optional(),
+  });
 const RemoveAdvanceInvoiceScheduleSubscriptionSpecificDatesScheduleSchema =
   z.object({
     id: z.array(z.string().max(50).optional()).optional(),
   });
 const RemoveAdvanceInvoiceScheduleSubscriptionBodySchema = z.looseObject({
-  specific_dates_schedule:
-    RemoveAdvanceInvoiceScheduleSubscriptionSpecificDatesScheduleSchema.optional(),
+  specific_dates_schedule: z
+    .union([
+      z.array(
+        RemoveAdvanceInvoiceScheduleSubscriptionSpecificDatesScheduleItemSchema.optional(),
+      ),
+      RemoveAdvanceInvoiceScheduleSubscriptionSpecificDatesScheduleSchema,
+    ])
+    .optional(),
 });
 export { RemoveAdvanceInvoiceScheduleSubscriptionBodySchema };
 export type RemoveAdvanceInvoiceScheduleSubscriptionBody = z.infer<
@@ -3037,16 +3629,18 @@ const ImportSubscriptionSubscriptionTransactionSchema = z.object({
       'app_store',
       'play_store',
       'custom',
-      'tamara',
-      'qpay',
-      'blik',
-      'fpx',
-      'wero',
-      'p24',
     ])
     .optional(),
   reference_number: z.string().max(100).optional(),
   date: z.number().int().optional(),
+});
+const ImportSubscriptionSubscriptionAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
 });
 const ImportSubscriptionSubscriptionAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -3055,6 +3649,24 @@ const ImportSubscriptionSubscriptionAddonsSchema = z.object({
   unit_price: z.array(z.number().int().min(0).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
+});
+const ImportSubscriptionSubscriptionEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+  on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().default(true).optional(),
 });
 const ImportSubscriptionSubscriptionEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -3080,9 +3692,18 @@ const ImportSubscriptionSubscriptionEventBasedAddonsSchema = z.object({
     .optional(),
   charge_once: z.array(z.boolean().default(true).optional()).optional(),
 });
+const ImportSubscriptionSubscriptionChargedEventBasedAddonsItemSchema =
+  z.object({
+    id: z.string().max(100).optional(),
+    last_charged_at: z.number().int().optional(),
+  });
 const ImportSubscriptionSubscriptionChargedEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   last_charged_at: z.array(z.number().int().optional()).optional(),
+});
+const ImportSubscriptionSubscriptionCouponsItemSchema = z.object({
+  coupon_id: z.string().max(100).optional(),
+  apply_till: z.number().int().optional(),
 });
 const ImportSubscriptionSubscriptionCouponsSchema = z.object({
   coupon_id: z.array(z.string().max(100).optional()).optional(),
@@ -3139,12 +3760,34 @@ const ImportSubscriptionSubscriptionBodySchema = z.looseObject({
   shipping_address:
     ImportSubscriptionSubscriptionShippingAddressSchema.optional(),
   transaction: ImportSubscriptionSubscriptionTransactionSchema.optional(),
-  addons: ImportSubscriptionSubscriptionAddonsSchema.optional(),
-  event_based_addons:
-    ImportSubscriptionSubscriptionEventBasedAddonsSchema.optional(),
-  charged_event_based_addons:
-    ImportSubscriptionSubscriptionChargedEventBasedAddonsSchema.optional(),
-  coupons: ImportSubscriptionSubscriptionCouponsSchema.optional(),
+  addons: z
+    .union([
+      z.array(ImportSubscriptionSubscriptionAddonsItemSchema.optional()),
+      ImportSubscriptionSubscriptionAddonsSchema,
+    ])
+    .optional(),
+  event_based_addons: z
+    .union([
+      z.array(
+        ImportSubscriptionSubscriptionEventBasedAddonsItemSchema.optional(),
+      ),
+      ImportSubscriptionSubscriptionEventBasedAddonsSchema,
+    ])
+    .optional(),
+  charged_event_based_addons: z
+    .union([
+      z.array(
+        ImportSubscriptionSubscriptionChargedEventBasedAddonsItemSchema.optional(),
+      ),
+      ImportSubscriptionSubscriptionChargedEventBasedAddonsSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(ImportSubscriptionSubscriptionCouponsItemSchema.optional()),
+      ImportSubscriptionSubscriptionCouponsSchema,
+    ])
+    .optional(),
 });
 export { ImportSubscriptionSubscriptionBodySchema };
 export type ImportSubscriptionSubscriptionBody = z.infer<
@@ -3177,12 +3820,6 @@ const ImportForCustomerSubscriptionTransactionSchema = z.object({
       'app_store',
       'play_store',
       'custom',
-      'tamara',
-      'qpay',
-      'blik',
-      'fpx',
-      'wero',
-      'p24',
     ])
     .optional(),
   reference_number: z.string().max(100).optional(),
@@ -3206,6 +3843,14 @@ const ImportForCustomerSubscriptionShippingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const ImportForCustomerSubscriptionAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+});
 const ImportForCustomerSubscriptionAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -3213,6 +3858,24 @@ const ImportForCustomerSubscriptionAddonsSchema = z.object({
   unit_price: z.array(z.number().int().min(0).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
+});
+const ImportForCustomerSubscriptionEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+  on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().default(true).optional(),
 });
 const ImportForCustomerSubscriptionEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
@@ -3238,9 +3901,19 @@ const ImportForCustomerSubscriptionEventBasedAddonsSchema = z.object({
     .optional(),
   charge_once: z.array(z.boolean().default(true).optional()).optional(),
 });
+const ImportForCustomerSubscriptionChargedEventBasedAddonsItemSchema = z.object(
+  {
+    id: z.string().max(100).optional(),
+    last_charged_at: z.number().int().optional(),
+  },
+);
 const ImportForCustomerSubscriptionChargedEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   last_charged_at: z.array(z.number().int().optional()).optional(),
+});
+const ImportForCustomerSubscriptionCouponsItemSchema = z.object({
+  coupon_id: z.string().max(100).optional(),
+  apply_till: z.number().int().optional(),
 });
 const ImportForCustomerSubscriptionCouponsSchema = z.object({
   coupon_id: z.array(z.string().max(100).optional()).optional(),
@@ -3291,12 +3964,34 @@ const ImportForCustomerSubscriptionBodySchema = z.looseObject({
   transaction: ImportForCustomerSubscriptionTransactionSchema.optional(),
   shipping_address:
     ImportForCustomerSubscriptionShippingAddressSchema.optional(),
-  addons: ImportForCustomerSubscriptionAddonsSchema.optional(),
-  event_based_addons:
-    ImportForCustomerSubscriptionEventBasedAddonsSchema.optional(),
-  charged_event_based_addons:
-    ImportForCustomerSubscriptionChargedEventBasedAddonsSchema.optional(),
-  coupons: ImportForCustomerSubscriptionCouponsSchema.optional(),
+  addons: z
+    .union([
+      z.array(ImportForCustomerSubscriptionAddonsItemSchema.optional()),
+      ImportForCustomerSubscriptionAddonsSchema,
+    ])
+    .optional(),
+  event_based_addons: z
+    .union([
+      z.array(
+        ImportForCustomerSubscriptionEventBasedAddonsItemSchema.optional(),
+      ),
+      ImportForCustomerSubscriptionEventBasedAddonsSchema,
+    ])
+    .optional(),
+  charged_event_based_addons: z
+    .union([
+      z.array(
+        ImportForCustomerSubscriptionChargedEventBasedAddonsItemSchema.optional(),
+      ),
+      ImportForCustomerSubscriptionChargedEventBasedAddonsSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(ImportForCustomerSubscriptionCouponsItemSchema.optional()),
+      ImportForCustomerSubscriptionCouponsSchema,
+    ])
+    .optional(),
 });
 export { ImportForCustomerSubscriptionBodySchema };
 export type ImportForCustomerSubscriptionBody = z.infer<
@@ -3337,6 +4032,31 @@ export type ImportContractTermSubscriptionBody = z.infer<
 
 //Subscription.importUnbilledCharges
 
+const ImportUnbilledChargesSubscriptionUnbilledChargesItemSchema = z.object({
+  id: z.string().max(40).optional(),
+  date_from: z.number().int(),
+  date_to: z.number().int(),
+  entity_type: z.enum([
+    'adhoc',
+    'plan_item_price',
+    'addon_item_price',
+    'charge_item_price',
+    'plan_setup',
+    'plan',
+    'addon',
+  ]),
+  entity_id: z.string().max(100).optional(),
+  description: z.string().max(250).optional(),
+  unit_amount: z.number().int().min(0).optional(),
+  quantity: z.number().int().min(0).optional(),
+  amount: z.number().int().min(0).optional(),
+  unit_amount_in_decimal: z.string().max(39).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  amount_in_decimal: z.string().max(39).optional(),
+  discount_amount: z.number().int().min(0).optional(),
+  use_for_proration: z.boolean().default(false).optional(),
+  is_advance_charge: z.boolean().default(false).optional(),
+});
 const ImportUnbilledChargesSubscriptionUnbilledChargesSchema = z.object({
   id: z.array(z.string().max(40).optional()).optional(),
   date_from: z.array(z.number().int().optional()),
@@ -3366,6 +4086,20 @@ const ImportUnbilledChargesSubscriptionUnbilledChargesSchema = z.object({
   use_for_proration: z.array(z.boolean().default(false).optional()).optional(),
   is_advance_charge: z.array(z.boolean().default(false).optional()).optional(),
 });
+const ImportUnbilledChargesSubscriptionDiscountsItemSchema = z.object({
+  unbilled_charge_id: z.string().max(40).optional(),
+  entity_type: z
+    .enum([
+      'item_level_coupon',
+      'document_level_coupon',
+      'item_level_discount',
+      'document_level_discount',
+    ])
+    .optional(),
+  entity_id: z.string().max(100).optional(),
+  description: z.string().max(250).optional(),
+  amount: z.number().int().min(0),
+});
 const ImportUnbilledChargesSubscriptionDiscountsSchema = z.object({
   unbilled_charge_id: z.array(z.string().max(40).optional()).optional(),
   entity_type: z
@@ -3384,6 +4118,17 @@ const ImportUnbilledChargesSubscriptionDiscountsSchema = z.object({
   description: z.array(z.string().max(250).optional()).optional(),
   amount: z.array(z.number().int().min(0).optional()),
 });
+const ImportUnbilledChargesSubscriptionTiersItemSchema = z.object({
+  unbilled_charge_id: z.string().max(40),
+  starting_unit: z.number().int().min(0).optional(),
+  ending_unit: z.number().int().optional(),
+  quantity_used: z.number().int().min(0).optional(),
+  unit_amount: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  quantity_used_in_decimal: z.string().max(33).optional(),
+  unit_amount_in_decimal: z.string().max(40).optional(),
+});
 const ImportUnbilledChargesSubscriptionTiersSchema = z.object({
   unbilled_charge_id: z.array(z.string().max(40).optional()),
   starting_unit: z.array(z.number().int().min(0).optional()).optional(),
@@ -3396,10 +4141,26 @@ const ImportUnbilledChargesSubscriptionTiersSchema = z.object({
   unit_amount_in_decimal: z.array(z.string().max(40).optional()).optional(),
 });
 const ImportUnbilledChargesSubscriptionBodySchema = z.looseObject({
-  unbilled_charges:
-    ImportUnbilledChargesSubscriptionUnbilledChargesSchema.optional(),
-  discounts: ImportUnbilledChargesSubscriptionDiscountsSchema.optional(),
-  tiers: ImportUnbilledChargesSubscriptionTiersSchema.optional(),
+  unbilled_charges: z
+    .union([
+      z.array(
+        ImportUnbilledChargesSubscriptionUnbilledChargesItemSchema.optional(),
+      ),
+      ImportUnbilledChargesSubscriptionUnbilledChargesSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(ImportUnbilledChargesSubscriptionDiscountsItemSchema.optional()),
+      ImportUnbilledChargesSubscriptionDiscountsSchema,
+    ])
+    .optional(),
+  tiers: z
+    .union([
+      z.array(ImportUnbilledChargesSubscriptionTiersItemSchema.optional()),
+      ImportUnbilledChargesSubscriptionTiersSchema,
+    ])
+    .optional(),
 });
 export { ImportUnbilledChargesSubscriptionBodySchema };
 export type ImportUnbilledChargesSubscriptionBody = z.infer<
@@ -3432,12 +4193,6 @@ const ImportForItemsSubscriptionTransactionSchema = z.object({
       'app_store',
       'play_store',
       'custom',
-      'tamara',
-      'qpay',
-      'blik',
-      'fpx',
-      'wero',
-      'p24',
     ])
     .optional(),
   reference_number: z.string().max(100).optional(),
@@ -3461,6 +4216,28 @@ const ImportForItemsSubscriptionShippingAddressSchema = z.object({
     .enum(['not_validated', 'valid', 'partially_valid', 'invalid'])
     .optional(),
 });
+const ImportForItemsSubscriptionSubscriptionItemsItemSchema = z.object({
+  item_price_id: z.string().max(100),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  billing_cycles: z.number().int().min(0).optional(),
+  trial_end: z.number().int().optional(),
+  service_period_days: z.number().int().min(1).max(4000).optional(),
+  charge_on_event: z
+    .enum([
+      'subscription_creation',
+      'subscription_trial_start',
+      'plan_activation',
+      'subscription_activation',
+      'contract_termination',
+    ])
+    .optional(),
+  charge_once: z.boolean().optional(),
+  item_type: z.enum(['plan', 'addon', 'charge']).optional(),
+  description: z.string().max(2000).optional(),
+});
 const ImportForItemsSubscriptionSubscriptionItemsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -3470,7 +4247,7 @@ const ImportForItemsSubscriptionSubscriptionItemsSchema = z.object({
   billing_cycles: z.array(z.number().int().min(0).optional()).optional(),
   trial_end: z.array(z.number().int().optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
   charge_on_event: z
     .array(
@@ -3487,7 +4264,18 @@ const ImportForItemsSubscriptionSubscriptionItemsSchema = z.object({
     .optional(),
   charge_once: z.array(z.boolean().optional()).optional(),
   item_type: z.array(z.enum(['plan', 'addon', 'charge']).optional()).optional(),
-  description: z.array(z.string().max(500).optional()).optional(),
+  description: z.array(z.string().max(2000).optional()).optional(),
+});
+const ImportForItemsSubscriptionDiscountsItemSchema = z.object({
+  apply_on: z.enum(['invoice_amount', 'specific_item_price']).optional(),
+  duration_type: z.enum(['one_time', 'forever', 'limited_period']),
+  percentage: z.number().min(0.01).max(100).optional(),
+  amount: z.number().int().min(0).optional(),
+  period: z.number().int().min(1).optional(),
+  period_unit: z.enum(['day', 'week', 'month', 'year']).optional(),
+  included_in_mrr: z.boolean().optional(),
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
 });
 const ImportForItemsSubscriptionDiscountsSchema = z.object({
   apply_on: z
@@ -3506,9 +4294,24 @@ const ImportForItemsSubscriptionDiscountsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
 });
+const ImportForItemsSubscriptionChargedItemsItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  last_charged_at: z.number().int().optional(),
+});
 const ImportForItemsSubscriptionChargedItemsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   last_charged_at: z.array(z.number().int().optional()).optional(),
+});
+const ImportForItemsSubscriptionItemTiersItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  starting_unit: z.number().int().min(1).optional(),
+  ending_unit: z.number().int().optional(),
+  price: z.number().int().min(0).optional(),
+  starting_unit_in_decimal: z.string().max(33).optional(),
+  ending_unit_in_decimal: z.string().max(33).optional(),
+  price_in_decimal: z.string().max(39).optional(),
+  pricing_type: z.enum(['per_unit', 'flat_fee', 'package']).optional(),
+  package_size: z.number().int().min(1).optional(),
 });
 const ImportForItemsSubscriptionItemTiersSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
@@ -3522,6 +4325,10 @@ const ImportForItemsSubscriptionItemTiersSchema = z.object({
     .array(z.enum(['per_unit', 'flat_fee', 'package']).optional())
     .optional(),
   package_size: z.array(z.number().int().min(1).optional()).optional(),
+});
+const ImportForItemsSubscriptionCouponsItemSchema = z.object({
+  coupon_id: z.string().max(100).optional(),
+  apply_till: z.number().int().optional(),
 });
 const ImportForItemsSubscriptionCouponsSchema = z.object({
   coupon_id: z.array(z.string().max(100).optional()).optional(),
@@ -3571,12 +4378,36 @@ const ImportForItemsSubscriptionBodySchema = z.looseObject({
   contract_term: ImportForItemsSubscriptionContractTermSchema.optional(),
   transaction: ImportForItemsSubscriptionTransactionSchema.optional(),
   shipping_address: ImportForItemsSubscriptionShippingAddressSchema.optional(),
-  subscription_items:
-    ImportForItemsSubscriptionSubscriptionItemsSchema.optional(),
-  discounts: ImportForItemsSubscriptionDiscountsSchema.optional(),
-  charged_items: ImportForItemsSubscriptionChargedItemsSchema.optional(),
-  item_tiers: ImportForItemsSubscriptionItemTiersSchema.optional(),
-  coupons: ImportForItemsSubscriptionCouponsSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(ImportForItemsSubscriptionSubscriptionItemsItemSchema.optional()),
+      ImportForItemsSubscriptionSubscriptionItemsSchema,
+    ])
+    .optional(),
+  discounts: z
+    .union([
+      z.array(ImportForItemsSubscriptionDiscountsItemSchema.optional()),
+      ImportForItemsSubscriptionDiscountsSchema,
+    ])
+    .optional(),
+  charged_items: z
+    .union([
+      z.array(ImportForItemsSubscriptionChargedItemsItemSchema.optional()),
+      ImportForItemsSubscriptionChargedItemsSchema,
+    ])
+    .optional(),
+  item_tiers: z
+    .union([
+      z.array(ImportForItemsSubscriptionItemTiersItemSchema.optional()),
+      ImportForItemsSubscriptionItemTiersSchema,
+    ])
+    .optional(),
+  coupons: z
+    .union([
+      z.array(ImportForItemsSubscriptionCouponsItemSchema.optional()),
+      ImportForItemsSubscriptionCouponsSchema,
+    ])
+    .optional(),
 });
 export { ImportForItemsSubscriptionBodySchema };
 export type ImportForItemsSubscriptionBody = z.infer<
@@ -3611,6 +4442,12 @@ export type PauseSubscriptionBody = z.infer<typeof PauseSubscriptionBodySchema>;
 
 //Subscription.cancel
 
+const CancelSubscriptionEventBasedAddonsItemSchema = z.object({
+  id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  service_period_in_days: z.number().int().min(1).max(4000).optional(),
+});
 const CancelSubscriptionEventBasedAddonsSchema = z.object({
   id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -3650,7 +4487,12 @@ const CancelSubscriptionBodySchema = z.looseObject({
     .optional(),
   invoice_date: z.number().int().optional(),
   cancel_reason_code: z.string().max(100).optional(),
-  event_based_addons: CancelSubscriptionEventBasedAddonsSchema.optional(),
+  event_based_addons: z
+    .union([
+      z.array(CancelSubscriptionEventBasedAddonsItemSchema.optional()),
+      CancelSubscriptionEventBasedAddonsSchema,
+    ])
+    .optional(),
 });
 export { CancelSubscriptionBodySchema };
 export type CancelSubscriptionBody = z.infer<
@@ -3659,6 +4501,14 @@ export type CancelSubscriptionBody = z.infer<
 
 //Subscription.cancelForItems
 
+const CancelForItemsSubscriptionSubscriptionItemsItemSchema = z.object({
+  item_price_id: z.string().max(100).optional(),
+  quantity: z.number().int().min(1).optional(),
+  quantity_in_decimal: z.string().max(33).optional(),
+  unit_price: z.number().int().min(0).optional(),
+  unit_price_in_decimal: z.string().max(39).optional(),
+  service_period_days: z.number().int().min(1).max(4000).optional(),
+});
 const CancelForItemsSubscriptionSubscriptionItemsSchema = z.object({
   item_price_id: z.array(z.string().max(100).optional()).optional(),
   quantity: z.array(z.number().int().min(1).optional()).optional(),
@@ -3666,7 +4516,7 @@ const CancelForItemsSubscriptionSubscriptionItemsSchema = z.object({
   unit_price: z.array(z.number().int().min(0).optional()).optional(),
   unit_price_in_decimal: z.array(z.string().max(39).optional()).optional(),
   service_period_days: z
-    .array(z.number().int().min(1).max(730).optional())
+    .array(z.number().int().min(1).max(4000).optional())
     .optional(),
 });
 const CancelForItemsSubscriptionBodySchema = z.looseObject({
@@ -3702,8 +4552,12 @@ const CancelForItemsSubscriptionBodySchema = z.looseObject({
   include_cancellation_day_in_billing: z.boolean().optional(),
   cancel_reason_code: z.string().max(100).optional(),
   decommissioned: z.boolean().default(false).optional(),
-  subscription_items:
-    CancelForItemsSubscriptionSubscriptionItemsSchema.optional(),
+  subscription_items: z
+    .union([
+      z.array(CancelForItemsSubscriptionSubscriptionItemsItemSchema.optional()),
+      CancelForItemsSubscriptionSubscriptionItemsSchema,
+    ])
+    .optional(),
 });
 export { CancelForItemsSubscriptionBodySchema };
 export type CancelForItemsSubscriptionBody = z.infer<
