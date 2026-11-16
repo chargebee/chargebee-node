@@ -17,8 +17,10 @@ import {
   RetryConfig,
 } from './types.js';
 import {
+  applyResponseTelemetryPreferHeader,
   buildRequestTelemetryContext,
   buildRequestTelemetryResult,
+  extractResponseHeaders,
   extractHttpStatusCode,
   extractRequestTelemetryError,
   resolveChargebeeApiVersion,
@@ -171,6 +173,14 @@ export class RequestWrapper {
 
     Object.assign(this.httpHeaders, headers);
 
+    const telemetryAdapter = env.telemetryAdapter;
+    if (
+      telemetryAdapter !== undefined &&
+      env.preferChargebeeTelemetry === true
+    ) {
+      applyResponseTelemetryPreferHeader(this.httpHeaders);
+    }
+
     if (
       this.apiCall.httpMethod === 'POST' &&
       !this.httpHeaders['chargebee-idempotency-key'] &&
@@ -181,7 +191,6 @@ export class RequestWrapper {
       this.httpHeaders['chargebee-idempotency-key'] = uuidv4();
     }
 
-    const telemetryAdapter = env.telemetryAdapter;
     const telemetryHeaders: RequestHeaders = {};
     const requestStartTime = Date.now();
 
@@ -357,6 +366,7 @@ export class RequestWrapper {
             buildRequestTelemetryResult({
               httpStatusCode,
               durationMs: Date.now() - requestStartTime,
+              responseHeaders: result?.headers,
             }),
           );
         } catch (err) {
@@ -380,6 +390,7 @@ export class RequestWrapper {
               httpStatusCode,
               durationMs: Date.now() - requestStartTime,
               error: telemetryError,
+              responseHeaders: extractResponseHeaders(err),
             }),
           );
         } catch (telemetryErr) {
