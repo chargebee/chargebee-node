@@ -309,16 +309,33 @@ export function extractResponseHeaders(
   const errorObj = err as Record<string, unknown>;
   const response = errorObj.response;
   if (response != null && typeof response === 'object') {
-    const headers = (response as Record<string, unknown>).headers;
-    if (headers != null && typeof headers === 'object') {
-      return headers as ResponseHeadersForTelemetry;
+    const headers = normalizeResponseHeaders(
+      (response as Record<string, unknown>).headers,
+    );
+    if (headers) {
+      return headers;
     }
   }
 
-  const headers = errorObj.headers;
-  if (headers != null && typeof headers === 'object') {
-    return headers as ResponseHeadersForTelemetry;
-  }
+  return normalizeResponseHeaders(errorObj.headers);
+}
 
-  return undefined;
+/**
+ * Returns {@code headers} as a plain record. A native {@code Headers} instance (for example from
+ * an error thrown by a custom HTTP client) is converted, since its entries are not own properties.
+ */
+function normalizeResponseHeaders(
+  headers: unknown,
+): ResponseHeadersForTelemetry | undefined {
+  if (headers == null || typeof headers !== 'object') {
+    return undefined;
+  }
+  if (typeof Headers !== 'undefined' && headers instanceof Headers) {
+    const record: ResponseHeadersForTelemetry = {};
+    headers.forEach((value, name) => {
+      record[name] = value;
+    });
+    return record;
+  }
+  return headers as ResponseHeadersForTelemetry;
 }

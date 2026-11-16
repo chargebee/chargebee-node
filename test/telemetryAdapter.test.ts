@@ -5,6 +5,7 @@ import {
   buildRequestHeaderSpanAttributes,
   buildRequestTelemetryResult,
   buildResponseHeaderSpanAttributes,
+  extractResponseHeaders,
   getResponseHeaderValueIgnoreCase,
 } from '../src/telemetry/TelemetryAdapter.js';
 import {
@@ -177,6 +178,45 @@ describe('TelemetryAdapter response telemetry', () => {
     expect(result).to.not.have.property('responseTelemetryAttributes');
     expect(result.endAttributes).to.deep.equal({
       [TelemetryAttributeKeys.HTTP_RESPONSE_STATUS_CODE]: 200,
+    });
+  });
+
+  describe('extractResponseHeaders', () => {
+    const header = 'cb;time_ms=12';
+
+    it('should convert native Headers on err.response.headers', () => {
+      const err = {
+        response: { headers: new Headers({ 'X-Chargebee-Telemetry': header }) },
+      };
+
+      expect(extractResponseHeaders(err)).to.deep.equal({
+        'x-chargebee-telemetry': header,
+      });
+      expect(
+        buildResponseHeaderSpanAttributes(extractResponseHeaders(err))[
+          'chargebee.telemetry.cb.time_ms'
+        ],
+      ).to.equal(12);
+    });
+
+    it('should convert native Headers on err.headers', () => {
+      const err = { headers: new Headers({ 'X-Chargebee-Telemetry': header }) };
+
+      expect(extractResponseHeaders(err)).to.deep.equal({
+        'x-chargebee-telemetry': header,
+      });
+    });
+
+    it('should return plain header objects unchanged', () => {
+      const headers = { 'x-chargebee-telemetry': header };
+
+      expect(extractResponseHeaders({ headers })).to.equal(headers);
+      expect(extractResponseHeaders({ response: { headers } })).to.equal(headers);
+    });
+
+    it('should return undefined when no headers are present', () => {
+      expect(extractResponseHeaders(new Error('network'))).to.equal(undefined);
+      expect(extractResponseHeaders(null)).to.equal(undefined);
     });
   });
 });
