@@ -1,0 +1,183 @@
+name: Release on version bump
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (resolve the version and print the release notes, create nothing)"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    name: Decide what needs releasing
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.check.outputs.version }}
+      create_release: ${{ steps.check.outputs.create_release }}
+      publish: ${{ steps.check.outputs.publish }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check the version, the release and npm
+        id: check
+        env:
+          BEFORE: ${{ github.event.before }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NEW_VERSION=$(jq -r .version package.json)
+          PACKAGE=$(jq -r .name package.json)
+
+          PREV="$BEFORE"
+          if [ -z "$PREV" ] || [ "$PREV" = "0000000000000000000000000000000000000000" ] \
+             || ! git cat-file -e "$PREV^{commit}" 2>/dev/null; then
+            PREV=$(git rev-parse --verify HEAD^ 2>/dev/null || true)
+          fi
+
+          OLD_VERSION=""
+          if [ -n "$PREV" ]; then
+            OLD_VERSION=$(git show "$PREV:package.json" 2>/dev/null | jq -r .version 2>/dev/null || true)
+          fi
+
+          echo "previous commit: ${PREV:-<none>}"
+          echo "version: ${OLD_VERSION:-<unknown>} -> $NEW_VERSION"
+          echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+          if gh release view "v$NEW_VERSION" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            CREATE_RELEASE=false
+          else
+            CREATE_RELEASE=true
+          fi
+
+          if npm view "$PACKAGE@$NEW_VERSION" version >/dev/null 2>&1; then
+            PUBLISH=false
+          else
+            PUBLISH=true
+          fi
+
+          echo "github release v$NEW_VERSION missing: $CREATE_RELEASE"
+          echo "$PACKAGE@$NEW_VERSION missing from npm: $PUBLISH"
+          echo "create_release=$CREATE_RELEASE" >> "$GITHUB_OUTPUT"
+          echo "publish=$PUBLISH" >> "$GITHUB_OUTPUT"
+
+          if [ "$CREATE_RELEASE" = "false" ] && [ "$PUBLISH" = "false" ]; then
+            echo "v$NEW_VERSION is already released and published; nothing to do."
+            exit 0
+          fi
+
+          if [ "$NEW_VERSION" = "$OLD_VERSION" ]; then
+            echo "No version bump in this push, but v$NEW_VERSION is only half released; finishing it."
+          fi
+
+          echo "Releasing v$NEW_VERSION: create github release=$CREATE_RELEASE, publish to npm=$PUBLISH."
+
+  github-release:
+    name: Tag and publish GitHub release
+    needs: detect
+    if: ${{ needs.detect.outputs.create_release == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract release notes from CHANGELOG
+        env:
+          VERSION: ${{ needs.detect.outputs.version }}
+        run: |
+          awk -v ver="$VERSION" '
+            function heading_version(line,   rest) {
+              if (line !~ /^##+[[:space:]]*v?[0-9]+\.[0-9]+/) return ""
+              rest = line
+              sub(/^##+[[:space:]]*/, "", rest)
+              sub(/[[:space:]].*$/, "", rest)
+              sub(/^v/, "", rest)
+              return rest
+            }
+            {
+              line = $0
+              sub(/\r$/, "", line)
+              this = heading_version(line)
+              if (this != "") {
+                if (this == ver) { found = 1; print line; next }
+                if (found) exit
+                next
+              }
+              if (found) print line
+            }
+          ' CHANGELOG.md > /tmp/release-notes.md
+
+          if [ ! -s /tmp/release-notes.md ]; then
+            echo "::error::No '### v$VERSION' section found in CHANGELOG.md, so there are no release notes to publish. Fix the changelog on master and re-run this workflow."
+            exit 1
+          fi
+
+          echo "Release notes:"
+          cat /tmp/release-notes.md
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.detect.outputs.version }}
+          DRY_RUN: ${{ inputs.dry_run == true }}
+          REF: ${{ github.ref }}
+        run: |
+          if [ "$REF" != "refs/heads/master" ]; then
+            echo "Releases are cut from master only, so $REF cannot publish one. Continuing as a dry run."
+            DRY_RUN=true
+          fi
+
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "Dry run: would tag $GITHUB_SHA as v$VERSION and publish the release notes above. Nothing was created."
+            exit 0
+          fi
+
+          git fetch --quiet origin master
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/master; then
+            echo "::error::$GITHUB_SHA is no longer reachable from master, so its history was rewritten. Refusing to tag it as v$VERSION."
+            exit 1
+          fi
+
+          if git ls-remote --exit-code --tags origin "refs/tags/v$VERSION" >/dev/null 2>&1; then
+            echo "Tag v$VERSION already exists; creating the missing release for it."
+            gh release create "v$VERSION" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "v$VERSION" \
+              --notes-file /tmp/release-notes.md
+          else
+            gh release create "v$VERSION" \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "v$VERSION" \
+              --notes-file /tmp/release-notes.md
+          fi
+
+  publish:
+    name: Publish to NPM
+    needs: [detect, github-release]
+    if: >-
+      ${{ !cancelled()
+      && needs.detect.result == 'success'
+      && needs.detect.outputs.publish == 'true'
+      && inputs.dry_run != true
+      && github.ref == 'refs/heads/master'
+      && (needs.github-release.result == 'success' || needs.github-release.result == 'skipped') }}
+    uses: ./.github/workflows/release.yml
+    secrets: inherit
